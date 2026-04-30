@@ -132,7 +132,7 @@ Deliverables:
 
 - F6 Config-Strategie.
 - F12 Secure-Storage-Package/Abstraktion.
-- `DECISION_AUTH_PAIRING.md` weiterführen.
+- `DECISION_AUTH_PAIRING.md` als akzeptierte Vorgabe anwenden.
 
 Akzeptanz:
 
@@ -183,8 +183,6 @@ Akzeptanz:
 
 ## Offene Entscheidungen vor Implementation
 
-- lokale Datenbank.
-- Auth/Pairing.
 - konkrete Config-Strategie.
 - Secure-Storage-Package.
 - Mock-UI Umgang.
@@ -199,4 +197,3 @@ Vor Codearbeit braucht R2 einen separaten Implementation-Plan mit:
 - Testkommandos.
 - Rollback-/Kompatibilitätsregeln.
 - Definition of Done pro Slice.
-

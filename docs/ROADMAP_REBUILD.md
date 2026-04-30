@@ -39,7 +39,7 @@ Foundation
 
 **Status:** Done for product baseline
 
-Hinweis: Die Produkt-Baseline ist entschieden. Die konkrete Backend-Technologie und der Home-Hub-Schnitt bleiben als technische Draft-Entscheidungen in R2/R3 offen.
+Hinweis: Die Produkt-Baseline ist entschieden. Die konkrete Backend-Technologie und Security-/Privacy-Baseline bleiben als technische Draft-Entscheidungen in R2/R3 offen.
 
 **Ziel:** Die wichtigsten Grundsatzfragen werden entschieden, bevor Code weiter wächst.
 
@@ -156,7 +156,7 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 | R2-D2 | Wie werden Fehler in Domain und UI modelliert? | Einheitliches Result-/Failure-Konzept |
 | R2-D3 | Wie wird Mock-UI behandelt? | Als `mocks/` isolieren oder entfernen |
 | R2-D4 | Welche lokale Datenbank ist Zieltechnologie? | Entschieden: SQLite + Drift fuer strukturierte lokale Daten; Dateien und Secrets bleiben separat |
-| R2-D5 | Wie funktionieren Auth/Pairing für Home Hub? | Draft-Entscheidung in `DECISION_AUTH_PAIRING.md` |
+| R2-D5 | Wie funktionieren Auth/Pairing für Home Hub? | Entschieden: QR Pairing primaer, manueller Pairing-Code als Fallback; Cloud Identity spaeter optional |
 | R2-D6 | Was ist das Security-/Privacy-Minimum? | Draft-Entscheidung in `DECISION_SECURITY_PRIVACY_MODEL.md` |
 
 ### Akzeptanzkriterien
@@ -204,7 +204,7 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 | R3-D1 | Braucht der lokale MVP Login? | Nein, optionaler Dev-/Local-Mode reicht |
 | R3-D2 | Was ist die minimale Dokument-Erfassung? | Desktop-Dateiauswahl plus Mobile Capture in Draft-Inbox |
 | R3-D3 | Welche Suchfelder sind MVP-relevant? | Titel, Tags, Sender, Datum, Profil |
-| R3-D4 | Wie wird Mobile mit dem Home Hub gekoppelt? | Pairing/Login als eigene Detailentscheidung |
+| R3-D4 | Wie wird Mobile mit dem Home Hub gekoppelt? | Entschieden fuer MVP: QR Pairing primaer, manueller Code als Fallback; Details im R3-Handoff |
 
 ### Akzeptanzkriterien
 
@@ -360,7 +360,7 @@ Diese Themen sind wertvoll, aber aktuell zu früh:
 | R2-D1 | Projektstruktur-Migration | Decision Needed |
 | R2-D2 | Fehler- und Result-Modell | Decision Needed |
 | R2-D4 | Lokale Datenbank | Done |
-| R2-D5 | Auth/Pairing | Draft |
+| R2-D5 | Auth/Pairing | Done |
 | R2-D6 | Security/Privacy Modell | Draft |
 | R3-D1 | Login im lokalen MVP | Decision Needed |
 | R5-D2 | Remote-Sync sensibler Daten | Done for MVP scope; revisit before full sync |
