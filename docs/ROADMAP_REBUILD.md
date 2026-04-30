@@ -45,6 +45,7 @@ Hinweis: Die Produkt-Baseline ist entschieden. Die konkrete Backend-Technologie 
 
 ### Deliverables
 
+- `docs/technical/DECISION_PRODUCT_NAME.md`
 - `docs/technical/DECISION_PRODUCT_LANGUAGE.md`
 - `docs/technical/DECISION_STATE_MANAGEMENT.md`
 - `docs/technical/DECISION_DATA_FLOW.md`
@@ -58,6 +59,7 @@ Hinweis: Die Produkt-Baseline ist entschieden. Die konkrete Backend-Technologie 
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
+| R0-D0 | Heisst das Produkt langfristig `DocMan`? | Offen: `DocMan` bleibt Arbeitsname, finaler Produktname wird separat entschieden |
 | R0-D1 | Heißt das zentrale Modell weiterhin `Incident`? | Entschieden: `Case` im Code, "Vorgang" im UI, `Event`/"Ereignis" für Timeline-Einträge |
 | R0-D2 | BLoC/GetIt oder Riverpod? | Entschieden: Riverpod als State Management und DI; BLoC/GetIt wird nicht weiter ausgebaut |
 | R0-D3 | Local-first oder Backend-first? | Entschieden: local-first mit generischem DocMan Sync Backend; Home Hub/Tailscale nur erste Self-Hosted-Betriebsform |
@@ -344,6 +346,7 @@ Diese Themen sind wertvoll, aber aktuell zu früh:
 
 | ID | Thema | Status |
 |---|---|---|
+| R0-D0 | Produktname | Draft |
 | R0-D1 | Produktbegriff | Done |
 | R0-D2 | State Management und DI | Done |
 | R0-D3 | Local-first Datenfluss | Done |

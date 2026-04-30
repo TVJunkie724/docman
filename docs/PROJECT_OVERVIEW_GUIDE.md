@@ -16,7 +16,9 @@ Es ist bewusst kritisch. DocMan hat eine starke Produktidee, aber der aktuelle S
 
 ## 2. Produktthese
 
-DocMan sollte eine ruhige, robuste Dokumenten-App für Familien und Haushalte werden.
+DocMan ist derzeit der Arbeitsname. Der finale Produktname ist noch offen und wird separat entschieden.
+
+Das Produkt sollte eine ruhige, robuste Dokumenten-App für Familien und Haushalte werden.
 
 Der Kern ist nicht "Dateien verwalten". Der Kern ist: Alltagsvorgänge nachvollziehbar machen.
 
@@ -321,6 +323,7 @@ Meine vorgeschlagene Richtung:
 
 | ID | Entscheidung | Empfehlung | Priorität |
 |---|---|---|---|
+| D0 | Produktname | Offen: `DocMan` bleibt Arbeitsname, finaler Name wird separat entschieden | Mittel |
 | D1 | Zentraler Begriff | Entschieden: `Case` im Code, "Vorgang" im UI, `Event`/"Ereignis" für Timeline-Einträge | Erledigt |
 | D2 | State Management und DI | Entschieden: Riverpod ersetzt BLoC/GetIt als Zielarchitektur | Erledigt |
 | D3 | Datenfluss | Entschieden: local-first mit generischem DocMan Sync Backend; Home Hub/Tailscale nur erste Self-Hosted-Betriebsform | Erledigt |
@@ -339,6 +342,7 @@ Diese Dokumente bilden die aktive Orientierung. Die Drafts am Ende müssen vor R
 ```text
 docs/ROADMAP_REBUILD.md
 docs/technical/TECHNICAL_FOUNDATION_PLAN.md
+docs/technical/DECISION_PRODUCT_NAME.md
 docs/technical/DECISION_STATE_MANAGEMENT.md
 docs/technical/DECISION_DATA_FLOW.md
 docs/technical/DECISION_BACKEND_ROLE.md
