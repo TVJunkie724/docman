@@ -153,7 +153,7 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 | R2-D1 | Wie wird die neue F1-Zielstruktur migriert? | Zielstruktur akzeptiert; Migrationsstrategie noch planen |
 | R2-D2 | Wie werden Fehler in Domain und UI modelliert? | Einheitliches Result-/Failure-Konzept |
 | R2-D3 | Wie wird Mock-UI behandelt? | Als `mocks/` isolieren oder entfernen |
-| R2-D4 | Welche lokale Datenbank ist Zieltechnologie? | Draft-Entscheidung in `DECISION_LOCAL_DATABASE.md` |
+| R2-D4 | Welche lokale Datenbank ist Zieltechnologie? | Entschieden: SQLite + Drift fuer strukturierte lokale Daten; Dateien und Secrets bleiben separat |
 | R2-D5 | Wie funktionieren Auth/Pairing für Home Hub? | Draft-Entscheidung in `DECISION_AUTH_PAIRING.md` |
 | R2-D6 | Was ist das Security-/Privacy-Minimum? | Draft-Entscheidung in `DECISION_SECURITY_PRIVACY_MODEL.md` |
 
@@ -356,7 +356,7 @@ Diese Themen sind wertvoll, aber aktuell zu früh:
 | R1-D2 | Alte Roadmaps | Done |
 | R2-D1 | Projektstruktur-Migration | Decision Needed |
 | R2-D2 | Fehler- und Result-Modell | Decision Needed |
-| R2-D4 | Lokale Datenbank | Draft |
+| R2-D4 | Lokale Datenbank | Done |
 | R2-D5 | Auth/Pairing | Draft |
 | R2-D6 | Security/Privacy Modell | Draft |
 | R3-D1 | Login im lokalen MVP | Decision Needed |
