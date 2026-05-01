@@ -289,9 +289,11 @@ Dependency commands:
 
 ```bash
 flutter pub add flutter_riverpod riverpod_annotation drift drift_flutter sqlite3_flutter_libs path flutter_secure_storage
-flutter pub add --dev drift_dev riverpod_generator riverpod_lint custom_lint
+flutter pub add --dev drift_dev
 flutter pub get
 ```
+
+Implementation note: R2.1 uses manual Riverpod providers. `riverpod_generator`, `riverpod_lint`, and `custom_lint` are deferred until the Flutter/analyzer/codegen stack is upgraded far enough to resolve cleanly with current `drift_dev`.
 
 Implementation rules:
 
@@ -702,9 +704,14 @@ Required target dependencies:
 Required target dev dependencies:
 
 - `drift_dev`
+
+Deferred target dev dependencies:
+
 - `riverpod_generator`
 - `riverpod_lint`
 - `custom_lint`
+
+These are deferred because the current Flutter SDK pins analyzer/meta versions that do not resolve cleanly with current Drift and Riverpod codegen at the same time. R2 uses manual providers until this dependency stack can be upgraded safely.
 
 Legacy dependencies may remain temporarily until unused imports are gone:
 
