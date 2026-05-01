@@ -1,11 +1,11 @@
 ---
 name: docman-ui-concept
-description: Use when creating or revising strategic DocMan frontend concept, roadmap, phase, or handoff documentation. This is documentation-only work and must not write application code, implementation plans, or run builds/tests.
+description: Use when creating or revising strategic DocMan UI/frontend concept, roadmap, phase, or handoff documentation. For whole-product, foundation, data, quality, or API concepts prefer the matching DocMan project skill when available.
 ---
 
 # DocMan UI Concept
 
-Use this skill for strategic frontend planning: roadmaps, concepts, phases, dependencies, scope, and handoffs.
+Use this skill for strategic frontend/UI planning: screens, navigation, presentation architecture, design-system direction, responsive behavior, UI phase scope, and UI handoffs.
 
 First read `.codex/skills/docman-ui-onboarding/SKILL.md`.
 
@@ -21,6 +21,7 @@ Never:
 Always:
 
 - Work in concepts, phases, roadmaps, dependencies, and scope.
+- Stay UI/frontend-focused. Use `docman-product-concept`, `docman-foundation-builder`, `docman-quality-readiness`, `docman-data-architect`, or `docman-contract-api` for non-UI work when those skills fit better.
 - Document what should exist, why it matters, and how it fits the product.
 - Keep future implementation possible without prescribing low-level implementation.
 

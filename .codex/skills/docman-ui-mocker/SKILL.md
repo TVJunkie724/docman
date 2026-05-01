@@ -1,6 +1,6 @@
 ---
 name: docman-ui-mocker
-description: Use when creating isolated visual or interactive Flutter UI mocks for DocMan concepts inside the workspace. Mocks live under lib/presentation/screens/mocks and must not call real repositories, Isar, PocketBase, or external APIs.
+description: Use when creating isolated visual or interactive Flutter UI mocks for DocMan concepts inside the workspace. Mocks live under lib/presentation/screens/mocks and must not call real repositories, Drift, Isar, PocketBase, file storage, or external APIs.
 ---
 
 # DocMan UI Mocker
@@ -49,7 +49,7 @@ For mocks that demonstrate interactions, add a helper bar below the app bar:
 ## Rules
 
 - No real data layer calls.
-- No Isar, PocketBase, repository, or API calls.
+- No Drift, Isar, PocketBase, repository, file storage, or API calls.
 - Hardcoded values are allowed for mocks.
 - Prefer `StatefulWidget` or a small local controller for mock-only interaction.
 - Do not over-engineer with full production Riverpod state unless explicitly required.

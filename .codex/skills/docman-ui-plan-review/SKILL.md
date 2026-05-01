@@ -1,6 +1,6 @@
 ---
 name: docman-ui-plan-review
-description: Use when reviewing a DocMan UI implementation plan before approval. Checks the plan from architect and builder perspectives for completeness, unambiguity, Clean Architecture, testability, exactness, and absence of placeholders.
+description: Use when reviewing a DocMan UI implementation plan before approval. Checks completeness, unambiguity, Clean Architecture, Riverpod/provider design, risk-based testability, exactness, and absence of placeholders.
 ---
 
 # DocMan UI Plan Review
@@ -28,9 +28,10 @@ Check all criteria:
 13. Tests use hard assertions.
 14. Provider/Notifier unit tests are specified where state logic exists.
 15. Widget tests are specified for key UI behavior.
-16. Coverage is sufficient: at least 2 happy path, 2 unhappy path, and 5 edge cases per testable unit, or a concrete justification for fewer.
+16. Coverage is sufficient for risk: critical flows need happy path, unhappy path, edge cases, and persistence/error behavior; small UI-only changes may justify fewer tests.
 17. Definition of Done is precise and complete.
 18. No placeholders such as TODO, TBD, or unresolved examples.
+19. Plan separates fake repository tests from API contract/mock requirements when both are relevant.
 
 ## Review Perspectives
 

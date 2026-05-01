@@ -1,7 +1,7 @@
 ---
 name: docman-github-issue
 description: Use when creating, classifying, triaging, or updating GitHub Issues for DocMan, including bugs, feature requests, documentation tasks, architecture/foundation work, labels, milestones, and replacing markdown-only bug or feature trackers. GitHub Issues are the source of truth for actionable bugs and feature requests.
-version: 0.1.0
+version: 0.2.0
 user-invocable: true
 ---
 
@@ -15,6 +15,9 @@ Use this skill for:
 - feature requests
 - documentation cleanup tasks
 - architecture/foundation follow-up work
+- quality/readiness/test coverage work
+- data/storage/migration work
+- Home Hub, Capture, Sync, OpenAPI, or Microcks contract work
 - frontend/data/domain/sync handoff issues
 - label or milestone cleanup
 - converting a discussion, audit finding, or debug finding into an actionable issue
@@ -72,7 +75,7 @@ Use all that apply:
 
 | Label | Meaning |
 |---|---|
-| `area:foundation` | Technical foundation, architecture decisions, project cleanup |
+| `area:foundation` | Technical foundation, architecture decisions, project cleanup, R2/R3 |
 | `area:cases` | Cases/Vorgaenge, former Incident Management, workflows, status, tasks |
 | `area:documents` | Documents, metadata, upload, versioning, viewer, draft inbox |
 | `area:capture` | Mobile capture, scan flow, batch scan, draft intake |
@@ -85,6 +88,9 @@ Use all that apply:
 | `area:security` | Privacy, secrets, auth hardening, sensitive data handling |
 | `area:distribution` | App store, packaging, signing, legal/public distribution |
 | `area:docs` | Documentation-only work |
+| `area:quality` | Test coverage, fake repositories, analyzer/format debt, CI quality gates |
+| `area:api-contracts` | OpenAPI, Microcks, contract mocks, Home Hub/Capture/Sync API boundaries |
+| `area:data-storage` | Drift, SQLite, file store, local migrations, legacy persistence retirement |
 | `area:platform` | Cross-cutting infrastructure that does not fit one product area |
 
 ## Layer Labels
@@ -95,13 +101,14 @@ Use all that apply:
 |---|---|
 | `layer:frontend` | Flutter UI/client behavior |
 | `layer:domain` | Entities, repository interfaces, use cases, workflows |
-| `layer:data` | Isar, PocketBase adapters, persistence, storage, sync data |
-| `layer:backend` | PocketBase/backend configuration or future server-side work |
+| `layer:data` | Drift, SQLite, file store, persistence, storage, legacy adapters, sync data |
+| `layer:backend` | Future DocMan server/Home Hub work, API handling, backend configuration |
 | `layer:sync` | Replication, conflict handling, offline queue, sync status |
 | `layer:tests` | Unit/widget/integration tests or QA evidence |
 | `layer:docs` | Documentation/process-only work |
 | `layer:platform` | Tooling, config, CI/CD, packaging, repo setup |
 | `layer:security` | Auth, secrets, privacy, sensitive-data controls |
+| `layer:api` | OpenAPI, client/server contract, request/response behavior, Microcks mocks |
 
 A single issue may carry multiple layer labels.
 
@@ -128,8 +135,8 @@ Use one milestone:
 
 | Milestone | Use for |
 |---|---|
-| `DocMan Foundation` | R0-R2 decisions, documentation cleanup, technical foundation |
-| `DocMan Local Desktop MVP` | First local desktop product slice |
+| `DocMan Foundation` | R0-R3 decisions, documentation cleanup, technical foundation, quality readiness |
+| `DocMan Local Desktop MVP` | First local desktop product slice / R4 product MVP |
 | `DocMan Cases` | Case/Vorgang management and workflows |
 | `DocMan Documents` | Document management, metadata, drafts, viewer |
 | `DocMan Capture` | Mobile scan/capture and draft intake |
@@ -197,6 +204,54 @@ For documentation/foundation issues, link the relevant docs, such as:
 - `docs/PROJECT_OVERVIEW_GUIDE.md`
 - `docs/ROADMAP_REBUILD.md`
 - `docs/technical/DECISION_*.md`
+- `docs/technical/R2_TECHNICAL_FOUNDATION_IMPLEMENTATION_PLAN.md`
+- `docs/concepts/CONCEPT_F4_TESTING_STRATEGY.md`
+- `docs/concepts/CONCEPT_F15_MOCK_REPOSITORY.md`
+- `docs/concepts/CONCEPT_F16_CI_CD_PIPELINE.md`
+
+## Quality / R3 Issue Body
+
+Use for analyzer debt, test coverage, fake repositories, scripts, CI, production readiness, and legacy hardening:
+
+```markdown
+## Desired Readiness Outcome
+
+## Current Evidence
+
+## Scope
+
+## Non-Goals
+
+## Acceptance Criteria
+- [ ] ...
+
+## Verification
+- [ ] Exact command or quality gate
+
+## Residual Risk
+```
+
+## API Contract Issue Body
+
+Use for Home Hub, Capture, Sync, OpenAPI, Microcks, and client/server handoff:
+
+```markdown
+## Contract Boundary
+
+## Context
+
+## Request / Response Expectations
+
+## Error Mapping
+
+## Security / Privacy Constraints
+
+## Acceptance Criteria
+- [ ] ...
+
+## Verification
+- [ ] Contract mock, client check, or backend check
+```
 
 ## Creation Workflow
 

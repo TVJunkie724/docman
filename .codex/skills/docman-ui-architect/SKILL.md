@@ -1,6 +1,6 @@
 ---
 name: docman-ui-architect
-description: Use when designing a DocMan Flutter UI implementation plan from an approved concept or requirement. Produces a precise architecture and visual blueprint, including widget tree, Riverpod state/provider design, repository integration, responsive behavior, accessibility, tests, and definition of done.
+description: Use when designing a DocMan Flutter UI implementation plan from an approved UI concept or requirement. Produces a precise visual and presentation blueprint with Riverpod state/provider design, repository integration through Domain interfaces, responsive behavior, accessibility, tests, and definition of done.
 ---
 
 # DocMan UI Architect
@@ -13,9 +13,10 @@ Read `.codex/skills/docman-ui-onboarding/SKILL.md`. Use `.codex/skills/docman-gi
 
 - DocMan target architecture uses Riverpod for state management and dependency injection.
 - Existing BLoC/GetIt code is spike/legacy until the foundation migration is complete.
+- SQLite + Drift is the target structured local data layer; Isar and PocketBase are legacy and must not be expanded from UI plans.
 - Data access must go through Domain repository interfaces exposed via Riverpod providers.
 - Presentation must not import `lib/data/`.
-- No Isar or PocketBase calls from Presentation widgets or feature-state providers.
+- No Drift, Isar, PocketBase, file storage, or HTTP calls from Presentation widgets or feature-state providers.
 - Desktop is primary, mobile is mandatory.
 - Use ASCII diagrams, not Mermaid.
 
@@ -25,6 +26,7 @@ Read `.codex/skills/docman-ui-onboarding/SKILL.md`. Use `.codex/skills/docman-gi
 - Specify Riverpod providers, Notifiers, state shapes, side effects, lifecycles, and data flow.
 - Define file and folder changes.
 - Specify repository interface changes and provider registrations.
+- For fake repository or contract-mock needs, explicitly hand off to R3 quality/API skills instead of hiding them inside UI-only plans.
 - Specify layout, spacing, typography, color tokens, breakpoints, interactions, animations, loading/error/empty states, and accessibility.
 - Make the plan precise enough that a builder can implement it without guessing.
 
@@ -85,7 +87,7 @@ Hover, focus, press, drag, transitions, loading and error behavior.
 Focus order, semantic labels, contrast.
 
 ## 11. Test Plan
-Concrete happy path, unhappy path, and edge case tests with hard assertions.
+Concrete happy path, unhappy path, and edge case tests with hard assertions. Prefer fake repositories for UI/Provider tests. Mention contract mocks only when an API boundary is involved.
 
 ## 12. Definition of Done
 Checklist the builder and auditor can verify.

@@ -22,6 +22,9 @@ Check every applicable criterion:
    - Future Riverpod/provider separation of concerns is clear without implementation-level wiring.
    - ASCII layout or widget diagrams exist where helpful.
    - The concept avoids prescribing exact widget choices, package versions, or provider internals.
+6. For R2/R3 adjacent concepts:
+   - Drift/SQLite, fake repositories, Microcks, scripts, and legacy debt are assigned to the correct non-UI skill or phase.
+   - GitHub Issues remain the source of truth for actionable follow-up work.
 
 ## Process
 

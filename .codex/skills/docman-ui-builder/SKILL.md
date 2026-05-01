@@ -1,11 +1,11 @@
 ---
 name: docman-ui-builder
-description: Use when implementing an approved DocMan Flutter UI implementation plan. Requires an approved plan before code changes and enforces Riverpod target architecture, Clean Architecture, theme-token usage, verification after each layer, tests, and exact plan fidelity.
+description: Use when implementing an approved DocMan Flutter UI implementation plan. Requires an approved UI plan before UI code changes and enforces Riverpod target architecture, Clean Architecture, theme-token usage, verification, tests, and plan fidelity.
 ---
 
 # DocMan UI Builder
 
-Use this skill to implement an approved DocMan UI plan.
+Use this skill to implement an approved DocMan UI plan. For R2/R3 foundation, data, quality, scripts, or API-contract work, prefer the matching non-UI DocMan skill.
 
 Read `.codex/skills/docman-ui-onboarding/SKILL.md` first. Use `.codex/skills/docman-git-safety/SKILL.md` for branch, merge, or conflict work.
 
@@ -17,7 +17,7 @@ Read `.codex/skills/docman-ui-onboarding/SKILL.md` first. Use `.codex/skills/doc
 - Use Riverpod for new target-architecture state management and dependency injection.
 - Do not expand BLoC/GetIt unless the approved foundation migration plan explicitly requires temporary compatibility work.
 - Presentation must not import `lib/data/`.
-- Riverpod feature-state providers must not call Isar or PocketBase directly.
+- Riverpod feature-state providers must not call Drift, Isar, PocketBase, file storage, or HTTP clients directly.
 - Route data access through Domain repository interfaces exposed by providers.
 
 ## Workflow
@@ -25,10 +25,7 @@ Read `.codex/skills/docman-ui-onboarding/SKILL.md` first. Use `.codex/skills/doc
 1. Read the approved implementation plan completely.
 2. Verify baseline health when feasible:
 
-```bash
-flutter analyze
-flutter test
-```
+Prefer `scripts/verify.sh`. If known R3 debt blocks it, run targeted checks such as `flutter analyze`, `flutter test`, or feature-specific tests and identify pre-existing failures.
 
 If baseline is broken, report it before implementing unless the user explicitly asked you to fix it.
 
@@ -42,7 +39,7 @@ If baseline is broken, report it before implementing unless the user explicitly 
    - Screens.
    - Navigation.
    - Theme tokens.
-5. Run `flutter analyze` after each meaningful layer.
+5. Run relevant verification after each meaningful layer.
 6. Cross-check every plan item against the code.
 7. Run `flutter test`.
 8. Report files changed, verification results, deviations, and open items.
@@ -60,16 +57,16 @@ If baseline is broken, report it before implementing unless the user explicitly 
 
 ## Anti-Patterns
 
-- Do not call Isar or PocketBase from widgets or feature-state providers.
+- Do not call Drift, Isar, PocketBase, file storage, or HTTP clients from widgets or feature-state providers.
 - Do not hardcode colors or dimensions when a theme token exists or is specified.
 - Do not skip loading, error, or empty states.
 - Do not leave `print()`, TODO/FIXME/HACK, or commented-out code.
-- Do not continue past an analysis failure without fixing the current layer.
+- Do not continue past a new analysis failure without fixing the current layer. Known R3 baseline debt must be reported, not silently expanded.
 
 ## Definition Of Done
 
 - All plan components implemented.
-- `flutter analyze` is clean or any pre-existing issues are clearly identified.
+- Verification is clean for the changed scope, or pre-existing R3 debt is clearly identified.
 - `flutter test` passes or failures are clearly identified.
 - Clean Architecture boundaries are respected.
 - Responsive behavior, interactions, animations, and accessibility match the plan.
