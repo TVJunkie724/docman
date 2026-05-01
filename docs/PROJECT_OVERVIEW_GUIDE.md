@@ -347,6 +347,7 @@ Diese Dokumente bilden die aktive Orientierung. Die Drafts am Ende müssen vor R
 ```text
 docs/ROADMAP_REBUILD.md
 docs/technical/TECHNICAL_FOUNDATION_PLAN.md
+docs/technical/R2_TECHNICAL_FOUNDATION_IMPLEMENTATION_PLAN.md
 docs/technical/DECISION_PRODUCT_NAME.md
 docs/technical/DECISION_STATE_MANAGEMENT.md
 docs/technical/DECISION_DATA_FLOW.md

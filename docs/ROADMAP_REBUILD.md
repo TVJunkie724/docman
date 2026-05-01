@@ -165,6 +165,7 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 - Domain importiert keine PocketBase-Typen.
 - Tests referenzieren die echte App-Struktur.
 - Dokumentierte Architektur entspricht dem Code.
+- R2-Implementation folgt `docs/technical/R2_TECHNICAL_FOUNDATION_IMPLEMENTATION_PLAN.md`.
 
 ## 7. Phase R3 - Desktop Core and Mobile Capture MVP
 

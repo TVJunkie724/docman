@@ -14,6 +14,8 @@ Draft.
 
 Dieser Plan ist der Übergang von Konzeptarbeit zu Implementation-Planung. Er ist noch kein Low-Level-Implementation-Plan und schreibt keine konkreten Klassen- oder Provider-Signaturen vor.
 
+Der konkrete R2-Implementation-Plan liegt in `docs/technical/R2_TECHNICAL_FOUNDATION_IMPLEMENTATION_PLAN.md`.
+
 ## Ziel
 
 Der aktuelle Spike wird in eine saubere, local-first, Riverpod-basierte DocMan-Basis überführt.
@@ -201,3 +203,5 @@ Vor Codearbeit braucht R2 einen separaten Implementation-Plan mit:
 - Testkommandos.
 - Rollback-/Kompatibilitätsregeln.
 - Definition of Done pro Slice.
+
+Dieser Implementation-Plan wurde als `docs/technical/R2_TECHNICAL_FOUNDATION_IMPLEMENTATION_PLAN.md` erstellt und muss vor Codearbeit freigegeben werden.
