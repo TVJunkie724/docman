@@ -1,7 +1,7 @@
 part of 'incident_detail_bloc.dart';
 
 @freezed
-class IncidentDetailState with _$IncidentDetailState {
+sealed class IncidentDetailState with _$IncidentDetailState {
   const factory IncidentDetailState.initial() = _Initial;
   const factory IncidentDetailState.loading() = _Loading;
   const factory IncidentDetailState.loaded({

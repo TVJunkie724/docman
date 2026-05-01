@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,1109 +9,752 @@ part of 'incident_list_bloc.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
 mixin _$IncidentListEvent {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String profileId, String? tag) load,
-    required TResult Function(List<Incident> incidents) updated,
-    required TResult Function(String message) error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String profileId, String? tag)? load,
-    TResult? Function(List<Incident> incidents)? updated,
-    TResult? Function(String message)? error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String profileId, String? tag)? load,
-    TResult Function(List<Incident> incidents)? updated,
-    TResult Function(String message)? error,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LoadIncidents value) load,
-    required TResult Function(IncidentsUpdated value) updated,
-    required TResult Function(IncidentsError value) error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LoadIncidents value)? load,
-    TResult? Function(IncidentsUpdated value)? updated,
-    TResult? Function(IncidentsError value)? error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LoadIncidents value)? load,
-    TResult Function(IncidentsUpdated value)? updated,
-    TResult Function(IncidentsError value)? error,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IncidentListEvent);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'IncidentListEvent()';
+}
+
+
 }
 
 /// @nodoc
-abstract class $IncidentListEventCopyWith<$Res> {
-  factory $IncidentListEventCopyWith(
-          IncidentListEvent value, $Res Function(IncidentListEvent) then) =
-      _$IncidentListEventCopyWithImpl<$Res, IncidentListEvent>;
+class $IncidentListEventCopyWith<$Res>  {
+$IncidentListEventCopyWith(IncidentListEvent _, $Res Function(IncidentListEvent) __);
 }
 
-/// @nodoc
-class _$IncidentListEventCopyWithImpl<$Res, $Val extends IncidentListEvent>
-    implements $IncidentListEventCopyWith<$Res> {
-  _$IncidentListEventCopyWithImpl(this._value, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+/// Adds pattern-matching-related methods to [IncidentListEvent].
+extension IncidentListEventPatterns on IncidentListEvent {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoadIncidents value)?  load,TResult Function( IncidentsUpdated value)?  updated,TResult Function( IncidentsError value)?  error,required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case LoadIncidents() when load != null:
+return load(_that);case IncidentsUpdated() when updated != null:
+return updated(_that);case IncidentsError() when error != null:
+return error(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoadIncidents value)  load,required TResult Function( IncidentsUpdated value)  updated,required TResult Function( IncidentsError value)  error,}){
+final _that = this;
+switch (_that) {
+case LoadIncidents():
+return load(_that);case IncidentsUpdated():
+return updated(_that);case IncidentsError():
+return error(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoadIncidents value)?  load,TResult? Function( IncidentsUpdated value)?  updated,TResult? Function( IncidentsError value)?  error,}){
+final _that = this;
+switch (_that) {
+case LoadIncidents() when load != null:
+return load(_that);case IncidentsUpdated() when updated != null:
+return updated(_that);case IncidentsError() when error != null:
+return error(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String profileId,  String? tag)?  load,TResult Function( List<Incident> incidents)?  updated,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case LoadIncidents() when load != null:
+return load(_that.profileId,_that.tag);case IncidentsUpdated() when updated != null:
+return updated(_that.incidents);case IncidentsError() when error != null:
+return error(_that.message);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String profileId,  String? tag)  load,required TResult Function( List<Incident> incidents)  updated,required TResult Function( String message)  error,}) {final _that = this;
+switch (_that) {
+case LoadIncidents():
+return load(_that.profileId,_that.tag);case IncidentsUpdated():
+return updated(_that.incidents);case IncidentsError():
+return error(_that.message);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String profileId,  String? tag)?  load,TResult? Function( List<Incident> incidents)?  updated,TResult? Function( String message)?  error,}) {final _that = this;
+switch (_that) {
+case LoadIncidents() when load != null:
+return load(_that.profileId,_that.tag);case IncidentsUpdated() when updated != null:
+return updated(_that.incidents);case IncidentsError() when error != null:
+return error(_that.message);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-abstract class _$$LoadIncidentsImplCopyWith<$Res> {
-  factory _$$LoadIncidentsImplCopyWith(
-          _$LoadIncidentsImpl value, $Res Function(_$LoadIncidentsImpl) then) =
-      __$$LoadIncidentsImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String profileId, String? tag});
-}
-
-/// @nodoc
-class __$$LoadIncidentsImplCopyWithImpl<$Res>
-    extends _$IncidentListEventCopyWithImpl<$Res, _$LoadIncidentsImpl>
-    implements _$$LoadIncidentsImplCopyWith<$Res> {
-  __$$LoadIncidentsImplCopyWithImpl(
-      _$LoadIncidentsImpl _value, $Res Function(_$LoadIncidentsImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? profileId = null,
-    Object? tag = freezed,
-  }) {
-    return _then(_$LoadIncidentsImpl(
-      null == profileId
-          ? _value.profileId
-          : profileId // ignore: cast_nullable_to_non_nullable
-              as String,
-      tag: freezed == tag
-          ? _value.tag
-          : tag // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$LoadIncidentsImpl implements LoadIncidents {
-  const _$LoadIncidentsImpl(this.profileId, {this.tag});
-
-  @override
-  final String profileId;
-  @override
-  final String? tag;
-
-  @override
-  String toString() {
-    return 'IncidentListEvent.load(profileId: $profileId, tag: $tag)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadIncidentsImpl &&
-            (identical(other.profileId, profileId) ||
-                other.profileId == profileId) &&
-            (identical(other.tag, tag) || other.tag == tag));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, profileId, tag);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadIncidentsImplCopyWith<_$LoadIncidentsImpl> get copyWith =>
-      __$$LoadIncidentsImplCopyWithImpl<_$LoadIncidentsImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String profileId, String? tag) load,
-    required TResult Function(List<Incident> incidents) updated,
-    required TResult Function(String message) error,
-  }) {
-    return load(profileId, tag);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String profileId, String? tag)? load,
-    TResult? Function(List<Incident> incidents)? updated,
-    TResult? Function(String message)? error,
-  }) {
-    return load?.call(profileId, tag);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String profileId, String? tag)? load,
-    TResult Function(List<Incident> incidents)? updated,
-    TResult Function(String message)? error,
-    required TResult orElse(),
-  }) {
-    if (load != null) {
-      return load(profileId, tag);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LoadIncidents value) load,
-    required TResult Function(IncidentsUpdated value) updated,
-    required TResult Function(IncidentsError value) error,
-  }) {
-    return load(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LoadIncidents value)? load,
-    TResult? Function(IncidentsUpdated value)? updated,
-    TResult? Function(IncidentsError value)? error,
-  }) {
-    return load?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LoadIncidents value)? load,
-    TResult Function(IncidentsUpdated value)? updated,
-    TResult Function(IncidentsError value)? error,
-    required TResult orElse(),
-  }) {
-    if (load != null) {
-      return load(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class LoadIncidents implements IncidentListEvent {
-  const factory LoadIncidents(final String profileId, {final String? tag}) =
-      _$LoadIncidentsImpl;
-
-  String get profileId;
-  String? get tag;
-  @JsonKey(ignore: true)
-  _$$LoadIncidentsImplCopyWith<_$LoadIncidentsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$IncidentsUpdatedImplCopyWith<$Res> {
-  factory _$$IncidentsUpdatedImplCopyWith(_$IncidentsUpdatedImpl value,
-          $Res Function(_$IncidentsUpdatedImpl) then) =
-      __$$IncidentsUpdatedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<Incident> incidents});
-}
-
-/// @nodoc
-class __$$IncidentsUpdatedImplCopyWithImpl<$Res>
-    extends _$IncidentListEventCopyWithImpl<$Res, _$IncidentsUpdatedImpl>
-    implements _$$IncidentsUpdatedImplCopyWith<$Res> {
-  __$$IncidentsUpdatedImplCopyWithImpl(_$IncidentsUpdatedImpl _value,
-      $Res Function(_$IncidentsUpdatedImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? incidents = null,
-  }) {
-    return _then(_$IncidentsUpdatedImpl(
-      null == incidents
-          ? _value._incidents
-          : incidents // ignore: cast_nullable_to_non_nullable
-              as List<Incident>,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$IncidentsUpdatedImpl implements IncidentsUpdated {
-  const _$IncidentsUpdatedImpl(final List<Incident> incidents)
-      : _incidents = incidents;
 
-  final List<Incident> _incidents;
-  @override
-  List<Incident> get incidents {
-    if (_incidents is EqualUnmodifiableListView) return _incidents;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_incidents);
-  }
+class LoadIncidents implements IncidentListEvent {
+  const LoadIncidents(this.profileId, {this.tag});
+  
 
-  @override
-  String toString() {
-    return 'IncidentListEvent.updated(incidents: $incidents)';
-  }
+ final  String profileId;
+ final  String? tag;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$IncidentsUpdatedImpl &&
-            const DeepCollectionEquality()
-                .equals(other._incidents, _incidents));
-  }
+/// Create a copy of IncidentListEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LoadIncidentsCopyWith<LoadIncidents> get copyWith => _$LoadIncidentsCopyWithImpl<LoadIncidents>(this, _$identity);
 
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_incidents));
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$IncidentsUpdatedImplCopyWith<_$IncidentsUpdatedImpl> get copyWith =>
-      __$$IncidentsUpdatedImplCopyWithImpl<_$IncidentsUpdatedImpl>(
-          this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String profileId, String? tag) load,
-    required TResult Function(List<Incident> incidents) updated,
-    required TResult Function(String message) error,
-  }) {
-    return updated(incidents);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String profileId, String? tag)? load,
-    TResult? Function(List<Incident> incidents)? updated,
-    TResult? Function(String message)? error,
-  }) {
-    return updated?.call(incidents);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String profileId, String? tag)? load,
-    TResult Function(List<Incident> incidents)? updated,
-    TResult Function(String message)? error,
-    required TResult orElse(),
-  }) {
-    if (updated != null) {
-      return updated(incidents);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LoadIncidents value) load,
-    required TResult Function(IncidentsUpdated value) updated,
-    required TResult Function(IncidentsError value) error,
-  }) {
-    return updated(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LoadIncidents value)? load,
-    TResult? Function(IncidentsUpdated value)? updated,
-    TResult? Function(IncidentsError value)? error,
-  }) {
-    return updated?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LoadIncidents value)? load,
-    TResult Function(IncidentsUpdated value)? updated,
-    TResult Function(IncidentsError value)? error,
-    required TResult orElse(),
-  }) {
-    if (updated != null) {
-      return updated(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadIncidents&&(identical(other.profileId, profileId) || other.profileId == profileId)&&(identical(other.tag, tag) || other.tag == tag));
 }
 
-abstract class IncidentsUpdated implements IncidentListEvent {
-  const factory IncidentsUpdated(final List<Incident> incidents) =
-      _$IncidentsUpdatedImpl;
 
-  List<Incident> get incidents;
-  @JsonKey(ignore: true)
-  _$$IncidentsUpdatedImplCopyWith<_$IncidentsUpdatedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,profileId,tag);
+
+@override
+String toString() {
+  return 'IncidentListEvent.load(profileId: $profileId, tag: $tag)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$IncidentsErrorImplCopyWith<$Res> {
-  factory _$$IncidentsErrorImplCopyWith(_$IncidentsErrorImpl value,
-          $Res Function(_$IncidentsErrorImpl) then) =
-      __$$IncidentsErrorImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String message});
+abstract mixin class $LoadIncidentsCopyWith<$Res> implements $IncidentListEventCopyWith<$Res> {
+  factory $LoadIncidentsCopyWith(LoadIncidents value, $Res Function(LoadIncidents) _then) = _$LoadIncidentsCopyWithImpl;
+@useResult
+$Res call({
+ String profileId, String? tag
+});
+
+
+
+
+}
+/// @nodoc
+class _$LoadIncidentsCopyWithImpl<$Res>
+    implements $LoadIncidentsCopyWith<$Res> {
+  _$LoadIncidentsCopyWithImpl(this._self, this._then);
+
+  final LoadIncidents _self;
+  final $Res Function(LoadIncidents) _then;
+
+/// Create a copy of IncidentListEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? profileId = null,Object? tag = freezed,}) {
+  return _then(LoadIncidents(
+null == profileId ? _self.profileId : profileId // ignore: cast_nullable_to_non_nullable
+as String,tag: freezed == tag ? _self.tag : tag // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
 }
 
-/// @nodoc
-class __$$IncidentsErrorImplCopyWithImpl<$Res>
-    extends _$IncidentListEventCopyWithImpl<$Res, _$IncidentsErrorImpl>
-    implements _$$IncidentsErrorImplCopyWith<$Res> {
-  __$$IncidentsErrorImplCopyWithImpl(
-      _$IncidentsErrorImpl _value, $Res Function(_$IncidentsErrorImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? message = null,
-  }) {
-    return _then(_$IncidentsErrorImpl(
-      null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$IncidentsErrorImpl implements IncidentsError {
-  const _$IncidentsErrorImpl(this.message);
 
-  @override
-  final String message;
+class IncidentsUpdated implements IncidentListEvent {
+  const IncidentsUpdated(final  List<Incident> incidents): _incidents = incidents;
+  
 
-  @override
-  String toString() {
-    return 'IncidentListEvent.error(message: $message)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$IncidentsErrorImpl &&
-            (identical(other.message, message) || other.message == message));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, message);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$IncidentsErrorImplCopyWith<_$IncidentsErrorImpl> get copyWith =>
-      __$$IncidentsErrorImplCopyWithImpl<_$IncidentsErrorImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String profileId, String? tag) load,
-    required TResult Function(List<Incident> incidents) updated,
-    required TResult Function(String message) error,
-  }) {
-    return error(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String profileId, String? tag)? load,
-    TResult? Function(List<Incident> incidents)? updated,
-    TResult? Function(String message)? error,
-  }) {
-    return error?.call(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String profileId, String? tag)? load,
-    TResult Function(List<Incident> incidents)? updated,
-    TResult Function(String message)? error,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LoadIncidents value) load,
-    required TResult Function(IncidentsUpdated value) updated,
-    required TResult Function(IncidentsError value) error,
-  }) {
-    return error(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LoadIncidents value)? load,
-    TResult? Function(IncidentsUpdated value)? updated,
-    TResult? Function(IncidentsError value)? error,
-  }) {
-    return error?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LoadIncidents value)? load,
-    TResult Function(IncidentsUpdated value)? updated,
-    TResult Function(IncidentsError value)? error,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(this);
-    }
-    return orElse();
-  }
+ final  List<Incident> _incidents;
+ List<Incident> get incidents {
+  if (_incidents is EqualUnmodifiableListView) return _incidents;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_incidents);
 }
 
-abstract class IncidentsError implements IncidentListEvent {
-  const factory IncidentsError(final String message) = _$IncidentsErrorImpl;
 
-  String get message;
-  @JsonKey(ignore: true)
-  _$$IncidentsErrorImplCopyWith<_$IncidentsErrorImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+/// Create a copy of IncidentListEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$IncidentsUpdatedCopyWith<IncidentsUpdated> get copyWith => _$IncidentsUpdatedCopyWithImpl<IncidentsUpdated>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IncidentsUpdated&&const DeepCollectionEquality().equals(other._incidents, _incidents));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_incidents));
+
+@override
+String toString() {
+  return 'IncidentListEvent.updated(incidents: $incidents)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $IncidentsUpdatedCopyWith<$Res> implements $IncidentListEventCopyWith<$Res> {
+  factory $IncidentsUpdatedCopyWith(IncidentsUpdated value, $Res Function(IncidentsUpdated) _then) = _$IncidentsUpdatedCopyWithImpl;
+@useResult
+$Res call({
+ List<Incident> incidents
+});
+
+
+
+
+}
+/// @nodoc
+class _$IncidentsUpdatedCopyWithImpl<$Res>
+    implements $IncidentsUpdatedCopyWith<$Res> {
+  _$IncidentsUpdatedCopyWithImpl(this._self, this._then);
+
+  final IncidentsUpdated _self;
+  final $Res Function(IncidentsUpdated) _then;
+
+/// Create a copy of IncidentListEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? incidents = null,}) {
+  return _then(IncidentsUpdated(
+null == incidents ? _self._incidents : incidents // ignore: cast_nullable_to_non_nullable
+as List<Incident>,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class IncidentsError implements IncidentListEvent {
+  const IncidentsError(this.message);
+  
+
+ final  String message;
+
+/// Create a copy of IncidentListEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$IncidentsErrorCopyWith<IncidentsError> get copyWith => _$IncidentsErrorCopyWithImpl<IncidentsError>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IncidentsError&&(identical(other.message, message) || other.message == message));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,message);
+
+@override
+String toString() {
+  return 'IncidentListEvent.error(message: $message)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $IncidentsErrorCopyWith<$Res> implements $IncidentListEventCopyWith<$Res> {
+  factory $IncidentsErrorCopyWith(IncidentsError value, $Res Function(IncidentsError) _then) = _$IncidentsErrorCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class _$IncidentsErrorCopyWithImpl<$Res>
+    implements $IncidentsErrorCopyWith<$Res> {
+  _$IncidentsErrorCopyWithImpl(this._self, this._then);
+
+  final IncidentsError _self;
+  final $Res Function(IncidentsError) _then;
+
+/// Create a copy of IncidentListEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(IncidentsError(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
 }
 
 /// @nodoc
 mixin _$IncidentListState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(List<Incident> incidents) loaded,
-    required TResult Function(String message) failure,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(List<Incident> incidents)? loaded,
-    TResult? Function(String message)? failure,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(List<Incident> incidents)? loaded,
-    TResult Function(String message)? failure,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Failure value) failure,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Failure value)? failure,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Failure value)? failure,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IncidentListState);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'IncidentListState()';
+}
+
+
 }
 
 /// @nodoc
-abstract class $IncidentListStateCopyWith<$Res> {
-  factory $IncidentListStateCopyWith(
-          IncidentListState value, $Res Function(IncidentListState) then) =
-      _$IncidentListStateCopyWithImpl<$Res, IncidentListState>;
+class $IncidentListStateCopyWith<$Res>  {
+$IncidentListStateCopyWith(IncidentListState _, $Res Function(IncidentListState) __);
 }
 
-/// @nodoc
-class _$IncidentListStateCopyWithImpl<$Res, $Val extends IncidentListState>
-    implements $IncidentListStateCopyWith<$Res> {
-  _$IncidentListStateCopyWithImpl(this._value, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+/// Adds pattern-matching-related methods to [IncidentListState].
+extension IncidentListStatePatterns on IncidentListState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loading value)?  loading,TResult Function( _Loaded value)?  loaded,TResult Function( _Failure value)?  failure,required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _Initial() when initial != null:
+return initial(_that);case _Loading() when loading != null:
+return loading(_that);case _Loaded() when loaded != null:
+return loaded(_that);case _Failure() when failure != null:
+return failure(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loading value)  loading,required TResult Function( _Loaded value)  loaded,required TResult Function( _Failure value)  failure,}){
+final _that = this;
+switch (_that) {
+case _Initial():
+return initial(_that);case _Loading():
+return loading(_that);case _Loaded():
+return loaded(_that);case _Failure():
+return failure(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loading value)?  loading,TResult? Function( _Loaded value)?  loaded,TResult? Function( _Failure value)?  failure,}){
+final _that = this;
+switch (_that) {
+case _Initial() when initial != null:
+return initial(_that);case _Loading() when loading != null:
+return loading(_that);case _Loaded() when loaded != null:
+return loaded(_that);case _Failure() when failure != null:
+return failure(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<Incident> incidents)?  loaded,TResult Function( String message)?  failure,required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _Initial() when initial != null:
+return initial();case _Loading() when loading != null:
+return loading();case _Loaded() when loaded != null:
+return loaded(_that.incidents);case _Failure() when failure != null:
+return failure(_that.message);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<Incident> incidents)  loaded,required TResult Function( String message)  failure,}) {final _that = this;
+switch (_that) {
+case _Initial():
+return initial();case _Loading():
+return loading();case _Loaded():
+return loaded(_that.incidents);case _Failure():
+return failure(_that.message);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<Incident> incidents)?  loaded,TResult? Function( String message)?  failure,}) {final _that = this;
+switch (_that) {
+case _Initial() when initial != null:
+return initial();case _Loading() when loading != null:
+return loading();case _Loaded() when loaded != null:
+return loaded(_that.incidents);case _Failure() when failure != null:
+return failure(_that.message);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
-      __$$InitialImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$IncidentListStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$InitialImpl implements _Initial {
-  const _$InitialImpl();
-
-  @override
-  String toString() {
-    return 'IncidentListState.initial()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(List<Incident> incidents) loaded,
-    required TResult Function(String message) failure,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(List<Incident> incidents)? loaded,
-    TResult? Function(String message)? failure,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(List<Incident> incidents)? loaded,
-    TResult Function(String message)? failure,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Failure value) failure,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Failure value)? failure,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Failure value)? failure,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Initial implements IncidentListState {
-  const factory _Initial() = _$InitialImpl;
-}
-
-/// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$IncidentListStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
-      : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingImpl implements _Loading {
-  const _$LoadingImpl();
 
-  @override
-  String toString() {
-    return 'IncidentListState.loading()';
-  }
+class _Initial implements IncidentListState {
+  const _Initial();
+  
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
-  }
 
-  @override
-  int get hashCode => runtimeType.hashCode;
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(List<Incident> incidents) loaded,
-    required TResult Function(String message) failure,
-  }) {
-    return loading();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(List<Incident> incidents)? loaded,
-    TResult? Function(String message)? failure,
-  }) {
-    return loading?.call();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(List<Incident> incidents)? loaded,
-    TResult Function(String message)? failure,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading();
-    }
-    return orElse();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Failure value) failure,
-  }) {
-    return loading(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Failure value)? failure,
-  }) {
-    return loading?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Failure value)? failure,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
 }
 
-abstract class _Loading implements IncidentListState {
-  const factory _Loading() = _$LoadingImpl;
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'IncidentListState.initial()';
 }
 
-/// @nodoc
-abstract class _$$LoadedImplCopyWith<$Res> {
-  factory _$$LoadedImplCopyWith(
-          _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
-      __$$LoadedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<Incident> incidents});
+
 }
 
-/// @nodoc
-class __$$LoadedImplCopyWithImpl<$Res>
-    extends _$IncidentListStateCopyWithImpl<$Res, _$LoadedImpl>
-    implements _$$LoadedImplCopyWith<$Res> {
-  __$$LoadedImplCopyWithImpl(
-      _$LoadedImpl _value, $Res Function(_$LoadedImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? incidents = null,
-  }) {
-    return _then(_$LoadedImpl(
-      null == incidents
-          ? _value._incidents
-          : incidents // ignore: cast_nullable_to_non_nullable
-              as List<Incident>,
-    ));
-  }
-}
+
 
 /// @nodoc
 
-class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl(final List<Incident> incidents) : _incidents = incidents;
 
-  final List<Incident> _incidents;
-  @override
-  List<Incident> get incidents {
-    if (_incidents is EqualUnmodifiableListView) return _incidents;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_incidents);
-  }
+class _Loading implements IncidentListState {
+  const _Loading();
+  
 
-  @override
-  String toString() {
-    return 'IncidentListState.loaded(incidents: $incidents)';
-  }
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadedImpl &&
-            const DeepCollectionEquality()
-                .equals(other._incidents, _incidents));
-  }
 
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_incidents));
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
-      __$$LoadedImplCopyWithImpl<_$LoadedImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(List<Incident> incidents) loaded,
-    required TResult Function(String message) failure,
-  }) {
-    return loaded(incidents);
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(List<Incident> incidents)? loaded,
-    TResult? Function(String message)? failure,
-  }) {
-    return loaded?.call(incidents);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(List<Incident> incidents)? loaded,
-    TResult Function(String message)? failure,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded(incidents);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Failure value) failure,
-  }) {
-    return loaded(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Failure value)? failure,
-  }) {
-    return loaded?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Failure value)? failure,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loading);
 }
 
-abstract class _Loaded implements IncidentListState {
-  const factory _Loaded(final List<Incident> incidents) = _$LoadedImpl;
 
-  List<Incident> get incidents;
-  @JsonKey(ignore: true)
-  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'IncidentListState.loading()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _Loaded implements IncidentListState {
+  const _Loaded(final  List<Incident> incidents): _incidents = incidents;
+  
+
+ final  List<Incident> _incidents;
+ List<Incident> get incidents {
+  if (_incidents is EqualUnmodifiableListView) return _incidents;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_incidents);
+}
+
+
+/// Create a copy of IncidentListState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._incidents, _incidents));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_incidents));
+
+@override
+String toString() {
+  return 'IncidentListState.loaded(incidents: $incidents)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$FailureImplCopyWith<$Res> {
-  factory _$$FailureImplCopyWith(
-          _$FailureImpl value, $Res Function(_$FailureImpl) then) =
-      __$$FailureImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String message});
+abstract mixin class _$LoadedCopyWith<$Res> implements $IncidentListStateCopyWith<$Res> {
+  factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) _then) = __$LoadedCopyWithImpl;
+@useResult
+$Res call({
+ List<Incident> incidents
+});
+
+
+
+
+}
+/// @nodoc
+class __$LoadedCopyWithImpl<$Res>
+    implements _$LoadedCopyWith<$Res> {
+  __$LoadedCopyWithImpl(this._self, this._then);
+
+  final _Loaded _self;
+  final $Res Function(_Loaded) _then;
+
+/// Create a copy of IncidentListState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? incidents = null,}) {
+  return _then(_Loaded(
+null == incidents ? _self._incidents : incidents // ignore: cast_nullable_to_non_nullable
+as List<Incident>,
+  ));
 }
 
-/// @nodoc
-class __$$FailureImplCopyWithImpl<$Res>
-    extends _$IncidentListStateCopyWithImpl<$Res, _$FailureImpl>
-    implements _$$FailureImplCopyWith<$Res> {
-  __$$FailureImplCopyWithImpl(
-      _$FailureImpl _value, $Res Function(_$FailureImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? message = null,
-  }) {
-    return _then(_$FailureImpl(
-      null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$FailureImpl implements _Failure {
-  const _$FailureImpl(this.message);
 
-  @override
-  final String message;
+class _Failure implements IncidentListState {
+  const _Failure(this.message);
+  
 
-  @override
-  String toString() {
-    return 'IncidentListState.failure(message: $message)';
-  }
+ final  String message;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FailureImpl &&
-            (identical(other.message, message) || other.message == message));
-  }
+/// Create a copy of IncidentListState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$FailureCopyWith<_Failure> get copyWith => __$FailureCopyWithImpl<_Failure>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, message);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$FailureImplCopyWith<_$FailureImpl> get copyWith =>
-      __$$FailureImplCopyWithImpl<_$FailureImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(List<Incident> incidents) loaded,
-    required TResult Function(String message) failure,
-  }) {
-    return failure(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(List<Incident> incidents)? loaded,
-    TResult? Function(String message)? failure,
-  }) {
-    return failure?.call(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(List<Incident> incidents)? loaded,
-    TResult Function(String message)? failure,
-    required TResult orElse(),
-  }) {
-    if (failure != null) {
-      return failure(message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Failure value) failure,
-  }) {
-    return failure(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Failure value)? failure,
-  }) {
-    return failure?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Failure value)? failure,
-    required TResult orElse(),
-  }) {
-    if (failure != null) {
-      return failure(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Failure&&(identical(other.message, message) || other.message == message));
 }
 
-abstract class _Failure implements IncidentListState {
-  const factory _Failure(final String message) = _$FailureImpl;
 
-  String get message;
-  @JsonKey(ignore: true)
-  _$$FailureImplCopyWith<_$FailureImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,message);
+
+@override
+String toString() {
+  return 'IncidentListState.failure(message: $message)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$FailureCopyWith<$Res> implements $IncidentListStateCopyWith<$Res> {
+  factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) _then) = __$FailureCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class __$FailureCopyWithImpl<$Res>
+    implements _$FailureCopyWith<$Res> {
+  __$FailureCopyWithImpl(this._self, this._then);
+
+  final _Failure _self;
+  final $Res Function(_Failure) _then;
+
+/// Create a copy of IncidentListState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(_Failure(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+// dart format on

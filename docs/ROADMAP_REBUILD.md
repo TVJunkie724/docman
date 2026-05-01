@@ -2,8 +2,8 @@
 title: "DocMan - Rebuild Roadmap"
 description: "Vorgeschlagene Roadmap, um DocMan vom aktuellen Spike zu einer stabilen, lokalen, erweiterbaren Dokumenten-App zu entwickeln"
 tags: [roadmap, rebuild, product, planning, foundation]
-lastUpdated: "2026-04-27"
-version: "1.1"
+lastUpdated: "2026-05-01"
+version: "1.2"
 ---
 
 # DocMan - Rebuild Roadmap
@@ -18,7 +18,8 @@ DocMan sollte zuerst als Desktop-App mit Mobile Capture funktionieren: unterwegs
 
 ```text
 Foundation
-  -> Desktop Core + Mobile Capture
+  -> Quality & Production Readiness
+      -> Desktop Core + Mobile Capture
       -> Family + Sync
           -> Extended Mobile
               -> Intelligence
@@ -167,7 +168,64 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 - Dokumentierte Architektur entspricht dem Code.
 - R2-Implementation folgt `docs/technical/R2_TECHNICAL_FOUNDATION_IMPLEMENTATION_PLAN.md`.
 
-## 7. Phase R3 - Desktop Core and Mobile Capture MVP
+## 7. Phase R3 - Quality & Production Readiness
+
+**Status:** Planned
+
+**Ziel:** Der vorhandene Bestand wird testbar, wartbar und verlässlich genug, damit DocMan nicht wieder als Spike weiterwächst.
+
+R3 ist keine Feature-Phase. Sie hebt die technische Basis auf ein Niveau, auf dem neue Produkt-Slices mit Vertrauen gebaut werden können: reproduzierbares Setup, saubere Quality Gates, klare Testpyramide, Fake-Repositories für App-Tests und Contract-Mocks für spätere Backend-Grenzen.
+
+### In Scope
+
+- Teststrategie aus F4 operationalisieren.
+- Fake-Repository-Layer für Flutter, Riverpod und Domain-Use-Cases vorbereiten.
+- Microcks- oder vergleichbares Contract-Mock-Setup für Home-Hub/Capture/Sync-Schnittstellen einplanen.
+- Bestehende Legacy-Flows testbar machen oder bewusst entfernen.
+- `flutter analyze` von Legacy-Warnungen befreien oder mit klaren Tickets isolieren.
+- Setup-, Codegen- und Verify-Scripts für frische Checkouts anlegen.
+- CI-/Quality-Gates aus F16 konkretisieren.
+- Testfixtures ohne private oder sensible Echtdaten definieren.
+- Produktionsreife Mindestkriterien für Security, Logging, Storage und Fehlerverhalten prüfen.
+
+### Out of Scope
+
+- Neue Produktfeatures.
+- Vollständige Backend-Implementation.
+- Vollständiger End-to-End-Testpark.
+- KI/OCR-Implementation.
+- App-Store-Release.
+
+### Zweistufige Teststrategie
+
+| Stufe | Zweck | Verwendet für |
+|---|---|---|
+| Fake Repositories | schnelle, deterministische App-, Domain-, Provider- und Widget-Tests ohne Netzwerk | Flutter/Riverpod, lokale MVP-Flows, Offline-Verhalten |
+| Microcks / Contract Backend | stabile API-Verträge und Client-Integration gegen Home-Hub/Capture/Sync-Mocks | Mobile Capture Upload, Pairing, Sync, spätere Backend-Handoffs |
+
+Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide Ebenen sind notwendig, aber sie dürfen einander nicht ersetzen.
+
+### Offene Entscheidungen
+
+| ID | Entscheidung | Empfohlene Richtung |
+|---|---|---|
+| R3-D1 | Welche Legacy-Warnungen blockieren Production Readiness? | Als Issues erfassen und bis MVP mindestens alle harten Analyzer-Probleme entfernen |
+| R3-D2 | Wo liegen zentrale Testfixtures? | Separates `test/fixtures/` mit synthetischen Dokumenten |
+| R3-D3 | Welche API-Spec ist Contract-Quelle? | OpenAPI für Home-Hub/Capture/Sync, Microcks als Mock-/Contract-Runner |
+| R3-D4 | Werden generierte Dateien committed? | Ja, aber Setup/Codegen-Script muss sie reproduzierbar erzeugen |
+| R3-D5 | Welche Quality Gates sind vor MVP verpflichtend? | Format, analyze ohne neue Issues, Unit/Widget-Tests, Smoke-Tests, Contract-Mocks für API-Slices |
+
+### Akzeptanzkriterien
+
+- Frischer Checkout kann mit einem Bootstrap-Script in einen arbeitsfähigen Zustand gebracht werden.
+- Codegen ist reproduzierbar dokumentiert und per Script ausführbar.
+- Verify-Script enthält die lokalen Mindestchecks.
+- Neue Riverpod-/Domain-Logik ist mit Fake-Repositories testbar.
+- API-Grenzen für Home Hub, Capture und Sync sind contract-testbar geplant.
+- Legacy-Warnungen sind entweder behoben oder als GitHub Issues begründet.
+- Keine Tests verwenden private Dokumente, echte Haushaltsdaten oder echte Secrets.
+
+## 8. Phase R4 - Desktop Core and Mobile Capture MVP
 
 **Status:** Proposed
 
@@ -202,10 +260,10 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R3-D1 | Braucht der lokale MVP Login? | Nein, optionaler Dev-/Local-Mode reicht |
-| R3-D2 | Was ist die minimale Dokument-Erfassung? | Desktop-Dateiauswahl plus Mobile Capture in Draft-Inbox |
-| R3-D3 | Welche Suchfelder sind MVP-relevant? | Titel, Tags, Sender, Datum, Profil |
-| R3-D4 | Wie wird Mobile mit dem Home Hub gekoppelt? | Entschieden fuer MVP: QR Pairing primaer, manueller Code als Fallback; Details im R3-Handoff |
+| R4-D1 | Braucht der lokale MVP Login? | Nein, optionaler Dev-/Local-Mode reicht |
+| R4-D2 | Was ist die minimale Dokument-Erfassung? | Desktop-Dateiauswahl plus Mobile Capture in Draft-Inbox |
+| R4-D3 | Welche Suchfelder sind MVP-relevant? | Titel, Tags, Sender, Datum, Profil |
+| R4-D4 | Wie wird Mobile mit dem Home Hub gekoppelt? | Entschieden fuer MVP: QR Pairing primaer, manueller Code als Fallback; Details im R4-Handoff |
 
 ### Akzeptanzkriterien
 
@@ -217,7 +275,7 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 - Keine sichtbaren Mock-Daten im Produktpfad.
 - Persistenz über App-Neustart funktioniert.
 
-## 8. Phase R4 - Family Profiles
+## 9. Phase R5 - Family Profiles
 
 **Status:** Proposed
 
@@ -240,10 +298,10 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R4-D1 | Welche Profildaten sind sensibel? | Ausweis-/SV-Daten besonders behandeln oder verschieben |
-| R4-D2 | Brauchen Kinder eigene Accounts? | Nein für frühe Phasen |
+| R5-D1 | Welche Profildaten sind sensibel? | Ausweis-/SV-Daten besonders behandeln oder verschieben |
+| R5-D2 | Brauchen Kinder eigene Accounts? | Nein für frühe Phasen |
 
-## 9. Phase R5 - Sync and Auth
+## 10. Phase R6 - Sync and Auth
 
 **Status:** Proposed
 
@@ -268,11 +326,11 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R5-D1 | Welche konkrete Backend-Implementierung trägt den Sync? | Eigenständiger DocMan Server Stack; PocketBase höchstens historischer Spike/Adapter |
-| R5-D2 | Welche Daten werden remote synchronisiert? | Privacy-Klassen definieren |
-| R5-D3 | Wie werden Konflikte gelöst? | Zunächst sichtbar machen, nicht still überschreiben |
+| R6-D1 | Welche konkrete Backend-Implementierung trägt den Sync? | Eigenständiger DocMan Server Stack; PocketBase höchstens historischer Spike/Adapter |
+| R6-D2 | Welche Daten werden remote synchronisiert? | Privacy-Klassen definieren |
+| R6-D3 | Wie werden Konflikte gelöst? | Zunächst sichtbar machen, nicht still überschreiben |
 
-## 10. Phase R6 - Extended Mobile
+## 11. Phase R7 - Extended Mobile
 
 **Status:** Proposed
 
@@ -295,10 +353,10 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R6-D1 | Bild oder PDF als primäres Scanformat? | PDF für mehrseitige Dokumente, Bild als Rohquelle prüfen |
-| R6-D2 | Muss Mobile offline scannen können? | Ja, zumindest lokal queued |
+| R7-D1 | Bild oder PDF als primäres Scanformat? | PDF für mehrseitige Dokumente, Bild als Rohquelle prüfen |
+| R7-D2 | Muss Mobile offline scannen können? | Ja, zumindest lokal queued |
 
-## 11. Phase R7 - Intelligence
+## 12. Phase R8 - Intelligence
 
 **Status:** Deferred
 
@@ -320,19 +378,20 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R7-D1 | Lokale KI auf welchem Server? | Erst nach stabiler Dokumentenbasis und realer OCR-/LLM-Hardware entscheiden |
-| R7-D2 | Automatisch oder manuell gestartet? | Vorschläge manuell bestätigbar machen |
+| R8-D1 | Lokale KI auf welchem Server? | Erst nach stabiler Dokumentenbasis und realer OCR-/LLM-Hardware entscheiden |
+| R8-D2 | Automatisch oder manuell gestartet? | Vorschläge manuell bestätigbar machen |
 
-## 12. Empfohlene erste Arbeitssequenz
+## 13. Empfohlene erste Arbeitssequenz
 
 ```text
 1. R2 Draft-Entscheidungen schließen
 2. R2 Implementation-Plan schreiben
 3. R2 implementieren und auditieren
-4. R3 Desktop Core + Mobile Capture MVP konzipieren
+4. R3 Quality & Production Readiness konkretisieren und umsetzen
+5. R4 Desktop Core + Mobile Capture MVP konzipieren
 ```
 
-## 13. Nicht jetzt bauen
+## 14. Nicht jetzt bauen
 
 Diese Themen sind wertvoll, aber aktuell zu früh:
 
@@ -343,7 +402,7 @@ Diese Themen sind wertvoll, aber aktuell zu früh:
 - Komplexe Dokumentversionierung.
 - Vollständiges Rollen- und Berechtigungsmodell.
 
-## 14. Entscheidungsregister
+## 15. Entscheidungsregister
 
 | ID | Thema | Status |
 |---|---|---|
@@ -363,5 +422,10 @@ Diese Themen sind wertvoll, aber aktuell zu früh:
 | R2-D4 | Lokale Datenbank | Done |
 | R2-D5 | Auth/Pairing | Done |
 | R2-D6 | Security/Privacy Modell | Done |
-| R3-D1 | Login im lokalen MVP | Decision Needed |
-| R5-D2 | Remote-Sync sensibler Daten | Done for MVP scope; revisit before full sync |
+| R3-D1 | Legacy-Warnungen und Production Readiness | Decision Needed |
+| R3-D2 | Testfixtures | Decision Needed |
+| R3-D3 | Contract-Quelle / Microcks | Decision Needed |
+| R3-D4 | Generierte Dateien committen | Proposed: Ja |
+| R3-D5 | MVP Quality Gates | Decision Needed |
+| R4-D1 | Login im lokalen MVP | Decision Needed |
+| R6-D2 | Remote-Sync sensibler Daten | Done for MVP scope; revisit before full sync |
