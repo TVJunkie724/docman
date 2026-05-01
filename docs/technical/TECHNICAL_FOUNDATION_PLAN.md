@@ -40,6 +40,7 @@ Die Foundation muss den MVP ermöglichen:
 - F12 Secure Storage.
 - F15 Mock Repository Blueprint.
 - F17 Mobile Capture Plan.
+- DECISION_SECURITY_PRIVACY_MODEL.
 - Decisions unter `docs/technical/`.
 
 ## Arbeitsfolge R2
@@ -126,18 +127,21 @@ Akzeptanz:
 
 ### R2.6 Config, Secure Storage und Pairing-Vorbereitung
 
-Ziel: MVP-Setup ohne Cloud-OAuth vorbereiten.
+Ziel: MVP-Setup ohne Cloud-OAuth vorbereiten und die Security-/Privacy-Baseline einhalten.
 
 Deliverables:
 
 - F6 Config-Strategie.
 - F12 Secure-Storage-Package/Abstraktion.
 - `DECISION_AUTH_PAIRING.md` als akzeptierte Vorgabe anwenden.
+- `DECISION_SECURITY_PRIVACY_MODEL.md` als akzeptierte Vorgabe anwenden.
 
 Akzeptanz:
 
 - Home-Hub-URL ist konfigurierbar.
 - Pairing Secrets landen nur in Secure Storage.
+- Logs enthalten keine Dokumentinhalte, Tokens, OCR-Texte oder sensiblen Metadaten.
+- Dateiablage und Sync-Grenzen verhindern keine spaetere E2EE-/Zero-Knowledge-faehige Architektur.
 - Local-only Modus bleibt möglich.
 
 ### R2.7 Mock-/Fake-Basis

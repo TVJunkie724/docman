@@ -14,7 +14,9 @@ Accepted.
 
 ## Entscheidung
 
-DocMan synchronisiert im MVP nur in eine private, selbst kontrollierte Home-Hub-Umgebung. Eine Managed-Cloud- oder externe SaaS-Synchronisation ist nicht Teil der Produktplanung.
+DocMan synchronisiert im MVP nur in eine private, selbst kontrollierte Home-Hub-Umgebung.
+
+Eine Drittanbieter-Cloud- oder externe SaaS-Synchronisation ist nicht Teil der MVP-Produktplanung. Self-hosted cloudartige Setups, etwa privater VPS oder extern erreichbarer eigener Server, bleiben als spaetere Varianten moeglich und muessen `docs/technical/DECISION_SECURITY_PRIVACY_MODEL.md` einhalten.
 
 ## Datenklassen
 
@@ -42,4 +44,3 @@ DocMan synchronisiert im MVP nur in eine private, selbst kontrollierte Home-Hub-
 - F10/F12/F7/F11 sind verbindlich auf Privacy-Grenzen auszurichten.
 - Sync-Modelle müssen Datenklassen berücksichtigen.
 - Sensitive abgeleitete Daten wie OCR-Text werden später bewusst eingeführt, nicht nebenbei.
-

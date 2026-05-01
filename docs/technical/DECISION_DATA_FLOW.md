@@ -26,7 +26,7 @@ DocMan App <-> DocMan Sync Backend
 
 Der DocMan Home Hub ist die erste empfohlene Backend-Variante fuer private Self-Hosted-Setups auf NAS, Mini-Server oder Heimserver. Tailscale ist die empfohlene private Netzwerkoption fuer fruehe Setups ohne offene eingehende Firewall-Ports. Tailscale ist aber kein Produktbestandteil, kein Domain-Begriff und keine harte Architekturabhaengigkeit.
 
-Eine Managed-Cloud-Variante ist aktuell nicht Teil der Produktplanung. Die generische Backend-Grenze bleibt trotzdem wichtig, damit der Home Hub, ein privater VPS oder ein spaeterer anderer Self-Hosted-Stack austauschbar bleiben.
+Eine Drittanbieter-Cloud- oder externe SaaS-Variante ist aktuell nicht Teil der Produktplanung. Die generische Backend-Grenze bleibt trotzdem wichtig, damit der Home Hub, ein privater VPS oder ein spaeterer anderer Self-Hosted-Stack austauschbar bleiben. Self-hosted cloudartige Setups muessen die Security-/Privacy-Baseline einhalten.
 
 ## Backend-Varianten
 

@@ -29,7 +29,8 @@ Private-first vor Funktionsfülle.
 
 ## Privacy-Regeln
 
-- Keine Cloud-SaaS-Abhängigkeit.
+- Keine Drittanbieter-Cloud- oder Cloud-SaaS-Abhängigkeit.
+- Self-hosted cloudartige Betriebsformen bleiben möglich, müssen aber die Security-/Privacy-Baseline einhalten.
 - Keine externen Requests ohne bewusste Entscheidung.
 - Keine Dokumentinhalte in Logs.
 - Keine Secrets in normalem Storage.
@@ -81,4 +82,3 @@ F9 gilt als umgesetzt, wenn:
 - Welche Daten werden im MVP verschlüsselt?
 - Welche Exportformate brauchen wir?
 - Wie werden Profile/Haushalte bei Löschung behandelt?
-

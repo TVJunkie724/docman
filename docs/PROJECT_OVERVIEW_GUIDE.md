@@ -154,7 +154,11 @@ DocMan wird potenziell sensible Daten enthalten: medizinische Dokumente, Ausweis
 
 **Empfehlung:** Jede Architekturentscheidung sollte Privacy, lokale Kontrolle, Exportierbarkeit und langfristige Lesbarkeit priorisieren.
 
+DocMan behandelt Dokumente, OCR-/LLM-Ergebnisse und viele Metadaten als sensible Daten. Self-hosted cloudartige Setups bleiben spaeter moeglich, muessen aber von Anfang an so vorbereitet werden, dass clientseitige Verschluesselung und Zero-Knowledge-faehige Sync-Modelle nicht verbaut werden.
+
 Entscheidung dokumentiert in: `docs/technical/DECISION_PRIVACY_SYNC_SCOPE.md`.
+
+Security-/Privacy-Baseline dokumentiert in: `docs/technical/DECISION_SECURITY_PRIVACY_MODEL.md`.
 
 ## 5. Produkt-Scope nach Stufen
 
@@ -334,6 +338,7 @@ Meine vorgeschlagene Richtung:
 | D8 | KI-Scope | Entschieden: nicht MVP, aber lokale/self-hosted Pipeline vorbereiten | Erledigt |
 | D9 | Alte Foundation-Konzepte | Entschieden: Konzept-Slots behalten, Inhalte DocMan-spezifisch neu schreiben; alte Inhalte sind nicht Source of Truth | Erledigt |
 | D10 | Remote-Sync sensibler Daten | Entschieden: MVP-Sync nur private Home-Hub-Umgebung; Datenklassen und Secrets getrennt | Erledigt |
+| D11 | Security-/Privacy-Baseline | Entschieden: Security-by-Design, sensible Datenklassen, Secure Storage, log-sparsam, E2EE-/Zero-Knowledge-faehig vorbereiten | Erledigt |
 
 ## 11. Aktive Dokumente und nächste Drafts
 

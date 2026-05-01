@@ -39,7 +39,7 @@ Foundation
 
 **Status:** Done for product baseline
 
-Hinweis: Die Produkt-Baseline ist entschieden. Die konkrete Backend-Technologie und Security-/Privacy-Baseline bleiben als technische Draft-Entscheidungen in R2/R3 offen.
+Hinweis: Die Produkt-Baseline und Security-/Privacy-Baseline sind entschieden. Die konkrete Backend-Technologie bleibt als technische Draft-Entscheidung in R2/R3 offen.
 
 **Ziel:** Die wichtigsten Grundsatzfragen werden entschieden, bevor Code weiter wächst.
 
@@ -157,7 +157,7 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 | R2-D3 | Wie wird Mock-UI behandelt? | Als `mocks/` isolieren oder entfernen |
 | R2-D4 | Welche lokale Datenbank ist Zieltechnologie? | Entschieden: SQLite + Drift fuer strukturierte lokale Daten; Dateien und Secrets bleiben separat |
 | R2-D5 | Wie funktionieren Auth/Pairing für Home Hub? | Entschieden: QR Pairing primaer, manueller Pairing-Code als Fallback; Cloud Identity spaeter optional |
-| R2-D6 | Was ist das Security-/Privacy-Minimum? | Draft-Entscheidung in `DECISION_SECURITY_PRIVACY_MODEL.md` |
+| R2-D6 | Was ist das Security-/Privacy-Minimum? | Entschieden: Security-by-Design, sensible Datenklassen, Secure Storage, log-sparsam, E2EE-/Zero-Knowledge-faehig vorbereiten |
 
 ### Akzeptanzkriterien
 
@@ -361,6 +361,6 @@ Diese Themen sind wertvoll, aber aktuell zu früh:
 | R2-D2 | Fehler- und Result-Modell | Decision Needed |
 | R2-D4 | Lokale Datenbank | Done |
 | R2-D5 | Auth/Pairing | Done |
-| R2-D6 | Security/Privacy Modell | Draft |
+| R2-D6 | Security/Privacy Modell | Done |
 | R3-D1 | Login im lokalen MVP | Decision Needed |
 | R5-D2 | Remote-Sync sensibler Daten | Done for MVP scope; revisit before full sync |
