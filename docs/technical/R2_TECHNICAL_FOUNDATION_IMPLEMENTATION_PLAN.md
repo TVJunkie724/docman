@@ -2,7 +2,7 @@
 title: "R2 Technical Foundation Implementation Plan"
 description: "Implementation-ready plan for migrating the current DocMan Flutter spike into the R2 foundation baseline"
 tags: [implementation-plan, r2, foundation, flutter, riverpod, drift, clean-architecture]
-lastUpdated: "2026-05-01"
+lastUpdated: "2026-05-05"
 status: "proposed"
 sourceIssue: "https://github.com/TVJunkie724/docman/issues/4"
 ---
@@ -44,6 +44,7 @@ The implementation migrates new work to:
 - config and secure-storage boundaries for Home Hub pairing.
 - fakes and test helpers for future UI work.
 - a real DocMan test baseline.
+- isolated mock UI rules so concept validation does not become a second product path.
 
 R2 does not implement the full Desktop MVP, Mobile Capture, Home Hub, sync backend, OCR, LLM, app distribution, or complete product rename.
 
@@ -579,6 +580,7 @@ R2 UI scope:
 - simple foundation status screen is allowed.
 - it may show local-only mode, Drift database ready, fake/real mode, Home-Hub unconfigured, and security baseline labels.
 - it must not pretend to be the final Desktop MVP.
+- new UI concept mocks, if any are created during R2, must stay isolated from the product route and follow `docs/technical/DECISION_MOCK_UI_STRATEGY.md`.
 
 ASCII layout:
 
@@ -602,6 +604,7 @@ Acceptance:
 - no product path requires PocketBase.
 - no final MVP UI is implied by the foundation status screen.
 - legacy spike screens are clearly not the target product path.
+- no visible mock data appears on the product startup path.
 
 Verification:
 

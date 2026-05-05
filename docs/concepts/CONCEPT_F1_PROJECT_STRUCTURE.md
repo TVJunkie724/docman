@@ -2,8 +2,8 @@
 title: "Konzept F1 - Project Structure"
 description: "DocMan-spezifische Projektstruktur für Flutter App, Foundation-Migration, Clean Architecture, Riverpod, local-first Datenfluss und späteren Home-Hub-Ausbau"
 tags: [concept, foundation, project-structure, flutter, clean-architecture, riverpod, local-first]
-lastUpdated: "2026-04-26"
-version: "3.0"
+lastUpdated: "2026-05-05"
+version: "3.1"
 status: "accepted"
 ---
 
@@ -37,6 +37,7 @@ Dieses Konzept baut auf diesen Entscheidungen auf:
 - MVP: Desktop-Verwaltung plus Mobile Capture mit minimalem Home-Hub-Eingangskorb.
 - Mobile im MVP: capture-only, optionale Vorgangszuordnung als Komfortpfad.
 - Alte Foundation-Konzepte werden DocMan-spezifisch neu geschrieben.
+- Mock-UI: Legacy-App nur als Referenz; neue Mocks isoliert und nicht im Produktpfad.
 
 ## Grundprinzip
 
@@ -347,9 +348,11 @@ Wenn zwei Features stark gekoppelt wirken, muss die Grenze überprüft werden, s
 
 Die Umstellung erfolgt nicht als Big-Bang.
 
+Die bestehende App bleibt waehrend des Rebuilds als Legacy-Referenz erhalten. Sie darf fuer Designgefuehl, fachliche Begriffe und alte Flow-Ideen herangezogen werden. Neue Arbeit entsteht aber in der Zielstruktur oder in einem klar isolierten Mock-Bereich.
+
 Empfohlene Reihenfolge:
 
-1. Bestehende Mock- und Spike-Pfade markieren.
+1. Bestehende Mock- und Spike-Pfade markieren und vom Produktpfad trennen.
 2. Neue Zielstruktur für neue Arbeit festlegen.
 3. Domain-Begriffe von `Incident` auf `Case` planen.
 4. Riverpod-Bootstrap vorbereiten.
@@ -367,6 +370,7 @@ Implementation-Pläne müssen später konkretisieren:
 - welche Migrationsreihenfolge sicher ist
 - welche Tests vor und nach jedem Schritt laufen
 - welche alten Spike-Pfade gelöscht, isoliert oder ersetzt werden
+- welche Mock-Screens reine Konzeptvalidierung bleiben und welche in Feature-Arbeit ueberfuehrt werden
 
 ## Definition of Done für F1
 
