@@ -1,7 +1,7 @@
 ---
 name: docman-github-issue
 description: Use when creating, classifying, triaging, or updating GitHub Issues for DocMan, including bugs, feature requests, documentation tasks, architecture/foundation work, labels, milestones, and replacing markdown-only bug or feature trackers. GitHub Issues are the source of truth for actionable bugs and feature requests.
-version: 0.2.0
+version: 0.3.0
 user-invocable: true
 ---
 
@@ -46,6 +46,8 @@ gh repo view TVJunkie724/docman --json nameWithOwner
 - Search for duplicates before creating a new issue.
 - Use GitHub-native labels, milestones, and issue relationships where possible.
 - If labels or milestones are missing, report that clearly and ask whether to create them or proceed with available metadata.
+- Lifecycle labels are mutually exclusive. An issue must have exactly one `status:*` label.
+- Do not use markdown-only blockers when a dependency is explicit and unambiguous; set a native GitHub relationship.
 
 ## Issue Types
 
@@ -267,8 +269,12 @@ gh issue list \
 
 2. Classify bug vs feature request.
 3. Select labels and milestone from the tables above.
-4. Write the issue body with concrete acceptance criteria and verification.
-5. Create the issue:
+4. Check for blockers/dependencies before creating the issue:
+   - Search the chat/context/body for explicit `blocked by`, `depends on`, `Blocker`, `Voraussetzung`, open tasklist items, or dependency-table language.
+   - If a blocker is explicit and unambiguous, plan to set a native GitHub relationship after creation.
+   - If a likely blocker is ambiguous, do not guess; mention the ambiguity in the handoff.
+5. Write the issue body with concrete acceptance criteria and verification.
+6. Create the issue:
 
 ```bash
 gh issue create \
@@ -279,13 +285,15 @@ gh issue create \
   --milestone "DocMan Foundation"
 ```
 
-6. Re-open the created issue and verify title, labels, milestone, and body:
+7. Re-open the created issue and verify title, labels, milestone, and body:
 
 ```bash
 gh issue view <number> \
   --repo TVJunkie724/docman \
   --json number,title,state,labels,milestone,url
 ```
+
+8. Set and verify native blocker relationships for every explicit blocker. Use the commands in [Dependencies And Blockers](#dependencies-and-blockers).
 
 ## Updating Existing Issues
 
@@ -298,17 +306,94 @@ gh issue edit <number> \
   --milestone "DocMan Foundation"
 ```
 
+When updating an issue, also re-check blockers/dependencies:
+
+- If the update adds explicit dependency language such as `blocked by`, `depends on`, `Blocker`, or `Voraussetzung`, set a native GitHub relationship.
+- If the update removes or resolves a dependency, verify whether the native relationship still reflects reality.
+- After editing, verify `blockedBy` and `blocking` through GraphQL when the issue has or may have dependencies.
+
 When closing an issue, add a short comment with:
 
 - commit or PR reference
 - verification evidence
 - residual risk, if any
 
-Then close it and keep or add `status:done` where available.
+Then close it and replace stale lifecycle labels with `status:done`.
+
+## Commit And Push Discipline
+
+When committing work in this repository, connect the commit to GitHub Issues when a relevant issue already exists. This is preferred but not a hard blocker: do not create a low-quality placeholder issue only to satisfy a commit footer.
+
+Before committing:
+
+1. Check whether the work already has a clear issue from the chat, branch name, implementation plan, PR, or `gh issue list` search.
+2. If there is a relevant issue, reference it in the commit body footer:
+
+```text
+Refs #14
+```
+
+3. Use `Closes #<number>` only when the commit truly completes the issue and the issue should close after merge to the default branch.
+4. If no relevant issue exists, commit without a reference and mention in the handoff that no issue was linked.
+
+For multi-commit work:
+
+- Reference the same leading issue in each commit when each commit materially advances that issue.
+- Reference multiple issues only when the commit genuinely spans them.
+- Prefer a short explanatory commit body over stuffing issue context into the subject line.
+
+After pushing:
+
+- If pushing a feature branch, check PR/branch checks when a PR exists or when the user asks.
+- If pushing to the default branch, check the latest GitHub Actions runs that include the pushed commit when workflows exist.
+- If no workflows or PR checks exist, say that explicitly instead of implying CI passed.
+
+Recommended check commands:
+
+```bash
+default_branch=$(git remote show origin | sed -n 's/.*HEAD branch: //p')
+git rev-parse HEAD
+gh run list --repo TVJunkie724/docman --branch "$default_branch" --limit 10
+gh run view <run-id> --repo TVJunkie724/docman --json status,conclusion,headSha,url
+```
+
+If a pushed-default-branch pipeline fails:
+
+1. Verify whether the failing run belongs to the pushed commit.
+2. Inspect failing jobs/logs with `gh run view --log` or targeted `gh run view` commands.
+3. If the failure is caused by the just-pushed work, fix it immediately when reasonable, then push a follow-up commit that references the same issue.
+4. If the failure is unrelated, pre-existing, flaky, or belongs to another area, create or update a bug issue only when there is enough evidence and acceptance criteria.
+5. Report the run URL, failed job, suspected boundary, and whether an issue was created or updated.
+
+## Native Project Fields
+
+Use native GitHub metadata for size, dates, and board status when DocMan gets a GitHub Projects v2 board. Do not encode size or target dates only as labels, comments, body text, or markdown checklists once native fields exist.
+
+DocMan does not currently assume a fixed project owner, project number, field IDs, or option IDs in this skill. Discover them before editing project fields.
+
+Discovery commands:
+
+```bash
+owner="TVJunkie724"
+gh project list --owner "$owner" --format json
+gh project field-list <project-number> --owner "$owner" --format json
+```
+
+When a DocMan project board exists and an issue belongs on it:
+
+1. Add the issue to the project, or reuse the existing project item.
+2. Set native `Status` if available.
+3. Set native `Size` if available.
+4. Set native `Target date` or equivalent date field if available and meaningful.
+5. Verify the project field values after bulk edits.
+
+If GitHub Project fields are unavailable, report that limitation and continue with issue labels/milestones only.
 
 ## Dependencies And Blockers
 
 Use native GitHub issue relationships for blockers/dependencies when they are explicit and unambiguous.
+
+Every create/update workflow must consider blockers. This is not optional: scan the issue text and surrounding task context for dependency signals before reporting the issue work complete.
 
 Relationship direction:
 
@@ -322,7 +407,11 @@ Set relationships for explicit wording such as:
 - `Voraussetzung: #123`
 - open tasklist item `- [ ] #123` in an epic or tracking issue
 
-Do not infer relationships from "related", "verwandt", "reference", "optional", or ambiguous old identifiers.
+Do not set a relationship for:
+
+- `related`, `verwandt`, `reference`, `referenziert`, `superseded`, `optional`, `komplementaer`, or `unabhaengig/unabhängig`.
+- Ambiguous legacy IDs unless they map to exactly one GitHub issue with no collision.
+- Closed/done tasklist entries unless the issue still genuinely blocks the target.
 
 Create a relationship:
 
@@ -352,6 +441,32 @@ gh api graphql \
   }'
 ```
 
+Verify existing relationships before or after editing:
+
+```bash
+issue_id=$(gh issue view 90 \
+  --repo TVJunkie724/docman \
+  --json id --jq .id)
+
+gh api graphql \
+  -f issueId="$issue_id" \
+  -f query='query($issueId: ID!) {
+    node(id: $issueId) {
+      ... on Issue {
+        number
+        blockedBy(first: 100) {
+          totalCount
+          nodes { number title state }
+        }
+        blocking(first: 100) {
+          totalCount
+          nodes { number title state }
+        }
+      }
+    }
+  }'
+```
+
 If a relationship is likely but not fully clear, do not guess. Leave it unset and mention the ambiguity.
 
 ## Status Lifecycle
@@ -360,6 +475,8 @@ If a relationship is likely but not fully clear, do not guess. Leave it unset an
 - Draft concept proposals: `status:draft`
 - Active implementation: `status:in-progress`
 - Completed issues: close the GitHub issue and add or keep `status:done`
+
+Lifecycle labels are mutually exclusive. Whenever changing lifecycle state, remove every stale `status:*` label so the issue has exactly one lifecycle label. In particular, closing an issue must remove `status:open`, `status:draft`, and `status:in-progress` before or while adding `status:done`.
 
 ## Quality Gate
 

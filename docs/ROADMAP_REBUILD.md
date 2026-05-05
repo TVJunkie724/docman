@@ -2,8 +2,8 @@
 title: "DocMan - Rebuild Roadmap"
 description: "Vorgeschlagene Roadmap, um DocMan vom aktuellen Spike zu einer stabilen, lokalen, erweiterbaren Dokumenten-App zu entwickeln"
 tags: [roadmap, rebuild, product, planning, foundation]
-lastUpdated: "2026-05-01"
-version: "1.2"
+lastUpdated: "2026-05-05"
+version: "1.3"
 ---
 
 # DocMan - Rebuild Roadmap
@@ -108,6 +108,7 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 - F8 Distribution Readiness neu schreiben.
 - F8b Review Access Strategy neu schreiben.
 - F17 Mobile Capture Plan neu erstellen.
+- F18 Notifications, Failures and Observability neu erstellen.
 - Alte Produkt-Roadmaps und alten Refactoring-Plan löschen.
 - Eine technische Foundation-Roadmap erstellen.
 - README-/Projektbeschreibungs-Update als Follow-up erfassen.
@@ -139,6 +140,7 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 - Lokale Persistenzstrategie.
 - Sync-fähige IDs und Modellgrenzen für späteres Backend.
 - Fehler- und Result-Modell.
+- Notification-, Audit- und Observability-Grundmodell.
 - Minimal sinnvolle Testbasis.
 - Trennung von Mock-Screens und Produkt-Screens.
 
@@ -153,8 +155,8 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R2-D1 | Wie wird die neue F1-Zielstruktur migriert? | Zielstruktur akzeptiert; Migrationsstrategie noch planen |
-| R2-D2 | Wie werden Fehler in Domain und UI modelliert? | Einheitliches Result-/Failure-Konzept |
+| R2-D1 | Wie wird die neue F1-Zielstruktur migriert? | Entschieden: Clean Rebuild neben dem Spike; Altbestand bleibt nur Design-/Fachreferenz |
+| R2-D2 | Wie werden Fehler in Domain und UI modelliert? | Entschieden: typed Result/Failure plus UserNotifications, Telemetry, Audit und Correlation nach F18 |
 | R2-D3 | Wie wird Mock-UI behandelt? | Als `mocks/` isolieren oder entfernen |
 | R2-D4 | Welche lokale Datenbank ist Zieltechnologie? | Entschieden: SQLite + Drift fuer strukturierte lokale Daten; Dateien und Secrets bleiben separat |
 | R2-D5 | Wie funktionieren Auth/Pairing für Home Hub? | Entschieden: QR Pairing primaer, manueller Pairing-Code als Fallback; Cloud Identity spaeter optional |
@@ -186,7 +188,7 @@ R3 ist keine Feature-Phase. Sie hebt die technische Basis auf ein Niveau, auf de
 - Setup-, Codegen- und Verify-Scripts für frische Checkouts anlegen.
 - CI-/Quality-Gates aus F16 konkretisieren.
 - Testfixtures ohne private oder sensible Echtdaten definieren.
-- Produktionsreife Mindestkriterien für Security, Logging, Storage und Fehlerverhalten prüfen.
+- Produktionsreife Mindestkriterien für Security, Logging, Storage, Fehlerverhalten, Notifications, Audit und Observability prüfen.
 
 ### Out of Scope
 
@@ -222,6 +224,7 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 - Verify-Script enthält die lokalen Mindestchecks.
 - Neue Riverpod-/Domain-Logik ist mit Fake-Repositories testbar.
 - API-Grenzen für Home Hub, Capture und Sync sind contract-testbar geplant.
+- F18-Runtime-Readiness-Regeln für Failure, Notification, Audit, Telemetry und Redaction sind prüfbar.
 - Legacy-Warnungen sind entweder behoben oder als GitHub Issues begründet.
 - Keine Tests verwenden private Dokumente, echte Haushaltsdaten oder echte Secrets.
 
@@ -417,8 +420,8 @@ Diese Themen sind wertvoll, aber aktuell zu früh:
 | R0-D8 | Privacy-/Sync-Scope | Done |
 | R1-D1 | Umgang mit alten Foundation-Konzepten | Done |
 | R1-D2 | Alte Roadmaps | Done |
-| R2-D1 | Projektstruktur-Migration | Decision Needed |
-| R2-D2 | Fehler- und Result-Modell | Decision Needed |
+| R2-D1 | Projektstruktur-Migration | Done |
+| R2-D2 | Fehler-, Notification- und Observability-Modell | Done |
 | R2-D4 | Lokale Datenbank | Done |
 | R2-D5 | Auth/Pairing | Done |
 | R2-D6 | Security/Privacy Modell | Done |
