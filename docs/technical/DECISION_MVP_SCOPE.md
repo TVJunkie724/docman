@@ -2,7 +2,7 @@
 title: "Decision - MVP Scope"
 description: "Entscheidung zum ersten DocMan MVP: Desktop-Verwaltung, Mobile Capture und minimaler Home-Hub-Eingangskorb"
 tags: [decision, product, mvp, mobile-capture, desktop, home-hub]
-lastUpdated: "2026-04-26"
+lastUpdated: "2026-05-05"
 status: "accepted"
 ---
 
@@ -18,13 +18,16 @@ Der erste DocMan MVP besteht aus Desktop-Verwaltung plus Mobile Capture.
 
 Mobile Capture ist Teil des MVP, weil das Erfassen von Dokumenten unterwegs ein zentraler Alltags-Use-Case ist. Mobile bleibt im MVP aber capture-only. Es wird keine vollständige mobile Verwaltungs-App und kein vollständiger Multi-Geräte-Sync gebaut.
 
+Mobile Capture meint Dokumentenscan-Qualitaet, nicht bloss Kamera-Foto-Upload. Das Zielbild ist ein Google-Drive-aehnlicher Dokumentenscan: Auto-Capture, Rand-/Perspektivkorrektur, automatische Verbesserung und gut lesbarer dunkler Text auf hellem/weissem Dokumenthintergrund.
+
 Der MVP enthält einen minimalen Home-Hub-Anteil als Eingangskorb für mobile Uploads.
 
 ## MVP-Zielbild
 
 ```text
 Mobile Capture
-  -> Foto/Scan aufnehmen
+  -> Dokument scannen
+  -> Scan bereinigen und als Dokumentdatei vorbereiten
   -> lokal in Upload-Queue speichern
   -> optional Vorgang wählen, wenn gecachte Liste verfügbar ist
   -> an Home Hub hochladen
@@ -51,7 +54,7 @@ Desktop
 - Desktop: Dokumente Vorgängen zuordnen.
 - Desktop: lokale Suche und Filter.
 - Desktop: lokale Persistenz.
-- Mobile: Foto/Scan aufnehmen.
+- Mobile: Dokumentenscan mit Auto-Capture, Zuschnitt, Perspektivkorrektur und Dokumentoptimierung.
 - Mobile: lokale Upload-Queue.
 - Mobile: Upload an den self-hosted Home Hub.
 - Mobile: sichere Fallback-Ablage in Draft-Inbox.
@@ -80,6 +83,7 @@ Die direkte Zuordnung zu einem Vorgang ist im MVP als Komfortpfad erlaubt, aber 
 ## Zielregeln
 
 - Mobile darf Dokumente offline erfassen und später hochladen.
+- Mobile Capture muss einen echten Scanner-Flow vorbereiten; normaler Foto-Upload ist nur bewusster Fallback, nicht das Ziel.
 - Mobile muss auch ohne aktuelle Vorgangsliste funktionieren.
 - Direkter Upload zu einem Vorgang darf nur eine einfache Zuordnung sein, keine vollständige mobile Bearbeitung.
 - Desktop bleibt der Ort für Prüfung, Korrektur, Metadaten und Vorgangsverwaltung.
@@ -89,7 +93,8 @@ Die direkte Zuordnung zu einem Vorgang ist im MVP als Komfortpfad erlaubt, aber 
 ## Offene Folgefragen
 
 - Wie wird Mobile mit dem Home Hub gekoppelt: Login, Pairing-Code oder Gerätefreigabe?
-- Welche Scanformate sind im MVP erlaubt: Bild, PDF oder beides?
+- Welche Scanformate sind im MVP erlaubt: PDF, Bild oder beides?
+- Welche native Scanner-Bridge nutzt DocMan: Google ML Kit Document Scanner auf Android und VisionKit auf iOS oder eine belastbare Flutter-Kapselung davon?
 - Welche minimale Vorgangsliste braucht Mobile: Titel, Profil, Status, Tags, Datum?
 - Wie lange darf die mobile Queue Dokumente lokal halten?
 - Wie erkennt Desktop, ob ein Upload direkt zugeordnet oder noch zu prüfen ist?

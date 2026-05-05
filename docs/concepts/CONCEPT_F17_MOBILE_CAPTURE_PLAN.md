@@ -2,8 +2,8 @@
 title: "Konzept F17 - Mobile Capture Plan"
 description: "DocMan-spezifisches Mobile-Capture-Konzept für MVP-Scan, lokale Queue, optionale Vorgangszuordnung, Home-Hub-Upload und späteren Mobile-Ausbau"
 tags: [concept, mobile, capture, mvp, upload-queue, home-hub, draft-inbox]
-lastUpdated: "2026-04-26"
-version: "1.0"
+lastUpdated: "2026-05-05"
+version: "1.1"
 status: "accepted"
 ---
 
@@ -20,6 +20,30 @@ F17 definiert den MVP-Scope für Mobile Capture und grenzt ihn von vollständige
 ## Grundsatz
 
 Mobile ist im MVP ein schneller Eingang, nicht die vollständige DocMan-Verwaltung.
+
+Mobile Capture soll sich wie ein hochwertiger Dokumentenscanner anfuehlen, nicht wie ein normaler Foto-Upload. Das Zielbild ist die Scan-Qualitaet moderner Mobile-Scanner wie Google Drive Document Scan: Dokument automatisch erkennen, automatisch erfassen, zuschneiden, perspektivisch korrigieren und als saubere Dokumentansicht mit hellem/weissem Hintergrund und gut lesbarem dunklem Text ausgeben.
+
+Das ist eine Produktqualitaetsanforderung. Sie bedeutet nicht, dass DocMan Google Drive integriert oder Cloud-Dienste nutzt.
+
+## Scan-Qualitaetsziel
+
+Der MVP-Scanner soll mindestens vorbereiten:
+
+- automatische Dokumenterkennung und Auto-Capture.
+- Rand-/Eckenerkennung mit manueller Korrektur.
+- Perspektivkorrektur.
+- automatische Rotation.
+- Scan-Optimierung fuer Dokumente, insbesondere heller Hintergrund und dunkler, gut lesbarer Text.
+- Mehrseiten-Scan als PDF-Zielbild.
+- optionaler Export einzelner Seiten als Bild, falls fuer Upload/Preview noetig.
+
+Technische Zielrichtung:
+
+- Android: bevorzugt Google ML Kit Document Scanner API, weil sie dem Google-Drive-Scan-Erlebnis am naechsten liegt.
+- iOS: native VisionKit Document Camera als funktionales Pendant pruefen.
+- Flutter soll diese nativen Scanner kapseln, aber nicht selbst mit einfachem Kamera-Foto plus eigener Bildbearbeitung starten.
+
+Wenn eine Plattform die gewuenschte Qualitaet nicht liefern kann, darf der MVP nicht still auf normalen Foto-Upload zurueckfallen. Dann braucht es einen sichtbaren Fallback mit Hinweis, dass der Scan nur Fotoqualitaet hat.
 
 ## MVP-Flow
 
@@ -39,7 +63,7 @@ Desktop
 
 ## In Scope
 
-- Foto/Scan aufnehmen.
+- Dokumentenscan in Scanner-Qualitaet aufnehmen.
 - lokale Upload Queue.
 - Queue über App-Neustart erhalten.
 - Home-Hub-Upload.
@@ -77,7 +101,7 @@ Kein vollständiger Sync nötig.
 
 F17 gilt als umgesetzt, wenn:
 
-- Mobile offline scannen kann.
+- Mobile offline in Dokumentenscanner-Qualitaet scannen kann.
 - Upload Queue sicher persistiert.
 - Home-Hub-Upload möglich ist.
 - Desktop mobile Uploads in Draft-Inbox sieht.
@@ -87,6 +111,5 @@ F17 gilt als umgesetzt, wenn:
 
 - Bild, PDF oder beides im MVP?
 - Wie funktioniert Pairing praktisch?
-- Welche Kamera-/Scan-Library wird genutzt?
+- Welche Flutter-/Native-Bridge kapselt Google ML Kit Document Scanner und VisionKit sauber?
 - Wie groß dürfen Uploads sein?
-

@@ -10,6 +10,7 @@ class MobileCaptureInboxMockController
           uploads: _initialUploads,
           cases: _cases,
           selectedUploadId: _initialUploads.first.id,
+          selectedSection: MockInboxSection.open,
           isOffline: false,
           failNextUpload: false,
         ),
@@ -36,6 +37,10 @@ class MobileCaptureInboxMockController
       uploads: [newUpload, ...value.uploads],
       selectedUploadId: id,
       failNextUpload: value.failNextUpload,
+      selectedSection: value.isOffline
+          ? MockInboxSection.attention
+          : MockInboxSection.open,
+      clearLastAction: true,
     );
 
     if (!value.isOffline) {
@@ -65,6 +70,9 @@ class MobileCaptureInboxMockController
         );
       }).toList(),
       failNextUpload: false,
+      selectedSection: shouldFail
+          ? MockInboxSection.attention
+          : MockInboxSection.open,
     );
   }
 
@@ -115,11 +123,47 @@ class MobileCaptureInboxMockController
           clearFailureReason: true,
         );
       }).toList(),
+      selectedSection: MockInboxSection.recent,
+      lastActionLabel:
+          'Dokument wurde zugeordnet. Korrektur bleibt hier erreichbar.',
+    );
+  }
+
+  void moveSelectedBackToInbox() {
+    final selected = value.selectedUpload;
+    if (selected == null) {
+      return;
+    }
+
+    value = value.copyWith(
+      uploads: value.uploads.map((upload) {
+        if (upload.id != selected.id) {
+          return upload;
+        }
+        return upload.copyWith(
+          status: MockUploadStatus.uploaded,
+          clearCaseId: true,
+          clearFailureReason: true,
+        );
+      }).toList(),
+      selectedSection: MockInboxSection.open,
+      lastActionLabel: 'Zuordnung rueckgaengig gemacht.',
     );
   }
 
   void selectUpload(String uploadId) {
     value = value.copyWith(selectedUploadId: uploadId);
+  }
+
+  void selectSection(MockInboxSection section) {
+    final sectionUploads = _uploadsForSection(value.uploads, section);
+    value = value.copyWith(
+      selectedSection: section,
+      selectedUploadId: sectionUploads.isEmpty
+          ? value.selectedUploadId
+          : sectionUploads.first.id,
+      clearLastAction: true,
+    );
   }
 
   void toggleOffline() {
@@ -147,9 +191,30 @@ class MobileCaptureInboxMockController
       uploads: _initialUploads,
       cases: _cases,
       selectedUploadId: _initialUploads.first.id,
+      selectedSection: MockInboxSection.open,
       isOffline: false,
       failNextUpload: false,
     );
+  }
+
+  List<MockUploadItem> _uploadsForSection(
+    List<MockUploadItem> uploads,
+    MockInboxSection section,
+  ) {
+    return switch (section) {
+      MockInboxSection.open =>
+        uploads.where((upload) => upload.isDraft).toList(),
+      MockInboxSection.attention =>
+        uploads
+            .where(
+              (upload) =>
+                  upload.status == MockUploadStatus.failed ||
+                  upload.status == MockUploadStatus.queued,
+            )
+            .toList(),
+      MockInboxSection.recent =>
+        uploads.where((upload) => upload.isAssigned).toList(),
+    };
   }
 }
 

@@ -76,7 +76,10 @@ class _MobileCaptureInboxMockScreenState
                                   child: _DraftInboxPane(
                                     state: state,
                                     onSelect: _controller.selectUpload,
+                                    onSelectSection: _controller.selectSection,
                                     onAssign: _controller.assignSelectedUpload,
+                                    onMoveBack:
+                                        _controller.moveSelectedBackToInbox,
                                     onRetry: _controller.retryUpload,
                                   ),
                                 ),
@@ -91,7 +94,9 @@ class _MobileCaptureInboxMockScreenState
                             _DraftInboxPane(
                               state: state,
                               onSelect: _controller.selectUpload,
+                              onSelectSection: _controller.selectSection,
                               onAssign: _controller.assignSelectedUpload,
+                              onMoveBack: _controller.moveSelectedBackToInbox,
                               onRetry: _controller.retryUpload,
                             ),
                           ],
@@ -189,6 +194,11 @@ class _SummaryStrip extends StatelessWidget {
           icon: Icons.inbox_outlined,
           label: 'Draft-Inbox',
           value: state.draftCount.toString(),
+        ),
+        _SummaryPill(
+          icon: Icons.priority_high_outlined,
+          label: 'Aufmerksamkeit',
+          value: state.attentionCount.toString(),
         ),
         _SummaryPill(
           icon: Icons.folder_copy_outlined,
@@ -325,54 +335,108 @@ class _DraftInboxPane extends StatelessWidget {
   const _DraftInboxPane({
     required this.state,
     required this.onSelect,
+    required this.onSelectSection,
     required this.onAssign,
+    required this.onMoveBack,
     required this.onRetry,
   });
 
   final MobileCaptureInboxMockState state;
   final ValueChanged<String> onSelect;
+  final ValueChanged<MockInboxSection> onSelectSection;
   final ValueChanged<String> onAssign;
+  final VoidCallback onMoveBack;
   final ValueChanged<String> onRetry;
 
   @override
   Widget build(BuildContext context) {
-    final drafts = state.uploads.where((upload) => upload.isDraft).toList();
-    final selectedUpload = state.selectedUpload;
+    final sectionUploads = _uploadsForSection(
+      state.uploads,
+      state.selectedSection,
+    );
+    final selectedUpload =
+        sectionUploads.any((upload) => upload.id == state.selectedUpload?.id)
+        ? state.selectedUpload
+        : null;
 
     return _Panel(
-      title: 'Draft-Inbox',
-      subtitle: 'Desktop prueft mobile Uploads und ordnet sie zu',
+      title: 'Eingang',
+      subtitle: 'Offen, Aufmerksamkeit und zuletzt erledigt',
       icon: Icons.inbox_outlined,
       child: LayoutBuilder(
         builder: (context, constraints) {
           final split = constraints.maxWidth >= 720;
           final list = _DraftList(
-            uploads: drafts,
+            uploads: sectionUploads,
             selectedId: selectedUpload?.id,
+            section: state.selectedSection,
             onSelect: onSelect,
           );
           final review = _DraftReviewPanel(
             upload: selectedUpload,
             cases: state.cases,
+            lastActionLabel: state.lastActionLabel,
             onAssign: onAssign,
+            onMoveBack: onMoveBack,
             onRetry: onRetry,
+          );
+          final tabs = _InboxTabs(
+            selectedSection: state.selectedSection,
+            openCount: state.draftCount,
+            attentionCount: state.attentionCount,
+            recentCount: state.assignedCount,
+            onSelectSection: onSelectSection,
           );
 
           if (!split) {
-            return Column(children: [list, const SizedBox(height: 16), review]);
+            return Column(
+              children: [
+                tabs,
+                const SizedBox(height: 16),
+                list,
+                const SizedBox(height: 16),
+                review,
+              ],
+            );
           }
 
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          return Column(
             children: [
-              SizedBox(width: 260, child: list),
-              const SizedBox(width: 16),
-              Expanded(child: review),
+              tabs,
+              const SizedBox(height: 16),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(width: 280, child: list),
+                  const SizedBox(width: 16),
+                  Expanded(child: review),
+                ],
+              ),
             ],
           );
         },
       ),
     );
+  }
+
+  List<MockUploadItem> _uploadsForSection(
+    List<MockUploadItem> uploads,
+    MockInboxSection section,
+  ) {
+    return switch (section) {
+      MockInboxSection.open =>
+        uploads.where((upload) => upload.isDraft).toList(),
+      MockInboxSection.attention =>
+        uploads
+            .where(
+              (upload) =>
+                  upload.status == MockUploadStatus.failed ||
+                  upload.status == MockUploadStatus.queued,
+            )
+            .toList(),
+      MockInboxSection.recent =>
+        uploads.where((upload) => upload.isAssigned).toList(),
+    };
   }
 }
 
@@ -427,6 +491,87 @@ class _Panel extends StatelessWidget {
   }
 }
 
+class _InboxTabs extends StatelessWidget {
+  const _InboxTabs({
+    required this.selectedSection,
+    required this.openCount,
+    required this.attentionCount,
+    required this.recentCount,
+    required this.onSelectSection,
+  });
+
+  final MockInboxSection selectedSection;
+  final int openCount;
+  final int attentionCount;
+  final int recentCount;
+  final ValueChanged<MockInboxSection> onSelectSection;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        _InboxTabChip(
+          section: MockInboxSection.open,
+          selectedSection: selectedSection,
+          label: 'Offen',
+          count: openCount,
+          icon: Icons.inbox_outlined,
+          onSelectSection: onSelectSection,
+        ),
+        _InboxTabChip(
+          section: MockInboxSection.attention,
+          selectedSection: selectedSection,
+          label: 'Aufmerksamkeit',
+          count: attentionCount,
+          icon: Icons.priority_high_outlined,
+          onSelectSection: onSelectSection,
+        ),
+        _InboxTabChip(
+          section: MockInboxSection.recent,
+          selectedSection: selectedSection,
+          label: 'Zuletzt erledigt',
+          count: recentCount,
+          icon: Icons.history,
+          onSelectSection: onSelectSection,
+        ),
+      ],
+    );
+  }
+}
+
+class _InboxTabChip extends StatelessWidget {
+  const _InboxTabChip({
+    required this.section,
+    required this.selectedSection,
+    required this.label,
+    required this.count,
+    required this.icon,
+    required this.onSelectSection,
+  });
+
+  final MockInboxSection section;
+  final MockInboxSection selectedSection;
+  final String label;
+  final int count;
+  final IconData icon;
+  final ValueChanged<MockInboxSection> onSelectSection;
+
+  @override
+  Widget build(BuildContext context) {
+    final selected = section == selectedSection;
+
+    return FilterChip(
+      selected: selected,
+      showCheckmark: false,
+      avatar: Icon(icon),
+      label: Text('$label $count'),
+      onSelected: (_) => onSelectSection(section),
+    );
+  }
+}
+
 class _UploadQueueItem extends StatelessWidget {
   const _UploadQueueItem({required this.upload, required this.onRetry});
 
@@ -477,22 +622,37 @@ class _DraftList extends StatelessWidget {
   const _DraftList({
     required this.uploads,
     required this.selectedId,
+    required this.section,
     required this.onSelect,
   });
 
   final List<MockUploadItem> uploads;
   final String? selectedId;
+  final MockInboxSection section;
   final ValueChanged<String> onSelect;
 
   @override
   Widget build(BuildContext context) {
     if (uploads.isEmpty) {
-      return const _EmptyState(
-        icon: Icons.inbox_outlined,
-        title: 'Draft-Inbox leer',
-        body:
-            'Mobile Uploads erscheinen hier, bevor sie einem Vorgang zugeordnet werden.',
-      );
+      final (icon, title, body) = switch (section) {
+        MockInboxSection.open => (
+          Icons.inbox_outlined,
+          'Nichts offen',
+          'Neue mobile Uploads erscheinen hier, bevor sie einem Vorgang zugeordnet werden.',
+        ),
+        MockInboxSection.attention => (
+          Icons.done_all,
+          'Keine Aufmerksamkeit noetig',
+          'Fehler, Warteschlangen und unklare Uploads landen hier.',
+        ),
+        MockInboxSection.recent => (
+          Icons.history,
+          'Noch nichts erledigt',
+          'Gerade zugeordnete Dokumente bleiben kurz fuer Korrekturen erreichbar.',
+        ),
+      };
+
+      return _EmptyState(icon: icon, title: title, body: body);
     }
 
     return Column(
@@ -568,13 +728,17 @@ class _DraftReviewPanel extends StatelessWidget {
   const _DraftReviewPanel({
     required this.upload,
     required this.cases,
+    required this.lastActionLabel,
     required this.onAssign,
+    required this.onMoveBack,
     required this.onRetry,
   });
 
   final MockUploadItem? upload;
   final List<MockCaseItem> cases;
+  final String? lastActionLabel;
   final ValueChanged<String> onAssign;
+  final VoidCallback onMoveBack;
   final ValueChanged<String> onRetry;
 
   @override
@@ -616,6 +780,10 @@ class _DraftReviewPanel extends StatelessWidget {
           const SizedBox(height: 14),
           _DocumentPreview(upload: currentUpload),
           const SizedBox(height: 16),
+          if (lastActionLabel != null) ...[
+            _ActionNotice(message: lastActionLabel!),
+            const SizedBox(height: 16),
+          ],
           if (currentUpload.status == MockUploadStatus.failed) ...[
             Text(
               currentUpload.failureReason ?? 'Upload fehlgeschlagen',
@@ -628,7 +796,20 @@ class _DraftReviewPanel extends StatelessWidget {
               label: const Text('Erneut versuchen'),
             ),
           ] else if (currentUpload.isAssigned) ...[
-            _AssignedMessage(upload: currentUpload, cases: cases),
+            _AssignedMessage(
+              upload: currentUpload,
+              cases: cases,
+              onMoveBack: onMoveBack,
+            ),
+            const SizedBox(height: 16),
+            Text('Zuordnung korrigieren', style: theme.textTheme.titleSmall),
+            const SizedBox(height: 10),
+            for (final caseItem in cases) ...[
+              _CaseOption(caseItem: caseItem, onAssign: onAssign),
+              const SizedBox(height: 8),
+            ],
+            const SizedBox(height: 16),
+            _OpenCaseHint(upload: currentUpload, cases: cases),
           ] else if (currentUpload.isDraft) ...[
             Text('Vorgang zuordnen', style: theme.textTheme.titleSmall),
             const SizedBox(height: 10),
@@ -735,11 +916,43 @@ class _CaseOption extends StatelessWidget {
   }
 }
 
+class _ActionNotice extends StatelessWidget {
+  const _ActionNotice({required this.message});
+
+  final String message;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.primary.withValues(alpha: 0.10),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.info_outline, color: theme.colorScheme.primary),
+          const SizedBox(width: 10),
+          Expanded(child: Text(message, style: theme.textTheme.bodyMedium)),
+        ],
+      ),
+    );
+  }
+}
+
 class _AssignedMessage extends StatelessWidget {
-  const _AssignedMessage({required this.upload, required this.cases});
+  const _AssignedMessage({
+    required this.upload,
+    required this.cases,
+    required this.onMoveBack,
+  });
 
   final MockUploadItem upload;
   final List<MockCaseItem> cases;
+  final VoidCallback onMoveBack;
 
   @override
   Widget build(BuildContext context) {
@@ -760,14 +973,77 @@ class _AssignedMessage extends StatelessWidget {
         color: Colors.green.withValues(alpha: 0.10),
         borderRadius: BorderRadius.circular(8),
       ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.check_circle_outline, color: Colors.green),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  'Zugeordnet zu "${caseItem.title}".',
+                  style: theme.textTheme.bodyMedium,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'Bleibt kurz in "Zuletzt erledigt", damit eine falsche Zuordnung schnell korrigiert werden kann.',
+            style: theme.textTheme.bodySmall,
+          ),
+          const SizedBox(height: 10),
+          TextButton.icon(
+            onPressed: onMoveBack,
+            icon: const Icon(Icons.undo),
+            label: const Text('Zurueck nach Offen'),
+          ),
+          const SizedBox(height: 4),
+          FilledButton.icon(
+            onPressed: () {},
+            icon: const Icon(Icons.open_in_new),
+            label: const Text('Vorgang oeffnen'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _OpenCaseHint extends StatelessWidget {
+  const _OpenCaseHint({required this.upload, required this.cases});
+
+  final MockUploadItem upload;
+  final List<MockCaseItem> cases;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final caseItem = cases.firstWhere(
+      (item) => item.id == upload.caseId,
+      orElse: () => const MockCaseItem(
+        id: 'unknown',
+        title: 'Vorgang',
+        subtitle: 'Dokument ist zugeordnet',
+      ),
+    );
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        border: Border.all(color: theme.dividerColor),
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: Row(
         children: [
-          const Icon(Icons.check_circle_outline, color: Colors.green),
+          Icon(Icons.folder_open_outlined, color: theme.colorScheme.primary),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
-              'Zugeordnet zu "${caseItem.title}".',
-              style: theme.textTheme.bodyMedium,
+              'Exportieren, Drucken und Mail vorbereiten gehoeren spaeter in "${caseItem.title}" oder ins Dokumentdetail.',
+              style: theme.textTheme.bodySmall,
             ),
           ),
         ],

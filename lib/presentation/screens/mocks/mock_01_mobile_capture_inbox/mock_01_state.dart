@@ -1,5 +1,7 @@
 enum MockUploadStatus { queued, uploading, uploaded, failed }
 
+enum MockInboxSection { open, attention, recent }
+
 class MockUploadItem {
   const MockUploadItem({
     required this.id,
@@ -31,6 +33,7 @@ class MockUploadItem {
     String? caseId,
     String? failureReason,
     bool clearFailureReason = false,
+    bool clearCaseId = false,
   }) {
     return MockUploadItem(
       id: id ?? this.id,
@@ -38,7 +41,7 @@ class MockUploadItem {
       source: source ?? this.source,
       createdLabel: createdLabel ?? this.createdLabel,
       status: status ?? this.status,
-      caseId: caseId ?? this.caseId,
+      caseId: clearCaseId ? null : caseId ?? this.caseId,
       failureReason: clearFailureReason
           ? null
           : failureReason ?? this.failureReason,
@@ -63,15 +66,19 @@ class MobileCaptureInboxMockState {
     required this.uploads,
     required this.cases,
     required this.selectedUploadId,
+    required this.selectedSection,
     required this.isOffline,
     required this.failNextUpload,
+    this.lastActionLabel,
   });
 
   final List<MockUploadItem> uploads;
   final List<MockCaseItem> cases;
   final String? selectedUploadId;
+  final MockInboxSection selectedSection;
   final bool isOffline;
   final bool failNextUpload;
+  final String? lastActionLabel;
 
   MockUploadItem? get selectedUpload {
     for (final upload in uploads) {
@@ -92,21 +99,36 @@ class MobileCaptureInboxMockState {
 
   int get draftCount => uploads.where((upload) => upload.isDraft).length;
 
+  int get attentionCount => uploads
+      .where(
+        (upload) =>
+            upload.status == MockUploadStatus.failed ||
+            upload.status == MockUploadStatus.queued,
+      )
+      .length;
+
   int get assignedCount => uploads.where((upload) => upload.isAssigned).length;
 
   MobileCaptureInboxMockState copyWith({
     List<MockUploadItem>? uploads,
     List<MockCaseItem>? cases,
     String? selectedUploadId,
+    MockInboxSection? selectedSection,
     bool? isOffline,
     bool? failNextUpload,
+    String? lastActionLabel,
+    bool clearLastAction = false,
   }) {
     return MobileCaptureInboxMockState(
       uploads: uploads ?? this.uploads,
       cases: cases ?? this.cases,
       selectedUploadId: selectedUploadId ?? this.selectedUploadId,
+      selectedSection: selectedSection ?? this.selectedSection,
       isOffline: isOffline ?? this.isOffline,
       failNextUpload: failNextUpload ?? this.failNextUpload,
+      lastActionLabel: clearLastAction
+          ? null
+          : lastActionLabel ?? this.lastActionLabel,
     );
   }
 }

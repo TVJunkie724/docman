@@ -23,9 +23,16 @@ Rules:
 
 Path: `lib/presentation/screens/mocks/mock_01_mobile_capture_inbox/`
 
-Purpose: validate whether Mobile Capture, Upload Queue, Draft-Inbox review and optional case assignment feel right as the MVP core.
+Purpose: validate whether Mobile Capture, Upload Queue, Eingang review and optional case assignment feel right as the MVP core.
 
 Stage: interactive Flutter-only mock.
+
+Current focus:
+
+- Eingang sections: `Offen`, `Aufmerksamkeit`, `Zuletzt erledigt`
+- quick correction path for recently assigned documents
+- link from recently assigned documents to the related case
+- export, print and mail preparation belong later in the case/document detail, not in Eingang
 
 ### ASCII Layout
 
@@ -35,12 +42,14 @@ Stage: interactive Flutter-only mock.
 +-------------------------------------------------------------+
 | [Add upload] [Offline] [Fail next] [Reset]                  |
 +-------------------------------------------------------------+
-| Status strip: Queue, Inbox, Assigned                         |
+| Status strip: Queue, Offen, Aufmerksamkeit, Erledigt         |
 +-------------------------------------------------------------+
 | Mobile pane                 | Desktop pane                   |
 | - capture card              | - draft inbox list             |
-| - upload queue              | - selected document review     |
-|                             | - assign to case action        |
+| - upload queue              | - Eingang tabs                 |
+|                             | - selected document review     |
+|                             | - assign/correct case action   |
+|                             | - open related case link       |
 +-------------------------------------------------------------+
 ```
 
