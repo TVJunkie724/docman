@@ -2,8 +2,8 @@
 title: "Konzept F15 - Mock Repository Blueprint"
 description: "DocMan-spezifische Mock- und Fake-Strategie für UI, Riverpod, lokale Daten, Home Hub, Mobile Capture und spätere Sync-Fälle"
 tags: [concept, foundation, mocks, fakes, testing, riverpod, mobile-capture]
-lastUpdated: "2026-05-05"
-version: "3.2"
+lastUpdated: "2026-05-06"
+version: "3.4"
 status: "accepted"
 ---
 
@@ -30,7 +30,7 @@ Dieses Konzept ist die App-seitige Hälfte der R3-Teststrategie und der praktisc
 | Fake Home Hub Client | Mobile Upload, Health, Pairing simulieren |
 | In-Memory Storage | lokale Persistenz ohne echte DB-Dateien |
 | Fixture Files | harmlose Test-PDFs/Bilder |
-| Contract Mock Backend | API-Verträge über Microcks oder vergleichbares Tool prüfen |
+| Contract Mock Backend | API-Verträge über Microcks prüfen |
 | Real Integration | später gegen echten Compose/Home-Hub-Stack |
 
 ## Regeln
@@ -38,6 +38,8 @@ Dieses Konzept ist die App-seitige Hälfte der R3-Teststrategie und der praktisc
 - Fakes implementieren dieselben Repository-Verträge wie echte Data-Implementierungen.
 - Fakes dürfen keine Produktlogik ersetzen.
 - Testdaten sind synthetisch und nie privat.
+- App-Testfixtures liegen unter `test/fixtures/`; API-/Microcks-Beispiele liegen unter `contracts/`.
+- Anonymisierte private Dokumente sind nicht erlaubt; Fixtures muessen frei erfunden sein.
 - Fake-Modus muss in UI/Dev klar erkennbar sein.
 - Production darf nicht still auf Fake-Daten laufen.
 - Fake-Repositories laufen im Prozess der Flutter-Tests und benötigen kein Netzwerk.
@@ -104,7 +106,7 @@ Fake-Repositories sind für schnelle App-Tests gedacht:
 - Widget Tests mit stabilen Zuständen.
 - Offline-Verhalten und lokale Queue-Logik.
 
-Microcks oder ein vergleichbarer Contract-Mock ist für Schnittstellen gedacht:
+Microcks ist für Schnittstellen gedacht:
 
 - Home-Hub Health.
 - Pairing und Token-Fehler.
@@ -146,6 +148,5 @@ F15 gilt als umgesetzt, wenn:
 
 ## Offene Folgefragen
 
-- Wo liegen Fixture-Dateien?
 - Gibt es einen globalen Dev-Fake-Modus?
 - Welche Fake-Szenarien werden im UI auswählbar?

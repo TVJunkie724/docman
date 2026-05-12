@@ -2,8 +2,8 @@
 title: "Konzept F13 - Configuration Pages"
 description: "DocMan-spezifische UX-Regeln für Einstellungen, Home-Hub-Verbindung, Profile, Storage, Diagnose und spätere Admin-Flows"
 tags: [concept, configuration, ux, settings, home-hub, profiles]
-lastUpdated: "2026-04-26"
-version: "3.0"
+lastUpdated: "2026-05-06"
+version: "3.1"
 status: "accepted"
 ---
 
@@ -29,6 +29,7 @@ Konfiguration ist kein Marketingbereich. Sie muss ruhig, klar und diagnosefähig
 |---|---|
 | Allgemein | Sprache, Theme, lokale Präferenzen |
 | Profile | aktives Profil, einfache Profilverwaltung |
+| Haushalt | spätere Haushaltsmitglieder, Kinderprofile, Zugriffsstatus |
 | Home Hub | URL, Health Check, Pairing-Status |
 | Storage | lokale Speicherorte, Cache-Status, Export später |
 | Mobile Capture | verbundenes Gerät, Upload-Status, Queue-Hinweise |
@@ -64,10 +65,11 @@ F13 gilt als umgesetzt, wenn:
 - Home-Hub-Verbindung verständlich konfigurierbar ist.
 - Secrets nicht sichtbar sind.
 - Diagnose Status und nächste Aktion trennt.
+- Profil- und Haushaltsbereiche getrennt geplant sind, damit MVP-Profilwahl nicht mit späterer Rechteverwaltung vermischt wird.
 
 ## Offene Folgefragen
 
 - Braucht der MVP einen Setup-Wizard?
 - Wie wird Mobile Pairing dargestellt?
 - Welche Storage-Informationen sind für normale Nutzer sinnvoll?
-
+- Welche Haushalts-/Kinderprofilverwaltung ist R5-Minimum?

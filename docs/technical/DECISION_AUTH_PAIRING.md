@@ -2,7 +2,7 @@
 title: "Decision - Auth and Pairing"
 description: "Entscheidung fuer Mobile-/Desktop-Pairing, Home-Hub-Zugriff und spaetere Identity Provider"
 tags: [decision, accepted, auth, pairing, mobile-capture, home-hub, identity]
-lastUpdated: "2026-04-30"
+lastUpdated: "2026-05-06"
 status: "accepted"
 ---
 
@@ -15,6 +15,8 @@ Accepted.
 Der MVP verwendet **QR Pairing** als primaeren Flow fuer die Kopplung an den privaten Home Hub. Ein **manueller Pairing-Code** ist der Fallback.
 
 Google- oder Microsoft-Identity wird fuer den MVP nicht implementiert, aber als spaetere optionale Identity-Provider-Schicht vorbereitet.
+
+Ergaenzend gilt `docs/technical/DECISION_LOCAL_MVP_LOGIN.md`: Der lokale Desktop-MVP erzwingt kein klassisches Login. Er nutzt ein lokales Profil; Mobile Capture wird ueber Device Pairing gekoppelt.
 
 ## Entscheidung
 
@@ -33,6 +35,7 @@ Nicht MVP:
 
 - Google Login.
 - Microsoft Login.
+- Desktop-Login als Pflichtpfad.
 - vollstaendige Account-Plattform.
 - vollstaendiges Rollen- und Haushalts-Rechtemodell.
 
@@ -85,6 +88,7 @@ Sie darf aber nicht Voraussetzung fuer lokale/private Nutzung werden.
 Erlaubt:
 
 - neutrale Domain-Begriffe wie `IdentityProvider`, `HouseholdMember`, `DeviceSession`, `PairedDevice`.
+- `LocalProfile` als lokaler MVP-Begriff ohne Cloud-Account-Pflicht.
 - ein `PairingRepository` oder vergleichbare Domain-Grenze.
 - Provider/Repository-Austauschbarkeit fuer Pairing-Fakes in Tests.
 - spaetere Provider fuer Google, Microsoft oder Passkeys hinter neutralen Interfaces.

@@ -2,8 +2,8 @@
 title: "Konzept F10 - Local Storage"
 description: "DocMan-spezifisches Konzept für local-first Persistenz, lokale Datenbank, Datei-Cache, Draft-Inbox, Mobile-Upload-Queue und spätere Sync-Fähigkeit"
 tags: [concept, foundation, local-storage, local-first, persistence, draft-inbox, mobile-capture, sync]
-lastUpdated: "2026-04-26"
-version: "3.0"
+lastUpdated: "2026-05-08"
+version: "3.3"
 status: "accepted"
 ---
 
@@ -29,6 +29,8 @@ Dieses Konzept baut auf diesen Entscheidungen auf:
 - State Management und DI: Riverpod.
 - Datenfluss: local-first mit generischem self-hosted Sync Backend.
 - Backend-Rolle: eigener self-hosted Docker-/Compose-Stack als Draft-Zielbild; PocketBase nicht Zielarchitektur.
+- Lokale Datenbank: SQLite + Drift.
+- Dateiablage: austauschbarer Storage-Port; App-local File Store zuerst, MinIO/S3-kompatibler Storage fuer Home Hub vorbereitet.
 - MVP: Desktop-Verwaltung plus Mobile Capture mit minimalem Home-Hub-Eingangskorb.
 - Mobile im MVP: capture-only, lokale Upload-Queue, optionale Vorgangszuordnung.
 
@@ -67,9 +69,12 @@ Der MVP braucht lokale Persistenz für:
 
 - einen Haushalt
 - ein aktives Profil
+- Profilzuordnung fuer Vorgänge, Dokumente, Drafts und spätere Records
 - Vorgänge
 - Dokument-Metadaten
 - Draft-Inbox
+- Aufgaben und einfache Reminder-Daten
+- Schnellzugriff-Markierungen fuer wichtige Dokumente/Records
 - lokale Desktop-Dateiimporte
 - mobile Capture-Uploads
 - lokale Mobile-Upload-Queue
@@ -81,7 +86,9 @@ Der MVP braucht lokale Persistenz für:
 
 DocMan braucht eine strukturierte lokale Datenbank, nicht nur Key-Value Storage.
 
-Die konkrete Technologie ist in diesem Konzept noch nicht endgültig entschieden. Der aktuelle Spike verwendet Isar. Die Foundation-Planung muss prüfen, ob Isar als Ziel bleibt oder ob eine andere lokale Datenbank besser zum langfristigen Sync-, Mobile- und Migrationsmodell passt.
+Die konkrete Technologie ist entschieden: DocMan verwendet SQLite + Drift fuer strukturierte lokale Daten.
+
+Der aktuelle Spike verwendet noch Isar an einzelnen Stellen. Isar ist Legacy-/Spike-Code und wird nicht weiter als Zielarchitektur ausgebaut.
 
 ### Anforderungen an die lokale DB
 
@@ -121,6 +128,22 @@ Die lokale Dateiablage muss diese Fälle unterstützen:
 - Desktop kann Dokumente lokal öffnen oder als Vorschau anzeigen.
 - Später kann der Home Hub Originale zentral speichern.
 
+Die Dateiablage liegt hinter einem austauschbaren Storage-Port. Domain und UI
+kennen keine konkrete Storage-Technologie wie Dateipfade, MinIO, S3-SDKs oder
+HTTP-Uploaddetails.
+
+```text
+Domain
+  -> DocumentFileStore / FileStorageRepository
+      -> LocalFileStore
+      -> HomeHubFileStore
+      -> S3CompatibleFileStore / MinioFileStore
+      -> FakeFileStore
+```
+
+Riverpod Provider verdrahten die aktive Implementierung. Die Austauschbarkeit
+kommt aber vom Domain-Interface, nicht vom Provider-Namen.
+
 ### Datei-Prinzipien
 
 - Originaldateien werden nicht still verändert.
@@ -129,12 +152,15 @@ Die lokale Dateiablage muss diese Fälle unterstützen:
 - Hashes sollen Duplikate, Integrität und späteren Sync unterstützen.
 - Dateityp und Größe werden als Metadaten gespeichert.
 - Vorschaudateien und Thumbnails sind abgeleitete Daten und dürfen neu erzeugt werden.
+- MinIO/S3-kompatibler Storage gehoert zum Home-Hub-/Server-Stack, nicht als Pflicht in den App-local Kern.
 
 ## Draft-Inbox
 
 Die Draft-Inbox ist ein zentrales lokales Konzept.
 
 Sie nimmt Dokumente auf, die noch nicht vollständig geprüft, beschrieben oder zugeordnet sind.
+
+Im MVP ist sie der gemeinsame Eingang fuer Desktop-Dateiimport und Mobile Document Scan.
 
 Quellen:
 
@@ -190,19 +216,67 @@ Dieses Konzept entscheidet noch nicht die endgültige Sync-Strategie. Es verhind
 
 ## Suchfähigkeit
 
-Für den MVP reicht einfache lokale Suche.
+Die Suchtechnologie ist in `docs/technical/DECISION_SEARCH_TECHNOLOGY.md` entschieden.
+
+Für den MVP nutzt DocMan lokale Suche:
+
+- strukturierte SQLite/Drift-Abfragen für Filter.
+- SQLite FTS5 für gepflegte textuelle Metadaten.
+- ein Domain-Search-Interface, damit spätere Suchadapter austauschbar bleiben.
 
 Suchfelder:
 
 - Vorgangstitel.
 - Dokumenttitel.
+- Record-/Nachweistitel.
 - Tags.
 - Sender oder Quelle.
 - Datum.
 - Profil.
 - Draft-Status.
+- Lifecycle-/Dokument-/Record-Status.
+- einfache strukturierte Betrags- und Claim-Felder, sobald die Säule `PILLAR_SEARCH_FACTS_INSIGHTS.md` umgesetzt wird.
 
 Volltextsuche über OCR-Text gehört nicht in den MVP, muss aber später ergänzbar bleiben.
+
+Der lokale Suchindex ist sensibel. Metadaten, Tags, Gegenparteien, OCR-Texte und Suchbegriffe dürfen nicht als harmlose technische Daten behandelt werden.
+
+Spätere Erweiterungen:
+
+- FTS5 für geprüften OCR-Text.
+- optional lokale Vektor-Suche, z. B. `sqlite-vec`, wenn semantische Suche wirklich gebraucht wird.
+- optional Home-Hub-Search über Meilisearch, Typesense oder einen anderen Adapter.
+
+## Records und strukturierte Fakten
+
+F10 speichert im MVP noch kein vollständiges Insights-Modell. Die lokale Datenhaltung darf Dokumente aber nicht so modellieren, als wären sie nur Anhänge an Vorgänge.
+
+Vorbereitet werden müssen:
+
+- optionale `caseId` für Dokumente.
+- Profil-/Household-IDs fuer spaetere Familien- und Sharing-Faehigkeit.
+- `parentCaseId` für einfache MVP-Subvorgänge.
+- spätere Record-/Nachweis-Zuordnung.
+- Versionierungsfelder oder ein sauberer Migrationspfad dorthin.
+- strukturierte Felder für Betrag, Datum, Sender, Status und Quelle statt reinem Freitext.
+- spätere `DocumentFact`-, `FinancialEntry`- und `Claim`-Tabellen ohne Bruch des MVP-Datenmodells.
+- spätere `DocumentCaseLink`-Tabelle fuer flexible Mehrfachverlinkung mit Rollen.
+
+## Tasks, Reminders und Schnellzugriff
+
+F10 muss einfache Aufgaben und Reminder-Daten speichern können.
+
+MVP-light:
+
+- `Task` mit Titel, Status, Profilbezug, optionalem `caseId`, `documentId`, `recordId`, `dueAt`, `remindAt`.
+- `Reminder` oder Reminder-Felder fuer einfache einmalige Erinnerungen.
+- Quick-Access-Markierung fuer wichtige Dokumente, Records oder Vorgänge.
+
+Nicht in F10:
+
+- OS-spezifische Notification-Zustellung.
+- Kalenderintegration.
+- komplexe Wiederholungsregeln.
 
 ## Secure Storage Abgrenzung
 
@@ -257,12 +331,14 @@ F10 lässt bewusst mehrere technische Detailentscheidungen offen:
 
 | ID | Frage | Richtung |
 |---|---|---|
-| F10-D1 | Bleibt Isar Zieltechnologie oder wechseln wir? | In R2 Technical Foundation entscheiden |
+| F10-D1 | Bleibt Isar Zieltechnologie oder wechseln wir? | Entschieden: SQLite + Drift; Isar ist Legacy/Spike |
 | F10-D2 | Wie werden lokale Dateipfade und App-Verzeichnisse pro Plattform organisiert? | In Implementation-Plan konkretisieren |
 | F10-D3 | Wie sehen stabile IDs für lokale und spätere remote Entities aus? | Mit Sync-Konzept abstimmen |
 | F10-D4 | Welche Daten werden lokal verschlüsselt? | Mit F12 und Privacy-Konzept abstimmen |
-| F10-D5 | Wie lange hält Mobile lokale Uploads? | Mit F17 Mobile Capture abstimmen |
+| F10-D5 | Wie lange hält Mobile lokale Uploads? | Mit `PILLAR_CAPTURE_INBOX.md` und F17 Client Standards abstimmen |
 | F10-D6 | Wie werden Löschungen vor vollständigem Sync modelliert? | Mit späterem Sync-Konzept abstimmen |
+| F10-D7 | Wie heißt der File-Storage-Port konkret? | In Data-Architecture-Plan entscheiden |
+| F10-D8 | Nutzt der erste echte Home Hub Upload presigned URLs oder API-proxied Uploads? | In Home-Hub/API-Plan entscheiden |
 
 ## Definition of Done für F10
 
@@ -274,6 +350,7 @@ F10 gilt als umgesetzt, wenn:
 - Datei-Metadaten und Dateiinhalt getrennt verwaltet werden.
 - Repository-Grenzen DB- und SDK-Leaks verhindern.
 - einfache lokale Suche möglich ist.
+- lokale Suche über Search-Boundary und SQLite/Drift/FTS5 vorbereitet ist.
 - Sync-Metadaten vorbereitet sind.
 - Secure Secrets nicht in der normalen lokalen DB liegen.
 
@@ -284,6 +361,9 @@ F10 gilt als umgesetzt, wenn:
 - F5 Error Handling.
 - F11 API Integration.
 - F12 Secure Storage.
-- F17 Mobile Capture Plan.
+- F17 Mobile Capture Client Standards.
+- Produkt-Säule: Capture and Inbox.
 - Decision: Local-first Data Flow and Self-hosted Sync Backend.
+- Decision: Local Database.
+- Decision: File Storage Strategy and Local Docker Stack.
 - Decision: MVP Scope.

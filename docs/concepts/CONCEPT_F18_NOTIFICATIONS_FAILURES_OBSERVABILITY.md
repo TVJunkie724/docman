@@ -2,8 +2,8 @@
 title: "Konzept F18 - Notifications, Failures and Observability"
 description: "DocMan-spezifisches Querschnittskonzept für typed Failures, sichere Nutzerbenachrichtigungen, Telemetry Events, Audit Events, Correlation IDs und spätere Observability"
 tags: [concept, foundation, failures, notifications, observability, audit, telemetry, privacy, production-readiness]
-lastUpdated: "2026-05-05"
-version: "1.0"
+lastUpdated: "2026-05-06"
+version: "1.1"
 status: "accepted"
 ---
 
@@ -78,6 +78,8 @@ Exceptions bleiben Implementierungsdetail:
 
 `UserNotification` ist die sichere Nutzerkommunikation. Sie wird in der App-/Presentation-Schicht aus Failure, Workflow-Zustand und Nutzerkontext abgeleitet.
 
+Fachliche Erinnerungen sind ein eigenes Produktmodell. Die Säule `PILLAR_TASKS_REMINDERS_QUICK_ACCESS.md` definiert Tasks, Reminders und Schnellzugriff. F18 stellt nur die sicheren Anzeige-, Redaction- und Diagnosegrenzen bereit.
+
 Notification-Kanäle:
 
 | Kanal | Zweck |
@@ -96,6 +98,7 @@ Regeln:
 - Provider/Use Cases liefern Failure und Kontext.
 - UI/App-Schicht mappt auf lokalisierbare, sichere Texte.
 - Retry-Aktionen werden explizit modelliert, nicht durch freie Callback-Magie versteckt.
+- Reminder-Notifications dürfen keine sensiblen Dokumentdetails anzeigen, wenn der Sperrbildschirm oder ein gemeinsam genutztes Gerät betroffen sein könnte.
 
 ## Retry und Recovery
 

@@ -661,13 +661,13 @@ Inspect:
 - `lib/data/repositories/pocketbase_*`
 - `lib/presentation/blocs/*`
 - `lib/presentation/screens/*`
-- generated `*.freezed.dart`, `*.g.dart`
+- legacy generated `*.freezed.dart`, `*.g.dart`
 
 Allowed in R2:
 
 - remove or stop routing to legacy startup paths if target app no longer depends on them.
 - keep legacy files under a documented compatibility section if R3 still references them.
-- delete generated files only when their source files are removed and build output is regenerated.
+- remove generated files from Git only when the target path can regenerate required output through `scripts/codegen.sh`.
 
 Not allowed:
 

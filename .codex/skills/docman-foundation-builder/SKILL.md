@@ -23,7 +23,7 @@ Read:
 - Domain interfaces must not expose SDK-specific types.
 - Presentation must not import `lib/data/`.
 - Secrets belong behind Secure Storage boundaries.
-- Generated files are committed and must be reproducible with `scripts/codegen.sh`.
+- Generated Dart artifacts are not committed; they must be reproducible with `scripts/codegen.sh`.
 
 ## Workflow
 
@@ -37,7 +37,7 @@ flutter test
 flutter analyze
 ```
 
-Use `scripts/verify.sh` when strict R3 gates are expected to pass. If it fails from known legacy debt, report that separately.
+Use `scripts/verify.sh` when strict R3 gates are expected to pass. If it fails because legacy still leaks into product, build, tests, or analyze paths, report that as an isolation/removal blocker instead of treating the old spike as code to modernize.
 
 4. Implement narrowly in dependency order:
    - core/domain abstractions
@@ -53,6 +53,7 @@ Use `scripts/verify.sh` when strict R3 gates are expected to pass. If it fails f
 - New foundation code follows Riverpod and Clean Architecture boundaries.
 - No new BLoC/GetIt/Isar/PocketBase expansion.
 - Codegen is reproducible.
+- No new `*.freezed.dart` or `*.g.dart` files are staged unless an approved exception exists.
 - Tests pass for changed scope.
-- Analyzer/format debt is not increased; any known baseline debt is explicitly named.
+- Target-path analyzer/format debt is not increased; legacy leaks are explicitly named as isolation/removal work.
 - Related GitHub Issue has commit/verification/residual-risk context when appropriate.

@@ -2,8 +2,8 @@
 title: "Konzept F12 - Secure Storage"
 description: "DocMan-spezifisches Secure-Storage-Konzept für Pairing Secrets, Sessions, Geräteidentität, lokale Schlüssel und Abgrenzung zu Local Storage"
 tags: [concept, foundation, secure-storage, security, pairing, sessions, home-hub]
-lastUpdated: "2026-04-26"
-version: "3.0"
+lastUpdated: "2026-05-06"
+version: "3.1"
 status: "accepted"
 ---
 
@@ -86,7 +86,7 @@ Regeln:
 
 ## Pairing
 
-Mobile Capture braucht wahrscheinlich Pairing oder Login.
+Mobile Capture nutzt im MVP Pairing statt Login. Der lokale Desktop-MVP erzwingt kein klassisches Login.
 
 Pairing muss:
 
@@ -140,7 +140,5 @@ F12 gilt als umgesetzt, wenn:
 ## Offene Folgefragen
 
 - Welches Flutter-Package wird konkret genutzt?
-- Gibt es im MVP Pairing-Code, QR-Code oder Login?
 - Welche Secrets müssen zwischen Desktop und Mobile getrennt sein?
 - Wird lokale Datei-/DB-Verschlüsselung im MVP geprüft oder verschoben?
-

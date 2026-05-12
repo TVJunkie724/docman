@@ -2,8 +2,8 @@
 title: "DocMan - Project Overview & Product Guide"
 description: "Strategischer Überblick über Produktziel, Grundannahmen, kritische Entscheidungen, aktuellen Zustand und empfohlene Richtung für DocMan"
 tags: [overview, guide, product, strategy, planning]
-lastUpdated: "2026-04-27"
-version: "2.1"
+lastUpdated: "2026-05-12"
+version: "2.4"
 ---
 
 # DocMan - Project Overview & Product Guide
@@ -16,7 +16,8 @@ Es ist bewusst kritisch. DocMan hat eine starke Produktidee, aber der aktuelle S
 
 ## 2. Produktthese
 
-DocMan ist derzeit der Arbeitsname. Der finale Produktname ist noch offen und wird separat entschieden.
+DocMan ist derzeit der technische Repo-/Workspace-Name. Der Produktname ist
+entschieden: Die App heißt langfristig `Ordna`.
 
 Das Produkt sollte eine ruhige, robuste Dokumenten-App für Familien und Haushalte werden.
 
@@ -41,7 +42,7 @@ Das bisherige Modell `Incident` beschreibt technisch den richtigen Container, ab
 
 - `Case` / Vorgang: Der langlebige Container.
 - `Event` / Ereignis: Ein Zeitpunkt oder Eintrag in der Vorgangs-Historie.
-- `Document` / Dokument: Ein Anhang oder Nachweis.
+- `Document` / Dokument: Eine Unterlage, Datei, Scan, Beleg oder Nachweis.
 - `Task` / Aufgabe: Ein nächster Schritt.
 
 Die technische Struktur bleibt sinnvoll:
@@ -58,6 +59,40 @@ Household
 ```
 
 Entscheidung dokumentiert in: `docs/technical/DECISION_PRODUCT_LANGUAGE.md`.
+
+### 3.1 DMS-Zielarchitektur
+
+DocMan beziehungsweise Ordna wird nicht nur als App mit Dokumentanhängen geplant.
+Das langfristige Ziel ist ein vollwertiges privates Dokumentenmanagementsystem
+für Haushalt, Personen, Vorgänge, Fristen, Wissen, Auswertungen und Aktionen.
+
+Die fachliche Zielstruktur ist:
+
+```text
+Capture / Import
+  -> Inbox / Review
+      -> DocumentRecord
+          -> FileRecord / DocumentVersion
+          -> Record / Nachweis
+          -> Case / Vorgang
+          -> Profile / Person
+          -> DocumentFact
+          -> Task / Reminder
+          -> Search / Insights
+          -> Export / External Action
+```
+
+Ein Dokument gehört langfristig nicht genau einem Vorgang. Es kann in mehreren
+Kontexten sichtbar sein: in einem Vorgang, in einem Subvorgang, im Profil eines
+Kindes, als Version eines Records, in einer Versicherungs-/Claim-Auswertung,
+im Schnellzugriff oder in einem Exportpaket. Dateien werden dabei nicht
+dupliziert; Beziehungen tragen die fachliche Bedeutung.
+
+Die MVP-Implementierung darf vereinfachen, aber sie darf diese Zielarchitektur
+nicht verbauen. Insbesondere werden Inbox und Outbox als Arbeitsflächen geplant,
+nicht als eigentliche Besitzstruktur der Dokumente.
+
+Entscheidung dokumentiert in: `docs/technical/DECISION_DMS_TARGET_ARCHITECTURE.md`.
 
 ## 4. Empfohlene Produktprinzipien
 
@@ -112,7 +147,14 @@ DocMan Server Stack
 
 PocketBase kann als frühe Referenz oder Spike gelten, ist aber nach aktuellem Entwurf nicht Zielarchitektur.
 
-Entwurf dokumentiert in: `docs/technical/DECISION_BACKEND_ROLE.md`.
+Die konkrete Home-Hub-Zieltechnologie ist entschieden: ASP.NET Core fuer die
+API, PostgreSQL fuer Server-Metadaten und Sync-Journal, MinIO/S3-kompatibler
+Storage fuer Dateien und Microcks fuer OpenAPI-Mocks und Contract Verification.
+Worker starten bevorzugt als .NET Hosted Services / Worker Services; OCR- und
+AI-Komponenten duerfen spaeter als getrennte Sidecars hinzukommen.
+
+Entwurf zur Backend-Rolle dokumentiert in: `docs/technical/DECISION_BACKEND_ROLE.md`.
+Technologieentscheidung dokumentiert in: `docs/technical/DECISION_HOME_HUB_BACKEND_TECHNOLOGY.md`.
 
 ### 4.4 Workflows als Führung, nicht als Käfig
 
@@ -241,9 +283,11 @@ Enthält:
 
 ## 6. Dokumentationslage
 
-Aktuell gibt es vier aktive Ebenen:
+Aktuell gibt es mehrere aktive Ebenen:
 
 - Rebuild-Roadmap unter `docs/ROADMAP_REBUILD.md`.
+- Phasen-/Subphasen-Index unter `docs/roadmap/PHASE_INDEX.md`.
+- Säulen-Roadmap unter `docs/roadmap/PILLAR_ROADMAP_INDEX.md`.
 - Foundation-Konzepte unter `docs/concepts/CONCEPT_F*.md`.
 - Technische Decisions und Foundation-Plan unter `docs/technical/`.
 - Projektlokale Codex-Skills unter `.codex/skills/`.
@@ -327,11 +371,11 @@ Meine vorgeschlagene Richtung:
 
 | ID | Entscheidung | Empfehlung | Priorität |
 |---|---|---|---|
-| D0 | Produktname | Offen: `DocMan` bleibt Arbeitsname, finaler Name wird separat entschieden | Mittel |
+| D0 | Produktname | Entschieden: Produktname ist `Ordna`; `DocMan` bleibt vorerst technischer Repo-/Workspace-Name | Erledigt |
 | D1 | Zentraler Begriff | Entschieden: `Case` im Code, "Vorgang" im UI, `Event`/"Ereignis" für Timeline-Einträge | Erledigt |
 | D2 | State Management und DI | Entschieden: Riverpod ersetzt BLoC/GetIt als Zielarchitektur | Erledigt |
 | D3 | Datenfluss | Entschieden: local-first mit generischem DocMan Sync Backend; Home Hub/Tailscale nur erste Self-Hosted-Betriebsform | Erledigt |
-| D4 | Backend-Rolle | Entwurf: eigener self-hosted DocMan Server Stack per Docker/Compose; PocketBase nicht als Zielarchitektur | Hoch |
+| D4 | Backend-Rolle | Entwurf: eigener self-hosted DocMan Server Stack per Docker/Compose; Home-Hub-Technologie akzeptiert als ASP.NET Core + PostgreSQL + MinIO/S3 + Microcks; PocketBase nicht als Zielarchitektur | Hoch |
 | D5 | MVP-Scope | Entschieden: Desktop-Verwaltung plus Mobile Capture, minimaler Home-Hub-Eingangskorb, optionale Vorgangszuordnung | Erledigt |
 | D6 | Erweiterte Mobile-Verwaltung | Nach MVP und stabilem Sync planen | Mittel |
 | D7 | Workflow-Regeln | Entschieden: Empfehlungen und Review statt harte Status-Käfige; harte Regeln nur für Integrität/Sicherheit | Erledigt |
@@ -346,9 +390,12 @@ Diese Dokumente bilden die aktive Orientierung. Die Drafts am Ende müssen vor R
 
 ```text
 docs/ROADMAP_REBUILD.md
+docs/roadmap/PHASE_INDEX.md
+docs/roadmap/PILLAR_ROADMAP_INDEX.md
 docs/technical/TECHNICAL_FOUNDATION_PLAN.md
 docs/technical/R2_TECHNICAL_FOUNDATION_IMPLEMENTATION_PLAN.md
 docs/technical/DECISION_PRODUCT_NAME.md
+docs/technical/DECISION_HOME_HUB_BACKEND_TECHNOLOGY.md
 docs/technical/DECISION_STATE_MANAGEMENT.md
 docs/technical/DECISION_DATA_FLOW.md
 docs/technical/DECISION_BACKEND_ROLE.md

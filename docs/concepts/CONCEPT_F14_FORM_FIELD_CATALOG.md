@@ -2,8 +2,8 @@
 title: "Konzept F14 - Form Field Catalog"
 description: "DocMan-spezifischer Formularfeld-Katalog für Vorgänge, Dokumente, Profile, Draft Review, Upload Queue und spätere KI-Vorschläge"
 tags: [concept, forms, ui, fields, review, documents, cases]
-lastUpdated: "2026-04-26"
-version: "3.0"
+lastUpdated: "2026-05-06"
+version: "3.1"
 status: "accepted"
 ---
 
@@ -27,18 +27,22 @@ F14 definiert die fachlichen Formulartypen, die DocMan braucht. Exakte visuelle 
 | Mehrzeilig | Beschreibung, Review-Kommentar |
 | Datum | Dokumentdatum, Frist, Ereignisdatum |
 | Betrag | Rechnungen, Erstattungen |
+| Prozent | Erstattungsquote, Selbstbehalt, Deckung |
 | Auswahl | Dokumenttyp, Vorgangstyp, Status |
+| Nachweis-/Record-Auswahl | aktuelle Version, alte Version, ersetzt durch |
 | Profilauswahl | Zuordnung zu Person/Haushalt |
 | Tags | Suche, freie Struktur |
 | Datei-Auswahl | Desktop-Import |
 | Scan-Quelle | Mobile Capture |
 | Review-Feld | KI/OCR-Vorschlag akzeptieren/korrigieren |
+| Claim-Feld | eingereicht, bewilligt, teilweise bewilligt, abgelehnt, bezahlt |
 
 ## MVP-Formulare
 
 - Vorgang erstellen/bearbeiten.
 - Dokument-Draft prüfen.
 - Dokument einem Vorgang zuordnen.
+- Dokument optional einem Record/Nachweis zuordnen.
 - Profil wählen.
 - Home-Hub-Adresse setzen.
 - Mobile Upload optional kommentieren.
@@ -82,4 +86,3 @@ F14 gilt als umgesetzt, wenn:
 - Welche Vorgangstypen brauchen eigene Formularfelder?
 - Welche Dokumenttypen sind MVP-relevant?
 - Wann wird ein visuelles Form-Design-System konkretisiert?
-

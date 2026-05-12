@@ -46,7 +46,7 @@ docman/
 - PocketBase is historical spike/backend-adapter code, not target architecture.
 - Files and documents are stored separately from structured metadata.
 - Secrets belong behind Secure Storage boundaries, not normal local DB tables.
-- Freezed is used for immutable entities and union types. Generated files are committed and reproduced through `scripts/codegen.sh`.
+- Freezed may be used for immutable entities and union types. Generated Dart artifacts are ignored and reproduced through `scripts/codegen.sh`.
 - `font_awesome_flutter` is available for icons.
 
 No NSwag, .NET, PocketBase, cloud-first, or mandatory OAuth assumptions.
@@ -78,7 +78,7 @@ Presentation -> Domain -> Data
 ## Rebuild Roadmap Anchors
 
 - R2 Technical Foundation: bootstrap, Riverpod, Drift direction, secure boundaries, migration away from legacy patterns.
-- R3 Quality & Production Readiness: tests, fake repositories, Microcks/contract mocks, scripts, analyzer/format debt, production-readiness gates.
+- R3 Quality & Production Readiness: tests, fake repositories, Microcks/contract mocks, scripts, target-path analyzer/format gates, legacy isolation/removal.
 - R4 Desktop Core + Mobile Capture MVP: first product slice after foundation/quality.
 
 GitHub Issues are the source of truth for actionable follow-up work. Accepted decisions stay in `docs/technical/DECISION_*.md`.
@@ -86,8 +86,8 @@ GitHub Issues are the source of truth for actionable follow-up work. Accepted de
 ## Verification Scripts
 
 - `scripts/bootstrap.sh`: fresh checkout setup and codegen; optional strict verify with `--verify`.
-- `scripts/codegen.sh`: Freezed/JSON/Drift generation; preserves legacy Isar output during migration.
-- `scripts/verify.sh`: strict local gate. It may currently fail because R3 legacy format/analyzer debt is not fully paid down.
+- `scripts/codegen.sh`: Freezed/JSON/Drift generation; generated Dart artifacts are local build output, not source of truth.
+- `scripts/verify.sh`: strict local gate. It may currently fail until R3 narrows checks to the target path and removes legacy leaks.
 
 ## UI Conventions
 

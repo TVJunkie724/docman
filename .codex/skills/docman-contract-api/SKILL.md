@@ -1,6 +1,6 @@
 ---
 name: docman-contract-api
-description: Use for DocMan API contract work, including Home Hub, mobile capture upload, sync, auth/pairing, OpenAPI specs, Microcks or equivalent mock backend setup, client/server handoffs, request/response errors, and contract verification.
+description: Use for DocMan API contract work, including Home Hub, mobile capture upload, sync, auth/pairing, OpenAPI specs, Microcks mock backend setup, client/server handoffs, request/response errors, and contract verification.
 ---
 
 # DocMan Contract API
@@ -23,8 +23,9 @@ Read:
 - Home Hub/Tailscale may be the first self-hosted operating mode, not a hard product assumption.
 - Cloud OAuth can come later; MVP pairing is QR first, manual code fallback.
 - Documents and metadata are sensitive.
-- API contracts should be machine-readable, preferably OpenAPI.
-- Microcks or an equivalent mock backend validates contracts before the real backend is complete.
+- API contracts use OpenAPI as the source of truth for HTTP boundaries.
+- Microcks validates contracts before the real backend is complete.
+- Do not plan Prism/WireMock as default fallbacks. Re-evaluate only if Microcks fails a concrete requirement.
 
 ## Contract Boundaries
 

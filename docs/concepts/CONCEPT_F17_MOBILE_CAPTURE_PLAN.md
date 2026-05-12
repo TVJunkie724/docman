@@ -1,13 +1,13 @@
 ---
-title: "Konzept F17 - Mobile Capture Plan"
-description: "DocMan-spezifisches Mobile-Capture-Konzept für MVP-Scan, lokale Queue, optionale Vorgangszuordnung, Home-Hub-Upload und späteren Mobile-Ausbau"
+title: "Konzept F17 - Mobile Capture Client Standards"
+description: "Querschnittliche Frontend-/Client-Regeln fuer Mobile-Capture-Qualitaet, Queue-Zustaende, Upload-Feedback und sichere MVP-Grenzen"
 tags: [concept, mobile, capture, mvp, upload-queue, home-hub, draft-inbox]
-lastUpdated: "2026-05-05"
-version: "1.1"
+lastUpdated: "2026-05-10"
+version: "1.3"
 status: "accepted"
 ---
 
-# Konzept F17 - Mobile Capture Plan
+# Konzept F17 - Mobile Capture Client Standards
 
 ## Status
 
@@ -15,7 +15,9 @@ Accepted.
 
 ## Zweck
 
-F17 definiert den MVP-Scope für Mobile Capture und grenzt ihn von vollständiger mobiler Vorgangsverwaltung ab.
+F17 ist kein Produkt-Säulen-Dokument. Der fachliche Capture-/Inbox-Scope liegt in `docs/pillars/PILLAR_CAPTURE_INBOX.md`.
+
+F17 definiert die querschnittlichen Frontend-/Client-Regeln fuer Mobile Capture: Scan-Qualitaet, lokale Queue-Zustaende, Upload-Feedback, Fehlergrenzen und die Abgrenzung zur vollständigen mobilen Verwaltung.
 
 ## Grundsatz
 
@@ -43,6 +45,10 @@ Technische Zielrichtung:
 - iOS: native VisionKit Document Camera als funktionales Pendant pruefen.
 - Flutter soll diese nativen Scanner kapseln, aber nicht selbst mit einfachem Kamera-Foto plus eigener Bildbearbeitung starten.
 
+Diese Richtung ist in `docs/technical/DECISION_MOBILE_SCANNER_TECHNOLOGY.md`
+vorlaeufig akzeptiert. Die konkrete Flutter-Bridge wird erst nach einem
+Qualitaets-Spike final gewaehlt.
+
 Wenn eine Plattform die gewuenschte Qualitaet nicht liefern kann, darf der MVP nicht still auf normalen Foto-Upload zurueckfallen. Dann braucht es einen sichtbaren Fallback mit Hinweis, dass der Scan nur Fotoqualitaet hat.
 
 ## MVP-Flow
@@ -51,9 +57,10 @@ Wenn eine Plattform die gewuenschte Qualitaet nicht liefern kann, darf der MVP n
 Mobile
   -> Foto/Scan aufnehmen
   -> lokal speichern
+  -> optional Profilkontext setzen, wenn verfügbar
   -> optional Vorgang aus gecachter Liste wählen
   -> Upload an Home Hub
-  -> Fallback Draft-Inbox
+  -> Draft-Inbox als sichere Ablage
 
 Desktop
   -> Draft prüfen
@@ -69,6 +76,7 @@ Desktop
 - Home-Hub-Upload.
 - Retry bei Verbindungsfehlern.
 - optionale Vorgangszuordnung über einfache gecachte Liste.
+- Profilkontext fuer Haushalts-/Kinderzuordnung vorbereiten.
 - Notiz oder kurzer Kontext beim Upload.
 - Status: wartet, lädt hoch, fehlgeschlagen, hochgeladen, Review nötig.
 
@@ -78,16 +86,17 @@ Desktop
 - vollständiger Multi-Geräte-Sync.
 - OCR/LLM-Verarbeitung.
 - komplexe mobile Suche.
-- Rechte-/Familienverwaltung.
+- vollständige Rechte-/Familienverwaltung.
 
 ## Vorgangszuordnung
 
-Direkte Zuordnung ist Komfortpfad.
+Direkte Zuordnung ist Komfortpfad. Die verbindliche MVP-Erfassungsentscheidung steht in `docs/technical/DECISION_MVP_DOCUMENT_CAPTURE.md`.
 
 Regeln:
 
 - Draft-Inbox bleibt Fallback.
 - Mobile darf nur offene/aktive Vorgänge aus einer einfachen Liste zeigen.
+- Mobile darf nur Vorgänge anzeigen, die zum aktiven Profil oder zur erlaubten Haushaltsansicht passen.
 - Wenn Liste fehlt, kann trotzdem gescannt werden.
 - Wenn `caseId` ungültig wird, landet Upload in Review.
 
@@ -111,5 +120,6 @@ F17 gilt als umgesetzt, wenn:
 
 - Bild, PDF oder beides im MVP?
 - Wie funktioniert Pairing praktisch?
-- Welche Flutter-/Native-Bridge kapselt Google ML Kit Document Scanner und VisionKit sauber?
+- Welche Flutter-/Native-Bridge kapselt Google ML Kit Document Scanner und VisionKit sauber? Vorentscheidung: native Plattform-Scanner, finale Bridge nach Spike.
 - Wie groß dürfen Uploads sein?
+- Wie sichtbar wird Profilwahl auf Mobile im MVP?

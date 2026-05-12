@@ -41,7 +41,7 @@ Die Foundation muss den MVP ermöglichen:
 - F11 API Integration.
 - F12 Secure Storage.
 - F15 Mock Repository Blueprint.
-- F17 Mobile Capture Plan.
+- F17 Mobile Capture Client Standards.
 - DECISION_SECURITY_PRIVACY_MODEL.
 - Decisions unter `docs/technical/`.
 
@@ -55,7 +55,7 @@ Deliverables:
 
 - Alte Roadmaps/Refactoring-Pläne entfernt.
 - `ROADMAP_REBUILD.md` ist primäre Roadmap.
-- F1-F17 sind die aktiven Foundation-Konzepte.
+- F1-F17 sind die aktiven Foundation-/Frontend-Konzepte; fachliche Produktbereiche liegen zusätzlich unter `docs/pillars/`.
 - README wird später auf neue Richtung gebracht.
 
 Akzeptanz:

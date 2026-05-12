@@ -1,18 +1,18 @@
 ---
-title: "Draft Decision - Product Name"
-description: "Offene Entscheidung zum Produktnamen und zur Benennung von App, Backend und Dokumentation"
-tags: [decision, draft, product, naming, branding]
-lastUpdated: "2026-04-30"
-status: "draft"
+title: "Decision - Product Name"
+description: "Entscheidung zum Produktnamen Ordna und zur Abgrenzung vom technischen Arbeitsnamen DocMan"
+tags: [decision, accepted, product, naming, branding, ordna]
+lastUpdated: "2026-05-06"
+status: "accepted"
 ---
 
-# Draft Decision - Product Name
+# Decision - Product Name
 
 ## Status
 
-Draft.
+Accepted.
 
-Der aktuelle Arbeitsname **DocMan** ist nicht final.
+Der langfristige Produktname ist **Ordna**.
 
 ## Kontext
 
@@ -26,20 +26,32 @@ Das Projekt soll eine ruhige, vertrauenswuerdige Dokumenten-App fuer Familien un
 - zuhause ruhig pruefen, sortieren und abschliessen.
 - self-hosted/local-first statt Cloud-SaaS.
 
-## Entscheidung offen
+## Entscheidung
 
-Wie soll das Produkt langfristig heissen?
+Das Produkt heisst künftig **Ordna**.
 
-Bis zur Entscheidung gilt:
+Begründung:
 
-- `DocMan` bleibt Arbeitsname fuer Repo, technische Dokumentation und GitHub Issues.
-- Produkttexte sollten den Namen nicht staerker branden als noetig.
-- Neue Architekturbegriffe bleiben neutral, z.B. `Sync Backend`, `Home Hub`, `Capture`.
-- Eine spaetere Umbenennung muss geplant und nicht nebenbei erfolgen.
+- `Ordna` ist kurz, ruhig und gut merkbar.
+- Der Name erinnert an `ordnen` und im Tiroler Klang an `Ordner`, ohne plump technisch zu sein.
+- Er passt zu Dokumenten, Vorgängen, Haushalt, Aufgaben und Nachweisen.
+- Er wirkt moderner und wärmer als `DocMan`.
+- Er ist nicht so behördlich wie `Dossier` und nicht so technisch wie klassische DMS-Namen.
+
+## Arbeitsname und Migration
+
+`DocMan` bleibt vorerst technischer Projekt- und Repo-Arbeitsname.
+
+Das bedeutet:
+
+- GitHub-Repository, bestehende Milestones, Issues und viele interne Dokumente dürfen vorerst `DocMan` behalten.
+- Neue produktnahe UI-/Branding-Texte sollen `Ordna` verwenden.
+- Architekturbegriffe bleiben neutral, z.B. `Home Hub`, `Sync Backend`, `Capture`, `Search`.
+- Eine vollständige technische Umbenennung wird separat geplant und nicht nebenbei durchgeführt.
 
 ## Anforderungen an den Namen
 
-Der Name sollte:
+Der Name erfüllt die Anforderungen:
 
 - vertrauenswuerdig und ruhig wirken.
 - zu Familie, Haushalt und privaten Dokumenten passen.
@@ -49,13 +61,25 @@ Der Name sollte:
 - als technischer Namespace brauchbar sein.
 - nicht zu nah an bestehenden bekannten Dokumenten-Apps liegen.
 
-## Zu klaerende Punkte
+## Konsequenzen
 
-- Soll der Name deutsch, englisch oder sprachneutral sein?
-- Soll er sachlich-funktional oder waermer/familiärer wirken?
-- Brauchen App, Home Hub und Backend denselben Namen oder Subnamen?
-- Muss der Repo-Name kurzfristig umbenannt werden oder bleibt `docman` intern bestehen?
-- Soll eine grobe Marken-/Domain-/App-Store-Recherche vor der finalen Entscheidung erfolgen?
+Produktnahe Namen:
+
+| Bereich | Name |
+|---|---|
+| App/Product | `Ordna` |
+| Mobile App | `Ordna` oder `Ordna Mobile`, falls Plattformtexte unterscheiden müssen |
+| Home Hub | `Ordna Home Hub` als Produkttext möglich; technisch weiter `Home Hub` |
+| Backend/Sync | `Ordna Sync` als Produkttext möglich; technisch weiter `Sync Backend` |
+| Repo/Arbeitsdoku | vorerst `docman` / `DocMan` |
+
+Vor öffentlicher Distribution müssen geprüft werden:
+
+- App-Store-Verfügbarkeit.
+- Domain-/Projektname-Verfügbarkeit.
+- Marken-/Trademark-Risiko auf angemessenem Niveau.
+- Package-/Bundle-Identifier.
+- sichtbare App-Namen auf Desktop und Mobile.
 
 ## Nicht jetzt
 
@@ -64,15 +88,24 @@ Der Name sollte:
 - App-Store-Texte.
 - Domain-Kauf.
 - vollstaendige Umbenennung aller Dateien und Klassen.
+- sofortige Repo-Umbenennung.
 
-## Vorlaeufige Arbeitsregel
+## Follow-up
 
-Solange diese Entscheidung offen ist, wird `DocMan` als Arbeitsname beibehalten. Produkt- und UI-Konzepte sollen aber keine starke Markenbindung an `DocMan` aufbauen.
+Es braucht ein separates Rename-/Branding-Issue.
+
+Dieses Issue soll planen:
+
+- welche User-facing Texte zuerst auf `Ordna` wechseln.
+- ob und wann das Repo umbenannt wird.
+- ob Dart package, Bundle Identifier oder App Display Name geändert werden.
+- welche Dokumente weiterhin `DocMan` als technischen Projektnamen verwenden dürfen.
+- welche GitHub Milestones/Labels vorerst stabil bleiben.
 
 ## Akzeptanz
 
 Die Entscheidung ist akzeptiert, wenn:
 
-- ein finaler Produktname gewaehlt ist oder `DocMan` bewusst bestaetigt wurde.
+- `Ordna` als finaler Produktname gewählt ist.
 - die Konsequenzen fuer App-Name, Repo, Package-/Bundle-Identifier, Backend-Namen, Dokumentation und GitHub Issues beschrieben sind.
-- ein separates Umbenennungs-Issue existiert, falls der Name geaendert wird.
+- ein separates Umbenennungs-Issue existiert.

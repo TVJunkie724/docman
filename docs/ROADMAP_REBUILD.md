@@ -2,8 +2,8 @@
 title: "DocMan - Rebuild Roadmap"
 description: "Vorgeschlagene Roadmap, um DocMan vom aktuellen Spike zu einer stabilen, lokalen, erweiterbaren Dokumenten-App zu entwickeln"
 tags: [roadmap, rebuild, product, planning, foundation]
-lastUpdated: "2026-05-05"
-version: "1.4"
+lastUpdated: "2026-05-12"
+version: "1.18"
 ---
 
 # DocMan - Rebuild Roadmap
@@ -16,14 +16,82 @@ Diese Roadmap ist der aktive Neustart der Projektplanung. Sie ersetzt die alten 
 
 DocMan sollte zuerst als Desktop-App mit Mobile Capture funktionieren: unterwegs Dokumente erfassen, zuhause am Desktop prüfen und Vorgängen zuordnen. Vollständiger Sync, mobile Verwaltung und KI werden danach auf eine stabile Basis gesetzt.
 
+Langfristig ist DocMan/Ordna jedoch nicht nur "Dokumente an Vorgängen".
+Das Ziel ist ein privates DMS fuer Haushalt, Personen, Vorgänge, Records,
+Versionen, strukturierte Fakten, Aufgaben, externe Aktionen, Suche,
+Auswertungen, Backup, Sync und Intelligence. Der MVP ist nur der erste
+baubare Schnitt durch dieses Zielmodell.
+
 ```text
 Foundation
   -> Quality & Production Readiness
       -> Desktop Core + Mobile Capture
       -> Family + Sync
           -> Extended Mobile
-              -> Intelligence
+              -> Structured Facts & Insights
+                  -> Intelligence
 ```
+
+## 2.1 Dokumentationsmodell
+
+DocMan trennt bewusst zwischen Roadmap, Produkt-Säulen, querschnittlichen Konzepten und Entscheidungen.
+
+| Dokumenttyp | Ort | Zweck |
+|---|---|---|
+| Roadmap | `docs/ROADMAP_REBUILD.md` | Top-Level-Phasen, Reihenfolge, Decision-Register und offene Entscheidungen |
+| Phase Index | `docs/roadmap/PHASE_INDEX.md` | detaillierte Phasen/Subphasen als planbare Implementation-Slices |
+| Pillar Roadmap Index | `docs/roadmap/PILLAR_ROADMAP_INDEX.md` | detaillierte Säulen-Roadmaps mit MVP-, Post-MVP- und Enterprise-Slices |
+| Execution Plan | `docs/ROADMAP_EXECUTION_PLAN.md` | konkrete GitHub-Milestones, Epics und Issue-Kandidaten |
+| Produkt-Säulen | `docs/pillars/PILLAR_*.md` | fachliche App-Bereiche, die getrennt gedacht und teilweise parallel entwickelt werden können |
+| F-Konzepte | `docs/concepts/CONCEPT_F*.md` | querschnittliche Frontend-/Foundation-Regeln wie Struktur, State, Testing, Mocks, Runtime, Design- und UI-Standards |
+| Decisions | `docs/technical/DECISION_*.md` | akzeptierte oder explizit offene Architektur-/Produktentscheidungen |
+
+Feature- oder Produktbereichsplanung gehört nicht als neues `F21`, `F22` usw. in die Frontend-Konzepte, sondern in die Produkt-Säulen oder in Roadmap-Phasen.
+
+## 2.1.1 Planungsregel
+
+Jede Phase wird so geplant, als muesste sie spaeter ein konkreter
+Implementation-Plan werden.
+
+Eine Phase oder Subphase ist nur gut geschnitten, wenn sie hat:
+
+- ein klares Ziel.
+- Scope und Out of Scope.
+- primaere Saeulen.
+- konkrete Deliverables.
+- Abhaengigkeiten.
+- Test-/Quality-/Security-Gates.
+- Akzeptanzkriterien.
+
+Wenn ein Block mehrere Verantwortungen vermischt oder zu gross fuer einen
+einzigen Arbeitsschritt ist, wird er in Subphasen geteilt.
+
+## 2.2 Säulenlandkarte
+
+Die vollständige Säulenlandkarte steht in `docs/pillars/PILLAR_INDEX.md`.
+
+Kurzform:
+
+| Gruppe | Säulen |
+|---|---|
+| Produkt | Capture & Inbox; Vorgänge/Dokumente/Records; Tasks/Reminders/Quick Access; Search/Facts/Insights; Export/Sharing/External Actions; Household Profiles/Access; Templates/Workflows |
+| Plattform | Home Hub & Sync; Intelligence & Automation; Admin/Settings/Storage Health |
+| Enterprise/Governance | QA; Observability/Runtime; Security/Privacy; Compliance/Legal; Release/Distribution; Data Lifecycle; Developer Experience; Design System/UX; Support/Diagnostics; Compatibility/Platform Support; Integration Governance |
+
+## 2.3 Roadmap-Aufbau nach Säulen
+
+Roadmap-Phasen ziehen bewusst nur kleine Slices aus den Säulen.
+
+| Phase | Primäre Säulen | Enterprise-/Governance-Slices |
+|---|---|---|
+| R2 Technical Foundation | Home Hub & Sync vorbereiten; Admin/Settings vorbereiten | Developer Experience, Security/Privacy, Observability-Grundmodell |
+| R3 Quality & Production Readiness | keine neuen Produktfeatures | QA, Release/Distribution, Data Lifecycle, Developer Experience, Compliance-Minimum |
+| R4 Desktop Core + Mobile Capture MVP | Capture & Inbox; Vorgänge/Dokumente/Records; Tasks/Reminders; Quick Access; Search; External Actions | Design System/UX, Observability-Minimum, Security/Privacy-Minimum, Compatibility-Minimum |
+| R5 Family Profiles | Household Profiles/Access | Security/Privacy, Compliance, UX Governance |
+| R6 Sync and Auth | Home Hub & Sync | Security/Privacy, Observability, Data Lifecycle, Integration Governance |
+| R7 Extended Mobile | Capture & Inbox; Mobile UX; Search | Compatibility/Platform Support, Release/Distribution, Support/Diagnostics |
+| R8 Structured Facts and Insights | Search/Facts/Insights; Templates/Workflows | QA Regression, Data Lifecycle, Compliance/Legal |
+| R9 Intelligence | Intelligence & Automation | Security/Privacy, Compliance/Legal, Observability, Integration Governance |
 
 ## 3. Status-Legende
 
@@ -36,11 +104,52 @@ Foundation
 | Done | Abgeschlossen |
 | Deferred | Bewusst zurückgestellt |
 
+## 3.1 Decision Register Overview
+
+Diese Übersicht ist das schnelle Register der bisher geplanten Entscheidungen.
+Details und Subphasen stehen in `docs/roadmap/PHASE_INDEX.md` und
+`docs/roadmap/PILLAR_ROADMAP_INDEX.md`.
+
+| Nr. | Decision | Status | Primaere Saeulen | MVP/Baseline Slice | Post-MVP / Enterprise Slice |
+|---|---|---|---|---|---|
+| D01 | Product Name | accepted | DX/Governance, Release | R0: Produktname `Ordna`; DocMan bleibt technischer Repo-/Workspace-Name | R10: Distribution, Branding, Store-/Review-Material, rechtliche Namenspruefung |
+| D02 | Product Language | accepted | Cases/Records, UX | R0/R4: `Case` im Code, "Vorgang" in der UI, `Event` fuer Timeline | R8/R9: Records/Facts/Claims/AI-Vorschlaege sprachlich konsistent erweitern |
+| D03 | State Management and DI | accepted | DX/Governance, Design System/UX | R2: Riverpod als Ziel fuer State und DI, BLoC/GetIt nicht weiter ausbauen | R4-R12: Feature-Provider pro Saeule, Audit gegen Provider-/Domain-Leaks |
+| D04 | Local-first Data Flow | accepted | Home Hub/Sync, Data Lifecycle, Security | R2/R4: App lokal nutzbar, Sync-ready IDs, Home Hub nicht Voraussetzung fuer Desktop-Kern | R6/R11/R15: Sync, Backup, optionale Self-hosted-cloudartige Betriebsformen ohne local-first aufzugeben |
+| D05 | Backend Role / PocketBase | draft | Home Hub/Sync, Admin/Ops, Security | R0/R4: PocketBase nicht Zielarchitektur; MVP braucht nur minimalen Capture-Gateway-Anteil | R6/R11/R15: eigener Server Stack, Sync, Ops, Backup, Admin, optionale groessere Betriebsformen |
+| D06 | Home Hub Backend Technology | accepted | Home Hub/Sync, Observability, Data Lifecycle | R3/R4: OpenAPI/Microcks zuerst, ASP.NET-Core-Ziel fuer spaeteren echten Home Hub | R6/R11/R15: ASP.NET Core + PostgreSQL + MinIO/S3 + Worker + Observability |
+| D07 | MVP Scope | accepted | Capture, Cases/Records, Tasks, Search, Home Hub | R4: Desktop Core + Mobile Capture + Draft-Inbox + minimaler Home Hub | R5-R15: Profile, Sync, Extended Mobile, Facts, AI, Compliance, Resilience, Sharing |
+| D08 | Foundation Concept Rewrite | accepted | DX/Governance, Documentation | R1: alte importierte Konzepte sind nicht Source of Truth; Slots werden DocMan-spezifisch neu geschrieben | R12: Konzept-/Decision-Governance und regelmaessige Architektur-Audits |
+| D09 | Mock UI Strategy | accepted | Design System/UX, QA, DX | R2/R3: Legacy-App nur Referenz; neue Mocks isoliert und synthetisch | R4-R12: Mocks als Plan-/Review-Werkzeug, nicht als Produktpfad |
+| D10 | Legacy Readiness Scope | accepted | DX/Governance, QA | R2/R3: Zielpfad sauber machen; Legacy einfrieren, isolieren oder entfernen | R4-R12: keine neuen Abhaengigkeiten auf Legacy; Rest nur als Referenz oder geloeschter Altbestand |
+| D11 | Local Database | accepted | Cases/Records, Search/Facts, Data Lifecycle | R2/R4: SQLite + Drift fuer strukturierte lokale Daten; Dateien/Secrets getrennt | R6/R8/R11: Sync Journal, Facts/Insights, Migrationen, Backup/Restore |
+| D12 | File Storage and Docker Stack | accepted | Data Lifecycle, Home Hub/Sync, Capture | R4: lokaler File Store; Storage-Port; Docker nicht Voraussetzung fuer Desktop | R6/R11/R15: MinIO/S3, Lifecycle, Backup, Storage Health, alternative S3-kompatible Stores |
+| D13 | API Contract Source and Mock Runner | accepted | QA, Home Hub/Sync, DX | R3/R4: OpenAPI + Microcks fuer Home-Hub/Capture-Vertraege | R6/R9/R11: Sync/OCR/AI/Admin-Contracts und Server-Verifikation gegen dieselben Specs |
+| D14 | Test Fixtures | accepted | QA, Security/Privacy | R3: synthetische Fixtures fuer App, Domain, Capture und Contracts | R4-R12: Fixture-Katalog pro Saeule erweitern; keine privaten Echtdaten |
+| D15 | Codegen Artifact Policy | accepted | DX/Governance, Release | R3: generierte Dart-Artefakte nicht committen; Bootstrap/Codegen/Verify erzwingen | R10/R12: Release-/CI-/Audit-Governance fuer reproduzierbare Builds |
+| D16 | MVP Quality Gates | accepted | QA, Release, DX | R3/R4: Local Change Gate, R3 Foundation Gate, MVP Readiness Gate | R10-R12: Release-, Distribution-, Support- und Governance-Gates |
+| D17 | DMS Target Architecture | accepted | Cases/Records, Search/Facts, Data Lifecycle | R0/R4: MVP verbaut Dokumente, Records, Versionen, Beziehungen und Facts nicht | R8/R11/R14: Facts/Claims, Versionierung, Retention, Sharing, Recovery |
+| D18 | Case, Document, Record and Facts Model | accepted | Cases/Records, Search/Facts, Tasks | R4: Vorgänge, Subvorgänge, Dokumente, Record-aware Metadaten, einfache Facts vorbereitet | R8/R9/R14: flexible Mehrfachbeziehungen, Claims, Financial Entries, AI-Vorschlaege, Sharing |
+| D19 | MVP Document Capture | accepted | Capture & Inbox, Cases/Records | R4: Desktop Import und Mobile Scan landen zuerst in Draft-Inbox | R7/R9/R13: Batch Scan, OCR/AI-Vorschlaege, Mail/Watch-Folder/weitere Importpfade |
+| D20 | Mobile Scanner Technology | provisional | Capture, Compatibility, QA | R4: native Plattform-Scanner als Favorit; Spike vor finaler Bridge-Auswahl | R7/R10/R12: Plattformparitaet, Store-/Permission-Pruefung, Supportmatrix |
+| D21 | Mobile Capture Upload Strategy | accepted | Capture, Home Hub/Sync, Security, Data Lifecycle | R4: API-proxied Upload erlaubt, stabiler Upload-Port, Idempotency und Retry ganzer Uploads | R6/R11/R15: presigned/resumable, multipart, quotas, cleanup, integrity, E2EE-ready payloads |
+| D22 | Auth and Pairing | accepted | Home Hub/Sync, Security, Mobile | R2/R4: QR Pairing primaer, manueller Code als Fallback, Token in Secure Storage | R6/R10/R14: Device Management, Identity Provider Boundary, sichere Freigaben |
+| D23 | Local MVP Login | accepted | Security, Profiles, UX | R4: kein Desktop-Login im lokalen MVP; aktives Profil und Pairing genuegen | R5/R6/R10: Profile, Partnerzugriff, Identity Provider und Distribution-Anforderungen |
+| D24 | Household Profiles and Access | accepted | Profiles, Security, Compliance | R4: ein aktives Profil und Profilzuordnung vorbereitet | R5/R6/R14: Kinderprofile, Partnerzugriff, Rechte, sichere Freigaben |
+| D25 | Privacy and Sync Scope | accepted | Security, Home Hub/Sync, Compliance | R2/R4: private Home-Hub-Umgebung, sensible Datenklassen, Secrets getrennt | R6/R10/R11/R15: Sync Privacy, E2EE-/Zero-Knowledge-Faehigkeit, Backup/Restore, Cloud-artige Varianten |
+| D26 | Security and Privacy Model | accepted | Security, Compliance, Data Lifecycle | R2/R3/R4: Security-by-Design, Secure Storage, log-sparsam, Trust Boundaries | R6/R9/R10/R11/R14: Sync, AI/OCR, DSGVO, Backup, Sharing, Redaction |
+| D27 | Workflow Rules | accepted | Templates/Workflows, Tasks, UX | R4: Workflows fuehren ueber Tasks/Statusvorschlaege, keine harten Kaefige | R8/R9/R13/R14: Claims, AI-Vorschlaege, externe Aktionsketten, geteilte Verantwortlichkeiten |
+| D28 | Intelligence Scope | accepted | Intelligence, Search/Facts, Security | R4/R8: AI/OCR nicht MVP, aber Review-Zustaende und Facts als Ziel vorbereiten | R9/R11/R15: OCR, Klassifikation, lokale LLMs, Reprocessing, Job Ops |
+| D29 | Search Technology and Boundary | accepted | Search/Facts, Data Lifecycle | R4: SQLite/Drift/FTS5 fuer lokale strukturierte Suche | R8/R9/R15: OCR-Text, semantische Suche, optionaler Search-Service |
+| D30 | External App/Website Links | bundled | External Actions, Integration Governance, Tasks | R4: manuelle Links an Task/Vorgang, keine Fremd-Credentials | R8/R13/R14: Claim-/Record-/Profil-Links, Mail/Kalender/Portale, sichere Freigaben |
+| D31 | Tasks, Reminders and Quick Access | bundled | Tasks/Reminders, UX, Observability | R4: Aufgaben, Fälligkeiten, Schnellzugriff, Reminder-Daten ohne komplexe Push-Infrastruktur | R7/R8/R13/R14: mobile Reminder, Facts/Claims-Reminder, Kalender, geteilte Aufgaben |
+| D32 | Upload Limits, Retry, Resume and Cleanup | pending | Capture, Home Hub/Sync, Data Lifecycle, Observability | R4 Vorschlag: kein Chunking, Retry ganzer Uploads, klare Limits, Idempotency, lokale Queue | R6/R11: resumable/multipart, serverseitiges Cleanup, quotas, metrics, integrity |
+
 ## 4. Phase R0 - Produkt- und Architekturentscheidungen
 
 **Status:** Done for product baseline
 
-Hinweis: Die Produkt-Baseline und Security-/Privacy-Baseline sind entschieden. Die konkrete Backend-Technologie bleibt als technische Draft-Entscheidung in R2/R3 offen.
+Hinweis: Die Produkt-Baseline, Security-/Privacy-Baseline, Storage-Grenze und Home-Hub-Backend-Technologie sind entschieden. Die breitere Sync-Strategie bleibt fuer R6 zu konkretisieren.
 
 **Ziel:** Die wichtigsten Grundsatzfragen werden entschieden, bevor Code weiter wächst.
 
@@ -56,12 +165,15 @@ Hinweis: Die Produkt-Baseline und Security-/Privacy-Baseline sind entschieden. D
 - `docs/technical/DECISION_INTELLIGENCE_SCOPE.md`
 - `docs/technical/DECISION_PRIVACY_SYNC_SCOPE.md`
 - `docs/technical/DECISION_MOCK_UI_STRATEGY.md`
+- `docs/technical/DECISION_DMS_TARGET_ARCHITECTURE.md`
+- `docs/technical/DECISION_FILE_STORAGE_AND_DOCKER_STACK.md`
+- `docs/technical/DECISION_HOME_HUB_BACKEND_TECHNOLOGY.md`
 
 ### Offene Entscheidungen
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R0-D0 | Heisst das Produkt langfristig `DocMan`? | Offen: `DocMan` bleibt Arbeitsname, finaler Produktname wird separat entschieden |
+| R0-D0 | Heisst das Produkt langfristig `DocMan`? | Entschieden: Produktname ist `Ordna`; `DocMan` bleibt vorerst technischer Repo-/Arbeitsname |
 | R0-D1 | Heißt das zentrale Modell weiterhin `Incident`? | Entschieden: `Case` im Code, "Vorgang" im UI, `Event`/"Ereignis" für Timeline-Einträge |
 | R0-D2 | BLoC/GetIt oder Riverpod? | Entschieden: Riverpod als State Management und DI; BLoC/GetIt wird nicht weiter ausgebaut |
 | R0-D3 | Local-first oder Backend-first? | Entschieden: local-first mit generischem DocMan Sync Backend; Home Hub/Tailscale nur erste Self-Hosted-Betriebsform |
@@ -70,12 +182,16 @@ Hinweis: Die Produkt-Baseline und Security-/Privacy-Baseline sind entschieden. D
 | R0-D6 | Wie streng sind Workflows? | Entschieden: Empfehlungen/Review; harte Regeln nur für Integrität/Sicherheit |
 | R0-D7 | Gehört KI/OCR in den MVP? | Entschieden: Nein; lokale/self-hosted Pipeline vorbereiten |
 | R0-D8 | Welche Sync-Grenzen gelten für sensible Daten? | Entschieden: MVP nur private Home-Hub-Umgebung; Secrets getrennt |
+| R0-D9 | Ist DocMan nur Vorgangsverwaltung mit Anhängen oder ein vollwertiges DMS? | Entschieden: vollwertiges privates DMS; MVP nur kleiner Slice |
+| R0-D10 | Wie wird Dateiablage technisch geschnitten? | Entschieden: austauschbarer Storage-Port; App-local File Store zuerst, MinIO/S3-kompatibel fuer Home Hub |
+| R0-D11 | Welche Backend-Technologie trägt den Home Hub? | Entschieden: ASP.NET Core + PostgreSQL + MinIO/S3-kompatibler Storage + Microcks |
 
 ### Akzeptanzkriterien
 
 - Jede Entscheidung hat ein kurzes Decision-Dokument.
 - Alte widersprüchliche Foundation-Dokumente sind markiert oder aus der aktiven Planung genommen.
 - Es gibt eine akzeptierte Definition des ersten MVP.
+- Die DMS-Zielarchitektur ist dokumentiert, damit MVP-Vereinfachungen spätere Mehrfachbeziehungen, Versionen, Facts, Sync, Export und Intelligence nicht verbauen.
 
 ## 5. Phase R1 - Documentation Source of Truth
 
@@ -90,7 +206,7 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 - Bestehende Produkt-Roadmaps prüfen und auf den neuen MVP-Scope abgleichen.
 - `docs/concepts/CONCEPT_F*.md` als Legacy-Input behandeln und DocMan-spezifisch neu schreiben.
 - Rewrite-Reihenfolge für Foundation-Konzepte festlegen.
-- Zusätzliches F17-Konzept für Mobile Capture planen.
+- Mobile Capture als Produkt-Säule und querschnittliche Client-/Test-/Runtime-Regeln planen.
 - F1 Project Structure neu schreiben.
 - F10 Local Storage neu schreiben.
 - F2 State Management neu schreiben.
@@ -108,8 +224,10 @@ Hinweis: Die aktiven Planungsdokumente sind bereinigt. README/Projektbeschreibun
 - F16 CI/CD Pipeline neu schreiben.
 - F8 Distribution Readiness neu schreiben.
 - F8b Review Access Strategy neu schreiben.
-- F17 Mobile Capture Plan neu erstellen.
+- Mobile-Capture-Scope in `docs/pillars/PILLAR_CAPTURE_INBOX.md` verankern.
 - F18 Notifications, Failures and Observability neu erstellen.
+- Produkt-Säulen unter `docs/pillars/` als eigene fachliche Bereiche definieren.
+- Enterprise-/Governance-Säulen für QA, Observability, Security, Compliance, Release, Data Lifecycle, DX, UX, Support, Compatibility und Integrationsregeln definieren.
 - Alte Produkt-Roadmaps und alten Refactoring-Plan löschen.
 - Eine technische Foundation-Roadmap erstellen.
 - README-/Projektbeschreibungs-Update als Follow-up erfassen.
@@ -183,13 +301,15 @@ R3 ist keine Feature-Phase. Sie hebt die technische Basis auf ein Niveau, auf de
 
 - Teststrategie aus F4 operationalisieren.
 - Fake-Repository-Layer für Flutter, Riverpod und Domain-Use-Cases vorbereiten.
-- Microcks- oder vergleichbares Contract-Mock-Setup für Home-Hub/Capture/Sync-Schnittstellen einplanen.
-- Bestehende Legacy-Flows testbar machen oder bewusst entfernen.
-- `flutter analyze` von Legacy-Warnungen befreien oder mit klaren Tickets isolieren.
+- Microcks-Contract-Mock-Setup für Home-Hub/Capture/Sync-Schnittstellen einplanen.
+- Legacy-Flows aus dem Zielpfad entfernen, isolieren oder bewusst löschen.
+- `flutter analyze` fuer den Zielpfad gruen bekommen; alte Legacy-Warnungen sind kein Produktqualitaetsziel.
 - Setup-, Codegen- und Verify-Scripts für frische Checkouts anlegen.
 - CI-/Quality-Gates aus F16 konkretisieren.
 - Testfixtures ohne private oder sensible Echtdaten definieren.
 - Produktionsreife Mindestkriterien für Security, Logging, Storage, Fehlerverhalten, Notifications, Audit und Observability prüfen.
+- Compliance-/Legal-Minimum aus DSGVO/GDPR, sensiblen Datenklassen und späteren Apple/Google/Microsoft-Store-Anforderungen als nicht-blockierenden R3-Check verankern.
+- Data-Lifecycle-Mindestregeln für Löschung, Backup-Vorbereitung, Migration und Recovery prüfen.
 
 ### Out of Scope
 
@@ -198,6 +318,7 @@ R3 ist keine Feature-Phase. Sie hebt die technische Basis auf ein Niveau, auf de
 - Vollständiger End-to-End-Testpark.
 - KI/OCR-Implementation.
 - App-Store-Release.
+- vollständige rechtliche Prüfung für öffentliche Distribution.
 
 ### Zweistufige Teststrategie
 
@@ -212,21 +333,25 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R3-D1 | Welche Legacy-Warnungen blockieren Production Readiness? | Als Issues erfassen und bis MVP mindestens alle harten Analyzer-Probleme entfernen |
-| R3-D2 | Wo liegen zentrale Testfixtures? | Separates `test/fixtures/` mit synthetischen Dokumenten |
-| R3-D3 | Welche API-Spec ist Contract-Quelle? | OpenAPI für Home-Hub/Capture/Sync, Microcks als Mock-/Contract-Runner |
-| R3-D4 | Werden generierte Dateien committed? | Ja, aber Setup/Codegen-Script muss sie reproduzierbar erzeugen |
-| R3-D5 | Welche Quality Gates sind vor MVP verpflichtend? | Format, analyze ohne neue Issues, Unit/Widget-Tests, Smoke-Tests, Contract-Mocks für API-Slices |
+| R3-D1 | Welche Legacy-Warnungen blockieren Production Readiness? | Entschieden: Nur der Zielpfad ist production-readiness-relevant; Legacy wird eingefroren, isoliert oder entfernt |
+| R3-D2 | Wo liegen zentrale Testfixtures? | Entschieden: App-Fixtures unter `test/fixtures/`, API-/Microcks-Beispiele unter `contracts/` |
+| R3-D3 | Welche API-Spec ist Contract-Quelle? | Entschieden: OpenAPI für Home-Hub/Capture/Sync, Microcks als Mock-/Contract-Runner |
+| R3-D4 | Werden generierte Dateien committed? | Entschieden: Nein; Codegen-Artefakte werden ignoriert und per Bootstrap/Codegen/Verify reproduzierbar erzwungen |
+| R3-D5 | Welche Quality Gates sind vor MVP verpflichtend? | Entschieden: Local Change Gate, R3 Foundation Gate und MVP Readiness Gate |
 
 ### Akzeptanzkriterien
 
 - Frischer Checkout kann mit einem Bootstrap-Script in einen arbeitsfähigen Zustand gebracht werden.
 - Codegen ist reproduzierbar dokumentiert und per Script ausführbar.
+- Git enthält keine neuen generierten Dart-Artefakte wie `*.freezed.dart` oder `*.g.dart`.
 - Verify-Script enthält die lokalen Mindestchecks.
 - Neue Riverpod-/Domain-Logik ist mit Fake-Repositories testbar.
 - API-Grenzen für Home Hub, Capture und Sync sind contract-testbar geplant.
 - F18-Runtime-Readiness-Regeln für Failure, Notification, Audit, Telemetry und Redaction sind prüfbar.
-- Legacy-Warnungen sind entweder behoben oder als GitHub Issues begründet.
+- Compliance-/Legal-Minimum ist dokumentiert und widerspricht Security, Logging, Storage und Sync nicht.
+- Data-Lifecycle-Risiken für Löschung, Backup, Restore und Migration sind als MVP-Grenzen sichtbar.
+- Zielpfad-Analyse ist gruen; Legacy leakt nicht mehr in Produktstart, Zielanalyse, Tests oder Builds.
+- Verbleibender Legacy-Code ist eingefroren, isoliert oder zur Löschung/Migration getrackt.
 - Keine Tests verwenden private Dokumente, echte Haushaltsdaten oder echte Secrets.
 
 ## 8. Phase R4 - Desktop Core and Mobile Capture MVP
@@ -239,9 +364,16 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 
 - Ein Haushalt.
 - Ein aktives Profil.
+- Profilzuordnung fuer Vorgänge, Dokumente und Drafts vorbereiten.
 - Vorgänge anlegen, bearbeiten, schließen.
+- Subvorgänge in einem Hauptvorgang anlegen.
+- Aus markierten Dokumenten eines Vorgangs einen Subvorgang bilden.
 - Dokumente als Drafts erfassen.
 - Drafts einem Vorgang zuordnen.
+- Aufgabenübersicht und einfache Aufgaben mit Fälligkeitsdatum.
+- einfache Reminder-Daten fuer fällige Aufgaben, Fristen und Ablaufdaten vorbereiten.
+- Schnellzugriff auf wichtige Dokumente/Records.
+- einfache externe Aktionslinks an Aufgaben oder Vorgängen vorbereiten.
 - Mobile Foto-/Scan-Erfassung.
 - Mobile lokale Upload-Queue.
 - Minimaler Home-Hub-Upload in die Draft-Inbox.
@@ -259,20 +391,40 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 - Vollständiger Multi-Geräte-Sync.
 - KI-Implementation.
 - App-Store-Distribution.
+- flexible Dokument-Mehrfachverlinkung mit Rollen.
+- komplexe wiederkehrende Reminder, Kalenderintegration und Multi-Geräte-Push.
+- automatische externe Portalaktionen oder gespeicherte Fremd-Credentials.
 
 ### Offene Entscheidungen
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R4-D1 | Braucht der lokale MVP Login? | Nein, optionaler Dev-/Local-Mode reicht |
-| R4-D2 | Was ist die minimale Dokument-Erfassung? | Desktop-Dateiauswahl plus Mobile Capture in Draft-Inbox |
-| R4-D3 | Welche Suchfelder sind MVP-relevant? | Titel, Tags, Sender, Datum, Profil |
+| R4-D1 | Braucht der lokale MVP Login? | Entschieden: Kein Desktop-Login im MVP; lokales Profil plus Mobile/Home-Hub-Pairing, Identity spaeter vorbereitet |
+| R4-D2 | Was ist die minimale Dokument-Erfassung? | Entschieden: Desktop-Dateiimport und Mobile Document Scan landen zuerst in der Draft-Inbox; direkte Vorgangszuordnung ist Komfortpfad |
+| R4-D3 | Welche Suchtechnologie und Suchfelder sind MVP-relevant? | Entschieden: Search-Boundary mit lokalem SQLite/Drift/FTS5-Adapter; strukturierte Metadaten im MVP, OCR-/semantische Suche später |
 | R4-D4 | Wie wird Mobile mit dem Home Hub gekoppelt? | Entschieden fuer MVP: QR Pairing primaer, manueller Code als Fallback; Details im R4-Handoff |
+| R4-D5 | Heissen Vorgänge künftig Sammlungen? | Entschieden: Nein, Vorgang bleibt Prozess-/Kontextbegriff; Dokumente/Records bekommen eigenen UI-Bereich |
+| R4-D6 | Gehören Subvorgänge in den MVP? | Entschieden: Ja, MVP-light mit `parentCaseId`; Dokumente primär zugeordnet, keine flexible Mehrfachrollen-Anzeige |
+| R4-D7 | Muss der MVP Haushaltsprofile vorbereiten? | Entschieden: Ja, ein aktives Profil im MVP, mehrpersonenfaehiges Zielmodell fuer R5/R6 |
+| R4-D8 | Braucht der MVP Aufgaben und Erinnerungen? | Entschieden: Ja, MVP-light mit Aufgabenübersicht, Fälligkeit und Reminder-Daten; komplexe Push-/Kalenderintegration später |
+| R4-D9 | Was bedeutet Notfallzugriff? | Entschieden: Schnellzugriff auf wichtige Dokumente/Records, nicht automatisch externe Berechtigung |
+| R4-D10 | Wie verknüpft DocMan externe Apps/Websites? | Entschieden: manuelle externe Aktionslinks an Task/Vorgang zuerst; später auch Claim, Record, Profil und Dokument |
+| R4-D11 | Was erzeugt Mobile beim Scannen und Hochladen? | Entschieden als Zielrichtung: PDF als Nutzerartefakt, Seitenbilder/Rohdaten als technische Artefakte; Home Hub kann Rohseiten post-MVP dauerhaft uebernehmen |
+| R4-D12 | Welche Scanner-Technologie erreicht die gewuenschte Qualitaet? | Vorlaeufig entschieden: native Plattform-Scanner, Android Google ML Kit Document Scanner und iOS VisionKit; finale Flutter-Bridge nach Qualitaets-Spike |
+| R4-D13 | Wie wird Mobile Capture hochgeladen? | Entschieden: austauschbarer Upload-Strategy-Port; MVP API-proxied erlaubt, Enterprise-Ziel presigned/resumable via Home Hub und S3-kompatiblem Storage |
 
 ### Akzeptanzkriterien
 
 - Nutzer kann einen Vorgang mit Dokumenten am Desktop vollständig verwalten.
+- Nutzer kann in einem Vorgang einen leeren Subvorgang anlegen.
+- Nutzer kann markierte Dokumente eines Vorgangs als neuen Subvorgang gruppieren, ohne Dateien zu duplizieren.
+- Nutzer kann Dokumente/Drafts einem aktiven Profil zuordnen oder diese Zuordnung später korrigieren.
+- Nutzer sieht offene, bald fällige und überfällige Aufgaben in einer Übersicht.
+- Nutzer kann wichtige Dokumente oder Records im Schnellzugriff markieren.
+- Nutzer kann einen einfachen externen Aktionslink zu einer Aufgabe oder einem Vorgang öffnen, ohne dass DocMan Fremd-Credentials speichert.
 - Mobile kann Dokumente offline erfassen und später hochladen.
+- Mobile Scan verwendet native Plattform-Scanner oder einen sichtbar niedrigeren Fallback.
+- Mobile Upload nutzt einen austauschbaren Upload-Port; API-proxied MVP und presigned/resumable Zielpfad teilen denselben fachlichen Vertrag.
 - Desktop sieht mobile Uploads in einer Draft-Inbox.
 - Direkte mobile Vorgangszuordnung funktioniert als optionaler Komfortpfad.
 - Desktop-App bleibt ohne Netzwerk nutzbar.
@@ -290,7 +442,10 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 - Mehrere Profile in einem Haushalt.
 - Aktives Profil wechseln.
 - Vorgänge und Dokumente einem Profil zuordnen.
+- Kinderprofile ohne eigene Accounts.
+- Gemeinsame Verwaltung von Kinderprofilen durch Erwachsene.
 - Einfache Manager-/Kind-Beziehung.
+- Partner-/Erwachsenenfreigabe fuer Sichtung und Bearbeitung.
 
 ### Out of Scope
 
@@ -304,6 +459,8 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 |---|---|---|
 | R5-D1 | Welche Profildaten sind sensibel? | Ausweis-/SV-Daten besonders behandeln oder verschieben |
 | R5-D2 | Brauchen Kinder eigene Accounts? | Nein für frühe Phasen |
+| R5-D3 | Duerfen Erwachsene Kinderprofile gemeinsam bearbeiten? | Ja, als Zielmodell; Rechte exakt in R5/R6 definieren |
+| R5-D4 | Wie werden Partnerdokumente geteilt? | Haushaltsrechte statt Dokumentkopien |
 
 ## 10. Phase R6 - Sync and Auth
 
@@ -330,7 +487,7 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R6-D1 | Welche konkrete Backend-Implementierung trägt den Sync? | Eigenständiger DocMan Server Stack; PocketBase höchstens historischer Spike/Adapter |
+| R6-D1 | Welche konkrete Backend-Implementierung trägt den Sync? | Technologie entschieden: ASP.NET Core Home Hub mit PostgreSQL, MinIO/S3 und OpenAPI/Microcks; Sync-Strategie und Konfliktprotokoll bleiben R6-Aufgabe |
 | R6-D2 | Welche Daten werden remote synchronisiert? | Privacy-Klassen definieren |
 | R6-D3 | Wie werden Konflikte gelöst? | Zunächst sichtbar machen, nicht still überschreiben |
 
@@ -360,7 +517,38 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 | R7-D1 | Bild oder PDF als primäres Scanformat? | PDF für mehrseitige Dokumente, Bild als Rohquelle prüfen |
 | R7-D2 | Muss Mobile offline scannen können? | Ja, zumindest lokal queued |
 
-## 12. Phase R8 - Intelligence
+## 12. Phase R8 - Structured Facts and Insights
+
+**Status:** Proposed
+
+**Ziel:** DocMan kann strukturierte Fakten aus Dokumenten, Records und Vorgängen erfassen, prüfen und später auswerten.
+
+### In Scope
+
+- Records/Nachweise und Dokumentversionen.
+- Strukturierte Fakten aus Dokumenten.
+- Financial Entries für Ausgaben, Erstattungen, Prämien, Rückzahlungen und Gutschriften.
+- Claims für Erstattungen, Reklamationen, Garantien und Einreichungen.
+- Fristen, Gültigkeiten und Ablaufdaten.
+- Reminder-Quellen aus Facts, Claims, Records und Tasks.
+- Erste lokale Auswertungen nach Zeitraum, Anbieter, Kategorie, Profil und Vorgang.
+
+### Out of Scope
+
+- Bankimport.
+- Steuer- oder Buchhaltungsprodukt.
+- automatische OCR-/LLM-Übernahme ohne Review.
+- Managed Cloud Analytics.
+
+### Offene Entscheidungen
+
+| ID | Entscheidung | Empfohlene Richtung |
+|---|---|---|
+| R8-D1 | Welche Facts werden zuerst manuell erfasst? | Beträge, Fälligkeiten, Claims, Gültigkeiten |
+| R8-D2 | Wie heißt `Record` in der deutschen UI? | Nachweis/Unterlage testen, `Record` als Code-Arbeitsbegriff |
+| R8-D3 | Welche erste Auswertung ist MVP-nah? | Arztkosten/Erstattungen und Anbieter-Ausgaben als erste Verticals prüfen |
+
+## 13. Phase R9 - Intelligence
 
 **Status:** Deferred
 
@@ -382,10 +570,41 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R8-D1 | Lokale KI auf welchem Server? | Erst nach stabiler Dokumentenbasis und realer OCR-/LLM-Hardware entscheiden |
-| R8-D2 | Automatisch oder manuell gestartet? | Vorschläge manuell bestätigbar machen |
+| R9-D1 | Lokale KI auf welchem Server? | Erst nach stabiler Dokumentenbasis und realer OCR-/LLM-Hardware entscheiden |
+| R9-D2 | Automatisch oder manuell gestartet? | Vorschläge manuell bestätigbar machen |
 
-## 13. Empfohlene erste Arbeitssequenz
+## 14. Spätere Enterprise-Readiness Phasen
+
+**Status:** Proposed
+
+Diese Phasen werden nicht vor dem MVP vollständig gebaut. Sie werden aber als
+eigene Roadmap-Linien geführt, damit Enterprise-Themen nicht als Nebenprodukt
+verschwinden. Die detaillierten Subphasen stehen in
+`docs/roadmap/PHASE_INDEX.md`; die Säulen-Slices stehen in
+`docs/roadmap/PILLAR_ROADMAP_INDEX.md`.
+
+| Phase | Ziel | Primäre Säulen |
+|---|---|---|
+| R10 Compliance & Distribution Readiness | öffentliche/private Distribution rechtlich und prozessual vorbereiten | Compliance/Legal, Release/Distribution, Compatibility |
+| R11 Data Resilience & Operations | Backup, Restore, Retention, Storage Integrity und Recovery professionalisieren | Data Lifecycle, Admin/Settings, Observability |
+| R12 Support & Governance | Diagnose, Support, Architektur-Governance und Issue-/Milestone-Prozess reifen | Support/Diagnostics, Developer Experience, QA |
+| R13 Integrations & External Workflow Expansion | externe Links, Mail, Druck, Kalender, Portale und Importpfade kontrolliert ausbauen | Integration Governance, Export/Sharing/External Actions, Templates/Workflows |
+| R14 Secure Sharing & Collaboration | sichere Freigaben, Redaction, Partner-/Haushaltskollaboration und Zugriffshistorie vorbereiten | Household Profiles/Access, Security/Privacy, Export/Sharing |
+| R15 Advanced Platform & Productization | optionale größere Betriebsformen, Cloud-/Self-hosted-cloudartige Varianten und erweiterte Admin-/Ops-Fähigkeiten prüfen | Home Hub/Sync, Admin/Settings, Observability, Release/Distribution |
+
+### Offene Entscheidungen
+
+| ID | Entscheidung | Empfohlene Richtung |
+|---|---|---|
+| R10-D1 | Wird DocMan zuerst privat, per direktem Download oder über Stores verteilt? | Privat/self-hosted zuerst; Apple/Google/Microsoft-Store-Regeln trotzdem vorbereiten |
+| R10-D2 | Welche rechtliche Prüfung braucht DocMan vor öffentlicher Distribution? | Separate Prüfung vor Store/Public Release |
+| R11-D1 | Welche Backup-/Restore-Strategie ist Minimum vor echtem Haushaltsbetrieb? | Lokales Backup plus Restore-Test vor Multi-Geräte-Sync |
+| R12-D1 | Wie werden Support-/Diagnosepakete redigiert? | Redaction by default, keine Dokumentinhalte oder Secrets |
+| R13-D1 | Welche externen Integrationen kommen zuerst? | Manuelle Links und Export zuerst; automatische Portalaktionen erst deutlich später |
+| R14-D1 | Welche Freigaben sind sicher genug? | Zeitlich begrenzte, redigierbare Freigaben vor breitem Sharing |
+| R15-D1 | Braucht Ordna je eine gehostete Betriebsform? | Nur optional; local-first und self-hosted bleiben Kernannahme |
+
+## 15. Empfohlene erste Arbeitssequenz
 
 ```text
 1. R2 Draft-Entscheidungen schließen
@@ -395,7 +614,7 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 5. R4 Desktop Core + Mobile Capture MVP konzipieren
 ```
 
-## 14. Nicht jetzt bauen
+## 16. Nicht jetzt bauen
 
 Diese Themen sind wertvoll, aber aktuell zu früh:
 
@@ -403,18 +622,21 @@ Diese Themen sind wertvoll, aber aktuell zu früh:
 - Mobile Batch Scan.
 - Vollständige Multi-Tenancy.
 - App-Store-Distribution.
-- Komplexe Dokumentversionierung.
+- große Auswertungs-Dashboards.
+- automatische Fact-Extraktion.
+- Kalenderintegration und komplexe wiederkehrende Reminder.
+- automatische Einreichung in externe Portale.
 - Vollständiges Rollen- und Berechtigungsmodell.
 
-## 15. Entscheidungsregister
+## 17. Entscheidungsregister
 
 | ID | Thema | Status |
 |---|---|---|
-| R0-D0 | Produktname | Draft |
+| R0-D0 | Produktname | Done |
 | R0-D1 | Produktbegriff | Done |
 | R0-D2 | State Management und DI | Done |
 | R0-D3 | Local-first Datenfluss | Done |
-| R0-D4 | Backend-Rolle / PocketBase | Draft, technische Konkretisierung in R2/R3 |
+| R0-D4 | Backend-Rolle / PocketBase | Draft fuer Gesamtrolle; Home-Hub-Technologie entschieden |
 | R0-D5 | MVP-Scope | Done |
 | R0-D6 | Workflow-Regeln | Done |
 | R0-D7 | Intelligence Scope | Done |
@@ -427,10 +649,24 @@ Diese Themen sind wertvoll, aber aktuell zu früh:
 | R2-D4 | Lokale Datenbank | Done |
 | R2-D5 | Auth/Pairing | Done |
 | R2-D6 | Security/Privacy Modell | Done |
-| R3-D1 | Legacy-Warnungen und Production Readiness | Decision Needed |
-| R3-D2 | Testfixtures | Decision Needed |
-| R3-D3 | Contract-Quelle / Microcks | Decision Needed |
-| R3-D4 | Generierte Dateien committen | Proposed: Ja |
-| R3-D5 | MVP Quality Gates | Decision Needed |
-| R4-D1 | Login im lokalen MVP | Decision Needed |
+| R3-D1 | Legacy-Warnungen und Production Readiness | Done |
+| R3-D2 | Testfixtures | Done |
+| R3-D3 | Contract-Quelle / Microcks | Done |
+| R3-D4 | Generierte Dateien committen | Done |
+| R3-D5 | MVP Quality Gates | Done |
+| R4-D1 | Login im lokalen MVP | Done |
+| R4-D2 | Minimale Dokument-Erfassung | Done |
+| R4-D3 | Search-Boundary und MVP-Suchtechnologie | Done |
+| R4-D5 | Vorgänge, Dokumente, Records und Fakten | Done |
+| R4-D6 | Subvorgänge im MVP | Done |
+| R4-D7 | Haushaltsprofile vorbereiten | Done |
+| R4-D8 | Aufgaben und Erinnerungen | Done |
+| R4-D9 | Schnellzugriff / Notfallzugriff | Done |
+| R4-D10 | Externe App-/Website-Links | Done |
+| R4-D11 | Mobile Scan Artifacts und Upload-Richtung | Done for target model |
+| R4-D12 | Mobile Scanner Technology | Provisional done; spike required |
+| R4-D13 | Mobile Capture Upload Strategy | Done |
+| R5-D0 | Haushaltsprofile und Zugriff | Done for target model |
 | R6-D2 | Remote-Sync sensibler Daten | Done for MVP scope; revisit before full sync |
+| R0-D10 | File Storage und Docker Stack | Done |
+| R0-D11 | Home Hub Backend Technology | Done |
