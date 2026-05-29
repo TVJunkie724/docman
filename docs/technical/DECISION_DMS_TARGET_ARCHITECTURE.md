@@ -29,7 +29,7 @@ Dokumente, Dateien, Versionen, Records, Vorgänge, Personen, Fakten,
 Aufgaben, externe Aktionen, Sync und Intelligence bilden ein verbundenes DMS.
 ```
 
-Der MVP darf davon nur einen kleinen Slice bauen. Das Datenmodell, die API-Grenzen,
+Der M2 darf davon nur einen kleinen Slice bauen. Das Datenmodell, die API-Grenzen,
 die Suchgrenze und die Speichergrenzen duerfen aber nicht so geschnitten werden,
 dass Dokumente dauerhaft an genau einen Vorgang oder an eine Ordnerstruktur
 gebunden sind.
@@ -115,7 +115,7 @@ Sie beschreibt:
 - neuer Capture.
 - Draft.
 - Review nötig.
-- erledigt, aber kurzfristig korrigierbar.
+- erledigt, aber als einer der letzten 10 verarbeiteten Eingänge kurzfristig korrigierbar.
 - wieder geöffnet.
 
 Die Outbox ist ebenfalls kein zweites Archiv. Sie beschreibt vorbereitete oder
@@ -262,24 +262,24 @@ Suche muss langfristig mehrere Ebenen abdecken:
 - OCR-Text.
 - später semantische Suche und RAG.
 
-Der MVP darf SQLite/Drift/FTS5 nutzen. Die Domain-Grenze bleibt aber so
+Der M2 darf SQLite/Drift/FTS5 nutzen. Die Domain-Grenze bleibt aber so
 geschnitten, dass spätere Indexer wie Meilisearch, Typesense, PostgreSQL FTS,
 Qdrant oder andere Provider ergänzt werden können.
 
-## Abgrenzung zum MVP
+## Abgrenzung zum M2
 
-Der MVP baut nur den kleinsten nutzbaren Schnitt:
+Der M2 baut nur den kleinsten nutzbaren Schnitt:
 
 - Desktop-Import.
 - Mobile Capture in die Draft-Inbox.
-- ein aktives Profil.
-- Vorgänge mit MVP-light-Subvorgängen.
+- betroffene Person / Haushaltsprofil als Pflichtzuordnung je Dokument-Draft.
+- Vorgänge mit schlank geplanten Subvorgängen.
 - einfache Dokumentannahme.
 - lokale Suche.
 - Aufgaben/Reminder-Daten.
 - Schnellzugriff.
 
-Der MVP darf vereinfachen:
+Der M2 darf vereinfachen:
 
 - ein primärer Vorgang je Dokument.
 - keine vollständigen `DocumentCaseLink`-Rollen in der UI.
@@ -287,7 +287,7 @@ Der MVP darf vereinfachen:
 - keine vollständige Outbox.
 - kein vollständiger Haushaltsrechte-Editor.
 
-Der MVP darf aber nicht verbauen:
+Der M2 darf aber nicht verbauen:
 
 - flexible Mehrfachbeziehungen.
 - Versionierung.
@@ -299,7 +299,7 @@ Der MVP darf aber nicht verbauen:
 
 ## Konsequenzen fuer Planung
 
-- R4 bleibt ein MVP-Slice, aber nicht die DMS-Endarchitektur.
+- R4 bleibt ein M2-Slice, aber nicht die DMS-Endarchitektur.
 - R5/R6 müssen Haushaltsprofile, Rechte und Sync auf dem DMS-Kern aufbauen.
 - R8 ist nicht nur "Insights", sondern die Phase, in der strukturierte Facts,
   Claims, Finanzdaten und Auswertungen den DMS-Kern erweitern.

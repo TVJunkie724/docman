@@ -21,15 +21,15 @@ DocMan braucht eine kontrollierbare Betriebsoberfläche:
 - Diagnose.
 - lokale Wartung.
 
-## MVP-Scope
+## M2-Scope
 
-MVP:
+M2:
 
 - minimale Einstellungen für lokale App und Home-Hub-Verbindung.
 - sichtbarer Pairing-/Upload-Status.
 - Speicherort und sichere Basisinformationen vorbereiten.
 
-Post-MVP:
+spaetere Milestones:
 
 - Speicherprüfung.
 - Backup-/Restore-Status.

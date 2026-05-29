@@ -27,17 +27,17 @@ Household
 
 Dokumente, Vorgänge, Records, Tasks, Claims und Quick-Access-Einträge können einem Profil zugeordnet werden.
 
-## MVP-Vorbereitung
+## M2-Vorbereitung
 
-MVP-light:
+Schlanker M2-Slice:
 
 - ein Haushalt.
-- ein aktives Profil.
-- Profil-ID in den relevanten Modellen vorbereiten.
-- Draft-Inbox kann Profilzuordnung korrigieren.
-- Mobile Capture bewahrt den Profilkontext, falls vorhanden.
+- betroffene Person / Haushaltsprofil als Pflichtzuordnung je Dokument-Draft.
+- Personen-/Profil-ID in den relevanten Modellen vorbereiten.
+- Draft-Inbox kann Personenzuordnung korrigieren.
+- Mobile Capture bewahrt den Personenkontext, falls vorhanden.
 
-Noch nicht MVP:
+Noch nicht M2:
 
 - mehrere echte Nutzeraccounts.
 - Partnerfreigabe.
@@ -78,6 +78,6 @@ Dokumente werden nicht kopiert. Zusammenhänge entstehen über Links und Profile
 
 ## Offene Folgefragen
 
-- Welche Profildaten speichern wir bewusst nicht im MVP?
+- Welche Profildaten speichern wir bewusst nicht im M2?
 - Wie sichtbar sind Kinderprofile in Mobile Capture?
 - Welche Rechte braucht Partnerzugriff zuerst?

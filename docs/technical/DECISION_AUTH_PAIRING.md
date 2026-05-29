@@ -12,15 +12,15 @@ status: "accepted"
 
 Accepted.
 
-Der MVP verwendet **QR Pairing** als primaeren Flow fuer die Kopplung an den privaten Home Hub. Ein **manueller Pairing-Code** ist der Fallback.
+Der M2 verwendet **QR Pairing** als primaeren Flow fuer die Kopplung an den privaten Home Hub. Ein **manueller Pairing-Code** ist der Fallback.
 
-Google- oder Microsoft-Identity wird fuer den MVP nicht implementiert, aber als spaetere optionale Identity-Provider-Schicht vorbereitet.
+Google- oder Microsoft-Identity wird fuer den M2 nicht implementiert, aber als spaetere optionale Identity-Provider-Schicht vorbereitet.
 
-Ergaenzend gilt `docs/technical/DECISION_LOCAL_MVP_LOGIN.md`: Der lokale Desktop-MVP erzwingt kein klassisches Login. Er nutzt ein lokales Profil; Mobile Capture wird ueber Device Pairing gekoppelt.
+Ergaenzend gilt `docs/technical/DECISION_LOCAL_LOGIN.md`: Der lokale Desktop-M2 erzwingt kein klassisches Login. Er nutzt ein lokales Profil; Mobile Capture wird ueber Device Pairing gekoppelt.
 
 ## Entscheidung
 
-MVP:
+M2:
 
 - Home Hub erzeugt ein kurzlebiges Pairing-Secret.
 - Desktop oder Home-Hub-Setup zeigt einen QR-Code.
@@ -31,7 +31,7 @@ MVP:
 - Der Home Hub kann gekoppelte Geraete und Tokens widerrufen.
 - Mobile Capture funktioniert offline weiter und laedt spaeter ueber die Upload Queue hoch.
 
-Nicht MVP:
+Späterer Milestone:
 
 - Google Login.
 - Microsoft Login.
@@ -60,13 +60,13 @@ User Identity
   Zweck: Diese Person hat bestimmte Rechte in einem Haushalt.
 ```
 
-Der MVP braucht Device Pairing, weil Mobile Capture ein konkretes Telefon mit einem konkreten Home Hub koppeln muss.
+Der M2 braucht Device Pairing, weil Mobile Capture ein konkretes Telefon mit einem konkreten Home Hub koppeln muss.
 
 Cloud-OAuth identifiziert dagegen primaer eine Person. Das loest nicht automatisch die Frage, ob dieses Geraet zu diesem privaten Home Hub hochladen darf.
 
 ## Begruendung
 
-QR Pairing passt besser zum MVP als Cloud-OAuth:
+QR Pairing passt besser zum M2 als Cloud-OAuth:
 
 - Es funktioniert fuer private Self-Hosted-Setups ohne Cloud-Abhaengigkeit.
 - Es loest das echte Mobile-Capture-Problem: Geraet mit Home Hub koppeln.
@@ -88,7 +88,7 @@ Sie darf aber nicht Voraussetzung fuer lokale/private Nutzung werden.
 Erlaubt:
 
 - neutrale Domain-Begriffe wie `IdentityProvider`, `HouseholdMember`, `DeviceSession`, `PairedDevice`.
-- `LocalProfile` als lokaler MVP-Begriff ohne Cloud-Account-Pflicht.
+- `LocalProfile` als lokaler M2-Begriff ohne Cloud-Account-Pflicht.
 - ein `PairingRepository` oder vergleichbare Domain-Grenze.
 - Provider/Repository-Austauschbarkeit fuer Pairing-Fakes in Tests.
 - spaetere Provider fuer Google, Microsoft oder Passkeys hinter neutralen Interfaces.
@@ -138,7 +138,7 @@ Die App kennt nicht:
 
 - Tailscale als fachliche Voraussetzung.
 - feste Cloud-Abhaengigkeit.
-- offene eingehende Firewall-Ports als MVP-Annahme.
+- offene eingehende Firewall-Ports als M2-Annahme.
 
 ## Konsequenzen fuer R2/R3
 
@@ -168,6 +168,6 @@ Die Entscheidung ist akzeptiert, wenn:
 
 - Wie kurzlebig ist ein Pairing-Code konkret?
 - Erzeugt Desktop den QR-Code oder immer der Home Hub?
-- Wird ein Admin-Passwort fuer den Home Hub bereits im MVP benoetigt?
+- Wird ein Admin-Passwort fuer den Home Hub bereits im M2 benoetigt?
 - Wie wird Revocation im Home-Hub-UI sichtbar?
-- Welche Identity Provider werden post-MVP zuerst geprueft?
+- Welche Identity Provider werden spaetere Milestones zuerst geprueft?

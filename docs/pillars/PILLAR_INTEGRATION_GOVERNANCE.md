@@ -24,7 +24,7 @@ DocMan soll externe Dienste sinnvoll nutzen können, ohne sich an sie zu ketten 
 - keine Credential-Speicherung ohne explizites Sicherheitskonzept.
 - Integrationskatalog.
 
-## MVP-Minimum
+## M2-Minimum
 
 - externe Aktionslinks als manuelle Links.
 - Desktop Web-URL öffnen.

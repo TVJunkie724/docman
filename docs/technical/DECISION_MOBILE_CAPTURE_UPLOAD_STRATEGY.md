@@ -1,6 +1,6 @@
 ---
 title: "Decision - Mobile Capture Upload Strategy"
-description: "Entscheidung fuer einen austauschbaren Upload-Strategy-Port mit API-proxied MVP und presigned/resumable Enterprise-Zielbild"
+description: "Entscheidung fuer einen austauschbaren Upload-Strategy-Port mit API-proxied M2 und presigned/resumable Enterprise-Zielbild"
 tags: [decision, mobile-capture, upload, home-hub, api, minio, s3, strategy, provider]
 lastUpdated: "2026-05-11"
 status: "accepted"
@@ -16,7 +16,7 @@ Accepted.
 
 Ordna trennt den fachlichen Upload-Vertrag vom konkreten Upload-Transport.
 
-Der MVP darf mit **API-proxied Upload** starten. Das Enterprise-Zielbild bleibt
+Der M2 darf mit **API-proxied Upload** starten. Das Enterprise-Zielbild bleibt
 **presigned, content-addressed und resumable Upload** ueber den Home Hub als
 Kontrollinstanz.
 
@@ -62,9 +62,9 @@ Der Home Hub bleibt immer Autoritaet fuer:
 
 Object Storage ist nur Byte-Speicher, nicht Produktlogik.
 
-## MVP-Transport: API-proxied
+## M2-Transport: API-proxied
 
-Im MVP ist API-proxied Upload erlaubt und bevorzugt, wenn er die Umsetzung
+Im M2 ist API-proxied Upload erlaubt und bevorzugt, wenn er die Umsetzung
 vereinfacht.
 
 ```text
@@ -75,7 +75,7 @@ Mobile
   -> Draft-Inbox
 ```
 
-Vorteile fuer den MVP:
+Vorteile fuer den M2:
 
 - einfacher mit Pairing/Auth zu sichern.
 - einfacher zu debuggen.
@@ -83,8 +83,8 @@ Vorteile fuer den MVP:
 - keine fruehe presigned-MinIO-/S3-Komplexitaet im Mobile Slice.
 - keine direkte Storage-Integration auf Mobile noetig.
 
-Der MVP darf Uploads als ganze Datei retryen. Chunking/Multipart ist kein
-MVP-Muss, solange klare Groessenlimits und Fehlerzustaende existieren.
+Der M2 darf Uploads als ganze Datei retryen. Chunking/Multipart ist kein
+M2-Muss, solange klare Groessenlimits und Fehlerzustaende existieren.
 
 ## Enterprise-Ziel: Presigned und resumable
 
@@ -116,7 +116,7 @@ Enterprise-Anforderungen:
 - Audit Events ohne Dokumentinhalte, sensible Dateinamen, Tokens oder URLs.
 - optionale Content-/MIME-/Malware-Validation vorbereiten.
 - client-side-encryption-/E2EE-faehiges Modell vorbereiten.
-- resumable oder multipart Uploads fuer groessere Scans post-MVP.
+- resumable oder multipart Uploads fuer groessere Scans spaetere Milestones.
 
 ## Artefakt-Manifest
 
@@ -135,20 +135,25 @@ CaptureUploadManifest
   -> createdAt
 ```
 
-Im MVP kann das Manifest minimal sein. Es muss aber spaeter Rohseiten,
+Im M2 kann das Manifest minimal sein. Es muss aber spaeter Rohseiten,
 PDF-Rendition, Previews und OCR-/Processing-Ergebnisse aufnehmen koennen, ohne
 den Upload-Port neu zu erfinden.
 
 ## Fehler, Retry und Idempotency
 
-MVP:
+Die konkreten M2-Grenzen fuer Upload-Limits, Retry, Resume-Verzicht und
+Cleanup sind in `DECISION_UPLOAD_LIMITS_RETRY_RESUME_CLEANUP.md`
+entschieden. Diese Strategieentscheidung bleibt fuer den Transport-Schnitt
+zustaendig.
+
+M2:
 
 - Retry ganzer Uploads.
 - Upload Session bleibt lokal queued.
 - Idempotency Key verhindert doppelte Drafts bei erneutem Confirm.
 - 413, 422, 401/403, 409 und 5xx werden nach F5 gemappt.
 
-Post-MVP:
+spaetere Milestones:
 
 - resumable/multipart Upload.
 - Parts mit Checksums.
@@ -194,7 +199,7 @@ Microcks und nicht mit MinIO.
 
 - R4-D13 ist entschieden: Upload-Transport ist austauschbar per Strategy/Port
   und Riverpod Provider.
-- MVP startet pragmatisch mit API-proxied Upload, falls das schneller und
+- M2 startet pragmatisch mit API-proxied Upload, falls das schneller und
   sicherer fuer den ersten Slice ist.
 - OpenAPI muss den Enterprise-Zielvertrag vorbereiten.
 - MinIO/S3 bleibt Data-/Server-Adapter, nicht Domain- oder UI-Begriff.
@@ -204,7 +209,5 @@ Microcks und nicht mit MinIO.
 ## Nicht entschieden
 
 - konkrete Endpoint-Namen.
-- genaue Payload-/Multipart-Grenzwerte.
-- konkrete Checksum-Algorithmen.
 - ob presigned Upload zuerst single-object oder multipart umgesetzt wird.
 - konkrete Verschluesselungsstrategie fuer remote Payloads.

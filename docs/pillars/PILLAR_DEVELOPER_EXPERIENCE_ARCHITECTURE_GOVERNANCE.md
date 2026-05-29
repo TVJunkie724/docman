@@ -26,7 +26,7 @@ DocMan soll langfristig wartbar bleiben und von neuen Arbeitsabschnitten sicher 
 - Definition of Done.
 - Handoff- und Review-Prozesse.
 
-## MVP-Minimum
+## M2-Minimum
 
 - frischer Checkout kann initialisiert werden.
 - generierte Dateien sind reproduzierbar.

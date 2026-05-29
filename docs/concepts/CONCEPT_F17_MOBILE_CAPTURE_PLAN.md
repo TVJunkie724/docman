@@ -1,6 +1,6 @@
 ---
 title: "Konzept F17 - Mobile Capture Client Standards"
-description: "Querschnittliche Frontend-/Client-Regeln fuer Mobile-Capture-Qualitaet, Queue-Zustaende, Upload-Feedback und sichere MVP-Grenzen"
+description: "Querschnittliche Frontend-/Client-Regeln fuer Mobile-Capture-Qualitaet, Queue-Zustaende, Upload-Feedback und sichere M2-Grenzen"
 tags: [concept, mobile, capture, mvp, upload-queue, home-hub, draft-inbox]
 lastUpdated: "2026-05-10"
 version: "1.3"
@@ -21,7 +21,7 @@ F17 definiert die querschnittlichen Frontend-/Client-Regeln fuer Mobile Capture:
 
 ## Grundsatz
 
-Mobile ist im MVP ein schneller Eingang, nicht die vollständige DocMan-Verwaltung.
+Mobile ist im M2 ein schneller Eingang, nicht die vollständige DocMan-Verwaltung.
 
 Mobile Capture soll sich wie ein hochwertiger Dokumentenscanner anfuehlen, nicht wie ein normaler Foto-Upload. Das Zielbild ist die Scan-Qualitaet moderner Mobile-Scanner wie Google Drive Document Scan: Dokument automatisch erkennen, automatisch erfassen, zuschneiden, perspektivisch korrigieren und als saubere Dokumentansicht mit hellem/weissem Hintergrund und gut lesbarem dunklem Text ausgeben.
 
@@ -29,7 +29,7 @@ Das ist eine Produktqualitaetsanforderung. Sie bedeutet nicht, dass DocMan Googl
 
 ## Scan-Qualitaetsziel
 
-Der MVP-Scanner soll mindestens vorbereiten:
+Der M2-Scanner soll mindestens vorbereiten:
 
 - automatische Dokumenterkennung und Auto-Capture.
 - Rand-/Eckenerkennung mit manueller Korrektur.
@@ -49,9 +49,9 @@ Diese Richtung ist in `docs/technical/DECISION_MOBILE_SCANNER_TECHNOLOGY.md`
 vorlaeufig akzeptiert. Die konkrete Flutter-Bridge wird erst nach einem
 Qualitaets-Spike final gewaehlt.
 
-Wenn eine Plattform die gewuenschte Qualitaet nicht liefern kann, darf der MVP nicht still auf normalen Foto-Upload zurueckfallen. Dann braucht es einen sichtbaren Fallback mit Hinweis, dass der Scan nur Fotoqualitaet hat.
+Wenn eine Plattform die gewuenschte Qualitaet nicht liefern kann, darf der M2 nicht still auf normalen Foto-Upload zurueckfallen. Dann braucht es einen sichtbaren Fallback mit Hinweis, dass der Scan nur Fotoqualitaet hat.
 
-## MVP-Flow
+## M2-Flow
 
 ```text
 Mobile
@@ -90,11 +90,12 @@ Desktop
 
 ## Vorgangszuordnung
 
-Direkte Zuordnung ist Komfortpfad. Die verbindliche MVP-Erfassungsentscheidung steht in `docs/technical/DECISION_MVP_DOCUMENT_CAPTURE.md`.
+Direkte Zuordnung ist Komfortpfad. Die verbindliche M2-Erfassungsentscheidung steht in `docs/technical/DECISION_DOCUMENT_CAPTURE.md`. Die optionale Mobile-Kontextauswahl steht in `docs/technical/DECISION_MOBILE_CAPTURE_CONTEXT_SELECTION.md`.
 
 Regeln:
 
 - Draft-Inbox bleibt Fallback.
+- Profil, Vorgang und Notiz sind optionale Kontextfelder.
 - Mobile darf nur offene/aktive Vorgänge aus einer einfachen Liste zeigen.
 - Mobile darf nur Vorgänge anzeigen, die zum aktiven Profil oder zur erlaubten Haushaltsansicht passen.
 - Wenn Liste fehlt, kann trotzdem gescannt werden.
@@ -118,8 +119,21 @@ F17 gilt als umgesetzt, wenn:
 
 ## Offene Folgefragen
 
-- Bild, PDF oder beides im MVP?
+- Bild, PDF oder beides im M2?
 - Wie funktioniert Pairing praktisch?
 - Welche Flutter-/Native-Bridge kapselt Google ML Kit Document Scanner und VisionKit sauber? Vorentscheidung: native Plattform-Scanner, finale Bridge nach Spike.
-- Wie groß dürfen Uploads sein?
-- Wie sichtbar wird Profilwahl auf Mobile im MVP?
+- Ob Mobile im M2 nur zuletzt verwendete Vorgänge oder eine einfache Vorgangsliste zeigt.
+
+## Upload-Limits und Retry
+
+R4-D14 ist entschieden in
+`docs/technical/DECISION_UPLOAD_LIMITS_RETRY_RESUME_CLEANUP.md`.
+
+Für den M2 gilt:
+
+- Uploads werden als ganze Uploads wiederholt, nicht resumable/chunked.
+- Startlimit: 25 Seiten und 50 MB pro Upload-Paket.
+- Soft-Warnung ab 15 Seiten oder 30 MB.
+- SHA-256 prueft die Integritaet vor dem finalen Confirm.
+- Idempotency verhindert doppelte Draft-Inbox-Eintraege.
+- erfolgreiche Rohartefakte duerfen lokal nach 7 Tagen aufgeraeumt werden.

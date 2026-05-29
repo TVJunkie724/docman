@@ -25,7 +25,7 @@ DocMan braucht reproduzierbare Releases und kontrollierte Änderungen.
 - spätere Store-Distribution.
 - Umgang mit Datenmodelländerungen.
 
-## MVP-Minimum
+## M2-Minimum
 
 - lokaler Verify-/Bootstrap-Pfad.
 - Codegen reproduzierbar.

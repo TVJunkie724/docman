@@ -1,6 +1,6 @@
 ---
 title: "Decision - Privacy and Sync Scope"
-description: "Entscheidung zu Privacy-Klassen und Sync-Grenzen für DocMan MVP und spätere Self-hosted-Synchronisation"
+description: "Entscheidung zu Privacy-Klassen und Sync-Grenzen für DocMan M2 und spätere Self-hosted-Synchronisation"
 tags: [decision, privacy, sync, data-classification, self-hosted]
 lastUpdated: "2026-04-27"
 status: "accepted"
@@ -14,20 +14,20 @@ Accepted.
 
 ## Entscheidung
 
-DocMan synchronisiert im MVP nur in eine private, selbst kontrollierte Home-Hub-Umgebung.
+DocMan synchronisiert im M2 nur in eine private, selbst kontrollierte Home-Hub-Umgebung.
 
-Eine Drittanbieter-Cloud- oder externe SaaS-Synchronisation ist nicht Teil der MVP-Produktplanung. Self-hosted cloudartige Setups, etwa privater VPS oder extern erreichbarer eigener Server, bleiben als spaetere Varianten moeglich und muessen `docs/technical/DECISION_SECURITY_PRIVACY_MODEL.md` einhalten.
+Eine Drittanbieter-Cloud- oder externe SaaS-Synchronisation ist nicht Teil der M2-Produktplanung. Self-hosted cloudartige Setups, etwa privater VPS oder extern erreichbarer eigener Server, bleiben als spaetere Varianten moeglich und muessen `docs/technical/DECISION_SECURITY_PRIVACY_MODEL.md` einhalten.
 
 ## Datenklassen
 
-| Klasse | Beispiele | MVP-Regel |
+| Klasse | Beispiele | M2-Regel |
 |---|---|---|
 | Secrets | Pairing Secret, Session Token, Schlüssel | Nur F12 Secure Storage |
 | Originaldateien | Scans, PDFs, Bilder | Lokal und Home Hub erlaubt |
 | Dokument-Metadaten | Titel, Sender, Datum, Tags | Lokal und Home Hub erlaubt |
 | Case-Daten | Vorgänge, Aufgaben, Ereignisse | Lokal; spätere Sync-Fähigkeit vorbereiten |
 | Queue-/Sync-Status | Upload-Status, Retry, Fehlerklasse | Lokal und Home Hub erlaubt |
-| OCR-/LLM-Ergebnisse | extrahierter Text, Vorschläge | Nicht MVP |
+| OCR-/LLM-Ergebnisse | extrahierter Text, Vorschläge | Späterer Milestone |
 | Logs | Diagnose | Keine Inhalte, keine Secrets |
 
 ## Regeln
@@ -35,7 +35,7 @@ Eine Drittanbieter-Cloud- oder externe SaaS-Synchronisation ist nicht Teil der M
 - Keine externen Dienste ohne neue Entscheidung.
 - Keine Secrets in normaler lokaler DB.
 - Keine Dokumentinhalte in Logs.
-- Mobile Uploads dürfen an den Home Hub gehen, weil Mobile Capture MVP-Scope ist.
+- Mobile Uploads dürfen an den Home Hub gehen, weil Mobile Capture M2-Scope ist.
 - Vollständiger Multi-Geräte-Sync wird später separat entschieden.
 - Löschung, Export und Geräte-Entkopplung bleiben Produktanforderungen.
 

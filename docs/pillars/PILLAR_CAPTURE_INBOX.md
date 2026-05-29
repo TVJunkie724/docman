@@ -13,7 +13,7 @@ status: "proposed"
 
 Diese Säule beschreibt, wie Dokumente in DocMan hineinkommen und zuerst geprüft werden.
 
-Der wichtigste MVP-Use-Case bleibt:
+Der wichtigste M2-Use-Case bleibt:
 
 - unterwegs mit Mobile ein Dokument scannen
 - zuhause am Desktop in der Draft-Inbox prüfen
@@ -42,6 +42,7 @@ Dokumentkopien.
 - Draft-Inbox mit unbearbeiteten Eingängen.
 - Done-/Erledigt-Bereich fuer zuletzt abgearbeitete Eingänge.
 - Korrektur von Profil, Vorgang, Subvorgang, Dokumenttyp und Metadaten.
+- Vorschau oder klarer Preview-Platzhalter im Draft Review.
 - aus markierten Dokumenten einen Subvorgang bilden.
 - leeren Subvorgang aus einem Vorgang heraus anlegen.
 - spätere Vorbereitung fuer Share Sheet, Mail-Import und Watch Folder.
@@ -61,18 +62,19 @@ Mobile Capture soll sich am Document-Scan-Erlebnis von Google Drive orientieren:
 
 Das ist ein Zielbild. Die konkrete Scan-Technologie wird separat entschieden.
 
-## MVP-Scope
+## M2-Scope
 
-MVP-light:
+Schlanker M2-Slice:
 
-- Desktop-Import.
+- Desktop-Import mit Dateiauswahl und Drag & Drop fuer PDF/JPG/PNG.
 - Mobile Scan als Upload in Draft-Inbox.
 - lokale mobile Upload-Queue.
 - optionale mobile Vorgangszuordnung über gecachte offene Vorgänge.
 - Drafts bleiben korrigierbar.
-- erledigte Eingänge bleiben kurzfristig sichtbar, damit Fehlzuordnungen schnell korrigiert werden können.
+- die letzten 10 erledigten Eingänge bleiben im Bereich "Zuletzt verarbeitet"
+  sichtbar, damit Fehlzuordnungen schnell korrigiert werden können.
 
-Nicht MVP:
+Späterer Milestone:
 
 - automatische OCR-Klassifikation.
 - Mail-Import.
@@ -92,4 +94,36 @@ Nicht MVP:
 
 - Welche Scan-Technologie ist fuer Mobile die beste erste Umsetzung?
 - Wird PDF oder Bild das primäre Speicherformat fuer mehrseitige Scans?
-- Wie lange bleiben erledigte Eingänge prominent sichtbar?
+
+## Draft Review M2
+
+Die verbindliche Review-Entscheidung steht in
+`docs/technical/DECISION_DRAFT_INBOX_REVIEW_WORKFLOW.md`.
+
+M2-Regeln:
+
+- Inbox hat die Bereiche Entwürfe und Zuletzt verarbeitet.
+- Die letzten 10 zuletzt verarbeiteten Eingänge bleiben sichtbar.
+- Schnelle Korrektur von Titel, Profil, Vorgang/Subvorgang, Dokumenttyp, Notiz
+  und einfachen Metadaten ist erlaubt.
+- Falsch zugeordnete Dokumente werden korrigiert, nicht dupliziert.
+- Ein erledigter Eingang darf zurück in Entwürfe/Review gesetzt werden.
+- Export, Mail, Druck und Outbox bleiben eigene Dokument-/Vorgangsflows.
+
+## Desktop Import M2
+
+Die verbindliche Desktop-Import-Entscheidung steht in
+`docs/technical/DECISION_DESKTOP_IMPORT_SCOPE.md`.
+
+M2-Regeln:
+
+- Dateiauswahl und Drag & Drop werden gemeinsam geplant.
+- `file_picker` und `desktop_drop` sind Adapter, nicht Domain.
+- PDF, JPG/JPEG und PNG sind erlaubt.
+- Mehrere Dateien erzeugen mehrere Drafts.
+- Ein mehrseitiges PDF bleibt ein Dokument-Draft.
+- Hash-Treffer erzeugen eine Duplikatwarnung mit "Bestehendes öffnen",
+  "Beide behalten" und "Abbrechen".
+- Dokumenttyp stammt aus dem lockeren M2-Katalog; "Notiz / Sonstiges" bleibt
+  erlaubt.
+- Ordnerimport, Combine/Merge, OCR und Batch-Regeln bleiben spaetere Milestones.

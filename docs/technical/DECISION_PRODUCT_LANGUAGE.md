@@ -59,4 +59,4 @@ Household
 
 - Wann wird bestehender Code von `Incident*` auf `Case*` migriert?
 - Wird die Datenbank-Migration die Umbenennung physisch vollziehen oder zunächst Alias-/Kompatibilitätsschichten nutzen?
-- Welche Ereignistypen braucht ein `Case` im MVP?
+- Welche Ereignistypen braucht ein `Case` im M2?

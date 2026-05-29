@@ -29,9 +29,9 @@ DocMan verwendet drei Gate-Stufen:
 |---|---|
 | Local Change Gate | jede konkrete Aenderung prueft ihren Scope gezielt |
 | R3 Foundation Gate | Foundation, Testbarkeit, Codegen und Zielpfad-Qualitaet sind unter Kontrolle |
-| MVP Readiness Gate | MVP-Flows, Builds, Contract-Smokes und Security-/Privacy-Minimum sind pruefbar |
+| M2 Readiness Gate | M2-Flows, Builds, Contract-Smokes und Security-/Privacy-Minimum sind pruefbar |
 
-Details stehen in `docs/technical/DECISION_MVP_QUALITY_GATES.md`.
+Details stehen in `docs/technical/DECISION_MILESTONE_QUALITY_GATES.md`.
 
 ## Frühe Gates
 
@@ -96,14 +96,14 @@ Sobald Home-Hub-, Capture- oder Sync-APIs entstehen, bekommt die CI ein Contract
 
 Dieses Gate ist getrennt von Flutter-Fake-Repository-Tests. Fake-Repos prüfen App-Verhalten; Contract-Mocks prüfen Schnittstellen.
 
-## MVP Readiness Gate
+## M2 Readiness Gate
 
-Vor MVP-Abschluss muessen mindestens laufen:
+Vor M2-Abschluss muessen mindestens laufen:
 
 - `scripts/bootstrap.sh --verify` auf frischem Checkout.
 - `flutter analyze` fuer Produktpfade ohne neue Issues.
 - `flutter test`.
-- Desktop-MVP Smoke Build.
+- Desktop-M2 Smoke Build.
 - Mobile-Capture relevante Unit-/Widget-/Smoke-Tests.
 - OpenAPI-/Microcks Contract-Smokes fuer betroffene API-Slices.
 - Security-/Privacy-Mindestchecks gegen Secrets in Logs und private Testdaten.

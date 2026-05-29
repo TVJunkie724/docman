@@ -24,7 +24,7 @@ DocMan muss im Fehlerfall erklärbar sein, ohne sensible Dokumentdaten preiszuge
 - Redaction-Regeln.
 - später self-hosted Observability-Stack.
 
-## MVP-Minimum
+## M2-Minimum
 
 - lokale, sparsame Diagnose.
 - keine Dokumentinhalte, Tokens oder Secrets in Logs.

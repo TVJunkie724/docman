@@ -51,7 +51,7 @@ Legacy darf nicht genutzt werden, um:
 
 - neue Architekturentscheidungen abzuleiten.
 - neue Features darauf aufzubauen.
-- R3- oder MVP-Qualität zu messen.
+- R3- oder M2-Qualität zu messen.
 - PocketBase, Isar, BLoC oder GetIt weiter als Zieltechnologien zu legitimieren.
 
 ## Regeln
@@ -65,7 +65,7 @@ Legacy darf nicht genutzt werden, um:
 
 ## Quality Gates
 
-R3- und MVP-Gates messen den Zielpfad.
+R3- und M2-Gates messen den Zielpfad.
 
 Ein Gate darf nicht an alten Warnungen scheitern, die nur in eingefrorenem Legacy-Code liegen und den Zielpfad nicht beeinflussen. Ein Gate darf aber auch nicht grün gemeldet werden, wenn Legacy noch aktiv in Produktstart, Zielanalyse, Tests oder Build-Kommandos hineinleckt.
 

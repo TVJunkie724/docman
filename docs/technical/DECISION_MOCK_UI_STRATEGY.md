@@ -28,7 +28,7 @@ Neue UI-Mocks entstehen isoliert in einem klar markierten Mock-Bereich und verwe
 | UI-Mock | isolierter Screen oder Flow zur visuellen und interaktiven Konzeptpruefung |
 | Fake Repository | Test-/Dev-Implementierung eines echten Domain-Repository-Vertrags |
 | Contract-Mock | externer API-Mock, z. B. Microcks, fuer Home-Hub-, Capture- und Sync-Vertraege |
-| Produktpfad | echte App-Screens und Provider, die in den MVP wachsen duerfen |
+| Produktpfad | echte App-Screens und Provider, die in den M2 wachsen duerfen |
 
 ## Regeln
 
@@ -80,7 +80,7 @@ Mobile Capture
   -> optional Vorgang zuordnen
 ```
 
-Der Mock soll beantworten, ob sich Mobile Capture mit Draft-Inbox und optionaler Vorgangszuordnung als MVP-Kern richtig anfuehlt.
+Der Mock soll beantworten, ob sich Mobile Capture mit Draft-Inbox und optionaler Vorgangszuordnung als M2-Kern richtig anfuehlt.
 
 ## Synthetische Daten
 

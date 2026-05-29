@@ -25,7 +25,7 @@ DocMan soll sich über Desktop und Mobile hinweg konsistent, ruhig und vertrauen
 - responsive Regeln.
 - Mobile/Desktop-Konsistenz.
 
-## MVP-Minimum
+## M2-Minimum
 
 - keine UI-Sonderwege ohne Grund.
 - wiederverwendbare Komponenten für zentrale Workflows.

@@ -17,11 +17,11 @@ Dieses Konzept ersetzt den importierten F8-Inhalt aus dem alten Projekt.
 
 ## Zweck
 
-F8 hält fest, wie DocMan später verteilt werden kann. Distribution ist nicht MVP-führend, darf aber Architektur nicht überraschen.
+F8 hält fest, wie DocMan später verteilt werden kann. Distribution ist nicht M2-führend, darf aber Architektur nicht überraschen.
 
-## MVP-Richtung
+## M2-Richtung
 
-Der MVP ist privat/self-hosted.
+Der M2 ist privat/self-hosted.
 
 Primär:
 
@@ -57,7 +57,7 @@ Mobile Capture kann Stores später relevant machen. Deshalb sollte DocMan:
 
 F8 gilt als umgesetzt, wenn:
 
-- MVP nicht von Store-Distribution abhängt.
+- M2 nicht von Store-Distribution abhängt.
 - spätere Mobile-Distribution nicht blockiert wird.
 - Privacy-/Permission-Anforderungen sichtbar sind.
 
@@ -65,5 +65,5 @@ F8 gilt als umgesetzt, wenn:
 
 - Wann brauchen wir TestFlight/Android Internal Testing?
 - Wird Desktop signiert verteilt?
-- Brauchen wir vor MVP irgendeine Store-Readiness?
+- Brauchen wir vor M2 irgendeine Store-Readiness?
 

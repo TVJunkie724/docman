@@ -1,12 +1,12 @@
 ---
-title: "Decision - MVP Scope"
-description: "Entscheidung zum ersten DocMan MVP: Desktop-Verwaltung, Mobile Capture und minimaler Home-Hub-Eingangskorb"
-tags: [decision, product, mvp, mobile-capture, desktop, home-hub]
-lastUpdated: "2026-05-08"
+title: "Decision - First Utility Scope"
+description: "Entscheidung zum ersten nutzbaren Produkt-Slice: Desktop-Verwaltung, Mobile Capture und minimaler Home-Hub-Eingangskorb"
+tags: [decision, product, milestones, mobile-capture, desktop, home-hub]
+lastUpdated: "2026-05-29"
 status: "accepted"
 ---
 
-# Decision - MVP Scope
+# Decision - First Utility Scope
 
 ## Status
 
@@ -14,25 +14,30 @@ Accepted.
 
 ## Entscheidung
 
-Der erste DocMan MVP besteht aus Desktop-Verwaltung plus Mobile Capture.
+Der erste nutzbare DocMan/Ordna Produkt-Slice besteht aus Desktop-Verwaltung
+plus Mobile Capture.
 
-Mobile Capture ist Teil des MVP, weil das Erfassen von Dokumenten unterwegs ein zentraler Alltags-Use-Case ist. Mobile bleibt im MVP aber capture-only. Es wird keine vollständige mobile Verwaltungs-App und kein vollständiger Multi-Geräte-Sync gebaut.
+Mobile Capture ist Teil von M2, weil das Erfassen von Dokumenten unterwegs ein
+zentraler Alltags-Use-Case ist. Mobile bleibt in M2 aber capture-only. Es wird
+keine vollständige mobile Verwaltungs-App und kein vollständiger
+Multi-Geräte-Sync gebaut.
 
 Mobile Capture meint Dokumentenscan-Qualitaet, nicht bloss Kamera-Foto-Upload. Das Zielbild ist ein Google-Drive-aehnlicher Dokumentenscan: Auto-Capture, Rand-/Perspektivkorrektur, automatische Verbesserung und gut lesbarer dunkler Text auf hellem/weissem Dokumenthintergrund.
 
-Der MVP enthält einen minimalen Home-Hub-Anteil als Eingangskorb für mobile Uploads.
+M2 enthält einen minimalen Home-Hub-Anteil als Eingangskorb für mobile Uploads.
 
-Die minimale Dokument-Erfassung ist in `docs/technical/DECISION_MVP_DOCUMENT_CAPTURE.md` festgelegt: Desktop-Dateiimport und Mobile Document Scan landen zuerst in der Draft-Inbox; direkte Vorgangszuordnung ist nur Komfortpfad.
+Die minimale Dokument-Erfassung ist in `docs/technical/DECISION_DOCUMENT_CAPTURE.md` festgelegt: Desktop-Dateiimport und Mobile Document Scan landen zuerst in der Draft-Inbox; direkte Vorgangszuordnung ist nur Komfortpfad.
 
 Das Kernmodell aus `docs/technical/DECISION_CASE_DOCUMENT_RECORD_MODEL.md` gilt als Zielbild: Dokumente können auch ohne Vorgang existieren, Records/Nachweise bilden langlebige Unterlagen mit Versionen, und strukturierte Fakten werden für spätere Insights vorbereitet.
 
-## MVP-Zielbild
+## M2-Zielbild
 
 ```text
 Mobile Capture
   -> Dokument scannen
   -> Scan bereinigen und als Dokumentdatei vorbereiten
   -> lokal in Upload-Queue speichern
+  -> optional betroffene Person waehlen, wenn sicher bekannt
   -> optional Vorgang wählen, wenn gecachte Liste verfügbar ist
   -> an Home Hub hochladen
 
@@ -44,6 +49,7 @@ Minimaler Home Hub
 
 Desktop
   -> Draft-Inbox prüfen
+  -> betroffene Person setzen oder korrigieren
   -> Dokumente Vorgängen zuordnen
   -> Subvorgänge anlegen oder Dokumente als Subvorgang gruppieren
   -> Aufgaben und Fälligkeiten prüfen
@@ -55,16 +61,16 @@ Desktop
 ## In Scope
 
 - Ein Haushalt.
-- Ein aktives Profil.
-- Profilzuordnung fuer Dokumente, Drafts und Vorgänge wird vorbereitet.
+- betroffene Person / Haushaltsprofil fuer Dokumente und Drafts ist beim Review-Abschluss Pflicht.
+- Personen-/Profilzuordnung fuer Dokumente, Drafts und Vorgänge wird vorbereitet.
 - Desktop: Vorgänge erstellen, bearbeiten und schließen.
-- Desktop: Subvorgänge als MVP-light erstellen.
+- Desktop: Subvorgänge schlank erstellen.
 - Desktop: markierte Dokumente eines Vorgangs in einen neuen Subvorgang gruppieren.
 - Desktop: Dokumente als Drafts erfassen.
 - Desktop: Dokumente Vorgängen zuordnen.
 - Desktop: einfache Aufgaben mit Fälligkeit verwalten.
 - Desktop: wichtige Dokumente/Records im Schnellzugriff markieren.
-- Desktop: Profilzuordnung für Drafts und Dokumente setzen oder korrigieren.
+- Desktop: betroffene Person für Drafts und Dokumente setzen oder korrigieren.
 - Desktop: lokale Suche und Filter.
 - Desktop: lokale Persistenz.
 - Mobile: Dokumentenscan mit Auto-Capture, Zuschnitt, Perspektivkorrektur und Dokumentoptimierung.
@@ -89,11 +95,18 @@ Desktop
 
 ## Begründung
 
-Ein rein lokaler Desktop-MVP wäre technisch einfacher, würde aber den wichtigsten Alltagsmoment verfehlen: unterwegs ein Dokument, einen Brief, eine Rechnung oder ein Formular schnell erfassen und sicher in DocMan bekommen.
+Ein rein lokaler Desktop-Start wäre technisch einfacher, würde aber den
+wichtigsten Alltagsmoment verfehlen: unterwegs ein Dokument, einen Brief, eine
+Rechnung oder ein Formular schnell erfassen und sicher in DocMan bekommen.
 
-Ein vollständiges Mobile- und Sync-System wäre dagegen zu groß für den MVP. Der sinnvolle Schnitt ist deshalb Mobile Capture mit minimalem Home-Hub-Eingangskorb.
+Ein vollständiges Mobile- und Sync-System wäre dagegen zu groß für M2. Der
+sinnvolle Schnitt ist deshalb Mobile Capture mit minimalem
+Home-Hub-Eingangskorb.
 
-Die direkte Zuordnung zu einem Vorgang ist im MVP als Komfortpfad erlaubt, aber nicht als harte Voraussetzung. Draft-Inbox bleibt der sichere Standard, wenn keine Vorgangsliste verfügbar ist, die Verbindung fehlt oder die gewählte Zuordnung später nicht mehr passt.
+Die direkte Zuordnung zu einem Vorgang ist in M2 als Komfortpfad erlaubt, aber
+nicht als harte Voraussetzung. Draft-Inbox bleibt der sichere Standard, wenn
+keine Vorgangsliste verfügbar ist, die Verbindung fehlt oder die gewählte
+Zuordnung später nicht mehr passt.
 
 ## Zielregeln
 
@@ -102,18 +115,18 @@ Die direkte Zuordnung zu einem Vorgang ist im MVP als Komfortpfad erlaubt, aber 
 - Mobile muss auch ohne aktuelle Vorgangsliste funktionieren.
 - Direkter Upload zu einem Vorgang darf nur eine einfache Zuordnung sein, keine vollständige mobile Bearbeitung.
 - Desktop bleibt der Ort für Prüfung, Korrektur, Metadaten und Vorgangsverwaltung.
-- Der MVP arbeitet mit einem aktiven Profil, darf aber spätere Haushalts-/Kinderprofile nicht verbauen.
+- M2 verlangt eine explizite betroffene Person, darf aber spätere Haushalts-/Kinderprofile nicht verbauen.
 - Subvorgänge helfen großen Vorgängen, ohne Dokumentdateien zu duplizieren.
-- Im MVP hat ein Dokument eine primäre Vorgangszuordnung; flexible Mehrfachlinks mit Rollen kommen später.
+- In M2 hat ein Dokument eine primäre Vorgangszuordnung; flexible Mehrfachlinks mit Rollen kommen später.
 - Aufgaben und Reminder sind fachliche Objekte; Notifications sind nur ein Anzeigeweg.
 - Schnellzugriff meint wichtige Dokumente schnell finden, nicht externe Notfallfreigabe.
-- Der Home Hub im MVP ist ein Capture-Gateway, noch kein vollständiges Sync Backend.
+- Der Home Hub in M2 ist ein Capture-Gateway, noch kein vollständiges Sync Backend.
 - Das Datenmodell muss den späteren Ausbau zu vollständigem Sync und lokaler Intelligence vorbereiten.
 
 ## Offene Folgefragen
 
-- Mobile/Home-Hub-Kopplung ist entschieden: QR Pairing primaer, manueller Pairing-Code als Fallback. Der Desktop-MVP erzwingt kein Login; Identity bleibt vorbereitet.
-- Welche Scanformate sind im MVP erlaubt: PDF, Bild oder beides?
+- Mobile/Home-Hub-Kopplung ist entschieden: QR Pairing primaer, manueller Pairing-Code als Fallback. M2 erzwingt kein Login; Identity bleibt vorbereitet.
+- Welche Scanformate sind in M2 erlaubt: PDF, Bild oder beides?
 - Welche native Scanner-Bridge nutzt DocMan: Google ML Kit Document Scanner auf Android und VisionKit auf iOS oder eine belastbare Flutter-Kapselung davon?
 - Welche minimale Vorgangsliste braucht Mobile: Titel, Profil, Status, Tags, Datum?
 - Wie lange darf die mobile Queue Dokumente lokal halten?

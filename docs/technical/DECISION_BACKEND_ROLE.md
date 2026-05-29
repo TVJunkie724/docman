@@ -12,7 +12,7 @@ status: "draft"
 
 Draft.
 
-Dieser Entwurf ist noch keine akzeptierte Architekturentscheidung. Er hält die aktuelle Richtung fest, damit spätere MVP-, Foundation- und Backend-Entscheidungen daran anschließen können.
+Dieser Entwurf ist noch keine akzeptierte Architekturentscheidung. Er hält die aktuelle Richtung fest, damit spätere M2-, Foundation- und Backend-Entscheidungen daran anschließen können.
 
 ## Vorläufige Richtung
 
@@ -20,7 +20,7 @@ DocMan wird nicht als Cloud-SaaS geplant. Die bevorzugte Backend-Betriebsform is
 
 Der Server soll langfristig als Docker-/Compose-Setup betreibbar sein.
 
-DocMan startet trotzdem local-first. Der lokale Desktop-Kern darf ohne Backend funktionieren. Der beschlossene MVP mit Mobile Capture braucht jedoch einen minimalen Home-Hub-Anteil als Eingangskorb. Das spätere vollständige Backend wird grob vorausgeplant, damit Datenmodell, Dokumentablage, Sync-Journal, Upload-Queue und spätere Intelligence-Pipeline kompatibel bleiben.
+DocMan startet trotzdem local-first. Der lokale Desktop-Kern darf ohne Backend funktionieren. Der beschlossene M2 mit Mobile Capture braucht jedoch einen minimalen Home-Hub-Anteil als Eingangskorb. Das spätere vollständige Backend wird grob vorausgeplant, damit Datenmodell, Dokumentablage, Sync-Journal, Upload-Queue und spätere Intelligence-Pipeline kompatibel bleiben.
 
 Die Dateiablage ist als austauschbarer Storage-Port entschieden. App-local nutzt
 einen lokalen File Store. Der Home-Hub-/Server-Stack plant MinIO beziehungsweise
@@ -118,7 +118,7 @@ Diese Bausteine sind Kandidaten, keine finale Auswahl:
 
 ## Konsequenzen
 
-- Der MVP bleibt klein und lokal, aber verwendet sync-fähige IDs und saubere Domain-Grenzen.
+- Der M2 bleibt klein und lokal, aber verwendet sync-fähige IDs und saubere Domain-Grenzen.
 - Dokumente sollten von Anfang an als Originaldatei plus Metadaten gedacht werden.
 - Upload-Queue, Review-Zustände und spätere Job-Ergebnisse brauchen Platz im Modell.
 - Backend-SDKs dürfen nicht in Domain-Kontrakte leaken.
@@ -127,7 +127,7 @@ Diese Bausteine sind Kandidaten, keine finale Auswahl:
 
 ## Noch zu entscheiden
 
-- Wann beginnt der Server-Stack: vor, während oder nach dem lokalen Desktop-MVP?
+- Wann beginnt der Server-Stack: vor, während oder nach dem lokalen Desktop-M2?
 - Welche Sync-Strategie wird verwendet: eigenes Änderungsjournal, bestehende Sync-Technologie oder Hybrid?
 - Welche Daten dürfen zwischen Geräten synchronisiert werden?
 - Wie wird Ende-zu-Ende- oder At-Rest-Verschlüsselung gehandhabt?

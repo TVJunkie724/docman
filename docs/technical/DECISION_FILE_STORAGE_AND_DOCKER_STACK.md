@@ -95,7 +95,7 @@ Die Backend-Technologie fuer `ordna-homehub-api` ist in
 `DECISION_HOME_HUB_BACKEND_TECHNOLOGY.md` entschieden: ASP.NET Core fuer die API
 und spaetere .NET Worker/Hosted Services fuer einfache Hintergrundjobs.
 
-Post-MVP oder bei konkretem Bedarf:
+spaetere Milestones oder bei konkretem Bedarf:
 
 ```text
 ocr-worker
@@ -146,11 +146,11 @@ Für Home-Hub-/Server-Uploads wird dieser Ablauf als Zielmuster akzeptiert:
 4. Home Hub creates/updates InboxItem or FileRecord status
 ```
 
-Der MVP darf diesen Flow für Microcks/OpenAPI modellieren, bevor der echte
+Der M2 darf diesen Flow für Microcks/OpenAPI modellieren, bevor der echte
 Home Hub vollständig implementiert ist.
 
 Die konkrete Upload-Transport-Strategie ist separat entschieden:
-`DECISION_MOBILE_CAPTURE_UPLOAD_STRATEGY.md`. Der MVP darf API-proxied Upload
+`DECISION_MOBILE_CAPTURE_UPLOAD_STRATEGY.md`. Der M2 darf API-proxied Upload
 nutzen. Das Enterprise-Ziel bleibt presigned/resumable Upload gegen
 S3-kompatiblen Storage. Beide Varianten bleiben hinter demselben
 Upload-Strategy-/Storage-Port austauschbar.

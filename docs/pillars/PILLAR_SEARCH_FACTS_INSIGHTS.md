@@ -24,11 +24,11 @@ DocMan soll später beantworten können:
 
 ## Suche
 
-MVP-nahe Suche beginnt strukturiert und lokal.
+M2-nahe Suche beginnt strukturiert und lokal.
 
 Die akzeptierte Technologieentscheidung steht in `docs/technical/DECISION_SEARCH_TECHNOLOGY.md`.
 
-MVP-Technologie:
+M2-Technologie:
 
 - SQLite + Drift für strukturierte Filter.
 - SQLite FTS5 für gepflegte textuelle Metadaten.
@@ -100,16 +100,16 @@ Insights entstehen aus geprüften Facts:
 - offene und abgelehnte Claims.
 - auslaufende Verträge und Nachweise.
 
-## MVP-Scope
+## M2-Scope
 
-MVP-light:
+Schlanker M2-Slice:
 
 - lokale strukturierte Suche.
 - einfache Filter nach Vorgang, Dokument, Profil, Status und Datum.
 - FTS5-Metadatensuche über gepflegte Textfelder.
 - Beträge, Fälligkeiten und Anbieter so erfassen, dass spätere Facts nicht blockiert werden.
 
-Nicht MVP:
+Späterer Milestone:
 
 - OCR-Volltext.
 - semantische Suche.
@@ -128,6 +128,6 @@ Nicht MVP:
 
 ## Offene Folgefragen
 
-- Welche Ranking-/Sortierregeln braucht die MVP-Suche zuerst?
+- Welche Ranking-/Sortierregeln braucht die M2-Suche zuerst?
 - Welche Facts werden zuerst manuell erfasst?
-- Welche erste Auswertung ist MVP-nah genug?
+- Welche erste Auswertung ist M2-nah genug?

@@ -137,15 +137,12 @@ Use one milestone:
 
 | Milestone | Use for |
 |---|---|
-| `DocMan Foundation` | R0-R3 decisions, documentation cleanup, technical foundation, quality readiness |
-| `DocMan Local Desktop MVP` | First local desktop product slice / R4 product MVP |
-| `DocMan Cases` | Case/Vorgang management and workflows |
-| `DocMan Documents` | Document management, metadata, drafts, viewer |
-| `DocMan Capture` | Mobile scan/capture and draft intake |
-| `DocMan Profiles` | Profiles, household, permissions |
-| `DocMan Auth & Sync` | Auth, sessions, local-first sync, conflicts |
-| `DocMan AI Analysis` | OCR, auto-tagging, status suggestions |
-| `DocMan Distribution` | App store, packaging, legal/distribution readiness |
+| `Ordna M1 Foundation and Quality` | R0-R3 decisions, documentation cleanup, technical foundation, quality readiness |
+| `Ordna M2 Capture and Review Core` | Capture, draft inbox, review, documents, cases, search, tasks |
+| `Ordna M3 Assisted Review` | OCR/text extraction, metadata suggestions, review of suggestions |
+| `Ordna M4 Household and Sync` | Household profiles, pairing, Home Hub, sync, extended mobile |
+| `Ordna M5 Facts, Workflows and Insights` | Facts, claims, workflows, insights, external actions |
+| `Ordna M6 Automation, Resilience and Distribution` | Backup, restore, compliance, release, sharing, local LLMs, operations |
 
 If an issue spans multiple areas, choose the milestone for the primary product outcome. Keep secondary ownership in labels.
 
@@ -282,7 +279,7 @@ gh issue create \
   --title "Short actionable title" \
   --body-file /tmp/issue-body.md \
   --label "type:feature-request,status:open,area:foundation,layer:docs,priority:high" \
-  --milestone "DocMan Foundation"
+  --milestone "Ordna M1 Foundation and Quality"
 ```
 
 7. Re-open the created issue and verify title, labels, milestone, and body:
@@ -303,7 +300,7 @@ If an issue exists, update it instead of creating a duplicate:
 gh issue edit <number> \
   --repo TVJunkie724/docman \
   --add-label "area:foundation,layer:docs,priority:high" \
-  --milestone "DocMan Foundation"
+  --milestone "Ordna M1 Foundation and Quality"
 ```
 
 When updating an issue, also re-check blockers/dependencies:

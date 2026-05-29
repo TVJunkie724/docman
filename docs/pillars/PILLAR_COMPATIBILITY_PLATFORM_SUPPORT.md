@@ -26,9 +26,9 @@ DocMan läuft über mehrere Plattformen mit unterschiedlichen Fähigkeiten.
 - Scanner APIs.
 - Store-Vorgaben je Plattform.
 
-## MVP-Minimum
+## M2-Minimum
 
-- Zielplattformen für MVP explizit benennen.
+- Zielplattformen für M2 explizit benennen.
 - Mobile Scan nicht als plattformneutralen Foto-Upload verkürzen.
 - sichere Fallbacks definieren, wenn Plattformfähigkeiten fehlen.
 

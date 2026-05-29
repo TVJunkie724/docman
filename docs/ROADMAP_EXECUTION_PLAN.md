@@ -2,8 +2,8 @@
 title: "DocMan - Roadmap Execution Plan"
 description: "Konkrete Umsetzung der Rebuild-Roadmap in GitHub Milestones, Epics und Issues pro Phase und Säule"
 tags: [roadmap, execution, milestones, epics, issues, github]
-lastUpdated: "2026-05-08"
-version: "0.4"
+lastUpdated: "2026-05-29"
+version: "0.5"
 status: "accepted"
 ---
 
@@ -36,23 +36,18 @@ Dokumente bleiben die Quelle für akzeptierte Entscheidungen und Konzepte:
 
 ## Milestone-Strategie
 
-Vorhandene GitHub-Milestones werden weiterverwendet.
+GitHub-Milestones folgen dem Produkt-Milestone-Modell. Bereiche wie Cases,
+Documents oder Capture werden ueber Epics, Labels und Issue-Body gefuehrt,
+nicht als eigene Milestones.
 
-| Roadmap-Phase | GitHub-Milestone | Bemerkung |
+| Roadmap-Milestone | GitHub-Milestone | Bemerkung |
 |---|---|---|
-| R0-R3 | `DocMan Foundation` | Entscheidungen, Foundation, QA, Production Readiness |
-| R4 | `DocMan Local Desktop MVP` | übergreifender MVP-Milestone |
-| R4 Cases Slice | `DocMan Cases` | Vorgänge, Subvorgänge, Workflows |
-| R4 Documents Slice | `DocMan Documents` | Dokumente, Draft-Inbox, Records |
-| R4 Capture Slice | `DocMan Capture` | Mobile Scan, Upload Queue, Capture Intake |
-| R5 | `DocMan Profiles` | Haushalt, Profile, Zugriff |
-| R6 | `DocMan Auth & Sync` | Home Hub, Pairing, Sync, Konflikte |
-| R7 | `DocMan Capture` | Extended Mobile bleibt zunächst Capture-nah |
-| R8 | `DocMan Local Desktop MVP` | Facts/Insights zuerst lokal; später eigener Milestone möglich |
-| R9 | `DocMan AI Analysis` | OCR, Vorschläge, lokale/private LLM-Pipeline |
-| R10 | `DocMan Distribution` | Compliance, Store, Release, Legal Readiness |
-| R11 | `DocMan Foundation` | Data Resilience als technische Readiness |
-| R12 | `DocMan Foundation` | Support, Diagnostics, Governance |
+| M0/M1 | `Ordna M1 Foundation and Quality` | Entscheidungen, Foundation, QA, Production Readiness |
+| M2 | `Ordna M2 Capture and Review Core` | Capture, Draft-Inbox, Review, Dokumente, Vorgänge, Suche, Tasks |
+| M3 | `Ordna M3 Assisted Review` | OCR/Text, Metadatenvorschlaege, Review von Vorschlaegen |
+| M4 | `Ordna M4 Household and Sync` | Profile, Haushalt, Pairing, Home Hub, Sync, Extended Mobile |
+| M5 | `Ordna M5 Facts, Workflows and Insights` | Facts, Claims, Auswertungen, Workflows, externe Aktionen |
+| M6 | `Ordna M6 Automation, Resilience and Distribution` | Backup, Restore, Compliance, Release, Sharing, lokale LLMs, Ops |
 
 ## Label-Minimum
 
@@ -96,8 +91,8 @@ Diese Issues existieren bereits und werden nicht dupliziert:
 | #8 | Establish local storage and draft inbox persistence foundation | R2/R4 Foundation |
 | #9 | Isolate mock UI and establish fake repositories | R3 QA/Foundation |
 | #10 | Replace template tests with DocMan foundation tests | R3 QA/Foundation |
-| #11 | Prepare Mobile Capture MVP concept handoff | R4 Capture |
-| #12 | Prepare Local Desktop MVP concept handoff | R4 MVP |
+| #11 | Prepare Mobile Capture M2 concept handoff | R4 Capture |
+| #12 | Prepare M2 Capture and Review Core concept handoff | R4 M2 |
 | #13 | Finalize product name | R0/R10 Naming/Distribution; accepted as `Ordna`, rename follow-up needed |
 | #14 | Define R3 Quality & Production Readiness phase | R3 Epic/Phase Definition |
 
@@ -107,16 +102,16 @@ Diese Epics wurden in GitHub angelegt:
 
 | Issue | Titel | Phase | Milestone |
 |---|---|---|---|
-| #15 | Epic: R4 Desktop Core MVP | R4 | `DocMan Local Desktop MVP` |
-| #16 | Epic: R4 Capture and Draft Inbox MVP | R4 | `DocMan Capture` |
-| #17 | Epic: R5 Household Profiles and Access | R5 | `DocMan Profiles` |
-| #18 | Epic: R6 Home Hub, Auth and Sync | R6 | `DocMan Auth & Sync` |
-| #19 | Epic: R7 Extended Mobile Capture and Review | R7 | `DocMan Capture` |
-| #20 | Epic: R8 Structured Facts, Claims and Insights | R8 | `DocMan Local Desktop MVP` |
-| #21 | Epic: R9 OCR, Fact Suggestions and Local Intelligence | R9 | `DocMan AI Analysis` |
-| #22 | Epic: R10 Compliance, Legal and Distribution Readiness | R10 | `DocMan Distribution` |
-| #23 | Epic: R11 Backup, Restore, Retention and Storage Health | R11 | `DocMan Foundation` |
-| #24 | Epic: R12 Support, Diagnostics and Architecture Governance | R12 | `DocMan Foundation` |
+| #15 | Epic: R4 Capture and Review Core | R4 | `Ordna M2 Capture and Review Core` |
+| #16 | Epic: R4 Capture and Draft Inbox M2 | R4 | `Ordna M2 Capture and Review Core` |
+| #17 | Epic: R5 Household Profiles and Access | R5 | `Ordna M4 Household and Sync` |
+| #18 | Epic: R6 Home Hub, Auth and Sync | R6 | `Ordna M4 Household and Sync` |
+| #19 | Epic: R7 Extended Mobile Capture and Review | R7 | `Ordna M4 Household and Sync` |
+| #20 | Epic: R8 Structured Facts, Claims and Insights | R8 | `Ordna M5 Facts, Workflows and Insights` |
+| #21 | Epic: R9 OCR, Fact Suggestions and Local Intelligence | R9 | `Ordna M3 Assisted Review` |
+| #22 | Epic: R10 Compliance, Legal and Distribution Readiness | R10 | `Ordna M6 Automation, Resilience and Distribution` |
+| #23 | Epic: R11 Backup, Restore, Retention and Storage Health | R11 | `Ordna M6 Automation, Resilience and Distribution` |
+| #24 | Epic: R12 Support, Diagnostics and Architecture Governance | R12 | `Ordna M6 Automation, Resilience and Distribution` |
 
 ## Angelegte R3/R4 Child-Issues
 
@@ -124,25 +119,25 @@ Diese nächsten Child-Issues wurden in GitHub angelegt:
 
 | Issue | Titel | Parent | Milestone |
 |---|---|---|---|
-| #25 | Implement target-path analyzer and verify gates | #14 | `DocMan Foundation` |
-| #26 | Create synthetic fixtures for documents, cases, profiles and capture | #14 | `DocMan Foundation` |
-| #27 | Establish OpenAPI and Microcks contract baseline | #14 | `DocMan Foundation` |
-| #28 | Add R3 compliance and data-lifecycle readiness checklist | #14 | `DocMan Foundation` |
-| #29 | Define visual and accessibility regression baseline | #14 | `DocMan Foundation` |
-| #30 | Implement MVP case and subcase management | #15 | `DocMan Cases` |
-| #31 | Implement document and draft inbox review flow | #15 | `DocMan Documents` |
-| #32 | Implement record-aware document metadata model | #15 | `DocMan Documents` |
-| #33 | Implement mobile scan upload queue MVP | #16 | `DocMan Capture` |
-| #34 | Implement Home Hub capture upload contract client | #16 | `DocMan Capture` |
-| #35 | Implement MVP tasks, due dates and quick access | #15 | `DocMan Local Desktop MVP` |
-| #36 | Implement MVP structured search and filters | #15 | `DocMan Local Desktop MVP`; follows `DECISION_SEARCH_TECHNOLOGY.md` |
-| #37 | Implement MVP external action links | #15 | `DocMan Local Desktop MVP` |
+| #25 | Implement target-path analyzer and verify gates | #14 | `Ordna M1 Foundation and Quality` |
+| #26 | Create synthetic fixtures for documents, cases, profiles and capture | #14 | `Ordna M1 Foundation and Quality` |
+| #27 | Establish OpenAPI and Microcks contract baseline | #14 | `Ordna M1 Foundation and Quality` |
+| #28 | Add R3 compliance and data-lifecycle readiness checklist | #14 | `Ordna M1 Foundation and Quality` |
+| #29 | Define visual and accessibility regression baseline | #14 | `Ordna M1 Foundation and Quality` |
+| #30 | Implement M2 case and subcase management | #15 | `Ordna M2 Capture and Review Core` |
+| #31 | Implement document and draft inbox review flow | #15 | `Ordna M2 Capture and Review Core` |
+| #32 | Implement record-aware document metadata model | #15 | `Ordna M2 Capture and Review Core` |
+| #33 | Implement mobile scan upload queue M2 | #16 | `Ordna M2 Capture and Review Core` |
+| #34 | Implement Home Hub capture upload contract client | #16 | `Ordna M2 Capture and Review Core` |
+| #35 | Implement M2 tasks, due dates and quick access | #15 | `Ordna M2 Capture and Review Core` |
+| #36 | Implement M2 structured search and filters | #15 | `Ordna M2 Capture and Review Core`; follows `DECISION_SEARCH_TECHNOLOGY.md` |
+| #37 | Implement M2 external action links | #15 | `Ordna M2 Capture and Review Core` |
 
 ## Phase Epics
 
 ### R2 - Technical Foundation
 
-GitHub milestone: `DocMan Foundation`
+GitHub milestone: `Ordna M1 Foundation and Quality`
 
 Existing anchor issues:
 
@@ -162,7 +157,7 @@ Additional child issues:
 
 ### R3 - Quality & Production Readiness
 
-GitHub milestone: `DocMan Foundation`
+GitHub milestone: `Ordna M1 Foundation and Quality`
 
 Existing anchor issues:
 
@@ -180,52 +175,53 @@ Additional child issues:
 | #28 Add R3 compliance and data-lifecycle readiness checklist | Compliance/Legal; Data Lifecycle | `area:distribution`, `area:security`, `layer:docs` |
 | #29 Define visual and accessibility regression baseline | Design System/UX; QA | `area:design-system`, `area:quality`, `layer:tests`, `layer:frontend` |
 
-### R4 - Desktop Core + Mobile Capture MVP
+### R4 - Capture and Review Core
 
-GitHub milestones:
-
-- `DocMan Local Desktop MVP`
-- `DocMan Cases`
-- `DocMan Documents`
-- `DocMan Capture`
+GitHub milestone: `Ordna M2 Capture and Review Core`
 
 Existing anchor issues:
 
-- #11 Prepare Mobile Capture MVP concept handoff.
-- #12 Prepare Local Desktop MVP concept handoff.
+- #11 Prepare Mobile Capture M2 concept handoff.
+- #12 Prepare M2 Capture and Review Core concept handoff.
 
 Recommended epics:
 
 | Epic | Milestone | Primary pillars |
 |---|---|---|
-| #15 Epic: R4 Desktop Core MVP | `DocMan Local Desktop MVP` | Cases/Records, Documents, Tasks, Search, External Actions |
-| #16 Epic: R4 Capture and Draft Inbox MVP | `DocMan Capture` | Capture & Inbox, Home Hub & Sync |
+| #15 Epic: R4 Capture and Review Core | `Ordna M2 Capture and Review Core` | Cases/Records, Documents, Tasks, Search, External Actions |
+| #16 Epic: R4 Capture and Draft Inbox M2 | `Ordna M2 Capture and Review Core` | Capture & Inbox, Home Hub & Sync |
 
 Child issues:
 
 | Proposed title | Milestone | Labels |
 |---|---|---|
-| #30 Implement MVP case and subcase management | `DocMan Cases` | `area:cases`, `layer:frontend`, `layer:domain`, `priority:high` |
-| #31 Implement document and draft inbox review flow | `DocMan Documents` | `area:documents`, `layer:frontend`, `layer:domain`, `layer:data`, `priority:high` |
-| #32 Implement record-aware document metadata model | `DocMan Documents` | DMS-Zielarchitektur: DocumentRecord, FileRecord, Versionen, Profilbezug und spätere Link-Objekte vorbereiten; `area:documents`, `area:data-storage`, `layer:domain`, `layer:data`, `priority:high` |
-| #33 Implement mobile scan upload queue MVP | `DocMan Capture` | `area:capture`, `area:sync`, `layer:frontend`, `layer:sync`, `priority:high` |
-| #34 Implement Home Hub capture upload contract client | `DocMan Capture` | `area:capture`, `area:api-contracts`, `layer:api`, `layer:sync`, `priority:high` |
-| #35 Implement MVP tasks, due dates and quick access | `DocMan Local Desktop MVP` | `area:cases`, `area:documents`, `layer:frontend`, `layer:domain`, `priority:medium` |
-| #36 Implement MVP structured search and filters | `DocMan Local Desktop MVP` | Search-Boundary plus SQLite/Drift/FTS5 per `DECISION_SEARCH_TECHNOLOGY.md`; `area:documents`, `area:cases`, `layer:frontend`, `layer:data`, `priority:high` |
-| #37 Implement MVP external action links | `DocMan Local Desktop MVP` | `area:documents`, `area:cases`, `layer:frontend`, `layer:domain`, `priority:medium` |
+| #30 Implement M2 case and subcase management | `Ordna M2 Capture and Review Core` | `area:cases`, `layer:frontend`, `layer:domain`, `priority:high` |
+| #31 Implement document and draft inbox review flow | `Ordna M2 Capture and Review Core` | `area:documents`, `layer:frontend`, `layer:domain`, `layer:data`, `priority:high` |
+| #32 Implement record-aware document metadata model | `Ordna M2 Capture and Review Core` | DMS-Zielarchitektur: DocumentRecord, FileRecord, Versionen, Profilbezug und spätere Link-Objekte vorbereiten; `area:documents`, `area:data-storage`, `layer:domain`, `layer:data`, `priority:high` |
+| #33 Implement mobile scan upload queue M2 | `Ordna M2 Capture and Review Core` | `area:capture`, `area:sync`, `layer:frontend`, `layer:sync`, `priority:high` |
+| #34 Implement Home Hub capture upload contract client | `Ordna M2 Capture and Review Core` | `area:capture`, `area:api-contracts`, `layer:api`, `layer:sync`, `priority:high` |
+| #35 Implement M2 tasks, due dates and quick access | `Ordna M2 Capture and Review Core` | `area:cases`, `area:documents`, `layer:frontend`, `layer:domain`, `priority:medium` |
+| #36 Implement M2 structured search and filters | `Ordna M2 Capture and Review Core` | Search-Boundary plus SQLite/Drift/FTS5 per `DECISION_SEARCH_TECHNOLOGY.md`; `area:documents`, `area:cases`, `layer:frontend`, `layer:data`, `priority:high` |
+| #37 Implement M2 external action links | `Ordna M2 Capture and Review Core` | `area:documents`, `area:cases`, `layer:frontend`, `layer:domain`, `priority:medium` |
 
-### R5 - Family Profiles
+### R5 - Assisted Review and Household Profiles
 
-GitHub milestone: `DocMan Profiles`
+GitHub milestones:
+
+- `Ordna M3 Assisted Review`
+- `Ordna M4 Household and Sync`
 
 Recommended epic:
 
 - #17 Epic: R5 Household Profiles and Access.
+- New Epic: R5 Assisted Review and Metadata Suggestions.
 
 Child issues:
 
 | Proposed title | Labels |
 |---|---|
+| Implement text extraction boundary for draft review | `area:ai-analysis`, `area:documents`, `layer:domain`, `layer:data`, `priority:high` |
+| Add metadata suggestion review UI | `area:ai-analysis`, `area:documents`, `layer:frontend`, `priority:high` |
 | Implement household and profile domain model | `area:profiles`, `layer:domain`, `layer:data`, `priority:high` |
 | Make inbox, cases, records and tasks profile-aware | `area:profiles`, `area:documents`, `area:cases`, `layer:frontend`, `layer:domain`, `priority:high` |
 | Define child profile and adult manager UX | `area:profiles`, `area:frontend`, `area:design-system`, `layer:frontend`, `priority:medium` |
@@ -233,7 +229,7 @@ Child issues:
 
 ### R6 - Sync and Auth
 
-GitHub milestone: `DocMan Auth & Sync`
+GitHub milestone: `Ordna M4 Household and Sync`
 
 Recommended epic:
 
@@ -251,7 +247,7 @@ Child issues:
 
 ### R7 - Extended Mobile
 
-GitHub milestone: `DocMan Capture`
+GitHub milestone: `Ordna M4 Household and Sync`
 
 Recommended epic:
 
@@ -268,7 +264,7 @@ Child issues:
 
 ### R8 - Structured Facts and Insights
 
-GitHub milestone: `DocMan Local Desktop MVP`
+GitHub milestone: `Ordna M5 Facts, Workflows and Insights`
 
 Recommended epic:
 
@@ -284,9 +280,12 @@ Child issues:
 | Implement first local insights view | `area:frontend`, `area:documents`, `layer:frontend`, `layer:data`, `priority:medium` |
 | Add workflow templates for doctor visit, accident and insurance | `area:cases`, `area:documents`, `layer:domain`, `layer:frontend`, `priority:medium` |
 
-### R9 - Intelligence
+### R9 - Intelligence and Automation
 
-GitHub milestone: `DocMan AI Analysis`
+GitHub milestones:
+
+- `Ordna M3 Assisted Review` for OCR/metadata suggestion slices.
+- `Ordna M6 Automation, Resilience and Distribution` for local LLMs, reprocessing and job operations.
 
 Recommended epic:
 
@@ -303,7 +302,7 @@ Child issues:
 
 ### R10 - Compliance & Distribution Readiness
 
-GitHub milestone: `DocMan Distribution`
+GitHub milestone: `Ordna M6 Automation, Resilience and Distribution`
 
 Recommended epic:
 
@@ -320,7 +319,7 @@ Child issues:
 
 ### R11 - Data Resilience & Operations
 
-GitHub milestone: `DocMan Foundation`
+GitHub milestone: `Ordna M6 Automation, Resilience and Distribution`
 
 Recommended epic:
 
@@ -337,7 +336,7 @@ Child issues:
 
 ### R12 - Support & Governance
 
-GitHub milestone: `DocMan Foundation`
+GitHub milestone: `Ordna M6 Automation, Resilience and Distribution`
 
 Recommended epic:
 

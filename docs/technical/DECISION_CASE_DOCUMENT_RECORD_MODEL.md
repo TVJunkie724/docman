@@ -28,7 +28,7 @@ Der UI-Begriff **Vorgang** bleibt erhalten. Er wird nicht durch **Sammlung** ers
 Diese Entscheidung steht unter der DMS-Zielarchitektur aus
 `DECISION_DMS_TARGET_ARCHITECTURE.md`: Dokumente sind langfristig eigenständige,
 versionierte und sensible Wissensobjekte mit Beziehungen zu Vorgängen,
-Records, Profilen, Fakten, Aufgaben, Exporten und Processing-Jobs. Der MVP darf
+Records, Profilen, Fakten, Aufgaben, Exporten und Processing-Jobs. Der M2 darf
 eine primäre Vorgangszuordnung nutzen, aber das Zielmodell bleibt
 beziehungsbasiert und nicht ordner- oder parent-basiert.
 
@@ -57,6 +57,10 @@ Vorgänge können hierarchisch oder relational verbunden sein. Ein großer Leben
 Ein Dokument ist die konkrete Datei oder der konkrete Scan.
 
 Jedes Dokument kann versioniert werden, unabhängig vom Dokumenttyp.
+
+Der R4-M2 konkretisiert Dokument-Metadaten und Vorschau in
+`DECISION_DOCUMENT_METADATA_PREVIEW.md`. Vorschau ist ein abgeleitetes
+Artefakt fuer Review, nicht die Originaldatei.
 
 ### Record / Nachweis / Unterlage
 
@@ -124,7 +128,7 @@ Cases sind optionaler Kontext. Records sind optionales Langzeitobjekt. Documents
 Ein Dokument darf mit mehreren Kontexten verbunden sein, ohne dass die Datei
 dupliziert wird. Dauerhaft soll dies ueber explizite Link-Objekte wie
 `DocumentCaseLink`, `DocumentProfileLink` und spaeter `ExportJob` /
-`OutboxItem` geschehen. Im MVP kann diese Flexibilität in der UI reduziert
+`OutboxItem` geschehen. Im M2 kann diese Flexibilität in der UI reduziert
 werden, solange das Datenmodell nicht in eine harte Ein-Parent-Struktur
 eingesperrt wird.
 
@@ -212,10 +216,10 @@ Der Hauptvorgang bleibt der Gesamtzusammenhang. Subvorgänge entstehen, wenn ein
 
 DocMan plant zwei Beziehungsarten:
 
-- einfacher `parentCaseId` fuer MVP-Subvorgänge.
+- einfacher `parentCaseId` fuer M2-Subvorgänge.
 - später flexible `CaseLink`-Beziehungen fuer `related`, `caused_by`, `follow_up`, `medical_follow_up`, `legal_follow_up`, `insurance_claim_for` oder ähnliche Relationen.
 
-MVP-light:
+Schlanker M2-Slice:
 
 - In einem Vorgang kann ein leerer Subvorgang erstellt werden.
 - Aus markierten Dokumenten eines Vorgangs kann ein neuer Subvorgang erzeugt werden.
@@ -224,7 +228,7 @@ MVP-light:
 - Der Hauptvorgang zeigt den Subvorgang mit Dokumentanzahl und Status.
 - Dokumentdateien werden nicht dupliziert.
 
-Zielmodell nach dem MVP:
+Zielmodell nach dem M2:
 
 - Dokumente gleichzeitig in mehreren Vorgängen mit Rollen anzeigen.
 - `DocumentCaseLink` mit Rollen wie `primary`, `context`, `evidence`, `source`.
@@ -233,7 +237,7 @@ Zielmodell nach dem MVP:
 - Hauptvorgang-Dokumentliste mischt Subvorgang-Dokumente kontextuell ein.
 - komplexe Deduplizierung in Suche und Export.
 
-Das hält den MVP verständlich: Ein Dokument hat zuerst eine primäre Vorgangszuordnung. Große Vorgänge können trotzdem früh sauber strukturiert werden. Die spätere Vollausbaustufe bleibt ein DMS-Beziehungsmodell, kein Anhangmodell.
+Das hält den M2 verständlich: Ein Dokument hat zuerst eine primäre Vorgangszuordnung. Große Vorgänge können trotzdem früh sauber strukturiert werden. Die spätere Vollausbaustufe bleibt ein DMS-Beziehungsmodell, kein Anhangmodell.
 
 ## UI-Struktur
 
@@ -270,7 +274,7 @@ Ein Dokument oder Record darf in mehreren Kontexten sichtbar sein:
 - im Profilkontext einer Person im Haushalt.
 - im Schnellzugriff, wenn es bewusst als wichtig markiert wurde.
 
-Im MVP gilt dabei eine vereinfachte Anzeige: Subvorgang-Dokumente sind über den Subvorgang erreichbar. Der Hauptvorgang zeigt Subvorgänge prominent, muss aber noch nicht jedes Subvorgang-Dokument zusätzlich in der Hauptliste spiegeln.
+Im M2 gilt dabei eine vereinfachte Anzeige: Subvorgang-Dokumente sind über den Subvorgang erreichbar. Der Hauptvorgang zeigt Subvorgänge prominent, muss aber noch nicht jedes Subvorgang-Dokument zusätzlich in der Hauptliste spiegeln.
 
 ## Statusmodell
 
@@ -294,8 +298,8 @@ Dokumente und Records bekommen eigene Status:
 - `Vorgang` bleibt der UI-Begriff fuer Cases.
 - `Sammlung` wird nicht Kernbegriff; kann später höchstens für lose Sets oder gespeicherte Sichten verwendet werden.
 - R4-D3 Suche muss Vorgänge, Dokumente und Records berücksichtigen.
-- R4 plant Subvorgänge als MVP-light-Funktion.
-- Flexible Dokument-Mehrfachverlinkung mit Rollen bleibt post-MVP.
+- R4 plant Subvorgänge als schlanke M2-Funktion.
+- Flexible Dokument-Mehrfachverlinkung mit Rollen bleibt spaetere Milestones.
 - Haushaltsprofile und spätere Berechtigungen werden als Zielmodell berücksichtigt.
 - Schnellzugriff ist eine kuratierte Sicht, kein Ersatz fuer Records und kein externes Berechtigungsmodell.
 - Structured Facts und Auswertungen werden als eigene spätere Phase geplant.
@@ -307,5 +311,5 @@ Dokumente und Records bekommen eigene Status:
 
 - finaler englischer Codebegriff fuer `Record`.
 - ob die deutsche UI langfristig `Nachweise`, `Unterlagen` oder beides verwendet.
-- welche DocumentFact-Typen im MVP manuell erfassbar sind.
-- ob Lernunterlagen und Notizen im MVP sichtbar oder erst später aktiviert werden.
+- welche DocumentFact-Typen im M2 manuell erfassbar sind.
+- ob Lernunterlagen und Notizen im M2 sichtbar oder erst später aktiviert werden.

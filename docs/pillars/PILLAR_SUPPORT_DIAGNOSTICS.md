@@ -22,7 +22,7 @@ Auch ein privates/self-hosted Produkt braucht Antworten auf: Was ist kaputt, war
 - redigierte Log-Exporte.
 - Nutzerhilfen für häufige Fehler.
 
-## MVP-Minimum
+## M2-Minimum
 
 - verständliche Fehlerzustände.
 - keine privaten Inhalte in Diagnose.

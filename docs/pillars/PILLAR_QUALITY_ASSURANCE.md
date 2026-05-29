@@ -25,7 +25,7 @@ QA stellt sicher, dass DocMan nicht als Spike weiterwächst.
 - Testfixtures ohne private Daten.
 - Definition of Done je Phase.
 
-## MVP-Minimum
+## M2-Minimum
 
 - reproduzierbarer Verify-Befehl.
 - Zielpfad-Analyse grün.

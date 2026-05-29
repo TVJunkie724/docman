@@ -21,7 +21,7 @@ Read:
 
 - Product architecture is backend-agnostic.
 - Home Hub/Tailscale may be the first self-hosted operating mode, not a hard product assumption.
-- Cloud OAuth can come later; MVP pairing is QR first, manual code fallback.
+- Cloud OAuth can come later; M2 pairing is QR first, manual code fallback.
 - Documents and metadata are sensitive.
 - API contracts use OpenAPI as the source of truth for HTTP boundaries.
 - Microcks validates contracts before the real backend is complete.

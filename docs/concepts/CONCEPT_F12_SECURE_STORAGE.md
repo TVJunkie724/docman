@@ -23,7 +23,7 @@ F10 speichert normale lokale App-Daten und Dateien. F12 speichert Geheimnisse.
 
 ## Secure-Storage-Daten
 
-| Datum | Zweck | MVP |
+| Datum | Zweck | M2 |
 |---|---|---|
 | Device ID Secret | Gerät stabil identifizieren, ohne es als Klartext-Geheimnis zu behandeln | Ja |
 | Pairing Secret | Mobile/Desktop mit Home Hub koppeln | Ja |
@@ -86,7 +86,7 @@ Regeln:
 
 ## Pairing
 
-Mobile Capture nutzt im MVP Pairing statt Login. Der lokale Desktop-MVP erzwingt kein klassisches Login.
+Mobile Capture nutzt im M2 Pairing statt Login. Der lokale Desktop-M2 erzwingt kein klassisches Login.
 
 Pairing muss:
 
@@ -99,7 +99,7 @@ F10 darf die nicht geheime Home-Hub-Adresse speichern. F12 speichert das Pairing
 
 ## Session-Verhalten
 
-MVP darf einfach starten:
+M2 darf einfach starten:
 
 - gekoppelte Geräte speichern Secret.
 - Home Hub akzeptiert Capture Uploads nur von freigegebenen Geräten.
@@ -141,4 +141,4 @@ F12 gilt als umgesetzt, wenn:
 
 - Welches Flutter-Package wird konkret genutzt?
 - Welche Secrets müssen zwischen Desktop und Mobile getrennt sein?
-- Wird lokale Datei-/DB-Verschlüsselung im MVP geprüft oder verschoben?
+- Wird lokale Datei-/DB-Verschlüsselung im M2 geprüft oder verschoben?

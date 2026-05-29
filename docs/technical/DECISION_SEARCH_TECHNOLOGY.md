@@ -1,6 +1,6 @@
 ---
 title: "Decision - Search Technology and Search Boundary"
-description: "Entscheidung zu DocMan MVP-Suche, langfristiger Search-Boundary, SQLite/Drift/FTS5, späteren Home-Hub- und AI-Search-Adaptern"
+description: "Entscheidung zu DocMan M2-Suche, langfristiger Search-Boundary, SQLite/Drift/FTS5, späteren Home-Hub- und AI-Search-Adaptern"
 tags: [decision, search, sqlite, drift, fts5, local-first, meilisearch, typesense, qdrant]
 lastUpdated: "2026-05-06"
 status: "accepted"
@@ -16,12 +16,12 @@ Accepted.
 
 DocMan führt Suche als eigene austauschbare Domain-Boundary ein.
 
-Der MVP nutzt lokal:
+Der M2 nutzt lokal:
 
 - SQLite + Drift für strukturierte Abfragen und Filter.
 - SQLite FTS5 für gepflegte textuelle Metadaten.
 
-Der MVP nutzt nicht:
+Der M2 nutzt nicht:
 
 - separaten Suchserver.
 - OCR-Volltextsuche.
@@ -71,7 +71,7 @@ Later
 
 Riverpod stellt die konkrete Implementierung bereit. Das ist Dependency Injection. Die austauschbaren Suchimplementierungen folgen dem Strategy Pattern.
 
-## MVP-Suchumfang
+## M2-Suchumfang
 
 Such- und Filterfelder:
 
@@ -87,7 +87,7 @@ Such- und Filterfelder:
 - Tags/Keywords.
 - Aufgabenstatus und Fälligkeit.
 
-Nicht MVP:
+Späterer Milestone:
 
 - OCR-Volltext.
 - semantische Suche.
@@ -142,9 +142,9 @@ Regeln:
 ## Konsequenzen
 
 - `R4-D3` ist entschieden.
-- `PILLAR_SEARCH_FACTS_INSIGHTS.md` muss lokale FTS5-Suche als MVP-Technologie nennen.
+- `PILLAR_SEARCH_FACTS_INSIGHTS.md` muss lokale FTS5-Suche als M2-Technologie nennen.
 - `CONCEPT_F10_LOCAL_STORAGE.md` muss FTS5 und Search-Boundary vorbereiten.
-- Issue #36 ist der primäre MVP-Umsetzungstracker für strukturierte Suche und Filter.
+- Issue #36 ist der primäre M2-Umsetzungstracker für strukturierte Suche und Filter.
 
 ## Nicht entschieden
 

@@ -37,7 +37,7 @@ R3 `Quality & Production Readiness` operationalisiert dieses Konzept. Ab R3 darf
 | Application/Notifier Tests | Riverpod Notifier, Upload Queue, Draft Review | Hoch |
 | Repository Tests | lokale DB Fakes/In-Memory, Mapper, File Store | Hoch |
 | Widget Tests | wichtige Screens und Zustände | Mittel |
-| Integration/Smoke Tests | MVP-Flows Desktop + Mobile Capture | Mittel |
+| Integration/Smoke Tests | M2-Flows Desktop + Mobile Capture | Mittel |
 | Golden Tests | zentrale UI-Komponenten, wenn Design stabil ist | Später |
 | Backend Contract Tests | Home-Hub/Capture/Sync Gateway, Microcks-gestützte API-Verträge | Sobald API existiert |
 
@@ -52,7 +52,7 @@ DocMan braucht zwei verschiedene Testebenen, die nicht vermischt werden dürfen:
 
 Fake-Repositories ersetzen keine API-Verträge. Microcks ersetzt keine App-Unit-Tests. Die Kombination verhindert, dass die Flutter-App an ein zufälliges Backend klebt oder dass Backend-Verträge erst beim echten Server auffallen.
 
-## MVP-kritische Flows
+## M2-kritische Flows
 
 Diese Flows brauchen Tests:
 
@@ -175,11 +175,11 @@ Vor Implementationsabschluss einer Phase:
 
 Exakte Commands gehören in Implementation-Pläne, nicht in dieses Konzept.
 
-DocMan nutzt die Gate-Stufen aus `docs/technical/DECISION_MVP_QUALITY_GATES.md`:
+DocMan nutzt die Gate-Stufen aus `docs/technical/DECISION_MILESTONE_QUALITY_GATES.md`:
 
 - Local Change Gate fuer konkrete Aenderungen.
 - R3 Foundation Gate fuer Foundation-/Quality-Abschluss.
-- MVP Readiness Gate fuer MVP-Abschluss.
+- M2 Readiness Gate fuer M2-Abschluss.
 
 Tests duerfen Legacy-Schuld nicht verstecken. Wenn ein Legacy-Problem den Zielpfad oder ein Gate blockiert, braucht es Isolation, Entfernung oder ein GitHub Issue mit Acceptance Criteria und Verification. Einzelne alte Warnungen ohne Einfluss auf den Zielpfad werden nicht als Production-Readiness-Arbeit behandelt.
 
@@ -212,18 +212,18 @@ F4 gilt als umgesetzt, wenn:
 - API-Grenzen für Home Hub, Capture und Sync contract-testbar geplant sind.
 - Bootstrap-, Codegen- und Verify-Scripts existieren.
 - generierte Dart-Artefakte ignoriert und reproduzierbar erzeugt werden.
-- MVP-kritische Flows abgedeckt werden.
+- M2-kritische Flows abgedeckt werden.
 - alte Flutter-Counter-Template-Tests entfernt oder ersetzt sind.
 - Tests keine echten Secrets oder privaten Dokumente verwenden.
 - zentrale synthetische Fixtures unter `test/fixtures/` liegen.
 - API-/Microcks-Beispiele unter `contracts/` liegen.
-- R3/MVP-Gates aus `DECISION_MVP_QUALITY_GATES.md` operationalisiert sind.
+- R3/M2-Gates aus `DECISION_MILESTONE_QUALITY_GATES.md` operationalisiert sind.
 
 ## Offene Folgefragen
 
 - Welche Test-Helper werden zentral gebaut?
 - Welche echte lokale DB-Implementierung bekommt Integrationstests?
 - Wann führen wir Golden Tests ein?
-- Wie testen wir Mobile Capture ohne echte Kamera im MVP?
+- Wie testen wir Mobile Capture ohne echte Kamera im M2?
 - Wann wird Microcks konkret in Docker/Compose eingebunden?
 - Welche OpenAPI-Spec wird zuerst umgesetzt?

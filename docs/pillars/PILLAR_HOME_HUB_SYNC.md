@@ -25,9 +25,9 @@ DocMan bleibt local-first und backend-agnostisch.
 
 Tailscale/Home Hub ist eine erste private Betriebsform, aber keine Produktfessel. Eine spätere self-hosted Cloud oder andere Infrastruktur muss möglich bleiben, wenn die Schnittstellen stabil bleiben.
 
-## MVP-Scope
+## M2-Scope
 
-MVP:
+M2:
 
 - QR Pairing und manueller Code als Fallback.
 - Mobile Upload-Token.
@@ -35,7 +35,7 @@ MVP:
 - Gerät widerrufbar machen.
 - keine vollständige bidirektionale Synchronisation.
 
-Post-MVP:
+spaetere Milestones:
 
 - Sync-Journal.
 - Konfliktansicht.

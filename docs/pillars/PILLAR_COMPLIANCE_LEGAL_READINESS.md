@@ -11,7 +11,7 @@ status: "proposed"
 
 ## Zweck
 
-DocMan muss rechtliche und Store-bezogene Anforderungen früh mitdenken, auch wenn der MVP privat und self-hosted startet.
+DocMan muss rechtliche und Store-bezogene Anforderungen früh mitdenken, auch wenn der M2 privat und self-hosted startet.
 
 ## Rechtliche Standards
 
@@ -38,7 +38,7 @@ Zu berücksichtigen:
 - App Signing und Plattformvorgaben.
 - Open-Source- und Lizenz-Compliance.
 
-## MVP-Minimum
+## M2-Minimum
 
 - keine echten privaten Daten in Demos, Tests oder Review-Flows.
 - Privacy-Texte und Datenklassen konzeptionell vorbereitet.

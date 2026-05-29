@@ -20,7 +20,7 @@ Eine Säule beschreibt einen großen Verantwortungsbereich des Produkts oder der
 - F-Konzepte beantworten: Welche querschnittlichen Frontend-/Foundation-Regeln gelten über Säulen hinweg?
 
 Alle Produkt-Säulen bauen auf der DMS-Zielarchitektur in
-`docs/technical/DECISION_DMS_TARGET_ARCHITECTURE.md` auf. Der MVP darf kleine
+`docs/technical/DECISION_DMS_TARGET_ARCHITECTURE.md` auf. Der M2 darf kleine
 Slices liefern, aber die langfristige Produktstruktur bleibt ein verbundenes
 Dokumentenmanagementsystem mit Dokumenten, Dateien, Versionen, Vorgängen,
 Profilen, Fakten, Aufgaben, Suche, Export, Sync und Intelligence.
@@ -64,13 +64,13 @@ sondern in `docs/roadmap/PILLAR_ROADMAP_INDEX.md`.
 | `PILLAR_COMPATIBILITY_PLATFORM_SUPPORT.md` | macOS, iOS, Android, später Windows/Linux, Plattformfähigkeiten und Unterschiede |
 | `PILLAR_INTEGRATION_GOVERNANCE.md` | Regeln für externe Links, Deep Links, spätere APIs, Trust Boundaries und Credentials |
 
-## MVP-Regel
+## M2-Regel
 
-Eine Säule darf im MVP nur einen kleinen Slice liefern.
+Eine Säule darf im M2 nur einen kleinen Slice liefern.
 
 Beispiel:
 
-- `Capture & Inbox` liefert echten MVP-Nutzen.
+- `Capture & Inbox` liefert echten M2-Nutzen.
 - `Compliance & Legal Readiness` liefert Mindestregeln, aber noch keine vollständige Store-Einreichung.
 - `Observability` liefert lokale Diagnose- und Redaction-Regeln, aber noch keinen großen Monitoring-Stack.
 - `Intelligence` wird vorbereitet, aber nicht gebaut.

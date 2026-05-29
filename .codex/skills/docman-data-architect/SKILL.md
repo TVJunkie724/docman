@@ -31,7 +31,7 @@ Read:
 - Are secrets separated from normal DB tables?
 - Can fake repositories implement the same contract?
 - Can Drift tests run in memory or isolated temp storage?
-- Are migrations explicit and reversible enough for MVP safety?
+- Are migrations explicit and reversible enough for M2 safety?
 - Does UI access data only through providers/domain repositories?
 
 ## Planning Output

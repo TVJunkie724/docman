@@ -35,9 +35,9 @@ Deshalb werden die Konzepte nicht kleinteilig geflickt und nicht als Legacy-Arch
 - State Management und DI: Riverpod.
 - Datenfluss: local-first mit generischem self-hosted Sync Backend.
 - Backend-Rolle: eigener self-hosted Docker-/Compose-Stack als Draft-Zielbild; PocketBase nicht Zielarchitektur.
-- MVP: Desktop-Verwaltung plus Mobile Capture.
-- Mobile: capture-only im MVP, direkte Vorgangszuordnung nur als Komfortpfad.
-- KI/OCR/LLM: nicht im MVP, aber als spätere lokale asynchrone Pipeline mitdenken.
+- M2: Desktop-Verwaltung plus Mobile Capture.
+- Mobile: capture-only im M2, direkte Vorgangszuordnung nur als Komfortpfad.
+- KI/OCR/LLM: nicht im M2, aber als spätere lokale asynchrone Pipeline mitdenken.
 - Cloud-SaaS ist aktuell nicht Teil der Produktplanung.
 
 ## Rewrite-Inventar
@@ -61,7 +61,7 @@ Deshalb werden die Konzepte nicht kleinteilig geflickt und nicht als Legacy-Arch
 | F14 Form Field Catalog | Neu geschrieben: DocMan-Formulare für Vorgänge, Dokumente, Profile, Review von Vorschlägen |
 | F15 Mock Repository Blueprint | Neu geschrieben: Mocks für UI, Offline-Flows, Capture Gateway und spätere Sync-Fälle |
 | F16 CI/CD Pipeline | Neu geschrieben: Flutter Checks, Dokumentationsqualität, später Backend/Compose Checks |
-| F17 Mobile Capture Client Standards | Neu erstellt: querschnittliche Client-Regeln fuer Scan-Qualitaet, Queue-Zustaende, Upload-Feedback und sichere MVP-Grenzen |
+| F17 Mobile Capture Client Standards | Neu erstellt: querschnittliche Client-Regeln fuer Scan-Qualitaet, Queue-Zustaende, Upload-Feedback und sichere M2-Grenzen |
 
 ## Reihenfolge
 

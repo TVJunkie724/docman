@@ -123,7 +123,7 @@ Die konkrete Bridge mappt ML-Kit-/VisionKit-Ergebnisse in diese Ordna-Typen.
 
 ## Artefakt-Richtung
 
-Der MVP soll als Zielartefakt ein nutzbares Dokument erzeugen, nicht nur eine
+Der M2 soll als Zielartefakt ein nutzbares Dokument erzeugen, nicht nur eine
 Galerie von Fotos.
 
 Vorlaeufige Richtung:
@@ -131,10 +131,10 @@ Vorlaeufige Richtung:
 - Nutzerartefakt: mehrseitiges PDF.
 - technische Artefakte: Seitenbilder, Preview/Thumbnail, Metadaten.
 - Mobile haelt Rohseiten mindestens bis zum erfolgreichen Upload lokal.
-- Post-MVP kann der Home Hub Rohseiten dauerhaft uebernehmen, damit spaetere
+- spaetere Milestones kann der Home Hub Rohseiten dauerhaft uebernehmen, damit spaetere
   Reprocessing-, OCR- oder Verbesserungslaeufe moeglich bleiben.
 
-Die konkrete Pflicht, ob PDF bereits im MVP auf Mobile erzeugt werden muss oder
+Die konkrete Pflicht, ob PDF bereits im M2 auf Mobile erzeugt werden muss oder
 ob Bild-plus-Metadaten fuer den ersten Slice reicht, bleibt Teil des
 Scanner-/Upload-Spikes.
 
@@ -157,7 +157,7 @@ Wenn native Scanner auf einer Plattform oder einem Geraet nicht verfuegbar sind:
 - API-/Upload-Vertraege muessen PDF, Seitenbilder und spaetere Source Artifacts
   modellierbar halten.
 - Die konkrete Upload-Strategie steht in
-  `DECISION_MOBILE_CAPTURE_UPLOAD_STRATEGY.md`: API-proxied im MVP erlaubt,
+  `DECISION_MOBILE_CAPTURE_UPLOAD_STRATEGY.md`: API-proxied im M2 erlaubt,
   presigned/resumable als Enterprise-Ziel hinter demselben Upload-Port.
 
 ## Nicht entschieden
@@ -165,6 +165,6 @@ Wenn native Scanner auf einer Plattform oder einem Geraet nicht verfuegbar sind:
 - konkretes Flutter-Plugin.
 - ob ein eigenes Platform-Channel-Plugin noetig ist.
 - ob ein kommerzielles SDK spaeter sinnvoll wird.
-- ob PDF-Erzeugung im ersten MVP zwingend auf Mobile passiert.
+- ob PDF-Erzeugung im ersten M2 zwingend auf Mobile passiert.
 - genaue Dateiformate und Kompressionsparameter.
 - genaue Regeln, wann Mobile lokale Rohseiten nach Upload loescht.

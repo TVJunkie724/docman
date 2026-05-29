@@ -26,9 +26,9 @@ Intelligence ist Assistenz, nicht Autorität.
 
 KI/OCR darf Vorschläge machen. Fachlich relevante Fakten, Statusänderungen, Einreichungen oder Löschungen brauchen Review.
 
-## MVP-Scope
+## M2-Scope
 
-Nicht MVP.
+Späterer Milestone.
 
 R2/R4 müssen nur vorbereiten:
 

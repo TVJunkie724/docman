@@ -23,7 +23,7 @@ werden kann.
 |---|---|
 | `docs/ROADMAP_REBUILD.md` | Hauptroadmap, Top-Level-Phasen, Decision-Register-Überblick |
 | `docs/roadmap/PHASE_INDEX.md` | detaillierte Phasen und Subphasen |
-| `docs/roadmap/PILLAR_ROADMAP_INDEX.md` | detaillierte Saeulen-Roadmap mit MVP-, Post-MVP- und Enterprise-Slices |
+| `docs/roadmap/PILLAR_ROADMAP_INDEX.md` | detaillierte Saeulen-Roadmap mit M2-, spaeteren Milestone- und Enterprise-Slices |
 | `docs/ROADMAP_EXECUTION_PLAN.md` | GitHub-Milestones, Epics und Issue-Kandidaten |
 | `docs/pillars/PILLAR_*.md` | fachliche Verantwortungsbereiche der Saeulen |
 

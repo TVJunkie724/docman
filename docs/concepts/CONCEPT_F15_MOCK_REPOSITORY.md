@@ -58,7 +58,7 @@ Geeignete Mock-Kandidaten:
 - Draft-Inbox fuer mobile Uploads.
 - Mobile Capture Flow mit Upload-Queue.
 - QR-Pairing Flow.
-- OCR-/AI-Vorschlag fuer Formularfelder als spaeterer Nicht-MVP-Spike.
+- OCR-/AI-Vorschlag fuer Formularfelder als spaeterer spaeterer-Spike.
 
 Mock-UI soll nah genug an der spaeteren Architektur liegen, damit die Erkenntnisse wiederverwendbar sind, aber nicht so tun, als waere sie bereits produktiv. Wenn ein Mock weitergebaut wird, braucht er einen Feature-Plan mit Domain-Vertrag, Riverpod-Provider, Teststrategie und klarer Definition of Done.
 
@@ -74,7 +74,7 @@ Der erste Mock-Flow ist Mobile Capture zu Draft-Inbox zu optionaler Vorgangszuor
 
 Mock-Daten muessen realistisch genug fuer Produktentscheidungen, aber vollstaendig synthetisch sein. Erlaubt sind frei erfundene Haushalts-, Vorgangs-, Upload- und Dokumentbeispiele. Nicht erlaubt sind echte Namen, echte Adressen, echte Dokumentinhalte, Screenshots privater Dokumente oder echte Secrets.
 
-## MVP-Fakes
+## M2-Fakes
 
 Benötigt:
 
@@ -136,7 +136,7 @@ Diese Helper sollen Provider Overrides einfach machen, ohne dass Tests konkrete 
 
 F15 gilt als umgesetzt, wenn:
 
-- jedes MVP-Repository eine Fake-Strategie hat.
+- jedes M2-Repository eine Fake-Strategie hat.
 - Riverpod Tests Provider Overrides nutzen.
 - UI-Mocks ohne echten Home Hub laufen.
 - UI-Mocks getrennt vom Produktpfad liegen und keine Legacy-Architektur erweitern.

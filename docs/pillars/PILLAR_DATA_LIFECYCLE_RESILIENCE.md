@@ -26,7 +26,7 @@ DocMan darf Dokumente nicht nur speichern. Es muss Datenverlust verhindern, Lös
 - Disaster Recovery.
 - Exportierbarkeit.
 
-## MVP-Minimum
+## M2-Minimum
 
 - Datei- und Metadaten-Referenzen konsistent halten.
 - Löschungen nicht so modellieren, dass Sync später bricht.

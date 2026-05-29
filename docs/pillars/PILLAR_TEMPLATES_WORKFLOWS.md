@@ -37,14 +37,14 @@ Ein Template kann vorschlagen:
 - externe Aktionslinks.
 - Facts, die später ausgewertet werden können.
 
-## MVP-Scope
+## M2-Scope
 
-MVP:
+M2:
 
 - keine vollständige Template-Engine.
 - Vorgangstypen und Subvorgang-Idee so modellieren, dass Templates später möglich sind.
 
-Post-MVP:
+spaetere Milestones:
 
 - erste manuelle Checklisten.
 - Vorlagen für Arztbesuch, Unfall und Versicherung.

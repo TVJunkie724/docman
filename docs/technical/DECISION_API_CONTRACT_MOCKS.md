@@ -40,7 +40,7 @@ OpenAPI/Microcks werden fuer diese Schnittstellen geplant:
 - Mobile Capture Upload.
 - Upload-Status und Retry-/Fehlerantworten.
 - Draft-Inbox-Handoff.
-- einfache offene Vorgangsliste fuer Mobile Capture, wenn im MVP verfuegbar.
+- einfache offene Vorgangsliste fuer Mobile Capture, wenn im M2 verfuegbar.
 - spaeter Sync-Status, Konflikte, Tombstones und Conflict Responses.
 - spaeter OCR-/AI-Job-Status, falls daraus HTTP-Grenzen entstehen.
 

@@ -110,7 +110,7 @@ R3 entfernt sie nicht blind. Die sichere Reihenfolge ist:
 ## Konsequenzen
 
 - R3-D4 ist entschieden.
-- Codegen-Reproduzierbarkeit wird ein R3- und MVP-Gate.
+- Codegen-Reproduzierbarkeit wird ein R3- und M2-Gate.
 - Reviews konzentrieren sich auf Quellen, Verträge, Tests und Scripts.
 - Generator-Output darf lokal existieren, aber nicht als geplante Git-Änderung landen.
 
@@ -118,4 +118,4 @@ R3 entfernt sie nicht blind. Die sichere Reihenfolge ist:
 
 - ob einzelne Drift-Migrations-Snapshots dauerhaft committed werden.
 - wann OpenAPI-generierte Clients entstehen.
-- ob Riverpod-Codegen im MVP genutzt wird oder erst nach dem manuellen Riverpod-Start.
+- ob Riverpod-Codegen im M2 genutzt wird oder erst nach dem manuellen Riverpod-Start.

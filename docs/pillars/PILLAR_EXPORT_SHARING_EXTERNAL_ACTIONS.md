@@ -27,7 +27,7 @@ Diese Säule beschreibt Export, Übergabe und externe Aktionslinks.
 
 Externe Apps und Websites sind Aktionsziele, keine vertrauenswürdige DocMan-Datenhaltung.
 
-DocMan speichert im MVP keine externen Zugangsdaten, Tokens oder Session-Cookies fuer solche Dienste.
+DocMan speichert im M2 keine externen Zugangsdaten, Tokens oder Session-Cookies fuer solche Dienste.
 
 Export, Sharing und externe Aktionen sind Teil des DMS-Zielbildes, aber nicht
 Teil der Dokument-Besitzstruktur. Ein Outbox-/Export-Eintrag verweist auf
@@ -74,7 +74,7 @@ Mobile:
 
 ## ExportPackage
 
-Post-MVP sollte DocMan Exportpakete modellieren:
+spaetere Milestones sollte DocMan Exportpakete modellieren:
 
 - ausgewählte Dokumente.
 - optionales Deckblatt/Manifest.
@@ -97,9 +97,9 @@ Langfristig kann daraus eine echte Outbox entstehen:
 
 Diese Zustände gehören zur Aktion, nicht zum Dokument selbst.
 
-## MVP-Scope
+## M2-Scope
 
-MVP-light:
+Schlanker M2-Slice:
 
 - manuellen externen Link an Task oder Vorgang speichern.
 - Link sicher öffnen.
@@ -107,7 +107,7 @@ MVP-light:
 - keine automatische Portal-Aktion.
 - einfacher lokaler Dokumentexport oder Öffnen der Datei vorbereiten.
 
-Nicht MVP:
+Späterer Milestone:
 
 - API-Integrationen zu SV, Versicherungen, Schulen oder Behörden.
 - Web-Scraping.
@@ -137,6 +137,6 @@ Empfohlen:
 
 ## Offene Folgefragen
 
-- Welche Linktypen sind im R4-MVP sichtbar?
+- Welche Linktypen sind im R4-M2 sichtbar?
 - Brauchen Profile eigene externe Links schon in R5?
 - Wie wird `ExportPackage` in der UI genannt?

@@ -82,6 +82,6 @@ Mobile Capture
 ```
 
 The review question is whether Mobile Capture with Draft Inbox and optional
-case assignment feels right as the MVP core. If accepted, the mock is converted
+case assignment feels right as the M2 core. If accepted, the mock is converted
 through a real UI/feature plan with Domain contracts, Riverpod providers, fake
 repositories, tests, and later real implementations.

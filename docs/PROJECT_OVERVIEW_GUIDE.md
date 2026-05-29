@@ -88,7 +88,7 @@ Kindes, als Version eines Records, in einer Versicherungs-/Claim-Auswertung,
 im Schnellzugriff oder in einem Exportpaket. Dateien werden dabei nicht
 dupliziert; Beziehungen tragen die fachliche Bedeutung.
 
-Die MVP-Implementierung darf vereinfachen, aber sie darf diese Zielarchitektur
+Die M2-Implementierung darf vereinfachen, aber sie darf diese Zielarchitektur
 nicht verbauen. Insbesondere werden Inbox und Outbox als Arbeitsflächen geplant,
 nicht als eigentliche Besitzstruktur der Dokumente.
 
@@ -120,17 +120,17 @@ Entscheidung dokumentiert in: `docs/technical/DECISION_DATA_FLOW.md`.
 
 Desktop ist der Ort für Sortieren, Prüfen, Suchen, Zuweisen und Verwalten. Mobile ist der schnelle Eingang für Scans unterwegs.
 
-**Entscheidung:** Mobile Capture gehört in den MVP, aber nicht als vollständige mobile Verwaltungs-App. Der MVP enthält eine capture-only Mobile-App mit lokaler Upload-Queue, minimalem Home-Hub-Upload und optionaler Vorgangszuordnung.
+**Entscheidung:** Mobile Capture gehört in den M2, aber nicht als vollständige mobile Verwaltungs-App. Der M2 enthält eine capture-only Mobile-App mit lokaler Upload-Queue, minimalem Home-Hub-Upload und optionaler Vorgangszuordnung.
 
-Draft-Inbox bleibt der sichere Standard. Wenn eine einfache, gecachte Liste offener Vorgänge verfügbar ist, darf Mobile einen Scan direkt einem Vorgang zuordnen. Vollständige mobile Vorgangsverwaltung und echter Multi-Geräte-Sync bleiben post-MVP.
+Draft-Inbox bleibt der sichere Standard. Wenn eine einfache, gecachte Liste offener Vorgänge verfügbar ist, darf Mobile einen Scan direkt einem Vorgang zuordnen. Vollständige mobile Vorgangsverwaltung und echter Multi-Geräte-Sync bleiben spaetere Milestones.
 
-Entscheidung dokumentiert in: `docs/technical/DECISION_MVP_SCOPE.md`.
+Entscheidung dokumentiert in: `docs/technical/DECISION_FIRST_UTILITY_SCOPE.md`.
 
 ### 4.3 Self-hosted Server statt Cloud-Produkt
 
 DocMan soll nicht als Cloud-SaaS geplant werden. Die Zielrichtung ist ein selbst betriebener Server-Stack auf vorhandener Infrastruktur: NAS, Mini-Server oder größerer Heimserver, vorzugsweise als Docker-/Compose-Setup.
 
-**Entwurf:** Der erste MVP braucht wegen Mobile Capture einen minimalen Home-Hub-Anteil als Eingangskorb. Das ist noch kein vollständiges Sync Backend. Der spätere Server wird trotzdem früh grob mitgeplant, damit lokale IDs, Dokumentablage, Sync-Journal, Upload-Queue und Review-Flows nicht später gegen die Produktlogik arbeiten.
+**Entwurf:** Der erste M2 braucht wegen Mobile Capture einen minimalen Home-Hub-Anteil als Eingangskorb. Das ist noch kein vollständiges Sync Backend. Der spätere Server wird trotzdem früh grob mitgeplant, damit lokale IDs, Dokumentablage, Sync-Journal, Upload-Queue und Review-Flows nicht später gegen die Produktlogik arbeiten.
 
 Der langfristige Server-Stack ist nicht PocketBase als Produktkern, sondern ein eigener DocMan Server Stack:
 
@@ -176,7 +176,7 @@ Entscheidung dokumentiert in: `docs/technical/DECISION_WORKFLOW_RULES.md`.
 
 KI kann DocMan später deutlich besser machen: OCR, Auto-Tagging, Status-Vorschläge, Dokumenterkennung und Vorschläge beim Ausfüllen von Formularen. Aber ohne stabile Dokumentstruktur erzeugt KI vor allem zusätzliche Unklarheit.
 
-**Empfehlung:** P7 bleibt aus dem MVP heraus, wird aber architektonisch als asynchrone, lokale Dokument-Pipeline vorgedacht. Die App übernimmt KI-Ergebnisse nicht still, sondern zeigt Vorschläge mit Review-Zustand.
+**Empfehlung:** P7 bleibt aus dem M2 heraus, wird aber architektonisch als asynchrone, lokale Dokument-Pipeline vorgedacht. Die App übernimmt KI-Ergebnisse nicht still, sondern zeigt Vorschläge mit Review-Zustand.
 
 ```text
 Document upload
@@ -217,14 +217,15 @@ Enthält:
 - Trennung von Mock-UI und Produkt-UI.
 - Minimale Tests, die zum aktuellen Projekt passen.
 
-### Stufe 1 - MVP: Desktop-Kern plus Mobile Capture
+### Stufe 1 - M2: Desktop-Kern plus Mobile Capture
 
-Ziel: Eine Person kann Dokumente unterwegs mobil erfassen und am Desktop zuverlässig verwalten.
+Ziel: Dokumente koennen unterwegs mobil erfasst und am Desktop zuverlässig
+geprüft, einer betroffenen Person zugeordnet und verwaltet werden.
 
 Enthält:
 
 - Ein Haushalt.
-- Ein aktives Profil.
+- Betroffene Person / Haushaltsprofil als Pflichtzuordnung je Dokument.
 - Vorgänge erstellen, bearbeiten, schließen.
 - Dokumente als Draft erfassen.
 - Dokumente einem Vorgang zuordnen.
@@ -359,7 +360,7 @@ Meine vorgeschlagene Richtung:
 
 1. Produktbegriff umstellen: `Case` im Code, "Vorgang" im UI, `Event`/"Ereignis" für Timeline-Einträge.
 2. Riverpod als Zielarchitektur setzen und BLoC/GetIt nicht weiter ausbauen.
-3. MVP eng schneiden, aber Mobile Capture als Haupt-Use-Case aufnehmen.
+3. M2 eng schneiden, aber Mobile Capture als Haupt-Use-Case aufnehmen.
 4. Local-first als Architekturzentrum setzen.
 5. Sync backend-agnostisch halten; Home Hub ist erste Betriebsform, nicht Produktgrenze.
 6. KI konsequent verschieben.
@@ -376,12 +377,12 @@ Meine vorgeschlagene Richtung:
 | D2 | State Management und DI | Entschieden: Riverpod ersetzt BLoC/GetIt als Zielarchitektur | Erledigt |
 | D3 | Datenfluss | Entschieden: local-first mit generischem DocMan Sync Backend; Home Hub/Tailscale nur erste Self-Hosted-Betriebsform | Erledigt |
 | D4 | Backend-Rolle | Entwurf: eigener self-hosted DocMan Server Stack per Docker/Compose; Home-Hub-Technologie akzeptiert als ASP.NET Core + PostgreSQL + MinIO/S3 + Microcks; PocketBase nicht als Zielarchitektur | Hoch |
-| D5 | MVP-Scope | Entschieden: Desktop-Verwaltung plus Mobile Capture, minimaler Home-Hub-Eingangskorb, optionale Vorgangszuordnung | Erledigt |
-| D6 | Erweiterte Mobile-Verwaltung | Nach MVP und stabilem Sync planen | Mittel |
+| D5 | First Utility Scope | Entschieden: Capture and Review Core plus Mobile Capture, minimaler Home-Hub-Eingangskorb, optionale Vorgangszuordnung | Erledigt |
+| D6 | Erweiterte Mobile-Verwaltung | Nach M2 und stabilem Sync planen | Mittel |
 | D7 | Workflow-Regeln | Entschieden: Empfehlungen und Review statt harte Status-Käfige; harte Regeln nur für Integrität/Sicherheit | Erledigt |
-| D8 | KI-Scope | Entschieden: nicht MVP, aber lokale/self-hosted Pipeline vorbereiten | Erledigt |
+| D8 | KI-Scope | Entschieden: nicht M2, aber lokale/self-hosted Pipeline vorbereiten | Erledigt |
 | D9 | Alte Foundation-Konzepte | Entschieden: Konzept-Slots behalten, Inhalte DocMan-spezifisch neu schreiben; alte Inhalte sind nicht Source of Truth | Erledigt |
-| D10 | Remote-Sync sensibler Daten | Entschieden: MVP-Sync nur private Home-Hub-Umgebung; Datenklassen und Secrets getrennt | Erledigt |
+| D10 | Remote-Sync sensibler Daten | Entschieden: M2-Sync nur private Home-Hub-Umgebung; Datenklassen und Secrets getrennt | Erledigt |
 | D11 | Security-/Privacy-Baseline | Entschieden: Security-by-Design, sensible Datenklassen, Secure Storage, log-sparsam, E2EE-/Zero-Knowledge-faehig vorbereiten | Erledigt |
 
 ## 11. Aktive Dokumente und nächste Drafts
@@ -399,7 +400,7 @@ docs/technical/DECISION_HOME_HUB_BACKEND_TECHNOLOGY.md
 docs/technical/DECISION_STATE_MANAGEMENT.md
 docs/technical/DECISION_DATA_FLOW.md
 docs/technical/DECISION_BACKEND_ROLE.md
-docs/technical/DECISION_MVP_SCOPE.md
+docs/technical/DECISION_FIRST_UTILITY_SCOPE.md
 docs/technical/DECISION_FOUNDATION_CONCEPT_REWRITE.md
 docs/technical/DECISION_WORKFLOW_RULES.md
 docs/technical/DECISION_INTELLIGENCE_SCOPE.md

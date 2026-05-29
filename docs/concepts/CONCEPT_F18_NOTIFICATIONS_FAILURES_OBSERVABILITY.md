@@ -25,7 +25,7 @@ F18 definiert:
 - welche Ereignisse als Telemetry oder Audit Events modelliert werden.
 - wie Correlation IDs / Operation IDs Uploads, Imports, Sync und spätere OCR-Jobs nachvollziehbar machen.
 - welche Daten niemals in Notifications, Logs, Telemetry oder Audit Events landen dürfen.
-- wie ein späterer Home-Hub-/Self-hosted-Observability-Stack vorbereitet wird, ohne ihn im MVP vorauszusetzen.
+- wie ein späterer Home-Hub-/Self-hosted-Observability-Stack vorbereitet wird, ohne ihn im M2 vorauszusetzen.
 
 ## Grundsatz
 
@@ -192,7 +192,7 @@ Audit Events müssen redaktioniert sein. Sie sollen Nachvollziehbarkeit schaffen
 
 ## Lokale Diagnose
 
-MVP und frühe R3-Phasen brauchen keinen großen Observability-Stack, aber eine saubere lokale Diagnosegrenze.
+M2 und frühe R3-Phasen brauchen keinen großen Observability-Stack, aber eine saubere lokale Diagnosegrenze.
 
 Eine spätere Diagnoseansicht darf zeigen:
 
@@ -215,7 +215,7 @@ Sie darf nicht zeigen:
 
 ## Observability-Zielbild
 
-MVP implementiert nur lokale Interfaces und sichere Defaults.
+M2 implementiert nur lokale Interfaces und sichere Defaults.
 
 Spätere Home-Hub-/Self-hosted-Ausbaustufe:
 
@@ -226,7 +226,7 @@ Spätere Home-Hub-/Self-hosted-Ausbaustufe:
 - optional OpenTelemetry-kompatible Exportgrenze.
 - optional Loki/Grafana/Prometheus oder OpenTelemetry Collector.
 
-OpenTelemetry ist Richtung, nicht MVP-Pflicht. DocMan sollte Events und Operationen aber so modellieren, dass spätere OTel-Anbindung möglich bleibt.
+OpenTelemetry ist Richtung, nicht M2-Pflicht. DocMan sollte Events und Operationen aber so modellieren, dass spätere OTel-Anbindung möglich bleibt.
 
 ## Metrics-Zielbild
 
@@ -269,6 +269,6 @@ F18 gilt als umgesetzt, wenn:
 - Wird `Result<T>` selbst implementiert oder über ein Paket modelliert?
 - Welche UI-Notification-Komponente wird zuerst gebaut?
 - Ab wann gibt es ein persistentes Notification Center / Activity Feed?
-- Welche Audit Events sind MVP-pflichtig?
+- Welche Audit Events sind M2-pflichtig?
 - Wie lange werden lokale Diagnoseereignisse aufbewahrt?
 - Wird die spätere Home-Hub-Observability über OpenTelemetry Collector, Loki/Grafana/Prometheus oder eine minimalere Lösung betrieben?

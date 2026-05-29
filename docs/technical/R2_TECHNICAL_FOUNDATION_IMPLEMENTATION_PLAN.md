@@ -33,7 +33,7 @@ git status --short
 
 ## 1. Summary
 
-R2 turns the current Flutter spike into a clean foundation for the MVP.
+R2 turns the current Flutter spike into a clean foundation for the M2.
 
 The implementation migrates new work to:
 
@@ -46,7 +46,7 @@ The implementation migrates new work to:
 - a real DocMan test baseline.
 - isolated mock UI rules so concept validation does not become a second product path.
 
-R2 does not implement the full Desktop MVP, Mobile Capture, Home Hub, sync backend, OCR, LLM, app distribution, or complete product rename.
+R2 does not implement the full Desktop M2, Mobile Capture, Home Hub, sync backend, OCR, LLM, app distribution, or complete product rename.
 
 ## 2. Architecture Layout (ASCII)
 
@@ -118,7 +118,7 @@ legacy during R2:
 
 ## 2.1 Foundation UI Widget Tree (ASCII)
 
-R2 does not design the final MVP UI. It may introduce only a minimal foundation status surface so startup, providers, and fakes can be verified without PocketBase/Isar.
+R2 does not design the final M2 UI. It may introduce only a minimal foundation status surface so startup, providers, and fakes can be verified without PocketBase/Isar.
 
 ```text
 ProviderScope
@@ -579,7 +579,7 @@ R2 UI scope:
 
 - simple foundation status screen is allowed.
 - it may show local-only mode, Drift database ready, fake/real mode, Home-Hub unconfigured, and security baseline labels.
-- it must not pretend to be the final Desktop MVP.
+- it must not pretend to be the final Desktop M2.
 - new UI concept mocks, if any are created during R2, must stay isolated from the product route and follow `docs/technical/DECISION_MOCK_UI_STRATEGY.md`.
 
 ASCII layout:
@@ -602,7 +602,7 @@ Acceptance:
 
 - app can start without `http://YOUR_NAS_IP:8090`.
 - no product path requires PocketBase.
-- no final MVP UI is implied by the foundation status screen.
+- no final M2 UI is implied by the foundation status screen.
 - legacy spike screens are clearly not the target product path.
 - no visible mock data appears on the product startup path.
 
@@ -729,7 +729,7 @@ Remove legacy dependencies only after `rg` confirms there are no imports and `fl
 
 ## 8. Responsive Behavior
 
-R2 has no final MVP UI. Any foundation status screen must:
+R2 has no final M2 UI. Any foundation status screen must:
 
 - work at desktop widths above 1024 px.
 - collapse into one column below 700 px.

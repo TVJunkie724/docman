@@ -13,7 +13,7 @@ Also read the planning structure that anchors the work:
 
 - `docs/ROADMAP_REBUILD.md` for top-level phases, decision register, and active overview.
 - `docs/roadmap/PHASE_INDEX.md` for implementation-sized phases and subphases.
-- `docs/roadmap/PILLAR_ROADMAP_INDEX.md` for pillar slices and MVP/Post-MVP/Enterprise split.
+- `docs/roadmap/PILLAR_ROADMAP_INDEX.md` for pillar slices by milestone and operations scope.
 - `docs/pillars/PILLAR_INDEX.md` plus the affected `docs/pillars/PILLAR_*.md` files for pillar responsibility.
 
 ## Boundaries
@@ -32,7 +32,7 @@ Always:
 - Document what should exist, why it matters, and how it fits the product.
 - Keep future implementation possible without prescribing low-level implementation.
 - Treat every phase as a future implementation plan. If a UI phase is too broad, split it into subphases with clear separation of concerns.
-- For every UI decision or handoff, identify the MVP/Baseline slice and the Post-MVP/Enterprise slice, even when the current task only changes the MVP part.
+- For every UI decision or handoff, identify the affected milestone slice and the later milestone/operations slice, even when the current task only changes M2.
 - Keep overview, phase details, and pillar details in their proper documents.
 
 ## Documentation Structure
@@ -61,7 +61,7 @@ Rules:
 
 - `ROADMAP_REBUILD.md` is the overview. It may contain top-level phases, the decision register overview, and short pointers. Do not put detailed UI phase plans there.
 - `docs/roadmap/PHASE_INDEX.md` owns implementation-sized phases and subphases. Add or split UI subphases there when a phase is too large or mixes responsibilities.
-- `docs/roadmap/PILLAR_ROADMAP_INDEX.md` owns pillar-slice overview: MVP/Baseline, Post-MVP, and Enterprise/Operations per pillar.
+- `docs/roadmap/PILLAR_ROADMAP_INDEX.md` owns pillar-slice overview by milestone and Enterprise/Operations scope.
 - `docs/pillars/PILLAR_*.md` owns the durable responsibility of a product/platform/governance pillar.
 - `docs/concepts/CONCEPT_F*.md` owns cross-cutting frontend/foundation concepts, not product feature pillars.
 - `docs/technical/DECISION_*.md` owns accepted or provisional decisions. Do not hide decisions only in roadmap prose.
@@ -74,7 +74,7 @@ Do not resurrect deleted P1-P7 roadmap files. If later product pillars or phase 
 
 When planning UI/frontend work:
 
-- Start from the affected phase and subphase, e.g. `R4.2 Desktop Import + Draft Inbox` or `R4.15 UX/A11y MVP Gate`.
+- Start from the affected phase and subphase, e.g. `R4.2 Desktop Import + Draft Inbox` or `R4.15 UX/A11y M2 Gate`.
 - Identify the affected pillars, e.g. Capture & Inbox, Cases/Documents/Records, Tasks/Reminders, Design System/UX, QA, Security/Privacy.
 - If the phase/subphase does not exist yet, add a concise entry to `docs/roadmap/PHASE_INDEX.md`.
 - If the pillar slice is missing or too vague, update `docs/roadmap/PILLAR_ROADMAP_INDEX.md` or the relevant `docs/pillars/PILLAR_*.md`.
@@ -92,7 +92,7 @@ Do not put all detail into one large matrix document. Keep:
 
 1. Understand the user's vision and identify affected DocMan phase/subphase, pillar(s), concept, and decision area.
 2. Check whether the work belongs in UI concept, phase/subphase structure, pillar roadmap, technical decision, or a later implementation plan.
-3. Define or update scope: in scope, out of scope, dependencies, MVP/Baseline slice, Post-MVP/Enterprise slice.
+3. Define or update scope: in scope, out of scope, dependencies, current milestone slice, later milestone slice, and Enterprise/Operations slice.
 4. If the requested phase is too large, split it into smaller subphases before writing handoff content.
 5. Update the smallest authoritative document:
    - overview/decision register: `ROADMAP_REBUILD.md`
@@ -123,9 +123,10 @@ All documentation files to read.
 ## 4. Scope
 In scope and out of scope.
 
-## 5. MVP/Baseline and Post-MVP
-- MVP/Baseline slice.
-- Post-MVP/Enterprise slice.
+## 5. Milestone Slices
+- Current milestone slice.
+- Later milestone slice.
+- Enterprise/Operations slice.
 
 ## 6. Constraints & Decisions
 Decisions already made.

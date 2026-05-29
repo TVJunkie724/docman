@@ -1,9 +1,9 @@
 ---
 title: "DocMan - Phase Index"
-description: "Detaillierter Phasen- und Subphasen-Index fuer planbare Implementation-Slices"
+description: "Detaillierter Phasen- und Subphasen-Index fuer planbare Milestone-Implementation-Slices"
 tags: [roadmap, phases, subphases, implementation-plan, planning]
-lastUpdated: "2026-05-12"
-version: "0.1"
+lastUpdated: "2026-05-29"
+version: "0.2"
 status: "proposed"
 ---
 
@@ -56,10 +56,10 @@ Ziel: Grundsatzentscheidungen treffen, bevor Code weiterwächst.
 | Subphase | Ziel | Hauptdeliverables |
 |---|---|---|
 | R0.1 Naming and Language | Produktname und Kernbegriffe klaeren | Product Name, Product Language |
-| R0.2 Product Scope | MVP und langfristiges DMS-Ziel trennen | MVP Scope, DMS Target Architecture |
+| R0.2 Product Scope | ersten nutzbaren Produkt-Slice und langfristiges DMS-Ziel trennen | First Utility Scope, DMS Target Architecture |
 | R0.3 Architecture Direction | Local-first, Backend-Rolle, State, Storage entscheiden | Data Flow, State Management, Backend Role, File Storage |
 | R0.4 Security and Privacy Baseline | sensible Daten, Sync-Grenzen und Trust Boundaries definieren | Privacy Sync Scope, Security Privacy Model |
-| R0.5 Intelligence and Workflow Boundaries | KI und Workflows nicht in den MVP ziehen | Intelligence Scope, Workflow Rules |
+| R0.5 Intelligence and Workflow Boundaries | KI und Workflows als eigene Milestone-Slices schneiden | Intelligence Scope, Workflow Rules |
 
 ## R1 - Documentation Source of Truth
 
@@ -94,12 +94,12 @@ Ziel: Das Projekt wird reproduzierbar, testbar und wartbar.
 |---|---|---|
 | R3.1 Bootstrap and Codegen | frische Checkouts reproduzierbar machen | setup/codegen/verify scripts |
 | R3.2 Fake Repositories | App-/Domain-Tests ohne Netzwerk ermoeglichen | Fake Repos |
-| R3.3 Test Fixtures | synthetische Daten fuer alle MVP-Domains | fixtures |
+| R3.3 Test Fixtures | synthetische Daten fuer alle fruehen Produkt-Domains | fixtures |
 | R3.4 Contract Baseline | OpenAPI/Microcks fuer Home-Hub/Capture vorbereiten | contracts/openapi, Microcks config |
 | R3.5 Target Path Gates | Legacy vom Zielpfad trennen | Analyzer, import checks |
-| R3.6 Readiness Gates | Security, Compliance, Data Lifecycle, Observability minimum pruefen | MVP Quality Gates |
+| R3.6 Readiness Gates | Security, Compliance, Data Lifecycle, Observability minimum pruefen | Milestone Quality Gates |
 
-## R4 - Desktop Core + Mobile Capture MVP
+## R4 - Capture and Review Core
 
 Ziel: Erster nutzbarer Produkt-Slice.
 
@@ -109,32 +109,35 @@ gebaut.
 | Subphase | Ziel | Hauptdeliverables |
 |---|---|---|
 | R4.1 Capture & Inbox Foundation | gemeinsame Draft-/Inbox-/Upload-Begriffe festlegen | Capture ports, Draft model |
-| R4.2 Desktop Import + Draft Inbox | lokale Dateien in Draft-Inbox aufnehmen | Desktop import, Draft review |
+| R4.2 Desktop Import + Draft Inbox | D35 Review-Workflow und D36 Desktop Import umsetzen | file picker, drag/drop, draft review |
 | R4.3 Mobile Scanner Spike | native Scanner-Qualitaet beweisen | Android/iOS Scanner evidence |
-| R4.4 Mobile Scan Client | Mobile Scan und lokale Queue MVP bauen | scan session, local queue |
-| R4.5 Upload Limits and Retry | D32 finalisieren und umsetzen | limits, retry, cleanup rules |
-| R4.6 Home Hub Capture Contract | Upload-Contract gegen Microcks modellieren | OpenAPI scenarios |
+| R4.4 Mobile Scan Client | Mobile Scan, optionale Kontextauswahl und lokale Queue bauen | scan session, context selection, local queue |
+| R4.5 Upload Limits and Retry | D32 umsetzen | `docs/roadmap/phases/R4_5_UPLOAD_LIMITS_RETRY_PLAN.md` |
+| R4.6 Home Hub Capture Contract | D33 als OpenAPI/Microcks-Spec modellieren | mobile-capture-upload.openapi.yaml |
 | R4.7 API-proxied Upload Slice | erster echter Capture Upload zum Home Hub | CaptureUploadPort strategy |
-| R4.8 Cases/Subcases MVP | Vorgänge und Subvorgänge nutzbar machen | Case UI/domain |
-| R4.9 Document/Record Metadata MVP | Dokumente, FileRecords, Record-aware Metadaten | document metadata |
-| R4.10 Tasks/Quick Access MVP | Aufgaben, Fälligkeiten, Schnellzugriff | task overview, quick access |
-| R4.11 Search MVP | lokale strukturierte Suche | SQLite/Drift/FTS5 adapter |
-| R4.12 External Actions MVP | manuelle externe Links | task/case action links |
-| R4.13 Security/Privacy MVP Gate | sensible Logs/Tokens/Storage pruefen | privacy gate |
-| R4.14 QA/Regression MVP Gate | MVP-Regression gruen bekommen | tests, smoke checks |
-| R4.15 UX/A11y MVP Gate | Bedienbarkeit, leere/fehlerhafte Zustände, A11y | UX review |
+| R4.8 Cases/Subcases Core | Vorgänge und Subvorgänge nutzbar machen | Case UI/domain |
+| R4.9 Document/Record Metadata Core | D38/D39/D41 Dokument-Metadaten, betroffene Person, Validierung und Preview umsetzen | metadata, review validation, preview, pdfrx adapter |
+| R4.10 Tasks/Quick Access Core | Aufgaben, Fälligkeiten, Schnellzugriff | task overview, quick access |
+| R4.11 Search Core | lokale strukturierte Suche | SQLite/Drift/FTS5 adapter |
+| R4.12 External Actions Core | manuelle externe Links | task/case action links |
+| R4.13 Security/Privacy M2 Gate | sensible Logs/Tokens/Storage pruefen | privacy gate |
+| R4.14 QA/Regression M2 Gate | M2-Regression gruen bekommen | tests, smoke checks |
+| R4.15 UX/A11y M2 Gate | Bedienbarkeit, leere/fehlerhafte Zustände, A11y | UX review |
 
-## R5 - Household Profiles and Access
+## R5 - Assisted Review and Household Profiles
 
-Ziel: Ordna wird von einer Einzelperson-App zu einer Haushalts-App.
+Ziel: Ordna reduziert manuelle Review-Arbeit und wird von einer Einzelperson-App zu einer Haushalts-App.
 
 | Subphase | Ziel | Hauptdeliverables |
 |---|---|---|
-| R5.1 Profile Data Classification | sensible Profildaten klassifizieren | profile data policy |
-| R5.2 Profile Domain Model | Profile/Kinder/Erwachsene modellieren | profile model |
-| R5.3 Profile-aware MVP Objects | Cases, Docs, Tasks, Drafts profilbewusst machen | profile links |
-| R5.4 Partner/Adult Management | gemeinsame Verwaltung vorbereiten | access model |
-| R5.5 Profile UX Gate | Profilwechsel und Korrekturen klar machen | UX validation |
+| R5.1 Assisted Review Text Extraction | OCR/Text-Extraktion fuer Draft Review beweisen | text extraction adapter |
+| R5.2 Metadata Suggestions | Titel, Typ, Datum, Absender, Betrag, Fälligkeit und Tags vorschlagen | suggestion model |
+| R5.3 Suggestion Review UX | Vorschlaege annehmen, korrigieren oder ablehnen | review interaction |
+| R5.4 Profile Data Classification | sensible Profildaten klassifizieren | profile data policy |
+| R5.5 Profile Domain Model | Profile/Kinder/Erwachsene modellieren | profile model |
+| R5.6 Profile-aware Objects | Cases, Docs, Tasks, Drafts profilbewusst machen | profile links |
+| R5.7 Partner/Adult Management | gemeinsame Verwaltung vorbereiten | access model |
+| R5.8 Profile UX Gate | Profilwechsel und Korrekturen klar machen | UX validation |
 
 ## R6 - Home Hub, Sync and Auth
 

@@ -18,14 +18,14 @@ DocMan behandelt Dokumente, extrahierte Inhalte und viele Metadaten als sensible
 
 DocMan verfolgt **Security-by-Design in Stufen**:
 
-- MVP/Home Hub bleibt private, selbst kontrollierte Infrastruktur.
+- M2/Home Hub bleibt private, selbst kontrollierte Infrastruktur.
 - Secrets liegen ausschliesslich in Secure Storage.
 - Dokumentdateien, OCR-Text und sensible Metadaten gelten als schuetzenswerte Nutzdaten.
 - Logs enthalten keine Dokumentinhalte, Tokens, Pairing-Codes, OCR-Texte oder sensiblen Metadaten.
 - Sync- und Storage-Grenzen werden so geplant, dass spaetere clientseitige Ende-zu-Ende-Verschluesselung moeglich bleibt.
 - Server, Home Hub oder spaetere Cloud-Komponenten duerfen langfristig nicht als zwingende Klartext-Owner der Dokumente modelliert werden.
 
-Der MVP muss noch keine vollstaendige App-Level-Verschluesselung fuer lokale Datenbank und Dateiablage implementieren. Er darf aber keine Architekturentscheidung treffen, die clientseitige Verschluesselung, Key Management, Recovery oder Zero-Knowledge-Sync spaeter verhindert.
+Der M2 muss noch keine vollstaendige App-Level-Verschluesselung fuer lokale Datenbank und Dateiablage implementieren. Er darf aber keine Architekturentscheidung treffen, die clientseitige Verschluesselung, Key Management, Recovery oder Zero-Knowledge-Sync spaeter verhindert.
 
 ## Schutzgueter
 
@@ -35,7 +35,7 @@ DocMan schuetzt nicht nur Secrets.
 |---|---|---|
 | Secrets | Pairing-Token, Session-Token, Recovery Keys | nur Secure Storage, nie SQLite, nie Logs |
 | Dokumentdateien | Scans, PDFs, Fotos, Arztbriefe, Vertrage, Ausweise | lokale Dateiablage, Home-Hub nur privat/self-hosted, spaeter verschluesselbarer Payload |
-| OCR-/LLM-Ergebnisse | extrahierter Text, Klassifikation, Formularvorschlaege | nicht MVP; spaeter lokal/self-hosted oder explizit freigegeben, reviewbar |
+| OCR-/LLM-Ergebnisse | extrahierter Text, Klassifikation, Formularvorschlaege | nicht M2; spaeter lokal/self-hosted oder explizit freigegeben, reviewbar |
 | Strukturierte Metadaten | Titel, Absender, Datum, Betrag, Status, Tags, Case-Zuordnung | SQLite/Drift, sync-vorbereitet, Sensitivitaet mitdenken |
 | Hochsensible Metadaten | Ausweisnummern, medizinische Details, Versicherungsnummern | vermeiden, minimieren oder explizit als sensitiv markieren |
 | Sync-/Upload-State | Queue, Remote-ID, Revision, Tombstone, Konfliktstatus | noetig fuer Robustheit, keine Geheimnisse enthalten |
@@ -59,9 +59,9 @@ Die Regeln gelten fuer alle Varianten:
 - Verarbeitung von Klartext, etwa OCR oder LLM, braucht eine explizite Trust Boundary und Nutzerfreigabe.
 - Export, Loeschung und Recovery muessen planbar bleiben.
 
-## MVP-Minimum
+## M2-Minimum
 
-Im MVP gilt:
+Im M2 gilt:
 
 - keine Drittanbieter-Cloud-Abhaengigkeit.
 - Sync nur zur privaten Home-Hub-Umgebung.
@@ -75,11 +75,11 @@ Im MVP gilt:
 
 ## Verschluesselung
 
-MVP:
+M2:
 
 - Betriebssystemschutz und App-Sandbox werden genutzt.
 - Secure Storage schuetzt Secrets.
-- App-Level-Verschluesselung fuer komplette SQLite-Datenbank und Dateiablage ist nicht MVP-Pflicht.
+- App-Level-Verschluesselung fuer komplette SQLite-Datenbank und Dateiablage ist nicht M2-Pflicht.
 
 Architekturpflicht:
 
@@ -123,7 +123,7 @@ Nicht erlaubt:
 
 Backup und Export sind Produktfunktionen, keine Nebeneffekte.
 
-MVP-Regel:
+M2-Regel:
 
 - keine automatische Fremd-Cloud-Sicherung.
 - Export/Backup muss bewusst ausgeloest werden.
@@ -138,7 +138,7 @@ Spaeter:
 
 ## Auswirkungen auf Home Hub und spaetere Server
 
-Home Hub darf im MVP pragmatisch sein, aber nicht zum langfristigen Klartext-Zwang werden.
+Home Hub darf im M2 pragmatisch sein, aber nicht zum langfristigen Klartext-Zwang werden.
 
 Regeln:
 
@@ -170,7 +170,7 @@ R2 muss:
 - Log-Regeln in F7 und Implementation-Plan aufnehmen.
 - Dateiablage abstrahieren.
 - keine Server-Klartextpflicht in Domain- oder API-Grenzen einbauen.
-- OCR/LLM ausserhalb des MVP halten, aber als spaetere Trust Boundary vormerken.
+- OCR/LLM ausserhalb des M2 halten, aber als spaetere Trust Boundary vormerken.
 
 ## Akzeptanz
 

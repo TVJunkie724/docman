@@ -26,6 +26,15 @@ DocMan unterscheidet:
 - `Record`: langlebiger Nachweis oder Unterlage mit Versionen.
 - `DocumentFact`: strukturierte Aussage aus einem Dokument.
 
+Der R4-M2 fuer Dokumente und Records ist in
+`docs/technical/DECISION_DOCUMENT_METADATA_PREVIEW.md` konkretisiert:
+generische Pflichtmetadaten, optionale einfache Felder und Vorschau als
+Review-Pflicht.
+
+Der M2-Dokumenttyp-Katalog steht in
+`docs/technical/DECISION_DOCUMENT_TYPE_CATALOG.md`. Typen sind im M2
+lockere Klassifikation, keine harten Workflow-Container.
+
 ## Grundsatz
 
 Ein Dokument darf nicht nur als Anhang an einen Vorgang existieren.
@@ -64,7 +73,7 @@ Typische Vorgänge:
 
 ## Subvorgänge
 
-Subvorgänge sind Teil des MVP-light.
+Subvorgänge sind Teil des schlanken M2-Slice.
 
 Beispiele:
 
@@ -107,20 +116,20 @@ Empfohlen:
 - `attentionFlags` fuer Dinge wie `overdue`, `missingDocument`, `needsReview`.
 - separate Dokument- und Record-Version-Status.
 
-## MVP-Scope
+## M2-Scope
 
-MVP-light:
+Schlanker M2-Slice:
 
 - Vorgang anlegen, bearbeiten, schließen.
 - Dokumente einem Vorgang zuordnen.
 - leere Subvorgänge erstellen.
 - aus ausgewählten Dokumenten einen Subvorgang bilden.
-- ein aktives Profil vorbereiten.
+- betroffene Person / Haushaltsprofil als Pflichtzuordnung vorbereiten.
 - Dokumente ohne Vorgang erlauben.
 - Records/Nachweise konzeptionell vorbereiten.
 - Datenmodell nicht auf genau einen harten Dokument-Parent verengen.
 
-Nicht MVP:
+Späterer Milestone:
 
 - volle flexible Mehrfachzuordnung mit Rollen.
 - komplexe Workflow-Engines.
@@ -141,5 +150,5 @@ Nicht MVP:
 ## Offene Folgefragen
 
 - Wie heißt `Record` final in der deutschen UI?
-- Welche Vorgangstypen sind im MVP fest sichtbar?
-- Welche Dokumentrollen brauchen wir zuerst nach dem MVP?
+- Welche Vorgangstypen sind im M2 fest sichtbar?
+- Welche Dokumentrollen brauchen wir zuerst nach dem M2?

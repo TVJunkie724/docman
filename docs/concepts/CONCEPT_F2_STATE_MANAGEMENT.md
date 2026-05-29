@@ -93,7 +93,7 @@ Beispiele:
 
 Remote-Zustand darf lokale Nutzbarkeit nicht überschreiben. Wenn Home Hub offline ist, bleibt die App bedienbar und zeigt Queue-/Sync-Zustände.
 
-## MVP Provider-Bereiche
+## M2 Provider-Bereiche
 
 | Bereich | Provider-Verantwortung |
 |---|---|
@@ -101,7 +101,7 @@ Remote-Zustand darf lokale Nutzbarkeit nicht überschreiben. Wenn Home Hub offli
 | Documents | Dokument-Metadaten, Datei-Referenzen, Zuordnung |
 | Draft Inbox | ungeprüfte Dokumente, Review-State, Zuordnung zu Vorgängen |
 | Mobile Capture | lokale Capture-Queue, Upload-Status, Retry |
-| Profiles | aktives Profil, einfache Profilliste |
+| Profiles | betroffene Person / Haushaltsprofil, einfache Profilliste |
 | Home Hub | Health, Verbindung, Upload-Fähigkeit |
 | Search | lokale Filter und Suchabfragen |
 | Settings | Home-Hub-URL, nicht geheime Präferenzen |
@@ -195,6 +195,5 @@ F2 gilt als umgesetzt, wenn:
 
 - Nutzen wir Riverpod Codegen direkt oder starten wir manuell und migrieren später?
 - Welche Provider werden `keepAlive`?
-- Wie genau wird aktives Profil appweit gehalten?
+- Wie genau wird Person-/Profilkontext appweit gehalten, ohne stille Default-Zuordnung zu erzwingen?
 - Welche gemeinsamen Test-Helpers brauchen ProviderScope und Overrides?
-

@@ -97,5 +97,5 @@ F7 gilt als umgesetzt, wenn:
 
 - Welches Logging-Package verwenden wir?
 - Wie lange werden lokale Logs aufbewahrt?
-- Gibt es im MVP bereits einen Diagnose-Export?
+- Gibt es im M2 bereits einen Diagnose-Export?
 - Welche Logs werden später zu Telemetry Events oder Audit Events nach F18?

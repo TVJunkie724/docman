@@ -83,9 +83,9 @@ Schnellzugriff ist eine kuratierte Sicht auf wichtige Dokumente, Records oder Vo
 - wichtige medizinische Unterlagen.
 - Schlüsseldokumente fuer Kinder.
 
-## MVP-Scope
+## M2-Scope
 
-MVP-light:
+Schlanker M2-Slice:
 
 - Aufgabenübersicht.
 - Aufgaben manuell erstellen, erledigen, verwerfen.
@@ -96,7 +96,7 @@ MVP-light:
 - wichtige Dokumente/Records an Schnellzugriff pinnen.
 - optional einen externen Link an einer Aufgabe öffnen.
 
-Nicht MVP:
+Späterer Milestone:
 
 - komplexe wiederkehrende Aufgaben.
 - Kalenderintegration.
@@ -113,5 +113,5 @@ Nicht MVP:
 ## Offene Folgefragen
 
 - Heißt der UI-Bereich `Schnellzugriff`, `Wichtig` oder `Notfallmappe`?
-- Werden lokale OS-Benachrichtigungen schon im R4-MVP umgesetzt?
+- Werden lokale OS-Benachrichtigungen schon im R4-M2 umgesetzt?
 - Welche Reminder werden automatisch aus Records vorgeschlagen?

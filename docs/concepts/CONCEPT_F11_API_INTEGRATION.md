@@ -38,9 +38,9 @@ DocMan App
           -> self-hosted DocMan Server Stack
 ```
 
-## MVP API-Scope
+## M2 API-Scope
 
-Der MVP braucht nur einen kleinen API-Schnitt:
+Der M2 braucht nur einen kleinen API-Schnitt:
 
 - Home-Hub Health Check.
 - Geräte-Pairing oder Login-Grundlage.
@@ -50,7 +50,7 @@ Der MVP braucht nur einen kleinen API-Schnitt:
 - optionale Übermittlung einer `caseId`.
 - einfache Liste offener Vorgänge für Mobile, wenn verfügbar.
 
-Nicht im MVP:
+Nicht im M2:
 
 - vollständiger Multi-Geräte-Sync.
 - vollständige mobile Vorgangsverwaltung.
@@ -91,7 +91,7 @@ F11 verbietet harte Abhängigkeiten auf:
 - konkrete Server-Frameworks.
 - Cloud-SaaS-Annahmen.
 
-OpenAPI ist Contract Source of Truth fuer HTTP-APIs. Das bedeutet nicht automatisch, dass Client-Code generiert werden muss. Ob der MVP-Client handgeschrieben oder generiert wird, bleibt eine Implementierungsentscheidung.
+OpenAPI ist Contract Source of Truth fuer HTTP-APIs. Das bedeutet nicht automatisch, dass Client-Code generiert werden muss. Ob der M2-Client handgeschrieben oder generiert wird, bleibt eine Implementierungsentscheidung.
 
 ## Capture Upload
 
@@ -116,10 +116,15 @@ Antwort des Home Hub sollte mindestens liefern:
 - ob Review erforderlich ist.
 - Fehlerklassifikation nach F5.
 
-Die Upload-Transport-Implementierung ist austauschbar. Der MVP darf
+Die Upload-Transport-Implementierung ist austauschbar. Der M2 darf
 API-proxied Upload nutzen. Das Enterprise-Ziel ist presigned/resumable Upload
 ueber den Home Hub als Kontrollinstanz. Details stehen in
 `docs/technical/DECISION_MOBILE_CAPTURE_UPLOAD_STRATEGY.md`.
+
+Der fachliche Home-Hub-Capture-Vertrag ist separat entschieden in
+`docs/technical/DECISION_HOME_HUB_CAPTURE_CONTRACT.md`. Fuer den R4-M2 gilt
+ein OpenAPI/Microcks-faehiger 3-Schritt-Flow:
+`initiateCaptureUpload -> uploadCaptureBytes -> confirmCaptureUpload`.
 
 ## Capabilities
 
@@ -136,7 +141,7 @@ Beispiele:
 - uploadTransport.
 - resumableUploadSupported.
 
-So kann der MVP klein starten und später wachsen, ohne UI und Domain umzubauen.
+So kann der M2 klein starten und später wachsen, ohne UI und Domain umzubauen.
 
 ## Auth und Security
 
@@ -202,7 +207,7 @@ F11 gilt als umgesetzt, wenn:
 
 ## Offene Folgefragen
 
-- Wird der MVP-API-Client handgeschrieben oder aus OpenAPI generiert?
+- Wird der M2-API-Client handgeschrieben oder aus OpenAPI generiert?
 - Wie sieht Pairing konkret aus?
 - Welche Upload-Größen sind realistisch?
-- Brauchen Uploads Chunking schon im MVP?
+- Brauchen Uploads Chunking schon im M2?

@@ -23,12 +23,12 @@ F13 definiert, welche Konfigurationsflächen DocMan braucht und wie sie sich fac
 
 Konfiguration ist kein Marketingbereich. Sie muss ruhig, klar und diagnosefähig sein.
 
-## MVP-Konfigurationsbereiche
+## M2-Konfigurationsbereiche
 
 | Bereich | Zweck |
 |---|---|
 | Allgemein | Sprache, Theme, lokale Präferenzen |
-| Profile | aktives Profil, einfache Profilverwaltung |
+| Profile | Personen-/Profilverwaltung und Standardansichten |
 | Haushalt | spätere Haushaltsmitglieder, Kinderprofile, Zugriffsstatus |
 | Home Hub | URL, Health Check, Pairing-Status |
 | Storage | lokale Speicherorte, Cache-Status, Export später |
@@ -61,15 +61,15 @@ Tailscale wird höchstens als Setup-Hinweis erwähnt, nicht als Produktzustand.
 
 F13 gilt als umgesetzt, wenn:
 
-- Settings-Struktur für MVP klar ist.
+- Settings-Struktur für M2 klar ist.
 - Home-Hub-Verbindung verständlich konfigurierbar ist.
 - Secrets nicht sichtbar sind.
 - Diagnose Status und nächste Aktion trennt.
-- Profil- und Haushaltsbereiche getrennt geplant sind, damit MVP-Profilwahl nicht mit späterer Rechteverwaltung vermischt wird.
+- Profil- und Haushaltsbereiche getrennt geplant sind, damit M2-Profilwahl nicht mit späterer Rechteverwaltung vermischt wird.
 
 ## Offene Folgefragen
 
-- Braucht der MVP einen Setup-Wizard?
+- Braucht der M2 einen Setup-Wizard?
 - Wie wird Mobile Pairing dargestellt?
 - Welche Storage-Informationen sind für normale Nutzer sinnvoll?
 - Welche Haushalts-/Kinderprofilverwaltung ist R5-Minimum?

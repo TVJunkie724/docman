@@ -79,7 +79,8 @@ Presentation -> Domain -> Data
 
 - R2 Technical Foundation: bootstrap, Riverpod, Drift direction, secure boundaries, migration away from legacy patterns.
 - R3 Quality & Production Readiness: tests, fake repositories, Microcks/contract mocks, scripts, target-path analyzer/format gates, legacy isolation/removal.
-- R4 Desktop Core + Mobile Capture MVP: first product slice after foundation/quality.
+- R4/M2 Capture and Review Core: first product slice after foundation/quality.
+- R5/M3 Assisted Review: OCR/extraction suggestions for metadata so optional fields do not become permanent manual work.
 
 GitHub Issues are the source of truth for actionable follow-up work. Accepted decisions stay in `docs/technical/DECISION_*.md`.
 

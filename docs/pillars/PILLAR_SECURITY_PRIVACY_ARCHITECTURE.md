@@ -26,7 +26,7 @@ Security und Privacy sind deshalb Architekturthemen, nicht nachträgliche Featur
 - Berechtigungsmodell.
 - sichere Defaults.
 
-## MVP-Minimum
+## M2-Minimum
 
 - keine Secrets in lokaler DB.
 - keine sensiblen Daten in Logs/Notifications.

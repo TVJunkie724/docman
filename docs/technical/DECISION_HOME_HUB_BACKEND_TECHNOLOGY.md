@@ -26,7 +26,7 @@ minio                   S3-kompatibler Datei-Storage
 microcks                OpenAPI Mock und Contract Verification
 ```
 
-Post-MVP kann derselbe Stack erweitert werden:
+spaetere Milestones kann derselbe Stack erweitert werden:
 
 ```text
 ordna-homehub-worker     .NET Worker / Hosted Services
