@@ -1,0 +1,224 @@
+---
+title: "Decision - Profile Sensitive Data"
+description: "Entscheidung zu notwendigen, sensiblen und hochsensiblen Profildaten fuer Haushaltsprofile, Versicherungen, Ausweise, Adresse und spaetere Identity-Anbindung"
+tags: [decision, profiles, household, sensitive-data, insurance, identity, privacy, id-austria]
+lastUpdated: "2026-06-02"
+status: "accepted"
+---
+
+# Decision - Profile Sensitive Data
+
+## Status
+
+Accepted.
+
+R5-D1 ist als Grundsatzentscheidung akzeptiert. Details fuer Sync,
+Feldverschluesselung, Identity-Provider und Sharing-Policies werden in R6/M6
+ausgearbeitet.
+
+## Entscheidung
+
+Ordna braucht fuer Haushaltsprofile mehr als nur einen Anzeigenamen.
+
+Profile bleiben die fachliche Antwort auf "wen betrifft dieses Dokument, dieser
+Vorgang oder diese Aufgabe?". Darueber hinaus darf Ordna aber notwendige
+Identitaets-, Adress- und Versicherungsdaten verwalten, weil diese Daten fuer
+Arzt-, Versicherungs-, Behoerden-, Schul-, Vertrags- und Familienworkflows
+regelmaessig gebraucht werden.
+
+Diese Daten werden nicht als flache, ueberall sichtbare Profilattribute
+behandelt. Sie werden in Schutzklassen getrennt:
+
+- Core Profile Data: fuer normale UI, Zuordnung, Filter und Aufgaben noetig.
+- Sensitive Profile Data: nur bei konkretem fachlichem Bedarf sichtbar.
+- Highly Sensitive Profile Data: besonders geschuetzt, nicht in Logs, nicht in
+  einfachen Listen, nicht automatisch in Sync-/Sharing-Kontexte gemischt.
+- External Identity Data: spaetere Login-/Sharing-/Identity-Anbindung.
+
+Profile werden nicht nach Alter modelliert. Die zentrale Unterscheidung ist:
+
+- Account Profile: kann sich anmelden und Rechte ausueben.
+- Managed Profile: hat keine eigene Anmeldung und wird durch ein oder mehrere
+  Account Profiles verwaltet.
+
+Ein Managed Profile kann spaeter zu einem Account Profile werden, z. B. wenn
+ein Kind aelter wird oder ein Partner spaeter selbst Zugriff bekommt.
+
+## Datenklassen
+
+| Klasse | Beispiele | Regel |
+|---|---|---|
+| Core Profile Data | Anzeigename, Rolle/Beziehung im Haushalt, Account Profile oder Managed Profile, internes Profil-ID | normal fuer Zuordnung, Suche, Filter und UI verwendbar |
+| Basic Personal Data | Geburtsdatum, Staatsbuergerschaft, rechtlicher Name falls abweichend vom Anzeigenamen | sensitiv; sichtbar, wenn der Workflow es braucht |
+| Address / Meldeinformation | aktuelle Adresse, Meldeadresse, fruehere Adresse optional spaeter | innerhalb des Haushalts normal bearbeitbar; nicht in Logs, Benachrichtigungen oder externem Sharing ohne bewusste Freigabe |
+| Government Identity Data | Passnummer, Ausweisnummer, Geburtsurkunden-/Nachweisreferenzen, ID-Austria-Verknuepfung spaeter | hochsensibel; eigene Anzeige-/Editier- und Logging-Regeln |
+| Public Insurance Data | gesetzliche/staatliche Versicherung, Sozialversicherungstraeger, Versicherungsstatus, Versichertennummer falls noetig | hochsensibel, weil Versicherungs-/Gesundheitskontext ableitbar ist |
+| Private Insurance Data | private Zusatzversicherung, Polizzen, mehrere Versicherungen pro Person, Gueltigkeit, Vertrags-/Polizzennummer | hochsensibel; als Record/Versicherungsbeziehung modellieren, nicht nur als Profiltext |
+| Contact / Account Data | E-Mail als spaeterer Account-Identifier | nicht als Telefonnummer-/Kontaktbuch-Ersatz; E-Mail gehoert zur spaeteren Auth-/Sharing-Identity |
+
+Telefonnummer ist vorerst kein geplanter Profilbestandteil.
+
+## Feste Felder und Profil-Fakten
+
+Ordna unterscheidet zwischen festen Profilfeldern und freien Profil-Fakten.
+
+Feste Profilfelder sind die Daten, die fuer haeufige Workflows erwartet werden:
+
+- Anzeigename.
+- rechtlicher Name optional.
+- Geburtsdatum.
+- Adresse/Meldeadresse.
+- Staatsbuergerschaft.
+- Account Profile oder Managed Profile.
+- verwaltet durch ein oder mehrere Account Profiles.
+- E-Mail spaeter fuer Account-/Sharing-Identity.
+
+Flexible Profil-Fakten decken Daten ab, die nicht als festes Feld in jedes
+Profil gehoeren oder die mit Dokumenten belegt werden sollen.
+
+```text
+ProfileFact
+  label
+  valueType: text | number | date | amount | url | identifier | boolean
+  value
+  sensitivity: normal | sensitive | highlySensitive
+  hasEvidence: boolean
+  sourceRecordId optional
+  sourceDocumentId optional
+  verifiedState: unverified | userConfirmed | extracted | stale
+  validFrom optional
+  validTo optional
+```
+
+`hasEvidence` ist vor allem ein UI-Konzept:
+
+- einfacher Fakt: Wert eingeben, keine Quelle notwendig.
+- Fakt mit Nachweis: Wert plus verknuepftes Dokument/Record.
+
+Im Datenmodell bleibt der Werttyp trotzdem fachlich, z. B. `date`,
+`identifier` oder `text`. Die Verknuepfung zum Dokument ist Evidenz, kein
+eigener Werttyp.
+
+## Versicherungen
+
+Eine Person kann mehrere staatliche/gesetzliche und mehrere private
+Versicherungen haben.
+
+Versicherungen werden als eigene strukturierte Beziehungen geplant, nicht nur als
+Textfeld am Profil:
+
+```text
+Profile
+  InsuranceMembership[]
+    kind: statutory | private
+    provider
+    policyOrMemberNumber optional
+    validFrom optional
+    validTo optional
+    relatedRecordId optional
+```
+
+Wichtig:
+
+- Die Versicherungspolizze selbst bleibt ein Dokument/Record.
+- Das Profil kann auf die aktive Versicherungsbeziehung zeigen.
+- Arzt-/Claim-Workflows koennen die relevante Versicherung vorschlagen oder
+  verknuepfen, ohne die Polizze in jeden Vorgang zu kopieren.
+- Mehrere Versicherungen muessen moeglich bleiben, z. B. staatliche
+  Sozialversicherung plus private Zusatzversicherung.
+
+## E-Mail, Login und ID Austria
+
+E-Mail wird nicht als allgemeines Kontaktfeld geplant, sondern als spaeterer
+Account-/Identity-Identifier fuer:
+
+- Login.
+- Document Sharing.
+- Haushalts-/Partnerfreigaben.
+- Einladungen oder Geraete-/Account-Zuordnung.
+
+ID Austria wird als spaetere Identity-Option vorgemerkt. R5/R6 muessen dafuer
+keine vollstaendige Integration bauen, duerfen die Architektur aber nicht
+blockieren.
+
+ID-Austria-Planung bedeutet:
+
+- Identity Provider bleibt austauschbar.
+- lokale Profile sind nicht identisch mit Login-Accounts.
+- ein Account kann ein oder mehrere Profile verwalten, sofern Rechte das
+  erlauben.
+- amtliche Identity-Daten duerfen nicht unkontrolliert als normale Profilfelder
+  oder Suchdaten behandelt werden.
+
+## Sichtbarkeit und Zugriff
+
+Ordna zeigt im normalen Alltag nur Core Profile Data.
+
+Beispiele:
+
+- In Draft-Inbox, Vorgang, Task und Suche reicht meist der Anzeigename.
+- Adresse ist innerhalb des Haushalts normal sichtbar/bearbeitbar, aber nicht
+  fuer Logs, Push-Texte oder externes Sharing gedacht.
+- Versicherungsdaten erscheinen in Versicherungs-, Arzt- oder Claim-Kontexten.
+- Passnummer/Ausweisnummer erscheinen nur in Identitaets-/Behoerden-/Record-
+  Kontexten.
+- Hochsensible Werte werden nicht in Listen, Logs, Telemetry, Fehlertexten oder
+  Benachrichtigungstexten ausgegeben.
+
+## Auswirkungen auf Sync und Sharing
+
+Profile sind sync- und sharing-relevant, aber sensible Profildaten brauchen
+eigene Regeln.
+
+Folgen:
+
+- Sync darf Profil-Core-Daten und hochsensible Profildaten nicht gleich
+  behandeln.
+- Sharing muss unterscheiden zwischen "Dokument/Vorgang sehen" und "alle
+  Identitaets-/Versicherungsdaten der Person sehen".
+- Kinderprofile brauchen besonders vorsichtige Defaults.
+- E-Mail/Account-Identity gehoert in die Auth-/Sharing-Schicht, nicht in die
+  einfache Profilanzeige.
+- Eine spaetere Cloud- oder self-hosted-cloudartige Variante muss diese
+  Datenklassen verschluesselbar und minimierbar halten.
+
+## M2 / M3 / M4 / M5 / M6 Einordnung
+
+- M2: Profilzuordnung ist Pflicht, aber nur Core Profile Data muss wirklich
+  produktiv sichtbar sein.
+- M3: Assisted Review darf betroffene Person vorschlagen, aber nicht still
+  setzen. Sensible Werte werden nur als Review-Hinweis verwendet.
+- M4: Household/Sync/Auth braucht die Trennung zwischen lokalen Profilen,
+  Accounts, E-Mail und Rechten.
+- M5: Versicherungs-, Claim- und Kostenworkflows nutzen strukturierte
+  Versicherungsbeziehungen.
+- M6: Compliance, Backup, Export, Loeschung und Distribution muessen diese
+  Datenklassen beruecksichtigen.
+
+## Konsequenzen
+
+- R5-D1 ist entschieden: Die Daten werden benoetigt und werden klassifiziert.
+- Profile werden nach Account Profile vs. Managed Profile modelliert, nicht nach
+  Kind vs. Erwachsen.
+- Managed Profiles koennen spaeter zu Account Profiles werden.
+- Profildaten koennen manuell gepflegt werden.
+- Profil-Fakten koennen optional mit Dokumenten/Records als Nachweis verknuepft
+  werden.
+- Passnummer, Ausweis-/SV-/Versicherungsnummern und Versicherungsbeziehungen
+  sind hochsensibel.
+- Adresse und Meldeinformation werden als ein verwandter Datenbereich geplant,
+  sind innerhalb des Haushalts aber nicht hochsensibel.
+- Telefonnummer bleibt ausserhalb des geplanten Profilumfangs.
+- E-Mail wird fuer spaetere Account-/Sharing-/Login-Identitaet geplant.
+- ID Austria wird als spaetere Identity-Option vorgemerkt.
+- Versicherungen werden als eigene mehrfache Beziehungen/Records geplant.
+
+## Nicht entschieden
+
+- exakte UI fuer sensible Profilfelder.
+- welche Daten in welchem Milestone tatsaechlich produktiv erfasst werden.
+- ob hochsensible Profilwerte in M4 schon verschluesselt auf Feldebene liegen
+  muessen oder erst in einem spaeteren M6-Sicherheitsausbau.
+- konkrete ID-Austria-Integration.
+- konkrete OAuth-/Identity-Provider-Reihenfolge.
+- welche Versicherungsdaten automatisiert aus Dokumenten extrahiert werden.

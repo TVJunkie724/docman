@@ -2,7 +2,7 @@
 title: "Decision - Household Profiles and Access"
 description: "Entscheidung zum Zielmodell fuer Haushaltsmitglieder, Kinderprofile, gemeinsame Verwaltung, Profilzuordnung und spätere Berechtigungen"
 tags: [decision, household, profiles, family, access, permissions, sharing]
-lastUpdated: "2026-05-29"
+lastUpdated: "2026-06-02"
 status: "accepted"
 ---
 
@@ -127,6 +127,22 @@ Haushaltsprofile enthalten sensible Daten.
 
 Regeln:
 
+- Profildaten folgen `docs/technical/DECISION_PROFILE_SENSITIVE_DATA.md`.
+- Core Profile Data darf fuer Zuordnung, Filter und UI sichtbar sein.
+- Ausweis-/Passnummern, SV-/Versicherungsnummern und Versicherungsbeziehungen
+  sind hochsensibel.
+- Profile werden nach Account Profile vs. Managed Profile geplant, nicht nach
+  Kind vs. Erwachsen.
+- Managed Profiles koennen spaeter zu Account Profiles werden.
+- Adresse und Meldeinformation werden als verwandter Datenbereich geplant; sie
+  sind innerhalb des Haushalts normal nutzbar, aber nicht fuer Logs,
+  Benachrichtigungen oder externes Sharing ohne bewusste Freigabe.
+- Telefonnummer ist nach aktueller Anforderung nicht noetig.
+- E-Mail gehoert zur spaeteren Account-/Sharing-/Login-Identity,
+  nicht zum einfachen Kontaktprofil.
+- ID Austria soll als spaetere Identity-Option geprueft werden.
+- Versicherungen werden als mehrfache strukturierte Beziehungen/Records geplant,
+  nicht nur als Textfeld am Profil.
 - Kinderprofile brauchen besonders vorsichtige Defaults.
 - Medizinische, schulische, Ausweis- und Versicherungsdaten sind hochsensibel.
 - Rechte- und Profilwechsel duerfen nicht dazu fuehren, dass Dokumente versehentlich sichtbar werden.

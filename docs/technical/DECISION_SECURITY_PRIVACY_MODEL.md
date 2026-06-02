@@ -2,7 +2,7 @@
 title: "Decision - Security and Privacy Model"
 description: "Entscheidung zum Security-/Privacy-Grundmodell fuer sensible Dokumente, Home Hub und spaetere Cloud-faehige Betriebsformen"
 tags: [decision, accepted, security, privacy, encryption, backup, e2ee, zero-knowledge]
-lastUpdated: "2026-05-01"
+lastUpdated: "2026-06-02"
 status: "accepted"
 ---
 
@@ -37,7 +37,8 @@ DocMan schuetzt nicht nur Secrets.
 | Dokumentdateien | Scans, PDFs, Fotos, Arztbriefe, Vertrage, Ausweise | lokale Dateiablage, Home-Hub nur privat/self-hosted, spaeter verschluesselbarer Payload |
 | OCR-/LLM-Ergebnisse | extrahierter Text, Klassifikation, Formularvorschlaege | nicht M2; spaeter lokal/self-hosted oder explizit freigegeben, reviewbar |
 | Strukturierte Metadaten | Titel, Absender, Datum, Betrag, Status, Tags, Case-Zuordnung | SQLite/Drift, sync-vorbereitet, Sensitivitaet mitdenken |
-| Hochsensible Metadaten | Ausweisnummern, medizinische Details, Versicherungsnummern | vermeiden, minimieren oder explizit als sensitiv markieren |
+| Hochsensible Metadaten | Passnummern, Ausweisnummern, SV-/Versicherungsnummern, medizinische Details, Versicherungsbeziehungen | klassifizieren, minimieren, explizit als sensitiv markieren und nicht in normalen Listen/Logs/Telemetry ausgeben |
+| Profil-/Identity-Daten | Anzeigename, rechtlicher Name, Geburtsdatum, Adresse/Meldeinformation, E-Mail als Account-Identifier, spaetere ID-Austria-Verknuepfung | Schutzklasse nach `DECISION_PROFILE_SENSITIVE_DATA.md`; lokale Profile nicht mit Login-Accounts verwechseln |
 | Sync-/Upload-State | Queue, Remote-ID, Revision, Tombstone, Konfliktstatus | noetig fuer Robustheit, keine Geheimnisse enthalten |
 | Logs/Diagnose | Fehlerklassen, Sync-Status, technische Ereignisse | keine Inhalte, keine Tokens, keine personenbezogenen Details |
 
@@ -118,6 +119,7 @@ Nicht erlaubt:
 - Chat-/LLM-Prompts mit Dokumentinhalt.
 - Pairing-Code, Token, Secret, Recovery Key.
 - Ausweisnummern, Versicherungsnummern, medizinische Details.
+- Passnummern, SV-Nummern, Versicherungsbeziehungen, Adressen/Meldeinformationen.
 
 ## Backup, Export, Loeschung
 
