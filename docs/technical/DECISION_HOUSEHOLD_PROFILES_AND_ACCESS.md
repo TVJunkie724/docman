@@ -2,7 +2,7 @@
 title: "Decision - Household Profiles and Access"
 description: "Entscheidung zum Zielmodell fuer Haushaltsmitglieder, Kinderprofile, gemeinsame Verwaltung, Profilzuordnung und spätere Berechtigungen"
 tags: [decision, household, profiles, family, access, permissions, sharing]
-lastUpdated: "2026-06-02"
+lastUpdated: "2026-06-04"
 status: "accepted"
 ---
 
@@ -28,9 +28,9 @@ und spaeter kommen Rollen, Rechte und Sync/Identity dazu.
 ```text
 Household
   Members / Profiles
-    Erwachsene
-    Kinder
-    weitere verwaltete Personen optional später
+    Profile mit eigener Identity optional
+    verwaltete Profile optional
+    Profile mit Identity und weiter aktiver Verwaltung optional
 
 Profile
   eigene Dokumente
@@ -64,8 +64,13 @@ gäbe es nur eine anonyme Einzelperson.
 R5/R6 bauen aus:
 
 - mehrere Profile in einem Haushalt.
-- Kinderprofile ohne eigene Accounts.
-- Erwachsene als Manager fuer Kinderprofile.
+- verwaltete Profile ohne eigene Accounts.
+- verwaltete Profile koennen spaeter eigene Identity/Login-Anbindung bekommen.
+- aktive Verwaltung bleibt separat und kann deaktiviert oder entfernt werden.
+- mehrere Profile koennen dasselbe Profil gemeinsam verwalten.
+- frueh bleibt Verwaltung binaer; Viewer-/Editor-Rollen kommen erst spaeter,
+  wenn sie wirklich gebraucht werden.
+- Account-/Identity-Profile koennen andere Profile verwalten.
 - Partner kann freigegebene Profile/Dokumente sehen oder bearbeiten.
 - spaetere Rollen wie `owner`, `manager`, `editor`, `viewer`.
 - Sync/Auth verbindet Personen, Geraete und Haushaltsrechte.
@@ -131,9 +136,10 @@ Regeln:
 - Core Profile Data darf fuer Zuordnung, Filter und UI sichtbar sein.
 - Ausweis-/Passnummern, SV-/Versicherungsnummern und Versicherungsbeziehungen
   sind hochsensibel.
-- Profile werden nach Account Profile vs. Managed Profile geplant, nicht nach
-  Kind vs. Erwachsen.
-- Managed Profiles koennen spaeter zu Account Profiles werden.
+- Login/Identity und Verwaltung werden separat geplant.
+- Ein Profil kann eine eigene Identity haben und trotzdem weiterhin verwaltet
+  werden.
+- Verwaltung kann spaeter eingeschraenkt, deaktiviert oder entfernt werden.
 - Adresse und Meldeinformation werden als verwandter Datenbereich geplant; sie
   sind innerhalb des Haushalts normal nutzbar, aber nicht fuer Logs,
   Benachrichtigungen oder externes Sharing ohne bewusste Freigabe.
@@ -155,6 +161,8 @@ Regeln:
 - R4 muss Profilzuordnung vorbereiten.
 - Draft-Inbox darf Profilkontext nicht verlieren.
 - F10/F14/F17 muessen Profil-/Haushaltskontext berücksichtigen.
+- R5-D2 folgt `docs/technical/DECISION_PROFILE_IDENTITY_AND_MANAGEMENT.md`.
+- R5-D3 folgt `docs/technical/DECISION_PROFILE_SHARED_MANAGEMENT.md`.
 - Vollstaendige Rollenmatrix bleibt ein spaeterer Milestone, aber das Datenmodell darf sie nicht blockieren.
 
 ## Nicht entschieden

@@ -2,7 +2,7 @@
 title: "Decision - Profile Sensitive Data"
 description: "Entscheidung zu notwendigen, sensiblen und hochsensiblen Profildaten fuer Haushaltsprofile, Versicherungen, Ausweise, Adresse und spaetere Identity-Anbindung"
 tags: [decision, profiles, household, sensitive-data, insurance, identity, privacy, id-austria]
-lastUpdated: "2026-06-02"
+lastUpdated: "2026-06-04"
 status: "accepted"
 ---
 
@@ -12,7 +12,8 @@ status: "accepted"
 
 Accepted.
 
-R5-D1 ist als Grundsatzentscheidung akzeptiert. Details fuer Sync,
+R5-D1 ist als Grundsatzentscheidung akzeptiert. R5-D2 klaert Login/Identity und
+Verwaltung separat in `DECISION_PROFILE_IDENTITY_AND_MANAGEMENT.md`. Details fuer Sync,
 Feldverschluesselung, Identity-Provider und Sharing-Policies werden in R6/M6
 ausgearbeitet.
 
@@ -35,20 +36,20 @@ behandelt. Sie werden in Schutzklassen getrennt:
   einfachen Listen, nicht automatisch in Sync-/Sharing-Kontexte gemischt.
 - External Identity Data: spaetere Login-/Sharing-/Identity-Anbindung.
 
-Profile werden nicht nach Alter modelliert. Die zentrale Unterscheidung ist:
+Profile werden nicht nach Alter modelliert. Login/Identity und Verwaltung sind
+zwei getrennte Achsen:
 
-- Account Profile: kann sich anmelden und Rechte ausueben.
-- Managed Profile: hat keine eigene Anmeldung und wird durch ein oder mehrere
-  Account Profiles verwaltet.
+- ein Profil kann eine eigene Identity/Login-Anbindung haben.
+- ein Profil kann durch ein oder mehrere andere Profile verwaltet werden.
 
-Ein Managed Profile kann spaeter zu einem Account Profile werden, z. B. wenn
-ein Kind aelter wird oder ein Partner spaeter selbst Zugriff bekommt.
+Ein verwaltetes Profil kann spaeter eine eigene Identity bekommen, ohne dass
+bestehende Verwaltungsbeziehungen automatisch entfernt werden.
 
 ## Datenklassen
 
 | Klasse | Beispiele | Regel |
 |---|---|---|
-| Core Profile Data | Anzeigename, Rolle/Beziehung im Haushalt, Account Profile oder Managed Profile, internes Profil-ID | normal fuer Zuordnung, Suche, Filter und UI verwendbar |
+| Core Profile Data | Anzeigename, Rolle/Beziehung im Haushalt, Identity-Status, Verwaltungsstatus, internes Profil-ID | normal fuer Zuordnung, Suche, Filter und UI verwendbar |
 | Basic Personal Data | Geburtsdatum, Staatsbuergerschaft, rechtlicher Name falls abweichend vom Anzeigenamen | sensitiv; sichtbar, wenn der Workflow es braucht |
 | Address / Meldeinformation | aktuelle Adresse, Meldeadresse, fruehere Adresse optional spaeter | innerhalb des Haushalts normal bearbeitbar; nicht in Logs, Benachrichtigungen oder externem Sharing ohne bewusste Freigabe |
 | Government Identity Data | Passnummer, Ausweisnummer, Geburtsurkunden-/Nachweisreferenzen, ID-Austria-Verknuepfung spaeter | hochsensibel; eigene Anzeige-/Editier- und Logging-Regeln |
@@ -69,7 +70,7 @@ Feste Profilfelder sind die Daten, die fuer haeufige Workflows erwartet werden:
 - Geburtsdatum.
 - Adresse/Meldeadresse.
 - Staatsbuergerschaft.
-- Account Profile oder Managed Profile.
+- Identity/Login vorhanden oder nicht.
 - verwaltet durch ein oder mehrere Account Profiles.
 - E-Mail spaeter fuer Account-/Sharing-Identity.
 
@@ -198,9 +199,10 @@ Folgen:
 ## Konsequenzen
 
 - R5-D1 ist entschieden: Die Daten werden benoetigt und werden klassifiziert.
-- Profile werden nach Account Profile vs. Managed Profile modelliert, nicht nach
-  Kind vs. Erwachsen.
-- Managed Profiles koennen spaeter zu Account Profiles werden.
+- Profile werden nicht nach Kind vs. Erwachsen modelliert.
+- Login/Identity und Verwaltung werden getrennt modelliert.
+- Verwaltete Profile koennen spaeter eine Identity erhalten, ohne dass
+  Verwaltung automatisch entfernt wird.
 - Profildaten koennen manuell gepflegt werden.
 - Profil-Fakten koennen optional mit Dokumenten/Records als Nachweis verknuepft
   werden.

@@ -500,9 +500,9 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R5-D1 | Welche Profildaten sind sensibel? | Entschieden: Account Profile vs. Managed Profile, manuell bearbeitbare Profilfelder und Profil-Fakten, optionale Nachweisverknuepfung, Versicherungen als Beziehungen/Records; Sync/Verschluesselung in R6/M6 |
-| R5-D2 | Brauchen Kinder eigene Accounts? | Nein für frühe Phasen |
-| R5-D3 | Duerfen Erwachsene Kinderprofile gemeinsam bearbeiten? | Ja, als Zielmodell; Rechte exakt in R5/R6 definieren |
+| R5-D1 | Welche Profildaten sind sensibel? | Entschieden: manuell bearbeitbare Profilfelder und Profil-Fakten, optionale Nachweisverknuepfung, Versicherungen als Beziehungen/Records; Sync/Verschluesselung in R6/M6 |
+| R5-D2 | Wie trennen wir Login/Identity und Profilverwaltung? | Entschieden: Identity/Login und Verwaltung sind getrennte Achsen; ein verwaltetes Profil kann Login bekommen und trotzdem weiter verwaltet werden, Verwaltung ist separat entfernbar |
+| R5-D3 | Duerfen mehrere Profile ein anderes Profil gemeinsam verwalten? | Entschieden: Ja, mehrere Manager sind erlaubt; frueh binaere Verwaltung ohne Viewer-/Editor-Rollenmatrix, Rollen spaeter vorbereitbar |
 | R5-D4 | Wie werden Partnerdokumente geteilt? | Haushaltsrechte statt Dokumentkopien |
 | R5-D5 | Welche Vorschlaege darf Assisted Review zuerst machen? | Titel, Typ, Datum, Absender, Betrag, Fälligkeit und Tags; betroffene Person nur vorschlagen, nie still setzen |
 
@@ -724,6 +724,8 @@ Diese Themen sind wertvoll, aber aktuell zu früh:
 | R4-D23 | Review Completion Validation | Done |
 | R5-D0 | Haushaltsprofile und Zugriff | Done for target model |
 | R5-D1 | Profildaten und Schutzklassen | Done; sync/encryption details deferred to R6/M6 |
+| R5-D2 | Profil-Identity und Verwaltung | Done |
+| R5-D3 | Gemeinsame Profilverwaltung | Done |
 | R6-D2 | Remote-Sync sensibler Daten | Done for first sync planning; revisit before full sync |
 | R0-D10 | File Storage und Docker Stack | Done |
 | R0-D11 | Home Hub Backend Technology | Done |
