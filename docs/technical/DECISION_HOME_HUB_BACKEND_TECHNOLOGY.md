@@ -2,7 +2,7 @@
 title: "Decision - Home Hub Backend Technology"
 description: "Entscheidung fuer ASP.NET Core, PostgreSQL und einen modularen Home-Hub-Server-Stack fuer Ordna"
 tags: [decision, backend, home-hub, aspnet-core, postgresql, openapi, docker, workers]
-lastUpdated: "2026-05-11"
+lastUpdated: "2026-06-05"
 status: "accepted"
 ---
 
@@ -16,6 +16,11 @@ Accepted.
 
 Ordna verwendet fuer den Home Hub und den spaeteren selbst gehosteten
 Server-Stack **ASP.NET Core** als primaere Backend-Technologie.
+
+Der Home Hub ist fuer R6 und spaetere Milestones Sync Coordinator,
+Backup-Server, Upload-Ziel und Erweiterungsplattform. Er ist nicht die
+Voraussetzung fuer normale Desktop- oder Mobile-Nutzung: die Apps bleiben
+local-first und muessen offline arbeitsfaehig bleiben.
 
 Der akzeptierte Zielstack fuer die erste echte Home-Hub-Implementierung ist:
 
@@ -51,8 +56,52 @@ Sie betrifft nicht:
 
 - Flutter App-local Persistenz.
 - lokale SQLite/Drift-Implementierung.
+- App-Offline-Faehigkeit als Produktgrundsatz.
 - Python-basierte OCR/AI-Worker, falls diese spaeter sinnvoll sind.
 - API-Contract Source of Truth. Diese bleibt OpenAPI/Microcks.
+
+## Home-Hub-Rolle im Sync
+
+R6-D1 ist akzeptiert:
+
+- Home Hub traegt den ersten echten Sync- und Backup-Server.
+- Desktop und Mobile bleiben local-first.
+- Home Hub koordiniert Replikation, Remote-Kopien, Sync-Revisions,
+  Tombstones, Uploads und spaetere Jobs.
+- Home Hub wird spaeter um OCR, LLM, Search, Reprocessing, Operations und
+  Backup/Restore erweitert.
+- Home Hub ist eine austauschbare Backend-Implementierung hinter generischen
+  Sync-, Storage-, Upload- und Job-Ports.
+
+Der Home Hub ist damit kein Server-first-Modell. Wenn der Home Hub nicht
+erreichbar ist, duerfen Kernfunktionen wie lokale Dokumentverwaltung,
+Draft-Review, Suche ueber lokale strukturierte Daten und mobile Capture-Queue
+nicht unbrauchbar werden.
+
+Startpfad:
+
+```text
+Mobile Capture
+  -> lokale Queue
+  -> Home Hub Upload / Remote Backup
+  -> Desktop Draft Inbox Handoff
+
+Desktop/Mobile Local DB
+  -> Sync Port
+  -> Home Hub Sync Coordinator
+  -> Remote metadata copy / sync journal / backup metadata
+```
+
+Spaetere Erweiterung:
+
+```text
+Home Hub
+  -> OCR jobs
+  -> local/self-hosted LLM jobs
+  -> indexing / reprocessing
+  -> backup / restore
+  -> operations dashboard
+```
 
 ## Warum ASP.NET Core
 
@@ -117,6 +166,7 @@ Geplante Inhalte:
 - Capture Upload Sessions.
 - File metadata.
 - Sync Journal und Tombstones.
+- Backup metadata und Restore-Punkte.
 - Job-/Outbox-Tabelle.
 - Audit-/Admin-Ereignisse.
 - Storage Health und Backup-Metadaten.
@@ -162,6 +212,7 @@ produktfachlich:
 - spaetere Cloud- oder Self-hosted-cloudartige Varianten duerfen nicht
   voraussetzen, dass ein Betreiber alle Dokumentinhalte lesen kann.
 - OCR/LLM-Klartextverarbeitung bleibt eine explizite Trust Boundary.
+- Backup und Sync duerfen keine stillen Fremd-Cloud-Abhaengigkeiten einfuehren.
 
 ## Quellencheck
 
@@ -184,12 +235,16 @@ Stand 2026-05-08:
 - R4 Mobile Capture kann gegen Microcks und spaeter gegen ASP.NET Core Home Hub
   getestet werden.
 - R6 Sync/Auth plant den ersten echten Home-Hub-Server in diesem Stack.
+- R6-D1 ist entschieden: Home Hub ist Sync Coordinator, Backup Server und
+  spaetere LLM/OCR-Erweiterungsplattform, waehrend Desktop und Mobile offline
+  nutzbar bleiben.
 
 ## Nicht entschieden
 
 - genaue .NET-Version zum Implementationszeitpunkt.
 - Minimal API vs Controller pro Endpoint-Slice.
 - EF Core Migrationsstrategie im Detail.
+- konkretes Sync-Protokoll und Konfliktprotokoll.
 - genaue Upload-Endpoint-Namen und Multipart-Grenzwerte nach
   `DECISION_MOBILE_CAPTURE_UPLOAD_STRATEGY.md`.
 - konkrete Projekt-/Solution-Struktur.

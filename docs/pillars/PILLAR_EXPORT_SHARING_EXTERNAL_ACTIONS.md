@@ -1,13 +1,13 @@
 ---
-title: "Produkt-Säule - Export, Sharing and External Actions"
-description: "Produktbereich fuer Export, lokale Übergabe, externe App-/Website-Links, Einreichportale, Share-Ziele und spätere sichere Freigaben"
-tags: [pillar, export, sharing, external-links, integrations, privacy]
-lastUpdated: "2026-05-08"
-version: "0.2"
+title: "Produkt-Säule - Export and External Actions"
+description: "Produktbereich fuer Export, lokale Übergabe, externe App-/Website-Links, Einreichportale und manuelle Ausgabe von Dokumenten"
+tags: [pillar, export, external-links, integrations, privacy]
+lastUpdated: "2026-06-13"
+version: "0.3"
 status: "proposed"
 ---
 
-# Produkt-Säule - Export, Sharing and External Actions
+# Produkt-Säule - Export and External Actions
 
 ## Zweck
 
@@ -23,13 +23,21 @@ DocMan muss Dokumente nicht nur aufnehmen, sondern auch wieder nutzbar machen:
 
 Diese Säule beschreibt Export, Übergabe und externe Aktionslinks.
 
+R13-D1 entscheidet: Der erste Integrationspfad sind manuelle Links und
+bewusste Export-/Oeffnen-Aktionen. Automatische Portalaktionen sind nur ein
+spaeteres Pruefthema und kein Produktversprechen.
+
+R14-D1 entscheidet: Ordna bietet keinen externen App-Zugriff und keine
+Cloud-Share-Links. Die sichere Uebergabeform ist lokaler Export: ein einzelnes
+Dokument als Originaldatei, mehrere Dokumente oder ein ganzer Vorgang als ZIP.
+
 ## Grundsatz
 
 Externe Apps und Websites sind Aktionsziele, keine vertrauenswürdige DocMan-Datenhaltung.
 
 DocMan speichert im M2 keine externen Zugangsdaten, Tokens oder Session-Cookies fuer solche Dienste.
 
-Export, Sharing und externe Aktionen sind Teil des DMS-Zielbildes, aber nicht
+Export und externe Aktionen sind Teil des DMS-Zielbildes, aber nicht
 Teil der Dokument-Besitzstruktur. Ein Outbox-/Export-Eintrag verweist auf
 Dokumente, Vorgänge, Records oder Facts. Er erzeugt kein zweites Archiv.
 
@@ -54,7 +62,7 @@ Empfohlene Felder:
 - Plattformhinweise: Desktop, Mobile, beide.
 - Zieltyp und Ziel-ID.
 - Profilbezug.
-- Kategorie: Portal, App, Mail, Druck, Download, Share.
+- Kategorie: Portal, App, Mail, Druck, Download, Export.
 - Sicherheitsklassifikation.
 - optionaler Hinweistext.
 
@@ -70,17 +78,19 @@ Mobile:
 
 - öffnet Universal Links oder App-Links, wenn verfügbar.
 - fällt auf Web-URL zurück.
-- kann später Share Sheet verwenden.
+- kann später Betriebssystem-Übergabeziele verwenden.
 
 ## ExportPackage
 
 spaetere Milestones sollte DocMan Exportpakete modellieren:
 
-- ausgewählte Dokumente.
+- ein einzelnes Dokument als Originaldatei.
+- ausgewählte Dokumente als ZIP.
+- ganzen Vorgang als ZIP.
 - optionales Deckblatt/Manifest.
 - optionale Metadaten.
 - optionale Redaction.
-- lokale ZIP/PDF-Ausgabe.
+- lokale Datei-/ZIP-/PDF-Ausgabe.
 - Audit-Eintrag.
 
 Das hilft bei Anwalt, Versicherung, Schule, Behörde, Arzt oder Familienorganisation.
@@ -90,9 +100,8 @@ Langfristig kann daraus eine echte Outbox entstehen:
 - vorbereitet.
 - exportiert.
 - gedruckt.
-- geteilt.
-- per Mail übergeben.
-- bei externem Portal eingereicht.
+- lokal gespeichert.
+- manuell per Mail, Portal, Messenger, USB-Stick oder Druck weitergegeben.
 - fehlgeschlagen oder abgebrochen.
 
 Diese Zustände gehören zur Aktion, nicht zum Dokument selbst.
@@ -109,12 +118,14 @@ Schlanker M2-Slice:
 
 Späterer Milestone:
 
-- API-Integrationen zu SV, Versicherungen, Schulen oder Behörden.
-- Web-Scraping.
-- Passwortmanager.
-- automatische Formularübermittlung.
-- externe Benutzerfreigabe.
-- zeitlich begrenzte Cloud-Share-Links.
+- API-Integrationen zu SV, Versicherungen, Schulen oder Behörden nur nach
+  expliziter Pruefung.
+- Web-Scraping oder RPA nur pruefen, nicht voraussetzen.
+- Passwortmanager-/Credential-Integration nur mit eigener Security-Entscheidung.
+- automatische Formularübermittlung nur, wenn Portal, Recht, Auth und Wartung
+  tragfaehig sind.
+- keine externe Benutzerfreigabe.
+- keine zeitlich begrenzten Cloud-Share-Links.
 
 ## UI-Empfehlung
 
@@ -125,8 +136,9 @@ Empfohlen:
 - Inbox bleibt Eingang und Korrektur.
 - Vorgang zeigt verknüpfte Aktionen und relevante externe Links.
 - Task zeigt den konkreten nächsten Link, z. B. `SV-Portal öffnen`.
-- Dokumentdetail bietet Export, Öffnen, Drucken, Teilen.
-- später kann eine Aktivitäts-/Ausgangshistorie zeigen, was exportiert oder eingereicht wurde.
+- Dokumentdetail bietet Export, Öffnen und Drucken.
+- später kann eine Aktivitäts-/Ausgangshistorie zeigen, was lokal exportiert
+  oder manuell weitergegeben wurde.
 
 ## Datenschutz
 
@@ -134,6 +146,9 @@ Empfohlen:
 - Notifications dürfen Linktitel und Dokumentdetails redigieren.
 - Audit darf Aktion und Zieltyp speichern, aber keine Secrets.
 - externe Dienste liegen außerhalb der DocMan-Vertrauensgrenze.
+- automatische Portalaktionen koennen scheitern, verboten sein oder instabil
+  werden; manuelle Links bleiben deshalb der robuste Basispfad.
+- der Versand nach dem Export liegt ausserhalb der Ordna-Vertrauensgrenze.
 
 ## Offene Folgefragen
 

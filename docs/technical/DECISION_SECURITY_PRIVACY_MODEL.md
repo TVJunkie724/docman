@@ -125,6 +125,9 @@ Nicht erlaubt:
 
 Backup und Export sind Produktfunktionen, keine Nebeneffekte.
 
+R11-D1 bestaetigt diese Grenze: Backup braucht eigene Erzeugung, sichtbaren
+Status und Restore-Test. Sync allein reicht nicht als Sicherheitsnetz.
+
 M2-Regel:
 
 - keine automatische Fremd-Cloud-Sicherung.

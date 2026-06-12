@@ -2,7 +2,7 @@
 title: "Decision - Document Capture"
 description: "Entscheidung zur minimalen Dokument-Erfassung: Desktop-Dateiimport und Mobile Scan landen zuerst in der Draft-Inbox"
 tags: [decision, document-capture, draft-inbox, mobile-capture, desktop, milestones]
-lastUpdated: "2026-05-29"
+lastUpdated: "2026-06-06"
 status: "accepted"
 ---
 
@@ -75,6 +75,18 @@ Details stehen in `docs/technical/DECISION_MOBILE_SCANNER_TECHNOLOGY.md`.
 
 Wenn die direkte `caseId` ungueltig, unsicher oder nicht mehr verfügbar ist, bleibt der Upload als Draft zur Prüfung sichtbar.
 
+## Capture Intent
+
+Mobile und Desktop unterscheiden zwischen Dokumentenscan und Bildnachweis:
+
+- `DocumentScan`: fuer papierartige Dokumente; primaeres Nutzerartefakt ist
+  PDF, technische Seitenbilder bleiben fuer Upload, Preview, OCR oder
+  Reprocessing moeglich.
+- `PhotoOrImageEvidence`: fuer Passfoto, Unfallfoto, Schadenfoto, Produktfoto
+  oder andere Bildnachweise; primaeres Nutzerartefakt bleibt Bild.
+
+Die UI darf den Modus vorschlagen, muss ihn aber korrigierbar halten.
+
 ## Nicht in M2
 
 Nicht Teil dieser M2-Entscheidung:
@@ -144,4 +156,5 @@ Flexible Dokument-Mehrfachlinks mit Rollen wie `primary` und `context` bleiben e
 
 - welche Bildformate in M2 exakt unterstützt werden.
 - welche native Scanner-Bridge final genutzt wird.
-- ob PDF-Erzeugung auf Mobile in M2 Pflicht ist oder ob Bild-plus-Metadaten zuerst reicht.
+- ob PDF-Erzeugung auf Mobile in M2 Pflicht ist oder ob Bild-plus-Metadaten
+  zuerst reicht und Home Hub/Desktop normalisiert.

@@ -2,8 +2,8 @@
 title: "Enterprise-Säule - Support and Diagnostics"
 description: "Enterprise-Bereich fuer Diagnosepakete, Support-Modus, Fehleranalyse, Nutzerhilfe und sichere Debuggability"
 tags: [pillar, enterprise, support, diagnostics]
-lastUpdated: "2026-05-06"
-version: "0.1"
+lastUpdated: "2026-06-12"
+version: "0.2"
 status: "proposed"
 ---
 
@@ -25,8 +25,21 @@ Auch ein privates/self-hosted Produkt braucht Antworten auf: Was ist kaputt, war
 ## M2-Minimum
 
 - verständliche Fehlerzustände.
-- keine privaten Inhalte in Diagnose.
+- keine privaten Inhalte oder Secrets in normalen Logs/Fehlerzustaenden.
 - Upload-Queue und Pairing-Status erklärbar machen.
+
+## Offene Entscheidung
+
+R12-D1 bleibt offen und ist kein M1-Thema:
+
+- konkretes Diagnosepaket.
+- Support-Modus.
+- Exportformat fuer Supportdaten.
+- Umfang redigierter Log-Exporte.
+
+Diese Themen werden in R12 entschieden. Bis dahin gilt nur die
+Security-Basislinie: keine Dokumentinhalte, Secrets oder sensiblen Rohdaten in
+normalen Logs und Fehlerzustaenden.
 
 ## Verwandte Säulen
 

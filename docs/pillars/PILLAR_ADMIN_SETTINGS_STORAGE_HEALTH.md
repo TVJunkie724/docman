@@ -2,8 +2,8 @@
 title: "Plattform-Säule - Admin, Settings and Storage Health"
 description: "Plattformbereich fuer Setup, Einstellungen, Speicherzustand, lokale Administration, Backup-Status und Wartung"
 tags: [pillar, platform, admin, settings, storage, health]
-lastUpdated: "2026-05-06"
-version: "0.1"
+lastUpdated: "2026-06-12"
+version: "0.2"
 status: "proposed"
 ---
 
@@ -21,6 +21,10 @@ DocMan braucht eine kontrollierbare Betriebsoberfläche:
 - Diagnose.
 - lokale Wartung.
 
+R11-D1 ergaenzt: Backup- und Restore-Zustaende muessen in Admin/Settings
+sichtbar werden. Ein Backup-Fehler ist ein Betriebszustand, kein stiller
+Hintergrundfehler.
+
 ## M2-Scope
 
 M2:
@@ -32,7 +36,8 @@ M2:
 spaetere Milestones:
 
 - Speicherprüfung.
-- Backup-/Restore-Status.
+- Backup-/Restore-Status inklusive letztem erfolgreichen Backup, Restore-Test
+  und Fehlerzustand.
 - Geräteverwaltung.
 - Health Checks.
 - Diagnosepaket.

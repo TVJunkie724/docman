@@ -74,7 +74,7 @@ Kurzform:
 
 | Gruppe | Säulen |
 |---|---|
-| Produkt | Capture & Inbox; Vorgänge/Dokumente/Records; Tasks/Reminders/Quick Access; Search/Facts/Insights; Export/Sharing/External Actions; Household Profiles/Access; Templates/Workflows |
+| Produkt | Capture & Inbox; Vorgänge/Dokumente/Records; Tasks/Reminders/Quick Access; Search/Facts/Insights; Export/External Actions; Household Profiles/Access; Templates/Workflows |
 | Plattform | Home Hub & Sync; Intelligence & Automation; Admin/Settings/Storage Health |
 | Enterprise/Governance | QA; Observability/Runtime; Security/Privacy; Compliance/Legal; Release/Distribution; Data Lifecycle; Developer Experience; Design System/UX; Support/Diagnostics; Compatibility/Platform Support; Integration Governance |
 
@@ -91,7 +91,7 @@ ein Milestone, kein Sondermodus mit abweichender Architektur.
 | M3 Assisted Review | OCR/Extraktion schlägt Titel, Absender, Datum, Betrag, Fälligkeit, Tags und Dokumenttyp vor | R5/R9-Slices |
 | M4 Household and Sync | Haushaltsprofile, Partner-/Kinderkontext, Home Hub und Sync werden nutzbar | R5-R7 |
 | M5 Facts, Workflows and Insights | geprüfte Facts, Claims, Erstattungen, Ausgaben und Workflows werden auswertbar | R8/R13 |
-| M6 Automation, Resilience and Distribution | Backup, Restore, Compliance, Release, Sharing, lokale LLMs und Operations reifen | R10-R15 |
+| M6 Automation, Resilience and Distribution | Backup, Restore, Compliance, Release, lokaler Export, lokale LLMs und Operations reifen | R10-R15 |
 
 Assisted Review ist damit kein diffuser spaeterer Wunsch, sondern der naechste
 Nutzwert nach dem Capture-Kern. Manuelle optionale Metadaten bleiben als
@@ -137,7 +137,7 @@ Details und Subphasen stehen in `docs/roadmap/PHASE_INDEX.md` und
 | D04 | Local-first Data Flow | accepted | Home Hub/Sync, Data Lifecycle, Security | R2/R4: App lokal nutzbar, Sync-ready IDs, Home Hub nicht Voraussetzung fuer Desktop-Kern | R6/R11/R15: Sync, Backup, optionale Self-hosted-cloudartige Betriebsformen ohne local-first aufzugeben |
 | D05 | Backend Role / PocketBase | draft | Home Hub/Sync, Admin/Ops, Security | R0/R4: PocketBase nicht Zielarchitektur; M2 braucht nur minimalen Capture-Gateway-Anteil | R6/R11/R15: eigener Server Stack, Sync, Ops, Backup, Admin, optionale groessere Betriebsformen |
 | D06 | Home Hub Backend Technology | accepted | Home Hub/Sync, Observability, Data Lifecycle | R3/R4: OpenAPI/Microcks zuerst, ASP.NET-Core-Ziel fuer spaeteren echten Home Hub | R6/R11/R15: ASP.NET Core + PostgreSQL + MinIO/S3 + Worker + Observability |
-| D07 | First Utility Scope | accepted | Capture, Cases/Records, Tasks, Search, Home Hub | R4/M2: Capture and Review Core + Mobile Capture + Draft-Inbox + minimaler Home Hub | R5-R15: Profile, Sync, Extended Mobile, Facts, AI, Compliance, Resilience, Sharing |
+| D07 | First Utility Scope | accepted | Capture, Cases/Records, Tasks, Search, Home Hub | R4/M2: Capture and Review Core + Mobile Capture + Draft-Inbox + minimaler Home Hub | R5-R15: Profile, Sync, Extended Mobile, Facts, AI, Compliance, Resilience, lokaler Export |
 | D08 | Foundation Concept Rewrite | accepted | DX/Governance, Documentation | R1: alte importierte Konzepte sind nicht Source of Truth; Slots werden DocMan-spezifisch neu geschrieben | R12: Konzept-/Decision-Governance und regelmaessige Architektur-Audits |
 | D09 | Mock UI Strategy | accepted | Design System/UX, QA, DX | R2/R3: Legacy-App nur Referenz; neue Mocks isoliert und synthetisch | R4-R12: Mocks als Plan-/Review-Werkzeug, nicht als Produktpfad |
 | D10 | Legacy Readiness Scope | accepted | DX/Governance, QA | R2/R3: Zielpfad sauber machen; Legacy einfrieren, isolieren oder entfernen | R4-R12: keine neuen Abhaengigkeiten auf Legacy; Rest nur als Referenz oder geloeschter Altbestand |
@@ -147,20 +147,20 @@ Details und Subphasen stehen in `docs/roadmap/PHASE_INDEX.md` und
 | D14 | Test Fixtures | accepted | QA, Security/Privacy | R3: synthetische Fixtures fuer App, Domain, Capture und Contracts | R4-R12: Fixture-Katalog pro Saeule erweitern; keine privaten Echtdaten |
 | D15 | Codegen Artifact Policy | accepted | DX/Governance, Release | R3: generierte Dart-Artefakte nicht committen; Bootstrap/Codegen/Verify erzwingen | R10/R12: Release-/CI-/Audit-Governance fuer reproduzierbare Builds |
 | D16 | Milestone Quality Gates | accepted | QA, Release, DX | R3/R4: Local Change Gate, R3 Foundation Gate, M2 Readiness Gate | R10-R12: Release-, Distribution-, Support- und Governance-Gates |
-| D17 | DMS Target Architecture | accepted | Cases/Records, Search/Facts, Data Lifecycle | R0/R4: M2 verbaut Dokumente, Records, Versionen, Beziehungen und Facts nicht | R8/R11/R14: Facts/Claims, Versionierung, Retention, Sharing, Recovery |
-| D18 | Case, Document, Record and Facts Model | accepted | Cases/Records, Search/Facts, Tasks | R4: Vorgänge, Subvorgänge, Dokumente, Record-aware Metadaten, einfache Facts vorbereitet | R8/R9/R14: flexible Mehrfachbeziehungen, Claims, Financial Entries, AI-Vorschlaege, Sharing |
+| D17 | DMS Target Architecture | accepted | Cases/Records, Search/Facts, Data Lifecycle | R0/R4: M2 verbaut Dokumente, Records, Versionen, Beziehungen und Facts nicht | R8/R11/R14: Facts/Claims, Versionierung, Retention, lokale Exportpakete, Recovery |
+| D18 | Case, Document, Record and Facts Model | accepted | Cases/Records, Search/Facts, Tasks | R4: Vorgänge, Subvorgänge, Dokumente, Record-aware Metadaten, einfache Facts vorbereitet | R8/R9/R14: flexible Mehrfachbeziehungen, Claims, Financial Entries, AI-Vorschlaege, Exportpakete |
 | D19 | Document Capture | accepted | Capture & Inbox, Cases/Records | R4/M2: Desktop Import und Mobile Scan landen zuerst in Draft-Inbox | R7/R9/R13: Batch Scan, OCR/AI-Vorschlaege, Mail/Watch-Folder/weitere Importpfade |
 | D20 | Mobile Scanner Technology | provisional | Capture, Compatibility, QA | R4: native Plattform-Scanner als Favorit; Spike vor finaler Bridge-Auswahl | R7/R10/R12: Plattformparitaet, Store-/Permission-Pruefung, Supportmatrix |
 | D21 | Mobile Capture Upload Strategy | accepted | Capture, Home Hub/Sync, Security, Data Lifecycle | R4: API-proxied Upload erlaubt, stabiler Upload-Port, Idempotency und Retry ganzer Uploads | R6/R11/R15: presigned/resumable, multipart, quotas, cleanup, integrity, E2EE-ready payloads |
-| D22 | Auth and Pairing | accepted | Home Hub/Sync, Security, Mobile | R2/R4: QR Pairing primaer, manueller Code als Fallback, Token in Secure Storage | R6/R10/R14: Device Management, Identity Provider Boundary, sichere Freigaben |
+| D22 | Auth and Pairing | accepted | Home Hub/Sync, Security, Mobile | R2/R4: QR Pairing primaer, manueller Code als Fallback, Token in Secure Storage | R6/R10/R14: Device Management, Identity Provider Boundary, kein externer App-Zugriff |
 | D23 | Local Login | accepted | Security, Profiles, UX | R4/M2: kein Desktop-Login; lokales Geraet, explizite betroffene Person und Pairing genuegen | R5/R6/R10: Profile, Partnerzugriff, Identity Provider und Distribution-Anforderungen |
-| D24 | Household Profiles and Access | accepted | Profiles, Security, Compliance | R4/M2: ein Haushalt; betroffene Person je Dokument/Draft verpflichtend, ohne Default-Annahme | R5/R6/R14: Kinderprofile, Partnerzugriff, Rechte, sichere Freigaben |
+| D24 | Household Profiles and Access | accepted | Profiles, Security, Compliance | R4/M2: ein Haushalt; betroffene Person je Dokument/Draft verpflichtend, ohne Default-Annahme | R5/R6/R14: Kinderprofile, Partnerzugriff, Rechte, lokaler Export ohne externen App-Zugriff |
 | D25 | Privacy and Sync Scope | accepted | Security, Home Hub/Sync, Compliance | R2/R4: private Home-Hub-Umgebung, sensible Datenklassen, Secrets getrennt | R6/R10/R11/R15: Sync Privacy, E2EE-/Zero-Knowledge-Faehigkeit, Backup/Restore, Cloud-artige Varianten |
-| D26 | Security and Privacy Model | accepted | Security, Compliance, Data Lifecycle | R2/R3/R4: Security-by-Design, Secure Storage, log-sparsam, Trust Boundaries | R6/R9/R10/R11/R14: Sync, AI/OCR, DSGVO, Backup, Sharing, Redaction |
+| D26 | Security and Privacy Model | accepted | Security, Compliance, Data Lifecycle | R2/R3/R4: Security-by-Design, Secure Storage, log-sparsam, Trust Boundaries | R6/R9/R10/R11/R14: Sync, AI/OCR, DSGVO, Backup, lokaler Export, Redaction |
 | D27 | Workflow Rules | accepted | Templates/Workflows, Tasks, UX | R4: Workflows fuehren ueber Tasks/Statusvorschlaege, keine harten Kaefige | R8/R9/R13/R14: Claims, AI-Vorschlaege, externe Aktionsketten, geteilte Verantwortlichkeiten |
 | D28 | Intelligence Scope | accepted | Intelligence, Search/Facts, Security | R4/M2: Review-Zustaende und Facts vorbereiten; M3 bringt Assisted Review statt dauerhafter Handarbeit | R9/R11/R15: OCR, Klassifikation, lokale LLMs, Reprocessing, Job Ops |
 | D29 | Search Technology and Boundary | accepted | Search/Facts, Data Lifecycle | R4: SQLite/Drift/FTS5 fuer lokale strukturierte Suche | R8/R9/R15: OCR-Text, semantische Suche, optionaler Search-Service |
-| D30 | External App/Website Links | bundled | External Actions, Integration Governance, Tasks | R4: manuelle Links an Task/Vorgang, keine Fremd-Credentials | R8/R13/R14: Claim-/Record-/Profil-Links, Mail/Kalender/Portale, sichere Freigaben |
+| D30 | External App/Website Links | bundled | External Actions, Integration Governance, Tasks | R4: manuelle Links an Task/Vorgang, keine Fremd-Credentials | R8/R13/R14: Claim-/Record-/Profil-Links, Mail/Kalender/Portale, lokale Exportpakete |
 | D31 | Tasks, Reminders and Quick Access | bundled | Tasks/Reminders, UX, Observability | R4: Aufgaben, Fälligkeiten, Schnellzugriff, Reminder-Daten ohne komplexe Push-Infrastruktur | R7/R8/R13/R14: mobile Reminder, Facts/Claims-Reminder, Kalender, geteilte Aufgaben |
 | D32 | Upload Limits, Retry, Resume and Cleanup | accepted | Capture, Home Hub/Sync, Data Lifecycle, Observability | R4: kein Chunking/Resume, Retry ganzer Uploads, 25 Seiten/50 MB Startlimit, SHA-256, Idempotency, lokale Queue | R6/R11: resumable/multipart, serverseitiges Cleanup, quotas, metrics, integrity |
 | D33 | Home Hub Capture Contract | accepted | Home Hub/Sync, Capture, QA, Security | R4: OpenAPI/Microcks 3-Step Contract initiate/upload/confirm, Idempotency, Checksums, invalid-context fallback | R6/R11: presigned/resumable, richer status, quotas, server verification |
@@ -486,13 +486,13 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 - Kinderprofile ohne eigene Accounts.
 - Gemeinsame Verwaltung von Kinderprofilen durch Erwachsene.
 - Einfache Manager-/Kind-Beziehung.
-- Partner-/Erwachsenenfreigabe fuer Sichtung und Bearbeitung.
+- Partner-/Erwachsenenzugriff fuer Sichtung und Bearbeitung.
 
 ### Out of Scope
 
 - Vollständige Multi-Tenancy über mehrere Haushalte.
 - Komplexe Rollenmatrix.
-- Remote Sharing.
+- externer App-Zugriff ausserhalb des Haushalts.
 - stille automatische Dokumentablage ohne Review.
 - lokale LLM-/Formularautomatisierung als Voraussetzung.
 
@@ -503,8 +503,8 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 | R5-D1 | Welche Profildaten sind sensibel? | Entschieden: manuell bearbeitbare Profilfelder und Profil-Fakten, optionale Nachweisverknuepfung, Versicherungen als Beziehungen/Records; Sync/Verschluesselung in R6/M6 |
 | R5-D2 | Wie trennen wir Login/Identity und Profilverwaltung? | Entschieden: Identity/Login und Verwaltung sind getrennte Achsen; ein verwaltetes Profil kann Login bekommen und trotzdem weiter verwaltet werden, Verwaltung ist separat entfernbar |
 | R5-D3 | Duerfen mehrere Profile ein anderes Profil gemeinsam verwalten? | Entschieden: Ja, mehrere Manager sind erlaubt; frueh binaere Verwaltung ohne Viewer-/Editor-Rollenmatrix, Rollen spaeter vorbereitbar |
-| R5-D4 | Wie werden Partnerdokumente geteilt? | Haushaltsrechte statt Dokumentkopien |
-| R5-D5 | Welche Vorschlaege darf Assisted Review zuerst machen? | Titel, Typ, Datum, Absender, Betrag, Fälligkeit und Tags; betroffene Person nur vorschlagen, nie still setzen |
+| R5-D4 | Wie werden Partner-/Haushaltsdokumente zugreifbar? | Entschieden: Eltern/Haushaltsmanager haben frueh Zugriff auf alle Haushaltsprofile; Zugriff ueber Household-/Profile-Rechte, keine Dokumentkopien |
+| R5-D5 | Welche Vorschlaege darf Assisted Review zuerst machen? | Entschieden: Human-in-the-loop; Titel, Typ, Datum, Absender, Betrag, Fälligkeit, Tags, Vorgang/Versicherung/Claim/Fakten als Vorschlaege; betroffene Person nie still setzen |
 
 ## 10. Phase R6 - Sync and Auth
 
@@ -525,15 +525,15 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 
 - KI-gestützte automatische Dokumentverarbeitung.
 - Vollständige Mandantenverwaltung für externe Haushalte.
-- Öffentliche Sharing-Funktionen.
+- öffentliche Sharing-Funktionen oder externe App-Freigaben.
 
 ### Offene Entscheidungen
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R6-D1 | Welche konkrete Backend-Implementierung trägt den Sync? | Technologie entschieden: ASP.NET Core Home Hub mit PostgreSQL, MinIO/S3 und OpenAPI/Microcks; Sync-Strategie und Konfliktprotokoll bleiben R6-Aufgabe |
-| R6-D2 | Welche Daten werden remote synchronisiert? | Privacy-Klassen definieren |
-| R6-D3 | Wie werden Konflikte gelöst? | Zunächst sichtbar machen, nicht still überschreiben |
+| R6-D1 | Welche konkrete Backend-Implementierung trägt den Sync? | Entschieden: ASP.NET Core Home Hub mit PostgreSQL, MinIO/S3 und OpenAPI/Microcks als Sync Coordinator, Backup-Server und spaetere LLM/OCR-Plattform; Apps bleiben offline-first |
+| R6-D2 | Welche Daten werden remote synchronisiert? | Entschieden: einfache Privacy-Klassen `normal`, `sensitive`, `highlySensitive`, `documentPayload`, `ocrDerived`, `secret`, `diagnostic`; keine Fachlogik nach Netzwerk |
+| R6-D3 | Wie werden Konflikte gelöst? | Entschieden: sichtbar machen, nicht still ueberschreiben; Dashboard-Hinweis nur bei Konflikten plus eigene Konfliktansicht zur Aufloesung |
 
 ## 11. Phase R7 - Extended Mobile
 
@@ -558,8 +558,8 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R7-D1 | Bild oder PDF als primäres Scanformat? | PDF für mehrseitige Dokumente, Bild als Rohquelle prüfen |
-| R7-D2 | Muss Mobile offline scannen können? | Ja, zumindest lokal queued |
+| R7-D1 | Bild oder PDF als primäres Scanformat? | Entschieden: Capture-Intent steuert Artefakt; DocumentScan primaer PDF mit Google-Drive-artiger Qualitaet, Photo/ImageEvidence bleibt Bild |
+| R7-D2 | Muss Mobile offline scannen können? | Entschieden: Ja; offline scannen/fotografieren, lokal speichern und persistent queuen ist Pflicht, Kontextauswahl nur optionaler Cache-Komfort |
 
 ## 12. Phase R8 - Structured Facts and Insights
 
@@ -588,9 +588,9 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R8-D1 | Welche Facts werden zuerst manuell erfasst? | Beträge, Fälligkeiten, Claims, Gültigkeiten |
-| R8-D2 | Wie heißt `Record` in der deutschen UI? | Nachweis/Unterlage testen, `Record` als Code-Arbeitsbegriff |
-| R8-D3 | Welche erste Auswertung ist milestone-nah? | Arztkosten/Erstattungen und Anbieter-Ausgaben als erste Verticals prüfen |
+| R8-D1 | Welche Facts werden zuerst manuell erfasst? | Entschieden: optionale Fact-Gruppen je Dokumenttyp/Workflow; Financial Entries, Claims, Deadlines, Contract Terms, Coverage, Identity Validity und Profile Facts zuerst |
+| R8-D2 | Wie heißt `Record` in der deutschen UI? | Entschieden: UI-Hauptbegriff "Unterlagen", Profilkontext "Persoenliche Unterlagen", "Nachweis" als spezifische Art; Code bleibt `Record` |
+| R8-D3 | Welche erste Auswertung ist milestone-nah? | Entschieden: Claims & Erstattungen, Anbieter-/Kategorie-Ausgaben und laufende Kosten & Fristen; erster Vertical Gesundheit & Versicherung |
 
 ## 13. Phase R9 - Intelligence and Automation
 
@@ -634,21 +634,18 @@ Subphasen stehen in
 | R10 Compliance & Distribution Readiness | öffentliche/private Distribution rechtlich und prozessual vorbereiten | Compliance/Legal, Release/Distribution, Compatibility |
 | R11 Data Resilience & Operations | Backup, Restore, Retention, Storage Integrity und Recovery professionalisieren | Data Lifecycle, Admin/Settings, Observability |
 | R12 Support & Governance | Diagnose, Support, Architektur-Governance und Issue-/Milestone-Prozess reifen | Support/Diagnostics, Developer Experience, QA |
-| R13 Integrations & External Workflow Expansion | externe Links, Mail, Druck, Kalender, Portale und Importpfade kontrolliert ausbauen | Integration Governance, Export/Sharing/External Actions, Templates/Workflows |
-| R14 Secure Sharing & Collaboration | sichere Freigaben, Redaction, Partner-/Haushaltskollaboration und Zugriffshistorie vorbereiten | Household Profiles/Access, Security/Privacy, Export/Sharing |
+| R13 Integrations & External Workflow Expansion | externe Links, Mail, Druck, Kalender, Portale und Importpfade kontrolliert ausbauen | Integration Governance, Export/External Actions, Templates/Workflows |
+| R14 Local Export & Handoff | lokale Exportpakete, optional Redaction, Partner-/Haushaltskontext und sichere manuelle Uebergabe vorbereiten | Household Profiles/Access, Security/Privacy, Export/External Actions |
 | R15 Advanced Platform & Productization | optionale größere Betriebsformen, Cloud-/Self-hosted-cloudartige Varianten und erweiterte Admin-/Ops-Fähigkeiten prüfen | Home Hub/Sync, Admin/Settings, Observability, Release/Distribution |
 
-### Offene Entscheidungen
+### Offene / Zurueckgestellte Entscheidungen
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R10-D1 | Wird DocMan zuerst privat, per direktem Download oder über Stores verteilt? | Privat/self-hosted zuerst; Apple/Google/Microsoft-Store-Regeln trotzdem vorbereiten |
-| R10-D2 | Welche rechtliche Prüfung braucht DocMan vor öffentlicher Distribution? | Separate Prüfung vor Store/Public Release |
-| R11-D1 | Welche Backup-/Restore-Strategie ist Minimum vor echtem Haushaltsbetrieb? | Lokales Backup plus Restore-Test vor Multi-Geräte-Sync |
-| R12-D1 | Wie werden Support-/Diagnosepakete redigiert? | Redaction by default, keine Dokumentinhalte oder Secrets |
-| R13-D1 | Welche externen Integrationen kommen zuerst? | Manuelle Links und Export zuerst; automatische Portalaktionen erst deutlich später |
-| R14-D1 | Welche Freigaben sind sicher genug? | Zeitlich begrenzte, redigierbare Freigaben vor breitem Sharing |
-| R15-D1 | Braucht Ordna je eine gehostete Betriebsform? | Nur optional; local-first und self-hosted bleiben Kernannahme |
+| R0-D4 | Ist der alte PocketBase-/Backend-Draft noch relevant? | Teilweise offen: Home-Hub-Zieltechnologie ist entschieden; alter PocketBase-Draft muss spaeter bereinigt oder geschlossen werden |
+| R4-D12 | Welche Scanner-Bridge erreicht die gewuenschte Mobile-Scan-Qualitaet? | Vorlaeufig entschieden: native Plattform-Scanner; final erst nach Qualitaets-Spike |
+| R12-D1 | Wie werden Support-/Diagnosepakete redigiert? | Offen; nicht M1. Grundregel bleibt: keine privaten Inhalte/Secrets in Logs, konkrete Diagnosepakete spaeter in R12 entscheiden |
+| R15-D1 | Braucht Ordna je eine gehostete Betriebsform? | Offen; bewusst spaeter pruefen. Keine fruehe Produktannahme fuer gehosteten Betrieb |
 
 ## 15. Empfohlene erste Arbeitssequenz
 
@@ -672,7 +669,10 @@ Diese Themen sind wertvoll, aber aktuell zu früh:
 - automatische Fact-Extraktion.
 - Kalenderintegration und komplexe wiederkehrende Reminder.
 - automatische Einreichung in externe Portale.
+- automatische Portalbedienung ist ein spaeteres Pruefthema, kein
+  Produktversprechen.
 - Vollständiges Rollen- und Berechtigungsmodell.
+- externe App-Freigaben oder Cloud-Share-Links.
 
 ## 17. Entscheidungsregister
 
@@ -726,6 +726,22 @@ Diese Themen sind wertvoll, aber aktuell zu früh:
 | R5-D1 | Profildaten und Schutzklassen | Done; sync/encryption details deferred to R6/M6 |
 | R5-D2 | Profil-Identity und Verwaltung | Done |
 | R5-D3 | Gemeinsame Profilverwaltung | Done |
-| R6-D2 | Remote-Sync sensibler Daten | Done for first sync planning; revisit before full sync |
+| R5-D4 | Haushaltsmanager-Zugriff und Partnerdokumente | Done |
+| R5-D5 | Assisted Review Vorschlagsregeln | Done |
+| R6-D1 | Home-Hub Sync/Backup Serverrolle | Done; protocol/conflicts remain R6 |
+| R6-D2 | Remote-Sync Privacy-Klassen | Done; encryption/OCR raw details deferred |
+| R6-D3 | Sync-Konflikte und UI-Aufloesung | Done |
+| R7-D1 | Mobile Capture Artefakt je Capture-Intent | Done |
+| R7-D2 | Mobile Offline Capture und Queue | Done |
+| R8-D1 | Manuelle Fact-Gruppen je Dokumenttyp | Done |
+| R8-D2 | Record UI-Sprache Unterlagen | Done |
+| R8-D3 | Erste Haushalts-Finanz-Insights | Done |
+| R10-D1 | Private/self-hosted Distribution zuerst | Done |
+| R10-D2 | Legal-/Privacy-Readiness vor Public Release | Done |
+| R11-D1 | Backup-/Restore-Minimum vor Haushaltsbetrieb | Done |
+| R12-D1 | Support-/Diagnosepakete und Redaction | Deferred; nicht M1 |
+| R13-D1 | Manuelle externe Links und Exportaktionen zuerst | Done |
+| R14-D1 | Lokaler Export statt externem Sharing | Done |
+| R15-D1 | Gehostete Betriebsform | Open; bewusst spaeter pruefen |
 | R0-D10 | File Storage und Docker Stack | Done |
 | R0-D11 | Home Hub Backend Technology | Done |

@@ -13,6 +13,10 @@ status: "proposed"
 
 DocMan muss rechtliche und Store-bezogene Anforderungen früh mitdenken, auch wenn der M2 privat und self-hosted startet.
 
+R10-D2 entscheidet: Privacy-, Security-, Store- und Rechtsanforderungen werden
+bei der Implementierung immer mitgedacht. Oeffentliche Distribution oder Store-
+Release bekommen ein eigenes Legal-/Privacy-Readiness-Gate.
+
 ## Rechtliche Standards
 
 Zu berücksichtigen:
@@ -45,9 +49,14 @@ Zu berücksichtigen:
 - Exportierbarkeit nicht verbauen.
 - Löschung/Retention als Datenmodell-Thema vorbereiten.
 - keine Cloud- oder KI-Weitergabe ohne explizite Entscheidung.
+- keine Logs oder Diagnosepakete mit Dokumentinhalten, OCR-Rohtexten, Secrets
+  oder sensiblen personenbezogenen Details.
+- Plattform-Permissions minimal und begruendbar halten.
+- Review-/Demo-Modus mit synthetischen Daten vorbereiten.
 
 ## Grenzen
 
 Dieses Dokument ist Produktplanung, keine Rechtsberatung.
 
-Vor öffentlicher Distribution oder produktiver Verarbeitung außerhalb des privaten Haushalts braucht es eine separate rechtliche Prüfung.
+Vor öffentlicher Distribution, Store-Release oder produktiver Verarbeitung
+außerhalb des privaten Haushalts braucht es eine separate rechtliche Prüfung.

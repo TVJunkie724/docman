@@ -36,7 +36,7 @@ sondern in `docs/roadmap/PILLAR_ROADMAP_INDEX.md`.
 | `PILLAR_CASES_RECORDS.md` | Vorgänge, Subvorgänge, Dokumente, Records/Nachweise, Versionen und Beziehungen |
 | `PILLAR_TASKS_REMINDERS_QUICK_ACCESS.md` | Aufgaben, Fristen, Erinnerungen, Schnellzugriff |
 | `PILLAR_SEARCH_FACTS_INSIGHTS.md` | Suche, strukturierte Fakten, Claims, finanzielle und fachliche Auswertungen |
-| `PILLAR_EXPORT_SHARING_EXTERNAL_ACTIONS.md` | Export, Druck, Mail, externe App-/Website-Links, spätere sichere Freigaben |
+| `PILLAR_EXPORT_SHARING_EXTERNAL_ACTIONS.md` | Export, Druck, Mail, externe App-/Website-Links, lokale Exportpakete |
 | `PILLAR_HOUSEHOLD_PROFILES_ACCESS.md` | Haushalt, Profile, Kinderprofile, Partnerzugriff und spätere Rechte |
 | `PILLAR_TEMPLATES_WORKFLOWS.md` | Vorlagen, Checklisten, empfohlene nächste Schritte und Workflow-Hilfen |
 

@@ -1,8 +1,8 @@
 ---
-title: "Decision - Mobile Scanner Technology"
-description: "Vorlaeufig akzeptierte Entscheidung fuer native Plattform-Scanner mit Qualitaets-Spike vor finaler Flutter-Bridge-Auswahl"
+title: "Decision - Mobile Scanner Technology and Capture Artifacts"
+description: "Entscheidung fuer native Plattform-Scanner, Capture-Intent, Scanqualitaet und primaere Artefakte fuer Dokumentenscan vs. Foto/Bild"
 tags: [decision, mobile, capture, scanner, android, ios, ml-kit, visionkit, spike]
-lastUpdated: "2026-05-11"
+lastUpdated: "2026-06-06"
 status: "provisional-accepted"
 ---
 
@@ -14,6 +14,8 @@ Provisional accepted.
 
 Native Plattform-Scanner sind der vorlaeufige Favorit. Die konkrete
 Flutter-Bridge wird erst nach einem Qualitaets-Spike final entschieden.
+R7-D1 ist als Produktentscheidung akzeptiert: Das primaere Artefakt richtet
+sich nach dem Capture-Intent.
 
 ## Entscheidung
 
@@ -126,7 +128,94 @@ Die konkrete Bridge mappt ML-Kit-/VisionKit-Ergebnisse in diese Ordna-Typen.
 Der M2 soll als Zielartefakt ein nutzbares Dokument erzeugen, nicht nur eine
 Galerie von Fotos.
 
-Vorlaeufige Richtung:
+R7-D1 entscheidet nicht "immer PDF" oder "immer Bild", sondern unterscheidet
+nach Capture-Intent:
+
+```text
+DocumentScan
+  -> primaeres Nutzerartefakt: PDF
+  -> technische Artefakte: Seitenbilder, Rohseiten, Preview, Metadaten
+
+PhotoOrImageEvidence
+  -> primaeres Nutzerartefakt: Bild
+  -> technische Artefakte: Preview, Metadaten
+```
+
+### DocumentScan
+
+DocumentScan ist der Standard fuer:
+
+- Rechnungen.
+- Arztbriefe.
+- Vertraege.
+- Bescheide.
+- Polizzen.
+- Geburtsurkunde.
+- Staatsbuergerschaftsnachweis.
+- Meldezettel.
+- sonstige papierartige Dokumente.
+
+Qualitaetsziel:
+
+- Auto-Capture oder stabile manuelle Aufnahme.
+- Dokument-/Rand-Erkennung.
+- Perspektivkorrektur.
+- automatische Rotation.
+- Hintergrund bereinigt oder deutlich aufgehellt.
+- Text bleibt dunkel, kontrastreich und ohne Nachbearbeitung lesbar.
+- mehrseitige Dokumente sind moeglich.
+- PDF-Ausgabe ist verfuegbar.
+- Seitenbilder/Rohseiten bleiben mindestens bis Upload/Review erhalten.
+
+Wenn diese Qualitaet nicht erreicht wird, muss die App Retake, manuelle
+Crop-Korrektur oder einen sichtbar niedrigeren Fallback anbieten.
+
+### PhotoOrImageEvidence
+
+PhotoOrImageEvidence ist der Standard fuer:
+
+- Passfoto.
+- Unfallfoto.
+- Schadenfoto.
+- Produktfoto.
+- Beweisfoto.
+- andere Bildnachweise, die nicht wie ein papierartiges Dokument behandelt
+  werden sollen.
+
+Regeln:
+
+- Bild bleibt primaer Bild.
+- Kein Zwang zu PDF.
+- Originalqualitaet und Bildcharakter bleiben wichtiger als
+  Dokumentoptimierung.
+- Mehrere Bilder koennen trotzdem einem Vorgang, Dokumentkontext oder Record
+  zugeordnet werden.
+
+## UI-Regel
+
+Mobile Capture soll einen einfachen Modus anbieten:
+
+```text
+Dokument scannen | Foto aufnehmen
+```
+
+Default ist `Dokument scannen`, weil die haeufigsten Mobile-Capture-Faelle
+Rechnungen, Briefe, Bescheide und sonstige Dokumente sind.
+
+Der Dokumenttyp darf einen Modus vorschlagen, aber nicht hart erzwingen. Die
+Nutzerin kann beim Capture oder im Review korrigieren, ob etwas ein
+Dokumentenscan oder ein Bildnachweis ist.
+
+Desktop-Import:
+
+- PDF bleibt PDF.
+- JPG/PNG kann als Bildnachweis importiert werden.
+- JPG/PNG kann als Dokumentseite/Dokumentenscan eingeordnet und spaeter zu PDF
+  normalisiert werden.
+
+## Artefakt-Regeln
+
+Fuer DocumentScan gilt:
 
 - Nutzerartefakt: mehrseitiges PDF.
 - technische Artefakte: Seitenbilder, Preview/Thumbnail, Metadaten.
@@ -137,6 +226,13 @@ Vorlaeufige Richtung:
 Die konkrete Pflicht, ob PDF bereits im M2 auf Mobile erzeugt werden muss oder
 ob Bild-plus-Metadaten fuer den ersten Slice reicht, bleibt Teil des
 Scanner-/Upload-Spikes.
+
+Fuer PhotoOrImageEvidence gilt:
+
+- Nutzerartefakt: Bilddatei.
+- technische Artefakte: Preview/Thumbnail, Metadaten.
+- Bild darf einem Vorgang oder Record zugeordnet werden, ohne in ein PDF
+  verwandelt zu werden.
 
 ## Fallback-Regeln
 
@@ -150,6 +246,9 @@ Wenn native Scanner auf einer Plattform oder einem Geraet nicht verfuegbar sind:
 ## Konsequenzen
 
 - R4-D12 ist vorlaeufig entschieden: native Plattform-Scanner sind der Favorit.
+- R7-D1 ist entschieden: Primaeres Artefakt folgt Capture-Intent.
+- Dokumentenscans werden fuer Nutzerinnen primaer als PDF geplant.
+- Foto-/Bildnachweise bleiben primaer Bilder.
 - R4 braucht einen Scanner-Qualitaets-Spike vor finaler Package-/Bridge-Auswahl.
 - F17 Mobile Capture beschreibt native Scanner als Zielrichtung.
 - R3/R4 Tests muessen Scanner-Ergebnisse ueber Ordna-Fakes simulieren, nicht
@@ -165,6 +264,7 @@ Wenn native Scanner auf einer Plattform oder einem Geraet nicht verfuegbar sind:
 - konkretes Flutter-Plugin.
 - ob ein eigenes Platform-Channel-Plugin noetig ist.
 - ob ein kommerzielles SDK spaeter sinnvoll wird.
-- ob PDF-Erzeugung im ersten M2 zwingend auf Mobile passiert.
+- ob PDF-Erzeugung im ersten M2 zwingend auf Mobile passiert oder durch Home Hub
+  bzw. Desktop normalisiert werden darf.
 - genaue Dateiformate und Kompressionsparameter.
 - genaue Regeln, wann Mobile lokale Rohseiten nach Upload loescht.

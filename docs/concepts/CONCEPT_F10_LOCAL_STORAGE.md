@@ -273,7 +273,7 @@ F10 speichert im M2 noch kein vollständiges Insights-Modell. Die lokale Datenha
 Vorbereitet werden müssen:
 
 - optionale `caseId` für Dokumente.
-- Profil-/Household-IDs fuer spaetere Familien- und Sharing-Faehigkeit.
+- Profil-/Household-IDs fuer spaetere Familien- und Haushaltszugriffsfaehigkeit.
 - `parentCaseId` für einfache M2-Subvorgänge.
 - spätere Record-/Nachweis-Zuordnung.
 - Versionierungsfelder oder ein sauberer Migrationspfad dorthin.

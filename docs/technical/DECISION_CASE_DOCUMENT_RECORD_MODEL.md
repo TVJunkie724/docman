@@ -18,7 +18,7 @@ DocMan trennt künftig vier fachliche Kernkonzepte:
 
 - **Case / Vorgang**: Prozess, Kontext oder Verlauf.
 - **Document / Dokument**: konkrete Datei, Scan oder Unterlage.
-- **Record / Nachweis / Unterlage**: langlebiger fachlicher Gegenstand mit aktueller und historischen Versionen.
+- **Record / Unterlage**: langlebiger fachlicher Gegenstand mit aktueller und historischen Versionen. In der UI heisst dieser Bereich "Unterlagen"; im Profilkontext "Persoenliche Unterlagen". "Nachweis" ist eine spezifische Art.
 - **DocumentFact / strukturierter Fakt**: geprüfte oder vorgeschlagene Aussage aus einem Dokument.
 
 Zusätzlich gilt: Diese Objekte leben in einem Haushaltskontext und koennen Profil-/Personenbezug tragen.
@@ -62,7 +62,7 @@ Der R4-M2 konkretisiert Dokument-Metadaten und Vorschau in
 `DECISION_DOCUMENT_METADATA_PREVIEW.md`. Vorschau ist ein abgeleitetes
 Artefakt fuer Review, nicht die Originaldatei.
 
-### Record / Nachweis / Unterlage
+### Record / Unterlage
 
 Ein Record ist ein langlebiger fachlicher Gegenstand, den man wiederfinden, aktuell halten und historisch nachvollziehen möchte.
 
@@ -249,7 +249,7 @@ DocMan plant zwei zentrale Arbeitsbereiche:
 Die Draft-Inbox bleibt ein eigener Eingang, weil sie nicht Archiv ist, sondern Review-Arbeit.
 
 Die spätere Outbox ist ebenfalls kein zweites Archiv. Sie beschreibt
-vorbereitete oder ausgeführte Ausgaben wie Download, Druck, Mail, Share,
+vorbereitete oder ausgeführte Ausgaben wie Download, Druck, Mail, lokales ZIP,
 Exportpaket, Portal-Link oder Einreichung. Das eigentliche Dokument bleibt im
 DMS-Kern.
 
@@ -309,7 +309,7 @@ Dokumente und Records bekommen eigene Status:
 
 ## Nicht entschieden
 
-- finaler englischer Codebegriff fuer `Record`.
-- ob die deutsche UI langfristig `Nachweise`, `Unterlagen` oder beides verwendet.
+- ob "Unterlagen" ein eigener Hauptnavigationseintrag oder eine Ansicht im
+  Dokumentbereich wird.
 - welche DocumentFact-Typen im M2 manuell erfassbar sind.
 - ob Lernunterlagen und Notizen im M2 sichtbar oder erst später aktiviert werden.

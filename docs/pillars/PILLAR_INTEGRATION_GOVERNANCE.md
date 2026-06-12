@@ -2,8 +2,8 @@
 title: "Enterprise-Säule - Integration Governance"
 description: "Enterprise-Bereich fuer externe Links, Deep Links, spätere APIs, Portale, Trust Boundaries, Credentials und Integrationsregeln"
 tags: [pillar, enterprise, integrations, external-links, trust-boundaries]
-lastUpdated: "2026-05-06"
-version: "0.1"
+lastUpdated: "2026-06-13"
+version: "0.2"
 status: "proposed"
 ---
 
@@ -13,11 +13,15 @@ status: "proposed"
 
 DocMan soll externe Dienste sinnvoll nutzen können, ohne sich an sie zu ketten oder Credentials unsicher zu speichern.
 
+R13-D1 entscheidet: Ordna startet mit manuellen externen Links und
+Export-/Oeffnen-Aktionen. Automatische Portalaktionen werden spaeter nur
+geprueft, falls sie technisch, rechtlich und sicherheitlich tragfaehig sind.
+
 ## Scope
 
 - externe Website-Links.
 - App-/Deep-Links.
-- Share-Ziele.
+- lokale Export- und Uebergabeziele.
 - spätere Portal-APIs.
 - Schul-, SV-, Versicherungs-, Behörden- und Anbieterportale.
 - Trust Boundaries.
@@ -31,9 +35,16 @@ DocMan soll externe Dienste sinnvoll nutzen können, ohne sich an sie zu ketten 
 - Mobile Universal/App Link vorbereiten.
 - keine Portalautomatisierung.
 - keine gespeicherten Fremd-Credentials.
+- kein externer App-Zugriff auf Ordna.
+
+## Spaetere Pruefung
+
+Portalautomatisierung ist kein Zielversprechen. Sie darf nur weiterverfolgt
+werden, wenn ein konkretes Portal stabile Schnittstellen, klare Auth,
+vertretbare Nutzungsbedingungen und sichere Fehlerbehandlung erlaubt.
 
 ## Verwandte Säulen
 
-- Export, Sharing and External Actions.
+- Export and External Actions.
 - Security and Privacy Architecture.
 - Compliance and Legal Readiness.

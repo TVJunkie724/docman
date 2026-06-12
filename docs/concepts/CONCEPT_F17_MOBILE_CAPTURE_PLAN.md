@@ -2,8 +2,8 @@
 title: "Konzept F17 - Mobile Capture Client Standards"
 description: "Querschnittliche Frontend-/Client-Regeln fuer Mobile-Capture-Qualitaet, Queue-Zustaende, Upload-Feedback und sichere M2-Grenzen"
 tags: [concept, mobile, capture, mvp, upload-queue, home-hub, draft-inbox]
-lastUpdated: "2026-05-10"
-version: "1.3"
+lastUpdated: "2026-06-06"
+version: "1.4"
 status: "accepted"
 ---
 
@@ -22,6 +22,9 @@ F17 definiert die querschnittlichen Frontend-/Client-Regeln fuer Mobile Capture:
 ## Grundsatz
 
 Mobile ist im M2 ein schneller Eingang, nicht die vollständige DocMan-Verwaltung.
+
+R7-D2 ergaenzt: Capture darf nie am Netzwerk scheitern. Mobile muss offline
+scannen, lokal speichern und spaeter an den Home Hub hochladen koennen.
 
 Mobile Capture soll sich wie ein hochwertiger Dokumentenscanner anfuehlen, nicht wie ein normaler Foto-Upload. Das Zielbild ist die Scan-Qualitaet moderner Mobile-Scanner wie Google Drive Document Scan: Dokument automatisch erkennen, automatisch erfassen, zuschneiden, perspektivisch korrigieren und als saubere Dokumentansicht mit hellem/weissem Hintergrund und gut lesbarem dunklem Text ausgeben.
 
@@ -107,6 +110,10 @@ Mobile Capture braucht für geräteübergreifenden Nutzen einen minimalen Home-H
 
 Kein vollständiger Sync nötig.
 
+Home Hub ist aber keine Voraussetzung fuer das Scannen. Wenn Home Hub oder
+Netzwerk nicht erreichbar sind, bleibt Capture moeglich und die Upload Queue
+wartet lokal.
+
 ## Definition of Done
 
 F17 gilt als umgesetzt, wenn:
@@ -114,6 +121,7 @@ F17 gilt als umgesetzt, wenn:
 - Mobile offline in Dokumentenscanner-Qualitaet scannen kann.
 - Upload Queue sicher persistiert.
 - Home-Hub-Upload möglich ist.
+- Home-Hub-Ausfall Capture nicht blockiert.
 - Desktop mobile Uploads in Draft-Inbox sieht.
 - optionale Vorgangszuordnung nicht zum Sync-Monster wird.
 

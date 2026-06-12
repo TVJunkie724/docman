@@ -56,7 +56,7 @@ Nicht im M2:
 - vollständige mobile Vorgangsverwaltung.
 - OCR-/LLM-Pipeline-API.
 - komplexes Rollenmodell.
-- öffentliche Sharing-API.
+- öffentliche Sharing-API oder externe App-Freigabe.
 
 ## API-Grenzen
 

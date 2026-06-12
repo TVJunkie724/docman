@@ -2,8 +2,8 @@
 title: "Produkt-Säule - Search, Facts and Insights"
 description: "Produktbereich fuer strukturierte Suche, Dokumentfakten, Claims, Finanzdaten, Gültigkeiten und Auswertungen"
 tags: [pillar, search, facts, insights, analytics, claims, finance]
-lastUpdated: "2026-05-06"
-version: "0.2"
+lastUpdated: "2026-06-10"
+version: "0.3"
 status: "accepted"
 ---
 
@@ -100,6 +100,20 @@ Insights entstehen aus geprüften Facts:
 - offene und abgelehnte Claims.
 - auslaufende Verträge und Nachweise.
 
+R8-D3 priorisiert drei erste Auswertungsarten:
+
+- Claims & Erstattungen.
+- Ausgaben nach Anbieter/Kategorie.
+- Laufende Kosten & Fristen.
+
+Der erste Vertical ist Gesundheit & Versicherung. Dazu zaehlen nicht nur
+Arztrechnungen, sondern auch Apothekenrechnungen, Therapien, SV-Claims,
+Zusatzversicherungs-Claims, Versicherungsprämien und Eigenanteile.
+
+Facts und Financial Entries duerfen manuell ohne Dokument erfasst werden.
+Dokumente und Unterlagen erhoehen die Nachweisqualitaet, sind aber keine
+Voraussetzung fuer Auswertungen.
+
 ## M2-Scope
 
 Schlanker M2-Slice:
@@ -125,9 +139,10 @@ Späterer Milestone:
 - R4-D3 ist in `DECISION_SEARCH_TECHNOLOGY.md` entschieden.
 - Such-UI-Patterns und leere/fehlerhafte Zustände werden durch die Frontend-Konzepte vorgegeben.
 - Tasks/Reminder nutzen Facts als Quelle, bleiben aber eigene Produkt-Säule.
+- Erste Insights sind in `docs/technical/DECISION_FIRST_INSIGHTS_VERTICALS.md`
+  entschieden.
 
 ## Offene Folgefragen
 
 - Welche Ranking-/Sortierregeln braucht die M2-Suche zuerst?
-- Welche Facts werden zuerst manuell erfasst?
-- Welche erste Auswertung ist M2-nah genug?
+- Welche Dashboard-UI braucht R8 zuerst?

@@ -14,7 +14,7 @@ Accepted.
 
 R5-D1 ist als Grundsatzentscheidung akzeptiert. R5-D2 klaert Login/Identity und
 Verwaltung separat in `DECISION_PROFILE_IDENTITY_AND_MANAGEMENT.md`. Details fuer Sync,
-Feldverschluesselung, Identity-Provider und Sharing-Policies werden in R6/M6
+Feldverschluesselung, Identity-Provider und Haushaltszugriffsregeln werden in R6/M6
 ausgearbeitet.
 
 ## Entscheidung
@@ -33,8 +33,8 @@ behandelt. Sie werden in Schutzklassen getrennt:
 - Core Profile Data: fuer normale UI, Zuordnung, Filter und Aufgaben noetig.
 - Sensitive Profile Data: nur bei konkretem fachlichem Bedarf sichtbar.
 - Highly Sensitive Profile Data: besonders geschuetzt, nicht in Logs, nicht in
-  einfachen Listen, nicht automatisch in Sync-/Sharing-Kontexte gemischt.
-- External Identity Data: spaetere Login-/Sharing-/Identity-Anbindung.
+  einfachen Listen, nicht automatisch in Sync-/Export-Kontexte gemischt.
+- External Identity Data: spaetere Login-/Identity-Anbindung.
 
 Profile werden nicht nach Alter modelliert. Login/Identity und Verwaltung sind
 zwei getrennte Achsen:
@@ -51,11 +51,11 @@ bestehende Verwaltungsbeziehungen automatisch entfernt werden.
 |---|---|---|
 | Core Profile Data | Anzeigename, Rolle/Beziehung im Haushalt, Identity-Status, Verwaltungsstatus, internes Profil-ID | normal fuer Zuordnung, Suche, Filter und UI verwendbar |
 | Basic Personal Data | Geburtsdatum, Staatsbuergerschaft, rechtlicher Name falls abweichend vom Anzeigenamen | sensitiv; sichtbar, wenn der Workflow es braucht |
-| Address / Meldeinformation | aktuelle Adresse, Meldeadresse, fruehere Adresse optional spaeter | innerhalb des Haushalts normal bearbeitbar; nicht in Logs, Benachrichtigungen oder externem Sharing ohne bewusste Freigabe |
+| Address / Meldeinformation | aktuelle Adresse, Meldeadresse, fruehere Adresse optional spaeter | innerhalb des Haushalts normal bearbeitbar; nicht in Logs, Benachrichtigungen oder externem Export ohne bewusste Auswahl |
 | Government Identity Data | Passnummer, Ausweisnummer, Geburtsurkunden-/Nachweisreferenzen, ID-Austria-Verknuepfung spaeter | hochsensibel; eigene Anzeige-/Editier- und Logging-Regeln |
 | Public Insurance Data | gesetzliche/staatliche Versicherung, Sozialversicherungstraeger, Versicherungsstatus, Versichertennummer falls noetig | hochsensibel, weil Versicherungs-/Gesundheitskontext ableitbar ist |
 | Private Insurance Data | private Zusatzversicherung, Polizzen, mehrere Versicherungen pro Person, Gueltigkeit, Vertrags-/Polizzennummer | hochsensibel; als Record/Versicherungsbeziehung modellieren, nicht nur als Profiltext |
-| Contact / Account Data | E-Mail als spaeterer Account-Identifier | nicht als Telefonnummer-/Kontaktbuch-Ersatz; E-Mail gehoert zur spaeteren Auth-/Sharing-Identity |
+| Contact / Account Data | E-Mail als spaeterer Account-Identifier | nicht als Telefonnummer-/Kontaktbuch-Ersatz; E-Mail gehoert zur spaeteren Auth-/Identity-Schicht |
 
 Telefonnummer ist vorerst kein geplanter Profilbestandteil.
 
@@ -72,7 +72,7 @@ Feste Profilfelder sind die Daten, die fuer haeufige Workflows erwartet werden:
 - Staatsbuergerschaft.
 - Identity/Login vorhanden oder nicht.
 - verwaltet durch ein oder mehrere Account Profiles.
-- E-Mail spaeter fuer Account-/Sharing-Identity.
+- E-Mail spaeter fuer Account-/Identity.
 
 Flexible Profil-Fakten decken Daten ab, die nicht als festes Feld in jedes
 Profil gehoeren oder die mit Dokumenten belegt werden sollen.
@@ -134,7 +134,6 @@ E-Mail wird nicht als allgemeines Kontaktfeld geplant, sondern als spaeterer
 Account-/Identity-Identifier fuer:
 
 - Login.
-- Document Sharing.
 - Haushalts-/Partnerfreigaben.
 - Einladungen oder Geraete-/Account-Zuordnung.
 
@@ -159,26 +158,26 @@ Beispiele:
 
 - In Draft-Inbox, Vorgang, Task und Suche reicht meist der Anzeigename.
 - Adresse ist innerhalb des Haushalts normal sichtbar/bearbeitbar, aber nicht
-  fuer Logs, Push-Texte oder externes Sharing gedacht.
+  fuer Logs, Push-Texte oder unbewussten externen Export gedacht.
 - Versicherungsdaten erscheinen in Versicherungs-, Arzt- oder Claim-Kontexten.
 - Passnummer/Ausweisnummer erscheinen nur in Identitaets-/Behoerden-/Record-
   Kontexten.
 - Hochsensible Werte werden nicht in Listen, Logs, Telemetry, Fehlertexten oder
   Benachrichtigungstexten ausgegeben.
 
-## Auswirkungen auf Sync und Sharing
+## Auswirkungen auf Sync, Haushaltszugriff und Export
 
-Profile sind sync- und sharing-relevant, aber sensible Profildaten brauchen
-eigene Regeln.
+Profile sind sync-, haushaltszugriffs- und exportrelevant, aber sensible
+Profildaten brauchen eigene Regeln.
 
 Folgen:
 
 - Sync darf Profil-Core-Daten und hochsensible Profildaten nicht gleich
   behandeln.
-- Sharing muss unterscheiden zwischen "Dokument/Vorgang sehen" und "alle
-  Identitaets-/Versicherungsdaten der Person sehen".
+- Haushaltszugriff muss unterscheiden zwischen "Dokument/Vorgang sehen" und
+  "alle Identitaets-/Versicherungsdaten der Person sehen".
 - Kinderprofile brauchen besonders vorsichtige Defaults.
-- E-Mail/Account-Identity gehoert in die Auth-/Sharing-Schicht, nicht in die
+- E-Mail/Account-Identity gehoert in die Auth-/Identity-Schicht, nicht in die
   einfache Profilanzeige.
 - Eine spaetere Cloud- oder self-hosted-cloudartige Variante muss diese
   Datenklassen verschluesselbar und minimierbar halten.
@@ -211,7 +210,7 @@ Folgen:
 - Adresse und Meldeinformation werden als ein verwandter Datenbereich geplant,
   sind innerhalb des Haushalts aber nicht hochsensibel.
 - Telefonnummer bleibt ausserhalb des geplanten Profilumfangs.
-- E-Mail wird fuer spaetere Account-/Sharing-/Login-Identitaet geplant.
+- E-Mail wird fuer spaetere Account-/Login-Identitaet geplant.
 - ID Austria wird als spaetere Identity-Option vorgemerkt.
 - Versicherungen werden als eigene mehrfache Beziehungen/Records geplant.
 

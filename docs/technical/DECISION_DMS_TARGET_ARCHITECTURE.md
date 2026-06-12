@@ -68,7 +68,7 @@ Ordna trennt langfristig folgende Objekte:
 | `DocumentFact` | Strukturierte, such- und auswertbare Aussage aus Dokumenten oder manueller Erfassung |
 | `Task` / `Reminder` | Handlungsbedarf, Frist, Zahlung, Einreichung, Termin oder Wiedervorlage |
 | `InboxItem` | Capture-/Review-Arbeitseinheit, nicht der eigentliche Speicherort |
-| `ExportJob` / `OutboxItem` | Vorbereitete Ausgabe, Download, Druck, Mail, Share oder Einreichpaket |
+| `ExportJob` / `OutboxItem` | Vorbereitete Ausgabe, Download, Druck, Mail, lokales ZIP oder Einreichpaket |
 | `ProcessingJob` | OCR, Scan-Nachbearbeitung, Klassifikation, Matching, Indexing oder AI-Vorschlag |
 
 ## Zentrale Modellregeln
@@ -123,10 +123,10 @@ ausgeführte Ausgaben:
 
 - Datei öffnen oder herunterladen.
 - drucken.
-- per Mail übergeben.
+- lokal exportieren oder per Mail uebergeben.
 - Exportpaket erzeugen.
 - externe Website oder App öffnen.
-- spätere sichere Freigabe vorbereiten.
+- manuelle Uebergabe ausserhalb von DocMan vorbereiten.
 
 Die eigentlichen Dokumente bleiben im DMS-Kern.
 

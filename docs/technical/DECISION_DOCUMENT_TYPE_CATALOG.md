@@ -2,7 +2,7 @@
 title: "Decision - Document Type Catalog"
 description: "Entscheidung zum lockeren Dokumenttyp-Katalog ohne harte typenspezifische Pflichtfelder oder Workflows"
 tags: [decision, document-types, metadata, draft-inbox, forms, milestones]
-lastUpdated: "2026-05-29"
+lastUpdated: "2026-06-09"
 status: "accepted"
 ---
 
@@ -100,12 +100,36 @@ Beispiele:
 - `insurance_policy` legt Versicherer und Gueltigkeit spaeter nahe.
 - `identity_record` legt Gueltigkeit und Profilbezug spaeter nahe.
 
+## Optionale Nachweisart
+
+`identity_record` bleibt der Top-Level-Typ fuer Ausweise und persoenliche
+Nachweise. Ordna spaltet diese Dokumente nicht frueh in viele harte
+Dokumenttypen auf.
+
+Spaeter darf optional `recordKind` genutzt werden, zum Beispiel:
+
+- `birth_certificate`.
+- `residence_registration`.
+- `citizenship_certificate`.
+- `passport`.
+- `identity_card`.
+- `driving_license`.
+- `marriage_certificate`.
+- `name_change_record`.
+- `other`.
+
+`recordKind` hilft bei Anzeige, Suche, Fact-Vorschlaegen, Gueltigkeit,
+Versionierung und Quick Access, erzwingt aber keine Pflichtfelder.
+
+Details stehen in `DECISION_STRUCTURED_FACTS_MANUAL_ENTRY.md`.
+
 ## Konsequenzen
 
 - Draft Review bekommt einen ueberschaubaren Typ-Auswahldialog.
 - Suche/Filter koennen Dokumenttyp sofort nutzen.
 - R4 bleibt schnell und offen.
 - R8/R9 koennen Facts, Claims und KI-Vorschlaege auf dem Katalog aufbauen.
+- R8 nutzt Fact-Gruppen je Dokumenttyp statt harter Spezialformulare.
 - F14 Form Field Catalog hat seine offene Dokumenttypfrage beantwortet.
 
 ## Nicht entschieden

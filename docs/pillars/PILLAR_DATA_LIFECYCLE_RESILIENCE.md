@@ -2,8 +2,8 @@
 title: "Enterprise-Säule - Data Lifecycle and Resilience"
 description: "Enterprise-Bereich fuer Backup, Restore, Retention, Löschung, Tombstones, Storage Integrity, Migration und Recovery"
 tags: [pillar, enterprise, data-lifecycle, backup, restore, resilience]
-lastUpdated: "2026-05-06"
-version: "0.1"
+lastUpdated: "2026-06-12"
+version: "0.2"
 status: "proposed"
 ---
 
@@ -12,6 +12,10 @@ status: "proposed"
 ## Zweck
 
 DocMan darf Dokumente nicht nur speichern. Es muss Datenverlust verhindern, Löschung respektieren und Wiederherstellung planen.
+
+R11-D1 entscheidet: Ordna braucht vor echtem Haushaltsbetrieb lokales Backup
+plus Home-Hub-Backup, sichtbaren Backup-Status, keine stillen Backup-Fehler und
+einen Restore-Test. Sync ist Replikation, aber kein Ersatz fuer Backup.
 
 ## Scope
 
@@ -32,6 +36,15 @@ DocMan darf Dokumente nicht nur speichern. Es muss Datenverlust verhindern, Lös
 - Löschungen nicht so modellieren, dass Sync später bricht.
 - Backups nicht durch Architekturentscheidungen blockieren.
 - Storage-Fehler sichtbar machen.
+
+## R11-Readiness
+
+- lokales Backup fuer Metadaten und Dokumentdateien.
+- Home Hub als Backup-Ziel.
+- Restore aus Backup testen.
+- Integritaet ueber Hashes und Referenzpruefung validieren.
+- Backup-/Restore-Fehler sichtbar machen.
+- Retention, Tombstones, Migrationen und Loeschung mit Backup zusammendenken.
 
 ## Verwandte Säulen
 

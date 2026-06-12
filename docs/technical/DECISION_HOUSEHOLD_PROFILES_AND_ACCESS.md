@@ -54,7 +54,7 @@ In M2 gilt:
 - betroffene Person / Haushaltsprofil ist beim Review-Abschluss verpflichtend.
 - Dokumente, Vorgänge, Drafts und Records bereiten mehrpersonenfaehige Profilzuordnung vor.
 - Draft-Inbox und Mobile Capture muessen Personenkontext setzen oder nachtraeglich korrigierbar machen.
-- Kinder-/Partner-Sharing wird noch nicht vollständig umgesetzt.
+- Kinder-/Partnerzugriff wird noch nicht vollständig umgesetzt.
 
 M2 soll also nicht die volle Rechteverwaltung bauen, aber auch nicht so tun, als
 gäbe es nur eine anonyme Einzelperson.
@@ -71,7 +71,8 @@ R5/R6 bauen aus:
 - frueh bleibt Verwaltung binaer; Viewer-/Editor-Rollen kommen erst spaeter,
   wenn sie wirklich gebraucht werden.
 - Account-/Identity-Profile koennen andere Profile verwalten.
-- Partner kann freigegebene Profile/Dokumente sehen oder bearbeiten.
+- Eltern/Haushaltsmanager haben frueh Zugriff auf alle Profile im Haushalt.
+- Partner-/Haushaltszugriff erfolgt ueber Rechte, nicht ueber Dokumentkopien.
 - spaetere Rollen wie `owner`, `manager`, `editor`, `viewer`.
 - Sync/Auth verbindet Personen, Geraete und Haushaltsrechte.
 
@@ -142,9 +143,9 @@ Regeln:
 - Verwaltung kann spaeter eingeschraenkt, deaktiviert oder entfernt werden.
 - Adresse und Meldeinformation werden als verwandter Datenbereich geplant; sie
   sind innerhalb des Haushalts normal nutzbar, aber nicht fuer Logs,
-  Benachrichtigungen oder externes Sharing ohne bewusste Freigabe.
+  Benachrichtigungen oder externen Export ohne bewusste Auswahl.
 - Telefonnummer ist nach aktueller Anforderung nicht noetig.
-- E-Mail gehoert zur spaeteren Account-/Sharing-/Login-Identity,
+- E-Mail gehoert zur spaeteren Account-/Login-Identity,
   nicht zum einfachen Kontaktprofil.
 - ID Austria soll als spaetere Identity-Option geprueft werden.
 - Versicherungen werden als mehrfache strukturierte Beziehungen/Records geplant,
@@ -152,7 +153,7 @@ Regeln:
 - Kinderprofile brauchen besonders vorsichtige Defaults.
 - Medizinische, schulische, Ausweis- und Versicherungsdaten sind hochsensibel.
 - Rechte- und Profilwechsel duerfen nicht dazu fuehren, dass Dokumente versehentlich sichtbar werden.
-- Sharing und Sync brauchen Audit-/Telemetry-Regeln ohne Inhaltsdaten.
+- Haushaltszugriff und Sync brauchen Audit-/Telemetry-Regeln ohne Inhaltsdaten.
 - Exporte und Loeschungen muessen profilbezogen planbar sein.
 
 ## Konsequenzen
@@ -163,11 +164,12 @@ Regeln:
 - F10/F14/F17 muessen Profil-/Haushaltskontext berücksichtigen.
 - R5-D2 folgt `docs/technical/DECISION_PROFILE_IDENTITY_AND_MANAGEMENT.md`.
 - R5-D3 folgt `docs/technical/DECISION_PROFILE_SHARED_MANAGEMENT.md`.
+- R5-D4 folgt `docs/technical/DECISION_HOUSEHOLD_MANAGER_ACCESS.md`.
 - Vollstaendige Rollenmatrix bleibt ein spaeterer Milestone, aber das Datenmodell darf sie nicht blockieren.
 
 ## Nicht entschieden
 
 - exaktes Rollenmodell.
-- ob Erwachsene im Haushalt initial automatisch alle Kinderprofile sehen.
 - wie Konflikte geloest werden, wenn zwei Erwachsene dasselbe Dokument bearbeiten.
-- wie externe Freigabe an Anwalt, Arzt, Schule oder Behörde spaeter funktioniert.
+- wie lokaler Export fuer Anwalt, Arzt, Schule oder Behoerde spaeter
+  komfortabel und sicher funktioniert.
