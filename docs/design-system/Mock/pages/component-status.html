@@ -14,11 +14,11 @@
           <div class="eyebrow">Status Signals</div>
           <h1>Status hilft beim Entscheiden, ohne private Details preiszugeben.</h1>
           <div class="status-row">
-            <div class="status"><b><span class="dot" style="background:#c8872d"></span>Entwurf</b><p>Review noetig</p></div>
-            <div class="status"><b><span class="dot" style="background:#4f8f74"></span>Erledigt</b><p>Abgelegt</p></div>
-            <div class="status"><b><span class="dot" style="background:#0e7478"></span>Sync</b><p>In Warteschlange</p></div>
-            <div class="status"><b><span class="dot" style="background:#704b7d"></span>Sensibel</b><p>Redaction beachten</p></div>
-            <div class="status"><b><span class="dot" style="background:#b84a3f"></span>Konflikt</b><p>Aufloesen</p></div>
+            <div class="status"><b><span class="dot warning"></span>Entwurf</b><p>Review noetig</p></div>
+            <div class="status"><b><span class="dot success"></span>Erledigt</b><p>Abgelegt</p></div>
+            <div class="status"><b><span class="dot info"></span>Sync</b><p>In Warteschlange</p></div>
+            <div class="status"><b><span class="dot privacy"></span>Sensibel</b><p>Redaction beachten</p></div>
+            <div class="status"><b><span class="dot danger"></span>Konflikt</b><p>Aufloesen</p></div>
           </div>
         </section>
         <section class="panel">
@@ -57,9 +57,7 @@
               <div class="toolbar"><span class="task-badge success">Aktuell</span><span class="task-badge privacy">Sensibel</span></div>
             </div>
             <div class="callout-card danger">
-              <div class="callout-token" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg>
-              </div>
+              <div class="callout-token" data-callout-icon="error" aria-hidden="true"></div>
               <div class="callout-body">
                 <strong>Konflikt</strong>
                 <p>Zwei Bearbeitungen muessen aufgeloest werden.</p>

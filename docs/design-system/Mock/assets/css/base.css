@@ -103,6 +103,10 @@ code {
   padding: 36px;
 }
 
+.mt-18 {
+  margin-top: 18px;
+}
+
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;
@@ -708,6 +712,12 @@ p {
   border-radius: 16px;
 }
 
+.logo-preview-img {
+  width: 128px;
+  height: 128px;
+  border-radius: 28px;
+}
+
 .brand-lockup strong {
   display: block;
   font-size: 22px;
@@ -1240,6 +1250,30 @@ p {
   flex: 0 0 auto;
 }
 
+.bg-coral { background: var(--ordna-coral); }
+.bg-rose { background: var(--ordna-rose); }
+.bg-apricot { background: var(--ordna-apricot); }
+.bg-paper { background: var(--ordna-paper); }
+.bg-petrol-deep { background: var(--ordna-petrol-deep); }
+.bg-petrol { background: var(--ordna-petrol); }
+.bg-petrol-soft { background: var(--ordna-petrol-soft); }
+.bg-petrol-mist { background: var(--ordna-petrol-mist); }
+.bg-petrol-ink { background: var(--ordna-petrol-ink); }
+.bg-ink { background: var(--ordna-ink); }
+.bg-slate { background: var(--ordna-slate); }
+.bg-line { background: var(--ordna-line); }
+.bg-white { background: var(--ordna-white); }
+.bg-app { background: var(--ordna-bg); }
+.bg-success { background: var(--ordna-success); }
+.bg-warning { background: var(--ordna-warning); }
+.bg-danger { background: var(--ordna-danger); }
+.bg-privacy { background: var(--ordna-privacy); }
+
+.text-coral { color: var(--ordna-coral); }
+.text-petrol-deep { color: var(--ordna-petrol-deep); }
+.text-privacy { color: var(--ordna-privacy); }
+.text-warning-strong { color: #8a5d12; }
+
 .dark {
   color: #fff;
 }
@@ -1293,6 +1327,12 @@ p {
   border-radius: 999px;
   margin-right: 6px;
 }
+
+.dot.success { background: var(--ordna-success); }
+.dot.warning { background: var(--ordna-warning); }
+.dot.danger { background: var(--ordna-danger); }
+.dot.info { background: var(--ordna-info); }
+.dot.privacy { background: var(--ordna-privacy); }
 
 @media (max-width: 900px) {
   .shell,
