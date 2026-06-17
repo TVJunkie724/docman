@@ -45,6 +45,25 @@ review surface for corporate design, foundations, and early shell direction.
 Foundations And Tokens` owns the draft palette until a later production Flutter
 token artifact exists.
 
+## Frontend Concept Handoff
+
+The build-oriented frontend concepts derived from the mock live in
+`docs/concepts/`:
+
+| Concept | Scope |
+|---|---|
+| `CONCEPT_F19_DESIGN_SYSTEM_GOVERNANCE.md` | Mock-to-concept SSOT, page ownership, agent gates. |
+| `CONCEPT_F20_CORPORATE_DESIGN.md` | Corporate design, logo, colors, voice, standards. |
+| `CONCEPT_F21_FOUNDATIONS_AND_TOKENS.md` | Palette, icons, typography, spacing, radius, token promotion. |
+| `CONCEPT_F22_SHELL_AND_NAVIGATION.md` | Product shell, primary navigation, navigation controls. |
+| `CONCEPT_F23_COMPONENT_SYSTEM.md` | Buttons, status, tags, feedback, callouts, data display. |
+| `CONCEPT_F24_FORM_FAMILY.md` | Draft form-family expansion plan. Not implementation-ready yet. |
+| `CONCEPT_F25_ACCESSIBILITY_PATTERNS_AND_VISUAL_QA.md` | Product patterns, accessibility, privacy and visual QA gates. |
+
+Agents should use the `OD-DS-*` documents for design-system organization and
+the `CONCEPT_F19`-`CONCEPT_F25` documents for implementation-facing frontend
+rules.
+
 ## Current Brand Direction
 
 The current Ordna identity direction is documented in:

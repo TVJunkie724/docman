@@ -56,3 +56,17 @@ docs/design-system/Mock/index.html
   `docs/design-system/Decisions/`.
 - Keep the mock static: no build step, no external runtime dependencies.
 - Shared navigation lives in `assets/js/navigation.js`.
+
+## Concept Handoff
+
+Implementation-facing frontend rules are documented in:
+
+| Concept | Mock coverage |
+|---|---|
+| `docs/concepts/CONCEPT_F19_DESIGN_SYSTEM_GOVERNANCE.md` | Portal, SSOT, page ownership. |
+| `docs/concepts/CONCEPT_F20_CORPORATE_DESIGN.md` | Corporate Design pages. |
+| `docs/concepts/CONCEPT_F21_FOUNDATIONS_AND_TOKENS.md` | Foundations, palette, icons, fonts, spacing. |
+| `docs/concepts/CONCEPT_F22_SHELL_AND_NAVIGATION.md` | Product shell and navigation controls. |
+| `docs/concepts/CONCEPT_F23_COMPONENT_SYSTEM.md` | Components, buttons, status, tags, feedback, data display. |
+| `docs/concepts/CONCEPT_F24_FORM_FAMILY.md` | Forms draft; requires follow-up before implementation. |
+| `docs/concepts/CONCEPT_F25_ACCESSIBILITY_PATTERNS_AND_VISUAL_QA.md` | Patterns, accessibility, privacy and visual QA. |
