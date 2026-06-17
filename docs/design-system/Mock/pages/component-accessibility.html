@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ordna Accessibility</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="panel">
+          <div class="eyebrow">Accessibility &amp; Standards</div>
+          <h1>Privates Dokumentenmanagement muss zugaenglich und fehlerarm sein.</h1>
+          <p>Accessibility ist hier kein Nice-to-have: lange Nutzung, sensible Daten, mobile Capture und Korrekturflows brauchen robuste Bedienbarkeit.</p>
+        </section>
+        <section class="panel">
+          <h2>Quality Gates</h2>
+          <div class="visual-demo">
+            <div class="app-frame">
+              <div class="app-frame-header">
+                <strong>Tastaturfokus</strong>
+                <span class="task-badge">Fokus sichtbar</span>
+              </div>
+              <div class="app-frame-body">
+                <div class="field"><label>Betroffene Person</label><div class="control error">Bitte auswaehlen</div></div>
+                <div class="toolbar"><a class="btn" href="#">Pruefung abschliessen</a><a class="btn secondary" href="#">Zurueck</a></div>
+              </div>
+            </div>
+          </div>
+          <table class="token-table">
+            <tr><th>Gate</th><th>Rule</th></tr>
+            <tr><td>Contrast</td><td>Text, Buttons, Status und Fehler muessen ausreichend kontrastieren.</td></tr>
+            <tr><td>Keyboard</td><td>Desktop-Flows muessen ohne Maus erreichbar sein.</td></tr>
+            <tr><td>Text Scale</td><td>Lange deutsche Labels duerfen nicht ueberlappen.</td></tr>
+            <tr><td>Reduced Motion</td><td>Keine Pflichtanimation fuer Statusverstaendnis.</td></tr>
+            <tr><td>Privacy</td><td>Screenreader-Texte duerfen keine versteckten sensiblen Rohdaten enthalten.</td></tr>
+          </table>
+        </section>
+        <section class="callout-card warning">
+          <div class="callout-token" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 9v4"></path><path d="M12 17h.01"></path><path d="M10.3 4.6 2.7 18a2 2 0 0 0 1.7 3h15.2a2 2 0 0 0 1.7-3L13.7 4.6a2 2 0 0 0-3.4 0Z"></path></svg>
+          </div>
+          <div class="callout-body">
+            <strong>Standard</strong>
+            <p>Vor produktiver Nutzung braucht jede Komponente einen Fokuszustand, leere/ladende/fehlerhafte Zustaende und einen mobilen Verhaltenstest.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="../assets/js/navigation.js"></script>
+  </body>
+</html>

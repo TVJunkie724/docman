@@ -2,8 +2,8 @@
 title: "Enterprise-Säule - Design System and UX Governance"
 description: "Enterprise-Bereich fuer Design-System, Navigation, Komponenten, leere/fehlerhafte Zustände, Accessibility und responsive UX"
 tags: [pillar, enterprise, design-system, ux, accessibility]
-lastUpdated: "2026-05-06"
-version: "0.1"
+lastUpdated: "2026-06-13"
+version: "0.2"
 status: "proposed"
 ---
 
@@ -12,6 +12,17 @@ status: "proposed"
 ## Zweck
 
 DocMan soll sich über Desktop und Mobile hinweg konsistent, ruhig und vertrauenswürdig anfühlen.
+
+Die aktive Design-System-Quelle liegt unter:
+
+```text
+docs/design-system/
+```
+
+Sie fuehrt Ordna Corporate Design, Logo-/Farbableitung, Foundations, statische
+Review-Mocks und spaetere UI-Governance zusammen. Das bestehende Logo unter
+`assets/images/logo.png` ist ein App-Icon/Symbol-Kandidat, aber noch kein
+vollstaendiges Logo-System.
 
 ## Scope
 
@@ -31,9 +42,17 @@ DocMan soll sich über Desktop und Mobile hinweg konsistent, ruhig und vertrauen
 - wiederverwendbare Komponenten für zentrale Workflows.
 - klare Status- und Fehlerzustände.
 - lesbare, dichte, aber nicht überladene Dokumentenoberfläche.
+- `OD-DS-01`, `OD-DS-02` und `OD-DS-03` vor UI-Architekturarbeit pruefen.
+- Coral/Rose als Brand-Akzent nutzen, nicht als dominante Arbeitsflaeche.
+- keine echten privaten Daten in Design-System-Mocks.
 
 ## Verwandte Konzepte
 
+- `docs/design-system/README.md`.
+- `docs/design-system/concepts/OD-DS-00_DESIGN_SYSTEM_UMBRELLA.md`.
+- `docs/design-system/concepts/OD-DS-01_FOUNDATIONS_AND_TOKENS.md`.
+- `docs/design-system/concepts/OD-DS-02_LAYOUT_AND_SHELL.md`.
+- `docs/design-system/concepts/OD-DS-03_CORPORATE_DESIGN.md`.
 - F13 Configuration Pages.
 - F14 Form Field Catalog.
 - F17 Mobile Capture Client Standards.

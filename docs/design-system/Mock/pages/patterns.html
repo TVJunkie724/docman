@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ordna Patterns</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="panel">
+          <div class="eyebrow">Product Patterns</div>
+          <h1>Die ersten Muster folgen den echten Ordna-Flows.</h1>
+          <p>Capture, Eingang, Dokumentdetail, Vorgang, Backup/Sync, lokaler Export und Profile sind die zentralen Arbeitsmuster.</p>
+        </section>
+        <section class="hero">
+          <div class="panel">
+            <h2>Entwurf pruefen</h2>
+            <div class="field"><label>Pflicht</label><div class="control error">Betroffene Person fehlt</div></div>
+            <div class="field"><label>Vorschlag</label><div class="control">Dokumenttyp: Rechnung / Beleg</div></div>
+            <div class="button-row"><a class="btn" href="#">Pruefung abschliessen</a><a class="btn secondary" href="#">Zurueck in Entwuerfe</a></div>
+          </div>
+          <div class="panel">
+            <h2>Document Detail</h2>
+            <div class="workflow-strip">
+              <span class="workflow-label past workflow-petrol">SCHEDULED</span>
+              <span class="workflow-arrow">&rarr;</span>
+              <span class="workflow-label past workflow-petrol-deep">ATTENDED</span>
+              <span class="workflow-arrow">&rarr;</span>
+              <span class="workflow-label current workflow-amber">PAYMENTDUE</span>
+            </div>
+            <div class="preview-box">PDF Preview</div>
+            <div class="button-row"><a class="btn secondary" href="#">Originaldatei exportieren</a><a class="btn secondary" href="#">Drucken</a></div>
+          </div>
+        </section>
+        <section class="panel">
+          <h2>Export Pattern</h2>
+          <div class="visual-demo">
+            <div class="app-frame">
+              <div class="app-frame-header">
+                <strong>Vorgang exportieren</strong>
+                <span class="pill privacy">Mehrere Personen</span>
+              </div>
+              <div class="app-frame-body">
+                <div class="document-card"><div class="doc-title">Autounfall 2026</div><div class="meta">7 Dokumente, 2 Subvorgaenge</div></div>
+                <div class="toolbar"><a class="btn secondary" href="#">ZIP herunterladen</a><a class="btn ghost" href="#">Abbrechen</a></div>
+              </div>
+            </div>
+          </div>
+          <table class="token-table">
+            <tr><th>Auswahl</th><th>Aktion</th><th>Regel</th></tr>
+            <tr><td>Ein Dokument</td><td>Originaldatei exportieren</td><td>Kein ZIP.</td></tr>
+            <tr><td>Mehrere Dokumente</td><td>ZIP exportieren</td><td>Inhalt vorher anzeigen.</td></tr>
+            <tr><td>Ganzer Vorgang</td><td>Vorgang als ZIP</td><td>Optional spaeter Manifest.</td></tr>
+          </table>
+        </section>
+      </main>
+    </div>
+    <script src="../assets/js/navigation.js"></script>
+  </body>
+</html>

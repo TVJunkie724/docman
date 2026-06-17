@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ordna Forms</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="hero">
+          <div class="panel">
+            <div class="eyebrow">Form Family</div>
+            <h1>Pflichtfelder sind wenige, Vorschlaege bleiben menschlich bestaetigt.</h1>
+            <p>Datei, betroffene Person, Titel, Dokumenttyp und harte Konflikte blockieren Review. Optionale Facts bleiben Hinweise oder spaetere Assisted-Review-Vorschlaege.</p>
+          </div>
+          <div class="panel paper">
+            <div class="field"><label>Titel</label><div class="control">Arztrechnung Juni 2026</div></div>
+            <div class="field"><label>Betroffene Person</label><div class="control error">Bitte auswaehlen</div></div>
+            <div class="field"><label>Dokumenttyp</label><div class="control">Rechnung / Beleg</div></div>
+          </div>
+        </section>
+        <section class="panel">
+          <h2>Field States</h2>
+          <div class="visual-demo">
+            <div class="field"><label>Vorschlag</label><div class="control">Betrag erkannt: 128,40 EUR</div></div>
+            <div class="field"><label>Sensibles Feld</label><div class="control">Versicherungsnummer verborgen</div></div>
+            <div class="field"><label>Readonly</label><div class="control">Originaldatei: scan-2026-06-12.pdf</div></div>
+          </div>
+          <table class="token-table">
+            <tr><th>State</th><th>Use</th><th>Rule</th></tr>
+            <tr><td>Required missing</td><td>Person fehlt</td><td>Blockiert Abschluss mit klarer Message.</td></tr>
+            <tr><td>Suggested</td><td>Versicherung erkannt</td><td>Nie still uebernehmen.</td></tr>
+            <tr><td>Readonly</td><td>Datei-Hash</td><td>Technisch, aber erklaerbar.</td></tr>
+            <tr><td>Sensitive</td><td>SV-/Passnummer</td><td>Nicht in Listen oder globalen Meldungen.</td></tr>
+          </table>
+        </section>
+      </main>
+    </div>
+    <script src="../assets/js/navigation.js"></script>
+  </body>
+</html>

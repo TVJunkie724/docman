@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ordna Spacing</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="panel">
+          <div class="eyebrow">Spacing / Radius / Density</div>
+          <h1>Arbeitsdichte ohne SaaS-Schwere.</h1>
+          <p>Dokumentlisten und Review-Flows sollen dicht sein, aber nicht gequetscht. Cards sind fuer wiederholte Items, nicht fuer ganze Seiten-in-Seiten.</p>
+        </section>
+        <section class="panel">
+          <h2>Spacing Scale</h2>
+          <div class="visual-demo">
+            <div class="app-frame">
+              <div class="app-frame-header">
+                <strong>Dichte Liste</strong>
+                <span class="pill">3 Dokumente</span>
+              </div>
+              <div class="app-frame-body">
+                <div class="document-card"><div class="doc-title">Arztrechnung Juni</div><div class="meta">space-12 innen, radius-md</div></div>
+                <div class="document-card"><div class="doc-title">Apothekenbeleg</div><div class="meta">Klare Zeilen ohne verschachtelte Karten</div></div>
+              </div>
+            </div>
+          </div>
+          <table class="token-table">
+            <tr><th>Token</th><th>px</th><th>Use</th></tr>
+            <tr><td>space-4</td><td>4</td><td>Micro gaps</td></tr>
+            <tr><td>space-8</td><td>8</td><td>Icon/text, compact controls</td></tr>
+            <tr><td>space-12</td><td>12</td><td>Field rhythm</td></tr>
+            <tr><td>space-16</td><td>16</td><td>Card internals</td></tr>
+            <tr><td>space-20</td><td>20</td><td>Standard panel padding</td></tr>
+            <tr><td>space-24</td><td>24</td><td>Section rhythm</td></tr>
+            <tr><td>space-32</td><td>32</td><td>Page gutters</td></tr>
+          </table>
+        </section>
+        <section class="section-grid">
+          <article class="mini-card"><strong>Radius</strong><p>6px inputs, 8px repeated items/buttons, 12px panels/dialogs. App icon radius ist kein UI-Radius.</p></article>
+          <article class="mini-card"><strong>Elevation</strong><p>Leichte Schatten fuer Panels/Dialoge, flache Listen fuer dichte Arbeit.</p></article>
+        </section>
+      </main>
+    </div>
+    <script src="../assets/js/navigation.js"></script>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ordna Data Display</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="panel">
+          <div class="eyebrow">Data Display</div>
+          <h1>Dokumente, Vorgaenge und Facts muessen schnell scanbar sein.</h1>
+          <div class="task-card-list" style="margin-top:18px">
+            <div class="task-card">
+              <div class="task-icon receipt">R</div>
+              <div class="task-main">
+                <div class="task-title">Arztrechnung Juni 2026</div>
+                <div class="task-meta-stack">
+                  <div class="task-type-line">Rechnung / Beleg / Gesundheit</div>
+                  <div class="task-person-line"><span class="person-chip">Kind A</span></div>
+                </div>
+              </div>
+              <span class="task-badge neutral">Entwurf</span>
+              <span class="chevron">&rsaquo;</span>
+            </div>
+            <div class="task-card">
+              <div class="task-icon policy">P</div>
+              <div class="task-main">
+                <div class="task-title">Versicherungspolizze 2026</div>
+                <div class="task-meta-stack">
+                  <div class="task-type-line">Persoenliche Unterlage / Versicherung</div>
+                  <div class="task-person-line"><span class="person-chip">Haushalt</span></div>
+                </div>
+              </div>
+              <span class="task-badge neutral">Aktuell</span>
+              <span class="chevron">&rsaquo;</span>
+            </div>
+            <div class="task-card">
+              <div class="task-icon proof">N</div>
+              <div class="task-main">
+                <div class="task-title">Meldezettel</div>
+                <div class="task-meta-stack">
+                  <div class="task-type-line">Offizieller Nachweis / Versioniert</div>
+                  <div class="task-person-line"><span class="person-chip">Person B</span></div>
+                </div>
+              </div>
+              <span class="task-badge neutral">Schnellzugriff</span>
+              <span class="chevron">&rsaquo;</span>
+            </div>
+          </div>
+        </section>
+        <section class="section-grid">
+          <article class="mini-card"><strong>Document Row</strong><p>Titel, Typ und betroffene Person werden getrennt. Status bleibt rechts ruhig, ausser bei Konflikt oder blockierender Aktion.</p></article>
+          <article class="mini-card">
+            <strong>Typ-Farben</strong>
+            <div class="toolbar">
+              <span class="task-icon receipt">R</span>
+              <span class="task-icon policy">P</span>
+              <span class="task-icon proof">N</span>
+              <span class="task-icon record">V</span>
+            </div>
+            <p>Farbe markiert die Dokumentfamilie. Bedeutung bleibt ueber Typtext, Titel und Status lesbar.</p>
+          </article>
+          <article class="mini-card"><strong>Timeline</strong><div class="timeline"><div class="timeline-item">Scan empfangen</div><div class="timeline-item">Review abgeschlossen</div><div class="timeline-item">Als ZIP exportiert</div></div></article>
+        </section>
+        <section class="panel">
+          <h2>Fact Gruppe</h2>
+          <div class="visual-demo">
+            <div class="metric-row">
+              <div class="metric"><span>Betrag</span><strong>128,40 EUR</strong></div>
+              <div class="metric"><span>Status</span><strong>Eingereicht</strong></div>
+              <div class="metric"><span>Erstattung</span><strong>offen</strong></div>
+            </div>
+            <div class="document-card">
+              <div class="doc-title">Verknuepfte Dokumente</div>
+              <div class="meta">Rechnung, Apothekenbeleg, Polizze</div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="../assets/js/navigation.js"></script>
+  </body>
+</html>

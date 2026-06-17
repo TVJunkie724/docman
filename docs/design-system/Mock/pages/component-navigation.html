@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ordna Navigation</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="panel">
+          <div class="eyebrow">Navigation Controls</div>
+          <h1>Navigation fuehrt zu Arbeitskontexten, nicht zu Feature-Marketing.</h1>
+          <div class="flutter-nav-preview" style="margin-top:18px">
+            <div class="flutter-nav-item active">Eingang <span class="flutter-nav-count">4</span></div>
+            <div class="flutter-nav-item">Vorgaenge</div>
+            <div class="flutter-nav-item">Dokumente</div>
+            <div class="flutter-nav-item">Aufgaben <span class="flutter-nav-count">3</span></div>
+            <div class="flutter-nav-item">Suche</div>
+            <div class="flutter-nav-item">Profile</div>
+          </div>
+        </section>
+        <section class="section-grid">
+          <article class="mini-card">
+            <strong>Tabs</strong>
+            <div class="legacy-chip-row">
+              <span class="legacy-filter-chip active">Entwuerfe <span class="legacy-count">4</span></span>
+              <span class="legacy-filter-chip">Zuletzt <span class="legacy-count">10</span></span>
+            </div>
+            <p>Flutter-Referenz: FilterTab mit 24px Radius, Count-Badge und aktivem Coral-Zustand.</p>
+          </article>
+          <article class="mini-card">
+            <strong>Segments</strong>
+            <div class="legacy-chip-row">
+              <span class="legacy-filter-chip active">Scan <span class="legacy-count">1</span></span>
+              <span class="legacy-filter-chip">Foto <span class="legacy-count">0</span></span>
+              <span class="legacy-filter-chip">Datei <span class="legacy-count">0</span></span>
+            </div>
+            <p>Fuer Moduswechsel nur verwenden, wenn Auswahl und Zaehler fachlich helfen.</p>
+          </article>
+          <article class="mini-card">
+            <strong>Breadcrumbs</strong>
+            <div class="breadcrumb">Vorgang / Subvorgang / Dokument</div>
+            <p>Nur wenn Hierarchie relevant ist.</p>
+          </article>
+          <article class="mini-card">
+            <strong>Command Rows</strong>
+            <div class="toolbar"><a class="btn secondary" href="#">Oeffnen</a><a class="btn secondary" href="#">Export</a></div>
+            <p>Kontextnahe Aktionen.</p>
+          </article>
+        </section>
+        <section class="panel">
+          <h2>Navigation Beispiele</h2>
+          <div class="visual-demo">
+            <div class="app-frame">
+              <div class="app-frame-header">
+                <strong>Eingang</strong>
+                <div class="legacy-chip-row">
+                  <span class="legacy-filter-chip active">Entwuerfe <span class="legacy-count">4</span></span>
+                  <span class="legacy-filter-chip">Zuletzt verarbeitet <span class="legacy-count">10</span></span>
+                  <span class="legacy-filter-chip">Konflikte <span class="legacy-count">1</span></span>
+                </div>
+              </div>
+              <div class="app-frame-body">
+                <div class="task-card compact selected">
+                  <div class="task-icon">D</div>
+                  <div class="task-main">
+                    <div class="task-title">scan-2026-06-12.pdf</div>
+                    <div class="task-subtitle">Gerade empfangen</div>
+                  </div>
+                  <span class="task-badge warning">Review</span>
+                </div>
+                <div class="breadcrumb">Autounfall 2026 / Krankenhaus / Arztbrief</div>
+                <div class="toolbar">
+                  <a class="btn secondary" href="#">Oeffnen</a>
+                  <a class="btn secondary" href="#">Drucken</a>
+                  <a class="btn secondary" href="#">Exportieren</a>
+                </div>
+              </div>
+            </div>
+            <div class="flutter-nav-preview">
+              <div class="flutter-nav-item active">Eingang <span class="flutter-nav-count">4</span></div>
+              <div class="flutter-nav-item">Vorgaenge <span class="flutter-nav-count">2</span></div>
+              <div class="flutter-nav-item">Dokumente</div>
+              <div class="flutter-nav-item">Aufgaben <span class="flutter-nav-count">3</span></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="../assets/js/navigation.js"></script>
+  </body>
+</html>

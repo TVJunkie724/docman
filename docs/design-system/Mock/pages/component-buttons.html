@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ordna Buttons</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="panel">
+          <div class="eyebrow">Button Family</div>
+          <h1>Aktionen sind knapp, eindeutig und nicht dekorativ.</h1>
+          <div class="button-row">
+            <a class="btn large" href="#">Dokument scannen</a>
+            <a class="btn secondary" href="#">Datei importieren</a>
+            <a class="btn ghost" href="#">Abbrechen</a>
+            <a class="btn danger" href="#">Loeschen</a>
+          </div>
+        </section>
+        <section class="panel">
+          <h2>Action Hierarchy</h2>
+          <div class="visual-demo">
+            <div class="app-frame">
+              <div class="app-frame-header">
+                <strong>Entwurf pruefen</strong>
+                <span class="task-badge warning">1 Pflichtfeld fehlt</span>
+              </div>
+              <div class="app-frame-body">
+                <div class="toolbar">
+                  <a class="btn large" href="#">Pruefung abschliessen</a>
+                  <a class="btn secondary" href="#">Zurueck in Entwuerfe</a>
+                  <a class="btn ghost" href="#">Abbrechen</a>
+                  <a class="btn danger" href="#">Entwurf loeschen</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <table class="token-table">
+            <tr><th>Rolle</th><th>Beispiel</th><th>Regel</th></tr>
+            <tr><td>Primary</td><td>Review abschliessen</td><td>Eine klare Hauptaktion pro Kontext.</td></tr>
+            <tr><td>Secondary</td><td>Als ZIP exportieren</td><td>Wichtig, aber nicht Hauptfluss.</td></tr>
+            <tr><td>Ghost</td><td>Abbrechen</td><td>Leise Navigations-/Dismiss-Aktion.</td></tr>
+            <tr><td>Danger</td><td>Entwurf loeschen</td><td>Immer bestaetigen, nie nur Farbe.</td></tr>
+          </table>
+        </section>
+      </main>
+    </div>
+    <script src="../assets/js/navigation.js"></script>
+  </body>
+</html>

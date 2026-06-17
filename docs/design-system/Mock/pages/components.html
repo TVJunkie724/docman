@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ordna Components</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="panel">
+          <div class="eyebrow">Component System</div>
+          <h1>Komponenten fuer Dokumentarbeit, nicht fuer Marketing.</h1>
+          <p>Jede Komponente muss Datenzustand, Privacy-Grenze, Accessibility und mobile/desktop Verhalten kennen.</p>
+        </section>
+        <section class="section-grid">
+          <article class="mini-card"><strong>Buttons</strong><p>Capture, Review abschliessen, Export, Retry, Delete. Actions muessen klar hierarchisiert sein.</p></article>
+          <article class="mini-card"><strong>Forms</strong><p>Pflichtfelder, Vorschlaege, Fehlermeldungen, Dirty/Saving, sensible Felder.</p></article>
+          <article class="mini-card"><strong>Status</strong><p>Entwurf, erledigt, Sync, Backup, Konflikt, Datenschutz, Erinnerung.</p></article>
+          <article class="mini-card"><strong>Tags</strong><p>Filterbare, editierbare Schlagworte ohne Workflow-Bedeutung.</p></article>
+          <article class="mini-card"><strong>Data Display</strong><p>Dokumentzeilen, Fact-Gruppen, Vorgangstimeline, Exporthistorie.</p></article>
+          <article class="mini-card"><strong>Icons</strong><p>Lucide als ruhiges, konsistentes Produkt-Icon-Set.</p></article>
+        </section>
+        <section class="panel">
+          <h2>Komposition Beispiel</h2>
+          <div class="visual-demo">
+            <div class="app-frame">
+              <div class="app-frame-header">
+                <strong>Neuer Entwurf</strong>
+                <span class="task-badge warning">Review noetig</span>
+              </div>
+              <div class="app-frame-body">
+                <div class="task-card compact selected">
+                  <div class="task-icon">D</div>
+                  <div class="task-main">
+                    <div class="task-title">scan-2026-06-12.pdf</div>
+                    <div class="task-subtitle">Mobile Upload / Eingang</div>
+                  </div>
+                  <span class="task-badge warning">Draft</span>
+                </div>
+                <div class="field"><label>Betroffene Person</label><div class="control error">Bitte auswaehlen</div></div>
+                <div class="legacy-chip-row"><span class="legacy-tag-chip current">Gesundheit</span><span class="legacy-tag-chip outline">Sensibel</span></div>
+                <div class="toolbar"><a class="btn large" href="#">Pruefung abschliessen</a><a class="btn secondary" href="#">Spaeter</a></div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="callout-card privacy">
+          <div class="callout-token" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8.2 7 10 4-1.8 7-5.5 7-10V6l-7-3Z"></path><path d="M9.5 12.5 11 14l3.5-4"></path></svg>
+          </div>
+          <div class="callout-body">
+            <strong>Component Gate</strong>
+            <p>Keine Komponente darf sensible Daten nur ueber Farbe, Tooltip oder globale Meldung erklaeren. Bedeutung muss sichtbar, textlich und tastaturbedienbar sein.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="../assets/js/navigation.js"></script>
+  </body>
+</html>
