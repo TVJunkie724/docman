@@ -32,6 +32,7 @@
         ['Components', 'pages/components.html'],
         ['Buttons', 'pages/component-buttons.html'],
         ['Forms', 'pages/component-forms.html'],
+        ['Form Interactions', 'pages/component-form-interactions.html'],
         ['Navigation', 'pages/component-navigation.html'],
         ['Status', 'pages/component-status.html'],
         ['Tags', 'pages/component-tags.html'],

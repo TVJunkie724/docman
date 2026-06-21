@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ordna Form Interactions</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="hero compact">
+          <div class="panel">
+            <div class="eyebrow">Form Interactions</div>
+            <h1>Picker oeffnen Kontext, ohne das Formular zu verlieren.</h1>
+            <p>Desktop nutzt feldnahe Popovers. Mobile nutzt Bottom Sheets oder Fullscreen Sheets. Inline-Picker bleiben Spezialflaechen fuer Kalender, Planung und Auswertung, nicht Standard in dichten Formularen.</p>
+            <div class="button-row">
+              <a class="btn secondary" href="component-forms.html">Form Family</a>
+              <span class="mini-command primary">Desktop Popover</span>
+              <span class="mini-command primary">Mobile Sheet</span>
+              <span class="mini-command">Inline nur bei Fokusflaechen</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="interaction-board">
+          <div class="interaction-stack">
+            <article class="interactive-card" data-lab="dropdown">
+              <div class="interactive-card-header">
+                <div>
+                  <span class="interactive-card-title">Dropdown</span>
+                  <span class="interactive-card-note">Kleine, stabile Optionsliste direkt am Feld.</span>
+                </div>
+                <span class="task-badge neutral">Popover</span>
+              </div>
+              <div class="field required">
+                <label>Dokumenttyp</label>
+                <div class="interaction-control">
+                  <button class="control-button" type="button" data-popover-trigger="document-type" aria-expanded="false">
+                    <span data-value-for="document-type">Rechnung / Beleg</span>
+                  </button>
+                  <div class="popover" data-popover="document-type">
+                    <button class="option-row selected" type="button" data-select="document-type" data-value="Rechnung / Beleg"><span class="picker-token">R</span><span><strong>Rechnung / Beleg</strong><span>Betrag, Faelligkeit, Erstattung</span></span><span>aktiv</span></button>
+                    <button class="option-row" type="button" data-select="document-type" data-value="Offizieller Nachweis"><span class="picker-token">N</span><span><strong>Offizieller Nachweis</strong><span>Version, Gueltigkeit, Schnellzugriff</span></span><span></span></button>
+                    <button class="option-row" type="button" data-select="document-type" data-value="Vertrag / Polizze"><span class="picker-token">V</span><span><strong>Vertrag / Polizze</strong><span>Laufzeit, Kuendigung, Kosten</span></span><span></span></button>
+                  </div>
+                </div>
+                <p class="helper-text">Dropdown bleibt kompakt. Lange Listen wechseln zu Combobox oder Sheet.</p>
+              </div>
+            </article>
+
+            <article class="interactive-card" data-lab="combobox">
+              <div class="interactive-card-header">
+                <div>
+                  <span class="interactive-card-title">Combobox / Typeahead</span>
+                  <span class="interactive-card-note">Freitext plus Vorschlaege fuer Anbieter, Versicherungen oder Orte.</span>
+                </div>
+                <span class="task-badge neutral">Search</span>
+              </div>
+              <div class="field">
+                <label>Anbieter</label>
+                <div class="interaction-control">
+                  <input class="text-input" data-combobox-input="provider" value="Apotheke" aria-label="Anbieter suchen" />
+                  <div class="popover" data-combobox-menu="provider">
+                    <button class="option-row selected" type="button" data-combobox-option="Apotheke Sonnenhof"><span class="picker-token">A</span><span><strong>Apotheke Sonnenhof</strong><span>3 Dokumente</span></span><span></span></button>
+                    <button class="option-row" type="button" data-combobox-option="Apotheke Innenstadt"><span class="picker-token">A</span><span><strong>Apotheke Innenstadt</strong><span>1 Dokument</span></span><span></span></button>
+                    <button class="option-row" type="button" data-combobox-create><span class="picker-token">+</span><span><strong>Neuen Anbieter anlegen</strong><span>Freitext als neuen Anbieter speichern</span></span><span></span></button>
+                  </div>
+                </div>
+                <p class="helper-text">Bei keinem Treffer muss "neu anlegen" sichtbar sein.</p>
+              </div>
+            </article>
+
+            <article class="interactive-card" data-lab="multiselect">
+              <div class="interactive-card-header">
+                <div>
+                  <span class="interactive-card-title">Multi Select Dropdown</span>
+                  <span class="interactive-card-note">Viele Mehrfachwerte bleiben in einem Dropdown, ausgewaehlte Werte als Chips.</span>
+                </div>
+                <span class="task-badge neutral">Mehrfach</span>
+              </div>
+              <div class="field">
+                <label>Kategorien</label>
+                <div class="multi-value-row" data-chip-target="categories">
+                  <span class="form-chip selected">Gesundheit</span>
+                  <span class="form-chip selected">Steuer</span>
+                </div>
+              </div>
+              <div class="interaction-control">
+                <button class="control-button" type="button" data-popover-trigger="categories" aria-expanded="false"><span>Kategorien bearbeiten</span></button>
+                <div class="popover" data-popover="categories">
+                  <button class="option-row selected" type="button" data-multi="categories" data-value="Gesundheit"><span class="option-check"></span><span><strong>Gesundheit</strong><span>Arzt, Apotheke, Versicherung</span></span><span></span></button>
+                  <button class="option-row selected" type="button" data-multi="categories" data-value="Steuer"><span class="option-check"></span><span><strong>Steuer</strong><span>Jahresuebersicht</span></span><span></span></button>
+                  <button class="option-row" type="button" data-multi="categories" data-value="Haushalt"><span class="option-check"></span><span><strong>Haushalt</strong><span>Laufende Kosten</span></span><span></span></button>
+                  <button class="option-row" type="button" data-multi="categories" data-value="Versicherung"><span class="option-check"></span><span><strong>Versicherung</strong><span>Polizzen, Einreichungen</span></span><span></span></button>
+                </div>
+              </div>
+            </article>
+
+            <article class="interactive-card" data-lab="date">
+              <div class="interactive-card-header">
+                <div>
+                  <span class="interactive-card-title">Date Picker</span>
+                  <span class="interactive-card-note">Formularstandard ist Popover; Inline nur fuer Planungsflaechen.</span>
+                </div>
+                <span class="task-badge neutral">Datum</span>
+              </div>
+              <div class="mode-toggle-row" aria-label="Date Picker Variante">
+                <button class="active" type="button" data-mode-button="date" data-mode="popover">Popover</button>
+                <button type="button" data-mode-button="date" data-mode="inline">Inline</button>
+              </div>
+              <div data-mode-panel="date-popover">
+                <div class="field">
+                  <label>Dokumentdatum</label>
+                  <div class="interaction-control">
+                    <button class="control-button" type="button" data-popover-trigger="date" aria-expanded="false"><span data-value-for="date">12.06.2026</span></button>
+                    <div class="popover wide" data-popover="date">
+                      <div class="calendar-panel">
+                        <div class="picker-header"><span>Juni 2026</span><span class="mini-command">Heute</span></div>
+                        <div class="calendar-grid" data-calendar="date">
+                          <span class="calendar-label">Mo</span><span class="calendar-label">Di</span><span class="calendar-label">Mi</span><span class="calendar-label">Do</span><span class="calendar-label">Fr</span><span class="calendar-label">Sa</span><span class="calendar-label">So</span>
+                          <button class="calendar-day" type="button" data-date-value="08.06.2026">8</button><button class="calendar-day" type="button" data-date-value="09.06.2026">9</button><button class="calendar-day" type="button" data-date-value="10.06.2026">10</button><button class="calendar-day" type="button" data-date-value="11.06.2026">11</button><button class="calendar-day selected" type="button" data-date-value="12.06.2026">12</button><button class="calendar-day" type="button" data-date-value="13.06.2026">13</button><button class="calendar-day" type="button" data-date-value="14.06.2026">14</button>
+                          <button class="calendar-day today" type="button" data-date-value="15.06.2026">15</button><button class="calendar-day" type="button" data-date-value="16.06.2026">16</button><button class="calendar-day" type="button" data-date-value="17.06.2026">17</button><button class="calendar-day" type="button" data-date-value="18.06.2026">18</button><button class="calendar-day" type="button" data-date-value="19.06.2026">19</button><button class="calendar-day" type="button" data-date-value="20.06.2026">20</button><button class="calendar-day" type="button" data-date-value="21.06.2026">21</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="hidden" data-mode-panel="date-inline">
+                <div class="calendar-panel inline">
+                  <div class="picker-header"><span>Juni 2026</span><span class="mini-command">Planungsflaeche</span></div>
+                  <div class="calendar-grid">
+                    <span class="calendar-label">Mo</span><span class="calendar-label">Di</span><span class="calendar-label">Mi</span><span class="calendar-label">Do</span><span class="calendar-label">Fr</span><span class="calendar-label">Sa</span><span class="calendar-label">So</span>
+                    <span class="calendar-day">8</span><span class="calendar-day">9</span><span class="calendar-day">10</span><span class="calendar-day">11</span><span class="calendar-day selected">12</span><span class="calendar-day">13</span><span class="calendar-day">14</span>
+                    <span class="calendar-day today">15</span><span class="calendar-day">16</span><span class="calendar-day">17</span><span class="calendar-day">18</span><span class="calendar-day">19</span><span class="calendar-day">20</span><span class="calendar-day">21</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="interactive-card" data-lab="range">
+              <div class="interactive-card-header">
+                <div>
+                  <span class="interactive-card-title">Date Range Picker</span>
+                  <span class="interactive-card-note">Zeitraeume brauchen Start, Ende und lesbare Zusammenfassung.</span>
+                </div>
+                <span class="task-badge neutral">Range</span>
+              </div>
+              <div class="field">
+                <label>Gueltigkeit</label>
+                <div class="interaction-control">
+                  <button class="control-button" type="button" data-popover-trigger="date-range" aria-expanded="false"><span data-value-for="date-range">01.01.2026 bis 31.12.2026</span></button>
+                  <div class="popover wide" data-popover="date-range">
+                    <div class="calendar-panel">
+                      <div class="range-row">
+                        <div class="control">01.01.2026</div>
+                        <span class="range-separator">bis</span>
+                        <div class="control">31.12.2026</div>
+                      </div>
+                      <div class="calendar-grid">
+                        <span class="calendar-label">Mo</span><span class="calendar-label">Di</span><span class="calendar-label">Mi</span><span class="calendar-label">Do</span><span class="calendar-label">Fr</span><span class="calendar-label">Sa</span><span class="calendar-label">So</span>
+                        <button class="calendar-day selected" type="button">1</button><button class="calendar-day in-range" type="button">2</button><button class="calendar-day in-range" type="button">3</button><button class="calendar-day in-range" type="button">4</button><button class="calendar-day in-range" type="button">5</button><button class="calendar-day in-range" type="button">6</button><button class="calendar-day selected" type="button">7</button>
+                      </div>
+                      <div class="button-row"><span class="mini-command primary">Zeitraum uebernehmen</span><span class="mini-command">Zuruecksetzen</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="interactive-card" data-lab="time">
+              <div class="interactive-card-header">
+                <div>
+                  <span class="interactive-card-title">Time Picker</span>
+                  <span class="interactive-card-note">Popover mit Slots plus manuelle Eingabe.</span>
+                </div>
+                <span class="task-badge neutral">Zeit</span>
+              </div>
+              <div class="field">
+                <label>Termin</label>
+                <div class="interaction-control">
+                  <button class="control-button" type="button" data-popover-trigger="time" aria-expanded="false"><span data-value-for="time">09:00</span></button>
+                  <div class="popover" data-popover="time">
+                    <div class="time-list" data-time-list>
+                      <button class="time-slot" type="button" data-time-value="08:00">08:00</button>
+                      <button class="time-slot" type="button" data-time-value="08:30">08:30</button>
+                      <button class="time-slot selected" type="button" data-time-value="09:00">09:00</button>
+                      <button class="time-slot" type="button" data-time-value="09:30">09:30</button>
+                      <button class="time-slot" type="button" data-time-value="10:00">10:00</button>
+                      <button class="time-slot" type="button" data-time-value="10:30">10:30</button>
+                    </div>
+                    <input class="text-input" value="09:00" aria-label="Zeit manuell eingeben" />
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="interactive-card" data-lab="file">
+              <div class="interactive-card-header">
+                <div>
+                  <span class="interactive-card-title">File Picker / Dropzone</span>
+                  <span class="interactive-card-note">Desktop Import darf Drag and Drop zeigen; Mobile bevorzugt Capture Actions.</span>
+                </div>
+                <span class="task-badge neutral">Datei</span>
+              </div>
+              <div class="file-dropzone" data-file-dropzone>
+                <strong>Datei hier ablegen</strong>
+                <p data-file-status>PDF, JPG, PNG oder HEIC.</p>
+                <div class="button-row"><button class="btn secondary" type="button" data-file-pick>Datei simulieren</button></div>
+              </div>
+              <div class="file-row hidden" data-file-row>
+                <span class="file-icon">PDF</span>
+                <div><strong>scan-2026-06-12.pdf</strong><p class="helper-text">2 Seiten, lokal, Review offen</p></div>
+                <span class="mini-command danger" data-file-clear>Entfernen</span>
+              </div>
+            </article>
+
+            <article class="interactive-card" data-lab="sensitive">
+              <div class="interactive-card-header">
+                <div>
+                  <span class="interactive-card-title">Sensitive Reveal</span>
+                  <span class="interactive-card-note">Maskiert per Default, Reveal bewusst und lokal im Kontext.</span>
+                </div>
+                <span class="task-badge neutral">Privacy</span>
+              </div>
+              <div class="field">
+                <label>Versicherungsnummer</label>
+                <div class="control sensitive" data-secret-value="AT-3921-8840">**** **** 3921</div>
+              </div>
+              <div class="button-row"><button class="btn secondary" type="button" data-secret-toggle>Wert anzeigen</button></div>
+            </article>
+          </div>
+
+          <aside class="interaction-summary">
+            <h2>Entscheidungsregel</h2>
+            <div class="summary-row"><span>Desktop</span><strong>Popover</strong></div>
+            <div class="summary-row"><span>Mobile</span><strong>Sheet</strong></div>
+            <div class="summary-row"><span>Inline</span><strong>Nur Fokusflaeche</strong></div>
+            <div class="summary-row"><span>Lange Listen</span><strong>Search</strong></div>
+            <div class="summary-row"><span>Range</span><strong>Groesseres Sheet</strong></div>
+            <p>Diese Regeln gelten fuer Formular-Kontexte. Spezielle Kalender-, Auswertungs- oder Planungsseiten duerfen Inline-Kalender verwenden.</p>
+            <div class="phone-lab">
+              <div class="phone-lab-screen">
+                <div class="eyebrow">Mobile</div>
+                <h2>Neuer Scan</h2>
+                <div class="field required"><label>Person</label><button class="input-button" type="button" data-sheet-open="person">Kind A</button></div>
+                <div class="field"><label>Datum</label><button class="input-button" type="button" data-sheet-open="date-mobile">12.06.2026</button></div>
+                <div class="field"><label>Modus</label><button class="input-button" type="button" data-sheet-open="scan-mode">Dokument als PDF</button></div>
+                <a class="btn large" href="#">Upload vorbereiten</a>
+              </div>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <div class="sheet-backdrop" data-sheet="person" aria-hidden="true">
+      <div class="sheet-panel">
+        <div class="sheet-handle"></div>
+        <h2>Person waehlen</h2>
+        <button class="option-row" type="button" data-sheet-close><span class="picker-token">C</span><span><strong>Caroline</strong><span>vollwertiges Profil</span></span><span></span></button>
+        <button class="option-row selected" type="button" data-sheet-close><span class="picker-token">K</span><span><strong>Kind A</strong><span>verwaltetes Profil</span></span><span>aktiv</span></button>
+        <button class="option-row" type="button" data-sheet-close><span class="picker-token">H</span><span><strong>Haushalt</strong><span>gemeinsam</span></span><span></span></button>
+      </div>
+    </div>
+
+    <div class="sheet-backdrop" data-sheet="date-mobile" aria-hidden="true">
+      <div class="sheet-panel">
+        <div class="sheet-handle"></div>
+        <h2>Datum waehlen</h2>
+        <div class="calendar-panel inline">
+          <div class="picker-header"><span>Juni 2026</span><span class="mini-command">Heute</span></div>
+          <div class="calendar-grid">
+            <span class="calendar-label">Mo</span><span class="calendar-label">Di</span><span class="calendar-label">Mi</span><span class="calendar-label">Do</span><span class="calendar-label">Fr</span><span class="calendar-label">Sa</span><span class="calendar-label">So</span>
+            <button class="calendar-day" type="button" data-sheet-close>8</button><button class="calendar-day" type="button" data-sheet-close>9</button><button class="calendar-day" type="button" data-sheet-close>10</button><button class="calendar-day" type="button" data-sheet-close>11</button><button class="calendar-day selected" type="button" data-sheet-close>12</button><button class="calendar-day" type="button" data-sheet-close>13</button><button class="calendar-day" type="button" data-sheet-close>14</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sheet-backdrop" data-sheet="scan-mode" aria-hidden="true">
+      <div class="sheet-panel">
+        <div class="sheet-handle"></div>
+        <h2>Scan-Modus</h2>
+        <button class="option-row selected" type="button" data-sheet-close><span class="radio-dot"></span><span><strong>Dokument als PDF</strong><span>Auto crop, clean document, mehrere Seiten</span></span><span></span></button>
+        <button class="option-row" type="button" data-sheet-close><span class="radio-dot"></span><span><strong>Foto als Bild</strong><span>Passfoto, Gegenstand, Beweisfoto</span></span><span></span></button>
+        <button class="option-row" type="button" data-sheet-close><span class="radio-dot"></span><span><strong>Nach Review entscheiden</strong><span>Rohdaten bleiben lokal</span></span><span></span></button>
+      </div>
+    </div>
+
+    <script src="../assets/js/navigation.js"></script>
+    <script src="../assets/js/form-interactions.js"></script>
+  </body>
+</html>

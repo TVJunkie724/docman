@@ -2,8 +2,8 @@
 title: "Konzept F23 - Component System"
 description: "Ordna Komponentenfamilien fuer Buttons, Status, Tags, Feedback, Callouts, Data Display und Component Composition"
 tags: [concept, frontend, design-system, components, buttons, status, tags, feedback, data-display]
-lastUpdated: "2026-06-17"
-version: "1.0"
+lastUpdated: "2026-06-21"
+version: "1.1"
 status: "accepted"
 ---
 
@@ -50,15 +50,44 @@ Button-Rollen:
 |---|---|
 | Primary | genau eine klare Hauptaktion im Kontext. |
 | Secondary | wichtige Alternative ohne Hauptfluss-Dominanz. |
-| Ghost/Text | leise Navigation, Abbrechen, spaeter. |
+| Light State | aktive, empfohlene oder ausgewaehlte Aktion mit Petrol-Mist/Petrol, weniger dominant als Primary. |
+| Ghost/Text Only | leise Navigation, Abbrechen, spaeter. |
+| Icon Only | bekannte, wiederholte Toolbar-Aktion mit Accessibility Label und Tooltip. |
 | Danger | destruktive Aktion, immer mit Text und Bestaetigung. |
+| Inverse/Dark | Aktionen auf dunklen Shell- oder Diagnoseflaechen. |
+
+Button-Zustaende:
+
+| Zustand | Regel |
+|---|---|
+| default | stabile visuelle Basis ohne Bewegung. |
+| hover | leichte Erhebung oder Kontraststeigerung, keine Layoutverschiebung. |
+| focus | sichtbarer Fokus-Ring, tastaturbedienbar. |
+| pressed | klare gedrueckte Rueckmeldung. |
+| loading | blockiert Wiederholung, zeigt Busy-Zustand. |
+| disabled | nicht klickbar und durch naheliegenden Kontext erklaert. |
+
+Button-Groessen:
+
+| Groesse | Verwendung |
+|---|---|
+| small | Tabellenzeilen, kompakte Toolbars, Inline-Aktionen. |
+| default | normale Dialoge, Karten, Detailseiten und Formulare. |
+| large | Capture, mobile Hauptaktion, Wizard-Abschluss. |
+| block | mobile Sheets und fokussierte One-Step-Flows. |
 
 Regeln:
 
 - Keine Icon-only Buttons fuer kritische Aktionen.
-- Primaere Aktionen nutzen Ordna Coral, aber sparsam.
+- Primaere Aktionen nutzen Ordna Coral, aber sparsam und nie mehrfach im selben
+  Arbeitskontext.
+- Secondary nutzt Outline/Neutral, Light State nutzt Petrol, Danger nutzt Brick
+  oder Danger-Light.
+- Dark/Inverse Varianten sind eigene Varianten und werden nicht durch zufaellige
+  Umfaerbung normaler Buttons erzeugt.
 - Button-Text ist handlungsorientiert: "Dokument scannen", "Pruefung abschliessen".
 - Destruktive Aktionen werden nicht nur durch Farbe erklaert.
+- Loading, Disabled, Focus und Pressed sind Pflichtzustaende der Button Family.
 
 ## Subkonzept F23.3 - Status Signals
 
@@ -162,4 +191,3 @@ F23 ist umgesetzt, wenn:
   risikobasiert abgedeckt sind.
 - Accessibility Labels und Tastaturbedienung fuer relevante Komponenten stehen.
 - Widget-Tests oder visuelle Tests fuer zentrale Varianten existieren.
-
