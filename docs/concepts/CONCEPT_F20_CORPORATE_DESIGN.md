@@ -2,8 +2,8 @@
 title: "Konzept F20 - Corporate Design and Brand Application"
 description: "Ordna Corporate Design, Logo-System, Brand-Farben, Voice, Standards und produktnahe Brand-Anwendung"
 tags: [concept, frontend, design-system, corporate-design, brand, colors, logo, voice]
-lastUpdated: "2026-06-17"
-version: "1.0"
+lastUpdated: "2026-06-22"
+version: "1.1"
 status: "accepted"
 ---
 
@@ -31,6 +31,12 @@ F20 definiert:
 - Voice und privacy-sichere Texte.
 - Corporate Usage Gates fuer spaetere App-, Store- und Dokumentationsarbeit.
 
+Detailkonzept:
+
+- `CONCEPT_F31_BRAND_SYSTEM_DETAIL.md` ist die build-relevante
+  Detail-Spezifikation fuer Brand, Logo, Corporate Colors, Voice und
+  Distribution Readiness.
+
 ## Subkonzept F20.1 - Corporate Design Overview
 
 Quelle: `docs/design-system/Mock/pages/corporate-design.html`.
@@ -46,9 +52,9 @@ Regeln:
 Flutter-Implikation:
 
 - Keine Landingpage als App-Start.
-- Brand darf in Navigation, App-Icon, Empty States und primären Aktionen
+- Brand darf in Navigation, App-Icon, Empty States und primaeren Aktionen
   erscheinen.
-- Dokumentlisten, Review-Flows und Forms bleiben neutrale Workbench-Flächen.
+- Dokumentlisten, Review-Flows und Forms bleiben neutrale Workbench-Flaechen.
 
 ## Subkonzept F20.2 - Logo System
 
@@ -140,4 +146,3 @@ F20 ist umgesetzt, wenn:
 - Voice-Regeln in Fehler-, Empty-, Review- und Exportpfaden angewendet werden.
 - Brand-Farben nicht als unstrukturierte Statuspalette verwendet werden.
 - Third-Party-/Icon-Lizenzhinweise fuer Distribution vorbereitet sind.
-

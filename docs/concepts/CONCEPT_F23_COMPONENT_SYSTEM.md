@@ -2,8 +2,8 @@
 title: "Konzept F23 - Component System"
 description: "Ordna Komponentenfamilien fuer Buttons, Status, Tags, Feedback, Callouts, Data Display und Component Composition"
 tags: [concept, frontend, design-system, components, buttons, status, tags, feedback, data-display]
-lastUpdated: "2026-06-21"
-version: "1.1"
+lastUpdated: "2026-06-22"
+version: "1.2"
 status: "accepted"
 ---
 
@@ -22,6 +22,14 @@ ausgereift genug ist.
 Ordna braucht Komponenten fuer echte Dokumentarbeit: wiederholt, ruhig,
 privacy-sicher, testbar, responsive und ohne konkurrierende Ad-hoc-Varianten.
 
+Detailkonzepte:
+
+- `CONCEPT_F26_BUTTON_FAMILY.md` ist die build-relevante Spezifikation fuer
+  Buttons und Command-Hierarchie.
+- `CONCEPT_F34_STATUS_TAGS_FEEDBACK_AND_DATA_DISPLAY.md` ist die
+  build-relevante Spezifikation fuer Status, Tags, Feedback, Callouts,
+  Dokumentzeilen, Facts und Timelines.
+
 ## Subkonzept F23.1 - Component Catalogue
 
 Quelle: `docs/design-system/Mock/pages/components.html`.
@@ -37,12 +45,14 @@ Komponentenfamilien:
 
 Regel:
 
-Jede Komponente muss Zustände, Privacy-Grenze, Accessibility und
+Jede Komponente muss Zustaende, Privacy-Grenze, Accessibility und
 mobile/desktop Verhalten kennen.
 
 ## Subkonzept F23.2 - Buttons and Command Hierarchy
 
 Quelle: `docs/design-system/Mock/pages/component-buttons.html`.
+
+Detaillierte build-relevante Spezifikation: `CONCEPT_F26_BUTTON_FAMILY.md`.
 
 Button-Rollen:
 
@@ -93,6 +103,9 @@ Regeln:
 
 Quelle: `docs/design-system/Mock/pages/component-status.html`.
 
+Detaillierte build-relevante Spezifikation:
+`CONCEPT_F34_STATUS_TAGS_FEEDBACK_AND_DATA_DISPLAY.md`.
+
 Statusfamilien:
 
 - Draft/Review.
@@ -114,6 +127,9 @@ Regeln:
 
 Quelle: `docs/design-system/Mock/pages/component-tags.html`.
 
+Detaillierte build-relevante Spezifikation:
+`CONCEPT_F34_STATUS_TAGS_FEEDBACK_AND_DATA_DISPLAY.md`.
+
 Unterscheidung:
 
 | Element | Zweck |
@@ -132,6 +148,9 @@ Regeln:
 ## Subkonzept F23.5 - Feedback and Callouts
 
 Quelle: `docs/design-system/Mock/pages/component-feedback.html`.
+
+Detaillierte build-relevante Spezifikation:
+`CONCEPT_F34_STATUS_TAGS_FEEDBACK_AND_DATA_DISPLAY.md`.
 
 Primaere Feedbackformen:
 
@@ -161,6 +180,9 @@ Regeln:
 
 Quelle: `docs/design-system/Mock/pages/data-display.html`.
 
+Detaillierte build-relevante Spezifikation:
+`CONCEPT_F34_STATUS_TAGS_FEEDBACK_AND_DATA_DISPLAY.md`.
+
 Dokumentzeile:
 
 - Typ-Icon links.
@@ -187,7 +209,7 @@ F23 ist umgesetzt, wenn:
 
 - jede Komponentenfamilie als Flutter-Widget-Familie geplant ist.
 - keine Komponente eigene Farben, Icons oder Callout-Varianten erfindet.
-- Zustände leer, loading, error, disabled, selected, active und readonly
+- Zustaende leer, loading, error, disabled, selected, active und readonly
   risikobasiert abgedeckt sind.
 - Accessibility Labels und Tastaturbedienung fuer relevante Komponenten stehen.
 - Widget-Tests oder visuelle Tests fuer zentrale Varianten existieren.

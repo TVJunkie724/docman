@@ -2,8 +2,8 @@
 title: "Konzept F25 - Accessibility, Product Patterns and Visual QA"
 description: "Ordna Accessibility-, Privacy-, Product-Pattern- und visuelle QA-Gates fuer enterprise-grade UI-Umsetzung"
 tags: [concept, frontend, design-system, accessibility, patterns, visual-qa, privacy, production-readiness]
-lastUpdated: "2026-06-17"
-version: "1.0"
+lastUpdated: "2026-06-22"
+version: "1.1"
 status: "accepted"
 ---
 
@@ -26,6 +26,12 @@ Ordna verwaltet sensible Haushaltsdokumente. UI-Qualitaet bedeutet hier:
 - keine ueberlappenden langen Labels.
 - klare Fehler- und Empty-States.
 - konsistente visuelle Patterns fuer produktkritische Workflows.
+
+Detailkonzept:
+
+- `CONCEPT_F35_PRODUCT_PATTERNS_ACCESSIBILITY_AND_VISUAL_QA_DETAIL.md` ist die
+  build-relevante Detail-Spezifikation fuer Product Patterns, Accessibility
+  Gates, Privacy UI Gates, Visual QA, Handoff und Audit.
 
 ## Subkonzept F25.1 - Product Patterns
 
@@ -104,8 +110,7 @@ Ein UI-Agent muss im Handoff nennen:
 
 F25 ist umgesetzt, wenn:
 
-- UI-Pläne Accessibility- und Privacy-Gates enthalten.
+- UI-Plaene Accessibility- und Privacy-Gates enthalten.
 - visuelle Tests oder Screenshots Teil der Definition of Done sind.
 - zentrale Product Patterns nicht durch isolierte Screens widersprochen werden.
 - Audits konkrete Dateien, Screens, Zustaende und Tests pruefen koennen.
-

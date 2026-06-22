@@ -2,8 +2,8 @@
 title: "Konzept F24 - Form Family"
 description: "Draft-Konzept fuer die noch auszuarbeitende Ordna Form Family, inklusive Feldfamilien, Validierung, Review, Suggestions und Accessibility"
 tags: [concept, frontend, design-system, forms, validation, review, accessibility, draft]
-lastUpdated: "2026-06-19"
-version: "0.4"
+lastUpdated: "2026-06-22"
+version: "0.6"
 status: "draft"
 ---
 
@@ -17,6 +17,11 @@ Die aktuelle Mock-Seite `component-forms.html` ist als Form-Family-Workbench
 ausgearbeitet. F24 bleibt trotzdem `draft`, bis die Form Family visuell
 reviewt, gegen echte Flutter-Zielkomponenten geplant und in einem
 UI-Architekturplan freigegeben wurde.
+
+Einzelne Detailkonzepte unterhalb von F24 duerfen bereits `accepted` sein,
+wenn ihr Slice vollstaendig beschrieben und gegen den Mock abgeglichen wurde.
+Diese akzeptierten Detailkonzepte sind fuer ihren Scope build-relevant, auch
+solange F24 als Umbrella noch `draft` bleibt.
 
 ## Zweck
 
@@ -90,6 +95,19 @@ F24 muss daraus die visuelle und interaktive Form Family ableiten:
 - Review suggestion fields.
 - Sensitive fields.
 - Readonly technical fields.
+
+Detailkonzepte:
+
+- `CONCEPT_F27_FORM_FIELD_ANATOMY_VALIDATION.md` definiert Field Anatomy,
+  Required Policy, Validation States, Review Gates und privacy-safe Form
+  Feedback.
+- `CONCEPT_F28_FORM_PICKERS_AND_SELECTION_CONTROLS.md` definiert Dropdowns,
+  Comboboxes, Multi-Select, Person-/Relation-Picker, Radio-/Checkbox-Buttons,
+  Switches, Segments, Command Rows und Disclosure.
+- `CONCEPT_F29_FORM_DATE_TIME_FILE_SCAN_CONTROLS.md` definiert Date/Time,
+  Recurrence, Reminder, File Picker, Scan Mode, Upload Queue und Permissions.
+- `CONCEPT_F30_FORM_FACTS_LAYOUTS_AND_ASSISTED_REVIEW.md` definiert
+  numerische Facts, Assisted Review, Layouts und Enterprise Edge States.
 
 Tag-Farbregel:
 
@@ -321,7 +339,7 @@ Im Mock angelegt:
 - Conflict Resolution.
 - Mobile Capture Minimal Form.
 
-Noch zu detaillieren:
+In spaeteren konkreten UI-Architekturplaenen zu vertiefen:
 
 - Vorgang erstellen/bearbeiten als eigener Screen.
 - Dokument-Metadaten im Zusammenspiel mit Preview.

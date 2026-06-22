@@ -2,8 +2,8 @@
 title: "Konzept F21 - Foundations, Tokens and Visual Primitives"
 description: "Ordna Foundations fuer Farben, Typografie, Icons, Spacing, Radius, Elevation und Token-Promotion in Flutter"
 tags: [concept, frontend, design-system, tokens, typography, icons, spacing, colors]
-lastUpdated: "2026-06-17"
-version: "1.0"
+lastUpdated: "2026-06-22"
+version: "1.1"
 status: "accepted"
 ---
 
@@ -20,6 +20,12 @@ aber verbindlich fuer jede spaetere Theme-/Token-Implementierung.
 
 Foundations verhindern, dass jede Komponente eigene Farben, Abstaende, Radien,
 Icons oder Schriftgroessen erfindet.
+
+Detailkonzept:
+
+- `CONCEPT_F32_FOUNDATIONS_TOKENS_TYPOGRAPHY_ICONS.md` ist die
+  build-relevante Detail-Spezifikation fuer Palette, semantische Tokens,
+  Typografie, Lucide Icon Map, Spacing, Radius, Density und Elevation.
 
 ## Subkonzept F21.1 - Foundations Overview
 
@@ -146,4 +152,3 @@ F21 ist umgesetzt, wenn:
 - die wichtigsten Tokens in Widget-Tests oder visuellen Golden-/Screenshot-
   Gates pruefbar sind.
 - Dark Mode und Plattformvariation nicht verbaut werden.
-

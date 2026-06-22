@@ -2,8 +2,8 @@
 title: "Konzept F22 - Product Shell and Navigation"
 description: "Ordna App Shell, Desktop/Mobile Navigation, Arbeitskontexte, Sidebar, Tabs, Segments und responsive Verhalten"
 tags: [concept, frontend, design-system, shell, navigation, responsive, desktop, mobile]
-lastUpdated: "2026-06-17"
-version: "1.0"
+lastUpdated: "2026-06-22"
+version: "1.1"
 status: "accepted"
 ---
 
@@ -20,6 +20,13 @@ aber verbindlich fuer die Shell- und Navigationsrichtung.
 
 Ordna startet in Arbeit, nicht in Marketing. Nutzerinnen sollen direkt Eingang,
 Vorgaenge, Dokumente, Aufgaben, Suche oder Profile erreichen.
+
+Detailkonzept:
+
+- `CONCEPT_F33_SHELL_NAVIGATION_AND_WORKSPACE_LAYOUT.md` ist die
+  build-relevante Detail-Spezifikation fuer Desktop/Mobile Shell,
+  Hauptbereiche, Navigation Controls, responsive Verhalten und Privacy-Regeln
+  der Shell.
 
 ## Subkonzept F22.1 - Product Shell
 
@@ -104,4 +111,3 @@ F22 ist umgesetzt, wenn:
 - FilterTabs, Segments, Breadcrumbs und Command Rows klare Einsatzregeln haben.
 - Privacy-Regeln fuer Shell-Status eingehalten werden.
 - Responsive Screenshots oder visuelle Tests Desktop und Mobile abdecken.
-
