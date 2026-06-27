@@ -31,6 +31,7 @@ Check every criterion:
 16. Planned tests pass.
 17. Every Definition of Done item is complete.
 18. No leftover TODO/FIXME/HACK comments, commented-out code, or debug prints.
+19. New code does not add to known R3 analyzer/format debt.
 
 ## Process
 
@@ -40,11 +41,13 @@ Check every criterion:
 4. Run verification commands:
 
 ```bash
-flutter analyze
+scripts/verify.sh
 flutter test
 rg "\\bprint\\(" lib test
 rg "TODO|FIXME|HACK" lib test
 ```
+
+If `scripts/verify.sh` fails from known legacy debt, separate baseline debt from regressions introduced by the implementation.
 
 5. Review from architect and builder perspectives.
 6. Produce concrete findings with file, line, evidence, severity, and fix.

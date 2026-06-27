@@ -2,8 +2,8 @@
 title: "DocMan - Project Overview & Product Guide"
 description: "Strategischer Überblick über Produktziel, Grundannahmen, kritische Entscheidungen, aktuellen Zustand und empfohlene Richtung für DocMan"
 tags: [overview, guide, product, strategy, planning]
-lastUpdated: "2026-04-27"
-version: "2.1"
+lastUpdated: "2026-05-12"
+version: "2.4"
 ---
 
 # DocMan - Project Overview & Product Guide
@@ -16,7 +16,8 @@ Es ist bewusst kritisch. DocMan hat eine starke Produktidee, aber der aktuelle S
 
 ## 2. Produktthese
 
-DocMan ist derzeit der Arbeitsname. Der finale Produktname ist noch offen und wird separat entschieden.
+DocMan ist derzeit der technische Repo-/Workspace-Name. Der Produktname ist
+entschieden: Die App heißt langfristig `Ordna`.
 
 Das Produkt sollte eine ruhige, robuste Dokumenten-App für Familien und Haushalte werden.
 
@@ -41,7 +42,7 @@ Das bisherige Modell `Incident` beschreibt technisch den richtigen Container, ab
 
 - `Case` / Vorgang: Der langlebige Container.
 - `Event` / Ereignis: Ein Zeitpunkt oder Eintrag in der Vorgangs-Historie.
-- `Document` / Dokument: Ein Anhang oder Nachweis.
+- `Document` / Dokument: Eine Unterlage, Datei, Scan, Beleg oder Nachweis.
 - `Task` / Aufgabe: Ein nächster Schritt.
 
 Die technische Struktur bleibt sinnvoll:
@@ -59,43 +60,91 @@ Household
 
 Entscheidung dokumentiert in: `docs/technical/DECISION_PRODUCT_LANGUAGE.md`.
 
+### 3.1 DMS-Zielarchitektur
+
+DocMan beziehungsweise Ordna wird nicht nur als App mit Dokumentanhängen geplant.
+Das langfristige Ziel ist ein vollwertiges privates Dokumentenmanagementsystem
+für Haushalt, Personen, Vorgänge, Fristen, Wissen, Auswertungen und Aktionen.
+
+Die fachliche Zielstruktur ist:
+
+```text
+Capture / Import
+  -> Inbox / Review
+      -> DocumentRecord
+          -> FileRecord / DocumentVersion
+          -> Record / Nachweis
+          -> Case / Vorgang
+          -> Profile / Person
+          -> DocumentFact
+          -> Task / Reminder
+          -> Search / Insights
+          -> Export / External Action
+```
+
+Ein Dokument gehört langfristig nicht genau einem Vorgang. Es kann in mehreren
+Kontexten sichtbar sein: in einem Vorgang, in einem Subvorgang, im Profil eines
+Kindes, als Version eines Records, in einer Versicherungs-/Claim-Auswertung,
+im Schnellzugriff oder in einem Exportpaket. Dateien werden dabei nicht
+dupliziert; Beziehungen tragen die fachliche Bedeutung.
+
+Die M2-Implementierung darf vereinfachen, aber sie darf diese Zielarchitektur
+nicht verbauen. Insbesondere werden Inbox und Outbox als Arbeitsflächen geplant,
+nicht als eigentliche Besitzstruktur der Dokumente.
+
+Entscheidung dokumentiert in: `docs/technical/DECISION_DMS_TARGET_ARCHITECTURE.md`.
+
 ## 4. Empfohlene Produktprinzipien
 
-### 4.1 Local-first mit backend-agnostischem Sync
+### 4.1 Private-first mit backend-agnostischem Sync
 
 DocMan verwaltet private, langfristig wichtige Dokumente. Deshalb sollte die lokale App auch ohne Server sinnvoll funktionieren.
 
-**Entscheidung:** DocMan wird local-first. Die lokale Datenbank ist die Quelle der Wahrheit für die App-Nutzung. Sync ist Replikation, Backup und Multi-Geräte-Funktion, nicht die Voraussetzung dafür, dass die App nutzbar ist.
+**Entscheidung:** Ordna wird private-first, offline-capable und service-ready.
+Local-only bleibt ein unterstuetzter Betriebsmodus, aber nicht das gesamte
+Produktziel. Sync, Backup, Sharing und intelligente Assistenz brauchen spaeter
+eine klar modellierte Service-Schicht.
 
 Die stabile Produktgrenze ist nicht Tailscale und nicht der Home Hub, sondern ein generisches DocMan Sync Backend. Der Home Hub ist die erste empfohlene Self-Hosted-Betriebsform. Tailscale ist die empfohlene private Netzwerkvariante für frühe Setups ohne offene Firewall-Ports, aber kein Produktbestandteil und keine Architekturabhängigkeit.
 
 ```text
-Local database = source of truth
-DocMan Sync Backend = replication / backup / multi-device
+Ordna Client = lokale Arbeitsfaehigkeit / lokale Replik
+DocMan Sync Backend = replication / backup / multi-device / sharing
+Processing Layer = on-device / Home Hub / managed intelligence
 
 Backend variants:
+  - local-only single-device mode
   - Home Hub on NAS / home server
   - VPS / hosted private server
-  - Single-device mode without sync backend
+  - Managed Ordna Cloud as later comfort mode
 ```
 
-Entscheidung dokumentiert in: `docs/technical/DECISION_DATA_FLOW.md`.
+Entscheidung dokumentiert in: `docs/technical/DECISION_DATA_FLOW.md` und
+`docs/technical/DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md`.
 
 ### 4.2 Desktop-Verwaltung plus Mobile Capture
 
 Desktop ist der Ort für Sortieren, Prüfen, Suchen, Zuweisen und Verwalten. Mobile ist der schnelle Eingang für Scans unterwegs.
 
-**Entscheidung:** Mobile Capture gehört in den MVP, aber nicht als vollständige mobile Verwaltungs-App. Der MVP enthält eine capture-only Mobile-App mit lokaler Upload-Queue, minimalem Home-Hub-Upload und optionaler Vorgangszuordnung.
+**Entscheidung:** Mobile Capture gehört in den M2, aber nicht als vollständige mobile Verwaltungs-App. Der M2 enthält eine capture-only Mobile-App mit lokaler Upload-Queue, minimalem Home-Hub-Upload und optionaler Vorgangszuordnung.
 
-Draft-Inbox bleibt der sichere Standard. Wenn eine einfache, gecachte Liste offener Vorgänge verfügbar ist, darf Mobile einen Scan direkt einem Vorgang zuordnen. Vollständige mobile Vorgangsverwaltung und echter Multi-Geräte-Sync bleiben post-MVP.
+Draft-Inbox bleibt der sichere Standard. Wenn eine einfache, gecachte Liste offener Vorgänge verfügbar ist, darf Mobile einen Scan direkt einem Vorgang zuordnen. Vollständige mobile Vorgangsverwaltung und echter Multi-Geräte-Sync bleiben spaetere Milestones.
 
-Entscheidung dokumentiert in: `docs/technical/DECISION_MVP_SCOPE.md`.
+Entscheidung dokumentiert in: `docs/technical/DECISION_FIRST_UTILITY_SCOPE.md`.
 
-### 4.3 Self-hosted Server statt Cloud-Produkt
+### 4.3 Private Infrastruktur zuerst, Managed Cloud vorbereiten
 
-DocMan soll nicht als Cloud-SaaS geplant werden. Die Zielrichtung ist ein selbst betriebener Server-Stack auf vorhandener Infrastruktur: NAS, Mini-Server oder größerer Heimserver, vorzugsweise als Docker-/Compose-Setup.
+DocMan soll nicht mit Cloud-SaaS als erster Voraussetzung starten. Die erste
+Zielrichtung bleibt ein selbst betriebener Server-Stack auf vorhandener
+Infrastruktur: NAS, Mini-Server oder größerer Heimserver, vorzugsweise als
+Docker-/Compose-Setup.
 
-**Entwurf:** Der erste MVP braucht wegen Mobile Capture einen minimalen Home-Hub-Anteil als Eingangskorb. Das ist noch kein vollständiges Sync Backend. Der spätere Server wird trotzdem früh grob mitgeplant, damit lokale IDs, Dokumentablage, Sync-Journal, Upload-Queue und Review-Flows nicht später gegen die Produktlogik arbeiten.
+Gleichzeitig darf die Architektur eine spaetere Managed Ordna Cloud nicht
+verbauen. Fuer komfortablen Account-Sync, Cloud-Backup, account-uebergreifendes
+Sharing und hochwertige LLM-/OCR-Assistenz ist eine Managed-Service-Schicht
+wahrscheinlich produktstrategisch wichtig.
+
+**Entwurf:** Der erste M2 braucht wegen Mobile Capture einen minimalen Home-Hub-Anteil als Eingangskorb. Das ist noch kein vollständiges Sync Backend. Der spätere Server wird trotzdem früh grob mitgeplant, damit lokale IDs, Dokumentablage, Sync-Journal, Upload-Queue und Review-Flows nicht später gegen die Produktlogik arbeiten.
 
 Der langfristige Server-Stack ist nicht PocketBase als Produktkern, sondern ein eigener DocMan Server Stack:
 
@@ -112,7 +161,16 @@ DocMan Server Stack
 
 PocketBase kann als frühe Referenz oder Spike gelten, ist aber nach aktuellem Entwurf nicht Zielarchitektur.
 
-Entwurf dokumentiert in: `docs/technical/DECISION_BACKEND_ROLE.md`.
+Die konkrete Home-Hub-Zieltechnologie ist entschieden: ASP.NET Core fuer die
+API, PostgreSQL fuer Server-Metadaten und Sync-Journal, MinIO/S3-kompatibler
+Storage fuer Dateien und Microcks fuer OpenAPI-Mocks und Contract Verification.
+Worker starten bevorzugt als .NET Hosted Services / Worker Services; OCR- und
+AI-Komponenten duerfen spaeter als getrennte Sidecars hinzukommen.
+
+Entwurf zur Backend-Rolle dokumentiert in: `docs/technical/DECISION_BACKEND_ROLE.md`.
+Technologieentscheidung dokumentiert in: `docs/technical/DECISION_HOME_HUB_BACKEND_TECHNOLOGY.md`.
+Trust-/Verschluesselungsmodell dokumentiert in:
+`docs/technical/DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md`.
 
 ### 4.4 Workflows als Führung, nicht als Käfig
 
@@ -134,7 +192,11 @@ Entscheidung dokumentiert in: `docs/technical/DECISION_WORKFLOW_RULES.md`.
 
 KI kann DocMan später deutlich besser machen: OCR, Auto-Tagging, Status-Vorschläge, Dokumenterkennung und Vorschläge beim Ausfüllen von Formularen. Aber ohne stabile Dokumentstruktur erzeugt KI vor allem zusätzliche Unklarheit.
 
-**Empfehlung:** P7 bleibt aus dem MVP heraus, wird aber architektonisch als asynchrone, lokale Dokument-Pipeline vorgedacht. Die App übernimmt KI-Ergebnisse nicht still, sondern zeigt Vorschläge mit Review-Zustand.
+**Empfehlung:** P7 bleibt aus dem M2 heraus, wird aber architektonisch als
+asynchrone Processing-Pipeline vorgedacht. Die Pipeline kann on-device, auf dem
+Home Hub/private server oder spaeter als Managed Intelligence laufen. Die App
+übernimmt KI-Ergebnisse nicht still, sondern zeigt Vorschläge mit
+Review-Zustand.
 
 ```text
 Document upload
@@ -175,14 +237,15 @@ Enthält:
 - Trennung von Mock-UI und Produkt-UI.
 - Minimale Tests, die zum aktuellen Projekt passen.
 
-### Stufe 1 - MVP: Desktop-Kern plus Mobile Capture
+### Stufe 1 - M2: Desktop-Kern plus Mobile Capture
 
-Ziel: Eine Person kann Dokumente unterwegs mobil erfassen und am Desktop zuverlässig verwalten.
+Ziel: Dokumente koennen unterwegs mobil erfasst und am Desktop zuverlässig
+geprüft, einer betroffenen Person zugeordnet und verwaltet werden.
 
 Enthält:
 
 - Ein Haushalt.
-- Ein aktives Profil.
+- Betroffene Person / Haushaltsprofil als Pflichtzuordnung je Dokument.
 - Vorgänge erstellen, bearbeiten, schließen.
 - Dokumente als Draft erfassen.
 - Dokumente einem Vorgang zuordnen.
@@ -241,16 +304,20 @@ Enthält:
 
 ## 6. Dokumentationslage
 
-Aktuell gibt es vier aktive Ebenen:
+Aktuell gibt es mehrere aktive Ebenen:
 
 - Rebuild-Roadmap unter `docs/ROADMAP_REBUILD.md`.
+- Phasen-/Subphasen-Index unter `docs/roadmap/PHASE_INDEX.md`.
+- Säulen-Roadmap unter `docs/roadmap/PILLAR_ROADMAP_INDEX.md`.
+- Wettbewerbs- und Positionierungsnotizen unter
+  `docs/COMPETITIVE_POSITIONING.md`.
 - Foundation-Konzepte unter `docs/concepts/CONCEPT_F*.md`.
 - Technische Decisions und Foundation-Plan unter `docs/technical/`.
 - Projektlokale Codex-Skills unter `.codex/skills/`.
 
 Die alten Produkt-Roadmaps und der alte Refactoring-Plan wurden entfernt, weil sie noch `Incident`, PocketBase/OAuth, BLoC/GetIt oder andere überholte Annahmen enthielten. `ROADMAP_REBUILD.md` ist die aktive Roadmap.
 
-**Entscheidung:** Die vorhandenen `docs/concepts/CONCEPT_F*.md` bleiben als benötigte Konzept-Slots erhalten und wurden DocMan-spezifisch neu geschrieben: local-first, self-hosted, Riverpod, Desktop-Verwaltung plus Mobile Capture, minimaler Home-Hub-Eingangskorb und spätere OCR-/LLM-Pipeline.
+**Entscheidung:** Die vorhandenen `docs/concepts/CONCEPT_F*.md` bleiben als benötigte Konzept-Slots erhalten und wurden DocMan-spezifisch neu geschrieben: private-first/local-capable, self-hosted zuerst, Riverpod, Desktop-Verwaltung plus Mobile Capture, minimaler Home-Hub-Eingangskorb und spätere OCR-/LLM-Pipeline.
 
 Entscheidung dokumentiert in: `docs/technical/DECISION_FOUNDATION_CONCEPT_REWRITE.md`.
 
@@ -315,10 +382,10 @@ Meine vorgeschlagene Richtung:
 
 1. Produktbegriff umstellen: `Case` im Code, "Vorgang" im UI, `Event`/"Ereignis" für Timeline-Einträge.
 2. Riverpod als Zielarchitektur setzen und BLoC/GetIt nicht weiter ausbauen.
-3. MVP eng schneiden, aber Mobile Capture als Haupt-Use-Case aufnehmen.
-4. Local-first als Architekturzentrum setzen.
-5. Sync backend-agnostisch halten; Home Hub ist erste Betriebsform, nicht Produktgrenze.
-6. KI konsequent verschieben.
+3. M2 eng schneiden, aber Mobile Capture als Haupt-Use-Case aufnehmen.
+4. Private-first als Produktzentrum setzen; Local-only bleibt ein Betriebsmodus.
+5. Sync, Backup, Sharing und Processing backend-agnostisch halten; Home Hub ist erste Betriebsform, nicht Produktgrenze.
+6. KI aus M2 verschieben, aber als Trust-/Processing-Schicht frueh modellieren.
 7. Workflows als Empfehlungen gestalten.
 8. Erst Foundation stabilisieren, dann Features bauen.
 9. Dokumentation zur Quelle der Wahrheit machen, aber alte importierte Konzepte nicht blind übernehmen.
@@ -327,18 +394,19 @@ Meine vorgeschlagene Richtung:
 
 | ID | Entscheidung | Empfehlung | Priorität |
 |---|---|---|---|
-| D0 | Produktname | Offen: `DocMan` bleibt Arbeitsname, finaler Name wird separat entschieden | Mittel |
+| D0 | Produktname | Entschieden: Produktname ist `Ordna`; `DocMan` bleibt vorerst technischer Repo-/Workspace-Name | Erledigt |
 | D1 | Zentraler Begriff | Entschieden: `Case` im Code, "Vorgang" im UI, `Event`/"Ereignis" für Timeline-Einträge | Erledigt |
 | D2 | State Management und DI | Entschieden: Riverpod ersetzt BLoC/GetIt als Zielarchitektur | Erledigt |
-| D3 | Datenfluss | Entschieden: local-first mit generischem DocMan Sync Backend; Home Hub/Tailscale nur erste Self-Hosted-Betriebsform | Erledigt |
-| D4 | Backend-Rolle | Entwurf: eigener self-hosted DocMan Server Stack per Docker/Compose; PocketBase nicht als Zielarchitektur | Hoch |
-| D5 | MVP-Scope | Entschieden: Desktop-Verwaltung plus Mobile Capture, minimaler Home-Hub-Eingangskorb, optionale Vorgangszuordnung | Erledigt |
-| D6 | Erweiterte Mobile-Verwaltung | Nach MVP und stabilem Sync planen | Mittel |
+| D3 | Datenfluss | Entschieden: private-first, offline-capable und service-ready; Local-only, Home Hub und spaetere Managed Cloud duerfen durch Data-/Processing-/Identity-Ports austauschbar bleiben | Erledigt |
+| D4 | Backend-Rolle | Entwurf: eigener self-hosted DocMan Server Stack per Docker/Compose; Home-Hub-Technologie akzeptiert als ASP.NET Core + PostgreSQL + MinIO/S3 + Microcks; PocketBase nicht als Zielarchitektur | Hoch |
+| D5 | First Utility Scope | Entschieden: Capture and Review Core plus Mobile Capture, minimaler Home-Hub-Eingangskorb, optionale Vorgangszuordnung | Erledigt |
+| D6 | Erweiterte Mobile-Verwaltung | Nach M2 und stabilem Sync planen | Mittel |
 | D7 | Workflow-Regeln | Entschieden: Empfehlungen und Review statt harte Status-Käfige; harte Regeln nur für Integrität/Sicherheit | Erledigt |
-| D8 | KI-Scope | Entschieden: nicht MVP, aber lokale/self-hosted Pipeline vorbereiten | Erledigt |
+| D8 | KI-Scope | Entschieden: nicht M2, aber Processing-Pipeline fuer on-device, Home Hub und spaetere Managed Intelligence vorbereiten | Erledigt |
 | D9 | Alte Foundation-Konzepte | Entschieden: Konzept-Slots behalten, Inhalte DocMan-spezifisch neu schreiben; alte Inhalte sind nicht Source of Truth | Erledigt |
-| D10 | Remote-Sync sensibler Daten | Entschieden: MVP-Sync nur private Home-Hub-Umgebung; Datenklassen und Secrets getrennt | Erledigt |
+| D10 | Remote-Sync sensibler Daten | Entschieden: M2-Sync nur private Home-Hub-Umgebung; Datenklassen und Secrets getrennt | Erledigt |
 | D11 | Security-/Privacy-Baseline | Entschieden: Security-by-Design, sensible Datenklassen, Secure Storage, log-sparsam, E2EE-/Zero-Knowledge-faehig vorbereiten | Erledigt |
+| D12 | Trust-/Verschluesselungs-/Deployment-Modell | Entschieden: austauschbare Data-/Processing-/Identity-Ports, Key-Management, E2EE-/Zero-Knowledge-faehiger Sync/Backup/Sharing, eIDAS/EUDI/ID-Austria-faehige Identity-Schicht | Erledigt |
 
 ## 11. Aktive Dokumente und nächste Drafts
 
@@ -346,13 +414,16 @@ Diese Dokumente bilden die aktive Orientierung. Die Drafts am Ende müssen vor R
 
 ```text
 docs/ROADMAP_REBUILD.md
+docs/roadmap/PHASE_INDEX.md
+docs/roadmap/PILLAR_ROADMAP_INDEX.md
 docs/technical/TECHNICAL_FOUNDATION_PLAN.md
 docs/technical/R2_TECHNICAL_FOUNDATION_IMPLEMENTATION_PLAN.md
 docs/technical/DECISION_PRODUCT_NAME.md
+docs/technical/DECISION_HOME_HUB_BACKEND_TECHNOLOGY.md
 docs/technical/DECISION_STATE_MANAGEMENT.md
 docs/technical/DECISION_DATA_FLOW.md
 docs/technical/DECISION_BACKEND_ROLE.md
-docs/technical/DECISION_MVP_SCOPE.md
+docs/technical/DECISION_FIRST_UTILITY_SCOPE.md
 docs/technical/DECISION_FOUNDATION_CONCEPT_REWRITE.md
 docs/technical/DECISION_WORKFLOW_RULES.md
 docs/technical/DECISION_INTELLIGENCE_SCOPE.md

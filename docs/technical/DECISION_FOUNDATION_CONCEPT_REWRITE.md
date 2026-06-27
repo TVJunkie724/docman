@@ -33,11 +33,13 @@ Deshalb werden die Konzepte nicht kleinteilig geflickt und nicht als Legacy-Arch
 
 - Produktmodell: `Case` / Vorgang, `Event` / Ereignis.
 - State Management und DI: Riverpod.
-- Datenfluss: local-first mit generischem self-hosted Sync Backend.
+- Datenfluss: private-first, offline-capable und service-ready mit generischem
+  Sync Backend; Local-only, Home Hub und spaetere Managed Cloud duerfen durch
+  Data-/Processing-/Identity-Ports nicht verbaut werden.
 - Backend-Rolle: eigener self-hosted Docker-/Compose-Stack als Draft-Zielbild; PocketBase nicht Zielarchitektur.
-- MVP: Desktop-Verwaltung plus Mobile Capture.
-- Mobile: capture-only im MVP, direkte Vorgangszuordnung nur als Komfortpfad.
-- KI/OCR/LLM: nicht im MVP, aber als spätere lokale asynchrone Pipeline mitdenken.
+- M2: Desktop-Verwaltung plus Mobile Capture.
+- Mobile: capture-only im M2, direkte Vorgangszuordnung nur als Komfortpfad.
+- KI/OCR/LLM: nicht im M2, aber als spätere lokale asynchrone Pipeline mitdenken.
 - Cloud-SaaS ist aktuell nicht Teil der Produktplanung.
 
 ## Rewrite-Inventar
@@ -61,7 +63,7 @@ Deshalb werden die Konzepte nicht kleinteilig geflickt und nicht als Legacy-Arch
 | F14 Form Field Catalog | Neu geschrieben: DocMan-Formulare für Vorgänge, Dokumente, Profile, Review von Vorschlägen |
 | F15 Mock Repository Blueprint | Neu geschrieben: Mocks für UI, Offline-Flows, Capture Gateway und spätere Sync-Fälle |
 | F16 CI/CD Pipeline | Neu geschrieben: Flutter Checks, Dokumentationsqualität, später Backend/Compose Checks |
-| F17 Mobile Capture Plan | Neu erstellt: MVP-Mobile-Capture, Upload-Queue, Vorgangszuordnung, Capture Gateway, späterer Ausbau |
+| F17 Mobile Capture Client Standards | Neu erstellt: querschnittliche Client-Regeln fuer Scan-Qualitaet, Queue-Zustaende, Upload-Feedback und sichere M2-Grenzen |
 
 ## Reihenfolge
 
@@ -83,7 +85,7 @@ Empfohlene Rewrite-Reihenfolge:
 14. F16 CI/CD Pipeline.
 15. F8 Store & Distribution Compliance.
 16. F8b Review Access Strategy.
-17. F17 Mobile Capture Plan.
+17. F17 Mobile Capture Client Standards.
 
 ## Konsequenzen
 

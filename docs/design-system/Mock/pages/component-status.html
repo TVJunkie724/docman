@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ordna Status</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="panel">
+          <div class="eyebrow">Status Signals</div>
+          <h1>Status hilft beim Entscheiden, ohne private Details preiszugeben.</h1>
+          <div class="status-row">
+            <div class="status"><b><span class="dot warning"></span>Entwurf</b><p>Review noetig</p></div>
+            <div class="status"><b><span class="dot success"></span>Erledigt</b><p>Abgelegt</p></div>
+            <div class="status"><b><span class="dot info"></span>Sync</b><p>In Warteschlange</p></div>
+            <div class="status"><b><span class="dot privacy"></span>Sensibel</b><p>Redaction beachten</p></div>
+            <div class="status"><b><span class="dot danger"></span>Konflikt</b><p>Aufloesen</p></div>
+          </div>
+        </section>
+        <section class="panel">
+          <h2>Status Rules</h2>
+          <div class="visual-demo">
+            <div class="workflow-strip">
+              <span class="workflow-label past workflow-petrol">SCHEDULED</span>
+              <span class="workflow-arrow">&rarr;</span>
+              <span class="workflow-label past workflow-petrol-deep">ATTENDED</span>
+              <span class="workflow-arrow">&rarr;</span>
+              <span class="workflow-label current workflow-amber">PAYMENTDUE</span>
+              <span class="workflow-arrow">&rarr;</span>
+              <span class="workflow-label future">PAID</span>
+              <span class="workflow-arrow">&rarr;</span>
+              <span class="workflow-label future">SUBMITTEDPUBLIC</span>
+            </div>
+            <div class="app-frame">
+              <div class="app-frame-header">
+                <strong>Workflow Panel</strong>
+                <div class="workflow-mini-row">
+                  <span class="workflow-mini">SCHEDULED</span>
+                  <span class="workflow-mini">ATTENDED</span>
+                  <span class="workflow-mini active">PAYMENTDUE</span>
+                </div>
+              </div>
+              <div class="app-frame-body">
+                <div class="document-card"><div class="doc-title">Invoice_DrSmith.pdf</div><div class="meta">Workflow-Dokument im aktuellen Schritt</div></div>
+              </div>
+            </div>
+            <div class="document-card">
+              <div class="doc-title">Apothekenbeleg</div>
+              <div class="toolbar"><span class="task-badge warning">Einzureichen</span><span class="legacy-tag-chip outline">Gesundheit</span></div>
+            </div>
+            <div class="document-card">
+              <div class="doc-title">Versicherungspolizze</div>
+              <div class="toolbar"><span class="task-badge success">Aktuell</span><span class="task-badge privacy">Sensibel</span></div>
+            </div>
+            <div class="callout-card danger">
+              <div class="callout-token" data-callout-icon="error" aria-hidden="true"></div>
+              <div class="callout-body">
+                <strong>Konflikt</strong>
+                <p>Zwei Bearbeitungen muessen aufgeloest werden.</p>
+              </div>
+            </div>
+          </div>
+          <table class="token-table">
+            <tr><th>Status</th><th>Visible Where</th><th>Rule</th></tr>
+            <tr><td>Backup failed</td><td>Dashboard / Settings</td><td>Nicht still, aber keine Dokumentdetails.</td></tr>
+            <tr><td>Conflict</td><td>Dashboard nur wenn vorhanden</td><td>Link zur Konfliktansicht.</td></tr>
+            <tr><td>Workflow label</td><td>Vorgangdetail</td><td>Uppercase Badge, 20px Radius, Pfeile zwischen Schritten, aktueller Schritt mit Shadow.</td></tr>
+            <tr><td>Mini workflow badge</td><td>Workflow-Gruppenheader</td><td>8px Radius, uppercase, letzter/aktueller Status farbig.</td></tr>
+            <tr><td>Info / Sync</td><td>Queue, Verbindung, technischer Status</td><td>Petrol statt generischem Blau.</td></tr>
+            <tr><td>Privacy</td><td>Dokumentdetail / Export</td><td>Vor Export bewusst anzeigen.</td></tr>
+          </table>
+        </section>
+      </main>
+    </div>
+    <script src="../assets/js/navigation.js"></script>
+  </body>
+</html>

@@ -14,7 +14,7 @@ Accepted.
 
 ## Entscheidung
 
-DocMan-Workflows führen Nutzerinnen durch typische nächste Schritte, sind aber im MVP keine harten Status-Käfige.
+DocMan-Workflows führen Nutzerinnen durch typische nächste Schritte, sind aber im M2 keine harten Status-Käfige.
 
 Workflows dürfen:
 
@@ -43,7 +43,7 @@ Beispiele:
 
 ## Konsequenzen
 
-- MVP-Workflows sind leichtgewichtig.
+- M2-Workflows sind leichtgewichtig.
 - Status und Aufgaben helfen beim Sortieren, ersetzen aber nicht Nutzerentscheidung.
 - Konflikte und unsichere Automationen landen in Review.
 - Spätere Intelligence erzeugt Vorschläge, keine stillen Entscheidungen.

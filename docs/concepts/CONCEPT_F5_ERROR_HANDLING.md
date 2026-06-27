@@ -2,8 +2,8 @@
 title: "Konzept F5 - Error Handling"
 description: "DocMan-spezifisches Fehlerkonzept für Result/Failure, Offline-Betrieb, lokale Persistenz, Upload Queue, Home Hub und Nutzer-Feedback"
 tags: [concept, foundation, error-handling, failure, offline, upload-queue, home-hub]
-lastUpdated: "2026-04-26"
-version: "3.0"
+lastUpdated: "2026-05-05"
+version: "3.1"
 status: "accepted"
 ---
 
@@ -20,6 +20,8 @@ Dieses Konzept ersetzt den importierten F5-Inhalt aus dem alten Projekt.
 F5 definiert, wie DocMan Fehler fachlich, technisch und in der UI behandelt.
 
 DocMan verwaltet private Dokumente. Fehler dürfen deshalb nicht zu Datenverlust, stillen Überschreibungen oder unklaren Zuständen führen.
+
+F18 ergänzt F5 um UserNotifications, Telemetry Events, Audit Events, Correlation IDs und das Observability-Zielbild. F5 bleibt die Quelle für Failure-Kategorien und fachliches Fehlerverhalten.
 
 ## Grundsatz
 
@@ -123,9 +125,11 @@ UI-Feedback folgt Schwere und Handlungsbedarf.
 
 Keine UI zeigt technische Stacktraces im Produktpfad.
 
-## Logging-Grenze
+Details zum Mapping von Failure zu `UserNotification`, Notification-Kanälen, Retry-Aktionen und persistenten Hinweisen stehen in `CONCEPT_F18_NOTIFICATIONS_FAILURES_OBSERVABILITY.md`.
 
-F5 definiert die Fehlerklassifikation. F7 definiert Logging im Detail.
+## Logging- und Observability-Grenze
+
+F5 definiert die Fehlerklassifikation. F7 definiert Logging im Detail. F18 definiert Telemetry, Audit, Correlation IDs und Observability.
 
 Schon jetzt gilt:
 
@@ -133,6 +137,7 @@ Schon jetzt gilt:
 - keine Tokens oder Pairing Secrets in Logs.
 - Dateinamen können sensibel sein und werden bewusst behandelt.
 - technische Details dürfen in Diagnose-Logs, aber nicht in normale Nutzertexte.
+- Audit Events sind kein normales Logging und werden in F18 separat behandelt.
 
 ## Riverpod-Integration
 
@@ -163,4 +168,4 @@ F5 gilt als umgesetzt, wenn:
 - Wie werden Failures serialisiert, falls Queue-Fehler persistent bleiben?
 - Welche Fehlertexte brauchen Lokalisierung?
 - Welche Failures werden später an Home-Hub-Diagnose gemeldet?
-
+- Welche Failures erzeugen UserNotifications, TelemetryEvents oder AuditEvents nach F18?

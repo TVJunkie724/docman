@@ -20,7 +20,7 @@ Der konkrete R2-Implementation-Plan liegt in `docs/technical/R2_TECHNICAL_FOUNDA
 
 Der aktuelle Spike wird in eine saubere, local-first, Riverpod-basierte DocMan-Basis überführt.
 
-Die Foundation muss den MVP ermöglichen:
+Die Foundation muss den M2 ermöglichen:
 
 - Desktop-Verwaltung.
 - Mobile Capture.
@@ -41,7 +41,7 @@ Die Foundation muss den MVP ermöglichen:
 - F11 API Integration.
 - F12 Secure Storage.
 - F15 Mock Repository Blueprint.
-- F17 Mobile Capture Plan.
+- F17 Mobile Capture Client Standards.
 - DECISION_SECURITY_PRIVACY_MODEL.
 - Decisions unter `docs/technical/`.
 
@@ -55,7 +55,7 @@ Deliverables:
 
 - Alte Roadmaps/Refactoring-Pläne entfernt.
 - `ROADMAP_REBUILD.md` ist primäre Roadmap.
-- F1-F17 sind die aktiven Foundation-Konzepte.
+- F1-F17 sind die aktiven Foundation-/Frontend-Konzepte; fachliche Produktbereiche liegen zusätzlich unter `docs/pillars/`.
 - README wird später auf neue Richtung gebracht.
 
 Akzeptanz:
@@ -129,7 +129,7 @@ Akzeptanz:
 
 ### R2.6 Config, Secure Storage und Pairing-Vorbereitung
 
-Ziel: MVP-Setup ohne Cloud-OAuth vorbereiten und die Security-/Privacy-Baseline einhalten.
+Ziel: M2-Setup ohne Cloud-OAuth vorbereiten und die Security-/Privacy-Baseline einhalten.
 
 Deliverables:
 
@@ -159,7 +159,7 @@ Deliverables:
 
 Akzeptanz:
 
-- MVP-Screens können gegen Fakes geplant/getestet werden.
+- M2-Screens können gegen Fakes geplant/getestet werden.
 - Fake-Modus ist klar von Produktmodus getrennt.
 
 ### R2.8 Testbasis

@@ -2,7 +2,7 @@
 title: "Decision - Product Language"
 description: "Entscheidung zu zentralen Fachbegriffen in DocMan: Case, Vorgang, Event, Ereignis"
 tags: [decision, product-language, domain-model]
-lastUpdated: "2026-04-24"
+lastUpdated: "2026-06-10"
 status: "accepted"
 ---
 
@@ -24,6 +24,8 @@ DocMan verwendet künftig diese zentralen Begriffe:
 | Deutsche UI | Ereignis | Nutzer sichtbarer Name für `Event` |
 | Code / Domain | `Document` | Dokument, Datei oder Nachweis |
 | Deutsche UI | Dokument | Nutzer sichtbarer Name für `Document` |
+| Code / Domain | `Record` | langlebiger fachlicher Gegenstand mit Versionen |
+| Deutsche UI | Unterlage / Unterlagen | Nutzer sichtbarer Name fuer `Record`; im Profilkontext "Persoenliche Unterlagen" |
 | Code / Domain | `Task` | Nächster Schritt oder Aufgabe |
 | Deutsche UI | Aufgabe | Nutzer sichtbarer Name für `Task` |
 
@@ -51,6 +53,8 @@ Household
 
 - Neue Konzepte und Implementationspläne verwenden `Case` statt `Incident`.
 - Deutsche UI-Texte verwenden "Vorgang".
+- Deutsche UI-Texte verwenden "Unterlagen" fuer `Record`; "Nachweis" ist eine
+  spezifische Art von Unterlage.
 - `Event` bleibt für Timeline, Historie und punktuelle Vorgangsereignisse reserviert.
 - Bestehender Code mit `Incident` wird nicht spontan umbenannt. Die Umstellung wird später als eigene Refactoring-Phase geplant.
 - Alte Roadmaps mit `Incident`-Sprache wurden entfernt. `Incident` bleibt nur noch als bestehender Code- und Migrationskontext sichtbar.
@@ -59,4 +63,4 @@ Household
 
 - Wann wird bestehender Code von `Incident*` auf `Case*` migriert?
 - Wird die Datenbank-Migration die Umbenennung physisch vollziehen oder zunächst Alias-/Kompatibilitätsschichten nutzen?
-- Welche Ereignistypen braucht ein `Case` im MVP?
+- Welche Ereignistypen braucht ein `Case` im M2?

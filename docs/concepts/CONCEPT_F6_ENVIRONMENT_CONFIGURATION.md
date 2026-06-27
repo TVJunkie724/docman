@@ -46,7 +46,7 @@ Konfiguration muss deshalb:
 | Modus | Zweck |
 |---|---|
 | Local Only | Desktop-App ohne Home Hub, lokale Arbeit |
-| Home Hub Connected | MVP mit Mobile Capture Upload |
+| Home Hub Connected | M2 mit Mobile Capture Upload |
 | Dev Fake | UI-/Provider-Entwicklung ohne echten Server |
 | Integration | Tests gegen lokalen Home-Hub/Compose-Stack |
 
@@ -94,5 +94,5 @@ F6 gilt als umgesetzt, wenn:
 
 - Welche konkrete Config-Datei-/Dart-define-Strategie verwenden wir?
 - Wie wird Mobile erstmalig mit der Home-Hub-Adresse versorgt?
-- Welche Dev-Fakes sind im MVP erlaubt?
+- Welche Dev-Fakes sind im M2 erlaubt?
 

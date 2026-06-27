@@ -6,42 +6,42 @@ part of 'document.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DocumentImpl _$$DocumentImplFromJson(Map<String, dynamic> json) =>
-    _$DocumentImpl(
-      id: json['id'] as String,
-      incidentId: json['incidentId'] as String,
-      title: json['title'] as String,
-      description: json['description'] as String?,
-      sender: json['sender'] as String?,
-      fileUrl: json['fileUrl'] as String,
-      type: $enumDecode(_$DocumentTypeEnumMap, json['type']),
-      previousVersionId: json['previousVersionId'] as String?,
-      version: (json['version'] as num?)?.toInt() ?? 1,
-      incidentStatus:
-          $enumDecodeNullable(_$IncidentStatusEnumMap, json['incidentStatus']),
-      isDraft: json['isDraft'] as bool? ?? false,
-      uploaderProfileId: json['uploaderProfileId'] as String?,
-      created: DateTime.parse(json['created'] as String),
-      metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
-    );
+_Document _$DocumentFromJson(Map<String, dynamic> json) => _Document(
+  id: json['id'] as String,
+  incidentId: json['incidentId'] as String,
+  title: json['title'] as String,
+  description: json['description'] as String?,
+  sender: json['sender'] as String?,
+  fileUrl: json['fileUrl'] as String,
+  type: $enumDecode(_$DocumentTypeEnumMap, json['type']),
+  previousVersionId: json['previousVersionId'] as String?,
+  version: (json['version'] as num?)?.toInt() ?? 1,
+  incidentStatus: $enumDecodeNullable(
+    _$IncidentStatusEnumMap,
+    json['incidentStatus'],
+  ),
+  isDraft: json['isDraft'] as bool? ?? false,
+  uploaderProfileId: json['uploaderProfileId'] as String?,
+  created: DateTime.parse(json['created'] as String),
+  metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+);
 
-Map<String, dynamic> _$$DocumentImplToJson(_$DocumentImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'incidentId': instance.incidentId,
-      'title': instance.title,
-      'description': instance.description,
-      'sender': instance.sender,
-      'fileUrl': instance.fileUrl,
-      'type': _$DocumentTypeEnumMap[instance.type]!,
-      'previousVersionId': instance.previousVersionId,
-      'version': instance.version,
-      'incidentStatus': _$IncidentStatusEnumMap[instance.incidentStatus],
-      'isDraft': instance.isDraft,
-      'uploaderProfileId': instance.uploaderProfileId,
-      'created': instance.created.toIso8601String(),
-      'metadata': instance.metadata,
-    };
+Map<String, dynamic> _$DocumentToJson(_Document instance) => <String, dynamic>{
+  'id': instance.id,
+  'incidentId': instance.incidentId,
+  'title': instance.title,
+  'description': instance.description,
+  'sender': instance.sender,
+  'fileUrl': instance.fileUrl,
+  'type': _$DocumentTypeEnumMap[instance.type]!,
+  'previousVersionId': instance.previousVersionId,
+  'version': instance.version,
+  'incidentStatus': _$IncidentStatusEnumMap[instance.incidentStatus],
+  'isDraft': instance.isDraft,
+  'uploaderProfileId': instance.uploaderProfileId,
+  'created': instance.created.toIso8601String(),
+  'metadata': instance.metadata,
+};
 
 const _$DocumentTypeEnumMap = {
   DocumentType.invoice: 'invoice',

@@ -79,6 +79,6 @@ F9 gilt als umgesetzt, wenn:
 
 ## Offene Folgefragen
 
-- Welche Daten werden im MVP verschlüsselt?
+- Welche Daten werden im M2 verschlüsselt?
 - Welche Exportformate brauchen wir?
 - Wie werden Profile/Haushalte bei Löschung behandelt?

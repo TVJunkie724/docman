@@ -2,8 +2,8 @@
 title: "Konzept F14 - Form Field Catalog"
 description: "DocMan-spezifischer Formularfeld-Katalog für Vorgänge, Dokumente, Profile, Draft Review, Upload Queue und spätere KI-Vorschläge"
 tags: [concept, forms, ui, fields, review, documents, cases]
-lastUpdated: "2026-04-26"
-version: "3.0"
+lastUpdated: "2026-05-06"
+version: "3.1"
 status: "accepted"
 ---
 
@@ -27,21 +27,31 @@ F14 definiert die fachlichen Formulartypen, die DocMan braucht. Exakte visuelle 
 | Mehrzeilig | Beschreibung, Review-Kommentar |
 | Datum | Dokumentdatum, Frist, Ereignisdatum |
 | Betrag | Rechnungen, Erstattungen |
+| Prozent | Erstattungsquote, Selbstbehalt, Deckung |
 | Auswahl | Dokumenttyp, Vorgangstyp, Status |
+| Nachweis-/Record-Auswahl | aktuelle Version, alte Version, ersetzt durch |
 | Profilauswahl | Zuordnung zu Person/Haushalt |
 | Tags | Suche, freie Struktur |
 | Datei-Auswahl | Desktop-Import |
 | Scan-Quelle | Mobile Capture |
 | Review-Feld | KI/OCR-Vorschlag akzeptieren/korrigieren |
+| Claim-Feld | eingereicht, bewilligt, teilweise bewilligt, abgelehnt, bezahlt |
 
-## MVP-Formulare
+## M2-Formulare
 
 - Vorgang erstellen/bearbeiten.
 - Dokument-Draft prüfen.
 - Dokument einem Vorgang zuordnen.
+- Dokument optional einem Record/Nachweis zuordnen.
+- Dokumenttyp aus dem M2-Katalog wählen.
 - Profil wählen.
 - Home-Hub-Adresse setzen.
 - Mobile Upload optional kommentieren.
+
+Der M2-Dokumenttyp-Katalog ist in
+`docs/technical/DECISION_DOCUMENT_TYPE_CATALOG.md` entschieden. Typen
+steuern im M2 Auswahl, Filter und optionale Vorschlaege, aber keine
+dokumenttypspezifischen Pflichtfelder.
 
 ## Review-Felder
 
@@ -72,7 +82,7 @@ F5 definiert Fehlerklassen, F14 beschreibt Feldverhalten.
 
 F14 gilt als umgesetzt, wenn:
 
-- MVP-Formulare abgedeckt sind.
+- M2-Formulare abgedeckt sind.
 - Dokument-/Vorgangszuordnung klar ist.
 - Review-Felder für spätere Intelligence vorbereitet sind.
 - Feldfehler zu F5 passen.
@@ -80,6 +90,4 @@ F14 gilt als umgesetzt, wenn:
 ## Offene Folgefragen
 
 - Welche Vorgangstypen brauchen eigene Formularfelder?
-- Welche Dokumenttypen sind MVP-relevant?
 - Wann wird ein visuelles Form-Design-System konkretisiert?
-

@@ -2,8 +2,8 @@
 title: "Konzept F12 - Secure Storage"
 description: "DocMan-spezifisches Secure-Storage-Konzept für Pairing Secrets, Sessions, Geräteidentität, lokale Schlüssel und Abgrenzung zu Local Storage"
 tags: [concept, foundation, secure-storage, security, pairing, sessions, home-hub]
-lastUpdated: "2026-04-26"
-version: "3.0"
+lastUpdated: "2026-05-06"
+version: "3.1"
 status: "accepted"
 ---
 
@@ -23,7 +23,7 @@ F10 speichert normale lokale App-Daten und Dateien. F12 speichert Geheimnisse.
 
 ## Secure-Storage-Daten
 
-| Datum | Zweck | MVP |
+| Datum | Zweck | M2 |
 |---|---|---|
 | Device ID Secret | Gerät stabil identifizieren, ohne es als Klartext-Geheimnis zu behandeln | Ja |
 | Pairing Secret | Mobile/Desktop mit Home Hub koppeln | Ja |
@@ -86,7 +86,7 @@ Regeln:
 
 ## Pairing
 
-Mobile Capture braucht wahrscheinlich Pairing oder Login.
+Mobile Capture nutzt im M2 Pairing statt Login. Der lokale Desktop-M2 erzwingt kein klassisches Login.
 
 Pairing muss:
 
@@ -99,7 +99,7 @@ F10 darf die nicht geheime Home-Hub-Adresse speichern. F12 speichert das Pairing
 
 ## Session-Verhalten
 
-MVP darf einfach starten:
+M2 darf einfach starten:
 
 - gekoppelte Geräte speichern Secret.
 - Home Hub akzeptiert Capture Uploads nur von freigegebenen Geräten.
@@ -140,7 +140,5 @@ F12 gilt als umgesetzt, wenn:
 ## Offene Folgefragen
 
 - Welches Flutter-Package wird konkret genutzt?
-- Gibt es im MVP Pairing-Code, QR-Code oder Login?
 - Welche Secrets müssen zwischen Desktop und Mobile getrennt sein?
-- Wird lokale Datei-/DB-Verschlüsselung im MVP geprüft oder verschoben?
-
+- Wird lokale Datei-/DB-Verschlüsselung im M2 geprüft oder verschoben?

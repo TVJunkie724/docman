@@ -22,7 +22,7 @@ Die Entscheidung gilt fuer:
 
 - Case-/Vorgangs-Metadaten.
 - Dokument-Metadaten.
-- Profile und Haushaltskontext im MVP-Umfang.
+- Profile und Haushaltskontext im M2-Umfang.
 - Draft Inbox.
 - Mobile Upload Queue.
 - Sync-Metadaten und spaetere Tombstones.
@@ -124,7 +124,7 @@ Delete-Verhalten:
 
 ## Suche
 
-MVP:
+M2:
 
 - strukturierte Queries ueber Titel, Datum, Sender, Tags, Profil, Case/Vorgang und Status.
 

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ordna Feedback</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="panel">
+          <div class="eyebrow">Feedback</div>
+          <h1>Fehler sind erklaerbar und korrigierbar.</h1>
+        </section>
+        <section class="panel">
+          <h2>Primaere Feedback Muster</h2>
+          <div class="visual-demo">
+            <div class="snackbar">Draft saved</div>
+            <div class="field">
+              <label>Betroffene Person</label>
+              <div class="control error">Bitte auswaehlen</div>
+            </div>
+            <div class="task-card compact">
+              <div class="task-icon">U</div>
+              <div class="task-main">
+                <div class="task-title">Upload wartet</div>
+                <div class="task-subtitle">Home Hub nicht erreichbar. Bleibt lokal in der Queue.</div>
+              </div>
+              <span class="task-badge warning">Queue</span>
+            </div>
+            <div class="callout-card">
+              <div class="callout-token" data-callout-icon="message" aria-hidden="true"></div>
+              <div class="callout-body">
+                <strong>Leerer Eingang</strong>
+                <p>Noch keine Dokumente im Eingang. Starte mit Scan oder Dateiimport.</p>
+              </div>
+            </div>
+          </div>
+          <p>Kurzes Feedback bleibt nah am ausloesenden Element: Snackbar fuer bestaetigte Aktionen, Inline-Fehler im Formular, Queue-Status in der Upload-Zeile, Empty State im leeren Bereich.</p>
+        </section>
+        <section class="panel">
+          <h2>Callouts fuer Systemmeldungen</h2>
+          <div class="visual-demo">
+            <div class="callout-card">
+              <div class="callout-token" data-callout-icon="timer" aria-hidden="true"></div>
+              <div class="callout-body">
+                <strong>Upload wartet</strong>
+                <p>Der Home Hub ist gerade nicht erreichbar. Der Upload bleibt lokal in der Queue.</p>
+              </div>
+            </div>
+            <div class="callout-card warning">
+              <div class="callout-token" data-callout-icon="alert" aria-hidden="true"></div>
+              <div class="callout-body">
+                <strong>Review unvollstaendig</strong>
+                <p>Bitte betroffene Person setzen, bevor der Entwurf abgeschlossen wird.</p>
+              </div>
+            </div>
+            <div class="callout-card privacy">
+              <div class="callout-token" data-callout-icon="shield" aria-hidden="true"></div>
+              <div class="callout-body">
+                <strong>Sensibler Export</strong>
+                <p>Dieses Paket enthaelt Dokumente fuer mehrere Personen.</p>
+              </div>
+            </div>
+            <div class="callout-card danger">
+              <div class="callout-token" data-callout-icon="error" aria-hidden="true"></div>
+              <div class="callout-body">
+                <strong>Export nicht erstellt</strong>
+                <p>Bitte erneut versuchen. Keine Datei wurde geteilt oder versendet.</p>
+              </div>
+            </div>
+          </div>
+          <p>Callouts sind fuer laengere, seitenspezifische Systemmeldungen reserviert. Sie erscheinen nicht als Standard-Card in jeder Liste und ersetzen keine Inline-Fehler, Badges oder Queue-Zeilen.</p>
+        </section>
+      </main>
+    </div>
+    <script src="../assets/js/navigation.js"></script>
+  </body>
+</html>

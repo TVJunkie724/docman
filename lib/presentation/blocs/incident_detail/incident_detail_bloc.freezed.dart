@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,1376 +9,852 @@ part of 'incident_detail_bloc.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
 mixin _$IncidentDetailEvent {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String incidentId) load,
-    required TResult Function(List<Document> documents) documentsUpdated,
-    required TResult Function(IncidentStatus newStatus) updateStatus,
-    required TResult Function(File file, Document metadata) uploadDocument,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String incidentId)? load,
-    TResult? Function(List<Document> documents)? documentsUpdated,
-    TResult? Function(IncidentStatus newStatus)? updateStatus,
-    TResult? Function(File file, Document metadata)? uploadDocument,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String incidentId)? load,
-    TResult Function(List<Document> documents)? documentsUpdated,
-    TResult Function(IncidentStatus newStatus)? updateStatus,
-    TResult Function(File file, Document metadata)? uploadDocument,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LoadIncidentDetail value) load,
-    required TResult Function(DocumentsUpdated value) documentsUpdated,
-    required TResult Function(UpdateIncidentStatus value) updateStatus,
-    required TResult Function(UploadNewDocument value) uploadDocument,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LoadIncidentDetail value)? load,
-    TResult? Function(DocumentsUpdated value)? documentsUpdated,
-    TResult? Function(UpdateIncidentStatus value)? updateStatus,
-    TResult? Function(UploadNewDocument value)? uploadDocument,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LoadIncidentDetail value)? load,
-    TResult Function(DocumentsUpdated value)? documentsUpdated,
-    TResult Function(UpdateIncidentStatus value)? updateStatus,
-    TResult Function(UploadNewDocument value)? uploadDocument,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IncidentDetailEvent);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'IncidentDetailEvent()';
+}
+
+
 }
 
 /// @nodoc
-abstract class $IncidentDetailEventCopyWith<$Res> {
-  factory $IncidentDetailEventCopyWith(
-          IncidentDetailEvent value, $Res Function(IncidentDetailEvent) then) =
-      _$IncidentDetailEventCopyWithImpl<$Res, IncidentDetailEvent>;
+class $IncidentDetailEventCopyWith<$Res>  {
+$IncidentDetailEventCopyWith(IncidentDetailEvent _, $Res Function(IncidentDetailEvent) __);
 }
 
-/// @nodoc
-class _$IncidentDetailEventCopyWithImpl<$Res, $Val extends IncidentDetailEvent>
-    implements $IncidentDetailEventCopyWith<$Res> {
-  _$IncidentDetailEventCopyWithImpl(this._value, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+/// Adds pattern-matching-related methods to [IncidentDetailEvent].
+extension IncidentDetailEventPatterns on IncidentDetailEvent {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoadIncidentDetail value)?  load,TResult Function( DocumentsUpdated value)?  documentsUpdated,TResult Function( UpdateIncidentStatus value)?  updateStatus,TResult Function( UploadNewDocument value)?  uploadDocument,required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case LoadIncidentDetail() when load != null:
+return load(_that);case DocumentsUpdated() when documentsUpdated != null:
+return documentsUpdated(_that);case UpdateIncidentStatus() when updateStatus != null:
+return updateStatus(_that);case UploadNewDocument() when uploadDocument != null:
+return uploadDocument(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoadIncidentDetail value)  load,required TResult Function( DocumentsUpdated value)  documentsUpdated,required TResult Function( UpdateIncidentStatus value)  updateStatus,required TResult Function( UploadNewDocument value)  uploadDocument,}){
+final _that = this;
+switch (_that) {
+case LoadIncidentDetail():
+return load(_that);case DocumentsUpdated():
+return documentsUpdated(_that);case UpdateIncidentStatus():
+return updateStatus(_that);case UploadNewDocument():
+return uploadDocument(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoadIncidentDetail value)?  load,TResult? Function( DocumentsUpdated value)?  documentsUpdated,TResult? Function( UpdateIncidentStatus value)?  updateStatus,TResult? Function( UploadNewDocument value)?  uploadDocument,}){
+final _that = this;
+switch (_that) {
+case LoadIncidentDetail() when load != null:
+return load(_that);case DocumentsUpdated() when documentsUpdated != null:
+return documentsUpdated(_that);case UpdateIncidentStatus() when updateStatus != null:
+return updateStatus(_that);case UploadNewDocument() when uploadDocument != null:
+return uploadDocument(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String incidentId)?  load,TResult Function( List<Document> documents)?  documentsUpdated,TResult Function( IncidentStatus newStatus)?  updateStatus,TResult Function( File file,  Document metadata)?  uploadDocument,required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case LoadIncidentDetail() when load != null:
+return load(_that.incidentId);case DocumentsUpdated() when documentsUpdated != null:
+return documentsUpdated(_that.documents);case UpdateIncidentStatus() when updateStatus != null:
+return updateStatus(_that.newStatus);case UploadNewDocument() when uploadDocument != null:
+return uploadDocument(_that.file,_that.metadata);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String incidentId)  load,required TResult Function( List<Document> documents)  documentsUpdated,required TResult Function( IncidentStatus newStatus)  updateStatus,required TResult Function( File file,  Document metadata)  uploadDocument,}) {final _that = this;
+switch (_that) {
+case LoadIncidentDetail():
+return load(_that.incidentId);case DocumentsUpdated():
+return documentsUpdated(_that.documents);case UpdateIncidentStatus():
+return updateStatus(_that.newStatus);case UploadNewDocument():
+return uploadDocument(_that.file,_that.metadata);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String incidentId)?  load,TResult? Function( List<Document> documents)?  documentsUpdated,TResult? Function( IncidentStatus newStatus)?  updateStatus,TResult? Function( File file,  Document metadata)?  uploadDocument,}) {final _that = this;
+switch (_that) {
+case LoadIncidentDetail() when load != null:
+return load(_that.incidentId);case DocumentsUpdated() when documentsUpdated != null:
+return documentsUpdated(_that.documents);case UpdateIncidentStatus() when updateStatus != null:
+return updateStatus(_that.newStatus);case UploadNewDocument() when uploadDocument != null:
+return uploadDocument(_that.file,_that.metadata);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-abstract class _$$LoadIncidentDetailImplCopyWith<$Res> {
-  factory _$$LoadIncidentDetailImplCopyWith(_$LoadIncidentDetailImpl value,
-          $Res Function(_$LoadIncidentDetailImpl) then) =
-      __$$LoadIncidentDetailImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String incidentId});
-}
-
-/// @nodoc
-class __$$LoadIncidentDetailImplCopyWithImpl<$Res>
-    extends _$IncidentDetailEventCopyWithImpl<$Res, _$LoadIncidentDetailImpl>
-    implements _$$LoadIncidentDetailImplCopyWith<$Res> {
-  __$$LoadIncidentDetailImplCopyWithImpl(_$LoadIncidentDetailImpl _value,
-      $Res Function(_$LoadIncidentDetailImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? incidentId = null,
-  }) {
-    return _then(_$LoadIncidentDetailImpl(
-      null == incidentId
-          ? _value.incidentId
-          : incidentId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$LoadIncidentDetailImpl implements LoadIncidentDetail {
-  const _$LoadIncidentDetailImpl(this.incidentId);
-
-  @override
-  final String incidentId;
-
-  @override
-  String toString() {
-    return 'IncidentDetailEvent.load(incidentId: $incidentId)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadIncidentDetailImpl &&
-            (identical(other.incidentId, incidentId) ||
-                other.incidentId == incidentId));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, incidentId);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadIncidentDetailImplCopyWith<_$LoadIncidentDetailImpl> get copyWith =>
-      __$$LoadIncidentDetailImplCopyWithImpl<_$LoadIncidentDetailImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String incidentId) load,
-    required TResult Function(List<Document> documents) documentsUpdated,
-    required TResult Function(IncidentStatus newStatus) updateStatus,
-    required TResult Function(File file, Document metadata) uploadDocument,
-  }) {
-    return load(incidentId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String incidentId)? load,
-    TResult? Function(List<Document> documents)? documentsUpdated,
-    TResult? Function(IncidentStatus newStatus)? updateStatus,
-    TResult? Function(File file, Document metadata)? uploadDocument,
-  }) {
-    return load?.call(incidentId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String incidentId)? load,
-    TResult Function(List<Document> documents)? documentsUpdated,
-    TResult Function(IncidentStatus newStatus)? updateStatus,
-    TResult Function(File file, Document metadata)? uploadDocument,
-    required TResult orElse(),
-  }) {
-    if (load != null) {
-      return load(incidentId);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LoadIncidentDetail value) load,
-    required TResult Function(DocumentsUpdated value) documentsUpdated,
-    required TResult Function(UpdateIncidentStatus value) updateStatus,
-    required TResult Function(UploadNewDocument value) uploadDocument,
-  }) {
-    return load(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LoadIncidentDetail value)? load,
-    TResult? Function(DocumentsUpdated value)? documentsUpdated,
-    TResult? Function(UpdateIncidentStatus value)? updateStatus,
-    TResult? Function(UploadNewDocument value)? uploadDocument,
-  }) {
-    return load?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LoadIncidentDetail value)? load,
-    TResult Function(DocumentsUpdated value)? documentsUpdated,
-    TResult Function(UpdateIncidentStatus value)? updateStatus,
-    TResult Function(UploadNewDocument value)? uploadDocument,
-    required TResult orElse(),
-  }) {
-    if (load != null) {
-      return load(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class LoadIncidentDetail implements IncidentDetailEvent {
-  const factory LoadIncidentDetail(final String incidentId) =
-      _$LoadIncidentDetailImpl;
-
-  String get incidentId;
-  @JsonKey(ignore: true)
-  _$$LoadIncidentDetailImplCopyWith<_$LoadIncidentDetailImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$DocumentsUpdatedImplCopyWith<$Res> {
-  factory _$$DocumentsUpdatedImplCopyWith(_$DocumentsUpdatedImpl value,
-          $Res Function(_$DocumentsUpdatedImpl) then) =
-      __$$DocumentsUpdatedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<Document> documents});
-}
-
-/// @nodoc
-class __$$DocumentsUpdatedImplCopyWithImpl<$Res>
-    extends _$IncidentDetailEventCopyWithImpl<$Res, _$DocumentsUpdatedImpl>
-    implements _$$DocumentsUpdatedImplCopyWith<$Res> {
-  __$$DocumentsUpdatedImplCopyWithImpl(_$DocumentsUpdatedImpl _value,
-      $Res Function(_$DocumentsUpdatedImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? documents = null,
-  }) {
-    return _then(_$DocumentsUpdatedImpl(
-      null == documents
-          ? _value._documents
-          : documents // ignore: cast_nullable_to_non_nullable
-              as List<Document>,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$DocumentsUpdatedImpl implements DocumentsUpdated {
-  const _$DocumentsUpdatedImpl(final List<Document> documents)
-      : _documents = documents;
 
-  final List<Document> _documents;
-  @override
-  List<Document> get documents {
-    if (_documents is EqualUnmodifiableListView) return _documents;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_documents);
-  }
+class LoadIncidentDetail implements IncidentDetailEvent {
+  const LoadIncidentDetail(this.incidentId);
+  
 
-  @override
-  String toString() {
-    return 'IncidentDetailEvent.documentsUpdated(documents: $documents)';
-  }
+ final  String incidentId;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DocumentsUpdatedImpl &&
-            const DeepCollectionEquality()
-                .equals(other._documents, _documents));
-  }
+/// Create a copy of IncidentDetailEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LoadIncidentDetailCopyWith<LoadIncidentDetail> get copyWith => _$LoadIncidentDetailCopyWithImpl<LoadIncidentDetail>(this, _$identity);
 
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_documents));
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DocumentsUpdatedImplCopyWith<_$DocumentsUpdatedImpl> get copyWith =>
-      __$$DocumentsUpdatedImplCopyWithImpl<_$DocumentsUpdatedImpl>(
-          this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String incidentId) load,
-    required TResult Function(List<Document> documents) documentsUpdated,
-    required TResult Function(IncidentStatus newStatus) updateStatus,
-    required TResult Function(File file, Document metadata) uploadDocument,
-  }) {
-    return documentsUpdated(documents);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String incidentId)? load,
-    TResult? Function(List<Document> documents)? documentsUpdated,
-    TResult? Function(IncidentStatus newStatus)? updateStatus,
-    TResult? Function(File file, Document metadata)? uploadDocument,
-  }) {
-    return documentsUpdated?.call(documents);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String incidentId)? load,
-    TResult Function(List<Document> documents)? documentsUpdated,
-    TResult Function(IncidentStatus newStatus)? updateStatus,
-    TResult Function(File file, Document metadata)? uploadDocument,
-    required TResult orElse(),
-  }) {
-    if (documentsUpdated != null) {
-      return documentsUpdated(documents);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LoadIncidentDetail value) load,
-    required TResult Function(DocumentsUpdated value) documentsUpdated,
-    required TResult Function(UpdateIncidentStatus value) updateStatus,
-    required TResult Function(UploadNewDocument value) uploadDocument,
-  }) {
-    return documentsUpdated(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LoadIncidentDetail value)? load,
-    TResult? Function(DocumentsUpdated value)? documentsUpdated,
-    TResult? Function(UpdateIncidentStatus value)? updateStatus,
-    TResult? Function(UploadNewDocument value)? uploadDocument,
-  }) {
-    return documentsUpdated?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LoadIncidentDetail value)? load,
-    TResult Function(DocumentsUpdated value)? documentsUpdated,
-    TResult Function(UpdateIncidentStatus value)? updateStatus,
-    TResult Function(UploadNewDocument value)? uploadDocument,
-    required TResult orElse(),
-  }) {
-    if (documentsUpdated != null) {
-      return documentsUpdated(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadIncidentDetail&&(identical(other.incidentId, incidentId) || other.incidentId == incidentId));
 }
 
-abstract class DocumentsUpdated implements IncidentDetailEvent {
-  const factory DocumentsUpdated(final List<Document> documents) =
-      _$DocumentsUpdatedImpl;
 
-  List<Document> get documents;
-  @JsonKey(ignore: true)
-  _$$DocumentsUpdatedImplCopyWith<_$DocumentsUpdatedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,incidentId);
+
+@override
+String toString() {
+  return 'IncidentDetailEvent.load(incidentId: $incidentId)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$UpdateIncidentStatusImplCopyWith<$Res> {
-  factory _$$UpdateIncidentStatusImplCopyWith(_$UpdateIncidentStatusImpl value,
-          $Res Function(_$UpdateIncidentStatusImpl) then) =
-      __$$UpdateIncidentStatusImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({IncidentStatus newStatus});
+abstract mixin class $LoadIncidentDetailCopyWith<$Res> implements $IncidentDetailEventCopyWith<$Res> {
+  factory $LoadIncidentDetailCopyWith(LoadIncidentDetail value, $Res Function(LoadIncidentDetail) _then) = _$LoadIncidentDetailCopyWithImpl;
+@useResult
+$Res call({
+ String incidentId
+});
+
+
+
+
+}
+/// @nodoc
+class _$LoadIncidentDetailCopyWithImpl<$Res>
+    implements $LoadIncidentDetailCopyWith<$Res> {
+  _$LoadIncidentDetailCopyWithImpl(this._self, this._then);
+
+  final LoadIncidentDetail _self;
+  final $Res Function(LoadIncidentDetail) _then;
+
+/// Create a copy of IncidentDetailEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? incidentId = null,}) {
+  return _then(LoadIncidentDetail(
+null == incidentId ? _self.incidentId : incidentId // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-class __$$UpdateIncidentStatusImplCopyWithImpl<$Res>
-    extends _$IncidentDetailEventCopyWithImpl<$Res, _$UpdateIncidentStatusImpl>
-    implements _$$UpdateIncidentStatusImplCopyWith<$Res> {
-  __$$UpdateIncidentStatusImplCopyWithImpl(_$UpdateIncidentStatusImpl _value,
-      $Res Function(_$UpdateIncidentStatusImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? newStatus = null,
-  }) {
-    return _then(_$UpdateIncidentStatusImpl(
-      null == newStatus
-          ? _value.newStatus
-          : newStatus // ignore: cast_nullable_to_non_nullable
-              as IncidentStatus,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$UpdateIncidentStatusImpl implements UpdateIncidentStatus {
-  const _$UpdateIncidentStatusImpl(this.newStatus);
 
-  @override
-  final IncidentStatus newStatus;
+class DocumentsUpdated implements IncidentDetailEvent {
+  const DocumentsUpdated(final  List<Document> documents): _documents = documents;
+  
 
-  @override
-  String toString() {
-    return 'IncidentDetailEvent.updateStatus(newStatus: $newStatus)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UpdateIncidentStatusImpl &&
-            (identical(other.newStatus, newStatus) ||
-                other.newStatus == newStatus));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, newStatus);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UpdateIncidentStatusImplCopyWith<_$UpdateIncidentStatusImpl>
-      get copyWith =>
-          __$$UpdateIncidentStatusImplCopyWithImpl<_$UpdateIncidentStatusImpl>(
-              this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String incidentId) load,
-    required TResult Function(List<Document> documents) documentsUpdated,
-    required TResult Function(IncidentStatus newStatus) updateStatus,
-    required TResult Function(File file, Document metadata) uploadDocument,
-  }) {
-    return updateStatus(newStatus);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String incidentId)? load,
-    TResult? Function(List<Document> documents)? documentsUpdated,
-    TResult? Function(IncidentStatus newStatus)? updateStatus,
-    TResult? Function(File file, Document metadata)? uploadDocument,
-  }) {
-    return updateStatus?.call(newStatus);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String incidentId)? load,
-    TResult Function(List<Document> documents)? documentsUpdated,
-    TResult Function(IncidentStatus newStatus)? updateStatus,
-    TResult Function(File file, Document metadata)? uploadDocument,
-    required TResult orElse(),
-  }) {
-    if (updateStatus != null) {
-      return updateStatus(newStatus);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LoadIncidentDetail value) load,
-    required TResult Function(DocumentsUpdated value) documentsUpdated,
-    required TResult Function(UpdateIncidentStatus value) updateStatus,
-    required TResult Function(UploadNewDocument value) uploadDocument,
-  }) {
-    return updateStatus(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LoadIncidentDetail value)? load,
-    TResult? Function(DocumentsUpdated value)? documentsUpdated,
-    TResult? Function(UpdateIncidentStatus value)? updateStatus,
-    TResult? Function(UploadNewDocument value)? uploadDocument,
-  }) {
-    return updateStatus?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LoadIncidentDetail value)? load,
-    TResult Function(DocumentsUpdated value)? documentsUpdated,
-    TResult Function(UpdateIncidentStatus value)? updateStatus,
-    TResult Function(UploadNewDocument value)? uploadDocument,
-    required TResult orElse(),
-  }) {
-    if (updateStatus != null) {
-      return updateStatus(this);
-    }
-    return orElse();
-  }
+ final  List<Document> _documents;
+ List<Document> get documents {
+  if (_documents is EqualUnmodifiableListView) return _documents;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_documents);
 }
 
-abstract class UpdateIncidentStatus implements IncidentDetailEvent {
-  const factory UpdateIncidentStatus(final IncidentStatus newStatus) =
-      _$UpdateIncidentStatusImpl;
 
-  IncidentStatus get newStatus;
-  @JsonKey(ignore: true)
-  _$$UpdateIncidentStatusImplCopyWith<_$UpdateIncidentStatusImpl>
-      get copyWith => throw _privateConstructorUsedError;
+/// Create a copy of IncidentDetailEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DocumentsUpdatedCopyWith<DocumentsUpdated> get copyWith => _$DocumentsUpdatedCopyWithImpl<DocumentsUpdated>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentsUpdated&&const DeepCollectionEquality().equals(other._documents, _documents));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_documents));
+
+@override
+String toString() {
+  return 'IncidentDetailEvent.documentsUpdated(documents: $documents)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$UploadNewDocumentImplCopyWith<$Res> {
-  factory _$$UploadNewDocumentImplCopyWith(_$UploadNewDocumentImpl value,
-          $Res Function(_$UploadNewDocumentImpl) then) =
-      __$$UploadNewDocumentImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({File file, Document metadata});
+abstract mixin class $DocumentsUpdatedCopyWith<$Res> implements $IncidentDetailEventCopyWith<$Res> {
+  factory $DocumentsUpdatedCopyWith(DocumentsUpdated value, $Res Function(DocumentsUpdated) _then) = _$DocumentsUpdatedCopyWithImpl;
+@useResult
+$Res call({
+ List<Document> documents
+});
 
-  $DocumentCopyWith<$Res> get metadata;
+
+
+
+}
+/// @nodoc
+class _$DocumentsUpdatedCopyWithImpl<$Res>
+    implements $DocumentsUpdatedCopyWith<$Res> {
+  _$DocumentsUpdatedCopyWithImpl(this._self, this._then);
+
+  final DocumentsUpdated _self;
+  final $Res Function(DocumentsUpdated) _then;
+
+/// Create a copy of IncidentDetailEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? documents = null,}) {
+  return _then(DocumentsUpdated(
+null == documents ? _self._documents : documents // ignore: cast_nullable_to_non_nullable
+as List<Document>,
+  ));
 }
 
-/// @nodoc
-class __$$UploadNewDocumentImplCopyWithImpl<$Res>
-    extends _$IncidentDetailEventCopyWithImpl<$Res, _$UploadNewDocumentImpl>
-    implements _$$UploadNewDocumentImplCopyWith<$Res> {
-  __$$UploadNewDocumentImplCopyWithImpl(_$UploadNewDocumentImpl _value,
-      $Res Function(_$UploadNewDocumentImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? file = null,
-    Object? metadata = null,
-  }) {
-    return _then(_$UploadNewDocumentImpl(
-      null == file
-          ? _value.file
-          : file // ignore: cast_nullable_to_non_nullable
-              as File,
-      null == metadata
-          ? _value.metadata
-          : metadata // ignore: cast_nullable_to_non_nullable
-              as Document,
-    ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $DocumentCopyWith<$Res> get metadata {
-    return $DocumentCopyWith<$Res>(_value.metadata, (value) {
-      return _then(_value.copyWith(metadata: value));
-    });
-  }
 }
 
 /// @nodoc
 
-class _$UploadNewDocumentImpl implements UploadNewDocument {
-  const _$UploadNewDocumentImpl(this.file, this.metadata);
 
-  @override
-  final File file;
-  @override
-  final Document metadata;
+class UpdateIncidentStatus implements IncidentDetailEvent {
+  const UpdateIncidentStatus(this.newStatus);
+  
 
-  @override
-  String toString() {
-    return 'IncidentDetailEvent.uploadDocument(file: $file, metadata: $metadata)';
-  }
+ final  IncidentStatus newStatus;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UploadNewDocumentImpl &&
-            (identical(other.file, file) || other.file == file) &&
-            (identical(other.metadata, metadata) ||
-                other.metadata == metadata));
-  }
+/// Create a copy of IncidentDetailEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UpdateIncidentStatusCopyWith<UpdateIncidentStatus> get copyWith => _$UpdateIncidentStatusCopyWithImpl<UpdateIncidentStatus>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, file, metadata);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UploadNewDocumentImplCopyWith<_$UploadNewDocumentImpl> get copyWith =>
-      __$$UploadNewDocumentImplCopyWithImpl<_$UploadNewDocumentImpl>(
-          this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String incidentId) load,
-    required TResult Function(List<Document> documents) documentsUpdated,
-    required TResult Function(IncidentStatus newStatus) updateStatus,
-    required TResult Function(File file, Document metadata) uploadDocument,
-  }) {
-    return uploadDocument(file, metadata);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String incidentId)? load,
-    TResult? Function(List<Document> documents)? documentsUpdated,
-    TResult? Function(IncidentStatus newStatus)? updateStatus,
-    TResult? Function(File file, Document metadata)? uploadDocument,
-  }) {
-    return uploadDocument?.call(file, metadata);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String incidentId)? load,
-    TResult Function(List<Document> documents)? documentsUpdated,
-    TResult Function(IncidentStatus newStatus)? updateStatus,
-    TResult Function(File file, Document metadata)? uploadDocument,
-    required TResult orElse(),
-  }) {
-    if (uploadDocument != null) {
-      return uploadDocument(file, metadata);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LoadIncidentDetail value) load,
-    required TResult Function(DocumentsUpdated value) documentsUpdated,
-    required TResult Function(UpdateIncidentStatus value) updateStatus,
-    required TResult Function(UploadNewDocument value) uploadDocument,
-  }) {
-    return uploadDocument(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LoadIncidentDetail value)? load,
-    TResult? Function(DocumentsUpdated value)? documentsUpdated,
-    TResult? Function(UpdateIncidentStatus value)? updateStatus,
-    TResult? Function(UploadNewDocument value)? uploadDocument,
-  }) {
-    return uploadDocument?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LoadIncidentDetail value)? load,
-    TResult Function(DocumentsUpdated value)? documentsUpdated,
-    TResult Function(UpdateIncidentStatus value)? updateStatus,
-    TResult Function(UploadNewDocument value)? uploadDocument,
-    required TResult orElse(),
-  }) {
-    if (uploadDocument != null) {
-      return uploadDocument(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateIncidentStatus&&(identical(other.newStatus, newStatus) || other.newStatus == newStatus));
 }
 
-abstract class UploadNewDocument implements IncidentDetailEvent {
-  const factory UploadNewDocument(final File file, final Document metadata) =
-      _$UploadNewDocumentImpl;
 
-  File get file;
-  Document get metadata;
-  @JsonKey(ignore: true)
-  _$$UploadNewDocumentImplCopyWith<_$UploadNewDocumentImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,newStatus);
+
+@override
+String toString() {
+  return 'IncidentDetailEvent.updateStatus(newStatus: $newStatus)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $UpdateIncidentStatusCopyWith<$Res> implements $IncidentDetailEventCopyWith<$Res> {
+  factory $UpdateIncidentStatusCopyWith(UpdateIncidentStatus value, $Res Function(UpdateIncidentStatus) _then) = _$UpdateIncidentStatusCopyWithImpl;
+@useResult
+$Res call({
+ IncidentStatus newStatus
+});
+
+
+
+
+}
+/// @nodoc
+class _$UpdateIncidentStatusCopyWithImpl<$Res>
+    implements $UpdateIncidentStatusCopyWith<$Res> {
+  _$UpdateIncidentStatusCopyWithImpl(this._self, this._then);
+
+  final UpdateIncidentStatus _self;
+  final $Res Function(UpdateIncidentStatus) _then;
+
+/// Create a copy of IncidentDetailEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? newStatus = null,}) {
+  return _then(UpdateIncidentStatus(
+null == newStatus ? _self.newStatus : newStatus // ignore: cast_nullable_to_non_nullable
+as IncidentStatus,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class UploadNewDocument implements IncidentDetailEvent {
+  const UploadNewDocument(this.file, this.metadata);
+  
+
+ final  File file;
+ final  Document metadata;
+
+/// Create a copy of IncidentDetailEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UploadNewDocumentCopyWith<UploadNewDocument> get copyWith => _$UploadNewDocumentCopyWithImpl<UploadNewDocument>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UploadNewDocument&&(identical(other.file, file) || other.file == file)&&(identical(other.metadata, metadata) || other.metadata == metadata));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,file,metadata);
+
+@override
+String toString() {
+  return 'IncidentDetailEvent.uploadDocument(file: $file, metadata: $metadata)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $UploadNewDocumentCopyWith<$Res> implements $IncidentDetailEventCopyWith<$Res> {
+  factory $UploadNewDocumentCopyWith(UploadNewDocument value, $Res Function(UploadNewDocument) _then) = _$UploadNewDocumentCopyWithImpl;
+@useResult
+$Res call({
+ File file, Document metadata
+});
+
+
+$DocumentCopyWith<$Res> get metadata;
+
+}
+/// @nodoc
+class _$UploadNewDocumentCopyWithImpl<$Res>
+    implements $UploadNewDocumentCopyWith<$Res> {
+  _$UploadNewDocumentCopyWithImpl(this._self, this._then);
+
+  final UploadNewDocument _self;
+  final $Res Function(UploadNewDocument) _then;
+
+/// Create a copy of IncidentDetailEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? file = null,Object? metadata = null,}) {
+  return _then(UploadNewDocument(
+null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
+as File,null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Document,
+  ));
+}
+
+/// Create a copy of IncidentDetailEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$DocumentCopyWith<$Res> get metadata {
+  
+  return $DocumentCopyWith<$Res>(_self.metadata, (value) {
+    return _then(_self.copyWith(metadata: value));
+  });
+}
 }
 
 /// @nodoc
 mixin _$IncidentDetailState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(Incident incident, List<Document> documents,
-            List<IncidentStatus> availableActions)
-        loaded,
-    required TResult Function(String message) failure,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(Incident incident, List<Document> documents,
-            List<IncidentStatus> availableActions)?
-        loaded,
-    TResult? Function(String message)? failure,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(Incident incident, List<Document> documents,
-            List<IncidentStatus> availableActions)?
-        loaded,
-    TResult Function(String message)? failure,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Failure value) failure,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Failure value)? failure,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Failure value)? failure,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IncidentDetailState);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'IncidentDetailState()';
+}
+
+
 }
 
 /// @nodoc
-abstract class $IncidentDetailStateCopyWith<$Res> {
-  factory $IncidentDetailStateCopyWith(
-          IncidentDetailState value, $Res Function(IncidentDetailState) then) =
-      _$IncidentDetailStateCopyWithImpl<$Res, IncidentDetailState>;
+class $IncidentDetailStateCopyWith<$Res>  {
+$IncidentDetailStateCopyWith(IncidentDetailState _, $Res Function(IncidentDetailState) __);
 }
 
-/// @nodoc
-class _$IncidentDetailStateCopyWithImpl<$Res, $Val extends IncidentDetailState>
-    implements $IncidentDetailStateCopyWith<$Res> {
-  _$IncidentDetailStateCopyWithImpl(this._value, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+/// Adds pattern-matching-related methods to [IncidentDetailState].
+extension IncidentDetailStatePatterns on IncidentDetailState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loading value)?  loading,TResult Function( _Loaded value)?  loaded,TResult Function( _Failure value)?  failure,required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _Initial() when initial != null:
+return initial(_that);case _Loading() when loading != null:
+return loading(_that);case _Loaded() when loaded != null:
+return loaded(_that);case _Failure() when failure != null:
+return failure(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loading value)  loading,required TResult Function( _Loaded value)  loaded,required TResult Function( _Failure value)  failure,}){
+final _that = this;
+switch (_that) {
+case _Initial():
+return initial(_that);case _Loading():
+return loading(_that);case _Loaded():
+return loaded(_that);case _Failure():
+return failure(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loading value)?  loading,TResult? Function( _Loaded value)?  loaded,TResult? Function( _Failure value)?  failure,}){
+final _that = this;
+switch (_that) {
+case _Initial() when initial != null:
+return initial(_that);case _Loading() when loading != null:
+return loading(_that);case _Loaded() when loaded != null:
+return loaded(_that);case _Failure() when failure != null:
+return failure(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( Incident incident,  List<Document> documents,  List<IncidentStatus> availableActions)?  loaded,TResult Function( String message)?  failure,required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _Initial() when initial != null:
+return initial();case _Loading() when loading != null:
+return loading();case _Loaded() when loaded != null:
+return loaded(_that.incident,_that.documents,_that.availableActions);case _Failure() when failure != null:
+return failure(_that.message);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( Incident incident,  List<Document> documents,  List<IncidentStatus> availableActions)  loaded,required TResult Function( String message)  failure,}) {final _that = this;
+switch (_that) {
+case _Initial():
+return initial();case _Loading():
+return loading();case _Loaded():
+return loaded(_that.incident,_that.documents,_that.availableActions);case _Failure():
+return failure(_that.message);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( Incident incident,  List<Document> documents,  List<IncidentStatus> availableActions)?  loaded,TResult? Function( String message)?  failure,}) {final _that = this;
+switch (_that) {
+case _Initial() when initial != null:
+return initial();case _Loading() when loading != null:
+return loading();case _Loaded() when loaded != null:
+return loaded(_that.incident,_that.documents,_that.availableActions);case _Failure() when failure != null:
+return failure(_that.message);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
-      __$$InitialImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$IncidentDetailStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$InitialImpl implements _Initial {
-  const _$InitialImpl();
-
-  @override
-  String toString() {
-    return 'IncidentDetailState.initial()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(Incident incident, List<Document> documents,
-            List<IncidentStatus> availableActions)
-        loaded,
-    required TResult Function(String message) failure,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(Incident incident, List<Document> documents,
-            List<IncidentStatus> availableActions)?
-        loaded,
-    TResult? Function(String message)? failure,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(Incident incident, List<Document> documents,
-            List<IncidentStatus> availableActions)?
-        loaded,
-    TResult Function(String message)? failure,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Failure value) failure,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Failure value)? failure,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Failure value)? failure,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Initial implements IncidentDetailState {
-  const factory _Initial() = _$InitialImpl;
-}
-
-/// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$IncidentDetailStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
-      : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingImpl implements _Loading {
-  const _$LoadingImpl();
 
-  @override
-  String toString() {
-    return 'IncidentDetailState.loading()';
-  }
+class _Initial implements IncidentDetailState {
+  const _Initial();
+  
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
-  }
 
-  @override
-  int get hashCode => runtimeType.hashCode;
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(Incident incident, List<Document> documents,
-            List<IncidentStatus> availableActions)
-        loaded,
-    required TResult Function(String message) failure,
-  }) {
-    return loading();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(Incident incident, List<Document> documents,
-            List<IncidentStatus> availableActions)?
-        loaded,
-    TResult? Function(String message)? failure,
-  }) {
-    return loading?.call();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(Incident incident, List<Document> documents,
-            List<IncidentStatus> availableActions)?
-        loaded,
-    TResult Function(String message)? failure,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading();
-    }
-    return orElse();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Failure value) failure,
-  }) {
-    return loading(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Failure value)? failure,
-  }) {
-    return loading?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Failure value)? failure,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
 }
 
-abstract class _Loading implements IncidentDetailState {
-  const factory _Loading() = _$LoadingImpl;
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'IncidentDetailState.initial()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _Loading implements IncidentDetailState {
+  const _Loading();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loading);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'IncidentDetailState.loading()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _Loaded implements IncidentDetailState {
+  const _Loaded({required this.incident, required final  List<Document> documents, required final  List<IncidentStatus> availableActions}): _documents = documents,_availableActions = availableActions;
+  
+
+ final  Incident incident;
+ final  List<Document> _documents;
+ List<Document> get documents {
+  if (_documents is EqualUnmodifiableListView) return _documents;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_documents);
+}
+
+ final  List<IncidentStatus> _availableActions;
+ List<IncidentStatus> get availableActions {
+  if (_availableActions is EqualUnmodifiableListView) return _availableActions;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_availableActions);
+}
+
+
+/// Create a copy of IncidentDetailState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&(identical(other.incident, incident) || other.incident == incident)&&const DeepCollectionEquality().equals(other._documents, _documents)&&const DeepCollectionEquality().equals(other._availableActions, _availableActions));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,incident,const DeepCollectionEquality().hash(_documents),const DeepCollectionEquality().hash(_availableActions));
+
+@override
+String toString() {
+  return 'IncidentDetailState.loaded(incident: $incident, documents: $documents, availableActions: $availableActions)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$LoadedImplCopyWith<$Res> {
-  factory _$$LoadedImplCopyWith(
-          _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
-      __$$LoadedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call(
-      {Incident incident,
-      List<Document> documents,
-      List<IncidentStatus> availableActions});
+abstract mixin class _$LoadedCopyWith<$Res> implements $IncidentDetailStateCopyWith<$Res> {
+  factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) _then) = __$LoadedCopyWithImpl;
+@useResult
+$Res call({
+ Incident incident, List<Document> documents, List<IncidentStatus> availableActions
+});
 
-  $IncidentCopyWith<$Res> get incident;
+
+$IncidentCopyWith<$Res> get incident;
+
+}
+/// @nodoc
+class __$LoadedCopyWithImpl<$Res>
+    implements _$LoadedCopyWith<$Res> {
+  __$LoadedCopyWithImpl(this._self, this._then);
+
+  final _Loaded _self;
+  final $Res Function(_Loaded) _then;
+
+/// Create a copy of IncidentDetailState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? incident = null,Object? documents = null,Object? availableActions = null,}) {
+  return _then(_Loaded(
+incident: null == incident ? _self.incident : incident // ignore: cast_nullable_to_non_nullable
+as Incident,documents: null == documents ? _self._documents : documents // ignore: cast_nullable_to_non_nullable
+as List<Document>,availableActions: null == availableActions ? _self._availableActions : availableActions // ignore: cast_nullable_to_non_nullable
+as List<IncidentStatus>,
+  ));
 }
 
-/// @nodoc
-class __$$LoadedImplCopyWithImpl<$Res>
-    extends _$IncidentDetailStateCopyWithImpl<$Res, _$LoadedImpl>
-    implements _$$LoadedImplCopyWith<$Res> {
-  __$$LoadedImplCopyWithImpl(
-      _$LoadedImpl _value, $Res Function(_$LoadedImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? incident = null,
-    Object? documents = null,
-    Object? availableActions = null,
-  }) {
-    return _then(_$LoadedImpl(
-      incident: null == incident
-          ? _value.incident
-          : incident // ignore: cast_nullable_to_non_nullable
-              as Incident,
-      documents: null == documents
-          ? _value._documents
-          : documents // ignore: cast_nullable_to_non_nullable
-              as List<Document>,
-      availableActions: null == availableActions
-          ? _value._availableActions
-          : availableActions // ignore: cast_nullable_to_non_nullable
-              as List<IncidentStatus>,
-    ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $IncidentCopyWith<$Res> get incident {
-    return $IncidentCopyWith<$Res>(_value.incident, (value) {
-      return _then(_value.copyWith(incident: value));
-    });
-  }
+/// Create a copy of IncidentDetailState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$IncidentCopyWith<$Res> get incident {
+  
+  return $IncidentCopyWith<$Res>(_self.incident, (value) {
+    return _then(_self.copyWith(incident: value));
+  });
+}
 }
 
 /// @nodoc
 
-class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl(
-      {required this.incident,
-      required final List<Document> documents,
-      required final List<IncidentStatus> availableActions})
-      : _documents = documents,
-        _availableActions = availableActions;
 
-  @override
-  final Incident incident;
-  final List<Document> _documents;
-  @override
-  List<Document> get documents {
-    if (_documents is EqualUnmodifiableListView) return _documents;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_documents);
-  }
+class _Failure implements IncidentDetailState {
+  const _Failure(this.message);
+  
 
-  final List<IncidentStatus> _availableActions;
-  @override
-  List<IncidentStatus> get availableActions {
-    if (_availableActions is EqualUnmodifiableListView)
-      return _availableActions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_availableActions);
-  }
+ final  String message;
 
-  @override
-  String toString() {
-    return 'IncidentDetailState.loaded(incident: $incident, documents: $documents, availableActions: $availableActions)';
-  }
+/// Create a copy of IncidentDetailState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$FailureCopyWith<_Failure> get copyWith => __$FailureCopyWithImpl<_Failure>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadedImpl &&
-            (identical(other.incident, incident) ||
-                other.incident == incident) &&
-            const DeepCollectionEquality()
-                .equals(other._documents, _documents) &&
-            const DeepCollectionEquality()
-                .equals(other._availableActions, _availableActions));
-  }
 
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      incident,
-      const DeepCollectionEquality().hash(_documents),
-      const DeepCollectionEquality().hash(_availableActions));
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
-      __$$LoadedImplCopyWithImpl<_$LoadedImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(Incident incident, List<Document> documents,
-            List<IncidentStatus> availableActions)
-        loaded,
-    required TResult Function(String message) failure,
-  }) {
-    return loaded(incident, documents, availableActions);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(Incident incident, List<Document> documents,
-            List<IncidentStatus> availableActions)?
-        loaded,
-    TResult? Function(String message)? failure,
-  }) {
-    return loaded?.call(incident, documents, availableActions);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(Incident incident, List<Document> documents,
-            List<IncidentStatus> availableActions)?
-        loaded,
-    TResult Function(String message)? failure,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded(incident, documents, availableActions);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Failure value) failure,
-  }) {
-    return loaded(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Failure value)? failure,
-  }) {
-    return loaded?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Failure value)? failure,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Failure&&(identical(other.message, message) || other.message == message));
 }
 
-abstract class _Loaded implements IncidentDetailState {
-  const factory _Loaded(
-      {required final Incident incident,
-      required final List<Document> documents,
-      required final List<IncidentStatus> availableActions}) = _$LoadedImpl;
 
-  Incident get incident;
-  List<Document> get documents;
-  List<IncidentStatus> get availableActions;
-  @JsonKey(ignore: true)
-  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,message);
+
+@override
+String toString() {
+  return 'IncidentDetailState.failure(message: $message)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$FailureImplCopyWith<$Res> {
-  factory _$$FailureImplCopyWith(
-          _$FailureImpl value, $Res Function(_$FailureImpl) then) =
-      __$$FailureImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String message});
-}
+abstract mixin class _$FailureCopyWith<$Res> implements $IncidentDetailStateCopyWith<$Res> {
+  factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) _then) = __$FailureCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
 
+
+
+
+}
 /// @nodoc
-class __$$FailureImplCopyWithImpl<$Res>
-    extends _$IncidentDetailStateCopyWithImpl<$Res, _$FailureImpl>
-    implements _$$FailureImplCopyWith<$Res> {
-  __$$FailureImplCopyWithImpl(
-      _$FailureImpl _value, $Res Function(_$FailureImpl) _then)
-      : super(_value, _then);
+class __$FailureCopyWithImpl<$Res>
+    implements _$FailureCopyWith<$Res> {
+  __$FailureCopyWithImpl(this._self, this._then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? message = null,
-  }) {
-    return _then(_$FailureImpl(
-      null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
+  final _Failure _self;
+  final $Res Function(_Failure) _then;
+
+/// Create a copy of IncidentDetailState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(_Failure(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
 
-class _$FailureImpl implements _Failure {
-  const _$FailureImpl(this.message);
-
-  @override
-  final String message;
-
-  @override
-  String toString() {
-    return 'IncidentDetailState.failure(message: $message)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FailureImpl &&
-            (identical(other.message, message) || other.message == message));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, message);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$FailureImplCopyWith<_$FailureImpl> get copyWith =>
-      __$$FailureImplCopyWithImpl<_$FailureImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(Incident incident, List<Document> documents,
-            List<IncidentStatus> availableActions)
-        loaded,
-    required TResult Function(String message) failure,
-  }) {
-    return failure(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(Incident incident, List<Document> documents,
-            List<IncidentStatus> availableActions)?
-        loaded,
-    TResult? Function(String message)? failure,
-  }) {
-    return failure?.call(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(Incident incident, List<Document> documents,
-            List<IncidentStatus> availableActions)?
-        loaded,
-    TResult Function(String message)? failure,
-    required TResult orElse(),
-  }) {
-    if (failure != null) {
-      return failure(message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Failure value) failure,
-  }) {
-    return failure(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Failure value)? failure,
-  }) {
-    return failure?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Failure value)? failure,
-    required TResult orElse(),
-  }) {
-    if (failure != null) {
-      return failure(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class _Failure implements IncidentDetailState {
-  const factory _Failure(final String message) = _$FailureImpl;
-
-  String get message;
-  @JsonKey(ignore: true)
-  _$$FailureImplCopyWith<_$FailureImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

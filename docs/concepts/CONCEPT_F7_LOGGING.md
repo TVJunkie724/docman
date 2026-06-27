@@ -2,8 +2,8 @@
 title: "Konzept F7 - Logging"
 description: "DocMan-spezifisches Logging für lokale App, Mobile Capture, Home Hub, Upload Queue und privacy-sensible Diagnose"
 tags: [concept, foundation, logging, diagnostics, privacy, home-hub]
-lastUpdated: "2026-04-26"
-version: "3.0"
+lastUpdated: "2026-05-05"
+version: "3.1"
 status: "accepted"
 ---
 
@@ -18,6 +18,8 @@ Dieses Konzept ersetzt den importierten F7-Inhalt aus dem alten Projekt.
 ## Zweck
 
 F7 definiert, welche Ereignisse DocMan protokolliert und welche Daten niemals in Logs landen dürfen.
+
+F18 ergänzt F7 um das größere Runtime-Readiness-Modell: UserNotifications, Telemetry Events, Audit Events, Correlation IDs und spätere Observability. F7 bleibt die Quelle für Log-Kategorien und Log-Privacy.
 
 ## Grundsatz
 
@@ -66,6 +68,20 @@ Später sollten App und Home Hub eine harmlose Korrelations-ID nutzen können.
 
 Keine Korrelation über personenbezogene Daten, Dateinamen oder Tokens.
 
+F18 definiert Correlation IDs / Operation IDs als Querschnitt für Upload, Import, Sync, Failure, Telemetry und Audit.
+
+## Observability-Grenze
+
+Logging ist nur ein Teil von Observability.
+
+F7 beschreibt lokale Logs. F18 beschreibt zusätzlich:
+
+- Telemetry Events.
+- Audit Events.
+- Metrics-Zielbild.
+- lokale Diagnoseansicht.
+- spätere Home-Hub-/OpenTelemetry-kompatible Exportgrenze.
+
 ## Definition of Done
 
 F7 gilt als umgesetzt, wenn:
@@ -75,10 +91,11 @@ F7 gilt als umgesetzt, wenn:
 - F5-Failure-Kategorien logbar sind.
 - Upload-Queue diagnostizierbar ist.
 - Diagnose-Export keine Secrets enthält.
+- F18-Redaction-Regeln bei Telemetry und Audit eingehalten werden.
 
 ## Offene Folgefragen
 
 - Welches Logging-Package verwenden wir?
 - Wie lange werden lokale Logs aufbewahrt?
-- Gibt es im MVP bereits einen Diagnose-Export?
-
+- Gibt es im M2 bereits einen Diagnose-Export?
+- Welche Logs werden später zu Telemetry Events oder Audit Events nach F18?

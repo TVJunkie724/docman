@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ordna Forms</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="hero">
+          <div class="panel">
+            <div class="eyebrow">Form Family</div>
+            <h1>Formulare fuehren Review, Korrektur und sichere Entscheidungen.</h1>
+            <p>Ordna-Formulare sind dicht, ruhig und eindeutig. Pflichtfelder bleiben wenige harte Gates; optionale Facts werden vorbereitet, aber spaeter bevorzugt durch Assisted Review vorgeschlagen.</p>
+            <div class="legacy-chip-row">
+              <span class="legacy-filter-chip active">Review <span class="legacy-count">5</span></span>
+              <span class="legacy-filter-chip">Profile <span class="legacy-count">4</span></span>
+              <span class="legacy-filter-chip">Settings <span class="legacy-count">3</span></span>
+            </div>
+            <div class="button-row">
+              <a class="btn secondary" href="component-form-interactions.html">Interaktionen pruefen</a>
+            </div>
+          </div>
+          <div class="panel paper">
+            <h2>Review Gate</h2>
+            <div class="form-stack">
+              <div class="field required">
+                <label>Datei</label>
+                <div class="control success">scan-2026-06-12.pdf</div>
+                <p class="success-text">Datei vorhanden und lesbar.</p>
+              </div>
+              <div class="field required">
+                <label>Betroffene Person</label>
+                <div class="control error">Bitte auswaehlen</div>
+                <p class="error-text">Ohne Person kann Review nicht abgeschlossen werden.</p>
+              </div>
+              <div class="field required">
+                <label>Dokumenttyp</label>
+                <div class="control select">Rechnung / Beleg</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="eyebrow">Anatomy</div>
+          <h1>Ein Feld besteht aus Label, Control, Hilfe, Fehler und Zustand.</h1>
+          <div class="form-layout mt-18">
+            <div class="form-section">
+              <div class="form-section-header">
+                <div>
+                  <span class="form-section-title">Field Anatomy</span>
+                  <span class="form-section-note">Standardstruktur fuer alle Inputs, Picker und Review-Felder.</span>
+                </div>
+                <span class="task-badge neutral">SSOT</span>
+              </div>
+              <div class="field required">
+                <div class="field-label-row">
+                  <label>Titel</label>
+                  <span class="field-meta">sichtbar in Listen</span>
+                </div>
+                <div class="control focused">Arztrechnung Juni 2026</div>
+                <p class="helper-text">Kurzer, korrigierbarer Dokumenttitel. Keine OCR-Rohdaten in globalen Listen.</p>
+              </div>
+              <div class="field">
+                <div class="field-label-row">
+                  <label>Notiz</label>
+                  <span class="field-meta">optional</span>
+                </div>
+                <div class="control large">Beim naechsten Versicherungsportal einreichen.</div>
+                <p class="helper-text">Notizen bleiben lokal und erscheinen nicht in technischen Meldungen.</p>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Required Policy</span>
+              <div class="form-grid">
+                <div class="choice-card selected"><strong>Datei</strong><span>muss vorhanden und lesbar sein.</span></div>
+                <div class="choice-card selected"><strong>Person</strong><span>kein Default; aktiv waehlen.</span></div>
+                <div class="choice-card selected"><strong>Titel</strong><span>kurz, bearbeitbar, suchbar.</span></div>
+                <div class="choice-card selected"><strong>Dokumenttyp</strong><span>locker, spaeter verfeinerbar.</span></div>
+                <div class="choice-card warning"><strong>Konflikt</strong><span>harte Review-Konflikte blockieren.</span></div>
+                <div class="choice-card"><strong>Facts</strong><span>optional bis Assisted Review.</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Field Catalog</h2>
+          <div class="form-layout three">
+            <div class="form-section">
+              <span class="form-section-title">Text</span>
+              <div class="field"><label>Titel</label><div class="control">Versicherungspolizze 2026</div></div>
+              <div class="field"><label>Absender</label><div class="control">Wiener Staedtische</div></div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Datum</span>
+              <div class="field"><label>Dokumentdatum</label><div class="control">12.06.2026</div></div>
+              <div class="field"><label>Faelligkeit</label><div class="control warning">19.06.2026</div><p class="review-text">Fristnah, aber nicht automatisch Alarm.</p></div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Betrag</span>
+              <div class="field"><label>Betrag</label><div class="control">128,40 EUR</div></div>
+              <div class="field"><label>Erstattung</label><div class="control readonly">offen</div></div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Auswahl</span>
+              <div class="field"><label>Dokumenttyp</label><div class="control select">Rechnung / Beleg</div></div>
+              <div class="field"><label>Vorgang</label><div class="control select">Arztbesuch Juni</div></div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Person / Profil</span>
+              <div class="choice-row">
+                <span class="person-chip">Caroline</span>
+                <span class="person-chip">Kind A</span>
+                <span class="person-chip">Haushalt</span>
+              </div>
+              <p>Personenbezug ist Pflicht, aber nicht als Prefix in Listen noetig.</p>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Tags</span>
+              <div class="form-chip-row">
+                <span class="form-chip selected">Gesundheit</span>
+                <span class="form-chip selected">Zusatzversicherung</span>
+                <span class="form-chip">Steuer</span>
+                <span class="form-chip warning">Fristnah</span>
+              </div>
+              <p>Tags bleiben Suche/Ordnung, nicht Status.</p>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Datei / Scan</span>
+              <div class="field"><label>Originaldatei</label><div class="control readonly">scan-2026-06-12.pdf</div></div>
+              <div class="field"><label>Quelle</label><div class="control select">Mobile Capture</div></div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Sensibel</span>
+              <div class="field"><label>Versicherungsnummer</label><div class="control sensitive">**** **** 3921</div></div>
+              <p class="helper-text">Sensible Werte nicht in Shell, Snackbar oder globalen Logs anzeigen.</p>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Readonly Technik</span>
+              <div class="field"><label>Checksum</label><div class="control readonly">sha256: redacted-demo</div></div>
+              <p class="helper-text">Technische IDs nur in Diagnosekontext, nicht in normalen Nutzerflows.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Control Catalog</h2>
+          <div class="form-layout three">
+            <div class="form-section">
+              <span class="form-section-title">Single Line Text</span>
+              <div class="field required">
+                <label>Dokumenttitel</label>
+                <div class="control">Arztrechnung Juni 2026</div>
+                <p class="helper-text">Kurze Titel, gute Suche, kein OCR-Rohtext.</p>
+              </div>
+              <div class="field">
+                <label>Aktenzeichen</label>
+                <div class="control">SV-2026-1842</div>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Long Text</span>
+              <div class="field">
+                <label>Notiz</label>
+                <div class="control large">Vor Einreichung pruefen, ob Apothekenbeleg beigelegt ist.</div>
+                <p class="helper-text">Mehrzeilige Felder duerfen Listenzeilen nicht aufblaehen.</p>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Amount / Currency</span>
+              <div class="field">
+                <label>Betrag</label>
+                <div class="control control-split"><span>128,40</span><span class="control-suffix">EUR</span></div>
+              </div>
+              <div class="field">
+                <label>Erstattungsquote</label>
+                <div class="control control-split"><span>80</span><span class="control-suffix">%</span></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Phone / Email / URL</span>
+              <div class="field">
+                <label>Email</label>
+                <div class="control readonly">account@example.test</div>
+                <p class="helper-text">Account-Email ist Identity-Feld, nicht normales Profilfeld.</p>
+              </div>
+              <div class="field">
+                <label>Externer Link</label>
+                <div class="control">https://portal.example.test</div>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Search / Typeahead</span>
+              <div class="field">
+                <label>Versicherung suchen</label>
+                <div class="control focused">Zusatzversicherung</div>
+              </div>
+              <div class="picker-menu">
+                <div class="picker-option selected"><span class="picker-token">V</span><span><strong>Zusatzversicherung</strong><span>Private Polizze</span></span><span>gesetzt</span></div>
+                <div class="picker-option"><span class="picker-token">S</span><span><strong>Sozialversicherung</strong><span>OeGK</span></span><span></span></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Password / Secret</span>
+              <div class="field">
+                <label>Pairing Code</label>
+                <div class="control sensitive">**** ****</div>
+                <p class="helper-text">Reveal ist eine bewusste Aktion mit Ablaufzeit.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Picker Catalog</h2>
+          <div class="form-layout three">
+            <div class="form-section">
+              <span class="form-section-title">Dropdown</span>
+              <div class="field required">
+                <label>Dokumenttyp</label>
+                <div class="control select focused">Rechnung / Beleg</div>
+              </div>
+              <div class="picker-menu">
+                <div class="picker-option selected"><span class="picker-token">R</span><span><strong>Rechnung / Beleg</strong><span>Betrag, Faelligkeit, Erstattung</span></span><span>aktiv</span></div>
+                <div class="picker-option"><span class="picker-token">N</span><span><strong>Offizieller Nachweis</strong><span>Version, Gueltigkeit, Schnellzugriff</span></span><span></span></div>
+                <div class="picker-option"><span class="picker-token">V</span><span><strong>Vertrag / Polizze</strong><span>Laufzeit, Kuendigung, Kosten</span></span><span></span></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Combobox</span>
+              <div class="field">
+                <label>Anbieter</label>
+                <div class="control focused">Apotheke Sonnenhof</div>
+                <p class="helper-text">Freitext erlaubt, bestehende Anbieter werden vorgeschlagen.</p>
+              </div>
+              <div class="picker-menu">
+                <div class="picker-option selected"><span class="picker-token">A</span><span><strong>Apotheke Sonnenhof</strong><span>3 Dokumente</span></span><span></span></div>
+                <div class="picker-option"><span class="picker-token">A</span><span><strong>Apotheke Innenstadt</strong><span>1 Dokument</span></span><span></span></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Multi Select</span>
+              <div class="multi-value-row">
+                <span class="form-chip selected">Gesundheit</span>
+                <span class="form-chip selected">Zusatzversicherung</span>
+                <span class="form-chip">+ Tag</span>
+              </div>
+              <p class="helper-text">Mehrere Werte sichtbar, ohne ein Menu oeffnen zu muessen.</p>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Multi Select Dropdown</span>
+              <div class="field">
+                <label>Auswertungskategorien</label>
+                <div class="control select">2 Kategorien ausgewaehlt</div>
+              </div>
+              <div class="picker-menu">
+                <div class="picker-option selected"><span class="check-mark"></span><span><strong>Gesundheit</strong><span>Arzt, Apotheke, Versicherung</span></span><span></span></div>
+                <div class="picker-option selected"><span class="check-mark"></span><span><strong>Steuer</strong><span>relevant fuer Jahresuebersicht</span></span><span></span></div>
+                <div class="picker-option"><span class="check-mark"></span><span><strong>Haushalt</strong><span>laufende Kosten</span></span><span></span></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Person Picker</span>
+              <div class="field required">
+                <label>Betroffene Person</label>
+                <div class="control select">Kind A</div>
+              </div>
+              <div class="picker-menu">
+                <div class="picker-option"><span class="picker-token">C</span><span><strong>Caroline</strong><span>vollwertiges Profil</span></span><span></span></div>
+                <div class="picker-option selected"><span class="picker-token">K</span><span><strong>Kind A</strong><span>verwaltetes Profil</span></span><span></span></div>
+                <div class="picker-option"><span class="picker-token">H</span><span><strong>Haushalt</strong><span>gemeinsam</span></span><span></span></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Relation Picker</span>
+              <div class="field">
+                <label>Verknuepfte Unterlage</label>
+                <div class="control select">Versicherungspolizze 2026</div>
+              </div>
+              <div class="picker-menu">
+                <div class="picker-option selected"><span class="picker-token">P</span><span><strong>Versicherungspolizze 2026</strong><span>Kind A / Zusatzversicherung</span></span><span>Link</span></div>
+                <div class="picker-option"><span class="picker-token">V</span><span><strong>Arztbesuch Juni</strong><span>Vorgang</span></span><span></span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Date and Time Pickers</h2>
+          <div class="form-layout three">
+            <div class="form-section">
+              <span class="form-section-title">Date Picker</span>
+              <div class="date-picker">
+                <div class="picker-header"><span>Juni 2026</span><span class="mini-command">Heute</span></div>
+                <div class="calendar-grid">
+                  <span class="calendar-label">Mo</span><span class="calendar-label">Di</span><span class="calendar-label">Mi</span><span class="calendar-label">Do</span><span class="calendar-label">Fr</span><span class="calendar-label">Sa</span><span class="calendar-label">So</span>
+                  <span class="calendar-day disabled">1</span><span class="calendar-day">2</span><span class="calendar-day">3</span><span class="calendar-day">4</span><span class="calendar-day">5</span><span class="calendar-day">6</span><span class="calendar-day">7</span>
+                  <span class="calendar-day">8</span><span class="calendar-day">9</span><span class="calendar-day">10</span><span class="calendar-day">11</span><span class="calendar-day selected">12</span><span class="calendar-day">13</span><span class="calendar-day">14</span>
+                  <span class="calendar-day today">15</span><span class="calendar-day">16</span><span class="calendar-day">17</span><span class="calendar-day">18</span><span class="calendar-day">19</span><span class="calendar-day">20</span><span class="calendar-day">21</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Date Range Picker</span>
+              <div class="range-row">
+                <div class="control">01.01.2026</div>
+                <span class="range-separator">bis</span>
+                <div class="control">31.12.2026</div>
+              </div>
+              <div class="calendar-grid">
+                <span class="calendar-day selected">1</span><span class="calendar-day in-range">2</span><span class="calendar-day in-range">3</span><span class="calendar-day in-range">4</span><span class="calendar-day in-range">5</span><span class="calendar-day in-range">6</span><span class="calendar-day selected">7</span>
+              </div>
+              <p class="helper-text">Fuer Gueltigkeit, Vertragslaufzeit, Urlaub, Meldezeitraum.</p>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Time Picker</span>
+              <div class="time-grid">
+                <span class="time-slot">08:00</span>
+                <span class="time-slot">08:30</span>
+                <span class="time-slot selected">09:00</span>
+                <span class="time-slot">09:30</span>
+                <span class="time-slot">10:00</span>
+                <span class="time-slot">10:30</span>
+                <span class="time-slot">11:00</span>
+                <span class="time-slot">11:30</span>
+              </div>
+              <p class="helper-text">Termine brauchen Zeitzone und lokale Anzeige, aber keine globale Detailmeldung.</p>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Time Range Picker</span>
+              <div class="range-row">
+                <div class="control">09:00</div>
+                <span class="range-separator">bis</span>
+                <div class="control">10:30</div>
+              </div>
+              <p class="helper-text">Fuer Termine, Anrufzeitfenster, Abholfenster.</p>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Recurrence Picker</span>
+              <div class="selection-grid">
+                <div class="radio-button selected"><span class="radio-dot"></span><span>Einmalig</span></div>
+                <div class="radio-button"><span class="radio-dot"></span><span>Monatlich</span></div>
+                <div class="radio-button"><span class="radio-dot"></span><span>Jaehrlich</span></div>
+                <div class="radio-button"><span class="radio-dot"></span><span>Benutzerdefiniert</span></div>
+              </div>
+              <p class="helper-text">Fuer Versicherung, Miete, wiederkehrende Aufgaben.</p>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Reminder Offset</span>
+              <div class="field">
+                <label>Erinnerung</label>
+                <div class="control select">1 Monat vorher</div>
+              </div>
+              <div class="choice-row">
+                <span class="form-chip selected">1 Tag</span>
+                <span class="form-chip selected">1 Woche</span>
+                <span class="form-chip">1 Monat</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>File, Scan and Media Inputs</h2>
+          <div class="form-layout three">
+            <div class="form-section">
+              <span class="form-section-title">File Picker</span>
+              <div class="file-dropzone">
+                <strong>Datei hier ablegen</strong>
+                <p>PDF, JPG, PNG oder HEIC. Einzeldateien bleiben Dateien; mehrere Dokumente koennen spaeter zu einem Vorgang gehoeren.</p>
+                <div class="button-row"><a class="btn secondary" href="#">Datei waehlen</a></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Selected Files</span>
+              <div class="file-row">
+                <span class="file-icon">PDF</span>
+                <div><strong>scan-2026-06-12.pdf</strong><p class="helper-text">2 Seiten, 1.8 MB, lokal</p></div>
+                <span class="mini-command">Ersetzen</span>
+              </div>
+              <div class="file-row">
+                <span class="file-icon">JPG</span>
+                <div><strong>passfoto.jpg</strong><p class="helper-text">Bilddatei, kein PDF-Zwang</p></div>
+                <span class="mini-command danger">Entfernen</span>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Scan Mode</span>
+              <div class="selection-grid">
+                <div class="radio-button selected"><span class="radio-dot"></span><span>Dokument als PDF</span></div>
+                <div class="radio-button"><span class="radio-dot"></span><span>Foto als Bild</span></div>
+                <div class="radio-button"><span class="radio-dot"></span><span>Mehrseitiger Scan</span></div>
+                <div class="radio-button"><span class="radio-dot"></span><span>Nach Review entscheiden</span></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Image Quality</span>
+              <div class="choice-card selected"><strong>Auto Crop</strong><span>Dokumentkante erkennen.</span></div>
+              <div class="choice-card selected"><strong>Clean Document</strong><span>Hintergrund weiss, Text lesbar.</span></div>
+              <div class="choice-card"><strong>Original behalten</strong><span>Rohbild fuer Nachweis optional behalten.</span></div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Upload Queue</span>
+              <div class="edge-state-list">
+                <div class="edge-state"><span class="edge-token">Q</span><div><strong>Wartet lokal</strong><p>Home Hub nicht erreichbar, Upload bleibt retrybar.</p></div></div>
+                <div class="edge-state"><span class="edge-token">S</span><div><strong>Gesendet</strong><p>Empfang bestaetigt, Review weiterhin offen.</p></div></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Permissions</span>
+              <div class="field">
+                <label>Kamera</label>
+                <div class="control warning">Berechtigung benoetigt</div>
+                <p class="review-text">Fallback: Datei aus Fotos oder Dateisystem waehlen.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Selection, Boolean and Action Controls</h2>
+          <div class="form-layout three">
+            <div class="form-section">
+              <span class="form-section-title">Radio Buttons</span>
+              <div class="selection-grid">
+                <div class="radio-button selected"><span class="radio-dot"></span><span>Beleg</span></div>
+                <div class="radio-button"><span class="radio-dot"></span><span>Nachweis</span></div>
+                <div class="radio-button"><span class="radio-dot"></span><span>Vertrag</span></div>
+                <div class="radio-button"><span class="radio-dot"></span><span>Notiz</span></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Checkbox Buttons</span>
+              <div class="selection-grid">
+                <div class="checkbox-button selected"><span class="check-mark"></span><span>Steuerrelevant</span></div>
+                <div class="checkbox-button selected"><span class="check-mark"></span><span>Versicherung</span></div>
+                <div class="checkbox-button"><span class="check-mark"></span><span>Schnellzugriff</span></div>
+                <div class="checkbox-button"><span class="check-mark"></span><span>Archiv</span></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Switches</span>
+              <div class="toggle-row">
+                <span class="toggle-copy"><strong>Erinnerung aktiv</strong><span>Benachrichtigung vor Faelligkeit.</span></span>
+                <span class="switch on"></span>
+              </div>
+              <div class="toggle-row">
+                <span class="toggle-copy"><strong>In Schnellzugriff</strong><span>Nur wichtige Dokumente.</span></span>
+                <span class="switch"></span>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Segmented Control</span>
+              <div class="legacy-chip-row">
+                <span class="legacy-filter-chip active">Scan</span>
+                <span class="legacy-filter-chip">Foto</span>
+                <span class="legacy-filter-chip">Datei</span>
+              </div>
+              <p class="helper-text">Segmented Controls fuer Moduswechsel, nicht fuer Navigation.</p>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Command Row</span>
+              <div class="button-row">
+                <a class="btn" href="#">Speichern</a>
+                <a class="btn secondary" href="#">Abbrechen</a>
+                <span class="mini-command danger">Loeschen</span>
+              </div>
+              <p class="helper-text">Primaeraktion einmal, destruktive Aktion getrennt.</p>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Disclosure</span>
+              <div class="choice-card selected"><strong>Weitere Details</strong><span>Felder nur aufklappen, wenn sie die Entscheidung wirklich unterstuetzen.</span></div>
+              <div class="choice-card"><strong>Diagnose</strong><span>Technische Felder getrennt vom Nutzerformular.</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Numeric, Range and Color Controls</h2>
+          <div class="form-layout three">
+            <div class="form-section">
+              <span class="form-section-title">Number Stepper</span>
+              <div class="field">
+                <label>Anzahl Seiten</label>
+                <div class="stepper"><button type="button">-</button><span>2</span><button type="button">+</button></div>
+              </div>
+              <p class="helper-text">Fuer kleine ganze Zahlen, nicht fuer Geldwerte.</p>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Slider</span>
+              <div class="slider-box">
+                <div class="slider-labels"><span>0%</span><span>100%</span></div>
+                <div class="slider-track"><div class="slider-fill"></div><span class="slider-thumb"></span></div>
+                <div class="slider-labels"><span>Erstattung</span><span>62%</span></div>
+              </div>
+              <p class="helper-text">Nur fuer ungefaehre Werte; exakte Werte brauchen Input.</p>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Color Picker</span>
+              <div class="color-row">
+                <span class="color-swatch coral">Capture</span>
+                <span class="color-swatch petrol">Sync</span>
+                <span class="color-swatch deep">Structure</span>
+                <span class="color-swatch privacy">Privacy</span>
+                <span class="color-swatch surface">Surface</span>
+              </div>
+              <p class="helper-text">Farben nur aus Token-Palette; keine freien Zufallsfarben fuer Produkt-UI.</p>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Unit Input</span>
+              <div class="field">
+                <label>Dateigroesse Limit</label>
+                <div class="control control-split"><span>25</span><span class="control-suffix">MB</span></div>
+              </div>
+              <div class="field">
+                <label>Backup Intervall</label>
+                <div class="control control-split"><span>24</span><span class="control-suffix">Stunden</span></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Calculated Readonly</span>
+              <div class="field">
+                <label>Eigenanteil</label>
+                <div class="control readonly">25,68 EUR</div>
+              </div>
+              <p class="helper-text">Berechnete Werte zeigen Quelle und sind nicht direkt editierbar.</p>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Threshold</span>
+              <div class="field">
+                <label>Warnung ab</label>
+                <div class="control warning">30 Tage vor Ablauf</div>
+              </div>
+              <p class="helper-text">Benachrichtigungen brauchen nachvollziehbare Schwellen.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Validation States</h2>
+          <div class="form-state-grid">
+            <div class="state-tile"><strong>Default</strong><div class="control">Wert</div><p>Eingabebereit und neutral.</p></div>
+            <div class="state-tile"><strong>Focused</strong><div class="control focused">Aktiv</div><p>Fokus sichtbar fuer Tastatur und Pointer.</p></div>
+            <div class="state-tile"><strong>Required missing</strong><div class="control error">Bitte auswaehlen</div><p>Blockiert nur echte Gates.</p></div>
+            <div class="state-tile"><strong>Warning</strong><div class="control warning">Fristnah</div><p>Hinweis, nicht automatisch Fehler.</p></div>
+            <div class="state-tile"><strong>Saved</strong><div class="control success">Gespeichert</div><p>Kurze Bestaetigung ohne private Details.</p></div>
+            <div class="state-tile"><strong>Readonly</strong><div class="control readonly">Originaldatei</div><p>Nicht editierbar, aber erklaerbar.</p></div>
+            <div class="state-tile"><strong>Disabled</strong><div class="control disabled">Nicht verfuegbar</div><p>Grund muss sichtbar sein.</p></div>
+            <div class="state-tile"><strong>Sensitive</strong><div class="control sensitive">**** ****</div><p>Maskieren, Reveal bewusst machen.</p></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Assisted Review Suggestions</h2>
+          <div class="form-layout">
+            <div class="form-section">
+              <span class="form-section-title">Vorschlaege bleiben Entscheidungen</span>
+              <div class="form-grid">
+                <div class="suggestion-card">
+                  <div class="suggestion-header"><span class="suggestion-title">Titel</span><span class="confidence">hoch</span></div>
+                  <div class="suggestion-value">Arztrechnung Juni 2026</div>
+                  <div class="suggestion-actions"><span class="mini-command primary">Uebernehmen</span><span class="mini-command">Bearbeiten</span><span class="mini-command danger">Ablehnen</span></div>
+                </div>
+                <div class="suggestion-card">
+                  <div class="suggestion-header"><span class="suggestion-title">Betrag</span><span class="confidence">mittel</span></div>
+                  <div class="suggestion-value">128,40 EUR</div>
+                  <div class="suggestion-actions"><span class="mini-command primary">Uebernehmen</span><span class="mini-command">Korrigieren</span><span class="mini-command danger">Ablehnen</span></div>
+                </div>
+                <div class="suggestion-card">
+                  <div class="suggestion-header"><span class="suggestion-title">Faelligkeit</span><span class="confidence">niedrig</span></div>
+                  <div class="suggestion-value">19.06.2026</div>
+                  <div class="suggestion-actions"><span class="mini-command">Pruefen</span><span class="mini-command danger">Ablehnen</span></div>
+                </div>
+                <div class="suggestion-card">
+                  <div class="suggestion-header"><span class="suggestion-title">Tag</span><span class="confidence">hoch</span></div>
+                  <div class="suggestion-value">Gesundheit</div>
+                  <div class="suggestion-actions"><span class="mini-command primary">Setzen</span><span class="mini-command">Weitere Tags</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="callout-card privacy">
+              <div class="callout-token" data-callout-icon="shield" aria-hidden="true"></div>
+              <div class="callout-body">
+                <strong>Keine stille Uebernahme</strong>
+                <p>KI/OCR-Vorschlaege duerfen fachlich relevante Felder vorbereiten, aber nicht ohne sichtbare Bestaetigung finalisieren.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Form Layouts</h2>
+          <div class="form-layout three">
+            <div class="form-section">
+              <span class="form-section-title">Draft Review</span>
+              <div class="field required"><label>Betroffene Person</label><div class="control select">Kind A</div></div>
+              <div class="field required"><label>Dokumenttyp</label><div class="control select">Rechnung / Beleg</div></div>
+              <div class="field"><label>Vorgang</label><div class="control select">Arztbesuch Juni</div></div>
+              <div class="button-row"><a class="btn" href="#">Pruefung abschliessen</a><a class="btn secondary" href="#">Spaeter</a></div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Profil</span>
+              <div class="field required"><label>Anzeigename</label><div class="control">Kind A</div></div>
+              <div class="field"><label>Versicherung</label><div class="control select">OeGK</div></div>
+              <div class="field"><label>Private Versicherung</label><div class="control select">Zusatzversicherung</div></div>
+              <p class="helper-text">Profil-Login und Verwaltung bleiben getrennte Konzepte.</p>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Aufgabe</span>
+              <div class="field required"><label>Titel</label><div class="control">Rechnung einreichen</div></div>
+              <div class="field"><label>Faelligkeit</label><div class="control">26.06.2026</div></div>
+              <div class="field"><label>Link</label><div class="control">SV-Portal oeffnen</div></div>
+              <p class="helper-text">Tasks duerfen auf Vorgang, Dokument oder externen Link zeigen.</p>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Settings</span>
+              <div class="field"><label>Home Hub</label><div class="control">ordna-hub.local</div></div>
+              <div class="field"><label>Pairing</label><div class="control readonly">QR Pairing aktiv</div></div>
+              <div class="button-row"><a class="btn secondary" href="#">Verbindung pruefen</a></div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Konflikt</span>
+              <div class="field"><label>Lokale Version</label><div class="control">Titel A</div></div>
+              <div class="field"><label>Andere Version</label><div class="control warning">Titel B</div></div>
+              <div class="choice-row"><span class="mini-command primary">Lokal behalten</span><span class="mini-command">Andere Version</span><span class="mini-command">Manuell</span></div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Export</span>
+              <div class="field"><label>Umfang</label><div class="control select">Ganzer Vorgang als ZIP</div></div>
+              <div class="field"><label>Enthaelt Profile</label><div class="control sensitive">Caroline, Kind A</div></div>
+              <p class="helper-text">Export bleibt lokal; keine externe Freigabe der App.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Mobile Capture Minimal Form</h2>
+          <div class="form-layout">
+            <div class="mobile-form-preview">
+              <div class="form-section">
+                <span class="form-section-title">Neuer Scan</span>
+                <div class="field required"><label>Person</label><div class="control select">Kind A</div></div>
+                <div class="field"><label>Vorgang</label><div class="control select">Spaeter zuordnen</div></div>
+                <div class="field"><label>Notiz</label><div class="control large">Arztrechnung und Apothekenbeleg.</div></div>
+                <a class="btn large" href="#">Upload senden</a>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Mobile Regeln</span>
+              <div class="choice-card selected"><strong>Capture first</strong><span>Scan darf nicht an voller Desktop-Verwaltung haengen.</span></div>
+              <div class="choice-card selected"><strong>Draft fallback</strong><span>Unklare Zuordnung landet sicher im Eingang.</span></div>
+              <div class="choice-card selected"><strong>Offline ready</strong><span>Queue bleibt lokal und retrybar.</span></div>
+              <div class="choice-card"><strong>Keine Pflicht-Flut</strong><span>Mobile Pflichtfelder bleiben minimal.</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Enterprise Edge States</h2>
+          <div class="form-layout three">
+            <div class="form-section">
+              <span class="form-section-title">Loading Options</span>
+              <div class="edge-state-list">
+                <div class="edge-state"><span class="edge-token">L</span><div><strong>Optionen laden</strong><p>Picker bleibt fokussierbar, zeigt aber keine leeren Zufallswerte.</p></div></div>
+                <div class="edge-state"><span class="edge-token">R</span><div><strong>Retry moeglich</strong><p>Netzwerkfehler erklaert die Ursache und die naechste Aktion.</p></div></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Empty / No Results</span>
+              <div class="field">
+                <label>Anbieter suchen</label>
+                <div class="control">Keine Treffer fuer "Sonnenhof"</div>
+              </div>
+              <div class="choice-row"><span class="mini-command primary">Neu anlegen</span><span class="mini-command">Suche loeschen</span></div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Stale Reference</span>
+              <div class="field">
+                <label>Verknuepfter Vorgang</label>
+                <div class="control warning">Nicht mehr verfuegbar</div>
+                <p class="review-text">Referenz reparieren, entfernen oder neuen Vorgang waehlen.</p>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Offline Draft</span>
+              <div class="edge-state"><span class="edge-token">O</span><div><strong>Lokal gespeichert</strong><p>Aenderung wartet auf Sync, Review bleibt weiter moeglich.</p></div></div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Permission Blocked</span>
+              <div class="field">
+                <label>Kamera</label>
+                <div class="control error">Zugriff blockiert</div>
+                <p class="error-text">Scan nicht moeglich. Dateiimport bleibt verfuegbar.</p>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Autosave</span>
+              <div class="edge-state-list">
+                <div class="edge-state"><span class="edge-token">D</span><div><strong>Entwurf geaendert</strong><p>Lokale Aenderung ist noch nicht bestaetigt.</p></div></div>
+                <div class="edge-state"><span class="edge-token">S</span><div><strong>Gespeichert</strong><p>Bestaetigung ohne Dokumenttitel oder sensible Details.</p></div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Quality Gates</h2>
+          <table class="token-table">
+            <tr><th>Gate</th><th>Regel</th><th>Nachweis</th></tr>
+            <tr><td>Required</td><td>Nur echte Abschluss-Gates blockieren.</td><td>Widget-Test fuer Review-Abschluss.</td></tr>
+            <tr><td>Control Family</td><td>Jeder Input-Typ hat erlaubte Einsaetze, States und Mobile-Verhalten.</td><td>Design-System-Screenshot und UI-Plan.</td></tr>
+            <tr><td>Picker</td><td>Dropdown, Combobox, Multi Select und Relation Picker sind klar getrennt.</td><td>Keyboard- und No-Results-Test.</td></tr>
+            <tr><td>Date/Time</td><td>Datum, Zeitraum, Uhrzeit und Wiederholung sind editierbar und lesbar.</td><td>Desktop-/Mobile-Picker-Test.</td></tr>
+            <tr><td>File/Scan</td><td>Datei, Foto, PDF, Queue und Berechtigung haben eigene Zustaende.</td><td>Import-, Scan- und Offline-Smoke-Test.</td></tr>
+            <tr><td>Labels</td><td>Lange deutsche Labels umbrechen ohne Ueberlappung.</td><td>Desktop- und Mobile-Screenshot.</td></tr>
+            <tr><td>Keyboard</td><td>Fokusreihenfolge, Picker und Buttons ohne Maus nutzbar.</td><td>Accessibility-/Widget-Test.</td></tr>
+            <tr><td>Privacy</td><td>Sensible Werte nie in Shell, Snackbar oder globalen Meldungen.</td><td>Review gegen F18/F25.</td></tr>
+            <tr><td>Suggestions</td><td>Vorschlaege brauchen Accept/Edit/Reject oder klare Pruefung.</td><td>Assisted-Review-Testdaten.</td></tr>
+            <tr><td>Async States</td><td>Loading, Empty, Permission, Offline und Stale Reference sind abgedeckt.</td><td>Fake-Repo- und Microcks-Szenarien.</td></tr>
+            <tr><td>Architecture</td><td>Presentation zeigt State; Persistenz bleibt hinter Domain-Ports.</td><td>Import-Grenzen und Provider-Review.</td></tr>
+          </table>
+        </section>
+      </main>
+    </div>
+    <script src="../assets/js/navigation.js"></script>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ordna Tags</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="hero">
+          <div class="panel">
+            <div class="eyebrow">Tags</div>
+            <h1>Tags helfen beim Wiederfinden, ersetzen aber keinen Status.</h1>
+            <p>
+              Tags sind flexible Schlagworte fuer Filter, Suche und persoenliche
+              Ordnung. Workflow-Zustaende wie Entwurf, bezahlt, eingereicht oder
+              erstattet bleiben eigene Status- und Fact-Felder.
+            </p>
+            <div class="legacy-chip-row">
+              <span class="legacy-filter-chip active">Gesundheit <span class="legacy-count">4</span></span>
+              <span class="legacy-filter-chip">Steuer <span class="legacy-count">2</span></span>
+              <span class="legacy-filter-chip">Familie <span class="legacy-count">7</span></span>
+            </div>
+          </div>
+          <div class="panel paper">
+            <h2>Tag Anatomy</h2>
+            <div class="tag-stack">
+              <span class="legacy-filter-chip active">Aktiver Filter <span class="legacy-count">4</span></span>
+              <span class="legacy-filter-chip">Inaktiver Filter <span class="legacy-count">12</span></span>
+              <span class="legacy-tag-chip current">Ausgewaehlter Tag</span>
+              <span class="legacy-tag-chip outline">Normaler Tag</span>
+            </div>
+            <p>Tags sind knapp, lesbar, filterbar und in Bearbeitung explizit entfernbar.</p>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Tag Regeln</h2>
+          <div class="visual-demo">
+            <div class="document-card">
+              <div class="doc-title">Arztrechnung Juni 2026</div>
+              <div class="legacy-chip-row">
+                <span class="legacy-tag-chip current">Gesundheit</span>
+                <span class="legacy-tag-chip soft">Zusatzversicherung</span>
+                <span class="legacy-tag-chip outline">Kind A</span>
+                <span class="legacy-tag-chip outline">Fristnah</span>
+              </div>
+            </div>
+            <div class="field"><label>Tag hinzufuegen</label><div class="control">Schlagwort suchen oder neu anlegen</div></div>
+          </div>
+          <table class="token-table">
+            <tr><th>Regel</th><th>Entscheidung</th></tr>
+            <tr><td>Keine Status-Dopplung</td><td>Nicht fuer bezahlt, offen, eingereicht, erledigt oder Konflikt verwenden.</td></tr>
+            <tr><td>Kontrollierte Basis</td><td>Ordna liefert System-Tags fuer haeufige Bereiche; freie Tags bleiben moeglich.</td></tr>
+            <tr><td>Suchbar</td><td>Tags muessen in Suche, Filterchips und Dokumentlisten nutzbar sein.</td></tr>
+            <tr><td>Viele-zu-viele</td><td>Ein Dokument oder Vorgang kann mehrere Tags tragen.</td></tr>
+            <tr><td>Optik</td><td>Filterchips bleiben gross, pill-foermig, mit Count-Badge und Petrol-Aktivzustand.</td></tr>
+            <tr><td>Privacy</td><td>Sensible Tags duerfen sichtbar sein, aber nicht allein ueber Farbe verstanden werden.</td></tr>
+          </table>
+        </section>
+
+        <section class="section-grid">
+          <article class="mini-card">
+            <strong>Dokumentliste</strong>
+            <p>Maximal die wichtigsten Tags direkt zeigen, weitere Tags kompakt zaehlen.</p>
+          </article>
+          <article class="mini-card">
+            <strong>Detailseite</strong>
+            <p>Alle Tags sichtbar und bearbeitbar, mit klarer Trennung von Facts und Status.</p>
+          </article>
+          <article class="mini-card">
+            <strong>Suche</strong>
+            <p>Tags erscheinen als Filterchips und koennen kombiniert werden.</p>
+          </article>
+          <article class="mini-card">
+            <strong>Mobile Capture</strong>
+            <p>Tags sind optional; Pflicht bleiben betroffene Person und Zielkontext.</p>
+          </article>
+        </section>
+      </main>
+    </div>
+    <script src="../assets/js/navigation.js"></script>
+  </body>
+</html>

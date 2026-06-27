@@ -2,8 +2,8 @@
 title: "Konzept F11 - API Integration"
 description: "DocMan-spezifisches API-Konzept für Home Hub, Capture Gateway, späteres Sync Backend, Repository-Grenzen und backend-agnostische App-Schnittstellen"
 tags: [concept, foundation, api, home-hub, capture-gateway, sync, self-hosted]
-lastUpdated: "2026-04-26"
-version: "3.0"
+lastUpdated: "2026-05-11"
+version: "3.3"
 status: "accepted"
 ---
 
@@ -19,7 +19,13 @@ Dieses Konzept ersetzt den importierten F11-Inhalt aus dem alten Projekt.
 
 F11 definiert, wie die DocMan App mit dem self-hosted Home Hub und späterem Sync Backend spricht.
 
-Es entscheidet keine endgültige Backend-Technologie. Es definiert die App-Grenzen, damit PocketBase, Tailscale oder konkrete Frameworks nicht in Domain oder UI leaken.
+Die Home-Hub-Zieltechnologie ist inzwischen separat entschieden:
+ASP.NET Core + PostgreSQL + MinIO/S3-kompatibler Storage + Microcks. F11
+definiert weiterhin die App-Grenzen, damit PocketBase, Tailscale,
+ASP.NET-spezifische Typen, Datenbank-SDKs oder Storage-SDKs nicht in Domain oder
+UI leaken.
+
+API-Vertraege fuer Home Hub, Capture und spaeter Sync werden als OpenAPI-Spezifikationen gefuehrt. Microcks ist der geplante Contract-Mock- und Verification-Runner. Details stehen in `docs/technical/DECISION_API_CONTRACT_MOCKS.md`.
 
 ## Grundsatz
 
@@ -32,9 +38,9 @@ DocMan App
           -> self-hosted DocMan Server Stack
 ```
 
-## MVP API-Scope
+## M2 API-Scope
 
-Der MVP braucht nur einen kleinen API-Schnitt:
+Der M2 braucht nur einen kleinen API-Schnitt:
 
 - Home-Hub Health Check.
 - Geräte-Pairing oder Login-Grundlage.
@@ -44,13 +50,13 @@ Der MVP braucht nur einen kleinen API-Schnitt:
 - optionale Übermittlung einer `caseId`.
 - einfache Liste offener Vorgänge für Mobile, wenn verfügbar.
 
-Nicht im MVP:
+Nicht im M2:
 
 - vollständiger Multi-Geräte-Sync.
 - vollständige mobile Vorgangsverwaltung.
 - OCR-/LLM-Pipeline-API.
 - komplexes Rollenmodell.
-- öffentliche Sharing-API.
+- öffentliche Sharing-API oder externe App-Freigabe.
 
 ## API-Grenzen
 
@@ -83,20 +89,20 @@ F11 verbietet harte Abhängigkeiten auf:
 - PocketBase RecordModel oder SDK-Typen.
 - Tailscale-Begriffe.
 - konkrete Server-Frameworks.
-- OpenAPI-Generator als Pflicht.
 - Cloud-SaaS-Annahmen.
 
-OpenAPI kann später sinnvoll sein, ist aber keine aktuelle Produktentscheidung.
+OpenAPI ist Contract Source of Truth fuer HTTP-APIs. Das bedeutet nicht automatisch, dass Client-Code generiert werden muss. Ob der M2-Client handgeschrieben oder generiert wird, bleibt eine Implementierungsentscheidung.
 
 ## Capture Upload
 
 Ein Capture Upload braucht fachlich:
 
 - lokale Upload-ID.
-- Datei.
+- Datei oder Artefakt-Manifest.
 - MIME-Type.
 - Größe.
 - Hash, sobald verfügbar.
+- Idempotency Key.
 - Erfassungszeitpunkt.
 - optionales Profil.
 - optionale `caseId`.
@@ -110,6 +116,16 @@ Antwort des Home Hub sollte mindestens liefern:
 - ob Review erforderlich ist.
 - Fehlerklassifikation nach F5.
 
+Die Upload-Transport-Implementierung ist austauschbar. Der M2 darf
+API-proxied Upload nutzen. Das Enterprise-Ziel ist presigned/resumable Upload
+ueber den Home Hub als Kontrollinstanz. Details stehen in
+`docs/technical/DECISION_MOBILE_CAPTURE_UPLOAD_STRATEGY.md`.
+
+Der fachliche Home-Hub-Capture-Vertrag ist separat entschieden in
+`docs/technical/DECISION_HOME_HUB_CAPTURE_CONTRACT.md`. Fuer den R4-M2 gilt
+ein OpenAPI/Microcks-faehiger 3-Schritt-Flow:
+`initiateCaptureUpload -> uploadCaptureBytes -> confirmCaptureUpload`.
+
 ## Capabilities
 
 Die App sollte den Home Hub nach Fähigkeiten fragen können.
@@ -122,8 +138,10 @@ Beispiele:
 - syncSupported.
 - ocrPipelineSupported.
 - maxUploadSize.
+- uploadTransport.
+- resumableUploadSupported.
 
-So kann der MVP klein starten und später wachsen, ohne UI und Domain umzubauen.
+So kann der M2 klein starten und später wachsen, ohne UI und Domain umzubauen.
 
 ## Auth und Security
 
@@ -180,6 +198,8 @@ F11 gilt als umgesetzt, wenn:
 
 - App-API-Zugriffe hinter Data-Repositories liegen.
 - Home-Hub-Health und Capture Upload konzeptionell klar sind.
+- API-Vertraege fuer Home Hub/Capture als OpenAPI-Spezifikationen geplant sind.
+- Microcks-Szenarien fuer Erfolg, Auth, Validation, Retry und Serverfehler vorgesehen sind.
 - Remote DTOs nicht in Domain leaken.
 - API-Fehler in F5-Failures gemappt werden.
 - Tailscale/PocketBase nicht in Produktlogik erscheinen.
@@ -187,9 +207,7 @@ F11 gilt als umgesetzt, wenn:
 
 ## Offene Folgefragen
 
-- Wird die MVP-API handgeschrieben oder über OpenAPI generiert?
-- Welche Backend-Sprache implementiert den Home Hub?
+- Wird der M2-API-Client handgeschrieben oder aus OpenAPI generiert?
 - Wie sieht Pairing konkret aus?
 - Welche Upload-Größen sind realistisch?
-- Brauchen Uploads Chunking schon im MVP?
-
+- Brauchen Uploads Chunking schon im M2?

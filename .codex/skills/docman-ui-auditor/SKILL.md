@@ -25,9 +25,9 @@ The implementation must match the approved plan exactly. Every widget, field, st
    - Names and locations match conventions.
    - Import ordering is consistent.
 3. Clean Architecture:
-   - Presentation does not import `lib/data/`.
-   - Riverpod feature-state providers do not call Isar or PocketBase directly.
-   - Domain repository interfaces are used.
+- Presentation does not import `lib/data/`.
+- Riverpod feature-state providers do not call Drift, Isar, PocketBase, file storage, or HTTP clients directly.
+- Domain repository interfaces are used.
    - New dependencies are registered through Riverpod providers.
 4. Widget tree:
    - Hierarchy matches plan.
@@ -46,8 +46,8 @@ The implementation must match the approved plan exactly. Every widget, field, st
 9. Accessibility:
    - Semantic labels, focus traversal, and contrast are addressed.
 10. Code quality:
-    - `flutter analyze` passes.
-    - `flutter test` passes.
+    - `scripts/verify.sh` passes, or known R3 legacy debt is explicitly separated from new findings.
+    - `flutter test` passes for the changed scope.
     - No `print()`, TODO/FIXME/HACK, or commented-out code remains.
 11. Plan completeness:
     - Every Definition of Done item is verified.
@@ -55,7 +55,7 @@ The implementation must match the approved plan exactly. Every widget, field, st
 ## Useful Checks
 
 ```bash
-flutter analyze
+scripts/verify.sh
 flutter test
 rg "import 'package:.*data/|import '../data/|import '../../data/" lib/presentation
 rg "\\bprint\\(" lib test

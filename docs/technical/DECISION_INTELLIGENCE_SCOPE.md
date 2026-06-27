@@ -1,6 +1,6 @@
 ---
 title: "Decision - Intelligence Scope"
-description: "Entscheidung zum KI-/OCR-/LLM-Scope: nicht im MVP, aber als lokale self-hosted Pipeline vorbereiten"
+description: "Entscheidung zum KI-/OCR-/LLM-Scope: nicht im M2, aber als lokale self-hosted Pipeline vorbereiten"
 tags: [decision, intelligence, ocr, llm, mvp, self-hosted]
 lastUpdated: "2026-04-27"
 status: "accepted"
@@ -14,7 +14,7 @@ Accepted.
 
 ## Entscheidung
 
-OCR, Dokumentklassifikation, Auto-Tagging und lokale LLMs sind nicht Teil des MVP.
+OCR, Dokumentklassifikation, Auto-Tagging und lokale LLMs sind nicht Teil des M2.
 
 DocMan bereitet diese Fähigkeiten aber architektonisch vor:
 
@@ -31,14 +31,17 @@ Dokument speichern
 ## Zielrichtung
 
 - Verarbeitung lokal oder self-hosted.
-- Keine Cloud-SaaS-Abhängigkeit.
+- Keine fruehe Cloud-SaaS-Abhaengigkeit.
+- Spaetere Managed Intelligence ist erlaubt, wenn
+  `DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md` eingehalten wird: explizite
+  Trust Boundary, klare Freigabe, keine Trainingsnutzung ohne Zustimmung,
+  begrenzte Retention und loeschbare Processing-Artefakte.
 - Vorschläge mit Review-Zustand.
 - Keine stillen automatischen Statusänderungen.
 - OCR-/LLM-Ergebnisse sind löschbar und privacy-sensibel.
 
 ## Konsequenzen
 
-- MVP-Datenmodell lässt spätere Vorschläge und Review-Zustände zu.
+- M2-Datenmodell lässt spätere Vorschläge und Review-Zustände zu.
 - F9/F10/F11/F14/F17 berücksichtigen Intelligence als späteren Anschluss.
 - Implementiert wird Intelligence erst nach stabiler Dokumentbasis, Home-Hub-Pipeline und realer Hardware-Entscheidung.
-

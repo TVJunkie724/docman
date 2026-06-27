@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ordna Fonts</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="panel">
+          <div class="eyebrow">Typography</div>
+          <h1>Manrope ist die Ordna-Schrift.</h1>
+          <p>Ordna braucht lange deutsche Labels, Metadaten, Betraege, Fristen und Dokumenttitel. Manrope ist die primaere Produkt- und Corporate-Schrift; System Sans bleibt technischer Fallback.</p>
+        </section>
+        <section class="section-grid">
+          <article class="mini-card"><strong>Primary Typeface</strong><p>Manrope fuer Produkt-UI, Corporate Design, Tabellen, Formulare und lange deutsche Texte.</p></article>
+          <article class="mini-card"><strong>Runtime Fallback</strong><p>System Sans ist erlaubt, solange Font-Bundling in Flutter noch nicht umgesetzt ist.</p></article>
+        </section>
+        <section class="panel">
+          <h2>Typografie Beispiel</h2>
+          <div class="visual-demo">
+            <div class="document-card">
+              <div class="doc-title">Versicherungspolizze 2026</div>
+              <div class="meta">Persoenliche Unterlage / Versicherung / Haushalt</div>
+              <p>Gueltig bis 31.12.2026. Erinnerung einen Monat vor Ablauf.</p>
+            </div>
+            <div class="field"><label>Pflichtfeld</label><div class="control">Betroffene Person auswaehlen</div></div>
+          </div>
+        </section>
+        <section class="panel">
+          <h2>Type Scale</h2>
+          <div class="visual-demo">
+            <div class="callout-card info">
+              <div class="callout-token" data-callout-icon="info" aria-hidden="true"></div>
+              <div class="callout-body">
+                <strong>Entscheidung</strong>
+                <p>Ordna nutzt Manrope fuer sichtbare Produkt- und Markenkommunikation. Die App darf technisch auf System Sans zurueckfallen, bis die Schrift gebundelt ist.</p>
+              </div>
+            </div>
+          </div>
+          <table class="token-table">
+            <tr><th>Token</th><th>Size</th><th>Use</th></tr>
+            <tr><td>font-xs</td><td>11px</td><td>Helper, captions, sidebar labels</td></tr>
+            <tr><td>font-sm</td><td>12px</td><td>Metadata, tables, compact controls</td></tr>
+            <tr><td>font-md</td><td>14px</td><td>Standard body and forms</td></tr>
+            <tr><td>font-lg</td><td>16px</td><td>Important labels, dialog body</td></tr>
+            <tr><td>font-section</td><td>18px</td><td>Panel titles</td></tr>
+            <tr><td>font-page</td><td>26px</td><td>Page titles</td></tr>
+          </table>
+        </section>
+      </main>
+    </div>
+    <script src="../assets/js/navigation.js"></script>
+  </body>
+</html>

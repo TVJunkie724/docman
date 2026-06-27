@@ -2,8 +2,8 @@
 title: "Konzept F1 - Project Structure"
 description: "DocMan-spezifische Projektstruktur für Flutter App, Foundation-Migration, Clean Architecture, Riverpod, local-first Datenfluss und späteren Home-Hub-Ausbau"
 tags: [concept, foundation, project-structure, flutter, clean-architecture, riverpod, local-first]
-lastUpdated: "2026-04-26"
-version: "3.0"
+lastUpdated: "2026-05-06"
+version: "3.3"
 status: "accepted"
 ---
 
@@ -21,7 +21,7 @@ F1 definiert, wie DocMan als Flutter-Projekt strukturiert werden soll, damit die
 
 Die Struktur muss vier Dinge gleichzeitig ermöglichen:
 
-- einen kleinen, realen MVP mit Desktop-Verwaltung plus Mobile Capture
+- einen kleinen, realen M2 mit Desktop-Verwaltung plus Mobile Capture
 - saubere Clean-Architecture-Grenzen
 - Riverpod als State Management und Dependency Injection
 - späteren Ausbau zu Home Hub, Sync, OCR und lokalen LLM-Pipelines
@@ -34,9 +34,12 @@ Dieses Konzept baut auf diesen Entscheidungen auf:
 - State Management und DI: Riverpod.
 - Datenfluss: local-first mit generischem self-hosted Sync Backend.
 - Backend-Rolle: eigener self-hosted Docker-/Compose-Stack als Draft-Zielbild; PocketBase nicht Zielarchitektur.
-- MVP: Desktop-Verwaltung plus Mobile Capture mit minimalem Home-Hub-Eingangskorb.
-- Mobile im MVP: capture-only, optionale Vorgangszuordnung als Komfortpfad.
+- M2: Desktop-Verwaltung plus Mobile Capture mit minimalem Home-Hub-Eingangskorb.
+- Mobile im M2: capture-only, optionale Vorgangszuordnung als Komfortpfad.
+- Kernmodell: Vorgänge bleiben `Case`; Dokumente, Records/Nachweise, Versionen und strukturierte Fakten werden als eigene Konzepte vorbereitet.
 - Alte Foundation-Konzepte werden DocMan-spezifisch neu geschrieben.
+- Mock-UI: Legacy-App nur als Referenz; neue Mocks isoliert und nicht im Produktpfad.
+- Legacy-Readiness: nur der Zielpfad ist production-readiness-relevant; alter Spike-Code wird eingefroren, isoliert oder gelöscht.
 
 ## Grundprinzip
 
@@ -44,7 +47,7 @@ DocMan soll nicht um Screens herum wachsen, sondern um fachliche Verantwortungen
 
 Die Struktur trennt deshalb:
 
-- Produktdomäne: Vorgänge, Dokumente, Profile, Aufgaben, Ereignisse.
+- Produktdomäne: Vorgänge, Dokumente, Records/Nachweise, strukturierte Fakten, Profile, Aufgaben, Ereignisse.
 - App-Infrastruktur: Config, Fehler, Logging, Routing, Security.
 - Lokale Datenhaltung: lokale DB, Datei-Cache, Upload-Queue.
 - Remote-Anbindung: Capture Gateway, später Sync Backend.
@@ -87,6 +90,8 @@ lib/
   features/
     cases/
     documents/
+    records/
+    facts/
     profiles/
     tasks/
     events/
@@ -94,6 +99,7 @@ lib/
     mobile_capture/
     home_hub/
     search/
+    insights/
     settings/
 
   shared/
@@ -223,29 +229,32 @@ presentation/
 
 Presentation darf Domain- und Application-Schichten nutzen, aber nicht direkt lokale DBs oder Remote-SDKs ansprechen.
 
-## MVP-Features
+## M2-Features
 
-Für den MVP sind diese Feature-Bereiche zentral:
+Für den M2 sind diese Feature-Bereiche zentral:
 
 | Feature | Verantwortung |
 |---|---|
 | `cases/` | Vorgänge erstellen, bearbeiten, schließen, anzeigen |
 | `documents/` | Dokument-Metadaten, Datei-Referenzen, Dokumentstatus |
 | `draft_inbox/` | ungeprüfte Dokumente, mobile Uploads, Zuordnung zu Vorgängen |
+| `tasks/` | Aufgabenübersicht, Fälligkeiten, einfache Reminder-Daten |
+| `quick_access/` | angepinnte wichtige Dokumente, Records und Vorgänge |
 | `mobile_capture/` | capture-only Flow, lokale Upload-Queue, optionale Vorgangszuordnung |
-| `profiles/` | aktives Profil, einfache Haushalts-/Profilzuordnung |
+| `profiles/` | betroffene Person, einfache Haushalts-/Profilzuordnung |
 | `home_hub/` | minimaler Capture-Upload, Verbindung, Health, Pairing als späteres Detail |
-| `search/` | lokale Suche und Filter für MVP-Daten |
+| `search/` | lokale Suche und Filter für M2-Daten |
 | `settings/` | lokale Einstellungen, Home-Hub-Verbindung, Diagnose |
 
 ## Spätere Features
 
-Diese Bereiche werden vorbereitet, aber nicht im MVP vollständig gebaut:
+Diese Bereiche werden vorbereitet, aber nicht im M2 vollständig gebaut:
 
 | Feature | Zeitpunkt |
 |---|---|
-| `sync/` | nach MVP, wenn echter Multi-Geräte-Sync geplant wird |
+| `sync/` | nach M2, wenn echter Multi-Geräte-Sync geplant wird |
 | `family_access/` | nach stabilen Profilen und Sync |
+| `reminders/` | wenn wiederkehrende Reminder, OS-/Push-Benachrichtigungen oder Kalenderintegration ausgebaut werden |
 | `intelligence/` | nach stabiler Dokumentbasis und Home-Hub-Pipeline |
 | `admin/` | wenn Home-Hub-Setup und Wartung UI brauchen |
 | `audit/` | wenn Änderungsverlauf und Compliance wichtiger werden |
@@ -265,7 +274,7 @@ Mobile Capture darf nicht zur vollständigen mobilen Vorgangsverwaltung anwachse
 
 ## Home Hub als Feature-Grenze
 
-Der MVP braucht einen minimalen Home-Hub-Anteil, aber noch kein vollständiges Sync Backend.
+Der M2 braucht einen minimalen Home-Hub-Anteil, aber noch kein vollständiges Sync Backend.
 
 `home_hub/` beschreibt deshalb in der Flutter App nur:
 
@@ -323,7 +332,7 @@ Nicht erlaubt:
 
 ## Feature-übergreifende Zusammenarbeit
 
-Manche MVP-Flows berühren mehrere Features. Beispiel:
+Manche M2-Flows berühren mehrere Features. Beispiel:
 
 ```text
 Mobile Capture
@@ -347,15 +356,19 @@ Wenn zwei Features stark gekoppelt wirken, muss die Grenze überprüft werden, s
 
 Die Umstellung erfolgt nicht als Big-Bang.
 
+Die bestehende App bleibt waehrend des Rebuilds als Legacy-Referenz erhalten. Sie darf fuer Designgefuehl, fachliche Begriffe und alte Flow-Ideen herangezogen werden. Neue Arbeit entsteht aber in der Zielstruktur oder in einem klar isolierten Mock-Bereich.
+
+Legacy-Code selbst ist kein Production-Readiness-Ziel. Er wird nicht enterprise-grade gemacht, nicht mit neuen Tests nachgerüstet und nicht durch BLoC/GetIt/Isar/PocketBase-Modernisierung verlängert. Sobald fachliche oder visuelle Erkenntnisse übertragen sind, darf alter Code gelöscht oder aus dem aktiven Produktpfad verschoben werden.
+
 Empfohlene Reihenfolge:
 
-1. Bestehende Mock- und Spike-Pfade markieren.
+1. Bestehende Mock- und Spike-Pfade markieren und vom Produktpfad trennen.
 2. Neue Zielstruktur für neue Arbeit festlegen.
 3. Domain-Begriffe von `Incident` auf `Case` planen.
 4. Riverpod-Bootstrap vorbereiten.
 5. Lokale Persistenz- und Repository-Grenzen nach F10/F2/F5 ausrichten.
-6. MVP-Features schrittweise aus bestehendem Code herauslösen oder neu aufbauen.
-7. Alte BLoC/GetIt/PocketBase-Pfade entfernen, wenn keine Zielpfade mehr davon abhängen.
+6. M2-Features im Zielpfad neu aufbauen und nur gezielt fachliche/visuelle Details aus Legacy übernehmen.
+7. Alte BLoC/GetIt/Isar/PocketBase-Pfade entfernen, sobald keine Zielpfade mehr davon abhängen.
 
 ## Dokumentationsregel
 
@@ -367,6 +380,7 @@ Implementation-Pläne müssen später konkretisieren:
 - welche Migrationsreihenfolge sicher ist
 - welche Tests vor und nach jedem Schritt laufen
 - welche alten Spike-Pfade gelöscht, isoliert oder ersetzt werden
+- welche Mock-Screens reine Konzeptvalidierung bleiben und welche in Feature-Arbeit ueberfuehrt werden
 
 ## Definition of Done für F1
 

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ordna Product Shell</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="hero">
+          <div class="panel">
+            <div class="eyebrow">Product Shell</div>
+            <h1>Der erste Screen ist Arbeit, nicht Landingpage.</h1>
+            <p>Ordna startet in Eingang, Vorgaengen, Dokumenten, Aufgaben oder Suche. Die Shell zeigt Status nur dann prominent, wenn Handlung noetig ist.</p>
+          </div>
+          <div class="panel paper">
+            <h2>Hauptbereiche</h2>
+            <div class="pill-row">
+              <span class="pill">Eingang</span><span class="pill">Vorgaenge</span><span class="pill">Dokumente</span><span class="pill">Aufgaben</span><span class="pill">Suche</span><span class="pill">Profile</span>
+            </div>
+          </div>
+        </section>
+        <section class="section-grid">
+          <article class="mini-card"><strong>Desktop</strong><p>Sidebar, global search, status area, optional right panel fuer Preview oder Metadaten.</p></article>
+          <article class="mini-card"><strong>Mobile</strong><p>Capture-first: Scan, Foto, Upload-Queue, optional Person/Vorgang, spaeter Review.</p></article>
+          <article class="mini-card"><strong>Status</strong><p>Backup, Sync, Konflikte und Queue sichtbar, aber nicht als dauerhafter Alarm.</p></article>
+          <article class="mini-card"><strong>Privacy</strong><p>Keine sensiblen Dokumentdetails in Shell-Chrome oder globalen Bannern.</p></article>
+        </section>
+        <section class="panel">
+          <h2>Shell Beispiel</h2>
+          <div class="visual-demo">
+            <div class="product-shell-mock">
+              <div class="product-shell-topbar">
+                <div class="product-shell-logo"><img src="../../../../assets/images/logo.png" alt="" />Ordna</div>
+                <div class="search-box">Suchen nach Dokument, Vorgang, Person oder Tag</div>
+                <div class="toolbar"><span class="pill selected">Sync aktiv</span><a class="btn" href="#">Scan</a></div>
+              </div>
+              <div class="product-shell-layout">
+                <nav class="product-shell-nav" aria-label="Ordna Bereiche">
+                  <div class="shell-nav-item active">Eingang</div>
+                  <div class="shell-nav-item">Vorgaenge</div>
+                  <div class="shell-nav-item">Dokumente</div>
+                  <div class="shell-nav-item">Aufgaben</div>
+                  <div class="shell-nav-item">Profile</div>
+                  <div class="shell-nav-item">Einstellungen</div>
+                </nav>
+                <section class="product-shell-main">
+                  <div class="shell-section-title">
+                    <strong>Eingang</strong>
+                    <div class="toolbar"><span class="tab active">Entwuerfe</span><span class="tab">Zuletzt</span><span class="tab">Konflikte</span></div>
+                  </div>
+                  <div class="document-card">
+                    <div class="doc-title">Neuer Scan</div>
+                    <div class="meta">Person und Vorgang noch offen</div>
+                    <div class="tag-demo"><span class="token-chip warning">Review noetig</span><span class="token-chip info">Upload lokal</span></div>
+                  </div>
+                  <div class="document-card">
+                    <div class="doc-title">Versicherungspolizze 2026</div>
+                    <div class="meta">Persoenliche Unterlage / Haushalt</div>
+                    <div class="tag-demo"><span class="token-chip success">Gesichert</span><span class="token-chip privacy">Sensibel</span></div>
+                  </div>
+                </section>
+                <aside class="product-shell-side">
+                  <div class="shell-section-title"><strong>Vorschau</strong><span class="pill">PDF</span></div>
+                  <div class="preview-mini">Dokumentvorschau</div>
+                  <div class="field"><label>Betroffene Person</label><div class="control error">Bitte auswaehlen</div></div>
+                  <div class="field"><label>Ziel</label><div class="control">Vorgang oder Sammlung waehlen</div></div>
+                </aside>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="panel">
+          <h2>Mobile Shell</h2>
+          <div class="visual-demo">
+            <div class="app-frame">
+              <div class="app-frame-header">
+                <strong>Capture</strong>
+                <span class="pill selected">Online</span>
+              </div>
+              <div class="app-frame-body">
+                <a class="btn" href="#">Dokument scannen</a>
+                <div class="toolbar">
+                  <span class="tab active">Queue</span>
+                  <span class="tab">Erledigt</span>
+                </div>
+                <div class="document-card"><div class="doc-title">Scan bereit</div><div class="meta">Zuordnung kann spaeter am Desktop erfolgen</div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="../assets/js/navigation.js"></script>
+  </body>
+</html>

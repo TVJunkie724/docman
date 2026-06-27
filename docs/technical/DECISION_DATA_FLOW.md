@@ -2,7 +2,7 @@
 title: "Decision - Local-first Data Flow and Self-hosted Sync Backend"
 description: "Entscheidung zu DocMans Datenfluss: lokale Quelle der Wahrheit, generisches Sync Backend, Self-Hosted-Betrieb als Zielrichtung"
 tags: [decision, architecture, local-first, sync, backend]
-lastUpdated: "2026-04-26"
+lastUpdated: "2026-06-05"
 status: "accepted"
 ---
 
@@ -25,6 +25,15 @@ DocMan App <-> DocMan Sync Backend
 ```
 
 Der DocMan Home Hub ist die erste empfohlene Backend-Variante fuer private Self-Hosted-Setups auf NAS, Mini-Server oder Heimserver. Tailscale ist die empfohlene private Netzwerkoption fuer fruehe Setups ohne offene eingehende Firewall-Ports. Tailscale ist aber kein Produktbestandteil, kein Domain-Begriff und keine harte Architekturabhaengigkeit.
+
+R6-D1 konkretisiert diese Rolle: Der Home Hub dient als Sync Coordinator,
+Backup-Server und spaetere Erweiterungsplattform fuer Jobs, OCR, LLM,
+Reprocessing, Search und Operations. Er ersetzt die lokale App-Datenbank nicht.
+Desktop und Smartphone bleiben offline funktionsfaehig.
+
+R11-D1 konkretisiert die Resilience-Grenze: Sync ist kein Ersatz fuer Backup.
+Ordna braucht vor echtem Haushaltsbetrieb lokales Backup plus Home-Hub-Backup,
+sichtbare Backup-Fehler und einen Restore-Test.
 
 Eine Drittanbieter-Cloud- oder externe SaaS-Variante ist aktuell nicht Teil der Produktplanung. Die generische Backend-Grenze bleibt trotzdem wichtig, damit der Home Hub, ein privater VPS oder ein spaeterer anderer Self-Hosted-Stack austauschbar bleiben. Self-hosted cloudartige Setups muessen die Security-/Privacy-Baseline einhalten.
 
@@ -53,10 +62,22 @@ Tailscale passt sehr gut fuer den Anfang, weil es Heimserver und mobile Geraete 
 - Sync ist asynchron und sichtbar.
 - Konflikte duerfen nicht still ueberschrieben werden.
 - Backend-SDKs und konkrete Transportdetails duerfen nicht in Domain-Kontrakte leaken.
+- Home Hub darf Sync, Backup und spaetere LLM/OCR-Jobs tragen, aber nicht zur
+  Voraussetzung fuer lokale Nutzung werden.
+- Backup/Restore ist eine eigene Produktfunktion und darf nicht nur aus Sync
+  abgeleitet werden.
+- Sync-Konflikte werden nach `DECISION_SYNC_CONFLICT_RESOLUTION.md` als
+  sichtbare Review-Zustaende behandelt; Dashboard und Konfliktansicht muessen
+  sie aufloesbar machen.
 
 ## Konsequenzen
 
 - Der erste Sync-Ausbau kann auf einen Home Hub zielen, muss aber ueber generische Schnittstellen geplant werden.
+- `DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md` erweitert diese Entscheidung:
+  Local-only bleibt ein unterstuetzter Modus, aber Ordna wird private-first,
+  offline-capable und service-ready geplant. Managed Sync, Backup, Sharing und
+  Intelligence duerfen spaeter moeglich sein, ohne die lokale Arbeitsfaehigkeit
+  oder Verschluesselungsfaehigkeit aufzugeben.
 - PocketBase, falls weiter genutzt, ist eine austauschbare Backend-Implementierung und nicht Teil des Domain-Kerns.
 - Tailscale gehoert in Setup-/Deployment-Dokumentation, nicht in Domain-Modell oder Produktlogik.
 - Sync-Status, Upload-Queue, Konfliktanzeige und lokale Datei-Caches werden zentrale Foundation-Themen.
