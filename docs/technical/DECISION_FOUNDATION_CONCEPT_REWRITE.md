@@ -33,7 +33,9 @@ Deshalb werden die Konzepte nicht kleinteilig geflickt und nicht als Legacy-Arch
 
 - Produktmodell: `Case` / Vorgang, `Event` / Ereignis.
 - State Management und DI: Riverpod.
-- Datenfluss: local-first mit generischem self-hosted Sync Backend.
+- Datenfluss: private-first, offline-capable und service-ready mit generischem
+  Sync Backend; Local-only, Home Hub und spaetere Managed Cloud duerfen durch
+  Data-/Processing-/Identity-Ports nicht verbaut werden.
 - Backend-Rolle: eigener self-hosted Docker-/Compose-Stack als Draft-Zielbild; PocketBase nicht Zielarchitektur.
 - M2: Desktop-Verwaltung plus Mobile Capture.
 - Mobile: capture-only im M2, direkte Vorgangszuordnung nur als Komfortpfad.

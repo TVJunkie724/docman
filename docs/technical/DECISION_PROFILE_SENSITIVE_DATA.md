@@ -128,7 +128,7 @@ Wichtig:
 - Mehrere Versicherungen muessen moeglich bleiben, z. B. staatliche
   Sozialversicherung plus private Zusatzversicherung.
 
-## E-Mail, Login und ID Austria
+## E-Mail, Login und eID
 
 E-Mail wird nicht als allgemeines Kontaktfeld geplant, sondern als spaeterer
 Account-/Identity-Identifier fuer:
@@ -137,13 +137,19 @@ Account-/Identity-Identifier fuer:
 - Haushalts-/Partnerfreigaben.
 - Einladungen oder Geraete-/Account-Zuordnung.
 
-ID Austria wird als spaetere Identity-Option vorgemerkt. R5/R6 muessen dafuer
-keine vollstaendige Integration bauen, duerfen die Architektur aber nicht
-blockieren.
+ID Austria wird als spaetere Identity-Option fuer Oesterreich vorgemerkt. Sie
+wird aber nicht direkt in den Domain-Kern eingebrannt, sondern ueber eine
+generische eIDAS-/EUDI-faehige Identity-Provider-Grenze vorbereitet. R5/R6
+muessen dafuer keine vollstaendige Integration bauen, duerfen die Architektur
+aber nicht blockieren.
 
-ID-Austria-Planung bedeutet:
+eID-/ID-Austria-Planung bedeutet:
 
 - Identity Provider bleibt austauschbar.
+- ID Austria ist ein erster oesterreichischer Provider, nicht die einzige
+  Identitaetsarchitektur.
+- eIDAS-notifizierte nationale eIDs und die EU Digital Identity Wallet / EUDI
+  bleiben anschlussfaehig.
 - lokale Profile sind nicht identisch mit Login-Accounts.
 - ein Account kann ein oder mehrere Profile verwalten, sofern Rechte das
   erlauben.
@@ -211,7 +217,8 @@ Folgen:
   sind innerhalb des Haushalts aber nicht hochsensibel.
 - Telefonnummer bleibt ausserhalb des geplanten Profilumfangs.
 - E-Mail wird fuer spaetere Account-/Login-Identitaet geplant.
-- ID Austria wird als spaetere Identity-Option vorgemerkt.
+- ID Austria wird als spaetere Identity-Option ueber eine generische
+  eIDAS-/EUDI-faehige Provider-Grenze vorgemerkt.
 - Versicherungen werden als eigene mehrfache Beziehungen/Records geplant.
 
 ## Nicht entschieden

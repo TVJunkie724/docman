@@ -43,6 +43,8 @@ Spaeter optional:
 
 - Google/Microsoft Identity als Identity Provider.
 - Passkeys oder andere lokale/standardisierte Identity-Optionen.
+- eIDAS-/EUDI-faehige Identity Provider, mit ID Austria als naheliegendem
+  ersten oesterreichischen Provider.
 - Household-Mitglieder und Rollen.
 - Account-Linking zwischen Person, Haushalt und Geraeten.
 
@@ -170,4 +172,5 @@ Die Entscheidung ist akzeptiert, wenn:
 - Erzeugt Desktop den QR-Code oder immer der Home Hub?
 - Wird ein Admin-Passwort fuer den Home Hub bereits im M2 benoetigt?
 - Wie wird Revocation im Home-Hub-UI sichtbar?
-- Welche Identity Provider werden spaetere Milestones zuerst geprueft?
+- Welche Identity Provider werden spaetere Milestones zuerst geprueft,
+  insbesondere Passkeys, eIDAS/EUDI und ID Austria?

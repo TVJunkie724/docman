@@ -153,6 +153,12 @@ Regeln:
 - Server-APIs werden so geplant, dass verschluesselte Dateien und verschluesselte Metadaten spaeter moeglich sind.
 - Eine Managed- oder extern gehostete Variante darf nicht voraussetzen, dass der Betreiber Dokumentinhalte lesen kann.
 
+Ergaenzend gilt `DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md`: Ordna wird als
+private-first, offline-capable und service-ready Plattform geplant. Sync,
+Backup und Sharing sollen E2EE-/Zero-Knowledge-faehig bleiben; OCR, Mapping und
+LLM-Assistenz brauchen dagegen eine eigene Processing- und Trust Boundary, weil
+sie temporaeren Klartextzugriff benoetigen koennen.
+
 ## Nicht entschieden
 
 Diese Entscheidung legt die Richtung fest, aber nicht die genaue Kryptografie.

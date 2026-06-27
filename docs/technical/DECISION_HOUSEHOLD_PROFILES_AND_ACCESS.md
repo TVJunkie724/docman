@@ -147,7 +147,8 @@ Regeln:
 - Telefonnummer ist nach aktueller Anforderung nicht noetig.
 - E-Mail gehoert zur spaeteren Account-/Login-Identity,
   nicht zum einfachen Kontaktprofil.
-- ID Austria soll als spaetere Identity-Option geprueft werden.
+- ID Austria soll als erster oesterreichischer Provider innerhalb einer
+  generischen eIDAS-/EUDI-faehigen Identity-Schicht geprueft werden.
 - Versicherungen werden als mehrfache strukturierte Beziehungen/Records geplant,
   nicht nur als Textfeld am Profil.
 - Kinderprofile brauchen besonders vorsichtige Defaults.

@@ -172,6 +172,7 @@ Details und Subphasen stehen in `docs/roadmap/PHASE_INDEX.md` und
 | D39 | Preview Generation Strategy | accepted | Capture, Cases/Records, UX, Data Lifecycle | R4: `pdfrx` als PDF-Preview-Adapter hinter PreviewGenerationPort; async, erste Seite, Bildstrategie | R7/R11: mehrseitige Navigation, Preview-Rebuild, alternative Adapter |
 | D40 | Document Type Catalog | accepted | Cases/Records, Capture, Search, UX | R4/M2: lockerer Typkatalog fuer Rechnung, Vertrag, Polizze, Gesundheit, Behörde, Nachweis, Schule, Garantie, Foto, Sonstiges | R8/R9/R13: Subtypen, Facts, Workflows, KI-Vorschlaege |
 | D41 | Review Completion Validation | accepted | Capture & Inbox, Cases/Records, Profiles, UX | R4/M2: Review-Abschluss blockiert bei fehlender Datei, fehlender betroffener Person, Titel, Dokumenttyp oder harten Review-Konflikten | R5/R8/R9: Profilregeln, Facts, OCR/AI-Hinweise und komplexere Validierung |
+| D42 | Trust, Encryption and Deployment Model | accepted | Security, Home Hub/Sync, Intelligence, Profiles, Release | R2/R4: Data-/Processing-/Identity-Ports so schneiden, dass Local-only, Home Hub und Managed Cloud nicht verbaut werden | R6/R9/R10/R11/R14/R15: E2EE-/Zero-Knowledge-faehiger Sync, Backup, Sharing, Managed Intelligence, eIDAS/EUDI/ID-Austria-Provider |
 
 ## 4. Phase R0 - Produkt- und Architekturentscheidungen
 
@@ -188,6 +189,7 @@ Hinweis: Die Produkt-Baseline, Security-/Privacy-Baseline, Storage-Grenze und Ho
 - `docs/technical/DECISION_STATE_MANAGEMENT.md`
 - `docs/technical/DECISION_DATA_FLOW.md`
 - `docs/technical/DECISION_BACKEND_ROLE.md`
+- `docs/technical/DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md`
 - `docs/technical/DECISION_FIRST_UTILITY_SCOPE.md`
 - `docs/technical/DECISION_WORKFLOW_RULES.md`
 - `docs/technical/DECISION_INTELLIGENCE_SCOPE.md`
@@ -204,7 +206,7 @@ Hinweis: Die Produkt-Baseline, Security-/Privacy-Baseline, Storage-Grenze und Ho
 | R0-D0 | Heisst das Produkt langfristig `DocMan`? | Entschieden: Produktname ist `Ordna`; `DocMan` bleibt vorerst technischer Repo-/Arbeitsname |
 | R0-D1 | Heißt das zentrale Modell weiterhin `Incident`? | Entschieden: `Case` im Code, "Vorgang" im UI, `Event`/"Ereignis" für Timeline-Einträge |
 | R0-D2 | BLoC/GetIt oder Riverpod? | Entschieden: Riverpod als State Management und DI; BLoC/GetIt wird nicht weiter ausgebaut |
-| R0-D3 | Local-first oder Backend-first? | Entschieden: local-first mit generischem DocMan Sync Backend; Home Hub/Tailscale nur erste Self-Hosted-Betriebsform |
+| R0-D3 | Local-first oder Backend-first? | Entschieden: private-first, offline-capable und service-ready; Local-only bleibt ein Modus, Home Hub/Tailscale ist die erste private Betriebsform, Managed Cloud bleibt spaeter moeglich |
 | R0-D4 | Rolle von PocketBase und Backend? | Entwurf: eigener self-hosted DocMan Server Stack per Docker/Compose; PocketBase nicht als Zielarchitektur |
 | R0-D5 | Was ist der erste nutzbare Produkt-Slice? | Entschieden: Desktop-Verwaltung plus Mobile Capture mit minimalem Home-Hub-Eingangskorb |
 | R0-D6 | Wie streng sind Workflows? | Entschieden: Empfehlungen/Review; harte Regeln nur für Integrität/Sicherheit |

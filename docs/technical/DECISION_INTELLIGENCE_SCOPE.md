@@ -31,7 +31,11 @@ Dokument speichern
 ## Zielrichtung
 
 - Verarbeitung lokal oder self-hosted.
-- Keine Cloud-SaaS-Abhängigkeit.
+- Keine fruehe Cloud-SaaS-Abhaengigkeit.
+- Spaetere Managed Intelligence ist erlaubt, wenn
+  `DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md` eingehalten wird: explizite
+  Trust Boundary, klare Freigabe, keine Trainingsnutzung ohne Zustimmung,
+  begrenzte Retention und loeschbare Processing-Artefakte.
 - Vorschläge mit Review-Zustand.
 - Keine stillen automatischen Statusänderungen.
 - OCR-/LLM-Ergebnisse sind löschbar und privacy-sensibel.
@@ -41,4 +45,3 @@ Dokument speichern
 - M2-Datenmodell lässt spätere Vorschläge und Review-Zustände zu.
 - F9/F10/F11/F14/F17 berücksichtigen Intelligence als späteren Anschluss.
 - Implementiert wird Intelligence erst nach stabiler Dokumentbasis, Home-Hub-Pipeline und realer Hardware-Entscheidung.
-

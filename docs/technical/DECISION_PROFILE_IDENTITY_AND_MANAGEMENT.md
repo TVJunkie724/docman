@@ -108,6 +108,12 @@ sein, wenn eine aktive Verwaltungsbeziehung existiert.
 - Verwaltung ist reversibel und separat steuerbar.
 - Dokumente gehoeren fachlich zu Profilen, nicht zu Login-Accounts.
 - R6 muss Identity, Sessions, Sync und Rechte gegen diese Trennung planen.
+- `DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md` konkretisiert die spaetere
+  Identity-Schicht: ID Austria ist ein sinnvoller erster oesterreichischer
+  Provider, muss aber ueber eine generische eIDAS-/EUDI-faehige
+  `TrustedIdentityProvider`-Grenze austauschbar bleiben. Identity beantwortet,
+  wer eine Person ist; Key Management beantwortet, welche Daten entschluesselt
+  werden duerfen.
 - R5-D3 baut auf `ProfileManagementGrant` mit einfacher gemeinsamer Verwaltung
   auf.
 - R5-D4 klaert Partner-/Haushaltszugriff ohne Dokumentkopien.

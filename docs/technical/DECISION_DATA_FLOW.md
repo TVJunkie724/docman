@@ -73,6 +73,11 @@ Tailscale passt sehr gut fuer den Anfang, weil es Heimserver und mobile Geraete 
 ## Konsequenzen
 
 - Der erste Sync-Ausbau kann auf einen Home Hub zielen, muss aber ueber generische Schnittstellen geplant werden.
+- `DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md` erweitert diese Entscheidung:
+  Local-only bleibt ein unterstuetzter Modus, aber Ordna wird private-first,
+  offline-capable und service-ready geplant. Managed Sync, Backup, Sharing und
+  Intelligence duerfen spaeter moeglich sein, ohne die lokale Arbeitsfaehigkeit
+  oder Verschluesselungsfaehigkeit aufzugeben.
 - PocketBase, falls weiter genutzt, ist eine austauschbare Backend-Implementierung und nicht Teil des Domain-Kerns.
 - Tailscale gehoert in Setup-/Deployment-Dokumentation, nicht in Domain-Modell oder Produktlogik.
 - Sync-Status, Upload-Queue, Konfliktanzeige und lokale Datei-Caches werden zentrale Foundation-Themen.
