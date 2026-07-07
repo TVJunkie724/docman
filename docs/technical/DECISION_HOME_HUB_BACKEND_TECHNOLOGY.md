@@ -197,6 +197,9 @@ Ein Broker wie RabbitMQ, NATS oder Redis Queue wird erst eingefuehrt, wenn:
 - OpenAPI bleibt Contract Source of Truth.
 - Microcks bleibt Mock-/Verification-Runner.
 - ASP.NET Core muss die OpenAPI-Vertraege erfuellen, nicht umgekehrt.
+- `DECISION_BACKEND_CONTRACT_FIRST_ARCHITECTURE.md` konkretisiert diese Grenze:
+  UI und Domain haengen nicht direkt an ASP.NET Core, sondern an Domain-Ports,
+  Data Adapter und OpenAPI-Vertraege.
 - API-DTOs duerfen nicht direkt Flutter-Domain-Entities werden.
 - Backend-SDKs, EF-Typen, MinIO-Typen und ASP.NET-spezifische Typen duerfen
   nicht in Flutter Domain oder UI leaken.

@@ -173,6 +173,7 @@ Details und Subphasen stehen in `docs/roadmap/PHASE_INDEX.md` und
 | D40 | Document Type Catalog | accepted | Cases/Records, Capture, Search, UX | R4/M2: lockerer Typkatalog fuer Rechnung, Vertrag, Polizze, Gesundheit, Behörde, Nachweis, Schule, Garantie, Foto, Sonstiges | R8/R9/R13: Subtypen, Facts, Workflows, KI-Vorschlaege |
 | D41 | Review Completion Validation | accepted | Capture & Inbox, Cases/Records, Profiles, UX | R4/M2: Review-Abschluss blockiert bei fehlender Datei, fehlender betroffener Person, Titel, Dokumenttyp oder harten Review-Konflikten | R5/R8/R9: Profilregeln, Facts, OCR/AI-Hinweise und komplexere Validierung |
 | D42 | Trust, Encryption and Deployment Model | accepted | Security, Home Hub/Sync, Intelligence, Profiles, Release | R2/R4: Data-/Processing-/Identity-Ports so schneiden, dass Local-only, Home Hub und Managed Cloud nicht verbaut werden | R6/R9/R10/R11/R14/R15: E2EE-/Zero-Knowledge-faehiger Sync, Backup, Sharing, Managed Intelligence, eIDAS/EUDI/ID-Austria-Provider |
+| D43 | Backend Contract-First Architecture | draft | Home Hub/Sync, QA, DX, Security | R3/R4: API-Slices contract-first ueber OpenAPI/Microcks planen; UI haengt an Domain-Ports und Data-Adaptern, nicht an ASP.NET Core | R6/R9/R11/R15: ASP.NET-Core-Backend, Worker, Sync, Backup, Processing und Managed-Betriebsformen gegen dieselben Contracts erweitern |
 
 ## 4. Phase R0 - Produkt- und Architekturentscheidungen
 
@@ -215,6 +216,7 @@ Hinweis: Die Produkt-Baseline, Security-/Privacy-Baseline, Storage-Grenze und Ho
 | R0-D9 | Ist DocMan nur Vorgangsverwaltung mit Anhängen oder ein vollwertiges DMS? | Entschieden: vollwertiges privates DMS; M2 ist nur der erste nutzbare Slice |
 | R0-D10 | Wie wird Dateiablage technisch geschnitten? | Entschieden: austauschbarer Storage-Port; App-local File Store zuerst, MinIO/S3-kompatibel fuer Home Hub |
 | R0-D11 | Welche Backend-Technologie trägt den Home Hub? | Entschieden: ASP.NET Core + PostgreSQL + MinIO/S3-kompatibler Storage + Microcks |
+| R0-D12 | Wie koppeln UI und Backend? | Vorlaeufig entschieden: contract-first ueber OpenAPI/Microcks; Flutter UI und Domain haengen an Ports/Data-Adaptern, nicht direkt an Backend-Controllern |
 
 ### Akzeptanzkriterien
 

@@ -66,6 +66,9 @@ Fake-Repositories und Microcks ersetzen einander nicht.
 ## Regeln
 
 - API-Aenderungen starten mit oder aktualisieren die OpenAPI-Spezifikation.
+- `DECISION_BACKEND_CONTRACT_FIRST_ARCHITECTURE.md` konkretisiert die
+  Implementierungsreihenfolge: OpenAPI zuerst, Microcks-Szenarien, Flutter
+  Client gegen Mock, ASP.NET-Core-Implementierung gegen denselben Vertrag.
 - Microcks-Szenarien muessen Erfolgs-, Auth-, Validation-, Network-/Retry- und Serverfehler abdecken.
 - Contract-Beispiele duerfen nur synthetische Daten enthalten.
 - Keine echten Dokumente, echten Haushaltsdaten, Tokens oder Secrets in Specs, Examples oder Mock-Daten.

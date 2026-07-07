@@ -311,6 +311,8 @@ Aktuell gibt es mehrere aktive Ebenen:
 - Säulen-Roadmap unter `docs/roadmap/PILLAR_ROADMAP_INDEX.md`.
 - Wettbewerbs- und Positionierungsnotizen unter
   `docs/COMPETITIVE_POSITIONING.md`.
+- Prozess-/Skill-/Konzeptmigration unter
+  `docs/PROCESS_AND_CONCEPT_MIGRATION_PLAN.md`.
 - Foundation-Konzepte unter `docs/concepts/CONCEPT_F*.md`.
 - Technische Decisions und Foundation-Plan unter `docs/technical/`.
 - Projektlokale Codex-Skills unter `.codex/skills/`.
