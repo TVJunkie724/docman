@@ -92,6 +92,17 @@ Binding rules:
 - Every backend issue that creates, changes, decides, or exposes a
   frontend-consumed contract must have a linked frontend or contract follow-up
   before the backend issue is tracker-complete.
+- Frontend may describe backend needs from the UI, client, fake repository,
+  Microcks consumer, or user-flow perspective, but must not decide backend
+  contracts, DTOs, endpoint shapes, mapping rules, persistence design, sync
+  semantics, authorization policy architecture, or server-side processing
+  architecture. The backend team or the owning backend/contract/security skill
+  decides contracts, DTOs, endpoints, mapping, persistence, policy architecture,
+  and server-side processing.
+- A `Frontend:` issue that needs backend capability must phrase it as a
+  requirement or open contract question, then create or link a `Backend:` or
+  `Contract:` follow-up. It must not smuggle backend implementation design into
+  acceptance criteria.
 
 This rule is stricter than convenience. Even when the work feels small, do not
 create mixed frontend/backend implementation issues.
@@ -249,6 +260,13 @@ write only `works`, `handled`, `validated`, `tested`, `no crash`,
 `NotBeNull`, `NotBeEmpty`, `>= 0`, or `returns something`. Replace them with
 the exact observable outcome.
 
+Contract precision is required only inside the correct ownership boundary.
+Frontend-authored issues may specify required client behavior, user-visible
+states, fake repository scenarios, and contract questions, but must leave
+backend-owned DTOs, endpoints, mapping, persistence, policy architecture, and
+server processing decisions to `Backend:`, `Contract:`, `Foundation:`, or
+security-owned follow-up work.
+
 ## Implementation Decision Required
 
 The issue may leave something open only when the implementing backend,
@@ -379,6 +397,11 @@ gh issue list \
 6. Run the issue-quality self-review:
    - Does the title start with exactly one required owner prefix?
    - Is this issue free of mixed frontend/backend implementation scope?
+   - If this is a `Frontend:` issue, does it describe backend needs without
+     deciding backend contracts, DTOs, endpoints, mapping, persistence, policy
+     architecture, or server processing?
+   - If backend capability is required, is there a linked `Backend:` or
+     `Contract:` follow-up?
    - Can the next agent implement without asking what behavior is intended?
    - Are all happy, unhappy, boundary, auth, household/profile, malformed input,
      validation, stale-data, retry/idempotency, accessibility, localization,

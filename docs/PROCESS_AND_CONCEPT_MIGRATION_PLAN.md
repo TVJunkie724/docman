@@ -18,6 +18,9 @@ kopieren, sondern die Prozessqualitaet, Skill-Strenge, Konzept-Hierarchie und
 Implementation-Contract-Logik auf Ordnas Produkt, Architektur und Privacy-
 Anforderungen zu adaptieren.
 
+Die generalisierte Fassung dieser Arbeitsweise fuer neue Flutter-Projekte steht
+in `docs/FLUTTER_PROJECT_SETUP_PLAYBOOK.md`.
+
 ## Zielbild
 
 DocMan/Ordna soll vor weiterer UI- oder Backend-Implementation denselben
@@ -35,6 +38,251 @@ Product / Pillar / F-Concept
 
 Keine production-relevante UI oder Backend-Arbeit soll ohne freigegebenes
 Konzept, Phase oder Implementation Plan starten.
+
+## Migrationsinventar und Zielbild
+
+Die Migration uebernimmt keine Matchmia-Domain. Sie uebernimmt die Arbeitsweise,
+Konzept-Strenge, Quality Gates und die Aufteilung in bindende
+Querschnittskonzepte, Design-System-Konzepte, Pillar-Konzepte, Phasen und
+Implementation-Handoffs.
+
+### Zielbild nach der Migration
+
+Nach der Migration hat Ordna:
+
+- projekt-lokale Skills unter `.codex/skills/` ohne Projekt-Prefix.
+- F-Konzepte als bindende Querschnittsregeln fuer Frontend/Foundation.
+- OD-DS-Konzepte als Design-System-SSOT fuer Tokens, Shell, Komponenten,
+  Forms, Feedback, Datenanzeige, Accessibility und Visual QA.
+- Pillar-Dokumente als Produkt-/Governance-Saeulen, nicht als lose Ideenliste.
+- Roadmap-Phasen als Implementation Contracts mit Scope, Non-Goals,
+  UX-Verhalten, Data/Contract-Grounding, Security/Privacy, Tests und Stop
+  Rules.
+- GitHub Issues als tracker-seitige Source of Truth fuer actionable Arbeit.
+- klare Trennung von Produktentscheidung, Konzept, Phase, Architekturplan,
+  Implementation, Audit und Follow-up.
+- keine UI-Implementation ohne approved Concept/Phase und approved
+  `ui-architect` Plan.
+
+### Migration 1 - Projekt-lokale Skills
+
+Quelle:
+
+- Matchmia `.codex/skills/*`
+
+Ziel:
+
+- DocMan `.codex/skills/*`
+
+Zu migrieren/adaptieren:
+
+- UI-Pipeline: `ui-concept`, `ui-concept-review`, `ui-architect`,
+  `ui-plan-review`, `ui-builder`, `ui-auditor`, `ui-audit-review`,
+  `ui-debugger`, `ui-mocker`, `ui-onboarding`.
+- Issue-Governance: `github-issue`.
+- Git-Safety: `git-safety`.
+- Foundation/Data/Contract/Quality Skills: `foundation-builder`,
+  `data-architect`, `contract-api`, `quality-readiness`.
+- Noch offen aus Matchmia: backend-, ai-, ops- und guardian-artige Skills, aber
+  nur soweit sie zu Ordnas ASP.NET-Core/Home-Hub/Processing-Ziel passen.
+
+Ordna-Ziel:
+
+- Skills sind Rollenvertraege.
+- Builder arbeitet nur aus approved Plans.
+- Auditor prueft evidenzbasiert gegen Plan, Clean Architecture, Tests und DoD.
+- Issue-Skill erzwingt getrennte Frontend-/Backend-Implementation-Issues und
+  verlinkte Folgeissues, wenn beide Seiten betroffen sind.
+
+### Migration 2 - Frontend-Querschnittskonzepte
+
+Quelle:
+
+- Matchmia `Documentation/Frontend/concepts/MM-FE-*`
+- historische Matchmia `Documentation/Frontend/deprecated/CONCEPT_F*.md` nur
+  als Referenz, nicht als bindende Vorlage.
+
+Ziel:
+
+- DocMan `docs/concepts/CONCEPT_F*.md`
+
+Zu migrieren/adaptieren:
+
+| Bereich | Matchmia-Quelle | DocMan-Ziel |
+|---|---|---|
+| Projektstruktur | `MM-FE-01` | `CONCEPT_F1_PROJECT_STRUCTURE.md` |
+| State Management | `MM-FE-02` | `CONCEPT_F2_STATE_MANAGEMENT.md` |
+| Coding Conventions | `MM-FE-03` | `CONCEPT_F3_CODING_CONVENTIONS.md` |
+| Environment Configuration | `MM-FE-04` | `CONCEPT_F6_ENVIRONMENT_CONFIGURATION.md` |
+| API Integration | `MM-FE-05` | `CONCEPT_F11_API_INTEGRATION.md` |
+| Error Code Governance | `MM-FE-06` | `CONCEPT_F5_ERROR_HANDLING.md` und F18 |
+| Form Validation Contract | `MM-FE-07` | F24-F30 Form Family Konzepte |
+| Mock Surfaces | `MM-FE-08` | `CONCEPT_F15_MOCK_REPOSITORY.md` und Mock-Regeln |
+| Testing Strategy | `MM-FE-09` | `CONCEPT_F4_TESTING_STRATEGY.md` |
+| Error Handling | `MM-FE-10` | `CONCEPT_F5_ERROR_HANDLING.md` |
+| Logging | `MM-FE-11` | `CONCEPT_F7_LOGGING.md` |
+| Store Distribution | `MM-FE-12` | `CONCEPT_F8_APP_STORE_COMPLIANCE.md` |
+| Review Access | `MM-FE-13` | `CONCEPT_F8B_REVIEW_ACCESS_STRATEGY.md` |
+| Personal Data Compliance | `MM-FE-14` | `CONCEPT_F9_LEGAL_COMPLIANCE.md` |
+| Local Storage | `MM-FE-15` | `CONCEPT_F10_LOCAL_STORAGE.md` |
+| Secure Storage | `MM-FE-16` | `CONCEPT_F12_SECURE_STORAGE.md` |
+| Mock Repository | `MM-FE-17` | `CONCEPT_F15_MOCK_REPOSITORY.md` |
+| CI/CD Quality Gates | `MM-FE-18` | `CONCEPT_F16_CI_CD_PIPELINE.md` |
+| Contract Runtime Verification | `MM-FE-19` | F11, F18 und Contract/API Decisions |
+| Local Review Tools | `MM-FE-20` | F8b, F16 und QA-Gates |
+| Async Request Feedback | `MM-FE-21` | F18, F34 und DS Feedback |
+| Concept Slicing Governance | `MM-FE-22` | Roadmap-/Phase-Regeln und `ui-concept` |
+| Product Shell Layout | `MM-FE-23` | F22, F33 und OD-DS-02 |
+| Mobile Shell Navigation | `MM-FE-24` | F17, F22, F33 und Mobile Capture Pillar |
+
+Ordna-Ziel:
+
+- F-Konzepte sind cross-cutting und duerfen keine Produktseiten als Feature
+  verstecken.
+- Jedes F-Konzept nennt Status, Scope, Non-Goals, Regeln, Tests, Stop Rules
+  und betroffene Decisions/Pillars.
+- Flutter/Riverpod/Drift/Clean-Architecture-Regeln ersetzen Matchmia-spezifische
+  Annahmen.
+- Privacy, lokale Daten, Secure Storage, Sync-Readiness, OpenAPI/Microcks und
+  Fake-Repositories sind Pflichtbestandteile.
+
+### Migration 3 - Design-System-Konzepte
+
+Quelle:
+
+- Matchmia `Documentation/DesignSystem/concepts/MM-DS-*`
+- Matchmia Design-System Mock/Review-Artefakte nur als visuelle und strukturelle
+  Referenz.
+
+Ziel:
+
+- DocMan `docs/design-system/concepts/OD-DS-*.md`
+- bestehende DocMan F19-F35 als Uebergangs- oder Detailkonzepte, bis klar ist,
+  was in OD-DS gehoert.
+
+Zu migrieren/adaptieren:
+
+| Bereich | Matchmia-Quelle | DocMan-Ziel |
+|---|---|---|
+| Umbrella/Governance | `MM-DS-00` | `OD-DS-00` und F19 |
+| Foundations/Tokens | `MM-DS-01` | `OD-DS-01`, F21, F32 |
+| Layout/Shell | `MM-DS-02` | `OD-DS-02`, F22, F33 |
+| Corporate Design | `MM-DS-03` | `OD-DS-03`, F20, F31 |
+| Component System | `MM-DS-04` | F23, F26-F30, F34 |
+| Form Family | `MM-DS-04-01` bis `MM-DS-04-12` | F24-F30 |
+| Button/Navigation/Overlay/Icon/Feedback/Data Display | `MM-DS-04-13` bis `MM-DS-04-19` | F26, F33, F34, F35 und neue OD-DS Details |
+| Product Patterns | `MM-DS-05*` | F25, F35 und pillar-spezifische Patterns |
+| Accessibility/Quality Gates | `MM-DS-06` | F25, F35, QA-Gates |
+| Platform Adaptation | `MM-DS-07` | F17, F22, F33 und Platform Support Pillar |
+
+Ordna-Ziel:
+
+- Design-System-Regeln sind Source of Truth fuer sichtbare UI.
+- Keine lokale Komponentenvariante ohne DS-Owner.
+- Forms, Review-Flows, Assisted-Review-Suggestions, Dokumentstatus,
+  Upload-Feedback, Fehler, leere Zustaende und sensible Datenanzeigen sind
+  explizit geregelt.
+- Desktop und Mobile/Narrow werden gemeinsam geplant; Mobile Capture bleibt
+  fokussiert, nicht automatisch Vollverwaltung.
+
+### Migration 4 - Pillars, Roadmaps und Phasen
+
+Quelle:
+
+- Matchmia Frontend-Roadmaps, Pillar-Roadmaps und Phase-Dokumente.
+- Matchmia Regel: Phase ist Implementation Contract.
+
+Ziel:
+
+- `docs/ROADMAP_REBUILD.md`
+- `docs/roadmap/PHASE_INDEX.md`
+- `docs/roadmap/PILLAR_ROADMAP_INDEX.md`
+- `docs/pillars/PILLAR_*.md`
+- `docs/roadmap/phases/*.md`
+
+Zu migrieren/adaptieren:
+
+- Phase-Template mit Scope, Non-Goals, Dependencies, UX Contract, Data/Contract
+  Grounding, Security/Privacy, Accessibility, Tests, DoD und Stop Rules.
+- Pillar-Slices fuer Capture & Inbox, Cases/Records, Tasks, Search/Facts,
+  Profiles, Home Hub/Sync, Intelligence, Security, Compliance, QA, Release,
+  Support und Design System.
+- Roadmap-Gates, die verhindern, dass UI-Slices vor F-/DS-/Pillar-Klarheit in
+  Implementation gehen.
+
+Ordna-Ziel:
+
+- R4 Capture and Review Core wird der erste production-ready UI-Slice, aber
+  erst nach freigegebenen Konzepten und Plan.
+- M3 Assisted Review wird frueh als Produktwert vorbereitet, aber mit klarer
+  Processing-/Trust-Grenze.
+- Sync, Backup, Sharing, Managed Cloud und Identity bleiben spaetere Slices,
+  werden aber durch Provider-/Trust-/Encryption-Konzepte nicht verbaut.
+
+### Migration 5 - Backend, Contract, Data, Quality und Operations
+
+Quelle:
+
+- Matchmia backend-/contract-/qa-/ops-orientierte Skills und Gates.
+- DocMan Decisions zu ASP.NET Core, OpenAPI/Microcks, Local-first, Trust und
+  Encryption.
+
+Ziel:
+
+- `docs/technical/DECISION_*.md`
+- spaetere backend-/contract-/quality-spezifische Skills.
+- GitHub Issues fuer Backend-, Contract-, Foundation- und Quality-Arbeit.
+
+Zu migrieren/adaptieren:
+
+- Backend-Planung contract-first statt UI- oder controller-first.
+- OpenAPI/Microcks als Integrationsgrenze.
+- Frontend haengt an Domain-Ports und Data-Adaptern, nicht an ASP.NET Core.
+- Drift/SQLite/File Store/Secure Storage als lokale Grenzen.
+- PostgreSQL/MinIO/S3/Worker nur fuer Home Hub und spaetere Server-Varianten.
+- Quality Gates fuer Analyzer, Tests, Fake Repositories, Contract Fixtures,
+  Security/Privacy und Release Readiness.
+
+Ordna-Ziel:
+
+- Backend ist austauschbare Service-Schicht, nicht Voraussetzung fuer den
+  lokalen Produktkern.
+- Intelligence, OCR/LLM, Sync, Backup und Sharing haben Trust Boundary,
+  Verschluesselungsmodell und Issue-/Contract-Folgearbeit.
+- Kein sensibles Echtdatum in Fixture, Mock, Screenshot, Log oder OpenAPI
+  Example.
+
+### Migration 6 - First Production UI Slice
+
+Quelle:
+
+- DocMan Produktentscheidungen und Pillars.
+- Matchmia Workflow: Concept -> Phase -> Plan -> Build -> Audit.
+
+Ziel:
+
+- erster UI-Slice: Capture & Review Workspace.
+
+Zu planen:
+
+- App Shell und Workspace Layout.
+- Dashboard / Home.
+- Draft Inbox.
+- Document Review Detail.
+- Desktop Import.
+- Mobile Capture Eingang.
+- Fake Repositories.
+- Riverpod State.
+- Loading/Error/Empty/Conflict/Privacy States.
+- Accessibility, Responsive Verhalten und Visual QA.
+- Tests, Golden/Widget/Provider/Fake Evidence und Audit.
+
+Ordna-Ziel:
+
+- UI darf ohne Backend starten, aber nicht ohne saubere Domain-/Repository-
+  Verträge, Fake Data, Contract-Fragen und Security/Privacy-Regeln.
+- Demo Content ist synthetisch, realistisch und privacy-safe.
+- Jede sichtbare Entscheidung ist aus Konzept, Phase oder Decision ableitbar.
 
 ## Grundregeln
 
