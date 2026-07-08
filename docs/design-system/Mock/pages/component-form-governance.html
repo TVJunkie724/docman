@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mappm Form Governance</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="hero compact">
+          <div class="panel">
+            <div class="eyebrow">Form Governance</div>
+            <h1>Formulare muessen Lifecycle, Rechte, sensible Werte und Review sichtbar machen.</h1>
+            <p>Diese Seite schliesst die Playbook-Gaps fuer DS-04-19 bis DS-04-29. Sie ist Mock-Evidenz, keine Flutter-Implementation.</p>
+            <div class="button-row">
+              <a class="btn secondary" href="component-forms.html">Form Family</a>
+              <a class="btn secondary" href="component-form-interactions.html">Interaktionen</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Lifecycle State Model</h2>
+          <div class="lifecycle-strip">
+            <span class="lifecycle-step done">Pristine</span>
+            <span class="lifecycle-step done">Touched</span>
+            <span class="lifecycle-step active">Dirty</span>
+            <span class="lifecycle-step">Validating</span>
+            <span class="lifecycle-step">Submitting</span>
+            <span class="lifecycle-step success">Saved</span>
+            <span class="lifecycle-step warning">Stale</span>
+            <span class="lifecycle-step danger">Conflict</span>
+          </div>
+          <div class="state-grid mt-18">
+            <article class="state-card"><strong>Dirty</strong><p>Lokale Aenderung sichtbar markieren, Save/Cancel anbieten.</p></article>
+            <article class="state-card"><strong>Validating</strong><p>Feldnahe Pruefung mit Abbruch/Stale-Schutz bei neuer Eingabe.</p></article>
+            <article class="state-card"><strong>Saved</strong><p>Kurze Bestaetigung ohne sensible Details in globalen Meldungen.</p></article>
+            <article class="state-card"><strong>Conflict</strong><p>Nicht ueberschreiben. Differenz anzeigen und Entscheidung verlangen.</p></article>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Sensitive, Secret and Permissioned Fields</h2>
+          <div class="form-layout three">
+            <div class="form-section">
+              <span class="form-section-title">Masked Sensitive</span>
+              <div class="field required">
+                <label>Versicherungsnummer</label>
+                <div class="control sensitive">**** **** 3921</div>
+                <p class="helper-text">Reveal nur im Detailkontext, nie in Listen oder Snackbar.</p>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Secret</span>
+              <div class="field">
+                <label>Pairing Token</label>
+                <div class="control sensitive">**** ****</div>
+                <p class="helper-text">Ablaufzeit, Copy-Policy und Secure-Storage-Grenze erforderlich.</p>
+              </div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Permissioned</span>
+              <div class="field">
+                <label>Freigabe fuer Partner</label>
+                <div class="control readonly">Nur lesbar in diesem Profil</div>
+                <p class="helper-text">Readonly erklaert den Grund; hidden nur fuer echte Zugriffstrennung.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Async Validation and Stale Response</h2>
+          <div class="validation-board">
+            <article class="validation-card">
+              <strong>Checking</strong>
+              <div class="field"><label>Vorgangsname</label><div class="control focused">Arztbesuch Juni</div></div>
+              <span class="task-badge info">Prueft lokal und remote</span>
+              <p>Debounce, Cancel und Stale-Response-Regel sind Pflicht.</p>
+            </article>
+            <article class="validation-card">
+              <strong>Server Error</strong>
+              <div class="field"><label>Home Hub</label><div class="control error">Nicht erreichbar</div></div>
+              <span class="task-badge warning">Offline fortsetzen</span>
+              <p>Backend-Fehler blockieren nur, wenn der aktuelle Flow echte Serverwahrheit braucht.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Review Summary and Diff</h2>
+          <div class="diff-card">
+            <div class="diff-row"><span>Titel</span><del>scan-2026-06-12.pdf</del><ins>Arztrechnung Juni 2026</ins></div>
+            <div class="diff-row"><span>Dokumenttyp</span><del>Sonstiges</del><ins>Rechnung / Beleg</ins></div>
+            <div class="diff-row"><span>Betroffene Person</span><del>fehlt</del><ins>Kind A</ins></div>
+          </div>
+          <p>Aenderungen vor Abschluss sichtbar machen. AI/OCR-Vorschlaege duerfen nicht still ueberschreiben.</p>
+        </section>
+
+        <section class="panel">
+          <h2>Bulk Import Validation</h2>
+          <div class="bulk-table">
+            <div class="bulk-row header"><span>Datei</span><span>Status</span><span>Aktion</span></div>
+            <div class="bulk-row"><span>rechnung-01.pdf</span><span class="token-chip success">bereit</span><span>Importieren</span></div>
+            <div class="bulk-row"><span>scan-kind-a.jpg</span><span class="token-chip warning">Person fehlt</span><span>Zuordnen</span></div>
+            <div class="bulk-row"><span>duplicate.pdf</span><span class="token-chip danger">Duplikat</span><span>Pruefen</span></div>
+          </div>
+          <p>Partial Success ist sichtbar. Fehlerhafte Zeilen blockieren nicht automatisch gueltige Zeilen.</p>
+        </section>
+
+        <section class="callout-card privacy">
+          <div class="callout-token" data-callout-icon="shield" aria-hidden="true"></div>
+          <div class="callout-body">
+            <strong>Stop Rule</strong>
+            <p>Kein Formular wird implementiert, wenn Lifecycle, Validation, Permission, sensitive display und Review-Abschluss fuer den Flow ungeklärt sind.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="../assets/js/navigation.js"></script>
+  </body>
+</html>

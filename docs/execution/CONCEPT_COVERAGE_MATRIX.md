@@ -14,7 +14,7 @@ owner: "ui-concept"
 | Family | Required | Status | Owner | Existing artifacts | Blocks | Notes |
 |---|---|---|---|---|---|---|
 | F Concepts | yes | needs-review | ui-concept/foundation | `docs/concepts/CONCEPT_F1..F35` | T4/T5/T6 | Existing DocMan set is richer/different than generic F1-F31; mapping required before completion |
-| Design System | yes | draft | ui-concept/design | `docs/design-system/concepts/MP-DS-00..03`, `docs/design-system/Mock/` | UI phases | DS-04 component/form family and DS-05..07 need Mappm expansion or mapping to F23-F35 |
+| Design System | yes | active-draft | ui-concept/design | `docs/design-system/concepts/MP-DS-00..03`, `docs/design-system/concepts/MP-DS-COVERAGE_MATRIX.md`, `docs/design-system/Mock/` | UI phases | DS-04..07 and DS-04 subfamilies mapped; detailed concepts still expand before affected handoff |
 | Product Pillars | yes | draft | product-concept | `docs/pillars/*` | T5/T6 | Exists; needs playbook traceability fields and phase-as-contract links |
 | Roadmap Phases | yes | draft | product-concept | `docs/ROADMAP_REBUILD.md`, `docs/roadmap/*` | T5/T6 | R0-R15 exists; map generic P0-P11 to DocMan phases |
 | Decisions | yes | draft | product-concept | `docs/technical/DECISION_*.md` | T3/T6 | Many accepted decisions exist; matrix must classify accepted/draft-safe/needs-review |
@@ -24,6 +24,18 @@ owner: "ui-concept"
 | Ops | yes | active-draft | quality/release/ops | `frontend.sh`, `docs/ops/OPS-00_OPERATIONS_UMBRELLA.md`, `docs/ops/OPS-08_PROJECT_ENTRYPOINTS.md`, scripts | T7 | Add OPS-07 CI/CD and release/support details before production gates |
 | AI/OCR/LLM | conditional-applicable | umbrella-draft | ai/compliance | `docs/ai/AI-00_AI_GOVERNANCE_UMBRELLA.md`, intelligence decision | M3/T4 | Expand AI-01..AI-06 before assisted review implementation |
 | Commercial | conditional-planned | umbrella-draft | commercial/product | `docs/commercial/COM-00_COMMERCIAL_UMBRELLA.md`, product strategy discussion | release/commercial phases | Expand COM-01..COM-04 before sales/trial/SLA decisions |
+
+## Quality Audit
+
+Detailed review findings are tracked in
+`docs/execution/CONCEPT_QUALITY_AUDIT.md`.
+
+## Design-System Coverage
+
+Design-system family coverage is tracked in
+`docs/design-system/concepts/MP-DS-COVERAGE_MATRIX.md`. Mock evidence for
+additional form lifecycle, permission, review and bulk-import gaps lives in
+`docs/design-system/Mock/pages/component-form-governance.html`.
 
 ## Rules
 

@@ -25,6 +25,34 @@ haben.
 Wenn eine Subphase mehrere Saeulen ohne klare Boundary vermischt, wird sie
 weiter geteilt.
 
+## Playbook Alignment
+
+Der allgemeine Flutter Project Setup Playbook Track ist auf diese Roadmap
+angewendet, ersetzt sie aber nicht.
+
+Owning artifacts:
+
+- `docs/roadmap-standard/STANDARD_PHASES.md`
+- `docs/roadmap-standard/ALWAYS_PLAN_CHECKLIST.md`
+- `docs/roadmap-standard/CONDITIONAL_IMPLEMENTATION_MATRIX.md`
+- `docs/roadmap-standard/RELEASE_READINESS_PHASES.md`
+- `docs/execution/PLAYBOOK_AGENT_TRACK_CLOSEOUT.md`
+
+Regeln:
+
+- R0-R15 bleiben die Mappm-Phasen.
+- Playbook P0-P11 sind Governance-/Setup-Gates und werden auf R0-R15 gemappt.
+- Eine Phase ist nicht implementation-ready, nur weil sie in diesem Index
+  steht.
+- Jede implementation-ready Phase muss die Always-Plan- und Conditional-Zeilen
+  nennen, die sie betrifft.
+- Store, CI/CD, Security, Privacy, Data Lifecycle, AI/OCR/LLM, Sync, Backup,
+  Sharing, Support und Commercial bleiben geplant, auch wenn sie erst spaeter
+  implementiert werden.
+- Frontend- und Backend-Implementation bleiben getrennte Issues. Frontend darf
+  Backend-Bedarf beschreiben; Backend/API entscheidet Contracts, DTOs,
+  Endpoints, Mapping, Persistence und Policy Architecture.
+
 ## Implementation-Plan Template
 
 Jede konkrete Subphase soll spaeter nach diesem Schema geplant werden:
@@ -42,11 +70,15 @@ Dependencies:
 Deliverables:
 Architecture boundaries:
 Data / API / storage boundaries:
+Applicable always-plan rows:
+Applicable conditional rows:
 Security / privacy notes:
 Tests / verification:
 Acceptance criteria:
 Done means:
 Explicit non-goals:
+Handoff target:
+Stop rules:
 ```
 
 ## R0 - Product and Architecture Decisions
@@ -98,6 +130,7 @@ Ziel: Das Projekt wird reproduzierbar, testbar und wartbar.
 | R3.4 Contract Baseline | OpenAPI/Microcks fuer Home-Hub/Capture vorbereiten | contracts/openapi, Microcks config |
 | R3.5 Target Path Gates | Legacy vom Zielpfad trennen | Analyzer, import checks |
 | R3.6 Readiness Gates | Security, Compliance, Data Lifecycle, Observability minimum pruefen | Milestone Quality Gates |
+| R3.7 Playbook Verification Closeout | Playbook-Agent-Track, Konzeptcoverage, DS-Gaps und Roadmap-Gates pruefen | Closeout, Coverage, Always-Plan/Conditional Matrix |
 
 ## R4 - Capture and Review Core
 
@@ -200,10 +233,12 @@ Ziel: Distribution und rechtliche Mindestfaehigkeit vorbereiten.
 | Subphase | Ziel | Hauptdeliverables |
 |---|---|---|
 | R10.1 GDPR/DSGVO Review | Datenschutzanforderungen pruefen | compliance checklist |
+| R10.1a EU Regulatory Refresh | EU AI Act, Cyber Resilience Act, eIDAS/EUDI, NIS2, Data Act und Store-Regeln mit aktuellem Datum pruefen | dated REG review, source check, legal review trigger |
 | R10.2 Store Policy Review | Apple/Google/Microsoft Anforderungen | store checklist |
 | R10.3 License Review | Third-party Notices | license docs |
 | R10.4 Release Signing | Signing/Notarization/Packaging | release pipeline |
 | R10.5 Review Access | Demo/Testdaten fuer Review | review access |
+| R10.6 Commercial Readiness Gate | Licensing, Entitlements, Billing, Trial, Support/SLA pruefen | COM review, support boundary |
 
 ## R11 - Data Resilience and Operations
 

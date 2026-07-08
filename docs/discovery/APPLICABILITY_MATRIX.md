@@ -34,7 +34,7 @@ Traceability rules:
 | Design System | always-plan | MP-DS foundation and HTML mock exist; component/form families need expansion | ui-concept | `docs/design-system/*` | 2026-07-15 |
 | Roadmap/Pillars | always-plan | exists as R0-R15 plus pillars; must map to playbook P0-P11 | product-concept | `docs/roadmap/*`, `docs/pillars/*` | 2026-07-15 |
 | Execution Governance | always-plan | newly initialized by reconciliation | project-bootstrap-runner | `docs/execution/*` | 2026-07-15 |
-| CI/CD and Local Verification | always-plan | scripts and entrypoint exist; CI/CD/release gates need detailed OPS/F16 reconciliation | quality-readiness | `frontend.sh`, F16, OPS-00/OPS-08, future OPS-07 | 2026-07-15 |
+| CI/CD and Local Verification | always-plan | scripts and entrypoint exist; CI/CD/release gates are scheduled | quality-readiness | `frontend.sh`, F16, OPS-00/OPS-08, `docs/roadmap-standard/RELEASE_READINESS_PHASES.md`, future OPS-07 | 2026-07-15 |
 | Security | always-plan | security/privacy decisions exist; umbrella initialized, details need expansion | security/product-concept | `docs/security/SEC-00_SECURITY_TRUST_UMBRELLA.md`, existing decisions | 2026-07-15 |
 | Privacy/Data Lifecycle | always-plan | sensitive documents and metadata are core product facts | privacy/data | `docs/data-lifecycle/DATA-00_DATA_LIFECYCLE_UMBRELLA.md`, REG-01, DATA-* | 2026-07-15 |
 | Regulatory | always-plan | app is intended to become sellable and handles sensitive documents | compliance/product | `docs/regulatory/REG-00_REGULATORY_UMBRELLA.md`, future REG-01..REG-08 | 2026-07-15 |
@@ -44,6 +44,7 @@ Traceability rules:
 | AI/OCR/LLM | applicable | Assisted Review is planned as M3 and affects privacy/compliance | ai/compliance | `docs/ai/AI-00_AI_GOVERNANCE_UMBRELLA.md`, REG-02, AI-* | 2026-07-22 |
 | Commercial/Billing | planned | product may be sold, but pricing/billing is not yet defined | commercial/product | `docs/commercial/COM-00_COMMERCIAL_UMBRELLA.md`, future COM-* | 2026-08-15 |
 | eIDAS/EUDI/ID Austria | planned | trusted identity is strategically relevant for Austria/EU, later provider boundary | identity/compliance | REG-04, identity decision | 2026-08-15 |
+| Standard Roadmap Guardrails | always-plan | playbook phases must remain mapped to R0-R15 | product-concept | `docs/roadmap-standard/STANDARD_PHASES.md`, `ALWAYS_PLAN_CHECKLIST.md`, `CONDITIONAL_IMPLEMENTATION_MATRIX.md` | 2026-07-15 |
 
 ## Stop Rules
 

@@ -28,13 +28,13 @@ hardening pass:
 | Track | Status | Required artifacts | Evidence | Blockers |
 |---|---|---|---|---|
 | T0 Bootstrap Reconciliation | done | repo/docs/app/skills scaffold, embedded playbook, scripts | `.codex/skills/*`, `docs/flutter-project-playbook/`, `lib/`, `scripts/`, `frontend.sh`, `docs/ops/OPS-08_PROJECT_ENTRYPOINTS.md` | none |
-| T1 Applicability | in-progress | REG-00, Applicability Matrix, Always-Plan Checklist | `docs/discovery/APPLICABILITY_MATRIX.md`, `docs/regulatory/REG-00_REGULATORY_UMBRELLA.md`, `docs/security/SEC-00_SECURITY_TRUST_UMBRELLA.md`, `docs/data-lifecycle/DATA-00_DATA_LIFECYCLE_UMBRELLA.md`, `docs/ops/OPS-00_OPERATIONS_UMBRELLA.md`, `docs/ai/AI-00_AI_GOVERNANCE_UMBRELLA.md`, `docs/commercial/COM-00_COMMERCIAL_UMBRELLA.md` | detailed sub-concepts need expansion |
-| T2 Discovery Interview | planned | Decision Summary, Open Questions Register, Traceability Matrix | existing product decisions and this runbook | focused owner review still needed for commercial/cloud/legal questions |
-| T3 Foundation Decisions | planned | decision traceability, key decision updates | many `docs/technical/DECISION_*.md` exist | accepted/draft-safe status needs matrix pass |
-| T4 Concept Seeding | planned | Concept Coverage Matrix, required concept drafts | `docs/concepts/*`, `docs/design-system/concepts/*`, REG/SEC/DATA/OPS/AI/COM umbrellas | template subfamilies need expansion before affected implementation |
-| T5 Standard Roadmap | planned | Pillar Index, Phase Index, Conditional Matrix | `docs/pillars/*`, `docs/roadmap/*`, `docs/roadmap-standard/DOCMAN_PLAYBOOK_TRACK_MAPPING.md` | playbook P0-P11 must be mapped to DocMan R0-R15 in detail |
-| T6 Implementation Readiness | planned | first implementation-ready phase, handoff, issues | R4.5 plan exists | first phase must be rechecked against phase-as-contract standard |
-| T7 Verification | planned | verify status, CI/CD readiness, completion reports | `scripts/bootstrap.sh`, `scripts/codegen.sh`, `scripts/verify.sh` | CI/CD/release gates need OPS/F16 reconciliation |
+| T1 Applicability | done | REG-00, Applicability Matrix, Always-Plan Checklist | `docs/discovery/APPLICABILITY_MATRIX.md`, `docs/roadmap-standard/ALWAYS_PLAN_CHECKLIST.md`, `docs/roadmap-standard/CONDITIONAL_IMPLEMENTATION_MATRIX.md`, REG/SEC/DATA/OPS/AI/COM umbrellas | detailed sub-concepts need expansion before affected implementation |
+| T2 Discovery Interview | done | Decision Summary, Open Questions Register, Traceability Matrix | `docs/discovery/DECISION_INTERVIEW_SUMMARY.md`, `docs/discovery/OPEN_QUESTIONS_REGISTER.md`, existing decisions | owner review still needed before commercial/cloud/legal commitments |
+| T3 Foundation Decisions | done | decision traceability, key decision updates | `docs/execution/DECISION_TRACEABILITY_MATRIX.md`, `docs/technical/DECISION_*.md` | draft-safe backend contract decision needs final acceptance before backend build |
+| T4 Concept Seeding | done for reconciliation | Concept Coverage Matrix, required concept drafts | `docs/execution/CONCEPT_COVERAGE_MATRIX.md`, `docs/execution/CONCEPT_QUALITY_AUDIT.md`, `docs/design-system/concepts/MP-DS-COVERAGE_MATRIX.md`, F/DS/REG/SEC/DATA/OPS/AI/COM artifacts | detailed subfamilies expand before affected implementation |
+| T5 Standard Roadmap | done for reconciliation | Pillar Index, Phase Index, Conditional Matrix | `docs/pillars/*`, `docs/roadmap/*`, `docs/roadmap-standard/*` | phase-level issue links refine as work is created |
+| T6 Implementation Readiness | done as gate definition | first implementation-ready phase, handoff, issues | `docs/roadmap/PHASE_INDEX.md`, `docs/roadmap/phases/R4_5_UPLOAD_LIMITS_RETRY_PLAN.md`, `docs/execution/CONCEPT_QUALITY_AUDIT.md` | no broad feature work without detailed phase/approved handoff |
+| T7 Verification | done as baseline | verify status, CI/CD readiness, completion reports | `frontend.sh`, `scripts/*`, `docs/execution/PLAYBOOK_AGENT_TRACK_CLOSEOUT.md` | full CI/CD and legacy analyzer cleanup remain R3/R10 work |
 
 Status values: `not-started`, `in-progress`, `planned`, `blocked`, `done`,
 `not-applicable`.
@@ -106,3 +106,6 @@ Accepted assumptions:
 - Concept coverage status.
 - Decision traceability status.
 - First implementation-ready phase or reason why no phase can proceed.
+
+See `docs/execution/PLAYBOOK_AGENT_TRACK_CLOSEOUT.md` for the current
+reconciliation closeout and residual risks.

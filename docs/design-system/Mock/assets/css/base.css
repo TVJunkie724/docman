@@ -2802,6 +2802,111 @@ p {
   }
 }
 
+.lifecycle-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lifecycle-step {
+  padding: 8px 11px;
+  border: 1px solid var(--mappm-line);
+  border-radius: 999px;
+  background: var(--mappm-white);
+  color: var(--mappm-slate);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.lifecycle-step.done,
+.lifecycle-step.success {
+  border-color: rgba(79, 143, 116, .38);
+  background: rgba(79, 143, 116, .12);
+  color: #2f6f55;
+}
+
+.lifecycle-step.active {
+  border-color: rgba(14, 116, 120, .36);
+  background: rgba(14, 116, 120, .12);
+  color: var(--mappm-petrol-deep);
+}
+
+.lifecycle-step.warning {
+  border-color: rgba(200, 135, 45, .45);
+  background: rgba(200, 135, 45, .13);
+  color: #7d5117;
+}
+
+.lifecycle-step.danger {
+  border-color: rgba(184, 74, 63, .38);
+  background: rgba(184, 74, 63, .12);
+  color: #8c342b;
+}
+
+.state-grid,
+.validation-board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.validation-board {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.state-card,
+.validation-card,
+.diff-card,
+.bulk-table {
+  padding: 16px;
+  border: 1px solid var(--mappm-line);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, .78);
+}
+
+.diff-card,
+.bulk-table {
+  display: grid;
+  gap: 10px;
+}
+
+.diff-row,
+.bulk-row {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(40, 48, 58, .08);
+}
+
+.bulk-row {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr) minmax(0, .8fr);
+}
+
+.diff-row:last-child,
+.bulk-row:last-child {
+  border-bottom: 0;
+}
+
+.bulk-row.header {
+  color: var(--mappm-slate);
+  font-size: 11px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+del {
+  color: #8c342b;
+  text-decoration-thickness: 2px;
+}
+
+ins {
+  color: #2f6f55;
+  font-weight: 800;
+  text-decoration: none;
+}
+
 @media (max-width: 620px) {
   html,
   body {
@@ -2998,5 +3103,12 @@ p {
   .task-badge,
   .chevron {
     display: none;
+  }
+
+  .state-grid,
+  .validation-board,
+  .diff-row,
+  .bulk-row {
+    grid-template-columns: 1fr;
   }
 }

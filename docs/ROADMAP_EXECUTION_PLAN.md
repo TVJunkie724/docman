@@ -33,6 +33,22 @@ Dokumente bleiben die Quelle für akzeptierte Entscheidungen und Konzepte:
 - Produkt-/Enterprise-Säulen: `docs/pillars/PILLAR_*.md`
 - Frontend-/Foundation-Konzepte: `docs/concepts/CONCEPT_F*.md`
 - Phasen und Reihenfolge: `docs/ROADMAP_REBUILD.md`
+- Playbook-Reconciliation: `docs/execution/PLAYBOOK_AGENT_TRACK_CLOSEOUT.md`
+- Always-Plan-/Conditional-Gates:
+  `docs/roadmap-standard/ALWAYS_PLAN_CHECKLIST.md` und
+  `docs/roadmap-standard/CONDITIONAL_IMPLEMENTATION_MATRIX.md`
+
+Playbook-Regel:
+
+- Kein Issue darf einen Always-Plan- oder Conditional-Bereich implizit
+  auslassen, wenn der Scope ihn beruehrt.
+- Store, CI/CD, Compliance, Security, Privacy, AI/OCR/LLM, Sync, Backup,
+  Sharing, Support und Commercial duerfen als spaetere Slices geplant sein,
+  muessen aber in Scope/Non-Goals/Dependencies sichtbar bleiben.
+- Frontend- und Backend-Implementation bleiben getrennt. Wenn ein
+  Frontend-Issue Backend-Bedarf entdeckt, wird ein verlinktes Backend- oder
+  Contract-Folgeissue angelegt; Backend/API entscheidet Contract, DTOs,
+  Endpoints, Mapping, Persistence und Policy Architecture.
 
 ## Milestone-Strategie
 
@@ -124,6 +140,19 @@ Diese nächsten Child-Issues wurden in GitHub angelegt:
 | #27 | Establish OpenAPI and Microcks contract baseline | #14 | `Mappm M1 Foundation and Quality` |
 | #28 | Add R3 compliance and data-lifecycle readiness checklist | #14 | `Mappm M1 Foundation and Quality` |
 | #29 | Define visual and accessibility regression baseline | #14 | `Mappm M1 Foundation and Quality` |
+
+## Playbook-Reconciliation Follow-up Issues
+
+Diese Issue-Kandidaten ergeben sich aus dem abgeschlossenen Agent-Track und
+duerfen nicht als optionale Erinnerung behandelt werden:
+
+| Proposed title | Phase | Primary owner | Reason |
+|---|---|---|---|
+| Define R3 target-path analyzer and CI baseline | R3 | quality-readiness | Full analyzer is still blocked by legacy/generated debt; narrow gates need formal CI path. |
+| Expand MP-DS component/form family concepts from coverage matrix | R3/R4 | ui-concept | DS-04 subfamilies are mapped and mocked, but detailed MP-DS concept docs need expansion before broad UI buildout. |
+| Create dated REG-01..REG-08 compliance review artifacts | R3/R10 | compliance/product | EU/legal/store requirements require dated current-source review before affected implementation. |
+| Expand SEC/DATA/AI/OPS/COM subfamily concepts | R3-R15 | security/data/ai/ops/commercial | Umbrellas exist; detailed subfamilies must be created before affected feature phases. |
+| Approve first implementation-contract phase after reconciliation | R2/R3/R4 | product-concept/ui-concept | Broad roadmap prose is not enough for builder work. |
 | #30 | Implement M2 case and subcase management | #15 | `Mappm M2 Capture and Review Core` |
 | #31 | Implement document and draft inbox review flow | #15 | `Mappm M2 Capture and Review Core` |
 | #32 | Implement record-aware document metadata model | #15 | `Mappm M2 Capture and Review Core` |
