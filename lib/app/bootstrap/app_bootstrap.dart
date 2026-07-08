@@ -10,7 +10,7 @@ Future<void> bootstrapApp() async {
   runApp(
     ProviderScope(
       overrides: [appStartupStateProvider.overrideWithValue(startupState)],
-      child: const DocManApp(),
+      child: const MappmApp(),
     ),
   );
 }

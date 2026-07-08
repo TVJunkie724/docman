@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../presentation/theme/app_theme.dart';
+import 'app_metadata.dart';
 import 'bootstrap/app_startup.dart';
 
-class DocManApp extends ConsumerWidget {
-  const DocManApp({super.key});
+class MappmApp extends ConsumerWidget {
+  const MappmApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      title: 'DocMan',
+      title: AppMetadata.productName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
@@ -27,18 +28,18 @@ class FoundationStatusScreen extends ConsumerWidget {
     final startupState = ref.watch(appStartupStateProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Foundation Status')),
+      appBar: AppBar(title: const Text(AppMetadata.productName)),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
             Text(
-              'R2 Technical Foundation',
+              'Foundation',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 8),
             Text(
-              'Working foundation surface. This is not the final MVP UI.',
+              'Local-first baseline',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 24),
@@ -72,7 +73,7 @@ class FoundationStatusScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'Legacy spike screens remain isolated until their features are migrated.',
+              'Legacy spike paths are isolated until migrated.',
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
