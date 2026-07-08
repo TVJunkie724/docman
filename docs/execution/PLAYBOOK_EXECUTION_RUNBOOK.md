@@ -27,12 +27,12 @@ hardening pass:
 
 | Track | Status | Required artifacts | Evidence | Blockers |
 |---|---|---|---|---|
-| T0 Bootstrap Reconciliation | in-progress | repo/docs/app/skills scaffold, embedded playbook, scripts | `.codex/skills/*`, `docs/flutter-project-playbook/`, `lib/`, `scripts/` | entrypoint contract not yet reconciled |
-| T1 Applicability | in-progress | REG-00, Applicability Matrix, Always-Plan Checklist | `docs/discovery/APPLICABILITY_MATRIX.md`, existing decisions | regulatory/security/ops templates need DocMan adaptation |
+| T0 Bootstrap Reconciliation | done | repo/docs/app/skills scaffold, embedded playbook, scripts | `.codex/skills/*`, `docs/flutter-project-playbook/`, `lib/`, `scripts/`, `frontend.sh`, `docs/ops/OPS-08_PROJECT_ENTRYPOINTS.md` | none |
+| T1 Applicability | in-progress | REG-00, Applicability Matrix, Always-Plan Checklist | `docs/discovery/APPLICABILITY_MATRIX.md`, `docs/regulatory/REG-00_REGULATORY_UMBRELLA.md`, `docs/security/SEC-00_SECURITY_TRUST_UMBRELLA.md`, `docs/data-lifecycle/DATA-00_DATA_LIFECYCLE_UMBRELLA.md`, `docs/ops/OPS-00_OPERATIONS_UMBRELLA.md`, `docs/ai/AI-00_AI_GOVERNANCE_UMBRELLA.md`, `docs/commercial/COM-00_COMMERCIAL_UMBRELLA.md` | detailed sub-concepts need expansion |
 | T2 Discovery Interview | planned | Decision Summary, Open Questions Register, Traceability Matrix | existing product decisions and this runbook | focused owner review still needed for commercial/cloud/legal questions |
 | T3 Foundation Decisions | planned | decision traceability, key decision updates | many `docs/technical/DECISION_*.md` exist | accepted/draft-safe status needs matrix pass |
-| T4 Concept Seeding | planned | Concept Coverage Matrix, required concept drafts | `docs/concepts/*`, `docs/design-system/concepts/*` | template families REG/SEC/AI/DATA/OPS/COM not yet expanded |
-| T5 Standard Roadmap | planned | Pillar Index, Phase Index, Conditional Matrix | `docs/pillars/*`, `docs/roadmap/*` | playbook P0-P11 must be mapped to DocMan R0-R15 |
+| T4 Concept Seeding | planned | Concept Coverage Matrix, required concept drafts | `docs/concepts/*`, `docs/design-system/concepts/*`, REG/SEC/DATA/OPS/AI/COM umbrellas | template subfamilies need expansion before affected implementation |
+| T5 Standard Roadmap | planned | Pillar Index, Phase Index, Conditional Matrix | `docs/pillars/*`, `docs/roadmap/*`, `docs/roadmap-standard/DOCMAN_PLAYBOOK_TRACK_MAPPING.md` | playbook P0-P11 must be mapped to DocMan R0-R15 in detail |
 | T6 Implementation Readiness | planned | first implementation-ready phase, handoff, issues | R4.5 plan exists | first phase must be rechecked against phase-as-contract standard |
 | T7 Verification | planned | verify status, CI/CD readiness, completion reports | `scripts/bootstrap.sh`, `scripts/codegen.sh`, `scripts/verify.sh` | CI/CD/release gates need OPS/F16 reconciliation |
 
@@ -68,10 +68,34 @@ Status values: `not-started`, `in-progress`, `planned`, `blocked`, `done`,
 - DocMan already has F-concepts and initial MP-DS concepts, but numbering and
   family names differ from the general playbook and need a mapping pass.
 - DocMan has a design-system HTML mock under `docs/design-system/Mock/`.
-- DocMan lacks dedicated `docs/discovery`, `docs/execution`,
-  `docs/roadmap-standard`, `docs/regulatory`, `docs/security`, `docs/ai`,
-  `docs/data-lifecycle`, `docs/ops` and `docs/commercial` content adapted to
-  Mappm; these are now initialized for reconciliation.
+- Mappm now has dedicated reconciliation directories under `docs/discovery`,
+  `docs/execution`, `docs/roadmap-standard`, `docs/regulatory`,
+  `docs/security`, `docs/ai`, `docs/data-lifecycle`, `docs/ops` and
+  `docs/commercial`.
+- `frontend.sh` is the project-local frontend entrypoint. It delegates to
+  existing scripts and documents the current command contract without claiming
+  backend ownership.
+
+## Track Closeout - T0 Bootstrap Reconciliation
+
+Status: done on 2026-07-08.
+
+Evidence:
+
+- product name reconciled as Mappm while DocMan remains the technical repo name.
+- general Flutter setup playbook embedded as submodule at
+  `docs/flutter-project-playbook/`.
+- project-local skills remain under `.codex/skills/`.
+- project-local frontend entrypoint added at `frontend.sh`.
+- entrypoint ownership and instance/config rules documented in
+  `docs/ops/OPS-08_PROJECT_ENTRYPOINTS.md`.
+
+Accepted assumptions:
+
+- Mappm currently has no live instance matrix, generated config contract,
+  per-instance icons or backend runtime entrypoint.
+- These areas remain required planning topics and must be activated by future
+  release, backend, config and platform phases.
 
 ## Final Output Required Before Implementation Resumes
 

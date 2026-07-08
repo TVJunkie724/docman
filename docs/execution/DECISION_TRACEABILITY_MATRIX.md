@@ -23,6 +23,7 @@ owner: "product-concept"
 | Assisted Review/OCR/LLM is not required for M2 but planned as M3 product value | accepted | `docs/technical/DECISION_INTELLIGENCE_SCOPE.md` | AI-*, REG-02, F30/F34 | R5/R9 | accepted |
 | eIDAS/EUDI/ID Austria identity provider is strategically relevant | planned | `docs/technical/DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md` plus future REG-04 | REG-04, SEC-02, identity/access concepts | R6/R10/R14 | owner review needed |
 | Commercialization, billing, SLA and procurement model | planned | future COM-* and product/commercial decision | COM-* | R10/R15 | user/product review needed |
+| Project-local frontend entrypoint is `frontend.sh` and delegates to scripts | accepted | `docs/ops/OPS-08_PROJECT_ENTRYPOINTS.md` | OPS-00/OPS-08, F1/F6/F16 | R0/R2/R15 | accepted |
 
 ## Rules
 

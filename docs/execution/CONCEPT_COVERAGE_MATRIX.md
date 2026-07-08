@@ -18,12 +18,12 @@ owner: "ui-concept"
 | Product Pillars | yes | draft | product-concept | `docs/pillars/*` | T5/T6 | Exists; needs playbook traceability fields and phase-as-contract links |
 | Roadmap Phases | yes | draft | product-concept | `docs/ROADMAP_REBUILD.md`, `docs/roadmap/*` | T5/T6 | R0-R15 exists; map generic P0-P11 to DocMan phases |
 | Decisions | yes | draft | product-concept | `docs/technical/DECISION_*.md` | T3/T6 | Many accepted decisions exist; matrix must classify accepted/draft-safe/needs-review |
-| Regulatory | yes | planned | compliance/product | existing F8/F9 and legal decisions | T1/T4/T7 | Create/adapt REG-00..REG-08 for EU/current-date compliance reviews |
-| Security | yes | planned | security/product | security/privacy decisions | T1/T4/T7 | Create/adapt SEC-00..SEC-05 and map to trust/encryption decisions |
-| Data Lifecycle | yes | planned | data/privacy | storage, backup, sync decisions | T1/T4/T7 | Create/adapt DATA-00..DATA-06 |
-| Ops | yes | planned | quality/release/ops | scripts exist | T0/T7 | Create/adapt OPS-00..OPS-08; include entrypoints, CI/CD, release, support |
-| AI/OCR/LLM | conditional-applicable | planned | ai/compliance | intelligence decision | M3/T4 | Create/adapt AI-00..AI-06 before assisted review implementation |
-| Commercial | conditional-planned | planned | commercial/product | product strategy discussion only | release/commercial phases | Create/adapt COM-00..COM-04 before sales/trial/SLA decisions |
+| Regulatory | yes | umbrella-draft | compliance/product | `docs/regulatory/REG-00_REGULATORY_UMBRELLA.md`, existing F8/F9 and legal decisions | T4/T7 | Expand REG-01..REG-08 before affected implementation; all legal checks need dated re-review |
+| Security | yes | umbrella-draft | security/product | `docs/security/SEC-00_SECURITY_TRUST_UMBRELLA.md`, security/privacy decisions | T4/T7 | Expand SEC subfamilies and map to trust/encryption decisions |
+| Data Lifecycle | yes | umbrella-draft | data/privacy | `docs/data-lifecycle/DATA-00_DATA_LIFECYCLE_UMBRELLA.md`, storage, backup, sync decisions | T4/T7 | Expand DATA subfamilies before persistence/sync/sharing phases |
+| Ops | yes | active-draft | quality/release/ops | `frontend.sh`, `docs/ops/OPS-00_OPERATIONS_UMBRELLA.md`, `docs/ops/OPS-08_PROJECT_ENTRYPOINTS.md`, scripts | T7 | Add OPS-07 CI/CD and release/support details before production gates |
+| AI/OCR/LLM | conditional-applicable | umbrella-draft | ai/compliance | `docs/ai/AI-00_AI_GOVERNANCE_UMBRELLA.md`, intelligence decision | M3/T4 | Expand AI-01..AI-06 before assisted review implementation |
+| Commercial | conditional-planned | umbrella-draft | commercial/product | `docs/commercial/COM-00_COMMERCIAL_UMBRELLA.md`, product strategy discussion | release/commercial phases | Expand COM-01..COM-04 before sales/trial/SLA decisions |
 
 ## Rules
 
