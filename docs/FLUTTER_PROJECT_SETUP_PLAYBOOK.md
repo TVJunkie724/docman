@@ -114,6 +114,62 @@ Regeln:
 - `docs/roadmap/phases/` enthaelt implementation-faehige Phasen.
 - `.codex/skills/` enthaelt projekt-lokale Rollenvertraege.
 
+## 4.1 Minimales Dokumentations-Bootstrap
+
+Ein neues Projekt soll mindestens diese Dateien anlegen, bevor production-
+relevante Implementation startet:
+
+```text
+docs/
+├── PROJECT_OVERVIEW_GUIDE.md
+├── ROADMAP_REBUILD.md
+├── ROADMAP_EXECUTION_PLAN.md
+├── concepts/
+│   ├── CONCEPT_F1_PROJECT_STRUCTURE.md
+│   ├── CONCEPT_F2_STATE_MANAGEMENT.md
+│   ├── CONCEPT_F3_CODING_CONVENTIONS.md
+│   ├── CONCEPT_F4_TESTING_STRATEGY.md
+│   ├── CONCEPT_F5_ERROR_HANDLING.md
+│   ├── CONCEPT_F6_ENVIRONMENT_CONFIGURATION.md
+│   ├── CONCEPT_F7_LOGGING.md
+│   ├── CONCEPT_F8_DISTRIBUTION_COMPLIANCE.md
+│   ├── CONCEPT_F8B_REVIEW_ACCESS_STRATEGY.md
+│   ├── CONCEPT_F9_LEGAL_PRIVACY.md
+│   ├── CONCEPT_F10_LOCAL_STORAGE.md
+│   ├── CONCEPT_F11_API_INTEGRATION.md
+│   ├── CONCEPT_F12_SECURE_STORAGE.md
+│   ├── CONCEPT_F13_CONFIGURATION_SURFACES.md
+│   ├── CONCEPT_F14_FORM_FAMILY.md
+│   ├── CONCEPT_F15_MOCK_REPOSITORY.md
+│   ├── CONCEPT_F16_CI_CD_QUALITY_GATES.md
+│   ├── CONCEPT_F17_PLATFORM_MOBILE_STANDARDS.md
+│   ├── CONCEPT_F18_NOTIFICATIONS_FAILURES_OBSERVABILITY.md
+│   └── CONCEPT_F19_DESIGN_SYSTEM_GOVERNANCE.md
+├── design-system/
+│   ├── README.md
+│   └── concepts/
+│       ├── DS-00_DESIGN_SYSTEM_UMBRELLA.md
+│       ├── DS-01_FOUNDATIONS_AND_TOKENS.md
+│       ├── DS-02_LAYOUT_AND_SHELL.md
+│       ├── DS-03_CORPORATE_DESIGN.md
+│       ├── DS-04_COMPONENT_SYSTEM.md
+│       ├── DS-05_PRODUCT_PATTERNS.md
+│       ├── DS-06_ACCESSIBILITY_AND_QUALITY_GATES.md
+│       └── DS-07_PLATFORM_ADAPTATION.md
+├── pillars/
+│   └── PILLAR_INDEX.md
+├── roadmap/
+│   ├── PHASE_INDEX.md
+│   ├── PILLAR_ROADMAP_INDEX.md
+│   └── phases/
+└── technical/
+    └── DECISION_000_TEMPLATE.md
+```
+
+Die Nummern duerfen projektweise erweitert werden, aber nicht zufaellig
+umgedeutet werden. Wenn ein Projekt andere Namen nutzt, muss es im
+Project Overview ein Mapping geben.
+
 ## 5. Skill-System
 
 Projekt-lokale Skills beschreiben Rollen, nicht lose Hinweise. Sie muessen so
@@ -153,8 +209,8 @@ Optional je nach Projekt:
 - `ai-architect`
 - `ai-builder`
 - `contract-guardian`
-- `error-handling`
-- `test-coverage`
+- backend-spezifische `error-handling` / `test-coverage` Skills, falls die
+  Frontend-Skills nicht reichen.
 
 Skill-Regeln:
 
@@ -236,28 +292,28 @@ Diese Konzepte definieren Regeln, die fuer viele oder alle Features gelten.
 
 Empfohlene Grundliste:
 
-| Konzept | Zweck |
-|---|---|
-| Project Structure | Ordner, Ownership, Import-Grenzen |
-| State Management | Provider, State Ownership, async/error/empty handling |
-| Coding Conventions | Naming, Dateistruktur, Immutability, Linting |
-| Testing Strategy | Unit, Widget, Golden, Integration, Fakes, Fixtures |
-| Error Handling | User Messages, Technical Errors, Reference Codes |
-| Environment Configuration | Build Modes, Config, Feature Flags |
-| Logging | Privacy-safe Logs, Diagnostics, Redaction |
-| Distribution Compliance | Store, Packaging, Permissions, Review Gates |
-| Review Access | Demo Accounts, Review Data, Test Modes |
-| Legal / Privacy | Datenschutz, Consent, Export, Delete, DSAR |
-| Local Storage | DB, File Store, Migrations, Backup Readiness |
-| API Integration | Clients, Contracts, Auth, Retry, Offline Behavior |
-| Secure Storage | Tokens, Secrets, Keychain/Keystore, Rotation |
-| Configuration Surfaces | Settings, Admin, Preferences |
-| Form Family | Form Patterns, Validation, Dirty State |
-| Mock Repository | Fake Data, Mock Contracts, Isolation |
-| CI/CD Pipeline | Build, Verify, Codegen, Release Gates |
-| Mobile/Platform Standards | Capture, Permissions, Narrow Layout |
-| Notifications / Failures / Observability | Async Feedback, Recovery, Support |
-| Design-System Governance | DS Ownership, Component Approval |
+| Datei | Konzept | Zweck |
+|---|---|---|
+| `CONCEPT_F1_PROJECT_STRUCTURE.md` | Project Structure | Ordner, Ownership, Import-Grenzen |
+| `CONCEPT_F2_STATE_MANAGEMENT.md` | State Management | Provider, State Ownership, async/error/empty handling |
+| `CONCEPT_F3_CODING_CONVENTIONS.md` | Coding Conventions | Naming, Dateistruktur, Immutability, Linting |
+| `CONCEPT_F4_TESTING_STRATEGY.md` | Testing Strategy | Unit, Widget, Golden, Integration, Fakes, Fixtures |
+| `CONCEPT_F5_ERROR_HANDLING.md` | Error Handling | User Messages, Technical Errors, Reference Codes |
+| `CONCEPT_F6_ENVIRONMENT_CONFIGURATION.md` | Environment Configuration | Build Modes, Config, Feature Flags |
+| `CONCEPT_F7_LOGGING.md` | Logging | Privacy-safe Logs, Diagnostics, Redaction |
+| `CONCEPT_F8_DISTRIBUTION_COMPLIANCE.md` | Distribution Compliance | Store, Packaging, Permissions, Review Gates |
+| `CONCEPT_F8B_REVIEW_ACCESS_STRATEGY.md` | Review Access | Demo Accounts, Review Data, Test Modes |
+| `CONCEPT_F9_LEGAL_PRIVACY.md` | Legal / Privacy | Datenschutz, Consent, Export, Delete, DSAR |
+| `CONCEPT_F10_LOCAL_STORAGE.md` | Local Storage | DB, File Store, Migrations, Backup Readiness |
+| `CONCEPT_F11_API_INTEGRATION.md` | API Integration | Clients, Contracts, Auth, Retry, Offline Behavior |
+| `CONCEPT_F12_SECURE_STORAGE.md` | Secure Storage | Tokens, Secrets, Keychain/Keystore, Rotation |
+| `CONCEPT_F13_CONFIGURATION_SURFACES.md` | Configuration Surfaces | Settings, Admin, Preferences |
+| `CONCEPT_F14_FORM_FAMILY.md` | Form Family | Form Patterns, Validation, Dirty State |
+| `CONCEPT_F15_MOCK_REPOSITORY.md` | Mock Repository | Fake Data, Mock Contracts, Isolation |
+| `CONCEPT_F16_CI_CD_QUALITY_GATES.md` | CI/CD Pipeline | Build, Verify, Codegen, Release Gates |
+| `CONCEPT_F17_PLATFORM_MOBILE_STANDARDS.md` | Mobile/Platform Standards | Capture, Permissions, Narrow Layout |
+| `CONCEPT_F18_NOTIFICATIONS_FAILURES_OBSERVABILITY.md` | Notifications / Failures / Observability | Async Feedback, Recovery, Support |
+| `CONCEPT_F19_DESIGN_SYSTEM_GOVERNANCE.md` | Design-System Governance | DS Ownership, Component Approval |
 
 Jedes Konzept muss enthalten:
 
