@@ -1,6 +1,6 @@
 ---
 title: "Konzept F24 - Form Family"
-description: "Draft-Konzept fuer die noch auszuarbeitende Ordna Form Family, inklusive Feldfamilien, Validierung, Review, Suggestions und Accessibility"
+description: "Draft-Konzept fuer die noch auszuarbeitende Mappm Form Family, inklusive Feldfamilien, Validierung, Review, Suggestions und Accessibility"
 tags: [concept, frontend, design-system, forms, validation, review, accessibility, draft]
 lastUpdated: "2026-06-22"
 version: "0.6"
@@ -25,7 +25,7 @@ solange F24 als Umbrella noch `draft` bleibt.
 
 ## Zweck
 
-Ordna braucht eine ausgereifte Form Family, weil Dokumentreview, Profilpflege,
+Mappm braucht eine ausgereifte Form Family, weil Dokumentreview, Profilpflege,
 Vorgangsbearbeitung, Faktenkorrektur, Tasks, Settings und spaetere OCR-/AI-
 Vorschlaege alle ueber Formulare laufen.
 
@@ -204,7 +204,7 @@ Diese Entscheidung ist im Interaktionsmock visuell pruefbar.
 
 ## Subkonzept F24.1c - Date, Time and Schedule Controls
 
-Zeitbezogene Felder sind fuer Ordna zentral:
+Zeitbezogene Felder sind fuer Mappm zentral:
 
 - Dokumentdatum.
 - Faelligkeit.

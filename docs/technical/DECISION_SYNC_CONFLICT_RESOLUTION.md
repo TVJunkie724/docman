@@ -13,11 +13,11 @@ status: "accepted"
 Accepted.
 
 R6-D3 ist entschieden. Sync-Konflikte werden sichtbar gemacht und bewusst
-aufgeloest. Ordna ueberschreibt fachlich relevante Daten nicht still.
+aufgeloest. Mappm ueberschreibt fachlich relevante Daten nicht still.
 
 ## Entscheidung
 
-Ordna bleibt local-first. Wenn mehrere Geraete dieselben Daten offline oder
+Mappm bleibt local-first. Wenn mehrere Geraete dieselben Daten offline oder
 parallel aendern, darf Sync keine fachlich relevanten Aenderungen unsichtbar
 verlieren.
 

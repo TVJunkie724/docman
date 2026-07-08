@@ -1,6 +1,6 @@
 ---
 title: "Konzept F31 - Brand System Detail"
-description: "Ordna Detailkonzept fuer Brand-Idee, Logo-Rollen, Corporate Colors, Voice, Standards und Distribution Readiness"
+description: "Mappm Detailkonzept fuer Brand-Idee, Logo-Rollen, Corporate Colors, Voice, Standards und Distribution Readiness"
 tags: [concept, frontend, design-system, brand, corporate-design, logo, voice, distribution]
 lastUpdated: "2026-06-22"
 version: "1.0"
@@ -30,7 +30,7 @@ die Corporate-Design-Seiten aus dem Mock umsetzungs- und reviewfaehig.
 
 ## Brand Position
 
-Ordna ist eine Haushalts-Dokumentenapp fuer sensible private Unterlagen.
+Mappm ist eine Haushalts-Dokumentenapp fuer sensible private Unterlagen.
 
 Design-Ziel:
 
@@ -41,7 +41,7 @@ Design-Ziel:
 
 Claim-Richtung:
 
-- `Ordna`
+- `Mappm`
 - `Ordnung fuer Zuhause`
 
 ## Logo System
@@ -75,7 +75,7 @@ Warme Brand-Familie:
 
 | Rolle | Hex | Produktrolle |
 |---|---|---|
-| Ordna Coral | `#EF6D5D` | Capture/Create, Brand-Aktion |
+| Mappm Coral | `#EF6D5D` | Capture/Create, Brand-Aktion |
 | Archive Rose | `#CF3766` | aktive Brand-Tiefe, selten |
 | Folder Apricot | `#FCBC9D` | Dokumentwaerme, Illustration, leichte Akzente |
 | Paper Warmth | `#FFF7F1` | warme Paper-/Review-Flaechen |
@@ -112,7 +112,7 @@ Regeln:
 
 ## Voice
 
-Ordna spricht:
+Mappm spricht:
 
 - deutsch.
 - ruhig.
@@ -141,7 +141,7 @@ Beispiele:
 
 Readiness Gates:
 
-- Name `Ordna` konsistent verwenden.
+- Name `Mappm` konsistent verwenden.
 - Repo-/Legacy-Name `DocMan` nicht in sichtbarer UI.
 - finale Wordmark vor Website/Store/Decks entscheiden.
 - Third-Party Notices fuer Lucide und weitere Assets vorbereiten.

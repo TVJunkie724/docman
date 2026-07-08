@@ -14,7 +14,7 @@ Accepted.
 
 ## Entscheidung
 
-Ordna trennt Dateiablage konsequent vom Domain-Modell.
+Mappm trennt Dateiablage konsequent vom Domain-Modell.
 
 Die App arbeitet fachlich gegen einen austauschbaren Datei-Storage-Port. Lokaler
 Dateispeicher, Home-Hub-Dateispeicher, MinIO/S3-kompatibler Speicher und
@@ -85,13 +85,13 @@ Home-Hub-/Integration-Ziel geplant.
 Der erste sinnvolle Stack:
 
 ```text
-ordna-homehub-api
+mappm-homehub-api
 postgres
 minio
 microcks
 ```
 
-Die Backend-Technologie fuer `ordna-homehub-api` ist in
+Die Backend-Technologie fuer `mappm-homehub-api` ist in
 `DECISION_HOME_HUB_BACKEND_TECHNOLOGY.md` entschieden: ASP.NET Core fuer die API
 und spaetere .NET Worker/Hosted Services fuer einfache Hintergrundjobs.
 
@@ -111,7 +111,7 @@ Er ist nicht Voraussetzung fuer die lokale Desktop-App.
 
 ## MinIO / S3-kompatibler Storage
 
-MinIO ist fuer Ordna sinnvoll, weil:
+MinIO ist fuer Mappm sinnvoll, weil:
 
 - Dokumente große Binärdaten sind.
 - Datei-Bytes nicht in PostgreSQL oder SQLite gehören.

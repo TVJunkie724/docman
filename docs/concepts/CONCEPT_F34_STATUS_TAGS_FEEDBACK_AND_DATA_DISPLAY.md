@@ -1,6 +1,6 @@
 ---
 title: "Konzept F34 - Status, Tags, Feedback and Data Display"
-description: "Ordna Detailkonzept fuer Statussignale, Tags, Callouts, Empty/Error Feedback, Dokumentzeilen, Typfarben, Fact-Gruppen und Timelines"
+description: "Mappm Detailkonzept fuer Statussignale, Tags, Callouts, Empty/Error Feedback, Dokumentzeilen, Typfarben, Fact-Gruppen und Timelines"
 tags: [concept, frontend, design-system, components, status, tags, feedback, data-display, flutter]
 lastUpdated: "2026-06-22"
 version: "1.0"
@@ -32,7 +32,7 @@ die nicht Button- oder Form-spezifisch sind.
 
 ## Component Principle
 
-Ordna-Komponenten sind fuer Dokumentarbeit, nicht fuer Marketing.
+Mappm-Komponenten sind fuer Dokumentarbeit, nicht fuer Marketing.
 
 Sie muessen:
 

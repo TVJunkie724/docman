@@ -1,8 +1,8 @@
 ---
 title: "Decision - Product Name"
-description: "Entscheidung zum Produktnamen Ordna und zur Abgrenzung vom technischen Arbeitsnamen DocMan"
-tags: [decision, accepted, product, naming, branding, ordna]
-lastUpdated: "2026-05-06"
+description: "Entscheidung zum Produktnamen Mappm und zur Abgrenzung vom technischen Arbeitsnamen DocMan"
+tags: [decision, accepted, product, naming, branding, mappm]
+lastUpdated: "2026-07-08"
 status: "accepted"
 ---
 
@@ -12,7 +12,7 @@ status: "accepted"
 
 Accepted.
 
-Der langfristige Produktname ist **Ordna**.
+Der langfristige Produktname ist **Mappm**.
 
 ## Kontext
 
@@ -28,13 +28,17 @@ Das Projekt soll eine ruhige, vertrauenswuerdige Dokumenten-App fuer Familien un
 
 ## Entscheidung
 
-Das Produkt heisst künftig **Ordna**.
+Das Produkt heisst künftig **Mappm**.
 
 Begründung:
 
-- `Ordna` ist kurz, ruhig und gut merkbar.
-- Der Name erinnert an `ordnen` und im Tiroler Klang an `Ordner`, ohne plump technisch zu sein.
-- Er passt zu Dokumenten, Vorgängen, Haushalt, Aufgaben und Nachweisen.
+- `Mappm` ist kurz, ruhig und gut merkbar.
+- Der Name erinnert an Mapping, Zusammenhaenge und das Zuordnen von
+  Dokumenten zu Personen, Vorgaengen, Nachweisen und Aufgaben.
+- Die doppelte `p`-Form wirkt eigenstaendig und produktfaehig, ohne technisch
+  oder behördlich zu klingen.
+- Er passt zu Dokumenten, Vorgängen, Haushalt, Aufgaben, Nachweisen und
+  verknuepften Alltagskontexten.
 - Er wirkt moderner und wärmer als `DocMan`.
 - Er ist nicht so behördlich wie `Dossier` und nicht so technisch wie klassische DMS-Namen.
 
@@ -45,7 +49,7 @@ Begründung:
 Das bedeutet:
 
 - GitHub-Repository, bestehende Milestones, Issues und viele interne Dokumente dürfen vorerst `DocMan` behalten.
-- Neue produktnahe UI-/Branding-Texte sollen `Ordna` verwenden.
+- Neue produktnahe UI-/Branding-Texte sollen `Mappm` verwenden.
 - Architekturbegriffe bleiben neutral, z.B. `Home Hub`, `Sync Backend`, `Capture`, `Search`.
 - Eine vollständige technische Umbenennung wird separat geplant und nicht nebenbei durchgeführt.
 
@@ -67,10 +71,10 @@ Produktnahe Namen:
 
 | Bereich | Name |
 |---|---|
-| App/Product | `Ordna` |
-| Mobile App | `Ordna` oder `Ordna Mobile`, falls Plattformtexte unterscheiden müssen |
-| Home Hub | `Ordna Home Hub` als Produkttext möglich; technisch weiter `Home Hub` |
-| Backend/Sync | `Ordna Sync` als Produkttext möglich; technisch weiter `Sync Backend` |
+| App/Product | `Mappm` |
+| Mobile App | `Mappm` oder `Mappm Mobile`, falls Plattformtexte unterscheiden müssen |
+| Home Hub | `Mappm Home Hub` als Produkttext möglich; technisch weiter `Home Hub` |
+| Backend/Sync | `Mappm Sync` als Produkttext möglich; technisch weiter `Sync Backend` |
 | Repo/Arbeitsdoku | vorerst `docman` / `DocMan` |
 
 Vor öffentlicher Distribution müssen geprüft werden:
@@ -96,7 +100,7 @@ Es braucht ein separates Rename-/Branding-Issue.
 
 Dieses Issue soll planen:
 
-- welche User-facing Texte zuerst auf `Ordna` wechseln.
+- welche User-facing Texte zuerst auf `Mappm` wechseln.
 - ob und wann das Repo umbenannt wird.
 - ob Dart package, Bundle Identifier oder App Display Name geändert werden.
 - welche Dokumente weiterhin `DocMan` als technischen Projektnamen verwenden dürfen.
@@ -106,6 +110,6 @@ Dieses Issue soll planen:
 
 Die Entscheidung ist akzeptiert, wenn:
 
-- `Ordna` als finaler Produktname gewählt ist.
+- `Mappm` als finaler Produktname gewählt ist.
 - die Konsequenzen fuer App-Name, Repo, Package-/Bundle-Identifier, Backend-Namen, Dokumentation und GitHub Issues beschrieben sind.
 - ein separates Umbenennungs-Issue existiert.

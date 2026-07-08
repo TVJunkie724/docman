@@ -18,7 +18,7 @@ Preview-Generierung laeuft im R4-M2 ueber einen austauschbaren
 `PreviewGenerationPort`.
 
 Fuer PDF-Preview ist **`pdfrx`** der vorlaeufig bevorzugte Adapter. Fuer
-JPG/JPEG/PNG nutzt Ordna eine einfache Image-Preview-Strategy.
+JPG/JPEG/PNG nutzt Mappm eine einfache Image-Preview-Strategy.
 
 ```text
 Draft Review UI

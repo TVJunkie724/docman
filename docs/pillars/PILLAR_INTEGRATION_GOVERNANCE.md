@@ -13,7 +13,7 @@ status: "proposed"
 
 DocMan soll externe Dienste sinnvoll nutzen können, ohne sich an sie zu ketten oder Credentials unsicher zu speichern.
 
-R13-D1 entscheidet: Ordna startet mit manuellen externen Links und
+R13-D1 entscheidet: Mappm startet mit manuellen externen Links und
 Export-/Oeffnen-Aktionen. Automatische Portalaktionen werden spaeter nur
 geprueft, falls sie technisch, rechtlich und sicherheitlich tragfaehig sind.
 
@@ -35,7 +35,7 @@ geprueft, falls sie technisch, rechtlich und sicherheitlich tragfaehig sind.
 - Mobile Universal/App Link vorbereiten.
 - keine Portalautomatisierung.
 - keine gespeicherten Fremd-Credentials.
-- kein externer App-Zugriff auf Ordna.
+- kein externer App-Zugriff auf Mappm.
 
 ## Spaetere Pruefung
 

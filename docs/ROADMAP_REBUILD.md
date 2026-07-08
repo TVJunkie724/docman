@@ -14,9 +14,9 @@ Diese Roadmap ist der aktive Neustart der Projektplanung. Sie ersetzt die alten 
 
 ## 2. Leitidee
 
-Ordna sollte zuerst als Desktop-App mit Mobile Capture funktionieren: unterwegs Dokumente erfassen, zuhause am Desktop prüfen und Vorgängen zuordnen. Danach muss Assisted Review schnell folgen, weil optionale Metadaten realistisch nicht dauerhaft manuell gepflegt werden.
+Mappm sollte zuerst als Desktop-App mit Mobile Capture funktionieren: unterwegs Dokumente erfassen, zuhause am Desktop prüfen und Vorgängen zuordnen. Danach muss Assisted Review schnell folgen, weil optionale Metadaten realistisch nicht dauerhaft manuell gepflegt werden.
 
-Langfristig ist DocMan/Ordna jedoch nicht nur "Dokumente an Vorgängen".
+Langfristig ist DocMan/Mappm jedoch nicht nur "Dokumente an Vorgängen".
 Das Ziel ist ein privates DMS fuer Haushalt, Personen, Vorgänge, Records,
 Versionen, strukturierte Fakten, Aufgaben, externe Aktionen, Suche,
 Auswertungen, Backup, Sync und Intelligence. Jeder Milestone liefert einen
@@ -131,7 +131,7 @@ Details und Subphasen stehen in `docs/roadmap/PHASE_INDEX.md` und
 
 | Nr. | Decision | Status | Primaere Saeulen | Milestone Slice | Later Milestone / Operations Slice |
 |---|---|---|---|---|---|
-| D01 | Product Name | accepted | DX/Governance, Release | R0: Produktname `Ordna`; DocMan bleibt technischer Repo-/Workspace-Name | R10: Distribution, Branding, Store-/Review-Material, rechtliche Namenspruefung |
+| D01 | Product Name | accepted | DX/Governance, Release | R0: Produktname `Mappm`; DocMan bleibt technischer Repo-/Workspace-Name | R10: Distribution, Branding, Store-/Review-Material, rechtliche Namenspruefung |
 | D02 | Product Language | accepted | Cases/Records, UX | R0/R4: `Case` im Code, "Vorgang" in der UI, `Event` fuer Timeline | R8/R9: Records/Facts/Claims/AI-Vorschlaege sprachlich konsistent erweitern |
 | D03 | State Management and DI | accepted | DX/Governance, Design System/UX | R2: Riverpod als Ziel fuer State und DI, BLoC/GetIt nicht weiter ausbauen | R4-R12: Feature-Provider pro Saeule, Audit gegen Provider-/Domain-Leaks |
 | D04 | Local-first Data Flow | accepted | Home Hub/Sync, Data Lifecycle, Security | R2/R4: App lokal nutzbar, Sync-ready IDs, Home Hub nicht Voraussetzung fuer Desktop-Kern | R6/R11/R15: Sync, Backup, optionale Self-hosted-cloudartige Betriebsformen ohne local-first aufzugeben |
@@ -204,7 +204,7 @@ Hinweis: Die Produkt-Baseline, Security-/Privacy-Baseline, Storage-Grenze und Ho
 
 | ID | Entscheidung | Empfohlene Richtung |
 |---|---|---|
-| R0-D0 | Heisst das Produkt langfristig `DocMan`? | Entschieden: Produktname ist `Ordna`; `DocMan` bleibt vorerst technischer Repo-/Arbeitsname |
+| R0-D0 | Heisst das Produkt langfristig `DocMan`? | Entschieden: Produktname ist `Mappm`; `DocMan` bleibt vorerst technischer Repo-/Arbeitsname |
 | R0-D1 | Heißt das zentrale Modell weiterhin `Incident`? | Entschieden: `Case` im Code, "Vorgang" im UI, `Event`/"Ereignis" für Timeline-Einträge |
 | R0-D2 | BLoC/GetIt oder Riverpod? | Entschieden: Riverpod als State Management und DI; BLoC/GetIt wird nicht weiter ausgebaut |
 | R0-D3 | Local-first oder Backend-first? | Entschieden: private-first, offline-capable und service-ready; Local-only bleibt ein Modus, Home Hub/Tailscale ist die erste private Betriebsform, Managed Cloud bleibt spaeter moeglich |
@@ -477,7 +477,7 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 
 **Status:** Proposed
 
-**Ziel:** Ordna reduziert manuelle Review-Arbeit durch OCR/Extraktionsvorschlaege und baut den Haushaltskontext aus.
+**Ziel:** Mappm reduziert manuelle Review-Arbeit durch OCR/Extraktionsvorschlaege und baut den Haushaltskontext aus.
 
 ### In Scope
 
@@ -600,7 +600,7 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 
 **Status:** Deferred
 
-**Ziel:** Ordna erweitert Assisted Review zu Automatisierung, Reprocessing und lokalen/self-hosted Intelligence-Jobs.
+**Ziel:** Mappm erweitert Assisted Review zu Automatisierung, Reprocessing und lokalen/self-hosted Intelligence-Jobs.
 
 ### In Scope
 
@@ -649,7 +649,7 @@ Subphasen stehen in
 | R0-D4 | Ist der alte PocketBase-/Backend-Draft noch relevant? | Teilweise offen: Home-Hub-Zieltechnologie ist entschieden; alter PocketBase-Draft muss spaeter bereinigt oder geschlossen werden |
 | R4-D12 | Welche Scanner-Bridge erreicht die gewuenschte Mobile-Scan-Qualitaet? | Vorlaeufig entschieden: native Plattform-Scanner; final erst nach Qualitaets-Spike |
 | R12-D1 | Wie werden Support-/Diagnosepakete redigiert? | Offen; nicht M1. Grundregel bleibt: keine privaten Inhalte/Secrets in Logs, konkrete Diagnosepakete spaeter in R12 entscheiden |
-| R15-D1 | Braucht Ordna je eine gehostete Betriebsform? | Offen; bewusst spaeter pruefen. Keine fruehe Produktannahme fuer gehosteten Betrieb |
+| R15-D1 | Braucht Mappm je eine gehostete Betriebsform? | Offen; bewusst spaeter pruefen. Keine fruehe Produktannahme fuer gehosteten Betrieb |
 
 ## 15. Empfohlene erste Arbeitssequenz
 

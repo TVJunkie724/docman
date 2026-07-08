@@ -1,6 +1,6 @@
 ---
 title: "Konzept F19 - Design System Governance and SSOT"
-description: "Querschnittliches Frontend-Konzept fuer Ordna Design-System-Governance, Mock-to-Concept-Promotion, SSOT-Regeln und Agent-Gates"
+description: "Querschnittliches Frontend-Konzept fuer Mappm Design-System-Governance, Mock-to-Concept-Promotion, SSOT-Regeln und Agent-Gates"
 tags: [concept, frontend, design-system, ux, ssot, governance, production-readiness]
 lastUpdated: "2026-06-22"
 version: "1.3"
@@ -13,13 +13,13 @@ status: "accepted"
 
 Accepted.
 
-Dieses Konzept verbindet den visuellen Ordna Design-System-Mock mit den
+Dieses Konzept verbindet den visuellen Mappm Design-System-Mock mit den
 umsetzungsrelevanten Frontend-Konzepten. Es ist die Governance-Schicht fuer
 zukuenftige UI-Agents.
 
 ## Zweck
 
-Ordna soll nicht durch einzelne Mock-Seiten, isolierte Flutter-Widgets oder
+Mappm soll nicht durch einzelne Mock-Seiten, isolierte Flutter-Widgets oder
 ad-hoc Farben entstehen. Jede UI-Entscheidung muss eine einzige fachliche
 Quelle haben und von dort in Umsetzung, Tests und Reviews getragen werden.
 
@@ -39,7 +39,7 @@ F19 definiert:
 | `docs/design-system/Mock/assets/css/tokens.css` | Mock-Token-Quelle fuer Farben, Radius und Schrift. |
 | `docs/design-system/Mock/assets/css/base.css` | Mock-Komponenten-Quelle fuer reviewbare HTML-Beispiele. |
 | `docs/design-system/Mock/assets/js/navigation.js` | Gemeinsame Mock-Navigation und zentrale Icon-Registry fuer Callouts. |
-| `docs/design-system/concepts/OD-DS-*.md` | Design-System-Planungsdokumente. |
+| `docs/design-system/concepts/MP-DS-*.md` | Design-System-Planungsdokumente. |
 | `docs/concepts/CONCEPT_F20_*.md` bis `CONCEPT_F35_*.md` | Build-relevante Frontend-Konzepte aus dem Mock. |
 
 ## Mock Page Ownership
@@ -86,7 +86,7 @@ F19 definiert:
 
 ## Agent Gate
 
-Ein UI-Agent darf eine Ordna-Komponente erst implementieren, wenn:
+Ein UI-Agent darf eine Mappm-Komponente erst implementieren, wenn:
 
 - das passende F-Konzept gelesen wurde.
 - die relevante Mock-Seite fuer visuelle Evidenz gelesen wurde, wenn ein

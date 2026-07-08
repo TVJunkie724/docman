@@ -29,7 +29,7 @@ Verwaltung ist in fruehen Phasen binaer:
 - Verwaltung kann deaktiviert oder entfernt werden.
 
 Damit koennen z. B. beide Eltern dasselbe Kinderprofil verwalten, ohne dass
-Ordna sofort eine komplexe Rechte- und Rollenmatrix braucht.
+Mappm sofort eine komplexe Rechte- und Rollenmatrix braucht.
 
 ## Modellrichtung
 

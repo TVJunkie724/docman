@@ -1,6 +1,6 @@
 ---
 title: "Decision - External Integrations First"
-description: "Entscheidung zu externen Links, Exportaktionen und spaeterer Portalautomatisierung in Ordna"
+description: "Entscheidung zu externen Links, Exportaktionen und spaeterer Portalautomatisierung in Mappm"
 tags: [decision, integrations, external-links, export, portals, sharing]
 lastUpdated: "2026-06-13"
 status: "accepted"
@@ -12,14 +12,14 @@ status: "accepted"
 
 Accepted.
 
-R13-D1 ist entschieden. Ordna startet mit manuellen externen Links und
+R13-D1 ist entschieden. Mappm startet mit manuellen externen Links und
 bewussten Export-/Oeffnen-Aktionen. Automatische Einreichung in externe Portale
 ist keine fruehe Produktannahme und wird erst in einem spaeteren Milestone
 geprueft.
 
 ## Entscheidung
 
-Ordna integriert externe Dienste zuerst als manuelle Aktionsziele:
+Mappm integriert externe Dienste zuerst als manuelle Aktionsziele:
 
 - Website oeffnen.
 - App-/Deep-Link oeffnen, wenn verfuegbar.
@@ -30,7 +30,7 @@ Ordna integriert externe Dienste zuerst als manuelle Aktionsziele:
   bereitgestelltes Ziel uebergeben.
 - Link an Aufgabe, Vorgang, Claim, Record, Profil oder Dokument speichern.
 
-Ordna speichert dafuer frueh keine fremden Zugangsdaten, Tokens,
+Mappm speichert dafuer frueh keine fremden Zugangsdaten, Tokens,
 Session-Cookies oder Portal-spezifischen Automatisierungsdaten.
 
 ## Beispiele
@@ -56,7 +56,7 @@ Sie werden spaeter nur geprueft, wenn:
 - Fehler und Teilzustaende fuer Nutzerinnen verstaendlich bleiben.
 
 Es ist akzeptabel, wenn automatische Einreichung nie produktiv umgesetzt wird.
-Ordna bleibt auch mit manuellen Links, Exporten und gut gefuehrten Aufgaben
+Mappm bleibt auch mit manuellen Links, Exporten und gut gefuehrten Aufgaben
 wertvoll.
 
 ## UI-Richtung
@@ -77,7 +77,7 @@ Outbox-Bereich ueberladen.
 - R13-D1 ist entschieden.
 - Manuelle Links und Exportaktionen sind der erste Integrationspfad.
 - Automatische Portalbedienung bleibt spaeteres Pruefthema, kein Versprechen.
-- Externe Dienste bleiben ausserhalb der Ordna-Vertrauensgrenze.
+- Externe Dienste bleiben ausserhalb der Mappm-Vertrauensgrenze.
 - Fremd-Credentials brauchen vor Speicherung eine eigene Security-Entscheidung.
 
 ## Nicht entschieden

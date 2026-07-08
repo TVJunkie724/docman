@@ -8,16 +8,16 @@ provenance:
     - /Users/caroline/development/stonehall/matchmia/Documentation/DesignSystem
 ---
 
-# OD-DS-00 Design System Umbrella
+# MP-DS-00 Design System Umbrella
 
 ## Status
 
 Draft, aktive Planungsgrundlage.
 
 Dieses Umbrella-Konzept ist verbindlich fuer die Organisation der
-Ordna-Design-System-Konzepte, die Source-of-Truth-Klassifikation und das
+Mappm-Design-System-Konzepte, die Source-of-Truth-Klassifikation und das
 Verhalten zukuenftiger UI-Arbeit. Visuelle Details werden erst
-implementierungsreif, wenn das zustaendige fokussierte `OD-DS-*`-Konzept sie
+implementierungsreif, wenn das zustaendige fokussierte `MP-DS-*`-Konzept sie
 als verbindlich markiert und ein passender UI-Architektur- oder
 Implementierungsplan existiert.
 
@@ -29,10 +29,10 @@ Mock-Seitentitel oder Konzept-IDs handelt.
 
 ## Zweck
 
-`OD-DS-00` definiert, wie Ordna Corporate Design, Foundations, statische
+`MP-DS-00` definiert, wie Mappm Corporate Design, Foundations, statische
 Review-Mocks und spaetere Flutter-Design-System-Arbeit organisiert.
 
-Ordna muss ruhig, privat, verlaesslich, warm und professionell wirken. Die App
+Mappm muss ruhig, privat, verlaesslich, warm und professionell wirken. Die App
 darf nicht wie ein generisches SaaS-Dashboard, eine medizinische Fachsoftware,
 ein Steuerportal oder ein dekoratives Familienalbum wirken.
 
@@ -40,8 +40,8 @@ ein Steuerportal oder ein dekoratives Familienalbum wirken.
 
 | Quelle | Rolle | Verbindlichkeit |
 |---|---|---|
-| `docs/design-system/concepts/OD-DS-*.md` | Normative Design-System-Regeln fuer Agents, Architects, Builders und Auditors. | Verbindlich, wenn Status oder Text sie als verbindlich markieren. |
-| `docs/design-system/Mock/` | Visuelle Stakeholder- und Review-Flaeche fuer Corporate Design, Foundations und Shell. | Evidenz und Kandidatenquelle, bis Regeln in ein `OD-DS-*`-Konzept promotet werden. |
+| `docs/design-system/concepts/MP-DS-*.md` | Normative Design-System-Regeln fuer Agents, Architects, Builders und Auditors. | Verbindlich, wenn Status oder Text sie als verbindlich markieren. |
+| `docs/design-system/Mock/` | Visuelle Stakeholder- und Review-Flaeche fuer Corporate Design, Foundations und Shell. | Evidenz und Kandidatenquelle, bis Regeln in ein `MP-DS-*`-Konzept promotet werden. |
 | `docs/design-system/Decisions/ADR-*.md` | Entscheidungsprotokolle, die erklaeren, warum eine Richtung akzeptiert wurde. | Verbindlich fuer den Entscheidungsbereich, bis ein neuer ADR sie ersetzt. |
 | `docs/design-system/Brand/BRAND_DIRECTION.md` | Brand Narrative und Richtungsmaterial. | Brand Input; muss vor Implementierung in Corporate-Design-Konzepten abgebildet sein. |
 | `docs/concepts/CONCEPT_F*.md` | Cross-cutting Foundation-/Frontend-Regeln. | Verbindlich fuer technische Umsetzung, sobald sie zur UI-Arbeit passen. |
@@ -50,14 +50,14 @@ ein Steuerportal oder ein dekoratives Familienalbum wirken.
 
 | Konzept | Scope | Status |
 |---|---|---|
-| `OD-DS-00 Design System Umbrella` | Source-Hierarchie, Konzept-Slicing, Agent-Gates. | draft |
-| `OD-DS-01 Foundations And Tokens` | Farbrollen, Icon-Set, Typografie, Spacing, Radius, Elevation, Statusfarben, Token-Promotion. | draft |
-| `OD-DS-02 Layout And Shell` | Desktop-/Mobile-Shell, Navigation, Arbeitsflaechen, responsive Verhalten. | draft |
-| `OD-DS-03 Corporate Design` | Brand-Idee, Logo-System, Corporate Colors, Voice, Usage Standards. | draft |
-| `OD-DS-04 Component System` | Buttons, Formulare, Selection, Navigation, Feedback, Status, Tags, Data Display. | planned |
-| `OD-DS-05 Product Patterns` | Capture, Draft Inbox, Vorgang, Dokumentdetail, Export, Settings, Backup/Sync. | planned |
-| `OD-DS-06 Accessibility And Quality Gates` | Contrast, Keyboard, Text Scale, Visual QA, responsive gates. | planned |
-| `OD-DS-07 Platform Adaptation` | macOS, iOS, Android, spaeter Windows/Linux. | planned |
+| `MP-DS-00 Design System Umbrella` | Source-Hierarchie, Konzept-Slicing, Agent-Gates. | draft |
+| `MP-DS-01 Foundations And Tokens` | Farbrollen, Icon-Set, Typografie, Spacing, Radius, Elevation, Statusfarben, Token-Promotion. | draft |
+| `MP-DS-02 Layout And Shell` | Desktop-/Mobile-Shell, Navigation, Arbeitsflaechen, responsive Verhalten. | draft |
+| `MP-DS-03 Corporate Design` | Brand-Idee, Logo-System, Corporate Colors, Voice, Usage Standards. | draft |
+| `MP-DS-04 Component System` | Buttons, Formulare, Selection, Navigation, Feedback, Status, Tags, Data Display. | planned |
+| `MP-DS-05 Product Patterns` | Capture, Draft Inbox, Vorgang, Dokumentdetail, Export, Settings, Backup/Sync. | planned |
+| `MP-DS-06 Accessibility And Quality Gates` | Contrast, Keyboard, Text Scale, Visual QA, responsive gates. | planned |
+| `MP-DS-07 Platform Adaptation` | macOS, iOS, Android, spaeter Windows/Linux. | planned |
 
 ## Aktuelle Review-Flaeche
 
@@ -70,7 +70,7 @@ docs/design-system/Mock/index.html
 ## Agent-Regeln
 
 - Keine Flutter-UI implementieren, bevor die relevante UI-Arbeit mindestens
-  `OD-DS-01`, `OD-DS-02` und `OD-DS-03` geprueft hat.
+  `MP-DS-01`, `MP-DS-02` und `MP-DS-03` geprueft hat.
 - Keine echten privaten Daten in Mock, Screenshots, Fixtures oder Demos.
 - Jede sichtbare Design-System-Seite braucht ein konkretes visuelles Beispiel,
   nicht nur Tabellen, Regeltexte oder abstrakte Karten.

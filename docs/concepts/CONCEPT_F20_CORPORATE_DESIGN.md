@@ -1,6 +1,6 @@
 ---
 title: "Konzept F20 - Corporate Design and Brand Application"
-description: "Ordna Corporate Design, Logo-System, Brand-Farben, Voice, Standards und produktnahe Brand-Anwendung"
+description: "Mappm Corporate Design, Logo-System, Brand-Farben, Voice, Standards und produktnahe Brand-Anwendung"
 tags: [concept, frontend, design-system, corporate-design, brand, colors, logo, voice]
 lastUpdated: "2026-06-22"
 version: "1.1"
@@ -13,13 +13,13 @@ status: "accepted"
 
 Accepted.
 
-F20 ist die umsetzungsrelevante Brand-Schicht fuer Ordna. Das Konzept ersetzt
+F20 ist die umsetzungsrelevante Brand-Schicht fuer Mappm. Das Konzept ersetzt
 keine professionelle Logo-Ausarbeitung, definiert aber verbindlich, wie die
 aktuelle Brand-Richtung in der App verwendet werden darf.
 
 ## Zweck
 
-Ordna soll warm, privat, haushaltsnah und gleichzeitig professionell wirken.
+Mappm soll warm, privat, haushaltsnah und gleichzeitig professionell wirken.
 Die App darf nicht nach generischem SaaS, Steuerportal, Kliniksoftware oder
 Spielzeug-App aussehen.
 
@@ -43,9 +43,9 @@ Quelle: `docs/design-system/Mock/pages/corporate-design.html`.
 
 Regeln:
 
-- Sichtbarer Produktname ist `Ordna`.
+- Sichtbarer Produktname ist `Mappm`.
 - Claim-Richtung: "Ordnung fuer Zuhause".
-- Ordna nutzt warme Brand-Signale, aber die Arbeitsoberflaeche bleibt ruhig.
+- Mappm nutzt warme Brand-Signale, aber die Arbeitsoberflaeche bleibt ruhig.
 - Private Dokumentarbeit braucht Vertrauen, Dichte und Korrekturbarkeit vor
   Marketing-Gesten.
 
@@ -88,13 +88,13 @@ Brand-Farbrollen:
 
 | Rolle | Token | Verwendung |
 |---|---|---|
-| Ordna Coral | `--ordna-coral` | Primaere Capture-/Create-Aktion, Brand-Akzent. |
-| Archive Rose | `--ordna-rose` | Logo-Tiefe, seltene aktive Markierung, Fehlerakzent in Callouts. |
-| Folder Apricot | `--ordna-apricot` | Warmer Dokument-/Ordner-Bezug, Illustration, dezente Akzente. |
-| Paper Warmth | `--ordna-paper` | Warmes Paper-Panel, nicht dominante App-Flaeche. |
-| Deep Petrol | `--ordna-petrol-deep` | Enterprise-Struktur, Vertrauen, Navigation. |
-| Petrol | `--ordna-petrol` | Sync, Info, strukturierende Arbeitskontexte. |
-| Petrol Soft/Mist | `--ordna-petrol-soft`, `--ordna-petrol-mist` | Sanfte kuehle Flaechen und Auswahlhintergruende. |
+| Mappm Coral | `--mappm-coral` | Primaere Capture-/Create-Aktion, Brand-Akzent. |
+| Archive Rose | `--mappm-rose` | Logo-Tiefe, seltene aktive Markierung, Fehlerakzent in Callouts. |
+| Folder Apricot | `--mappm-apricot` | Warmer Dokument-/Ordner-Bezug, Illustration, dezente Akzente. |
+| Paper Warmth | `--mappm-paper` | Warmes Paper-Panel, nicht dominante App-Flaeche. |
+| Deep Petrol | `--mappm-petrol-deep` | Enterprise-Struktur, Vertrauen, Navigation. |
+| Petrol | `--mappm-petrol` | Sync, Info, strukturierende Arbeitskontexte. |
+| Petrol Soft/Mist | `--mappm-petrol-soft`, `--mappm-petrol-mist` | Sanfte kuehle Flaechen und Auswahlhintergruende. |
 
 Regeln:
 
@@ -134,14 +134,14 @@ Gates:
 - Store-/Distribution-Material braucht finalen Namen, Icon, Wordmark,
   Datenschutzhinweise und Third-Party Notices.
 - Lucide ist als Icon-Richtung erlaubt; Lizenzhinweis muss spaeter in Notices.
-- App- und Dokumentationssprache muessen `Ordna` verwenden, solange der
+- App- und Dokumentationssprache muessen `Mappm` verwenden, solange der
   technische Repo-Name `DocMan` noch nicht umbenannt ist.
 
 ## Definition of Done
 
 F20 ist umgesetzt, wenn:
 
-- Flutter Theme und App Shell Ordna-Farbrollen statt freier Hexwerte nutzen.
+- Flutter Theme und App Shell Mappm-Farbrollen statt freier Hexwerte nutzen.
 - App Icon und Produkticons getrennt bleiben.
 - Voice-Regeln in Fehler-, Empty-, Review- und Exportpfaden angewendet werden.
 - Brand-Farben nicht als unstrukturierte Statuspalette verwendet werden.

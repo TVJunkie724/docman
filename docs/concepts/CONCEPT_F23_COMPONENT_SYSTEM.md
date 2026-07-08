@@ -1,6 +1,6 @@
 ---
 title: "Konzept F23 - Component System"
-description: "Ordna Komponentenfamilien fuer Buttons, Status, Tags, Feedback, Callouts, Data Display und Component Composition"
+description: "Mappm Komponentenfamilien fuer Buttons, Status, Tags, Feedback, Callouts, Data Display und Component Composition"
 tags: [concept, frontend, design-system, components, buttons, status, tags, feedback, data-display]
 lastUpdated: "2026-06-22"
 version: "1.2"
@@ -19,7 +19,7 @@ ausgereift genug ist.
 
 ## Zweck
 
-Ordna braucht Komponenten fuer echte Dokumentarbeit: wiederholt, ruhig,
+Mappm braucht Komponenten fuer echte Dokumentarbeit: wiederholt, ruhig,
 privacy-sicher, testbar, responsive und ohne konkurrierende Ad-hoc-Varianten.
 
 Detailkonzepte:
@@ -89,7 +89,7 @@ Button-Groessen:
 Regeln:
 
 - Keine Icon-only Buttons fuer kritische Aktionen.
-- Primaere Aktionen nutzen Ordna Coral, aber sparsam und nie mehrfach im selben
+- Primaere Aktionen nutzen Mappm Coral, aber sparsam und nie mehrfach im selben
   Arbeitskontext.
 - Secondary nutzt Outline/Neutral, Light State nutzt Petrol, Danger nutzt Brick
   oder Danger-Light.
@@ -193,7 +193,7 @@ Dokumentzeile:
 
 Typfarben:
 
-- aus Ordna-Palette ableiten.
+- aus Mappm-Palette ableiten.
 - nicht zu bunt.
 - Bedeutung bleibt ueber Typtext, Titel und Status lesbar.
 

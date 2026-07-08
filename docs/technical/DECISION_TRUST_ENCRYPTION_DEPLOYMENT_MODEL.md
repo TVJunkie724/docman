@@ -12,38 +12,38 @@ status: "accepted"
 
 Accepted.
 
-Diese Entscheidung erweitert die bisherige Local-first-Richtung. Ordna bleibt
+Diese Entscheidung erweitert die bisherige Local-first-Richtung. Mappm bleibt
 lokal nutzbar, wird aber als private-first Dokumentenplattform geplant, weil
 Sync, Backup, Sharing und intelligente Assistenz dauerhaft Backend- und
 Processing-Faehigkeiten brauchen.
 
 ## Entscheidung
 
-Ordna wird als **private-first, offline-capable, service-ready** Produkt
+Mappm wird als **private-first, offline-capable, service-ready** Produkt
 gebaut.
 
 Local-only ist ein unterstuetzter Betriebsmodus, aber nicht das vollstaendige
 Produktziel. Fuer automatische Dokumenterkennung, OCR, LLM-Assistenz, Cloud-
-Backup, Account-Sync und account-uebergreifendes Sharing braucht Ordna eine
+Backup, Account-Sync und account-uebergreifendes Sharing braucht Mappm eine
 explizit modellierte Service-Schicht.
 
 Die Service-Schicht darf aber nicht bedeuten, dass die Cloud automatisch die
 fachliche Klartext-Wahrheit aller sensiblen Daten wird.
 
 ```text
-Ordna Client
+Mappm Client
   -> lokale Arbeitsfaehigkeit
   -> lokaler Cache / lokale Replik
   -> lokale Verschluesselungs- und Review-Grenzen
 
-Ordna Data / Sync Layer
+Mappm Data / Sync Layer
   -> austauschbare Storage- und Sync-Implementierungen
   -> local-only, Home Hub, Managed Cloud oder Hybrid
 
-Ordna Processing Layer
+Mappm Processing Layer
   -> none, on-device, Home Hub/private server oder Managed Intelligence
 
-Ordna Trust Layer
+Mappm Trust Layer
   -> Keys, Recovery, Sharing, Identity Provider, Audit und Freigaben
 ```
 
@@ -63,13 +63,13 @@ Service-ready:
 
 ## Betriebsmodi
 
-Ordna muss mehrere Betriebsmodi tragen koennen.
+Mappm muss mehrere Betriebsmodi tragen koennen.
 
 | Modus | Rolle | Datenhaltung | Processing |
 |---|---|---|---|
 | Local-only | privater Einzelgeraete-Modus | lokal | none oder on-device |
 | Private Home Hub | Haushalt / eigene Infrastruktur | lokale Replik plus privater Server | Home Hub / privater Worker |
-| Managed Ordna Cloud | komfortabler Account-Sync, Backup, Sharing | lokale Replik plus managed Sync/Backup | Managed Intelligence optional |
+| Managed Mappm Cloud | komfortabler Account-Sync, Backup, Sharing | lokale Replik plus managed Sync/Backup | Managed Intelligence optional |
 | Hybrid | offlinefaehiger Client mit ausgewaehlten Diensten | je nach Policy | je nach Freigabe |
 
 Local-only darf nicht entfernt werden, aber es ist nicht die einzige
@@ -111,7 +111,7 @@ Sie arbeiten gegen Domain-Interfaces und Provider.
 
 ## Datenklassen
 
-Ordna unterscheidet mindestens diese Datenklassen:
+Mappm unterscheidet mindestens diese Datenklassen:
 
 | Klasse | Beispiele | Grundregel |
 |---|---|---|
@@ -128,7 +128,7 @@ nicht.
 
 ## Verschluesselungsmodell
 
-Ordna muss E2EE-/Zero-Knowledge-faehig geplant werden, auch wenn nicht jede
+Mappm muss E2EE-/Zero-Knowledge-faehig geplant werden, auch wenn nicht jede
 Verschluesselungsstufe im M2 implementiert wird.
 
 Regeln:
@@ -176,7 +176,7 @@ entschieden. Diese Entscheidung legt die Architekturpflicht fest.
 OCR, Mapping und LLM-Funktionen brauchen Klartext oder entschluesselte
 Zwischendaten. Deshalb sind sie nicht dasselbe wie verschluesselter Sync.
 
-Ordna unterscheidet:
+Mappm unterscheidet:
 
 ```text
 Speichern / Sync / Backup
@@ -207,7 +207,7 @@ Managed Intelligence darf nur mit klaren Regeln geplant werden:
 
 ## Identity, eIDAS, EUDI und ID Austria
 
-Ordna trennt Identity von Datenzugriff.
+Mappm trennt Identity von Datenzugriff.
 
 ```text
 Identity Provider beantwortet:
@@ -221,7 +221,7 @@ ID Austria ist ein sinnvoller erster vertrauensstarker Provider fuer
 Oesterreich. Sie darf aber nicht als nationaler Sonderfall in den Domain-Kern
 eingebrannt werden.
 
-Ordna plant eine generische eID-faehige Identity-Schicht:
+Mappm plant eine generische eID-faehige Identity-Schicht:
 
 ```text
 TrustedIdentityProvider
@@ -240,18 +240,18 @@ Regeln:
 - ID Austria kann Account-Verifikation, Profil-Verifikation, Sharing,
   Recovery-Freigaben, High-Risk Actions und spaetere qualifizierte Signaturen
   absichern.
-- Kryptografische Zugriffsrechte bleiben im Ordna-Key-Management.
+- Kryptografische Zugriffsrechte bleiben im Mappm-Key-Management.
 - Profile, Login/Identity und Management Grants bleiben getrennt gemaess
   `DECISION_PROFILE_IDENTITY_AND_MANAGEMENT.md`.
 
 ## Produktfolgen
 
-Ordna wird nicht mehr nur als "local-first Dokumenten-App" beschrieben.
+Mappm wird nicht mehr nur als "local-first Dokumenten-App" beschrieben.
 
 Bessere Produktformulierung:
 
 ```text
-Ordna ist eine private Dokumentenplattform mit lokalem Offline-Client,
+Mappm ist eine private Dokumentenplattform mit lokalem Offline-Client,
 austauschbaren Daten- und Processing-Modi, verschluesseltem Sync/Backup/Sharing
 und optionaler intelligenter Assistenz.
 ```
@@ -259,13 +259,13 @@ und optionaler intelligenter Assistenz.
 Fuer Nutzerinnen kann das in Modi sichtbar werden:
 
 ```text
-Ordna Lokal
+Mappm Lokal
   Dokumente lokal verwalten, ohne Cloud oder Account-Zwang.
 
-Ordna Privat
+Mappm Privat
   Home Hub / eigener Server fuer Sync, Backup und private Verarbeitung.
 
-Ordna Cloud
+Mappm Cloud
   komfortabler Account-Sync, Backup, Sharing und optionale Managed
   Intelligence mit klarer Trust Boundary.
 ```

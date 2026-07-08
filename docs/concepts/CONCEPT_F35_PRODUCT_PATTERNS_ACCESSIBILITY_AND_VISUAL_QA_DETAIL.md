@@ -1,6 +1,6 @@
 ---
 title: "Konzept F35 - Product Patterns, Accessibility and Visual QA Detail"
-description: "Ordna Detailkonzept fuer zentrale Produktmuster, Accessibility-Gates, Privacy UI Gates und visuelle QA"
+description: "Mappm Detailkonzept fuer zentrale Produktmuster, Accessibility-Gates, Privacy UI Gates und visuelle QA"
 tags: [concept, frontend, design-system, patterns, accessibility, privacy, visual-qa, production-readiness]
 lastUpdated: "2026-06-22"
 version: "1.0"

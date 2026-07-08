@@ -1,6 +1,6 @@
 ---
 name: ui-plan-review
-description: Use when reviewing a DocMan/Ordna UI implementation plan before approval. Checks the plan from architect and builder perspectives for concept fidelity, unambiguity, Clean Architecture, Riverpod/provider design, fake repository and contract boundaries, exact tests, accessibility, privacy, stop rules, and absence of placeholders.
+description: Use when reviewing a DocMan/Mappm UI implementation plan before approval. Checks the plan from architect and builder perspectives for concept fidelity, unambiguity, Clean Architecture, Riverpod/provider design, fake repository and contract boundaries, exact tests, accessibility, privacy, stop rules, and absence of placeholders.
 ---
 
 # DocMan UI Plan Review

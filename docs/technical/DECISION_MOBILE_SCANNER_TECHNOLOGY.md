@@ -19,7 +19,7 @@ sich nach dem Capture-Intent.
 
 ## Entscheidung
 
-Ordna plant Mobile Capture nicht als selbstgebauten Kamera-/OpenCV-Scanner.
+Mappm plant Mobile Capture nicht als selbstgebauten Kamera-/OpenCV-Scanner.
 
 Der bevorzugte Zielpfad ist:
 
@@ -107,7 +107,7 @@ Auswahlkriterien:
 
 ## Domain-Grenze
 
-Native SDK-Typen duerfen nicht in die Ordna-Domain leaken.
+Native SDK-Typen duerfen nicht in die Mappm-Domain leaken.
 
 Die App arbeitet gegen eigene Begriffe, zum Beispiel:
 
@@ -121,7 +121,7 @@ ScanQuality
 ScanFailure
 ```
 
-Die konkrete Bridge mappt ML-Kit-/VisionKit-Ergebnisse in diese Ordna-Typen.
+Die konkrete Bridge mappt ML-Kit-/VisionKit-Ergebnisse in diese Mappm-Typen.
 
 ## Artefakt-Richtung
 
@@ -238,7 +238,7 @@ Fuer PhotoOrImageEvidence gilt:
 
 Wenn native Scanner auf einer Plattform oder einem Geraet nicht verfuegbar sind:
 
-- Ordna darf einen normalen Kamera- oder Dateiimport anbieten.
+- Mappm darf einen normalen Kamera- oder Dateiimport anbieten.
 - Der Fallback muss sichtbar als niedrigere Qualitaetsstufe behandelt werden.
 - Der Fallback darf nicht als erfolgreicher Document-Scan versteckt werden.
 - Draft-Inbox bleibt der sichere Zielort.
@@ -251,7 +251,7 @@ Wenn native Scanner auf einer Plattform oder einem Geraet nicht verfuegbar sind:
 - Foto-/Bildnachweise bleiben primaer Bilder.
 - R4 braucht einen Scanner-Qualitaets-Spike vor finaler Package-/Bridge-Auswahl.
 - F17 Mobile Capture beschreibt native Scanner als Zielrichtung.
-- R3/R4 Tests muessen Scanner-Ergebnisse ueber Ordna-Fakes simulieren, nicht
+- R3/R4 Tests muessen Scanner-Ergebnisse ueber Mappm-Fakes simulieren, nicht
   ueber echte ML-Kit-/VisionKit-SDKs.
 - API-/Upload-Vertraege muessen PDF, Seitenbilder und spaetere Source Artifacts
   modellierbar halten.

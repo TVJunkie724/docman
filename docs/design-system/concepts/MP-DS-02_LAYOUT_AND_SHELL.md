@@ -4,7 +4,7 @@ source_mock:
   - docs/design-system/Mock/index.html
 ---
 
-# OD-DS-02 Layout And Shell
+# MP-DS-02 Layout And Shell
 
 ## Status
 
@@ -12,7 +12,7 @@ Draft, Planungsgrundlage.
 
 ## Zweck
 
-Ordna braucht eine Shell fuer wiederholte Dokumentarbeit, nicht fuer
+Mappm braucht eine Shell fuer wiederholte Dokumentarbeit, nicht fuer
 Marketing. Der erste Blick soll direkt nutzbar sein: Eingang, Vorgänge,
 Dokumente, Aufgaben, Suche, Profile, Backup/Sync-Status.
 

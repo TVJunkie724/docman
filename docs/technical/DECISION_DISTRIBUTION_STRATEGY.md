@@ -12,12 +12,12 @@ status: "accepted"
 
 Accepted.
 
-R10-D1 ist entschieden. Ordna wird zuerst privat/self-hosted genutzt. Store-
+R10-D1 ist entschieden. Mappm wird zuerst privat/self-hosted genutzt. Store-
 Regeln werden trotzdem frueh vorbereitet.
 
 ## Entscheidung
 
-Ordna startet nicht als oeffentliche Store- oder SaaS-Distribution.
+Mappm startet nicht als oeffentliche Store- oder SaaS-Distribution.
 
 Erste produktive Nutzung:
 
@@ -36,7 +36,7 @@ Nicht zuerst:
 
 ## Store-Regeln Trotzdem Vorbereiten
 
-Auch wenn Stores nicht der erste Distributionsweg sind, darf Ordna Store-
+Auch wenn Stores nicht der erste Distributionsweg sind, darf Mappm Store-
 Readiness nicht verbauen.
 
 Frueh vorbereiten:
@@ -51,7 +51,7 @@ Frueh vorbereiten:
 
 ## Warum
 
-Ordna verwaltet sensible Haushaltsdokumente. Deshalb sind lokale Nutzbarkeit,
+Mappm verwaltet sensible Haushaltsdokumente. Deshalb sind lokale Nutzbarkeit,
 Home-Hub-Setup, Backup/Restore, Datenschutz und Testbarkeit wichtiger als
 fruehe Store-Sichtbarkeit.
 

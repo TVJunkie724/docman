@@ -6,7 +6,7 @@ Accepted draft.
 
 ## Decision
 
-Ordna keeps a dedicated design-system area under:
+Mappm keeps a dedicated design-system area under:
 
 ```text
 docs/design-system/
@@ -22,7 +22,7 @@ workspace:
 
 ## Rationale
 
-Ordna needs visual decisions before the Flutter rebuild starts. Otherwise R2/R3
+Mappm needs visual decisions before the Flutter rebuild starts. Otherwise R2/R3
 can become technically clean but visually inconsistent.
 
 The static HTML mock gives the user a fast way to review corporate design,

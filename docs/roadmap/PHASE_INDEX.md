@@ -126,7 +126,7 @@ gebaut.
 
 ## R5 - Assisted Review and Household Profiles
 
-Ziel: Ordna reduziert manuelle Review-Arbeit und wird von einer Einzelperson-App zu einer Haushalts-App.
+Ziel: Mappm reduziert manuelle Review-Arbeit und wird von einer Einzelperson-App zu einer Haushalts-App.
 
 | Subphase | Ziel | Hauptdeliverables |
 |---|---|---|
@@ -182,7 +182,7 @@ Ziel: Dokumente werden strukturiert auswertbar.
 
 ## R9 - Intelligence, OCR and Automation
 
-Ziel: Ordna unterstützt beim Erkennen, Sortieren und Vorschlagen.
+Ziel: Mappm unterstützt beim Erkennen, Sortieren und Vorschlagen.
 
 | Subphase | Ziel | Hauptdeliverables |
 |---|---|---|

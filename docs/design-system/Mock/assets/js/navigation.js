@@ -71,9 +71,9 @@
 
   sidebar.innerHTML = `
     <div class="brand">
-      <img src="${rootPrefix}assets/images/logo.png" alt="Ordna Logo" />
+      <img src="${rootPrefix}assets/images/logo.png" alt="Mappm Logo" />
       <div>
-        <strong>Ordna</strong>
+        <strong>Mappm</strong>
         <span>Ordnung fuer Zuhause</span>
       </div>
     </div>

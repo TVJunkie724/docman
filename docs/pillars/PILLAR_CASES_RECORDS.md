@@ -11,7 +11,7 @@ status: "proposed"
 
 ## Zweck
 
-Diese Säule ist die fachliche Hauptstruktur von DocMan/Ordna.
+Diese Säule ist die fachliche Hauptstruktur von DocMan/Mappm.
 
 Sie bildet den Kern der DMS-Zielarchitektur aus
 `docs/technical/DECISION_DMS_TARGET_ARCHITECTURE.md`: Dokumente sind nicht nur

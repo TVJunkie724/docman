@@ -1,6 +1,6 @@
 ---
 title: "Decision - DMS Target Architecture"
-description: "Langfristiges Zielbild fuer Ordna als vollwertiges Dokumentenmanagementsystem statt nur Dokumentanhaenge an Vorgängen"
+description: "Langfristiges Zielbild fuer Mappm als vollwertiges Dokumentenmanagementsystem statt nur Dokumentanhaenge an Vorgängen"
 tags: [decision, dms, documents, records, cases, capture, inbox, outbox, intelligence, sync]
 lastUpdated: "2026-05-08"
 status: "accepted"
@@ -14,7 +14,7 @@ Accepted.
 
 ## Entscheidung
 
-Ordna wird langfristig als vollwertiges privates Dokumentenmanagementsystem geplant.
+Mappm wird langfristig als vollwertiges privates Dokumentenmanagementsystem geplant.
 
 Der Kern ist nicht:
 
@@ -46,14 +46,14 @@ BusinessCompanion zeigt ein wichtiges Muster:
   Lifecycle, Cleanup.
 - Document Silos bilden grobe Zugriffsräume fuer Dokumente.
 
-Diese Bausteine sind fuer Ordna wertvoll, aber die konkrete BusinessCompanion-
-Architektur wird nicht kopiert. Ordna bleibt local-first, haushaltszentriert und
+Diese Bausteine sind fuer Mappm wertvoll, aber die konkrete BusinessCompanion-
+Architektur wird nicht kopiert. Mappm bleibt local-first, haushaltszentriert und
 kleiner geschnitten. Insbesondere wird kein ERP-artiges `ParentEntityType` /
 `ParentEntityId` als dauerhaftes Kernmodell uebernommen.
 
 ## Zielmodell
 
-Ordna trennt langfristig folgende Objekte:
+Mappm trennt langfristig folgende Objekte:
 
 | Objekt | Zweck |
 |---|---|
@@ -201,7 +201,7 @@ Capture
 
 ## Storage- und Sync-Konsequenzen
 
-Ordna speichert strukturierte Metadaten lokal in SQLite/Drift. Dateien liegen
+Mappm speichert strukturierte Metadaten lokal in SQLite/Drift. Dateien liegen
 separat im Dateispeicher und werden über stabile IDs referenziert.
 
 Langfristig muss das Modell folgende Betriebsformen tragen:

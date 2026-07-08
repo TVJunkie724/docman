@@ -14,7 +14,7 @@ Accepted.
 
 ## Entscheidung
 
-Ordna trennt den fachlichen Upload-Vertrag vom konkreten Upload-Transport.
+Mappm trennt den fachlichen Upload-Vertrag vom konkreten Upload-Transport.
 
 Der M2 darf mit **API-proxied Upload** starten. Das Enterprise-Zielbild bleibt
 **presigned, content-addressed und resumable Upload** ueber den Home Hub als

@@ -14,7 +14,7 @@ Accepted.
 
 ## Entscheidung
 
-Der erste nutzbare DocMan/Ordna Produkt-Slice besteht aus Desktop-Verwaltung
+Der erste nutzbare DocMan/Mappm Produkt-Slice besteht aus Desktop-Verwaltung
 plus Mobile Capture.
 
 Mobile Capture ist Teil von M2, weil das Erfassen von Dokumenten unterwegs ein

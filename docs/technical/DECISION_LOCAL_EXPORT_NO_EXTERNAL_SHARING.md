@@ -12,13 +12,13 @@ status: "accepted"
 
 Accepted.
 
-R14-D1 ist entschieden. Ordna bietet keine externen Zugriffe auf die App und
+R14-D1 ist entschieden. Mappm bietet keine externen Zugriffe auf die App und
 kein Cloud-Sharing fuer Personen ausserhalb des Haushalts. Die sichere
 Uebergabeform ist bewusster lokaler Export.
 
 ## Entscheidung
 
-Ordna soll Dokumente herausgeben koennen, aber nicht selbst zum externen
+Mappm soll Dokumente herausgeben koennen, aber nicht selbst zum externen
 Sharing-Portal werden.
 
 Erlaubte erste Exportformen:
@@ -32,18 +32,18 @@ Erlaubte erste Exportformen:
 Nicht geplant:
 
 - externe Nutzerkonten fuer Anwalt, Arzt, Schule, Versicherung oder Behoerde.
-- externe App-Zugriffe auf Ordna.
+- externe App-Zugriffe auf Mappm.
 - oeffentliche oder zeitlich begrenzte Cloud-Share-Links.
 - Linkfreigaben auf einzelne Dokumente oder Vorgaenge.
 - externes Rollenmodell fuer Personen ausserhalb des Haushalts.
 
 Nach dem Export entscheidet die Nutzerin selbst, wie sie die Dateien
 verschickt: Mail, Portal-Upload, Messenger, USB-Stick, Druck oder ein anderer
-Kanal. Dieser Versand liegt ausserhalb der Ordna-Vertrauensgrenze.
+Kanal. Dieser Versand liegt ausserhalb der Mappm-Vertrauensgrenze.
 
 ## Warum
 
-Ordna verwaltet hochsensible Haushaltsdokumente. Externes Sharing wuerde sofort
+Mappm verwaltet hochsensible Haushaltsdokumente. Externes Sharing wuerde sofort
 zusatzliche Risiken erzeugen:
 
 - Auth und Identitaet fremder Personen.

@@ -1,6 +1,6 @@
 ---
 title: "Konzept F21 - Foundations, Tokens and Visual Primitives"
-description: "Ordna Foundations fuer Farben, Typografie, Icons, Spacing, Radius, Elevation und Token-Promotion in Flutter"
+description: "Mappm Foundations fuer Farben, Typografie, Icons, Spacing, Radius, Elevation und Token-Promotion in Flutter"
 tags: [concept, frontend, design-system, tokens, typography, icons, spacing, colors]
 lastUpdated: "2026-06-22"
 version: "1.1"
@@ -13,7 +13,7 @@ status: "accepted"
 
 Accepted.
 
-F21 definiert die visuelle Grammatik fuer Ordna. Es ist noch kein Dart-API-Plan,
+F21 definiert die visuelle Grammatik fuer Mappm. Es ist noch kein Dart-API-Plan,
 aber verbindlich fuer jede spaetere Theme-/Token-Implementierung.
 
 ## Zweck

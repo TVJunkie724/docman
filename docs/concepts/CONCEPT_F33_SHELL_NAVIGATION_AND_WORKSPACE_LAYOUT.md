@@ -1,6 +1,6 @@
 ---
 title: "Konzept F33 - Shell, Navigation and Workspace Layout"
-description: "Ordna Detailkonzept fuer Product Shell, Desktop/Mobile Layout, Hauptbereiche, Navigation Controls, Tabs, Segments, Breadcrumbs und Command Rows"
+description: "Mappm Detailkonzept fuer Product Shell, Desktop/Mobile Layout, Hauptbereiche, Navigation Controls, Tabs, Segments, Breadcrumbs und Command Rows"
 tags: [concept, frontend, design-system, shell, navigation, workspace, responsive, flutter]
 lastUpdated: "2026-06-22"
 version: "1.0"
@@ -27,7 +27,7 @@ Navigation so, dass spaetere Flutter-Screens dieselbe Arbeitslogik nutzen.
 
 ## Shell Principle
 
-Ordna startet in Arbeit, nicht in Landingpage oder Marketing.
+Mappm startet in Arbeit, nicht in Landingpage oder Marketing.
 
 Die Shell soll:
 

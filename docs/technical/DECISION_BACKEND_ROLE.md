@@ -57,7 +57,7 @@ DocMan Server Stack
 Früher Entwicklungs-/Home-Hub-Stack:
 
 ```text
-ordna-homehub-api
+mappm-homehub-api
 postgres
 minio
 microcks

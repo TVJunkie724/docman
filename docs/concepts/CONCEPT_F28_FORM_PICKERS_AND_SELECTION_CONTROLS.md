@@ -1,6 +1,6 @@
 ---
 title: "Konzept F28 - Form Pickers and Selection Controls"
-description: "Ordna Detailkonzept fuer Dropdowns, Comboboxes, Multi-Select, Person-/Relation-Picker, Radio-/Checkbox-Buttons, Switches, Segments, Command Rows und Disclosure"
+description: "Mappm Detailkonzept fuer Dropdowns, Comboboxes, Multi-Select, Person-/Relation-Picker, Radio-/Checkbox-Buttons, Switches, Segments, Command Rows und Disclosure"
 tags: [concept, frontend, design-system, forms, picker, selection, controls, flutter]
 lastUpdated: "2026-06-22"
 version: "1.0"
@@ -29,7 +29,7 @@ konkret, dass ein Flutter-Agent sie ohne neue Designentscheidung bauen kann.
 
 ## Zweck
 
-Ordna-Formulare muessen Review, Korrektur und sichere Entscheidungen fuehren.
+Mappm-Formulare muessen Review, Korrektur und sichere Entscheidungen fuehren.
 Auswahlfelder sind besonders kritisch, weil sie Dokumenttyp, betroffene Person,
 Vorgang, Relation, Kategorie und sensible Folgeprozesse bestimmen.
 

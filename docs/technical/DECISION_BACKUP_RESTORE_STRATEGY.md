@@ -1,6 +1,6 @@
 ---
 title: "Decision - Backup and Restore Strategy"
-description: "Entscheidung zur minimalen Backup-/Restore-Strategie vor echtem Haushaltsbetrieb von Ordna"
+description: "Entscheidung zur minimalen Backup-/Restore-Strategie vor echtem Haushaltsbetrieb von Mappm"
 tags: [decision, backup, restore, resilience, home-hub, local-first]
 lastUpdated: "2026-06-12"
 status: "accepted"
@@ -12,12 +12,12 @@ status: "accepted"
 
 Accepted.
 
-R11-D1 ist entschieden. Ordna braucht vor echtem Haushaltsbetrieb ein
+R11-D1 ist entschieden. Mappm braucht vor echtem Haushaltsbetrieb ein
 verlaessliches Backup-/Restore-Minimum. Sync ist nicht das Sicherheitsnetz.
 
 ## Entscheidung
 
-Vor echtem Haushaltsbetrieb braucht Ordna mindestens:
+Vor echtem Haushaltsbetrieb braucht Mappm mindestens:
 
 - lokales Backup fuer strukturierte Metadaten und Dokumentdateien.
 - Home Hub als Backup-Ziel, nicht nur als Sync-Ziel.
@@ -27,7 +27,7 @@ Vor echtem Haushaltsbetrieb braucht Ordna mindestens:
 - sichtbare Backup-Fehler.
 - Restore-Test als Pflichtbestandteil der Backup-Readiness.
 
-Ein Backup gilt erst als vertrauenswuerdig, wenn Ordna es testweise
+Ein Backup gilt erst als vertrauenswuerdig, wenn Mappm es testweise
 wiederherstellen und die wichtigsten Integritaetspruefungen bestehen kann.
 
 ## Sync Ist Kein Backup

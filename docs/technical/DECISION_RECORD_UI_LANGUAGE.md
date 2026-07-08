@@ -17,7 +17,7 @@ Die deutsche UI verwendet "Unterlagen" als Hauptbegriff.
 
 ## Entscheidung
 
-Ordna verwendet:
+Mappm verwendet:
 
 | Kontext | UI-Begriff | Bedeutung |
 |---|---|---|

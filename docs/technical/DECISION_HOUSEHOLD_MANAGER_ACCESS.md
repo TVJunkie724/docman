@@ -12,13 +12,13 @@ status: "accepted"
 
 Accepted.
 
-R5-D4 ist entschieden. Frueh startet Ordna mit vertrauensbasiertem
+R5-D4 ist entschieden. Frueh startet Mappm mit vertrauensbasiertem
 Haushaltsmanager-Zugriff: die Eltern bzw. vollwertigen Haushaltsmanager haben
 Zugriff auf alle Profile im Haushalt. Dokumente werden dafuer nicht kopiert.
 
 ## Entscheidung
 
-Ordna trennt zwischen:
+Mappm trennt zwischen:
 
 - Dokument-/Datenbesitz: welches Profil betrifft oder besitzt ein Dokument?
 - Haushaltsmanager-Zugriff: wer darf im Haushalt Profile und deren Daten

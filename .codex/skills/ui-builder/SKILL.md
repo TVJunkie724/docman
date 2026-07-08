@@ -1,6 +1,6 @@
 ---
 name: ui-builder
-description: Use when implementing an approved DocMan/Ordna Flutter UI implementation plan. Requires an approved plan before any UI code changes and enforces exact plan fidelity, Riverpod target architecture, Clean Architecture, theme-token usage, fake repository boundaries, verification, tests, and handoff to audit.
+description: Use when implementing an approved DocMan/Mappm Flutter UI implementation plan. Requires an approved plan before any UI code changes and enforces exact plan fidelity, Riverpod target architecture, Clean Architecture, theme-token usage, fake repository boundaries, verification, tests, and handoff to audit.
 ---
 
 # DocMan UI Builder

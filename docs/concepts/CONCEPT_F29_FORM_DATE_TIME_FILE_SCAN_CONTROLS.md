@@ -1,6 +1,6 @@
 ---
 title: "Konzept F29 - Form Date, Time, File and Scan Controls"
-description: "Ordna Detailkonzept fuer Date Picker, Date Range, Time, Time Range, Recurrence, Reminder, File Picker, Scan Mode, Upload Queue und Permissions"
+description: "Mappm Detailkonzept fuer Date Picker, Date Range, Time, Time Range, Recurrence, Reminder, File Picker, Scan Mode, Upload Queue und Permissions"
 tags: [concept, frontend, design-system, forms, date-picker, file-picker, scan, mobile-capture, flutter]
 lastUpdated: "2026-06-22"
 version: "1.0"
@@ -30,7 +30,7 @@ scanbezogenen Formelemente aus dem Design-System-Mock ab.
 
 ## Zweck
 
-Ordna arbeitet mit Fristen, Gueltigkeiten, Rechnungsdaten, Scan-Dateien und
+Mappm arbeitet mit Fristen, Gueltigkeiten, Rechnungsdaten, Scan-Dateien und
 Upload-Queues. Diese Controls muessen schnell bedienbar sein, aber sauber genug
 fuer spaetere Sync-, Backup-, Notification- und OCR-Flows.
 

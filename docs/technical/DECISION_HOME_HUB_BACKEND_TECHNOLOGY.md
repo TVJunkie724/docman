@@ -1,6 +1,6 @@
 ---
 title: "Decision - Home Hub Backend Technology"
-description: "Entscheidung fuer ASP.NET Core, PostgreSQL und einen modularen Home-Hub-Server-Stack fuer Ordna"
+description: "Entscheidung fuer ASP.NET Core, PostgreSQL und einen modularen Home-Hub-Server-Stack fuer Mappm"
 tags: [decision, backend, home-hub, aspnet-core, postgresql, openapi, docker, workers]
 lastUpdated: "2026-06-05"
 status: "accepted"
@@ -14,7 +14,7 @@ Accepted.
 
 ## Entscheidung
 
-Ordna verwendet fuer den Home Hub und den spaeteren selbst gehosteten
+Mappm verwendet fuer den Home Hub und den spaeteren selbst gehosteten
 Server-Stack **ASP.NET Core** als primaere Backend-Technologie.
 
 Der Home Hub ist fuer R6 und spaetere Milestones Sync Coordinator,
@@ -25,7 +25,7 @@ local-first und muessen offline arbeitsfaehig bleiben.
 Der akzeptierte Zielstack fuer die erste echte Home-Hub-Implementierung ist:
 
 ```text
-ordna-homehub-api        ASP.NET Core API
+mappm-homehub-api        ASP.NET Core API
 postgres                Server-Metadaten, Sync-Journal, Jobs, Audit
 minio                   S3-kompatibler Datei-Storage
 microcks                OpenAPI Mock und Contract Verification
@@ -34,7 +34,7 @@ microcks                OpenAPI Mock und Contract Verification
 spaetere Milestones kann derselbe Stack erweitert werden:
 
 ```text
-ordna-homehub-worker     .NET Worker / Hosted Services
+mappm-homehub-worker     .NET Worker / Hosted Services
 ocr-worker               optional Python/OCR worker
 llm-gateway              optional Ollama/vLLM gateway
 search-service           optional Meilisearch/Typesense/Postgres FTS adapter
@@ -105,7 +105,7 @@ Home Hub
 
 ## Warum ASP.NET Core
 
-ASP.NET Core passt fuer Ordna besonders gut, weil:
+ASP.NET Core passt fuer Mappm besonders gut, weil:
 
 - Minimal APIs und Web APIs sauber fuer kleine, modulare HTTP-Schnittstellen
   funktionieren.
@@ -114,29 +114,29 @@ ASP.NET Core passt fuer Ordna besonders gut, weil:
 - .NET gut zu langlebigen Self-hosted Services, Docker und typed configuration passt.
 - PostgreSQL-Anbindung ueber Npgsql/EF Core etabliert ist.
 - BusinessCompanion bereits wertvolle Muster fuer ASP.NET Core, Worker,
-  Health, OpenAPI und Docker zeigt, ohne dass Ordna dessen Microservice-Breite
+  Health, OpenAPI und Docker zeigt, ohne dass Mappm dessen Microservice-Breite
   kopieren muss.
 - spaetere Workerslices im selben Oekosystem bleiben koennen, waehrend
   OCR/LLM-Spezialteile als Python-Sidecars getrennt bleiben duerfen.
 
 ## Vergleich der Alternativen
 
-| Option | Bewertung fuer Ordna |
+| Option | Bewertung fuer Mappm |
 |---|---|
 | ASP.NET Core | Beste Gesamtpassung fuer Home Hub, OpenAPI, Worker, Health, PostgreSQL, Docker und langfristige Wartbarkeit |
 | FastAPI | Sehr gut fuer Python-nahe OCR/AI APIs, aber als Hauptbackend wuerde es Domain/API/Worker enger an Python binden als noetig |
-| NestJS | Solides TypeScript-Backend mit OpenAPI-Modul, aber fuer Ordna weniger naheliegend als .NET, weil Flutter/Dart nicht vom TS-Stack profitiert |
+| NestJS | Solides TypeScript-Backend mit OpenAPI-Modul, aber fuer Mappm weniger naheliegend als .NET, weil Flutter/Dart nicht vom TS-Stack profitiert |
 | Go | Sehr robust und klein, aber fuer unsere fachliche Domain, OpenAPI-Komfort, Migrations-/Worker-Produktivitaet und spaetere Entwicklerergonomie weniger passend |
 | PocketBase | Kein Zielbackend; kann historischer Spike bleiben, aber nicht Domain- oder Sync-Kern |
 
 ## Architekturform
 
-Ordna startet nicht mit vielen Microservices.
+Mappm startet nicht mit vielen Microservices.
 
 Empfohlen:
 
 ```text
-Ordna.HomeHub.Api
+Mappm.HomeHub.Api
   -> Health / Capabilities
   -> Pairing / Device Tokens
   -> Capture Upload
@@ -144,7 +144,7 @@ Ordna.HomeHub.Api
   -> Admin / Storage Health
   -> later Sync endpoints
 
-Ordna.HomeHub.Worker
+Mappm.HomeHub.Worker
   -> outbox/job polling
   -> cleanup
   -> indexing handoff

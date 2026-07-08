@@ -1,8 +1,8 @@
-# Ordna Design System Mock
+# Mappm Design System Mock
 
 ## Purpose
 
-This static HTML mock is the first visual review surface for the Ordna design
+This static HTML mock is the first visual review surface for the Mappm design
 system. It is not production UI and must not contain real private data.
 
 Open:

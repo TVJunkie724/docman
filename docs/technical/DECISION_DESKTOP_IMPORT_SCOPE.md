@@ -133,7 +133,7 @@ Die App zeigt eine Warnung mit den Optionen "Bestehendes öffnen",
 
 ## Speicherregel
 
-Nach erfolgreichem Import arbeitet Ordna mit einer Kopie im lokalen File Store.
+Nach erfolgreichem Import arbeitet Mappm mit einer Kopie im lokalen File Store.
 
 Der Originalpfad ist keine dauerhafte Abhaengigkeit. Er darf hoechstens als
 redigierbare technische Herkunfts-/Diagnoseinformation gespeichert werden.

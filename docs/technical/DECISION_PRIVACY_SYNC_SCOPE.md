@@ -1,6 +1,6 @@
 ---
 title: "Decision - Privacy and Sync Scope"
-description: "Entscheidung zu Privacy-Klassen und Sync-Grenzen fuer Ordna Home Hub, Backup und spaetere Self-hosted-Synchronisation"
+description: "Entscheidung zu Privacy-Klassen und Sync-Grenzen fuer Mappm Home Hub, Backup und spaetere Self-hosted-Synchronisation"
 tags: [decision, privacy, sync, data-classification, self-hosted]
 lastUpdated: "2026-06-06"
 status: "accepted"
@@ -14,7 +14,7 @@ Accepted.
 
 ## Entscheidung
 
-Ordna synchronisiert zuerst in eine private, selbst kontrollierte Home-Hub-
+Mappm synchronisiert zuerst in eine private, selbst kontrollierte Home-Hub-
 Umgebung. R6-D2 ist entschieden: Remote-Sync wird nach einfachen Privacy-
 Klassen geplant, nicht nach fachlich unterschiedlichen Regeln fuer LAN,
 Tailscale/VPN oder private Server.

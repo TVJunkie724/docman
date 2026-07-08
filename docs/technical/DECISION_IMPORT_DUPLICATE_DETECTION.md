@@ -17,7 +17,7 @@ Accepted.
 Der R4-M2 berechnet fuer importierte oder hochgeladene Dateien einen Hash und
 nutzt ihn fuer eine einfache Duplikatwarnung.
 
-Wenn derselbe Datei-Hash bereits existiert, blockiert Ordna den Import nicht
+Wenn derselbe Datei-Hash bereits existiert, blockiert Mappm den Import nicht
 still. Stattdessen zeigt die App einen klaren Hinweis:
 
 > Dieses Dokument sieht aus wie ein bereits vorhandenes Dokument.

@@ -12,7 +12,7 @@ status: "draft"
 
 Draft.
 
-Diese Entscheidung konkretisiert, wie Ordna Backend, Flutter-App und spaetere
+Diese Entscheidung konkretisiert, wie Mappm Backend, Flutter-App und spaetere
 UI-/Feature-Slices verbinden soll. Sie ergaenzt:
 
 - `DECISION_HOME_HUB_BACKEND_TECHNOLOGY.md`
@@ -20,12 +20,12 @@ UI-/Feature-Slices verbinden soll. Sie ergaenzt:
 - `DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md`
 
 Die Backend-Technologie ASP.NET Core ist bereits akzeptiert. Diese Draft
-Decision haelt zusaetzlich fest: Ordna baut nicht server-first und nicht
+Decision haelt zusaetzlich fest: Mappm baut nicht server-first und nicht
 UI-direkt-gegen-Controller, sondern **contract-first**.
 
 ## Vorlaeufige Entscheidung
 
-Ordna verwendet fuer Home Hub, spaeteren Sync, Backup, Sharing und
+Mappm verwendet fuer Home Hub, spaeteren Sync, Backup, Sharing und
 Processing-Orchestration ein ASP.NET-Core-Backend, aber die stabile Grenze
 zwischen App und Backend ist der OpenAPI-Vertrag.
 
@@ -92,7 +92,7 @@ Local-only
 Private Home Hub
   -> Drift local replica + OpenAPI client + secure storage
 
-Managed Ordna Cloud
+Managed Mappm Cloud
   -> local replica + OpenAPI client + cloud sync/backup/sharing
 
 Tests
@@ -107,7 +107,7 @@ wechselt.
 Der bevorzugte Start fuer die echte Backend-Implementierung bleibt:
 
 ```text
-Ordna.HomeHub.Api
+Mappm.HomeHub.Api
   -> health / capabilities
   -> pairing / device tokens
   -> capture upload
@@ -115,7 +115,7 @@ Ordna.HomeHub.Api
   -> admin / storage health
   -> later sync endpoints
 
-Ordna.HomeHub.Worker
+Mappm.HomeHub.Worker
   -> cleanup
   -> outbox/job polling
   -> backup tasks

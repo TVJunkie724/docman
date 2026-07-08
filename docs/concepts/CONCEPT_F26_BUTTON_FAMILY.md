@@ -1,6 +1,6 @@
 ---
 title: "Konzept F26 - Button Family"
-description: "Detaillierte Ordna Design-System-Spezifikation fuer Buttons, Commands, Button-Zustaende, Groessen, Icon-Nutzung, Dark/Inverse Varianten, Accessibility und Flutter-Handoff"
+description: "Detaillierte Mappm Design-System-Spezifikation fuer Buttons, Commands, Button-Zustaende, Groessen, Icon-Nutzung, Dark/Inverse Varianten, Accessibility und Flutter-Handoff"
 tags: [concept, frontend, design-system, buttons, commands, accessibility, flutter, production-readiness]
 lastUpdated: "2026-06-21"
 version: "1.0"
@@ -14,7 +14,7 @@ status: "accepted"
 Accepted.
 
 Dieses Konzept ist die build-relevante Source of Truth fuer Buttons und
-Command-Hierarchien in Ordna. Der HTML-Mock bleibt visuelle Evidenz, aber ein
+Command-Hierarchien in Mappm. Der HTML-Mock bleibt visuelle Evidenz, aber ein
 Flutter- oder UI-Agent muss die Button Family aus diesem Konzept verstehen und
 umsetzen koennen, ohne die Mock-Seite zwingend zu oeffnen.
 
@@ -30,7 +30,7 @@ umsetzen koennen, ohne die Mock-Seite zwingend zu oeffnen.
 
 ## Purpose
 
-Ordna verarbeitet private Dokumente. Buttons sind deshalb keine Dekoration,
+Mappm verarbeitet private Dokumente. Buttons sind deshalb keine Dekoration,
 sondern sichere Handlungsoberflaeche:
 
 - Sie zeigen, was die naechste Handlung ist.
@@ -54,7 +54,7 @@ sondern sichere Handlungsoberflaeche:
 
 ## Anatomy
 
-Ein Ordna Button besteht aus:
+Ein Mappm Button besteht aus:
 
 | Teil | Pflicht | Regel |
 |---|---|---|

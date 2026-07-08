@@ -32,7 +32,7 @@ Reprocessing, Search und Operations. Er ersetzt die lokale App-Datenbank nicht.
 Desktop und Smartphone bleiben offline funktionsfaehig.
 
 R11-D1 konkretisiert die Resilience-Grenze: Sync ist kein Ersatz fuer Backup.
-Ordna braucht vor echtem Haushaltsbetrieb lokales Backup plus Home-Hub-Backup,
+Mappm braucht vor echtem Haushaltsbetrieb lokales Backup plus Home-Hub-Backup,
 sichtbare Backup-Fehler und einen Restore-Test.
 
 Eine Drittanbieter-Cloud- oder externe SaaS-Variante ist aktuell nicht Teil der Produktplanung. Die generische Backend-Grenze bleibt trotzdem wichtig, damit der Home Hub, ein privater VPS oder ein spaeterer anderer Self-Hosted-Stack austauschbar bleiben. Self-hosted cloudartige Setups muessen die Security-/Privacy-Baseline einhalten.
@@ -74,7 +74,7 @@ Tailscale passt sehr gut fuer den Anfang, weil es Heimserver und mobile Geraete 
 
 - Der erste Sync-Ausbau kann auf einen Home Hub zielen, muss aber ueber generische Schnittstellen geplant werden.
 - `DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md` erweitert diese Entscheidung:
-  Local-only bleibt ein unterstuetzter Modus, aber Ordna wird private-first,
+  Local-only bleibt ein unterstuetzter Modus, aber Mappm wird private-first,
   offline-capable und service-ready geplant. Managed Sync, Backup, Sharing und
   Intelligence duerfen spaeter moeglich sein, ohne die lokale Arbeitsfaehigkeit
   oder Verschluesselungsfaehigkeit aufzugeben.

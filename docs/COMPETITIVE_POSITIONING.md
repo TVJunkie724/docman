@@ -1,12 +1,12 @@
 ---
-title: "Ordna - Competitive Positioning"
-description: "Wettbewerbsanalyse und Positionierungsnotizen fuer Ordna als private-first Dokumentenplattform fuer Haushalte"
+title: "Mappm - Competitive Positioning"
+description: "Wettbewerbsanalyse und Positionierungsnotizen fuer Mappm als private-first Dokumentenplattform fuer Haushalte"
 tags: [product, strategy, competition, positioning, privacy, documents, intelligence]
 lastUpdated: "2026-06-27"
 status: "working-note"
 ---
 
-# Ordna - Competitive Positioning
+# Mappm - Competitive Positioning
 
 ## Status
 
@@ -19,7 +19,7 @@ Messaging und spaetere Go-to-Market-Entscheidungen.
 
 ## Kurzfazit
 
-Ordna sitzt zwischen mehreren etablierten Produktkategorien:
+Mappm sitzt zwischen mehreren etablierten Produktkategorien:
 
 ```text
 Family / Life Vaults
@@ -38,7 +38,7 @@ Scanner / Capture Apps
   -> starke mobile Erfassung, aber kaum Haushalts-/Vorgangsmodell
 ```
 
-Die Chance fuer Ordna liegt nicht darin, eine dieser Kategorien direkt zu
+Die Chance fuer Mappm liegt nicht darin, eine dieser Kategorien direkt zu
 kopieren. Die Chance liegt in einer klaren Verbindung:
 
 ```text
@@ -71,14 +71,14 @@ Staerken:
 - Cloud-/Account-/Sharing-UX oft einfacher als Self-hosted-Loesungen.
 - fuer private Lebensereignisse besser gerahmt als Business-DMS.
 
-Risiken fuer Ordna:
+Risiken fuer Mappm:
 
 - Sie koennen fuer Nutzerinnen schneller greifbar wirken als
   "Dokumentenmanagement".
 - Sie konkurrieren direkt um den Vertrauens- und Familienkontext.
 - Sie koennen mit einfacher Cloud-UX schneller kaufbar sein.
 
-Luecken / Ordna-Chance:
+Luecken / Mappm-Chance:
 
 - haeufig US-zentriert.
 - weniger EU-/eIDAS-/ID-Austria-Vertrauensposition.
@@ -104,13 +104,13 @@ Staerken:
 - gute Passung fuer Home-Server-/NAS-Nutzer.
 - kein klassischer Cloud-Zwang.
 
-Risiken fuer Ordna:
+Risiken fuer Mappm:
 
 - Fuer technische Nutzer ist Paperless-ngx heute bereits sehr leistungsfaehig.
-- Ordna muss einen klaren Mehrwert jenseits von "Dokumente mit OCR archivieren"
+- Mappm muss einen klaren Mehrwert jenseits von "Dokumente mit OCR archivieren"
   zeigen.
 
-Luecken / Ordna-Chance:
+Luecken / Mappm-Chance:
 
 - eher Archiv als Familienassistenz.
 - weniger gefuehrte UX fuer normale Haushalte.
@@ -141,14 +141,14 @@ Staerken:
 - teilweise starke OCR-/AI-/Metadata-Funktionen.
 - B2B-Vertrauen und etablierte Prozesse.
 
-Risiken fuer Ordna:
+Risiken fuer Mappm:
 
-- Feature-Tiefe und Compliance-Reife koennen Ordna langfristig unter Druck
+- Feature-Tiefe und Compliance-Reife koennen Mappm langfristig unter Druck
   setzen.
 - Manche Anbieter koennen kleinere Teams und Haushalte spaeter mit leichteren
   Produkten adressieren.
 
-Luecken / Ordna-Chance:
+Luecken / Mappm-Chance:
 
 - meist business-lastig, schwergewichtig und teuer.
 - nicht fuer Familienalltag, Kinderprofile, Haushaltsfristen, Versicherungen,
@@ -177,13 +177,13 @@ Staerken:
 - Teilen und Geraetewechsel sind vertraute Workflows.
 - Apple zeigt, dass E2EE-Cloud zunehmend Mainstream-Vertrauenssignal wird.
 
-Risiken fuer Ordna:
+Risiken fuer Mappm:
 
 - Nutzerinnen koennen sagen: "Ich lege PDFs einfach in Proton, Tresorit oder
   iCloud."
 - Gute Cloud-Speicher sind einfacher zu erklaeren als ein neues DMS.
 
-Luecken / Ordna-Chance:
+Luecken / Mappm-Chance:
 
 - keine echte Dokumentenfachlichkeit.
 - keine Vorgänge, Fristen, Claims, Unterlagen, Profile und Review-Inbox als
@@ -210,27 +210,27 @@ Staerken:
 - gute Bildqualitaet und vertraute Capture-Flows.
 - niedrige Einstiegshuerde.
 
-Risiken fuer Ordna:
+Risiken fuer Mappm:
 
 - Mobile Capture muss sich mindestens solide anfuehlen.
-- Schlechter Scan-Flow wuerde Ordna sofort schwach wirken lassen.
+- Schlechter Scan-Flow wuerde Mappm sofort schwach wirken lassen.
 
-Luecken / Ordna-Chance:
+Luecken / Mappm-Chance:
 
 - Capture ist dort meist das Ende des Workflows.
-- Ordna kann Capture als Anfang eines Vorgangs verstehen:
+- Mappm kann Capture als Anfang eines Vorgangs verstehen:
   Review, betroffene Person, Frist, Claim, Nachweis, Aufgabe, Sharing,
   Backup und spaetere Assistenz.
 
-## Positionierung fuer Ordna
+## Positionierung fuer Mappm
 
-Ordna sollte nicht als "noch ein DMS" und nicht als "noch ein Cloud Drive"
+Mappm sollte nicht als "noch ein DMS" und nicht als "noch ein Cloud Drive"
 auftreten.
 
 Arbeitsformulierung:
 
 ```text
-Ordna ist die private Dokumentenplattform fuer Haushalte:
+Mappm ist die private Dokumentenplattform fuer Haushalte:
 lokal nutzbar, sicher synchronisierbar, vertrauenswuerdig teilbar und
 intelligent genug, Dokumente in echte Vorgänge, Fristen und Lebenskontexte zu
 uebersetzen.
@@ -245,7 +245,7 @@ Private-first household document platform.
 Deutschsprachige Produktthese:
 
 ```text
-Ordna hilft Haushalten, wichtige Dokumente nicht nur sicher abzulegen,
+Mappm hilft Haushalten, wichtige Dokumente nicht nur sicher abzulegen,
 sondern sie im richtigen Kontext wiederzufinden, zu verstehen und rechtzeitig
 zu erledigen.
 ```
@@ -269,7 +269,7 @@ Gegen Enterprise DMS:
   compliance-first.
 
 Gegen Scanner Apps:
-  Capture ist nur der Eingang; Ordna begleitet Review, Ablage, Frist,
+  Capture ist nur der Eingang; Mappm begleitet Review, Ablage, Frist,
   Nachweis, Sharing und spaetere Verarbeitung.
 ```
 
@@ -277,7 +277,7 @@ Gegen Scanner Apps:
 
 - Vertrauen und Familiennutzen muessen genauso stark formuliert werden wie
   technische Privacy.
-- Ordna darf nicht als rein technisches Self-hosted-Projekt wirken.
+- Mappm darf nicht als rein technisches Self-hosted-Projekt wirken.
 - Mobile Capture muss schnell und vertraut sein, aber direkt in Review und
   Haushaltskontext fuehren.
 - Die neue private-first/service-ready Architektur ist marktseitig sinnvoll:
@@ -292,7 +292,7 @@ Gegen Scanner Apps:
 
 - Welche Zielgruppe ist zuerst wichtiger: technisch affine Self-hosted-Nutzer,
   privacy-bewusste Familien oder normale Haushalte mit Managed-Cloud-Bedarf?
-- Wird Ordna zuerst als "private Dokumentenplattform" oder als "Familien-
+- Wird Mappm zuerst als "private Dokumentenplattform" oder als "Familien-
   Readiness / Life Admin" kommuniziert?
 - Welche Funktionen muessen fuer den ersten kaufbaren Eindruck sitzen:
   Capture, Review, Fristen, Backup, Sharing oder Assistenz?

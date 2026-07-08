@@ -13,7 +13,7 @@ status: "proposed"
 
 DocMan darf Dokumente nicht nur speichern. Es muss Datenverlust verhindern, Löschung respektieren und Wiederherstellung planen.
 
-R11-D1 entscheidet: Ordna braucht vor echtem Haushaltsbetrieb lokales Backup
+R11-D1 entscheidet: Mappm braucht vor echtem Haushaltsbetrieb lokales Backup
 plus Home-Hub-Backup, sichtbaren Backup-Status, keine stillen Backup-Fehler und
 einen Restore-Test. Sync ist Replikation, aber kein Ersatz fuer Backup.
 

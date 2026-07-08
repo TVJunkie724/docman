@@ -1,4 +1,4 @@
-# Ordna Brand Direction
+# Mappm Brand Direction
 
 ## Status
 
@@ -6,11 +6,11 @@ Draft, active planning input.
 
 ## Brand Idea
 
-Ordna is a calm private document workbench for household life. It helps a family
+Mappm is a calm private document workbench for household life. It helps a family
 capture, review, find, and hand off important documents without turning private
 administration into a corporate ticket system.
 
-The name `Ordna` suggests order, folders, and practical Austrian/German everyday
+The name `Mappm` suggests order, folders, and practical Austrian/German everyday
 language. The brand should feel warm and human, but the product UI must stay
 precise, quiet, and trustworthy.
 
@@ -27,14 +27,14 @@ These are direction phrases, not final marketing copy.
 | Element | Meaning | Rule |
 |---|---|---|
 | Folder / Home Mark | Household documents, family context, private archive. | Use as app icon or brand marker, not as repeated decoration. |
-| Heart Detail | Care, family, trust, personal relevance. | Keep small and gentle; never turn Ordna into a sentimental health app. |
+| Heart Detail | Care, family, trust, personal relevance. | Keep small and gentle; never turn Mappm into a sentimental health app. |
 | Coral / Rose Gradient | Warmth, capture, human attention. | Use as brand accent; do not flood dense UI with coral. |
 | Apricot Document Layer | Paper, scan, folders, tangible documents. | Use for brand-adjacent highlights and empty states. |
 | Ink / Neutral Structure | Professional DMS, reliability, auditability, privacy. | Dominates product UI text, navigation, and dense work surfaces. |
 
 ## Tone
 
-Ordna should feel:
+Mappm should feel:
 
 - ruhig.
 - privat.
@@ -43,7 +43,7 @@ Ordna should feel:
 - gut sortiert.
 - nicht belehrend.
 
-Ordna should not feel:
+Mappm should not feel:
 
 - like a tax-office portal.
 - like a generic SaaS dashboard.
@@ -55,10 +55,10 @@ Ordna should not feel:
 
 | Context | Rule |
 |---|---|
-| Product UI, design system, future public material | Use `Ordna`. |
+| Product UI, design system, future public material | Use `Mappm`. |
 | Repository, existing technical docs, historical references | `DocMan` may remain until a technical rename is explicitly planned. |
 | Logo wordmark | Not yet available. Current asset is an app icon / symbol candidate only. |
-| New visible user-facing copy | Prefer `Ordna` unless the current implementation is still legacy `DocMan`. |
+| New visible user-facing copy | Prefer `Mappm` unless the current implementation is still legacy `DocMan`. |
 
 ## Data Safety In Design
 

@@ -1,11 +1,11 @@
 ---
 name: github-issue
-description: Use when creating, classifying, triaging, or updating GitHub Issues for DocMan/Ordna, including bugs, feature requests, epics, frontend/backend/API handoffs, documentation/foundation work, labels, milestones, native dependencies, and replacing markdown-only trackers. GitHub Issues are the source of truth for actionable bugs, feature requests, epics, and implementation handoffs.
+description: Use when creating, classifying, triaging, or updating GitHub Issues for DocMan/Mappm, including bugs, feature requests, epics, frontend/backend/API handoffs, documentation/foundation work, labels, milestones, native dependencies, and replacing markdown-only trackers. GitHub Issues are the source of truth for actionable bugs, feature requests, epics, and implementation handoffs.
 ---
 
-# GitHub Issue - DocMan / Ordna
+# GitHub Issue - DocMan / Mappm
 
-GitHub Issues are the source of truth for actionable DocMan/Ordna bugs,
+GitHub Issues are the source of truth for actionable DocMan/Mappm bugs,
 feature requests, epics, and implementation handoffs. Do **not** create new
 markdown FR/bug tracker files when an issue is the right artifact.
 
@@ -220,12 +220,12 @@ Use one milestone:
 
 | Milestone | Use for |
 |---|---|
-| `Ordna M1 Foundation and Quality` | R0-R3 decisions, documentation cleanup, technical foundation, quality readiness |
-| `Ordna M2 Capture and Review Core` | Capture, draft inbox, review, documents, cases, search, tasks |
-| `Ordna M3 Assisted Review` | OCR/text extraction, metadata suggestions, review of suggestions |
-| `Ordna M4 Household and Sync` | Household profiles, pairing, Home Hub, sync, extended mobile |
-| `Ordna M5 Facts, Workflows and Insights` | Facts, claims, workflows, insights, external actions |
-| `Ordna M6 Automation, Resilience and Distribution` | Backup, restore, compliance, release, sharing, local LLMs, operations |
+| `Mappm M1 Foundation and Quality` | R0-R3 decisions, documentation cleanup, technical foundation, quality readiness |
+| `Mappm M2 Capture and Review Core` | Capture, draft inbox, review, documents, cases, search, tasks |
+| `Mappm M3 Assisted Review` | OCR/text extraction, metadata suggestions, review of suggestions |
+| `Mappm M4 Household and Sync` | Household profiles, pairing, Home Hub, sync, extended mobile |
+| `Mappm M5 Facts, Workflows and Insights` | Facts, claims, workflows, insights, external actions |
+| `Mappm M6 Automation, Resilience and Distribution` | Backup, restore, compliance, release, sharing, local LLMs, operations |
 
 For deferred or explicitly later work, use the milestone that owns the future
 product outcome instead of a generic `post-mvp` label. If the work is not yet
@@ -418,7 +418,7 @@ gh issue create \
   --title "Frontend: Short actionable title" \
   --body-file /tmp/issue-body.md \
   --label "type:feature-request,status:open,area:frontend,layer:frontend,priority:high" \
-  --milestone "Ordna M2 Capture and Review Core"
+  --milestone "Mappm M2 Capture and Review Core"
 ```
 
 8. Re-open and verify:

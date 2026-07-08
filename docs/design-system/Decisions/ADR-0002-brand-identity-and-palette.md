@@ -6,7 +6,7 @@ Accepted draft.
 
 ## Decision
 
-Ordna uses the existing app icon as the current brand source:
+Mappm uses the existing app icon as the current brand source:
 
 ```text
 assets/images/logo.png
@@ -16,7 +16,7 @@ The icon is treated as an app-icon / symbol candidate, not as a complete logo
 system. It defines a warm household-document direction with coral, rose,
 apricot, paper, and ink roles.
 
-Ordna adds a deep petrol family as the complementary enterprise accent. Petrol
+Mappm adds a deep petrol family as the complementary enterprise accent. Petrol
 is not derived from the icon; it balances the warm household brand with trust,
 structure, sync, and calm operational states.
 
@@ -24,7 +24,7 @@ structure, sync, and calm operational states.
 
 | Role | Hex | Source |
 |---|---:|---|
-| Ordna Coral | `#EF6D5D` | Dominant coral from current icon. |
+| Mappm Coral | `#EF6D5D` | Dominant coral from current icon. |
 | Archive Rose | `#CF3766` | Rose depth from current icon. |
 | Folder Apricot | `#FCBC9D` | Folder/document highlight from current icon. |
 | Paper Warmth | `#FFF7F1` | Derived brand-adjacent surface. |

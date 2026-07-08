@@ -1,6 +1,6 @@
 ---
 title: "Konzept F22 - Product Shell and Navigation"
-description: "Ordna App Shell, Desktop/Mobile Navigation, Arbeitskontexte, Sidebar, Tabs, Segments und responsive Verhalten"
+description: "Mappm App Shell, Desktop/Mobile Navigation, Arbeitskontexte, Sidebar, Tabs, Segments und responsive Verhalten"
 tags: [concept, frontend, design-system, shell, navigation, responsive, desktop, mobile]
 lastUpdated: "2026-06-22"
 version: "1.1"
@@ -18,7 +18,7 @@ aber verbindlich fuer die Shell- und Navigationsrichtung.
 
 ## Zweck
 
-Ordna startet in Arbeit, nicht in Marketing. Nutzerinnen sollen direkt Eingang,
+Mappm startet in Arbeit, nicht in Marketing. Nutzerinnen sollen direkt Eingang,
 Vorgaenge, Dokumente, Aufgaben, Suche oder Profile erreichen.
 
 Detailkonzept:

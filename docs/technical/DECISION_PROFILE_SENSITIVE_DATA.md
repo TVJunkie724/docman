@@ -19,10 +19,10 @@ ausgearbeitet.
 
 ## Entscheidung
 
-Ordna braucht fuer Haushaltsprofile mehr als nur einen Anzeigenamen.
+Mappm braucht fuer Haushaltsprofile mehr als nur einen Anzeigenamen.
 
 Profile bleiben die fachliche Antwort auf "wen betrifft dieses Dokument, dieser
-Vorgang oder diese Aufgabe?". Darueber hinaus darf Ordna aber notwendige
+Vorgang oder diese Aufgabe?". Darueber hinaus darf Mappm aber notwendige
 Identitaets-, Adress- und Versicherungsdaten verwalten, weil diese Daten fuer
 Arzt-, Versicherungs-, Behoerden-, Schul-, Vertrags- und Familienworkflows
 regelmaessig gebraucht werden.
@@ -61,7 +61,7 @@ Telefonnummer ist vorerst kein geplanter Profilbestandteil.
 
 ## Feste Felder und Profil-Fakten
 
-Ordna unterscheidet zwischen festen Profilfeldern und freien Profil-Fakten.
+Mappm unterscheidet zwischen festen Profilfeldern und freien Profil-Fakten.
 
 Feste Profilfelder sind die Daten, die fuer haeufige Workflows erwartet werden:
 
@@ -158,7 +158,7 @@ eID-/ID-Austria-Planung bedeutet:
 
 ## Sichtbarkeit und Zugriff
 
-Ordna zeigt im normalen Alltag nur Core Profile Data.
+Mappm zeigt im normalen Alltag nur Core Profile Data.
 
 Beispiele:
 

@@ -1,6 +1,6 @@
 ---
 title: "DocMan - Process and Concept Migration Plan"
-description: "Arbeitsplan zur Migration der strengen Matchmia/Stonehall Arbeitsweise nach DocMan/Ordna"
+description: "Arbeitsplan zur Migration der strengen Matchmia/Stonehall Arbeitsweise nach DocMan/Mappm"
 tags: [process, migration, skills, concepts, roadmap, quality, frontend]
 lastUpdated: "2026-07-07"
 status: "draft"
@@ -13,17 +13,23 @@ status: "draft"
 Draft.
 
 Dieses Dokument plant die Migration der strengeren Matchmia/Stonehall
-Arbeitsweise nach DocMan/Ordna. Ziel ist nicht, Matchmia-Inhalte blind zu
+Arbeitsweise nach DocMan/Mappm. Ziel ist nicht, Matchmia-Inhalte blind zu
 kopieren, sondern die Prozessqualitaet, Skill-Strenge, Konzept-Hierarchie und
-Implementation-Contract-Logik auf Ordnas Produkt, Architektur und Privacy-
+Implementation-Contract-Logik auf das Mappm-Produkt, seine Architektur und Privacy-
 Anforderungen zu adaptieren.
 
 Die generalisierte Fassung dieser Arbeitsweise fuer neue Flutter-Projekte steht
-in `docs/FLUTTER_PROJECT_SETUP_PLAYBOOK.md`.
+als Git-Submodule in `docs/flutter-project-playbook/PLAYBOOK.md`.
+
+Wichtig: `docs/flutter-project-playbook/` ist ein externes Toolkit-Subrepo
+(`stonehall-caroline/frontend-setup-playbook`). DocMan/Mappm kopiert daraus
+keine Entscheidungen blind. Alle aktiven Mappm-Artefakte bleiben projektlokal
+in `docs/`, `.codex/skills/` und den Mappm-spezifischen Roadmaps,
+Konzepten, Pillars und Decisions.
 
 ## Zielbild
 
-DocMan/Ordna soll vor weiterer UI- oder Backend-Implementation denselben
+DocMan/Mappm soll vor weiterer UI- oder Backend-Implementation denselben
 Arbeitsrhythmus bekommen:
 
 ```text
@@ -48,11 +54,11 @@ Implementation-Handoffs.
 
 ### Zielbild nach der Migration
 
-Nach der Migration hat Ordna:
+Nach der Migration hat Mappm:
 
 - projekt-lokale Skills unter `.codex/skills/` ohne Projekt-Prefix.
 - F-Konzepte als bindende Querschnittsregeln fuer Frontend/Foundation.
-- OD-DS-Konzepte als Design-System-SSOT fuer Tokens, Shell, Komponenten,
+- MP-DS-Konzepte als Design-System-SSOT fuer Tokens, Shell, Komponenten,
   Forms, Feedback, Datenanzeige, Accessibility und Visual QA.
 - Pillar-Dokumente als Produkt-/Governance-Saeulen, nicht als lose Ideenliste.
 - Roadmap-Phasen als Implementation Contracts mit Scope, Non-Goals,
@@ -84,9 +90,9 @@ Zu migrieren/adaptieren:
 - Foundation/Data/Contract/Quality Skills: `foundation-builder`,
   `data-architect`, `contract-api`, `quality-readiness`.
 - Noch offen aus Matchmia: backend-, ai-, ops- und guardian-artige Skills, aber
-  nur soweit sie zu Ordnas ASP.NET-Core/Home-Hub/Processing-Ziel passen.
+  nur soweit sie zum Mappm ASP.NET-Core/Home-Hub/Processing-Ziel passen.
 
-Ordna-Ziel:
+Mappm-Ziel:
 
 - Skills sind Rollenvertraege.
 - Builder arbeitet nur aus approved Plans.
@@ -132,10 +138,10 @@ Zu migrieren/adaptieren:
 | Local Review Tools | `MM-FE-20` | F8b, F16 und QA-Gates |
 | Async Request Feedback | `MM-FE-21` | F18, F34 und DS Feedback |
 | Concept Slicing Governance | `MM-FE-22` | Roadmap-/Phase-Regeln und `ui-concept` |
-| Product Shell Layout | `MM-FE-23` | F22, F33 und OD-DS-02 |
+| Product Shell Layout | `MM-FE-23` | F22, F33 und MP-DS-02 |
 | Mobile Shell Navigation | `MM-FE-24` | F17, F22, F33 und Mobile Capture Pillar |
 
-Ordna-Ziel:
+Mappm-Ziel:
 
 - F-Konzepte sind cross-cutting und duerfen keine Produktseiten als Feature
   verstecken.
@@ -156,26 +162,26 @@ Quelle:
 
 Ziel:
 
-- DocMan `docs/design-system/concepts/OD-DS-*.md`
+- DocMan `docs/design-system/concepts/MP-DS-*.md`
 - bestehende DocMan F19-F35 als Uebergangs- oder Detailkonzepte, bis klar ist,
-  was in OD-DS gehoert.
+  was in MP-DS gehoert.
 
 Zu migrieren/adaptieren:
 
 | Bereich | Matchmia-Quelle | DocMan-Ziel |
 |---|---|---|
-| Umbrella/Governance | `MM-DS-00` | `OD-DS-00` und F19 |
-| Foundations/Tokens | `MM-DS-01` | `OD-DS-01`, F21, F32 |
-| Layout/Shell | `MM-DS-02` | `OD-DS-02`, F22, F33 |
-| Corporate Design | `MM-DS-03` | `OD-DS-03`, F20, F31 |
+| Umbrella/Governance | `MM-DS-00` | `MP-DS-00` und F19 |
+| Foundations/Tokens | `MM-DS-01` | `MP-DS-01`, F21, F32 |
+| Layout/Shell | `MM-DS-02` | `MP-DS-02`, F22, F33 |
+| Corporate Design | `MM-DS-03` | `MP-DS-03`, F20, F31 |
 | Component System | `MM-DS-04` | F23, F26-F30, F34 |
 | Form Family | `MM-DS-04-01` bis `MM-DS-04-12` | F24-F30 |
-| Button/Navigation/Overlay/Icon/Feedback/Data Display | `MM-DS-04-13` bis `MM-DS-04-19` | F26, F33, F34, F35 und neue OD-DS Details |
+| Button/Navigation/Overlay/Icon/Feedback/Data Display | `MM-DS-04-13` bis `MM-DS-04-19` | F26, F33, F34, F35 und neue MP-DS Details |
 | Product Patterns | `MM-DS-05*` | F25, F35 und pillar-spezifische Patterns |
 | Accessibility/Quality Gates | `MM-DS-06` | F25, F35, QA-Gates |
 | Platform Adaptation | `MM-DS-07` | F17, F22, F33 und Platform Support Pillar |
 
-Ordna-Ziel:
+Mappm-Ziel:
 
 - Design-System-Regeln sind Source of Truth fuer sichtbare UI.
 - Keine lokale Komponentenvariante ohne DS-Owner.
@@ -210,7 +216,7 @@ Zu migrieren/adaptieren:
 - Roadmap-Gates, die verhindern, dass UI-Slices vor F-/DS-/Pillar-Klarheit in
   Implementation gehen.
 
-Ordna-Ziel:
+Mappm-Ziel:
 
 - R4 Capture and Review Core wird der erste production-ready UI-Slice, aber
   erst nach freigegebenen Konzepten und Plan.
@@ -243,7 +249,7 @@ Zu migrieren/adaptieren:
 - Quality Gates fuer Analyzer, Tests, Fake Repositories, Contract Fixtures,
   Security/Privacy und Release Readiness.
 
-Ordna-Ziel:
+Mappm-Ziel:
 
 - Backend ist austauschbare Service-Schicht, nicht Voraussetzung fuer den
   lokalen Produktkern.
@@ -277,7 +283,7 @@ Zu planen:
 - Accessibility, Responsive Verhalten und Visual QA.
 - Tests, Golden/Widget/Provider/Fake Evidence und Audit.
 
-Ordna-Ziel:
+Mappm-Ziel:
 
 - UI darf ohne Backend starten, aber nicht ohne saubere Domain-/Repository-
   Verträge, Fake Data, Contract-Fragen und Security/Privacy-Regeln.
@@ -288,7 +294,7 @@ Ordna-Ziel:
 
 - Keine blinde Kopie von Matchmia-Domain-Inhalten.
 - Prozess- und Qualitaetsregeln werden uebernommen.
-- Projektbegriffe werden auf Ordna angepasst: Haushalt, Vorgang, Dokument,
+- Projektbegriffe werden auf Mappm angepasst: Haushalt, Vorgang, Dokument,
   Profil, Home Hub, private-first, Trust Boundary.
 - Bestehende akzeptierte DocMan Decisions bleiben Source of Truth.
 - F-Konzepte, Pillars und Phasen muessen DocMan-spezifisch werden.
@@ -344,8 +350,8 @@ DocMan-Anpassungen:
 - Keine Presentation-Imports aus `lib/data/`.
 - Fake repositories fuer UI/Provider-Tests.
 - Microcks/OpenAPI nur an API-Grenzen, nicht in UI-Mocks.
-- Design-System-Regeln auf Ordna-DS-Konzepte mappen.
-- Privacy/Trust/Document-Payload-Regeln aus Ordna Decisions einbauen.
+- Design-System-Regeln auf Mappm-DS-Konzepte mappen.
+- Privacy/Trust/Document-Payload-Regeln aus Mappm Decisions einbauen.
 
 ### 1.3 Backend / Contract / Data / Quality Skills
 
@@ -392,7 +398,7 @@ DocMan-spezifische Inhalte:
 ## Migration Wave 3 - F-Konzepte und Design-System-Konzepte
 
 Ziel: bestehende DocMan-F-Konzepte gegen Matchmia FE/DS-Konzepte auditieren
-und auf Ordna-Strenge bringen.
+und auf Mappm-Strenge bringen.
 
 Betroffene DocMan-Bereiche:
 
@@ -490,7 +496,7 @@ Der Slice darf ohne Backend starten, aber nicht ohne:
 ## Open Questions
 
 - Should DocMan keep current `docs/concepts/CONCEPT_F*.md` naming or migrate to
-  an `OD-FE-*` / `OD-DS-*` naming scheme?
+  an `MP-FE-*` / `MP-DS-*` naming scheme?
 - Should Matchmia's generated-client assumptions become OpenAPI-client neutral
   for DocMan until Flutter client generation is decided?
 - Which GitHub labels/milestones already exist in `TVJunkie724/docman`, and

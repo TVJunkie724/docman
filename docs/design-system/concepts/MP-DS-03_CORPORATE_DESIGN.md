@@ -7,7 +7,7 @@ source_docs:
   - docs/design-system/Decisions/ADR-0002-brand-identity-and-palette.md
 ---
 
-# OD-DS-03 Corporate Design
+# MP-DS-03 Corporate Design
 
 ## Status
 
@@ -15,7 +15,7 @@ Draft, verbindliche Planungsgrundlage fuer Corporate Design.
 
 ## Zweck
 
-Corporate Design schuetzt die Identitaet von Ordna:
+Corporate Design schuetzt die Identitaet von Mappm:
 
 - warm genug fuer Haushalts- und Familiendokumente.
 - serioes genug fuer Arztbriefe, Versicherungen, Ausweise und Verträge.
@@ -52,7 +52,7 @@ Rolle:
 
 | Farbe | Wert | Rolle | Grenze |
 |---|---:|---|---|
-| Ordna Coral | `#EF6D5D` | Brand-Waerme, primaere Aktion, Capture. | Keine Fehler-/Warning-Farbe. |
+| Mappm Coral | `#EF6D5D` | Brand-Waerme, primaere Aktion, Capture. | Keine Fehler-/Warning-Farbe. |
 | Archive Rose | `#CF3766` | Brand-Tiefe, aktive Markierung. | Nicht als breite Flaeche dominieren lassen. |
 | Folder Apricot | `#FCBC9D` | Dokument-/Ordner-Waerme. | Nicht fuer dichte Texte. |
 | Paper Warmth | `#FFF7F1` | Papier, ruhige Brand-Flaeche. | Nicht alleiniger App-Hintergrund fuer alle Screens. |
@@ -60,7 +60,7 @@ Rolle:
 
 ## Voice
 
-Ordna spricht knapp, ruhig und hilfreich.
+Mappm spricht knapp, ruhig und hilfreich.
 
 Bevorzugt:
 
@@ -76,7 +76,7 @@ Vermeiden:
 
 ## Bildwelt
 
-Ordna braucht wenig dekorative Bildwelt. Wenn Bilder spaeter genutzt werden:
+Mappm braucht wenig dekorative Bildwelt. Wenn Bilder spaeter genutzt werden:
 
 - echte Dokument-/Scan-/Ablage-Situationen, aber synthetisch und privacy-safe.
 - keine echten Arztbriefe, Ausweise, Rechnungen oder Schuldokumente.

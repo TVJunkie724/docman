@@ -8,7 +8,7 @@ source_mock:
   - docs/design-system/Mock/index.html
 ---
 
-# OD-DS-01 Foundations And Tokens
+# MP-DS-01 Foundations And Tokens
 
 ## Status
 
@@ -20,7 +20,7 @@ Visual-Tests festlegen.
 
 ## Zweck
 
-Foundations definieren die visuelle Grammatik fuer Ordna:
+Foundations definieren die visuelle Grammatik fuer Mappm:
 
 - Farbrollen.
 - Typografie.
@@ -44,7 +44,7 @@ Foundations definieren die visuelle Grammatik fuer Ordna:
 
 | Rolle | Wert | Verwendung |
 |---|---:|---|
-| Ordna Coral | `#EF6D5D` | Brand-Akzent, primaere Capture-/Create-Aktion, aktiver Fokus in kleinen Flaechen. |
+| Mappm Coral | `#EF6D5D` | Brand-Akzent, primaere Capture-/Create-Aktion, aktiver Fokus in kleinen Flaechen. |
 | Archive Rose | `#CF3766` | Logo-Tiefe, selektive Hervorhebung, aktive Markierung, seltene Akzentkante. |
 | Folder Apricot | `#FCBC9D` | Dokument-/Ordner-Highlight, Illustration, Empty States, warme Hinweise. |
 | Paper Warmth | `#FFF7F1` | Brandnahe Papierflaeche, ruhige Panels, leichte Hintergrundflaechen. |
@@ -98,7 +98,7 @@ Empfohlene Richtung:
 | System Sans | Technischer Runtime-Fallback, solange Font-Bundling in Flutter noch nicht umgesetzt ist. |
 | Monospace | Technische IDs, Hashes, Debug-/Diagnosefragmente; nie fuer normale Dokumentdaten. |
 
-Entscheidung: Ordna plant mit Manrope. Die Flutter-Umsetzung muss spaeter
+Entscheidung: Mappm plant mit Manrope. Die Flutter-Umsetzung muss spaeter
 klaeren, ob Manrope als App-Asset gebundelt oder ueber ein geeignetes Font-
 Package eingebunden wird. Bis dahin darf die technische Oberflaeche auf System
 Sans zurueckfallen, ohne die Design-System-Entscheidung zu aendern.
@@ -130,7 +130,7 @@ Sans zurueckfallen, ohne die Design-System-Entscheidung zu aendern.
 
 ## Radius
 
-Ordna nutzt ruhige, nicht uebermaessig runde Formen.
+Mappm nutzt ruhige, nicht uebermaessig runde Formen.
 
 | Token | Wert | Verwendung |
 |---|---:|---|
@@ -149,7 +149,7 @@ Elevation bleibt sparsam:
 
 ## Icon Set
 
-Ordna nutzt Lucide als primaeres Produkt-Icon-Set.
+Mappm nutzt Lucide als primaeres Produkt-Icon-Set.
 
 Regeln:
 

@@ -1,6 +1,6 @@
 ---
 name: ui-concept
-description: Use when creating or revising DocMan/Ordna strategic Flutter UI/frontend concepts, F-concepts, design-system concepts, roadmap entries, pillar slices, phases, subphases, implementation-contract phase documents, UI handoffs, or frontend planning governance. Use before ui-architect/builder work and whenever a phase must become production-ready and executable.
+description: Use when creating or revising DocMan/Mappm strategic Flutter UI/frontend concepts, F-concepts, design-system concepts, roadmap entries, pillar slices, phases, subphases, implementation-contract phase documents, UI handoffs, or frontend planning governance. Use before ui-architect/builder work and whenever a phase must become production-ready and executable.
 ---
 
 # DocMan UI Concept
@@ -23,7 +23,7 @@ Read first:
 
 ## Mission
 
-Act as DocMan/Ordna's Strategic Product/UI Concept Lead. Plan the complete
+Act as DocMan/Mappm's Strategic Product/UI Concept Lead. Plan the complete
 production app, not prototypes or MVP shortcuts. A phase is a binding
 product/UX implementation contract: detailed enough that `ui-architect`
 can create a code-level implementation plan without inventing product behavior,

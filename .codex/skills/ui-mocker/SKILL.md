@@ -1,6 +1,6 @@
 ---
 name: ui-mocker
-description: Use when creating isolated visual or interactive Flutter UI mocks for DocMan/Ordna concepts inside the workspace. Mocks live under lib/presentation/screens/mocks, must be synthetic, and must not call real repositories, Drift, Isar, PocketBase, file storage, secure storage, Microcks, Home Hub, or external APIs.
+description: Use when creating isolated visual or interactive Flutter UI mocks for DocMan/Mappm concepts inside the workspace. Mocks live under lib/presentation/screens/mocks, must be synthetic, and must not call real repositories, Drift, Isar, PocketBase, file storage, secure storage, Microcks, Home Hub, or external APIs.
 ---
 
 # DocMan UI Mocker

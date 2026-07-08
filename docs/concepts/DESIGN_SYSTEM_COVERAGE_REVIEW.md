@@ -1,6 +1,6 @@
 ---
 title: "Design System Coverage Review"
-description: "Abgleich aller Ordna Design-System-Mock-Seiten gegen F-Konzepte und Detailkonzepte"
+description: "Abgleich aller Mappm Design-System-Mock-Seiten gegen F-Konzepte und Detailkonzepte"
 tags: [concept, frontend, design-system, coverage, review, ssot]
 lastUpdated: "2026-06-22"
 version: "1.0"

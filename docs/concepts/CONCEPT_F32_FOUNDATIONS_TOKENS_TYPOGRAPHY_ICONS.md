@@ -1,6 +1,6 @@
 ---
 title: "Konzept F32 - Foundations, Tokens, Typography and Icons"
-description: "Ordna Detailkonzept fuer Palette, semantische Tokens, Typografie, Icon-System, Spacing, Radius, Density und Elevation"
+description: "Mappm Detailkonzept fuer Palette, semantische Tokens, Typografie, Icon-System, Spacing, Radius, Density und Elevation"
 tags: [concept, frontend, design-system, tokens, colors, typography, icons, spacing, flutter]
 lastUpdated: "2026-06-22"
 version: "1.0"
@@ -38,7 +38,7 @@ semantischen Tokens kommen.
 
 | Token | Hex | Rolle |
 |---|---|---|
-| `ordnaCoral` | `#EF6D5D` | Capture/Create, Brand-Aktion |
+| `mappmCoral` | `#EF6D5D` | Capture/Create, Brand-Aktion |
 | `archiveRose` | `#CF3766` | aktive Brand-Tiefe |
 | `folderApricot` | `#FCBC9D` | Dokumentwaerme |
 | `paperWarmth` | `#FFF7F1` | warme Flaeche |

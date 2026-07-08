@@ -30,7 +30,7 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
 ## Core Product Assumptions
 
 - UI language: German user-facing terms, with `Case` in code and `Vorgang` in UI.
-- Product name is `Ordna`; `DocMan` remains the technical repo/workspace name until renamed.
+- Product name is `Mappm`; `DocMan` remains the technical repo/workspace name until renamed.
 - Local-first is the product direction.
 - First self-hosted path can use Home Hub/Tailscale, but product architecture must remain backend-agnostic.
 - Documents are sensitive data. Privacy, secure storage, logs, and future sync/cloud design must treat both metadata and files as sensitive.

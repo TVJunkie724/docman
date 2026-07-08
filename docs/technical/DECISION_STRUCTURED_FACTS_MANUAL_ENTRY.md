@@ -18,7 +18,7 @@ Record-Kontext und Workflow angeboten.
 
 ## Entscheidung
 
-Ordna startet mit Fact-Gruppen statt Pflichtfeld-Maschine.
+Mappm startet mit Fact-Gruppen statt Pflichtfeld-Maschine.
 
 Der Dokumenttyp steuert, welche Facts sinnvoll vorgeschlagen oder manuell
 angeboten werden. Er erzwingt aber keine harten Pflichtfelder und keine

@@ -42,12 +42,12 @@ nicht als eigene Milestones.
 
 | Roadmap-Milestone | GitHub-Milestone | Bemerkung |
 |---|---|---|
-| M0/M1 | `Ordna M1 Foundation and Quality` | Entscheidungen, Foundation, QA, Production Readiness |
-| M2 | `Ordna M2 Capture and Review Core` | Capture, Draft-Inbox, Review, Dokumente, Vorgänge, Suche, Tasks |
-| M3 | `Ordna M3 Assisted Review` | OCR/Text, Metadatenvorschlaege, Review von Vorschlaegen |
-| M4 | `Ordna M4 Household and Sync` | Profile, Haushalt, Pairing, Home Hub, Sync, Extended Mobile |
-| M5 | `Ordna M5 Facts, Workflows and Insights` | Facts, Claims, Auswertungen, Workflows, externe Aktionen |
-| M6 | `Ordna M6 Automation, Resilience and Distribution` | Backup, Restore, Compliance, Release, Sharing, lokale LLMs, Ops |
+| M0/M1 | `Mappm M1 Foundation and Quality` | Entscheidungen, Foundation, QA, Production Readiness |
+| M2 | `Mappm M2 Capture and Review Core` | Capture, Draft-Inbox, Review, Dokumente, Vorgänge, Suche, Tasks |
+| M3 | `Mappm M3 Assisted Review` | OCR/Text, Metadatenvorschlaege, Review von Vorschlaegen |
+| M4 | `Mappm M4 Household and Sync` | Profile, Haushalt, Pairing, Home Hub, Sync, Extended Mobile |
+| M5 | `Mappm M5 Facts, Workflows and Insights` | Facts, Claims, Auswertungen, Workflows, externe Aktionen |
+| M6 | `Mappm M6 Automation, Resilience and Distribution` | Backup, Restore, Compliance, Release, Sharing, lokale LLMs, Ops |
 
 ## Label-Minimum
 
@@ -93,7 +93,7 @@ Diese Issues existieren bereits und werden nicht dupliziert:
 | #10 | Replace template tests with DocMan foundation tests | R3 QA/Foundation |
 | #11 | Prepare Mobile Capture M2 concept handoff | R4 Capture |
 | #12 | Prepare M2 Capture and Review Core concept handoff | R4 M2 |
-| #13 | Finalize product name | R0/R10 Naming/Distribution; accepted as `Ordna`, rename follow-up needed |
+| #13 | Finalize product name | R0/R10 Naming/Distribution; accepted as `Mappm`, rename follow-up needed |
 | #14 | Define R3 Quality & Production Readiness phase | R3 Epic/Phase Definition |
 
 ## Angelegte Phase-Epics
@@ -102,16 +102,16 @@ Diese Epics wurden in GitHub angelegt:
 
 | Issue | Titel | Phase | Milestone |
 |---|---|---|---|
-| #15 | Epic: R4 Capture and Review Core | R4 | `Ordna M2 Capture and Review Core` |
-| #16 | Epic: R4 Capture and Draft Inbox M2 | R4 | `Ordna M2 Capture and Review Core` |
-| #17 | Epic: R5 Household Profiles and Access | R5 | `Ordna M4 Household and Sync` |
-| #18 | Epic: R6 Home Hub, Auth and Sync | R6 | `Ordna M4 Household and Sync` |
-| #19 | Epic: R7 Extended Mobile Capture and Review | R7 | `Ordna M4 Household and Sync` |
-| #20 | Epic: R8 Structured Facts, Claims and Insights | R8 | `Ordna M5 Facts, Workflows and Insights` |
-| #21 | Epic: R9 OCR, Fact Suggestions and Local Intelligence | R9 | `Ordna M3 Assisted Review` |
-| #22 | Epic: R10 Compliance, Legal and Distribution Readiness | R10 | `Ordna M6 Automation, Resilience and Distribution` |
-| #23 | Epic: R11 Backup, Restore, Retention and Storage Health | R11 | `Ordna M6 Automation, Resilience and Distribution` |
-| #24 | Epic: R12 Support, Diagnostics and Architecture Governance | R12 | `Ordna M6 Automation, Resilience and Distribution` |
+| #15 | Epic: R4 Capture and Review Core | R4 | `Mappm M2 Capture and Review Core` |
+| #16 | Epic: R4 Capture and Draft Inbox M2 | R4 | `Mappm M2 Capture and Review Core` |
+| #17 | Epic: R5 Household Profiles and Access | R5 | `Mappm M4 Household and Sync` |
+| #18 | Epic: R6 Home Hub, Auth and Sync | R6 | `Mappm M4 Household and Sync` |
+| #19 | Epic: R7 Extended Mobile Capture and Review | R7 | `Mappm M4 Household and Sync` |
+| #20 | Epic: R8 Structured Facts, Claims and Insights | R8 | `Mappm M5 Facts, Workflows and Insights` |
+| #21 | Epic: R9 OCR, Fact Suggestions and Local Intelligence | R9 | `Mappm M3 Assisted Review` |
+| #22 | Epic: R10 Compliance, Legal and Distribution Readiness | R10 | `Mappm M6 Automation, Resilience and Distribution` |
+| #23 | Epic: R11 Backup, Restore, Retention and Storage Health | R11 | `Mappm M6 Automation, Resilience and Distribution` |
+| #24 | Epic: R12 Support, Diagnostics and Architecture Governance | R12 | `Mappm M6 Automation, Resilience and Distribution` |
 
 ## Angelegte R3/R4 Child-Issues
 
@@ -119,25 +119,25 @@ Diese nächsten Child-Issues wurden in GitHub angelegt:
 
 | Issue | Titel | Parent | Milestone |
 |---|---|---|---|
-| #25 | Implement target-path analyzer and verify gates | #14 | `Ordna M1 Foundation and Quality` |
-| #26 | Create synthetic fixtures for documents, cases, profiles and capture | #14 | `Ordna M1 Foundation and Quality` |
-| #27 | Establish OpenAPI and Microcks contract baseline | #14 | `Ordna M1 Foundation and Quality` |
-| #28 | Add R3 compliance and data-lifecycle readiness checklist | #14 | `Ordna M1 Foundation and Quality` |
-| #29 | Define visual and accessibility regression baseline | #14 | `Ordna M1 Foundation and Quality` |
-| #30 | Implement M2 case and subcase management | #15 | `Ordna M2 Capture and Review Core` |
-| #31 | Implement document and draft inbox review flow | #15 | `Ordna M2 Capture and Review Core` |
-| #32 | Implement record-aware document metadata model | #15 | `Ordna M2 Capture and Review Core` |
-| #33 | Implement mobile scan upload queue M2 | #16 | `Ordna M2 Capture and Review Core` |
-| #34 | Implement Home Hub capture upload contract client | #16 | `Ordna M2 Capture and Review Core` |
-| #35 | Implement M2 tasks, due dates and quick access | #15 | `Ordna M2 Capture and Review Core` |
-| #36 | Implement M2 structured search and filters | #15 | `Ordna M2 Capture and Review Core`; follows `DECISION_SEARCH_TECHNOLOGY.md` |
-| #37 | Implement M2 external action links | #15 | `Ordna M2 Capture and Review Core` |
+| #25 | Implement target-path analyzer and verify gates | #14 | `Mappm M1 Foundation and Quality` |
+| #26 | Create synthetic fixtures for documents, cases, profiles and capture | #14 | `Mappm M1 Foundation and Quality` |
+| #27 | Establish OpenAPI and Microcks contract baseline | #14 | `Mappm M1 Foundation and Quality` |
+| #28 | Add R3 compliance and data-lifecycle readiness checklist | #14 | `Mappm M1 Foundation and Quality` |
+| #29 | Define visual and accessibility regression baseline | #14 | `Mappm M1 Foundation and Quality` |
+| #30 | Implement M2 case and subcase management | #15 | `Mappm M2 Capture and Review Core` |
+| #31 | Implement document and draft inbox review flow | #15 | `Mappm M2 Capture and Review Core` |
+| #32 | Implement record-aware document metadata model | #15 | `Mappm M2 Capture and Review Core` |
+| #33 | Implement mobile scan upload queue M2 | #16 | `Mappm M2 Capture and Review Core` |
+| #34 | Implement Home Hub capture upload contract client | #16 | `Mappm M2 Capture and Review Core` |
+| #35 | Implement M2 tasks, due dates and quick access | #15 | `Mappm M2 Capture and Review Core` |
+| #36 | Implement M2 structured search and filters | #15 | `Mappm M2 Capture and Review Core`; follows `DECISION_SEARCH_TECHNOLOGY.md` |
+| #37 | Implement M2 external action links | #15 | `Mappm M2 Capture and Review Core` |
 
 ## Phase Epics
 
 ### R2 - Technical Foundation
 
-GitHub milestone: `Ordna M1 Foundation and Quality`
+GitHub milestone: `Mappm M1 Foundation and Quality`
 
 Existing anchor issues:
 
@@ -157,7 +157,7 @@ Additional child issues:
 
 ### R3 - Quality & Production Readiness
 
-GitHub milestone: `Ordna M1 Foundation and Quality`
+GitHub milestone: `Mappm M1 Foundation and Quality`
 
 Existing anchor issues:
 
@@ -177,7 +177,7 @@ Additional child issues:
 
 ### R4 - Capture and Review Core
 
-GitHub milestone: `Ordna M2 Capture and Review Core`
+GitHub milestone: `Mappm M2 Capture and Review Core`
 
 Existing anchor issues:
 
@@ -188,28 +188,28 @@ Recommended epics:
 
 | Epic | Milestone | Primary pillars |
 |---|---|---|
-| #15 Epic: R4 Capture and Review Core | `Ordna M2 Capture and Review Core` | Cases/Records, Documents, Tasks, Search, External Actions |
-| #16 Epic: R4 Capture and Draft Inbox M2 | `Ordna M2 Capture and Review Core` | Capture & Inbox, Home Hub & Sync |
+| #15 Epic: R4 Capture and Review Core | `Mappm M2 Capture and Review Core` | Cases/Records, Documents, Tasks, Search, External Actions |
+| #16 Epic: R4 Capture and Draft Inbox M2 | `Mappm M2 Capture and Review Core` | Capture & Inbox, Home Hub & Sync |
 
 Child issues:
 
 | Proposed title | Milestone | Labels |
 |---|---|---|
-| #30 Implement M2 case and subcase management | `Ordna M2 Capture and Review Core` | `area:cases`, `layer:frontend`, `layer:domain`, `priority:high` |
-| #31 Implement document and draft inbox review flow | `Ordna M2 Capture and Review Core` | `area:documents`, `layer:frontend`, `layer:domain`, `layer:data`, `priority:high` |
-| #32 Implement record-aware document metadata model | `Ordna M2 Capture and Review Core` | DMS-Zielarchitektur: DocumentRecord, FileRecord, Versionen, Profilbezug und spätere Link-Objekte vorbereiten; `area:documents`, `area:data-storage`, `layer:domain`, `layer:data`, `priority:high` |
-| #33 Implement mobile scan upload queue M2 | `Ordna M2 Capture and Review Core` | `area:capture`, `area:sync`, `layer:frontend`, `layer:sync`, `priority:high` |
-| #34 Implement Home Hub capture upload contract client | `Ordna M2 Capture and Review Core` | `area:capture`, `area:api-contracts`, `layer:api`, `layer:sync`, `priority:high` |
-| #35 Implement M2 tasks, due dates and quick access | `Ordna M2 Capture and Review Core` | `area:cases`, `area:documents`, `layer:frontend`, `layer:domain`, `priority:medium` |
-| #36 Implement M2 structured search and filters | `Ordna M2 Capture and Review Core` | Search-Boundary plus SQLite/Drift/FTS5 per `DECISION_SEARCH_TECHNOLOGY.md`; `area:documents`, `area:cases`, `layer:frontend`, `layer:data`, `priority:high` |
-| #37 Implement M2 external action links | `Ordna M2 Capture and Review Core` | `area:documents`, `area:cases`, `layer:frontend`, `layer:domain`, `priority:medium` |
+| #30 Implement M2 case and subcase management | `Mappm M2 Capture and Review Core` | `area:cases`, `layer:frontend`, `layer:domain`, `priority:high` |
+| #31 Implement document and draft inbox review flow | `Mappm M2 Capture and Review Core` | `area:documents`, `layer:frontend`, `layer:domain`, `layer:data`, `priority:high` |
+| #32 Implement record-aware document metadata model | `Mappm M2 Capture and Review Core` | DMS-Zielarchitektur: DocumentRecord, FileRecord, Versionen, Profilbezug und spätere Link-Objekte vorbereiten; `area:documents`, `area:data-storage`, `layer:domain`, `layer:data`, `priority:high` |
+| #33 Implement mobile scan upload queue M2 | `Mappm M2 Capture and Review Core` | `area:capture`, `area:sync`, `layer:frontend`, `layer:sync`, `priority:high` |
+| #34 Implement Home Hub capture upload contract client | `Mappm M2 Capture and Review Core` | `area:capture`, `area:api-contracts`, `layer:api`, `layer:sync`, `priority:high` |
+| #35 Implement M2 tasks, due dates and quick access | `Mappm M2 Capture and Review Core` | `area:cases`, `area:documents`, `layer:frontend`, `layer:domain`, `priority:medium` |
+| #36 Implement M2 structured search and filters | `Mappm M2 Capture and Review Core` | Search-Boundary plus SQLite/Drift/FTS5 per `DECISION_SEARCH_TECHNOLOGY.md`; `area:documents`, `area:cases`, `layer:frontend`, `layer:data`, `priority:high` |
+| #37 Implement M2 external action links | `Mappm M2 Capture and Review Core` | `area:documents`, `area:cases`, `layer:frontend`, `layer:domain`, `priority:medium` |
 
 ### R5 - Assisted Review and Household Profiles
 
 GitHub milestones:
 
-- `Ordna M3 Assisted Review`
-- `Ordna M4 Household and Sync`
+- `Mappm M3 Assisted Review`
+- `Mappm M4 Household and Sync`
 
 Recommended epic:
 
@@ -229,7 +229,7 @@ Child issues:
 
 ### R6 - Sync and Auth
 
-GitHub milestone: `Ordna M4 Household and Sync`
+GitHub milestone: `Mappm M4 Household and Sync`
 
 Recommended epic:
 
@@ -247,7 +247,7 @@ Child issues:
 
 ### R7 - Extended Mobile
 
-GitHub milestone: `Ordna M4 Household and Sync`
+GitHub milestone: `Mappm M4 Household and Sync`
 
 Recommended epic:
 
@@ -264,7 +264,7 @@ Child issues:
 
 ### R8 - Structured Facts and Insights
 
-GitHub milestone: `Ordna M5 Facts, Workflows and Insights`
+GitHub milestone: `Mappm M5 Facts, Workflows and Insights`
 
 Recommended epic:
 
@@ -284,8 +284,8 @@ Child issues:
 
 GitHub milestones:
 
-- `Ordna M3 Assisted Review` for OCR/metadata suggestion slices.
-- `Ordna M6 Automation, Resilience and Distribution` for local LLMs, reprocessing and job operations.
+- `Mappm M3 Assisted Review` for OCR/metadata suggestion slices.
+- `Mappm M6 Automation, Resilience and Distribution` for local LLMs, reprocessing and job operations.
 
 Recommended epic:
 
@@ -302,7 +302,7 @@ Child issues:
 
 ### R10 - Compliance & Distribution Readiness
 
-GitHub milestone: `Ordna M6 Automation, Resilience and Distribution`
+GitHub milestone: `Mappm M6 Automation, Resilience and Distribution`
 
 Recommended epic:
 
@@ -319,7 +319,7 @@ Child issues:
 
 ### R11 - Data Resilience & Operations
 
-GitHub milestone: `Ordna M6 Automation, Resilience and Distribution`
+GitHub milestone: `Mappm M6 Automation, Resilience and Distribution`
 
 Recommended epic:
 
@@ -336,7 +336,7 @@ Child issues:
 
 ### R12 - Support & Governance
 
-GitHub milestone: `Ordna M6 Automation, Resilience and Distribution`
+GitHub milestone: `Mappm M6 Automation, Resilience and Distribution`
 
 Recommended epic:
 

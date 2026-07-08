@@ -1,6 +1,6 @@
 ---
 name: ui-debugger
-description: Use when debugging DocMan/Ordna Flutter UI/runtime/build/test failures, Riverpod provider issues, layout overflow, desktop/mobile platform UI problems, fake repository behavior, generated/client boundaries, error presentation, or frontend logs. Finds root cause and applies the smallest production-grade fix without redesigning.
+description: Use when debugging DocMan/Mappm Flutter UI/runtime/build/test failures, Riverpod provider issues, layout overflow, desktop/mobile platform UI problems, fake repository behavior, generated/client boundaries, error presentation, or frontend logs. Finds root cause and applies the smallest production-grade fix without redesigning.
 ---
 
 # DocMan UI Debugger

@@ -17,7 +17,7 @@ Es ist bewusst kritisch. DocMan hat eine starke Produktidee, aber der aktuelle S
 ## 2. Produktthese
 
 DocMan ist derzeit der technische Repo-/Workspace-Name. Der Produktname ist
-entschieden: Die App heißt langfristig `Ordna`.
+entschieden: Die App heißt langfristig `Mappm`.
 
 Das Produkt sollte eine ruhige, robuste Dokumenten-App für Familien und Haushalte werden.
 
@@ -62,7 +62,7 @@ Entscheidung dokumentiert in: `docs/technical/DECISION_PRODUCT_LANGUAGE.md`.
 
 ### 3.1 DMS-Zielarchitektur
 
-DocMan beziehungsweise Ordna wird nicht nur als App mit Dokumentanhängen geplant.
+DocMan beziehungsweise Mappm wird nicht nur als App mit Dokumentanhängen geplant.
 Das langfristige Ziel ist ein vollwertiges privates Dokumentenmanagementsystem
 für Haushalt, Personen, Vorgänge, Fristen, Wissen, Auswertungen und Aktionen.
 
@@ -100,7 +100,7 @@ Entscheidung dokumentiert in: `docs/technical/DECISION_DMS_TARGET_ARCHITECTURE.m
 
 DocMan verwaltet private, langfristig wichtige Dokumente. Deshalb sollte die lokale App auch ohne Server sinnvoll funktionieren.
 
-**Entscheidung:** Ordna wird private-first, offline-capable und service-ready.
+**Entscheidung:** Mappm wird private-first, offline-capable und service-ready.
 Local-only bleibt ein unterstuetzter Betriebsmodus, aber nicht das gesamte
 Produktziel. Sync, Backup, Sharing und intelligente Assistenz brauchen spaeter
 eine klar modellierte Service-Schicht.
@@ -108,7 +108,7 @@ eine klar modellierte Service-Schicht.
 Die stabile Produktgrenze ist nicht Tailscale und nicht der Home Hub, sondern ein generisches DocMan Sync Backend. Der Home Hub ist die erste empfohlene Self-Hosted-Betriebsform. Tailscale ist die empfohlene private Netzwerkvariante für frühe Setups ohne offene Firewall-Ports, aber kein Produktbestandteil und keine Architekturabhängigkeit.
 
 ```text
-Ordna Client = lokale Arbeitsfaehigkeit / lokale Replik
+Mappm Client = lokale Arbeitsfaehigkeit / lokale Replik
 DocMan Sync Backend = replication / backup / multi-device / sharing
 Processing Layer = on-device / Home Hub / managed intelligence
 
@@ -116,7 +116,7 @@ Backend variants:
   - local-only single-device mode
   - Home Hub on NAS / home server
   - VPS / hosted private server
-  - Managed Ordna Cloud as later comfort mode
+  - Managed Mappm Cloud as later comfort mode
 ```
 
 Entscheidung dokumentiert in: `docs/technical/DECISION_DATA_FLOW.md` und
@@ -139,7 +139,7 @@ Zielrichtung bleibt ein selbst betriebener Server-Stack auf vorhandener
 Infrastruktur: NAS, Mini-Server oder größerer Heimserver, vorzugsweise als
 Docker-/Compose-Setup.
 
-Gleichzeitig darf die Architektur eine spaetere Managed Ordna Cloud nicht
+Gleichzeitig darf die Architektur eine spaetere Managed Mappm Cloud nicht
 verbauen. Fuer komfortablen Account-Sync, Cloud-Backup, account-uebergreifendes
 Sharing und hochwertige LLM-/OCR-Assistenz ist eine Managed-Service-Schicht
 wahrscheinlich produktstrategisch wichtig.
@@ -396,7 +396,7 @@ Meine vorgeschlagene Richtung:
 
 | ID | Entscheidung | Empfehlung | Priorität |
 |---|---|---|---|
-| D0 | Produktname | Entschieden: Produktname ist `Ordna`; `DocMan` bleibt vorerst technischer Repo-/Workspace-Name | Erledigt |
+| D0 | Produktname | Entschieden: Produktname ist `Mappm`; `DocMan` bleibt vorerst technischer Repo-/Workspace-Name | Erledigt |
 | D1 | Zentraler Begriff | Entschieden: `Case` im Code, "Vorgang" im UI, `Event`/"Ereignis" für Timeline-Einträge | Erledigt |
 | D2 | State Management und DI | Entschieden: Riverpod ersetzt BLoC/GetIt als Zielarchitektur | Erledigt |
 | D3 | Datenfluss | Entschieden: private-first, offline-capable und service-ready; Local-only, Home Hub und spaetere Managed Cloud duerfen durch Data-/Processing-/Identity-Ports austauschbar bleiben | Erledigt |

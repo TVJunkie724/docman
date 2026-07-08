@@ -17,7 +17,7 @@ Claim-Insights, keine Buchhaltung.
 
 ## Entscheidung
 
-Ordna startet mit drei Auswertungsarten:
+Mappm startet mit drei Auswertungsarten:
 
 1. Claims & Erstattungen.
 2. Ausgaben nach Anbieter/Kategorie.

@@ -27,7 +27,7 @@ R13-D1 entscheidet: Der erste Integrationspfad sind manuelle Links und
 bewusste Export-/Oeffnen-Aktionen. Automatische Portalaktionen sind nur ein
 spaeteres Pruefthema und kein Produktversprechen.
 
-R14-D1 entscheidet: Ordna bietet keinen externen App-Zugriff und keine
+R14-D1 entscheidet: Mappm bietet keinen externen App-Zugriff und keine
 Cloud-Share-Links. Die sichere Uebergabeform ist lokaler Export: ein einzelnes
 Dokument als Originaldatei, mehrere Dokumente oder ein ganzer Vorgang als ZIP.
 
@@ -148,7 +148,7 @@ Empfohlen:
 - externe Dienste liegen außerhalb der DocMan-Vertrauensgrenze.
 - automatische Portalaktionen koennen scheitern, verboten sein oder instabil
   werden; manuelle Links bleiben deshalb der robuste Basispfad.
-- der Versand nach dem Export liegt ausserhalb der Ordna-Vertrauensgrenze.
+- der Versand nach dem Export liegt ausserhalb der Mappm-Vertrauensgrenze.
 
 ## Offene Folgefragen
 

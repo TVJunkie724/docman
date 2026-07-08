@@ -305,7 +305,7 @@ Dokumente und Records bekommen eigene Status:
 - Structured Facts und Auswertungen werden als eigene spätere Phase geplant.
 - R2/R4 müssen vermeiden, Fakten nur in unstrukturierte `metadata`-Maps zu kippen.
 - R2/R4 müssen vermeiden, Dokumente dauerhaft als reine Anhänge mit genau einem Parent zu modellieren.
-- BusinessCompanion dient als Referenz fuer FileStorage, Databox, Ingestion und Document-Silo-Ideen, aber Ordna uebernimmt ein kleineres, local-first DMS-Kernmodell.
+- BusinessCompanion dient als Referenz fuer FileStorage, Databox, Ingestion und Document-Silo-Ideen, aber Mappm uebernimmt ein kleineres, local-first DMS-Kernmodell.
 
 ## Nicht entschieden
 

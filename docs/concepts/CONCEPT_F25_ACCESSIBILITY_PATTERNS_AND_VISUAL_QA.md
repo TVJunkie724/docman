@@ -1,6 +1,6 @@
 ---
 title: "Konzept F25 - Accessibility, Product Patterns and Visual QA"
-description: "Ordna Accessibility-, Privacy-, Product-Pattern- und visuelle QA-Gates fuer enterprise-grade UI-Umsetzung"
+description: "Mappm Accessibility-, Privacy-, Product-Pattern- und visuelle QA-Gates fuer enterprise-grade UI-Umsetzung"
 tags: [concept, frontend, design-system, accessibility, patterns, visual-qa, privacy, production-readiness]
 lastUpdated: "2026-06-22"
 version: "1.1"
@@ -19,7 +19,7 @@ testbar und privacy-sicher werden.
 
 ## Zweck
 
-Ordna verwaltet sensible Haushaltsdokumente. UI-Qualitaet bedeutet hier:
+Mappm verwaltet sensible Haushaltsdokumente. UI-Qualitaet bedeutet hier:
 
 - kein Datenleck durch UI-Texte, Logs oder Screenshots.
 - keine unbedienbaren Hover-/Desktop-only-Flows.

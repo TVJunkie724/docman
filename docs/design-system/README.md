@@ -1,8 +1,8 @@
-# Ordna Design System
+# Mappm Design System
 
 ## Purpose
 
-This area contains the current Ordna design-system source of truth for brand
+This area contains the current Mappm design-system source of truth for brand
 direction, corporate design, design decisions, static HTML review work, and
 design-system concepts.
 
@@ -41,7 +41,7 @@ choice becomes stable enough to guide implementation.
 `Mock/` contains the static HTML design-system mock. It is the current design
 review surface for corporate design, foundations, and early shell direction.
 
-`concepts/` contains design-system source-of-truth documents. `OD-DS-01
+`concepts/` contains design-system source-of-truth documents. `MP-DS-01
 Foundations And Tokens` owns the draft palette until a later production Flutter
 token artifact exists.
 
@@ -60,17 +60,17 @@ The build-oriented frontend concepts derived from the mock live in
 | `CONCEPT_F24_FORM_FAMILY.md` | Draft form-family expansion plan. Not implementation-ready yet. |
 | `CONCEPT_F25_ACCESSIBILITY_PATTERNS_AND_VISUAL_QA.md` | Product patterns, accessibility, privacy and visual QA gates. |
 
-Agents should use the `OD-DS-*` documents for design-system organization and
+Agents should use the `MP-DS-*` documents for design-system organization and
 the `CONCEPT_F19`-`CONCEPT_F25` documents for implementation-facing frontend
 rules.
 
 ## Current Brand Direction
 
-The current Ordna identity direction is documented in:
+The current Mappm identity direction is documented in:
 
 ```text
 docs/design-system/Brand/BRAND_DIRECTION.md
-docs/design-system/concepts/OD-DS-01_FOUNDATIONS_AND_TOKENS.md
+docs/design-system/concepts/MP-DS-01_FOUNDATIONS_AND_TOKENS.md
 docs/design-system/Decisions/ADR-0002-brand-identity-and-palette.md
 ```
 
@@ -84,7 +84,7 @@ The current core palette derived from the existing icon is:
 
 | Color | Hex | Role |
 |---|---:|---|
-| Ordna Coral | `#EF6D5D` | Brand accent, primary creation/capture affordance. |
+| Mappm Coral | `#EF6D5D` | Brand accent, primary creation/capture affordance. |
 | Archive Rose | `#CF3766` | Logo depth, selected state accent, rare emphasis. |
 | Folder Apricot | `#FCBC9D` | Warm asset highlight and gentle illustration support. |
 | Paper Warmth | `#FFF7F1` | Brand-adjacent paper surface. |

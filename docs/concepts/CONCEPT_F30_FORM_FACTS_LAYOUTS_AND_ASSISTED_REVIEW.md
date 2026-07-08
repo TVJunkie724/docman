@@ -1,6 +1,6 @@
 ---
 title: "Konzept F30 - Form Facts, Layouts and Assisted Review"
-description: "Ordna Detailkonzept fuer numerische Facts, Betragsfelder, Slider, Stepper, Color Picker, Readonly-Werte, Assisted Review Suggestions, Layouts und Edge States"
+description: "Mappm Detailkonzept fuer numerische Facts, Betragsfelder, Slider, Stepper, Color Picker, Readonly-Werte, Assisted Review Suggestions, Layouts und Edge States"
 tags: [concept, frontend, design-system, forms, facts, assisted-review, layout, validation, flutter]
 lastUpdated: "2026-06-22"
 version: "1.0"
@@ -14,7 +14,7 @@ status: "accepted"
 Accepted.
 
 F30 ist ein Detailkonzept unter F24. Es beschreibt die Form-Flaechen, die in
-Ordna aus Dokumenten strukturierte Facts, Entscheidungen und spaeter
+Mappm aus Dokumenten strukturierte Facts, Entscheidungen und spaeter
 OCR/AI-Vorschlaege machen.
 
 ## Quellen
@@ -30,7 +30,7 @@ OCR/AI-Vorschlaege machen.
 
 ## Zweck
 
-Ordna soll nicht nur Dateien ablegen, sondern Ausgaben, Erstattungen,
+Mappm soll nicht nur Dateien ablegen, sondern Ausgaben, Erstattungen,
 Gueltigkeiten, Aufgaben und Beziehungen auswertbar machen. Deshalb brauchen
 Formulare eine saubere Fact-Sprache.
 
@@ -97,7 +97,7 @@ Verwendung:
 
 Regeln:
 
-- Ordna nutzt Token-Farben, keinen freien Farbraum.
+- Mappm nutzt Token-Farben, keinen freien Farbraum.
 - Color Picker ist fuer produktive Kernflows nicht vorgesehen.
 - Wenn gebraucht, dann Auswahl aus genehmigten Token-Swatches.
 

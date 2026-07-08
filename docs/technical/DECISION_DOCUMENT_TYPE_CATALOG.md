@@ -103,7 +103,7 @@ Beispiele:
 ## Optionale Nachweisart
 
 `identity_record` bleibt der Top-Level-Typ fuer Ausweise und persoenliche
-Nachweise. Ordna spaltet diese Dokumente nicht frueh in viele harte
+Nachweise. Mappm spaltet diese Dokumente nicht frueh in viele harte
 Dokumenttypen auf.
 
 Spaeter darf optional `recordKind` genutzt werden, zum Beispiel:
