@@ -2,7 +2,7 @@
 title: "Produkt-Säule - Capture and Inbox"
 description: "Produktbereich fuer Desktop-Import, Mobile Document Scan, Draft-Inbox, Zuordnung, Korrektur und Eingangsbearbeitung"
 tags: [pillar, capture, inbox, mobile, desktop, drafts, scanning]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 version: "0.3"
 status: "accepted-direction"
 ---
@@ -17,7 +17,8 @@ Der wichtigste M2-Use-Case bleibt:
 
 - unterwegs mit Mobile ein Dokument scannen
 - zuhause am Desktop in der Draft-Inbox prüfen
-- Profil, Vorgang, Subvorgang, Dokumenttyp und erste Metadaten korrigieren
+- verwaltetes Profil, Vorgang/Beziehung, Unterlage, Dokumenttyp und erste
+  Metadaten korrigieren
 - danach als erledigten Eingang auffindbar halten
 
 ## Zielbild
@@ -42,10 +43,14 @@ Dokumentkopien.
 - Mobile Document Scan.
 - Draft-Inbox mit unbearbeiteten Eingängen.
 - Done-/Erledigt-Bereich fuer zuletzt abgearbeitete Eingänge.
-- Korrektur von Profil, Vorgang, Subvorgang, Dokumenttyp und Metadaten.
+- Korrektur von Profil/Organisation, Vorgang/Beziehung, Unterlage,
+  Dokumenttyp und Metadaten.
 - Vorschau oder klarer Preview-Platzhalter im Draft Review.
-- aus markierten Dokumenten einen Subvorgang bilden.
-- leeren Subvorgang aus einem Vorgang heraus anlegen.
+- aus markierten Dokumenten einen normalen verbundenen Vorgang bilden.
+- aus markierten Dokumenten/Vorgängen einen übergeordneten Case bilden.
+- leeren manuellen/geführten Vorgang und typisierte Beziehung anlegen.
+- kontextuelle Aktionen wie Vertrag/Abo, Claim, Steuerprüfung, Zahlung,
+  Business-Kontext, Aufgabe oder Schnellzugriff anbieten.
 - spätere Vorbereitung fuer Share Sheet, Mail-Import und Watch Folder.
 - Core-Assist-OCR-/Klassifikationsjobs, Akteur-/Feld-/Vorgangsvorschläge und
   Review mit Offline Queue, Quota, Opt-out und manuellem Fallback.
@@ -105,7 +110,8 @@ M2-Regeln:
 
 - Inbox hat die Bereiche Entwürfe und Zuletzt verarbeitet.
 - Die letzten 10 zuletzt verarbeiteten Eingänge bleiben sichtbar.
-- Schnelle Korrektur von Titel, Profil, Vorgang/Subvorgang, Dokumenttyp, Notiz
+- Schnelle Korrektur von Titel, verwaltetem Profil, Vorgang/Beziehung,
+  Unterlage, Dokumenttyp, Notiz
   und einfachen Metadaten ist erlaubt.
 - Falsch zugeordnete Dokumente werden korrigiert, nicht dupliziert.
 - Ein erledigter Eingang darf zurück in Entwürfe/Review gesetzt werden.

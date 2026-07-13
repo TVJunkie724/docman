@@ -2,7 +2,7 @@
 title: "Decision - DMS Target Architecture"
 description: "Langfristiges Zielbild fuer Mappm als vollwertiges Dokumentenmanagementsystem statt nur Dokumentanhaenge an Vorgängen"
 tags: [decision, dms, documents, records, cases, capture, inbox, outbox, intelligence, sync]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 status: "accepted-rebaseline"
 ---
 
@@ -145,21 +145,15 @@ Die eigentlichen Dokumente bleiben im DMS-Kern.
 `Case` / "Vorgang" bleibt der Begriff fuer Prozesse, Lebensereignisse,
 Status, Aufgaben und Timeline.
 
-Ein großer Vorgang wie ein Autounfall kann Subvorgänge haben:
+Ein großer Vorgang wie ein Autounfall enthält zunächst Schritte, Ereignisse,
+Tasks, Claims und bedingte Ablaufzweige. Polizei, Werkstatt, Versicherer oder
+Krankenhaus sind nicht automatisch eigene Vorgänge. Eine längerfristige
+Behandlung oder ein formelles Verfahren kann bei eigenständigem Ziel als
+normaler Case verbunden werden.
 
-- Unfallhauptvorgang.
-- Polizei.
-- Werkstatt.
-- Versicherung.
-- Krankenhaus / Arzt.
-- Anwalt / Gericht.
-
-Dokumente liegen nicht doppelt im Haupt- und Subvorgang. Der Hauptvorgang zeigt
-Subvorgänge und kann später kontextuell Dokumente aus Subvorgängen einblenden.
-
-Parent-/Subcase-Beziehungen modellieren einen gemeinsamen fachlichen Ablauf.
-Verwandte Vorgänge mit eigenständigem Lebenszyklus werden über typisierte
-`CaseLink`-Referenzen verbunden. Ein Dokument darf über `DocumentCaseLink`
+Alle Case-Beziehungen werden über typisierte `CaseLink`-Referenzen modelliert.
+`Subvorgang` bezeichnet nur die UI-Rolle eines `part_of`-Links; es gibt keinen
+eigenen Subcase-Entitätstyp. Ein Dokument darf über `DocumentCaseLink`
 gleichzeitig Auslöser, Nachweis, Einreichung, Antwort, Entscheidung oder
 Zahlungsbeleg in mehreren Vorgängen sein. Eine primäre Zuordnung dient nur der
 Navigation und bedeutet keine exklusive fachliche Eigentümerschaft.
@@ -287,7 +281,7 @@ nicht Autorität für Rechtsraum, Frist, Anspruch oder Ablauf.
 Suche muss langfristig mehrere Ebenen abdecken:
 
 - Dokumenttitel und Metadaten.
-- Vorgänge, Subvorgänge und Timeline.
+- Vorgänge, typisierte Beziehungen, Workflow-Zweige und Timeline.
 - Records und Versionen.
 - Profile und Haushaltsbezug.
 - strukturierte Facts.
@@ -306,7 +300,8 @@ Der M2 baut nur den kleinsten nutzbaren Schnitt:
 - Desktop-Import.
 - Mobile Capture in die Draft-Inbox.
 - betroffene Person / Haushaltsprofil als Pflichtzuordnung je Dokument-Draft.
-- Vorgänge mit schlank geplanten Subvorgängen.
+- Vorgänge mit typisierten Beziehungen, manueller Erstellung und
+  Bottom-up-Komposition.
 - einfache Dokumentannahme.
 - lokale Suche.
 - Aufgaben/Reminder-Daten.

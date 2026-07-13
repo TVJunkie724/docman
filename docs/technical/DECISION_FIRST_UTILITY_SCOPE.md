@@ -2,7 +2,7 @@
 title: "Decision - First Utility Scope"
 description: "Entscheidung zum ersten nutzbaren Produkt-Slice: Desktop-Verwaltung, Mobile Capture und minimaler Home-Hub-Eingangskorb"
 tags: [decision, product, milestones, mobile-capture, desktop, home-hub]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 status: "superseded"
 ---
 
@@ -54,7 +54,7 @@ Desktop
   -> Draft-Inbox prüfen
   -> betroffene Person setzen oder korrigieren
   -> Dokumente Vorgängen zuordnen
-  -> Subvorgänge anlegen oder Dokumente als Subvorgang gruppieren
+  -> verbundene oder uebergeordnete Vorgaenge aus Auswahl bilden
   -> Aufgaben und Fälligkeiten prüfen
   -> wichtige Dokumente im Schnellzugriff markieren
   -> Metadaten ergänzen
@@ -67,8 +67,10 @@ Desktop
 - betroffene Person / Haushaltsprofil fuer Dokumente und Drafts ist beim Review-Abschluss Pflicht.
 - Personen-/Profilzuordnung fuer Dokumente, Drafts und Vorgänge wird vorbereitet.
 - Desktop: Vorgänge erstellen, bearbeiten und schließen.
-- Desktop: Subvorgänge schlank erstellen.
-- Desktop: markierte Dokumente eines Vorgangs in einen neuen Subvorgang gruppieren.
+- Desktop: normale verbundene Vorgänge schlank erstellen.
+- Desktop: aus markierten Dokumenten einen verbundenen Vorgang bilden.
+- Desktop: aus Dokumenten und vorhandenen Vorgängen einen übergeordneten
+  Vorgang bilden.
 - Desktop: Dokumente als Drafts erfassen.
 - Desktop: Dokumente Vorgängen zuordnen.
 - Desktop: einfache Aufgaben mit Fälligkeit verwalten.
@@ -119,8 +121,10 @@ Zuordnung später nicht mehr passt.
 - Direkter Upload zu einem Vorgang darf nur eine einfache Zuordnung sein, keine vollständige mobile Bearbeitung.
 - Desktop bleibt der Ort für Prüfung, Korrektur, Metadaten und Vorgangsverwaltung.
 - M2 verlangt eine explizite betroffene Person, darf aber spätere Haushalts-/Kinderprofile nicht verbauen.
-- Subvorgänge helfen großen Vorgängen, ohne Dokumentdateien zu duplizieren.
-- In M2 hat ein Dokument eine primäre Vorgangszuordnung; flexible Mehrfachlinks mit Rollen kommen später.
+- `CaseLink` strukturiert große Vorgänge ohne separate Subcase-Entität oder
+  Dokumentduplikation.
+- Ein bevorzugter Link darf anfangs Navigation vereinfachen; das Zielmodell
+  bleibt mehrfach verknüpft und nicht exklusiv.
 - Aufgaben und Reminder sind fachliche Objekte; Notifications sind nur ein Anzeigeweg.
 - Schnellzugriff meint wichtige Dokumente schnell finden, nicht externe Notfallfreigabe.
 - Der Home Hub in M2 ist ein Capture-Gateway, noch kein vollständiges Sync Backend.

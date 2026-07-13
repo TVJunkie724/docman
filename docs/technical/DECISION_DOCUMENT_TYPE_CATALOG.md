@@ -2,7 +2,7 @@
 title: "Decision - Document Type Catalog"
 description: "Entscheidung zum lockeren Dokumenttyp-Katalog ohne harte typenspezifische Pflichtfelder oder Workflows"
 tags: [decision, document-types, metadata, draft-inbox, forms, milestones]
-lastUpdated: "2026-06-09"
+lastUpdated: "2026-07-14"
 status: "accepted"
 ---
 
@@ -77,6 +77,8 @@ In spaeteren Milestones koennen spezialisierte Typen oder Subtypen entstehen:
 
 - Arztrechnung mit SV-/Zusatzversicherungs-Claim.
 - Vertrag mit Kuendigungsfrist.
+- Vertrag/Abo mit monatlicher, quartalsweiser, jaehrlicher oder eigener
+  Abrechnungsperiode und wiederkehrenden Rechnungen.
 - Versicherungspolizze mit Ablaufdatum und Reminder.
 - Rechnung mit Zahlung/Faelligkeit.
 - Garantie mit Garantieende.
@@ -97,6 +99,9 @@ Beispiele:
 
 - `invoice` legt Betrag und Faelligkeit nahe.
 - `contract` legt Vertragspartner und Kuendigungsfrist spaeter nahe.
+- `invoice` darf einen bestehenden Vertrags-/Abo-Record matchen oder bereits
+  bei der ersten aussagekraeftigen Rechnung dessen Anlage vorschlagen;
+  Wiederholung ist keine Voraussetzung.
 - `insurance_policy` legt Versicherer und Gueltigkeit spaeter nahe.
 - `identity_record` legt Gueltigkeit und Profilbezug spaeter nahe.
 
@@ -138,3 +143,11 @@ Details stehen in `DECISION_STRUCTURED_FACTS_MANUAL_ENTRY.md`.
 - ob spaeter eigene Subtypen statt Tags genutzt werden.
 - ob Nutzer eigene Dokumenttypen definieren duerfen.
 - wann Typen in spezialisierte Workflows uebergehen.
+
+## Abgrenzung zu Records und Workflows
+
+Der Dokumenttyp `contract` ist nicht selbst das langlebige Vertragsobjekt. Ein
+Vertrag oder Abo wird als `Record` mit Versionen, Rechnungen, Facts, Tasks und
+optionalem Workflow-Kontext verwaltet. `invoice` bleibt der Typ einzelner
+Rechnungsdokumente. Details stehen in
+`DECISION_RECURRING_CONTRACT_SUBSCRIPTION_MODEL.md`.

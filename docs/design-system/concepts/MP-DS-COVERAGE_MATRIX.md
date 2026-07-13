@@ -3,7 +3,7 @@ title: "MP-DS Coverage Matrix"
 description: "Traceability across playbook design-system families, Mappm concepts and mock evidence"
 tags: [design-system, coverage, traceability, governance]
 status: active-baseline
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 owner: "ui-concept"
 ---
 
@@ -36,7 +36,8 @@ traceable to the generic DS-00..DS-07 and DS-04/DS-05 subfamilies.
 | DS-04-27 Permissioned fields | F12/F27/SEC | form governance | active-draft | profiles/sharing |
 | DS-04-28 Review summary diff | F30/F34 | form governance | active-draft | assisted review/change review |
 | DS-04-29 Bulk edit/import validation | F24/F29/F30 | form governance | active-draft | import/batch/review |
-| DS-05 Product Patterns | `MP-DS-05_PRODUCT_PATTERNS.md`, F35, pillar docs | patterns page | active-draft | product-flow implementation |
+| DS-05 Product Patterns | `MP-DS-05_PRODUCT_PATTERNS.md`, F35/F37, pillar docs | patterns page; phase-owned Case/Record/Abo evidence pending | active-direction | product-flow implementation |
+| DS-05 Case/Record/Contextual experience | F37 plus Case/Subscription/Managed-Subject/Tax/Roll-up decisions | current patterns page is structural only; exact phase mock required | accepted-direction | Case, Unterlagen, Abo, agenda, contextual review or insight UI |
 | DS-05 Account/Vault/Assist lifecycle | F36, Account/Vault/Assist and Commercial-Core decisions, AI/DATA/SEC/COM | `vault-cloud-lifecycle.html` | accepted-baseline | account/device, Vault, Assist, migration, recovery, subscription or deletion UI |
 | DS-05-01..10 Config pages | `MP-DS-05_PRODUCT_PATTERNS.md`, F13 plus OPS/SEC/DATA | patterns/forms; detailed config mocks phase-owned | planned | settings/admin/config phases |
 | DS-06 Accessibility/Quality Gates | `MP-DS-06_ACCESSIBILITY_AND_QUALITY_GATES.md`, F25/F35 | accessibility page | active-baseline | every UI handoff |

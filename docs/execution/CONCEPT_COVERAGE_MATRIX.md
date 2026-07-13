@@ -2,7 +2,7 @@
 title: "DocMan/Mappm - Concept Coverage Matrix"
 description: "Coverage matrix for required playbook concept families in the existing DocMan/Mappm project"
 tags: [execution, concepts, coverage, playbook]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 status: "active-baseline"
 owner: "ui-concept"
 ---
@@ -13,9 +13,9 @@ owner: "ui-concept"
 
 | Family | Required | Status | Owner | Existing artifacts | Blocks | Notes |
 |---|---|---|---|---|---|---|
-| F Concepts | yes | covered | ui-concept/foundation | F1..F36 plus per-file quality matrix | affected phases | F24 remains intentionally draft; F36 owns Local/Cloud Vault lifecycle; every file adopts the quality contract |
+| F Concepts | yes | covered | ui-concept/foundation | F1..F37 plus per-file quality matrix | affected phases | F24 remains intentionally draft; F36 owns Local/Cloud Vault lifecycle; F37 owns Case/Record/contextual product UX; every file adopts the quality contract |
 | Design System | yes | active-baseline | ui-concept/design | MP-DS-00..07, exact DS-04 mapping and HTML mock | UI phases | affected rows still require phase-specific review |
-| Product Pillars | yes | covered-proposed | product-concept | pillars plus pillar quality contract/matrix | affected phases | proposed status prevents implicit implementation but no longer blocks roadmap setup |
+| Product Pillars | yes | covered-proposed | product-concept | pillars including Contracts/Subscriptions plus pillar quality contract/matrix | affected phases | proposed status prevents implicit implementation but no longer blocks roadmap setup |
 | Roadmap Phases | yes | covered | product-concept | R0-R15 mapping plus approval-ready R3.5 contract | future phases | R3.5 needs explicit approval; other index entries require their own implementation contract |
 | Decisions | yes | covered | product-concept | decision traceability matrix | affected phases | draft-safe decisions block only phases that depend on them |
 | Regulatory | yes | seeded-draft | compliance/product | REG-00..08 and dated source register | legal/release/AI phases | legal reviewer required before affected implementation |
@@ -35,7 +35,10 @@ Detailed review findings are tracked in
 Design-system family coverage is tracked in
 `docs/design-system/concepts/MP-DS-COVERAGE_MATRIX.md`. Mock evidence for
 additional form lifecycle, permission, review and bulk-import gaps lives in
-`docs/design-system/Mock/pages/component-form-governance.html`.
+`docs/design-system/Mock/pages/component-form-governance.html`. F37 patterns
+require exact phase-owned visual evidence before implementation; the structural
+patterns mock is not yet acceptance evidence for Case composition, Records,
+subscriptions, Agenda or contextual financial display.
 
 ## Rules
 

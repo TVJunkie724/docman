@@ -2,7 +2,7 @@
 title: "Decision - First Insights Verticals"
 description: "Entscheidung zu ersten Haushalts-Finanz- und Claim-Auswertungen auf Basis von Facts, Claims, Unterlagen, Vorgängen und manuellen Eintraegen"
 tags: [decision, insights, facts, claims, finance, household, health, insurance]
-lastUpdated: "2026-06-10"
+lastUpdated: "2026-07-14"
 status: "accepted"
 ---
 
@@ -176,7 +176,8 @@ R8 baut nicht:
 - doppelte Buchfuehrung.
 - Bankimport.
 - Kontenrahmen.
-- Steuerlogik.
+- verbindliche Steuerlogik, Steuerberechnung oder Buchhaltung. Eine separat
+  freigegebene Tax-Collection darf Belege sammeln, periodisieren und exportieren.
 - vollstaendiges Accounting.
 
 ## Konsequenzen
@@ -192,7 +193,16 @@ R8 baut nicht:
 
 ## Nicht entschieden
 
-- exakte Dashboard-UI.
-- konkrete Diagramme.
+- exakte spätere domänenspezifische Insight-Erweiterungen.
 - ob und wann Bankimport kommt.
 - ob Nutzerinnen eigene Auswertungskategorien definieren duerfen.
+
+## Schlanke Darstellung
+
+- Kein leerer Auswertungsbereich ohne bestätigte Facts.
+- Ein Betrag erscheint als ruhige Summenzeile.
+- Ein kleiner Verlauf erscheint erst bei mehreren vergleichbaren Perioden.
+- `part_of` rollt stabile Financial Entries dedupliziert hoch; lose
+  Case-Beziehungen nicht.
+- Abo-/Vertragsverläufe folgen
+  `DECISION_RECURRING_CONTRACT_SUBSCRIPTION_MODEL.md`.

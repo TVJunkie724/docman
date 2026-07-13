@@ -2,7 +2,7 @@
 title: "Decision - Assisted Review Suggestions"
 description: "Entscheidung zu ersten OCR-/AI-/Regelvorschlaegen im Draft Review und Human-in-the-loop-Regeln"
 tags: [decision, assisted-review, ocr, ai, suggestions, draft-inbox, privacy]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 status: "accepted-rebaseline"
 ---
 
@@ -44,7 +44,7 @@ Assisted Review darf zuerst diese Felder vorschlagen:
 | Betrag | darf vorgeschlagen werden, braucht Review |
 | Fälligkeit | darf vorgeschlagen werden, braucht Review |
 | Tags | darf vorgeschlagen werden, leicht verwerfbar |
-| Vorgang/Subvorgang | nur als Hinweis/Vorschlag, keine stille Ablage |
+| Vorgang/Case-Beziehung/Workflow-Zweig | nur als Hinweis/Vorschlag, keine stille Ablage |
 | Versicherung/Polizze | nur als Hinweis/Vorschlag, keine stille Claim-Aktion |
 | Claim-/Erstattungs-Kontext | nur als Hinweis/Vorschlag |
 | Profil-Fakten | als Vorschlag mit Quelle, bewusst bestaetigen |
@@ -72,7 +72,7 @@ Beispiele:
 - Betrag.
 - Fälligkeit.
 - Versicherung.
-- Vorgang/Subvorgang.
+- Vorgang, Case-Beziehung oder Workflow-Zweig.
 - Claim-/Erstattungs-Kontext.
 
 Diese Vorschlaege brauchen klare Review-Bestaetigung, weil sie Aufgaben,
@@ -154,6 +154,11 @@ Assisted Review darf frueh nicht:
 - Claims als abgeschlossen markieren.
 - hochsensible Fakten ohne Review speichern.
 - private Inhalte in Logs, Telemetry oder Benachrichtigungen ausgeben.
+
+Kontextabhängig darf Review außerdem zwei oder drei relevante Aktionen aus
+`DECISION_CONTEXTUAL_REVIEW_ACTIONS_FINANCIAL_ROLLUPS.md` vorschlagen, etwa
+Vertrag/Abo, Claim, Zahlung, Steuerprüfung, Business-Kontext, Aufgabe oder
+Quick Access. Eine universelle Checkbox-Wand ist kein Ziel.
 
 ## Milestone-Einordnung
 

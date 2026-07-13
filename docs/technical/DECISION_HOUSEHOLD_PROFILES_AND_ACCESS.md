@@ -1,20 +1,24 @@
 ---
-title: "Decision - Household Profiles and Access"
-description: "Entscheidung zum Zielmodell fuer Haushaltsmitglieder, Kinderprofile, gemeinsame Verwaltung, Profilzuordnung und spätere Berechtigungen"
-tags: [decision, household, profiles, family, access, permissions, sharing]
-lastUpdated: "2026-06-04"
-status: "accepted"
+title: "Decision - Household and Managed Subject Access"
+description: "Entscheidung zum Zielmodell fuer Haushaltsmitglieder, Kinderprofile, verwaltete Organisationen, Profilzuordnung und spätere Berechtigungen"
+tags: [decision, household, profiles, managed-subjects, organizations, family, access, permissions, sharing]
+lastUpdated: "2026-07-14"
+status: "accepted-rebaseline"
 ---
 
 # Decision - Household Profiles and Access
 
 ## Status
 
-Accepted.
+Accepted and extended on 2026-07-14. Household behavior remains accepted;
+managed organizations follow
+`DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md`.
 
 ## Entscheidung
 
-DocMan wird als Haushalts-Dokumentenmanagement geplant.
+Mappm wird als Dokumentenmanagement für verwaltete Personen und optionale
+verwaltete Organisationen geplant. Der Haushalt bleibt der erste private
+Kontext.
 
 M2 startet minimal mit einem Haushalt und expliziter Zuordnung zu einer
 betroffenen Person / einem Haushaltsprofil. Es gibt keine Annahme, dass ein
@@ -37,6 +41,11 @@ Profile
   eigene Records/Nachweise
   eigene Vorgänge
   eigene Facts/Claims
+
+Managed Organization
+  ohne eigenen Login verwaltbar
+  eigene Dokumente/Unterlagen/Vorgaenge/Steuerperioden
+  explizit von Privatkontext getrennt
 ```
 
 Ein Dokument, Record, Vorgang, Fact oder Claim kann:
@@ -45,6 +54,9 @@ Ein Dokument, Record, Vorgang, Fact oder Claim kann:
 - mehrere Profile betreffen.
 - von bestimmten Haushaltsmitgliedern verwaltet werden.
 - spaeter eigene Sicht-/Bearbeitungsrechte tragen.
+- einer verwalteten Organisation statt einer Person zugeordnet sein.
+- mehrere Rollen wie Empfänger, Zahler oder betroffene Person/Organisation
+  getrennt ausdrücken.
 
 ## M2
 
@@ -82,15 +94,16 @@ Beim Scan oder Draft Review braucht DocMan langfristig diese Zuordnungen:
 
 - Profil: z. B. Kind A.
 - primaerer Vorgang: z. B. Arztbesuch Kind A.
-- optional neuer Vorgang oder Subvorgang.
+- optional neuer manueller/geführter Vorgang oder neue Case-Beziehung.
 - optional spaeter verknuepfte Records: z. B. Zusatzversicherung Kind A.
 - optional spaeter Claims/Facts: z. B. SV-Erstattung oder Zusatzversicherung.
 
 M2:
 
 - betroffene Person waehlen oder nachtraeglich setzen.
-- primaeren Vorgang waehlen oder neuen Vorgang/Subvorgang erstellen.
-- Dokument bleibt primaer einem Vorgang zugeordnet.
+- bevorzugten Vorgang wählen oder einen neuen Vorgang/eine Beziehung erstellen.
+- Dokument darf in mehreren Kontexten liegen; ein bevorzugter Link dient nur
+  der Navigation.
 
 Spaeter:
 
@@ -118,8 +131,7 @@ Case: Arztbesuch Kind A
     - SV Erstattung
     - Zusatzversicherung Erstattung
 
-Optionaler Subvorgang: Apotheke / Rezept
-  parentCase: Arztbesuch Kind A
+Branch/Claim im selben Case: Apotheke / Rezept
   documents:
     - Rezept
     - Apothekenrechnung
@@ -129,7 +141,8 @@ Die Polizze wird nicht in den Arztbesuch kopiert. Sie bleibt ein Record des Kind
 
 ## Security und Privacy
 
-Haushaltsprofile enthalten sensible Daten.
+Haushaltsprofile enthalten sensible Daten. Organisationsprofile können Steuer-,
+Vertrags- und Geschäftsidentifikatoren enthalten und sind ebenfalls sensibel.
 
 Regeln:
 
@@ -167,6 +180,8 @@ Regeln:
 - R5-D3 folgt `docs/technical/DECISION_PROFILE_SHARED_MANAGEMENT.md`.
 - R5-D4 folgt `docs/technical/DECISION_HOUSEHOLD_MANAGER_ACCESS.md`.
 - Vollstaendige Rollenmatrix bleibt ein spaeterer Milestone, aber das Datenmodell darf sie nicht blockieren.
+- Personen- und Organisationsprofile teilen Management-Grants, aber nicht
+  automatisch Datenfelder, Schutzregeln oder Länderlogik.
 
 ## Nicht entschieden
 

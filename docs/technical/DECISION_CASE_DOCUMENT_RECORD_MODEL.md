@@ -2,15 +2,18 @@
 title: "Decision - Case, Document, Record and Facts Model"
 description: "Entscheidung zu Vorgängen, Dokumenten, Records/Nachweisen, Versionierung, Workflow-Instanzen und strukturierten Fakten als Mappm-Kernmodell"
 tags: [decision, domain-model, cases, documents, records, facts, versioning, workflows, insights]
-lastUpdated: "2026-07-12"
-status: "accepted"
+lastUpdated: "2026-07-14"
+status: "accepted-rebaseline"
 ---
 
 # Decision - Case, Document, Record and Facts Model
 
 ## Status
 
-Accepted.
+Accepted and rebaselined on 2026-07-14. The normative Case relationship and
+workflow-composition rules are defined in
+`DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`. Earlier `parentCaseId`
+and separate-Subcase descriptions are superseded.
 
 ## Entscheidung
 
@@ -25,7 +28,9 @@ DocMan trennt künftig vier fachliche Kernkonzepte:
 - **CaseWorkflowInstance / Vorgangsablauf**: an einen Vorgang gebundene Instanz
   einer konkreten Workflow-Version.
 
-Zusätzlich gilt: Diese Objekte leben in einem Haushaltskontext und koennen Profil-/Personenbezug tragen.
+Zusätzlich gilt: Diese Objekte leben in einem Vault und tragen Beziehungen zu
+verwalteten Personen oder Organisationen gemäß
+`DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md`.
 
 Der UI-Begriff **Vorgang** bleibt erhalten. Er wird nicht durch **Sammlung** ersetzt. Sammlung klingt zu passiv und beschreibt weder Status, Aufgaben, Timeline noch Prozesskontext gut genug.
 
@@ -54,7 +59,9 @@ Beispiele:
 
 Ein Vorgang kann Dokumente, Records, Aufgaben, Ereignisse, Zahlungen, Claims und verwandte Vorgänge verbinden. Ein Vorgang muss aber nicht für jedes einzelne Dokument existieren.
 
-Vorgänge können hierarchisch oder relational verbunden sein. Ein großer Lebensvorgang wie ein Autounfall darf als Hauptvorgang sichtbar bleiben und kleinere Teilstränge als Subvorgänge führen.
+Vorgänge werden über typisierte `CaseLink`-Beziehungen verbunden. Jeder
+Vorgang bleibt eine eigenständige `Case`-Entität. `Subvorgang` ist nur die
+UI-Rolle eines über `part_of` verbundenen Vorgangs, kein eigener Entitätstyp.
 
 Ein Vorgang kann manuell geführt werden oder eine versionierte
 `CaseWorkflowInstance` besitzen. Fachlich relevante Definitionen stammen aus
@@ -141,7 +148,12 @@ dupliziert wird. Dauerhaft soll dies ueber explizite Link-Objekte wie
 werden, solange das Datenmodell nicht in eine harte Ein-Parent-Struktur
 eingesperrt wird.
 
-Profile sind keine Ordner. Ein Profil beschreibt, welche Person ein Dokument, ein Record, ein Vorgang oder ein Fact betrifft oder verwaltet. Ein Kind kann also eigene Nachweise, Versicherungen, Arztvorgänge und Claims haben, ohne ein eigenes Login zu benötigen.
+Profile sind keine Ordner. Ein verwaltetes Profil beschreibt, welche Person
+oder Organisation ein Dokument, einen Record, einen Vorgang oder einen Fact
+betrifft oder besitzt. Ein Kind oder ein eigenes Unternehmen kann eigene
+Unterlagen, Verträge, Vorgänge und Claims haben, ohne einen eigenen Login zu
+benötigen. Personen- und Organisationsprofile teilen das Management-Prinzip,
+nicht zwingend Felder, Schutzklasse oder Rechtsregeln.
 
 ## Beispiele
 
@@ -212,51 +224,56 @@ Case: Autounfall 2026
     - Versicherungsschreiben
     - Anwalts-/Gerichtsschreiben
 
-  Subvorgänge:
+  Ablaufzweige:
+    - polizeiliche Aufnahme, wenn anwendbar
     - Werkstattreparatur
-    - Versicherungsschaden
-    - Krankenhausbesuch nach Unfall
-    - Rechtsstreit
+    - Versicherungsclaims
+    - medizinische und rechtliche Folgen pruefen
+
+  moegliche verbundene Vorgaenge:
+    - laengerfristige Behandlung, caused_by Autounfall
+    - formelles Verfahren, caused_by Autounfall
 ```
 
-Der Hauptvorgang bleibt der Gesamtzusammenhang. Subvorgänge entstehen, wenn ein Teilstrang eigene Dokumente, Aufgaben, Fristen, Claims oder Status bekommt.
+Polizei, Werkstatt, Versicherung oder eine erste Untersuchung werden nicht
+allein wegen anderer Akteure, Dokumente oder lokaler Status zu eigenen
+Vorgängen. Ein verbundener Vorgang entsteht erst bei einem eigenständig
+verständlichen Ziel und Lebenszyklus. Details stehen in
+`DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`.
 
 ## Vorgangsbeziehungen
 
-DocMan plant zwei Beziehungsarten:
+Mappm verwendet einen `Case`-Typ und typisierte Beziehungen:
 
-- einfacher `parentCaseId` fuer M2-Subvorgänge.
-- später flexible `CaseLink`-Beziehungen fuer `related`, `caused_by`, `follow_up`, `medical_follow_up`, `legal_follow_up`, `insurance_claim_for` oder ähnliche Relationen.
+- `part_of`: in der UI als Subvorgang darstellbar und standardmäßig roll-up-fähig.
+- `caused_by`: ausgelöst durch einen Vorgang, aber unabhängig fortführbar.
+- `follow_up_to`: fachlicher Nachfolger eines vorherigen Vorgangs.
+- `related_to`: Zusammenhang ohne Hierarchie.
 
-Schlanker M2-Slice:
+Dokumente können gleichzeitig in mehreren Vorgängen mit Rollen wie `primary`,
+`trigger`, `context`, `evidence`, `submission`, `response`, `decision`,
+`payment_proof` oder `source` sichtbar sein. Die Datei wird nie dupliziert.
 
-- In einem Vorgang kann ein leerer Subvorgang erstellt werden.
-- Aus markierten Dokumenten eines Vorgangs kann ein neuer Subvorgang erzeugt werden.
-- Der Subvorgang erhält `parentCaseId` auf den Hauptvorgang.
-- Die ausgewählten Dokumente werden dem Subvorgang als primärer Vorgang zugeordnet.
-- Der Hauptvorgang zeigt den Subvorgang mit Dokumentanzahl und Status.
-- Dokumentdateien werden nicht dupliziert.
+Mappm unterstützt Top-down- und Bottom-up-Komposition:
 
-Zielmodell nach dem M2:
+- leeren manuellen oder geführten Vorgang anlegen und Inhalte hinzufügen;
+- aus ausgewählten Dokumenten/Unterlagen/Aufgaben einen verbundenen Vorgang
+  erstellen;
+- aus ausgewählten Dokumenten und bestehenden Vorgängen einen neuen
+  übergeordneten Vorgang bilden;
+- einen Workflow-Zweig später zu einem verbundenen Vorgang hochstufen;
+- Beziehungen ohne Datenverlust wieder lösen oder ändern.
 
-- Dokumente gleichzeitig in mehreren Vorgängen mit Rollen anzeigen.
-- `DocumentCaseLink` mit Rollen wie `primary`, `trigger`, `context`, `evidence`,
-  `submission`, `response`, `decision`, `payment_proof` oder `source`.
-- typisierte `CaseLink`-Beziehungen unterscheiden Subvorgang, Folge, Ursache und
-  unabhängige fachliche Referenz.
-- Profil-/Personenbezug ueber `DocumentProfileLink`.
-- Export-/Ausgangshistorie ueber `ExportJob` oder `OutboxItem`.
-- Hauptvorgang-Dokumentliste mischt Subvorgang-Dokumente kontextuell ein.
-- komplexe Deduplizierung in Suche und Export.
-
-Das hält den M2 verständlich: Ein Dokument hat zuerst eine primäre Vorgangszuordnung. Große Vorgänge können trotzdem früh sauber strukturiert werden. Die spätere Vollausbaustufe bleibt ein DMS-Beziehungsmodell, kein Anhangmodell.
+Eine bevorzugte Anzeigehierarchie darf Navigation vereinfachen. Sie erzeugt
+keine exklusive Ownership und keine kaskadierende Löschung.
 
 ## UI-Struktur
 
-DocMan plant zwei zentrale Arbeitsbereiche:
+Mappm plant zwei gleichwertige zentrale Arbeitsbereiche:
 
 - **Vorgänge** fuer Prozesse, Zusammenhänge, Aufgaben, Status, Timeline und verwandte Vorgänge.
-- **Dokumente** fuer Unterlagen, Nachweise, Records, Versionen und direkte Dokumentensuche.
+- **Unterlagen** fuer langlebige Records/Nachweise, Versionen, Gültigkeiten und
+  zugehörige Dokumentdateien.
 
 Die Draft-Inbox bleibt ein eigener Eingang, weil sie nicht Archiv ist, sondern Review-Arbeit.
 
@@ -270,11 +287,10 @@ Empfohlene Navigation:
 ```text
 Eingang
 Vorgänge
-Dokumente
+Unterlagen
 Aufgaben
 Schnellzugriff
 Suche
-Auswertungen (später)
 Einstellungen
 ```
 
@@ -286,7 +302,10 @@ Ein Dokument oder Record darf in mehreren Kontexten sichtbar sein:
 - im Profilkontext einer Person im Haushalt.
 - im Schnellzugriff, wenn es bewusst als wichtig markiert wurde.
 
-Im M2 gilt dabei eine vereinfachte Anzeige: Subvorgang-Dokumente sind über den Subvorgang erreichbar. Der Hauptvorgang zeigt Subvorgänge prominent, muss aber noch nicht jedes Subvorgang-Dokument zusätzlich in der Hauptliste spiegeln.
+Ein übergeordneter `part_of`-Vorgang zeigt verbundene Vorgänge und deren
+relevanten Status. Dokumente bleiben über ihre Links erreichbar und werden in
+Roll-ups dedupliziert. Lose `related_to`- oder `caused_by`-Beziehungen verändern
+keine Summen oder Abschlusszustände automatisch.
 
 ## Statusmodell
 
@@ -312,21 +331,25 @@ Dokumente und Records bekommen eigene Status:
 - `Vorgang` bleibt der UI-Begriff fuer Cases.
 - `Sammlung` wird nicht Kernbegriff; kann später höchstens für lose Sets oder gespeicherte Sichten verwendet werden.
 - R4-D3 Suche muss Vorgänge, Dokumente und Records berücksichtigen.
-- R4 plant Subvorgänge als schlanke M2-Funktion.
-- Flexible Dokument-Mehrfachverlinkung mit Rollen bleibt spaetere Milestones.
+- Der Zielpfad plant `CaseLink` und `DocumentCaseLink` direkt; `parentCaseId`
+  bleibt nur historische M2-Traceability.
+- Custom Cases und geführte Cases nutzen denselben Domain-Typ und dieselben
+  Produktfähigkeiten.
 - Kuratierte Länder-/Institutionsworkflows bleiben vom generischen Case-Modell
   getrennt; Sprache allein bestimmt keinen Rechtsraum.
 - Laufende geführte Vorgänge wechseln ihre Workflow-Version nie still.
 - Haushaltsprofile und spätere Berechtigungen werden als Zielmodell berücksichtigt.
 - Schnellzugriff ist eine kuratierte Sicht, kein Ersatz fuer Records und kein externes Berechtigungsmodell.
-- Structured Facts und Auswertungen werden als eigene spätere Phase geplant.
+- Kontextuelle Finanzzusammenfassungen folgen
+  `DECISION_CONTEXTUAL_REVIEW_ACTIONS_FINANCIAL_ROLLUPS.md` und erscheinen nur
+  bei bestätigten relevanten Fakten.
+- Verträge und Abos folgen
+  `DECISION_RECURRING_CONTRACT_SUBSCRIPTION_MODEL.md`.
 - R2/R4 müssen vermeiden, Fakten nur in unstrukturierte `metadata`-Maps zu kippen.
 - R2/R4 müssen vermeiden, Dokumente dauerhaft als reine Anhänge mit genau einem Parent zu modellieren.
 - BusinessCompanion dient als Referenz fuer FileStorage, Databox, Ingestion und Document-Silo-Ideen, aber Mappm uebernimmt ein kleineres, local-first DMS-Kernmodell.
 
 ## Nicht entschieden
 
-- ob "Unterlagen" ein eigener Hauptnavigationseintrag oder eine Ansicht im
-  Dokumentbereich wird.
 - welche DocumentFact-Typen im M2 manuell erfassbar sind.
 - ob Lernunterlagen und Notizen im M2 sichtbar oder erst später aktiviert werden.

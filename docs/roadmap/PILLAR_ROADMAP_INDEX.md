@@ -2,8 +2,8 @@
 title: "Mappm - Pillar Roadmap Index"
 description: "Commercial-Core-Slices pro Produkt-/Plattform-Säule und Assurance Track"
 tags: [roadmap, pillars, milestones, enterprise, planning]
-lastUpdated: "2026-07-12"
-version: "1.0"
+lastUpdated: "2026-07-14"
+version: "1.1"
 status: "accepted-rebaseline"
 ---
 
@@ -23,12 +23,13 @@ fruehen Milestones, spaetere Milestones und Enterprise/Operations gehoeren.
 | Saeule/Track | C1-C3 Core | C4-C5 Lifecycle/Release | Spätere Erweiterung |
 |---|---|---|---|
 | Capture & Inbox | Desktop Import, Mobile Scan, Draft-Inbox, Cloud Upload Queue | Upload-Integrität, Cleanup, Support-Evidence | Batch Scan, weitere Importpfade |
-| Cases/Documents/Records | Vorgänge, Dokumente, Version-/Record-fähige Metadaten | Retention, Export/Restore | Mehrfachlinks, Claims/Facts |
-| Tasks/Reminders/Quick Access | Aufgaben, Fälligkeiten, Schnellzugriff | Release-/Notification-Gates | Kalender, geteilte Aufgaben |
-| Search/Facts/Insights | strukturierte Local-/Cloud-Vault-Suche | Reindex/Repair, Exportkonsistenz | Facts, Claims, semantische Suche |
+| Cases/Documents/Records | eigenständige Vorgänge, CaseLinks, Custom Cases, Unterlagen, Dokumente und Bottom-up-Komposition | Retention, Export/Restore, Beziehungsintegrität | Workflow-Zweig-Promotion, weitere Rollen |
+| Contracts/Subscriptions | Vertrags-/Abo-Unterlagen, wiederkehrende Rechnungszuordnung und relevante Fristen vorbereiten | Reminder-/Notification- und Länder-Gates | schlanker Rechnungsverlauf, weitere Kategorien |
+| Tasks/Reminders/Quick Access | Aufgaben, Fälligkeiten, fokussierte Agenda, Schnellzugriff | Release-/Notification-Gates | optionale Kalenderanbindung, geteilte Aufgaben |
+| Search/Facts/Insights | strukturierte Local-/Cloud-Vault-Suche und kontextuelle bestätigte Fakten | Reindex/Repair, Exportkonsistenz | Claims, deduplizierte Roll-ups, semantische Suche |
 | Export/Sharing/External Actions | Export und manuelle Links | Portabilität, Cloud-to-Local, sichere Löschung | Sharing, Mail, Portale |
-| Household Profiles/Access | betroffene Person und Profilzuordnung; Account ist keine betroffene Person | Account-/Access-/DSAR-Konsistenz | Partnerzugriff, Rechte |
-| Templates/Workflows | Case/Subcase/Reference- und Mehrfachbeziehungsgrenzen vorbereiten; keine Länder-Claims | Workflow-Pack-Scope, Quellen-/Review-/Update-Governance nur falls aktiviert | versionierter Katalog, Golden Country Packs, erwartete Dokumente, geführte Vorgänge |
+| Managed Profiles/Access | betroffene Person/Organisation und Profilzuordnung; Account ist kein Managed Subject | Account-/Access-/DSAR-/Privat-Business-Konsistenz | Partnerzugriff, Organisationsmanager, Rechte |
+| Templates/Workflows | Step/Branch/Claim/CaseLink- und Custom-Case-Grenzen vorbereiten; keine Länder-Claims | Workflow-Pack-Scope, Quellen-/Review-/Update-Governance nur falls aktiviert | versionierter Katalog, Golden Country/Tax Packs, erwartete Dokumente, geführte Vorgänge |
 | Account/Cloud/Identity/Sync | Account/Device/Offline Entitlement für alle Normalmodi; Cloud Provider/Contracts/Cache/Pending | Detached Recovery, Grace, Migration, Backup/Restore, Ops | Sharing, Organisationsmodelle |
 | Intelligence/Automation | Core-Assist-Provider-/Trust-/Review-/Evidence-Modell | C2/C3 AI-/Legal-/Ops-Gates; Free/Paid quota/manual fallback | Advanced Assist, semantische Antworten, Reprocessing, Automatisierung |
 | Client Platform/Settings/Health | Vault-, Account-, Cache- und Storage-Zustand | Export, Migration, Kündigung, Diagnose | erweiterte Administration |
@@ -51,7 +52,7 @@ Diese Saeulen brauchen vor R4-Implementation eigene Handoffs:
 | Handoff | Primaere Saeule | Muss klaeren |
 |---|---|---|
 | Capture & Inbox R4 Handoff | Capture & Inbox | Draft-Inbox, Desktop Import, Mobile Scan, Upload Queue, R4.5 Limits/Retry/Cleanup |
-| Cases/Documents/Records R4 Handoff | Cases/Documents/Records | Case/Subcase, Document, FileRecord, Record-aware Metadaten |
+| Cases/Documents/Records R4 Handoff | Cases/Documents/Records | ein `Case`-Typ, typisierte `CaseLink`-Beziehungen, Document, FileRecord, Unterlagen/Records und kontextuelle Metadaten |
 | Tasks/Reminders/Quick Access R4 Handoff | Tasks/Reminders | Aufgaben, Fälligkeiten, Schnellzugriff |
 | Search Core Handoff | Search/Facts | SQLite/Drift/FTS5 Queries, Filter, Indizes |
 | Cloud Capture Contract Handoff | Cloud/Identity/Sync | OpenAPI, Microcks, API-proxied Upload, Account/Device/Entitlement |
@@ -79,7 +80,7 @@ R4.5 ist eine kleine Querschnittsphase und betrifft mehrere Saeulen:
 | R5 | Assisted Review, Household Profiles, Security/Privacy, UX |
 | R6 | Cloud/Identity/Sync, Security, Data Lifecycle, Observability, Commercial |
 | R7 | Capture & Inbox Mobile, Compatibility, Support |
-| R8 | Search/Facts/Insights, Templates/Workflows einschließlich Katalogfundament und geprüftem Länderpaket, QA/Compliance |
+| R8 | Search/Facts/Insights, Contracts/Subscriptions, Templates/Workflows einschließlich Katalogfundament, optional geprüftem Länder-/Tax-Pack, QA/Compliance |
 | R9 | Intelligence/Automation einschließlich kataloggebundenem Workflow Matching, Security, Observability |
 | R10 | Compliance, Release, Compatibility |
 | R11 | Data Lifecycle, Admin/Settings, Observability |

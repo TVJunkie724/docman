@@ -1,16 +1,17 @@
 ---
 title: "Decision - Profile Identity and Management"
-description: "Entscheidung zur Trennung von Login-/Identity-Faehigkeit und Verwaltung eines Profils"
-tags: [decision, profiles, household, identity, login, management, permissions]
-lastUpdated: "2026-07-12"
-status: "accepted"
+description: "Entscheidung zur Trennung von Login-/Identity-Faehigkeit, verwalteten Personen/Organisationen und Management-Beziehungen"
+tags: [decision, profiles, managed-subjects, persons, organizations, household, identity, login, management, permissions]
+lastUpdated: "2026-07-14"
+status: "accepted-rebaseline"
 ---
 
 # Decision - Profile Identity and Management
 
 ## Status
 
-Accepted.
+Accepted and extended on 2026-07-14 through
+`DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md`.
 
 R5-D2 ist entschieden. Login-/Identity-Faehigkeit und Verwaltung eines Profils
 sind zwei getrennte Achsen. R5-D3 regelt gemeinsame Verwaltung ohne fruehe
@@ -18,11 +19,14 @@ Rollenmatrix in `DECISION_PROFILE_SHARED_MANAGEMENT.md`.
 
 ## Entscheidung
 
-Ein Profil kann eine eigene Login-/Identity-Anbindung haben, ohne dass dadurch
+Ein verwaltetes Personenprofil kann eine eigene Login-/Identity-Anbindung haben, ohne dass dadurch
 automatisch bestehende Verwaltungsbeziehungen verschwinden.
 
-Umgekehrt kann ein Profil verwaltet werden, ohne selbst einen Login zu haben.
-Verwaltung ist eine Berechtigungsbeziehung, kein Profiltyp und kein Altersstatus.
+Umgekehrt kann eine Person oder Organisation verwaltet werden, ohne selbst
+einen Login zu haben. Verwaltung ist eine Berechtigungsbeziehung, kein
+Profiltyp und kein Altersstatus. Ein eigenes Unternehmen folgt damit demselben
+Management-Prinzip wie ein Kinderprofil, besitzt aber organisationsspezifische
+Felder und Compliance-Regeln.
 
 Damit gibt es fachlich vier sinnvolle Kombinationen:
 
@@ -37,23 +41,24 @@ Die normale Haushaltslogik soll die ersten drei Faelle unterstuetzen.
 
 ## Modellrichtung
 
-Profile, Login/Identity und Management Grants werden getrennt modelliert:
+ManagedSubject, Login/Identity und Management Grants werden getrennt modelliert:
 
 ```text
-Profile
+ManagedSubject
   id
   displayName
-  householdId
+  subjectType: person | organization
+  contextId
 
 ProfileIdentity
-  profileId
+  subjectId
   provider: local | google | microsoft | idAustria | ...
   email optional
   status: active | pending | disabled
 
 ProfileManagementGrant
-  managedProfileId
-  managerProfileId
+  managedSubjectId
+  managerSubjectId
   status: active | disabled | revoked
   createdAt
   revokedAt optional
@@ -66,8 +71,11 @@ wirklich braucht. Wichtig ist die Trennung:
 - `ProfileIdentity` beantwortet: Kann diese Person sich anmelden?
 - `ProfileManagementGrant` beantwortet: Wer darf dieses Profil sehen,
   bearbeiten oder verwalten?
-- `Profile` bleibt die fachliche Person, der Dokumente, Vorgänge, Records,
-  Fakten, Aufgaben und Versicherungen zugeordnet sind.
+- `ManagedSubject` bleibt die fachliche Person oder Organisation, der
+  Dokumente, Vorgänge, Records, Fakten, Aufgaben und Versicherungen zugeordnet
+  sind.
+- Externe Ärzte, Behörden, Versicherer oder Anbieter sind `ExternalParty` und
+  nicht automatisch verwaltete Organisationsprofile.
 
 ## Umwandlung
 
@@ -78,6 +86,8 @@ Beispiele:
 - Ein Kind bekommt spaeter einen eigenen Login.
 - Ein Partner bekommt spaeter Zugriff auf sein Profil.
 - Eine verwaltete Person soll bestimmte Dokumente selbst sehen oder bearbeiten.
+- Eine Organisation bekommt später mehrere berechtigte Manager oder eine
+  eigene Administrationsform.
 
 Regeln:
 
@@ -107,6 +117,8 @@ sein, wenn eine aktive Verwaltungsbeziehung existiert.
 - Ein Login entfernt Verwaltung nicht automatisch.
 - Verwaltung ist reversibel und separat steuerbar.
 - Dokumente gehoeren fachlich zu Profilen, nicht zu Login-Accounts.
+- Private und geschäftliche Profile dürfen nicht allein aufgrund derselben
+  verwaltenden Person zusammengeführt werden.
 - R6 muss Identity, Sessions, Sync und Rechte gegen diese Trennung planen.
 - `DECISION_CLOUD_IDENTITY_DEVICE_TRUST.md` und REG-04 konkretisieren die spaetere
   Identity-Schicht: ID Austria ist ein sinnvoller erster oesterreichischer
@@ -125,3 +137,5 @@ sein, wenn eine aktive Verwaltungsbeziehung existiert.
 - welche Zustimmung fuer Umwandlung in ein Login-Profil noetig ist.
 - konkrete Identity Provider und Reihenfolge.
 - konkrete Audit-Anforderungen fuer Grant-Aenderungen.
+- Commercial-1.0-Aktivierung von Organisationsprofilen und deren
+  länderspezifische Aufbewahrungs-/Steuergrenzen.

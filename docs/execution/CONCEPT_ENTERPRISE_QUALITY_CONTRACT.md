@@ -2,7 +2,7 @@
 title: "Mappm - Concept Enterprise Quality Contract"
 description: "Verbindlicher Mindestvertrag fuer bestehende Mappm F-Konzepte"
 tags: [concept, governance, quality, production-readiness]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 status: "accepted"
 owner: "ui-concept"
 ---
@@ -25,6 +25,9 @@ Every F-concept also inherits:
 - `docs/technical/DECISION_COMMERCIAL_CORE_SCOPE.md`.
 - `docs/technical/DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`.
 - `docs/concepts/CONCEPT_F36_VAULT_MODES_CLOUD_LIFECYCLE.md`.
+- For affected product/UI concepts:
+  `docs/concepts/CONCEPT_F37_CASE_RECORD_CONTEXTUAL_EXPERIENCE.md` and its
+  normative Case/Subscription/Managed-Subject/Tax/Roll-up decisions.
 
 Conflicting statements that make Mappm universally local-first, make a customer
 Home Hub/self-hosted deployment the product direction, or treat Cloud as a
@@ -59,6 +62,10 @@ mark the details not directly applicable but may not contradict the baseline.
   Cloud-to-Local migration or legally required access/delete behavior.
 - Local Development Cloud, Microcks, shared Development, Staging and Production
   are distinct environments and may contain only data allowed by their policy.
+- Affected concepts may not introduce a separate Subcase entity, strict Case
+  tree, second-class Custom Case, document-as-Record conflation, uncontrolled
+  ExternalParty free text, accounting dashboard or unreviewed country/tax
+  policy.
 
 ## Universal Stop Rules
 

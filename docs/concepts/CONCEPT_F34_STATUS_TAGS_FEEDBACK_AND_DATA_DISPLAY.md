@@ -2,7 +2,7 @@
 title: "Konzept F34 - Status, Tags, Feedback and Data Display"
 description: "Mappm Detailkonzept fuer Statussignale, Tags, Callouts, Empty/Error Feedback, Dokumentzeilen, Typfarben, Fact-Gruppen und Timelines"
 tags: [concept, frontend, design-system, components, status, tags, feedback, data-display, flutter]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 version: "1.0"
 status: "accepted"
 ---
@@ -97,6 +97,12 @@ Regeln:
 - Tags nutzen dezente Petrol/Neutral-Tokens, nicht beliebige Farben.
 - Aktiver Filter darf staerker markiert sein als normaler Tag.
 - Personenbezug ist kein Tag-Ersatz; Person/Profil bleibt eigenes Feld.
+- Organisationsprofil, externe Partei und Person verwenden unterscheidbare,
+  semantische Typkennzeichnung; Farbe allein reicht nicht.
+
+Schlanke Finanzdarstellung folgt F37: keine leere Sektion, kein Chart für einen
+Wert, kleine Linienverläufe nur für bestätigte vergleichbare Perioden und immer
+mit Hover-/Tap-/Focus- sowie Screenreader-Alternative.
 
 ## Callouts
 

@@ -2,7 +2,7 @@
 title: "MP-DS-00 Design System Umbrella"
 description: "Governance and source-of-truth contract for the Mappm design system"
 tags: [design-system, governance, umbrella, ui]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 status: draft
 owner: "ui-concept"
 provenance:
@@ -60,7 +60,7 @@ ein Steuerportal oder ein dekoratives Familienalbum wirken.
 | `MP-DS-02 Layout And Shell` | Desktop-/Mobile-Shell, Navigation, Arbeitsflaechen, responsive Verhalten. | draft |
 | `MP-DS-03 Corporate Design` | Brand-Idee, Logo-System, Corporate Colors, Voice, Usage Standards. | draft |
 | `MP-DS-04 Component System` | Buttons, Formulare, Selection, Navigation, Feedback, Status, Tags, Data Display. | active-draft |
-| `MP-DS-05 Product Patterns` | Capture, Draft Inbox, Vorgang, Dokumentdetail, Export, Settings, Backup/Sync. | active-draft |
+| `MP-DS-05 Product Patterns` | Capture, Draft Inbox, Vorgang, Unterlage/Record, Case-Komposition, Vertrag/Abo, Agenda, kontextuelle Aktionen, Export, Settings, Backup/Sync. | active-draft |
 | `MP-DS-06 Accessibility And Quality Gates` | Contrast, Keyboard, Text Scale, Visual QA, responsive gates. | active-baseline |
 | `MP-DS-07 Platform Adaptation` | macOS, iOS, Android, spaeter Windows/Linux. | active-draft |
 
@@ -86,6 +86,9 @@ docs/design-system/Mock/index.html
   Sprache weiterfuehren: Uppercase, 20px Radius, Pfeile zwischen Schritten,
   farbige Past-/Current-Zustaende, graue Future-Zustaende und Shadow fuer den
   aktuellen Schritt.
+- F37-Produktmuster brauchen vor Implementierung phasenbezogene visuelle
+  Evidenz fuer Desktop und Mobile. Ein struktureller Umbrella-Mock ersetzt
+  keine Auswahl-, Kompositions-, Chart-, Empty-, Error- oder A11y-Zustaende.
 - Logo und Farben duerfen aus `assets/images/logo.png` abgeleitet werden, aber
   das aktuelle Logo ist noch kein vollstaendiges Logo-System.
 - Coral/Rose ist Brand-Akzent, nicht globale App-Flaeche.

@@ -2,9 +2,9 @@
 title: "Produkt-Säule - Tasks, Reminders and Quick Access"
 description: "Produktbereich fuer Aufgaben, To-dos, Fristen, Erinnerungen, Benachrichtigungsquellen und Schnellzugriff"
 tags: [pillar, tasks, reminders, quick-access, deadlines, notifications]
-lastUpdated: "2026-07-12"
-version: "0.1"
-status: "proposed"
+lastUpdated: "2026-07-14"
+version: "0.2"
+status: "accepted-direction"
 ---
 
 # Produkt-Säule - Tasks, Reminders and Quick Access
@@ -38,6 +38,9 @@ QuickAccessItem
 
 Tasks und Reminders sind fachliche Objekte. Notifications sind nur ein Ausgabekanal.
 
+Mappm bietet eine fokussierte Agenda über Aufgaben, Fristen, Termine, erwartete
+Antworten, Gültigkeiten und Reminder. Es ist kein allgemeiner Kalender.
+
 ## Task
 
 Eine Aufgabe kann manuell erstellt oder später aus Workflows, Facts, Claims, Records oder OCR/LLM-Vorschlägen erzeugt werden.
@@ -68,6 +71,18 @@ Reminder
 ```
 
 Notification-Regeln, Redaction und technische Fehler-/Systemhinweise bleiben im querschnittlichen F18-Konzept.
+
+Reminder unterscheiden Datum, Offset und Kanal:
+
+- `quiet`: Agenda, Badge oder In-App-Erinnerung.
+- `notifying`: datenschutzsichere lokale oder geräteübergreifende Notification.
+- ein oder mehrere Workflow-/Nutzer-Offsets.
+- Ruhezeiten und Kanalpräferenz.
+
+Bei monatlich, jährlich oder anders wiederkehrend kündbaren Verträgen erzeugt
+Mappm nicht automatisch jeden Zyklus eine laute Erinnerung. Eine wiederkehrende
+Prüfung wird bewusst aktiviert oder durch ein bestätigtes Ereignis wie eine
+Preisänderung vorgeschlagen.
 
 ## Quick Access
 
@@ -115,6 +130,8 @@ Späterer Milestone:
 - Heißt der UI-Bereich `Schnellzugriff`, `Wichtig` oder `Notfallmappe`?
 - Werden lokale OS-Benachrichtigungen schon im R4-M2 umgesetzt?
 - Welche Reminder werden automatisch aus Records vorgeschlagen?
+- Welche ruhigen/benachrichtigenden Defaults gelten je Plattform und
+  Schutzklasse?
 
 ## Enterprise Quality Contract
 

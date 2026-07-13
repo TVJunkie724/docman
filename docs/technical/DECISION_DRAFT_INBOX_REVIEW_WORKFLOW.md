@@ -2,7 +2,7 @@
 title: "Decision - Draft Inbox Review Workflow"
 description: "Entscheidung zum Desktop-Review-Workflow fuer Draft-Inbox, erledigte Eingänge, Korrekturen und Reopen-Regeln im M2"
 tags: [decision, draft-inbox, capture, review, desktop, mvp, correction]
-lastUpdated: "2026-05-19"
+lastUpdated: "2026-07-14"
 status: "accepted"
 ---
 
@@ -47,7 +47,7 @@ Ein Inbox-Eintrag ist im Entwurfsbereich, wenn:
 
 - ein Desktop-Import neu angelegt wurde.
 - ein Mobile-Scan angekommen ist.
-- Profil, Vorgang, Subvorgang, Dokumenttyp oder Titel fehlen.
+- Managed Subject, Vorgang/Beziehung, Dokumenttyp oder Titel fehlen.
 - der Mobile-Kontext ungueltig wurde.
 - Upload/Import eine Review-Warnung erzeugt hat.
 - der Nutzer einen erledigten Eingang wieder in Review geoeffnet hat.
@@ -65,13 +65,17 @@ In diesem Bereich darf der Nutzer schnell korrigieren:
 
 - Titel.
 - Profil.
-- Vorgang/Subvorgang.
+- Vorgang, Record und Case-Beziehung.
 - Dokumenttyp.
 - kurze Notiz.
 - einfache Metadaten, die bereits im Draft Review sichtbar waren.
 
 Groessere fachliche Bearbeitung passiert in der Dokument-, Record- oder
 Vorgangsansicht.
+
+Kontextabhängige Review-Aktionen folgen
+`DECISION_CONTEXTUAL_REVIEW_ACTIONS_FINANCIAL_ROLLUPS.md`. Die Inbox zeigt nur
+wenige wahrscheinliche Aktionen statt einer universellen Optionsliste.
 
 ## Falsch zugeordnet
 

@@ -2,8 +2,8 @@
 title: "Produkt-Säule - Templates and Workflows"
 description: "Produktbereich fuer Vorgangsvorlagen, Checklisten, empfohlene nächste Schritte und workflowbasierte Assistenz"
 tags: [pillar, templates, workflows, checklists, tasks]
-lastUpdated: "2026-07-12"
-version: "0.2"
+lastUpdated: "2026-07-14"
+version: "0.3"
 status: "accepted-direction"
 ---
 
@@ -13,16 +13,21 @@ status: "accepted-direction"
 
 DocMan soll wiederkehrende Lebenssituationen nicht jedes Mal bei null starten lassen.
 
-Beispiele:
+Universelle Workflow-Muster:
 
-- Arztbesuch.
-- Autounfall.
-- Umzug.
-- Namensänderung.
-- Geburt eines Kindes.
-- Schulangelegenheit.
-- Garantie/Reklamation.
-- Versicherungsfall.
+- einreichen, warten, entscheiden und abrechnen;
+- Schadenereignis dokumentieren und regulieren;
+- Vertrag/Abo aktivieren, ändern und beenden;
+- Kauf, Lieferung, Rückgabe, Garantie und Reklamation;
+- Lebensereignis über mehrere Stellen koordinieren;
+- Nachweis beantragen, erneuern oder ersetzen;
+- Unterlagen für einen Zeitraum sammeln, prüfen und übergeben;
+- Einspruch, Streit oder Rückforderung verfolgen.
+
+Konkrete Domänenfamilien umfassen Gesundheit/Erstattung, Unfall/Versicherung,
+Verträge/Abos, Kauf/Garantie, Behörden, Wohnen/Umzug, persönliche/familiäre
+Ereignisse, Identität/Nachweise, Steuer-Unterlagensammlung, Bildung/Betreuung,
+Arbeit/Einkommen, Fahrzeug/Mobilität und konkrete Reise-/Auslandsabläufe.
 
 ## Zielbild
 
@@ -34,7 +39,8 @@ Gültigkeitszeitraum und gegebenenfalls Institution veröffentlicht.
 Ein Template kann vorschlagen:
 
 - typische Dokumenttypen.
-- sinnvolle Subvorgänge.
+- Schritte, Ablaufzweige, Claims und bei eigenständigem Ziel typisierte
+  Case-Beziehungen.
 - Tasks und Fristen.
 - Records, die verknüpft werden sollten.
 - externe Aktionslinks.
@@ -43,9 +49,15 @@ Ein Template kann vorschlagen:
 - typisierte Dokumentrollen wie Auslöser, Einreichung, Antwort, Entscheidung
   und Zahlungsbeleg.
 
-Templates dürfen Subvorgänge erzeugen oder vorschlagen. Unabhängige verwandte
-Vorgänge bleiben über typisierte Referenzen verbunden. Dokumente können mehreren
-Vorgängen zugeordnet sein, ohne Dateien zu duplizieren.
+Templates erzeugen nicht für jeden Akteur oder Dokumentstapel einen Vorgang.
+Ein neuer Case entsteht erst bei eigenständig verständlichem Ziel und
+Lebenszyklus. `Subvorgang` ist nur die UI-Rolle eines `part_of`-Links.
+Dokumente können mehreren Vorgängen zugeordnet sein, ohne Dateien zu duplizieren.
+
+Manuelle/Custom Cases sind ein gleichwertiger Produktpfad. Nutzer können sie
+frei anlegen, aus ausgewählten Dokumenten bilden oder aus bestehenden Cases und
+Dokumenten nachträglich einen übergeordneten Case erzeugen. Ein kompatibles
+Template kann später bewusst übernommen werden.
 
 ## Internationalisierung
 
@@ -63,13 +75,15 @@ Vorgängen zugeordnet sein, ohne Dateien zu duplizieren.
 M2:
 
 - keine vollständige Template-Engine.
-- Vorgangstypen und Subvorgang-Idee so modellieren, dass Templates später möglich sind.
+- Case, CaseLink, Workflow-Schritt/-Zweig und Custom-Case-Ursprung so
+  modellieren, dass Templates später möglich sind.
 
 spaetere Milestones:
 
 - Definition und technische Validierung des Katalogformats.
 - fachlich geprüfte Golden Workflows für die ausgewählten Startmärkte.
-- aus Templates erzeugte Aufgaben, Subvorgänge und erwartete Dokumente.
+- aus Templates erzeugte Aufgaben, Claims, Ablaufzweige, Case-Beziehungen und
+  erwartete Dokumente.
 - signierte Katalog-Updates und auditable Migrationen.
 
 ## Grenzen
@@ -86,6 +100,10 @@ spaetere Milestones:
 
 Normative Entscheidung:
 `docs/technical/DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md`.
+
+Der vollständige Stand der konkret definierten Cases, Record-Kontexte,
+Custom-Beispiele und nur benannten Kandidatenfamilien steht in
+`docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`.
 
 ## Enterprise Quality Contract
 

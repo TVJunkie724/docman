@@ -2,7 +2,7 @@
 title: "Decision - Workflow Rules"
 description: "Entscheidung zu Mappm-Workflows: kuratierte Führung und nachvollziehbare Vorschläge statt harter Status-Käfige"
 tags: [decision, product, workflow, cases, tasks, internationalization]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 status: "accepted"
 ---
 
@@ -32,7 +32,7 @@ Workflows dürfen:
 - Review-Zustände markieren.
 - fachlich unsichere Situationen erklären.
 - passende veröffentlichte Länder-/Institutionsvarianten vorschlagen.
-- Subvorgänge und typisierte Beziehungen vorschlagen.
+- bedingte Ablaufzweige, Claims und typisierte Case-Beziehungen vorschlagen.
 
 Workflows dürfen nicht:
 
@@ -64,3 +64,7 @@ Beispiele:
   gekennzeichneten manuellen Vorgang zurück.
 - Fachliche Vorgaben sind versionierter Produktinhalt, nicht Widget- oder
   Controller-Logik.
+- Ein Workflow bleibt innerhalb eines Case, solange alle Schritte demselben
+  Nutzerziel und Gesamtergebnis dienen.
+- Ein neuer verbundener Case entsteht erst bei eigenständigem Ziel und
+  Lebenszyklus; `Subvorgang` ist nur die UI-Rolle eines `part_of`-Links.

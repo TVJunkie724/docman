@@ -2,7 +2,7 @@
 title: "Decision - Document Metadata and Preview"
 description: "Entscheidung zu Pflichtmetadaten, optionalen Metadaten und Vorschau/Thumbnail im R4-Capture-and-Review-Core"
 tags: [decision, documents, metadata, preview, thumbnails, draft-inbox, milestones]
-lastUpdated: "2026-05-29"
+lastUpdated: "2026-07-14"
 status: "accepted"
 ---
 
@@ -27,14 +27,14 @@ Ein Dokument-Draft muss mindestens tragen:
 
 - Titel.
 - Dokumenttyp aus `DECISION_DOCUMENT_TYPE_CATALOG.md`.
-- betroffene Person / Haushaltsprofil.
+- verwaltete Person/Organisation (`managedSubjectId`).
 - Datei/FileRecord.
 - Vorschau/Preview-Status.
 - Quelle: Desktop Import oder Mobile Capture.
 - Erfassungsdatum.
 - Ablagedatum.
 - Review-Status.
-- optionaler Vorgang/Subvorgang.
+- optionale Vorgangs-, Record-, Claim- und Case-Beziehungen.
 
 Die genaue Abschlussvalidierung steht in
 `DECISION_REVIEW_COMPLETION_VALIDATION.md`.
@@ -115,7 +115,7 @@ Draft Review muss zeigen koennen:
 - Vorschau oder klaren Platzhalter.
 - Titel.
 - Dokumenttyp.
-- betroffene Person / Haushaltsprofil.
+- verwaltete Person/Organisation.
 - optionale Vorgangszuordnung.
 - Quelle.
 - relevante optionale Metadaten.
@@ -131,6 +131,8 @@ Ohne Vorschau ist der Draft nicht kaputt, aber als `previewPending` oder
 - Capture & Inbox muss Draft Review mit Vorschau planen.
 - Search Core kann gepflegte Textmetadaten nutzen, ohne OCR vorauszusetzen.
 - Intelligence/OCR kann spaeter auf demselben Review-Modell aufsetzen.
+- Reisepass, Geburtsurkunde, Vertrag oder Polizze werden als `Record`/Unterlage
+  mit Dokumentversionen vorbereitet und nicht zu künstlichen Vorgängen gemacht.
 
 ## Nicht entschieden
 

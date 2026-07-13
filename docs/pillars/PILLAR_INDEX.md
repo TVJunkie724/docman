@@ -2,8 +2,8 @@
 title: "Mappm Product Pillar Index"
 description: "Master-Landkarte der Mappm Produkt- und Plattform-Säulen sowie querschnittlichen Assurance Tracks"
 tags: [pillars, roadmap, product, enterprise, governance]
-lastUpdated: "2026-07-12"
-version: "1.0"
+lastUpdated: "2026-07-14"
+version: "1.1"
 status: "accepted"
 ---
 
@@ -35,15 +35,16 @@ sondern in `docs/roadmap/PILLAR_ROADMAP_INDEX.md`.
 | Säule | Zweck |
 |---|---|
 | `PILLAR_CAPTURE_INBOX.md` | Dokumente erfassen, importieren, scannen, prüfen und aus der Draft-Inbox verarbeiten |
-| `PILLAR_CASES_RECORDS.md` | Vorgänge, Subvorgänge, Dokumente, Records/Nachweise, Versionen und Beziehungen |
+| `PILLAR_CASES_RECORDS.md` | eigenständige Vorgänge, typisierte Beziehungen, Unterlagen, Dokumente und Versionen |
+| `PILLAR_CONTRACTS_SUBSCRIPTIONS.md` | Verträge, Abos, wiederkehrende Rechnungen, Kündigungsfristen und schlanke Verläufe |
 | `PILLAR_TASKS_REMINDERS_QUICK_ACCESS.md` | Aufgaben, Fristen, Erinnerungen, Schnellzugriff |
 | `PILLAR_SEARCH_FACTS_INSIGHTS.md` | Suche, strukturierte Fakten, Claims, finanzielle und fachliche Auswertungen |
 | `PILLAR_EXPORT_SHARING_EXTERNAL_ACTIONS.md` | Export, Druck, Mail, externe App-/Website-Links, lokale Exportpakete |
-| `PILLAR_HOUSEHOLD_PROFILES_ACCESS.md` | Haushalt, Profile, Kinderprofile, Partnerzugriff und spätere Rechte |
+| `PILLAR_HOUSEHOLD_PROFILES_ACCESS.md` | verwaltete Personen/Organisationen, Haushalt, Kinderprofile, Partnerzugriff und spätere Rechte |
 
-Vorlagen, Checklisten und Workflow-Hilfen sind eine unterstützende Capability
-der Aufgaben-/Workflow-Säule, keine eigenständig releasbare Kernsäule. Das
-historische Dokument `PILLAR_TEMPLATES_WORKFLOWS.md` bleibt als Detailquelle.
+Vorlagen, Checklisten, Custom Cases und Workflow-Hilfen sind eine
+unterstützende Capability über Cases, Tasks und Länderpakete. Das Dokument
+`PILLAR_TEMPLATES_WORKFLOWS.md` bleibt ihre normative Detailquelle.
 
 ## Plattform-Säulen
 

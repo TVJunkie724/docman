@@ -162,7 +162,9 @@ Regeln:
 
 Verwendung:
 
-- Dokument mit Vorgang/Subvorgang verbinden.
+- Dokument mit einem oder mehreren Vorgängen und typisierten Beziehungen verbinden.
+- aus Auswahl einen verbundenen oder übergeordneten Custom Case erstellen.
+- verwaltete Person oder Organisation klar von externer Partei unterscheiden.
 - Rechnung mit Polizze oder Versicherung verknuepfen.
 - Nachweis mit Profilfact verbinden.
 - externen Link/App-Kontext hinterlegen.

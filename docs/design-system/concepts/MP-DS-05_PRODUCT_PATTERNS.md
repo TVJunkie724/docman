@@ -2,7 +2,7 @@
 title: "MP-DS-05 Product Patterns"
 description: "Normative composition patterns for Mappm product workflows"
 tags: [design-system, product-patterns, workflows, responsive]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 status: "active-draft"
 owner: "ui-concept"
 ---
@@ -33,7 +33,11 @@ Every product pattern must name:
 | Desktop shell/workbench | F22/F33, MP-DS-02 | active-draft |
 | Mobile capture companion | F17/F29/F33, Capture pillar | planned |
 | Draft Inbox review | F24/F27-F30/F34, Capture/Cases pillars | planned |
-| Document/Vorgang detail | F33-F35, Cases/Records pillar | planned |
+| Vorgang/Unterlage detail and Case composition | F33-F35/F37, Cases/Records pillar | accepted-direction; phase detail planned |
+| Contract/subscription detail and mini chart | F34/F37, Contracts/Subscriptions pillar | accepted-direction; phase detail planned |
+| Contextual review actions | F30/F34/F37, Capture/Intelligence pillars | accepted-direction; phase detail planned |
+| Managed person/organization context | F28/F33/F37, Profiles pillar | accepted-direction; business activation conditional |
+| Tasks/agenda/reminders | F18/F29/F34/F37, Tasks pillar | accepted-direction; calendar adapter later |
 | Search/list/filter | F33-F35, Search pillar | planned |
 | Settings/configuration | F13/F24/F35, Admin pillar | planned |
 | Account/Vault/Assist/backup/sync/conflict/migration/recovery | F18/F34-F36, Account/Cloud/Identity, Intelligence and Data pillars | active-baseline for Account/Vault/Assist lifecycle; remaining patterns planned |
@@ -45,3 +49,7 @@ Patterns require German copy, semantics, visible focus, text scaling, reduced
 motion and responsive evidence. Stop if a pattern is built from a mock alone,
 if mobile/desktop behavior is missing, or if backend/data policy is invented by
 the UI. Handoff to `ui-architect` only from an approved phase contract.
+
+Mappm patterns follow progressive disclosure: domain richness does not justify
+dashboard density. Empty financial sections, single-point charts, universal
+action walls and accounting-style subscription screens are prohibited.

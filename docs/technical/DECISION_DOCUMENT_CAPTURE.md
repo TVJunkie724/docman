@@ -2,7 +2,7 @@
 title: "Decision - Document Capture"
 description: "Entscheidung zur minimalen Dokument-Erfassung: Desktop-Dateiimport und Mobile Scan landen zuerst in der Draft-Inbox"
 tags: [decision, document-capture, draft-inbox, mobile-capture, desktop, milestones]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 status: "accepted"
 ---
 
@@ -35,7 +35,7 @@ in M2 ein Komfortpfad, aber nie die einzige sichere Ablage.
 Desktop Dateiimport oder Mobile Scan
   -> Draft-Inbox
   -> pruefen
-  -> betroffene Person setzen oder korrigieren
+  -> Managed Subject setzen oder korrigieren
   -> Metadaten ergaenzen
   -> Vorgang zuordnen oder Zuordnung korrigieren
   -> erledigt / abgelegt
@@ -52,7 +52,7 @@ Zielbild:
 - Drag & Drop.
 - PDF, JPG/JPEG und PNG vorbereiten.
 - Quelle als `desktop_import` oder vergleichbar speichern.
-- betroffene Person setzen oder später im Draft Review korrigieren.
+- Managed Subject setzen oder später im Draft Review korrigieren.
 - Datei sicher im lokalen File Store ablegen.
 - Draft-Inbox-Eintrag anlegen.
 
@@ -112,21 +112,23 @@ Nicht Teil dieser M2-Entscheidung:
 Der Import muss spätere Erweiterungen vorbereiten:
 
 - `source` / `origin` fuer Desktop, Mobile, spaeter Mail, Watch Folder, API oder OCR.
-- `profileId` / Profilbezug fuer Haushalts- und Kinderkontext.
+- `managedSubjectId` fuer Personen-/Organisationskontext; Legacy-`profileId`
+  wird nur an Adaptergrenzen gemappt.
 - Originaldatei und normalisierte/optimierte Dokumentversion trennen.
 - Draft-Status und Review-Zustand eindeutig modellieren.
 - spaetere OCR-/LLM-Vorschlaege als Vorschlaege, nicht als still fertige Zuordnung.
 - Export/Outbox bleibt ein separater Vorgangs- oder Dokument-Flow, nicht Teil der Draft-Inbox.
 
-## Haushalts- und Personenkontext
+## Managed-Subject-Kontext
 
 Draft Review muss langfristig Haushaltsprofile unterstützen.
 
 M2:
 
-- betroffene Person ist fuer den Review-Abschluss verpflichtend.
-- Personenzuordnung kann beim Review gesetzt oder korrigiert werden.
-- optionaler Vorgang/Subvorgang gehoert typischerweise zu dieser Person oder kann bewusst davon abweichen.
+- Managed Subject ist fuer den Review-Abschluss verpflichtend.
+- Personen-/Organisationszuordnung kann beim Review gesetzt oder korrigiert werden.
+- optionaler Vorgang/Record-/Claim-Kontext gehoert typischerweise zu diesem
+  verwalteten Profil oder kann bewusst davon abweichen.
 
 Spaeter:
 
@@ -135,19 +137,25 @@ Spaeter:
 - Partner-/Erwachsenenrechte.
 - Dokumente und Records mit mehreren betroffenen Profilen verknuepfen.
 
-## Subvorgänge aus Dokumenten
+## Vorgaenge aus Dokumenten und Auswahl
 
-In M2 darf ein Vorgang aus markierten Dokumenten einen neuen Subvorgang bilden.
+Aus markierten Dokumenten darf ein normaler verbundener Vorgang entstehen.
+Aus Dokumenten und bestehenden Vorgängen darf ebenfalls ein neuer
+übergeordneter Vorgang gebildet werden.
 
 Regeln:
 
 - Die Datei wird nicht dupliziert.
 - Das Dokument bleibt ein einzelnes Dokumentobjekt.
-- Der neue Subvorgang wird mit dem Hauptvorgang über `parentCaseId` verbunden.
-- Die ausgewählten Dokumente bekommen den Subvorgang als primäre Vorgangszuordnung.
-- Der Hauptvorgang zeigt den Subvorgang mit Dokumentanzahl, statt die Dokumente zwingend zusätzlich in der Hauptliste zu spiegeln.
+- Der neue Vorgang wird über einen typisierten `CaseLink` wie `part_of` oder
+  `caused_by` verbunden.
+- Dokumente behalten bestehende Links und erhalten zusätzliche
+  `DocumentCaseLink`-Rollen.
+- Ein bevorzugter Link darf die Navigation vereinfachen, ist aber nicht exklusiv.
+- Die Operation und ihre Beziehung sind ohne Datenverlust reversibel.
 
-Flexible Dokument-Mehrfachlinks mit Rollen wie `primary` und `context` bleiben ein geplanter Ausbau.
+Normative Details stehen in
+`DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`.
 
 ## Konsequenzen
 
@@ -155,7 +163,8 @@ Flexible Dokument-Mehrfachlinks mit Rollen wie `primary` und `context` bleiben e
 - Draft-Inbox ist der zentrale Sicherheitsanker fuer neue Dokumente.
 - Hash-basierte Duplikatwarnung ist M2-Teil; Details stehen in `DECISION_IMPORT_DUPLICATE_DETECTION.md`.
 - Der konkrete Desktop-Review-Workflow steht in `DECISION_DRAFT_INBOX_REVIEW_WORKFLOW.md`.
-- Subvorgänge sind in M2 vorgesehen, aber ohne Dokumentduplikation.
+- Case-Komposition ist vorgesehen, aber ohne separate Subcase-Entität oder
+  Dokumentduplikation.
 - F10, F17 und First Utility Scope bestaetigen diese Richtung bereits.
 - R4-Implementation muss Desktop-Dateiimport und Mobile-Scan-Handoff getrennt planen, aber beide in denselben Draft-Review-Flow führen.
 

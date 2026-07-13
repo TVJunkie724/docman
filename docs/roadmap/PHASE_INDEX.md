@@ -170,7 +170,7 @@ gebaut.
 | R4.5 Upload Limits and Retry | D32 umsetzen | `docs/roadmap/phases/R4_5_UPLOAD_LIMITS_RETRY_PLAN.md` |
 | R4.6 Cloud Capture Contract | Capture als OpenAPI/Microcks-Spec modellieren | mobile-capture-upload.openapi.yaml |
 | R4.7 Cloud Upload Slice | erster echter Capture Upload zur Local Development Cloud/Staging | CaptureUploadPort strategy |
-| R4.8 Cases/Subcases Core | Vorgänge und Subvorgänge nutzbar machen | Case UI/domain |
+| R4.8 Cases/Relations/Custom Core | eigenständige Vorgänge, typisierte Beziehungen, Custom Cases sowie Top-down-/Bottom-up-Komposition nutzbar machen | Case, CaseLink, DocumentCaseLink, multi-select composition UI/domain |
 | R4.9 Document/Record Metadata Core | D38/D39/D41 Dokument-Metadaten, betroffene Person, Validierung und Preview umsetzen | metadata, review validation, preview, pdfrx adapter |
 | R4.10 Tasks/Quick Access Core | Aufgaben, Fälligkeiten, Schnellzugriff | task overview, quick access |
 | R4.11 Search Core | lokale strukturierte Suche | SQLite/Drift/FTS5 adapter |
@@ -193,8 +193,8 @@ Ziel: Mappm reduziert manuelle Review-Arbeit und wird von einer Einzelperson-App
 | R5.2 Metadata Suggestions | C2/C3: Titel, Typ, Datum, Akteure, Betrag, Fälligkeit, Vorgang/Workflow und Tags vorschlagen | evidence/confidence suggestion model |
 | R5.3 Suggestion Review UX | C2/C3: Vorschlaege annehmen, korrigieren oder ablehnen | review, quota, opt-out/manual fallback interaction |
 | R5.4 Profile Data Classification | sensible Profildaten klassifizieren | profile data policy |
-| R5.5 Profile Domain Model | Profile/Kinder/Erwachsene modellieren | profile model |
-| R5.6 Profile-aware Objects | Cases, Docs, Tasks, Drafts profilbewusst machen | profile links |
+| R5.5 Managed Subject Domain Model | Personen, Kinder und vorbereitete Organisationsprofile modellieren | ManagedSubject, PersonProfile, OrganizationProfile |
+| R5.6 Subject-aware Objects | Cases, Docs, Tasks, Drafts personen-/organisationsbewusst machen | managed-subject links and private/business separation |
 | R5.7 Partner/Adult Management | gemeinsame Verwaltung vorbereiten | access model |
 | R5.8 Profile UX Gate | Profilwechsel und Korrekturen klar machen | UX validation |
 
@@ -240,8 +240,11 @@ Ziel: Dokumente werden strukturiert auswertbar.
 | R8.4 Validity and Deadlines | Gültigkeiten/Ablaufdaten/Fristen | validity facts |
 | R8.5 First Insights | erste Auswertungen | insights views |
 | R8.6 Facts QA Gate | Korrekturen, Tests, Datenschutz | facts gate |
-| R8.7 Workflow Catalog Foundation | generische, versionierte Definitionen und gepinnte Vorgangsinstanzen modellieren | catalog schema, validators, case/subcase/reference runtime, fixtures |
+| R8.7 Workflow Catalog Foundation | generische, versionierte Definitionen und gepinnte Vorgangsinstanzen modellieren | catalog schema, validators, step/branch/Claim/CaseLink runtime, fixtures |
 | R8.8 First Reviewed Country Pack | ausgewählte Golden Workflows für einen freigegebenen Rechtsraum publizieren | dated sources, applicability, localization, professional review, withdrawal/update ownership |
+| R8.9 Contracts and Subscriptions | Verträge/Abos, beliebige Abrechnungsintervalle, Invoice Matching, Kündigungsfristen und Reminder modellieren | contract/subscription Record, recurring invoice roles, workflow facts |
+| R8.10 Contextual Financial Summaries | bestätigte Financial Entries dedupliziert und schlank pro Case/Record darstellen | part_of roll-up, one-value row, accessible mini chart |
+| R8.11 Tax and Business Collection Foundation | länder- und subject-gebundene Unterlagensammlung ohne Buchhaltungs-/Steuerclaim vorbereiten | tax collection Case, period/jurisdiction model, business handoff/export boundary |
 
 ## R9 - Intelligence, OCR and Automation
 
@@ -255,7 +258,7 @@ Ziel: Mappm unterstützt beim Erkennen, Sortieren und Vorschlagen.
 | R9.4 Form Prefill | Formularfelder vorbereiten | prefill proposals |
 | R9.5 Review UX | Vorschläge pruefen/annehmen/verwerfen | review UI |
 | R9.6 AI Trust Gate | Privacy, Audit, Redaction, lokale Modelle pruefen | AI gate |
-| R9.7 Workflow Matching Suggestions | bestehende Vorgänge und anwendbare veröffentlichte Definitionen vorschlagen, aber keine Abläufe erfinden | ranked catalog matches, evidence, confidence, unsupported fallback |
+| R9.7 Context and Workflow Matching Suggestions | bestehende Vorgänge, Records/Abos, Managed Subjects und anwendbare veröffentlichte Definitionen vorschlagen, aber keine Abläufe/Lebensereignisse erfinden | ranked matches, evidence, confidence, unsupported fallback, undo |
 
 ## R10 - Compliance, Legal and Distribution Readiness
 
@@ -304,7 +307,7 @@ Ziel: externe Apps, Websites und Importpfade kontrolliert ausbauen.
 |---|---|---|
 | R13.1 External Link Catalog | Links strukturieren | link catalog |
 | R13.2 Mail and Print Outbox | Mail/Druck/Download | outbox |
-| R13.3 Calendar Integration | Reminder an Kalender anbinden | calendar adapter |
+| R13.3 Agenda and Calendar Integration | Mappm-Agenda konsolidieren und Reminder optional datenschutzsicher an externe Kalender anbinden | agenda model, consented calendar adapter, redacted titles |
 | R13.4 Portal Links | SV/Versicherung/Schule Links | portal actions |
 | R13.5 Import Channels | Mail/Watch Folder/API prüfen | import adapters |
 | R13.6 Credential Boundary Gate | keine unsicheren Fremd-Credentials | security review |

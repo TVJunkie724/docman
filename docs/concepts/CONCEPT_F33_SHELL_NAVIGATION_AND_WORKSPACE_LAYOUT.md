@@ -2,7 +2,7 @@
 title: "Konzept F33 - Shell, Navigation and Workspace Layout"
 description: "Mappm Detailkonzept fuer Product Shell, Desktop/Mobile Layout, Hauptbereiche, Navigation Controls, Tabs, Segments, Breadcrumbs und Command Rows"
 tags: [concept, frontend, design-system, shell, navigation, workspace, responsive, flutter]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 version: "1.0"
 status: "accepted"
 ---
@@ -31,7 +31,7 @@ Mappm startet in Arbeit, nicht in Landingpage oder Marketing.
 
 Die Shell soll:
 
-- direkten Zugang zu Eingang, Vorgaengen, Dokumenten, Aufgaben, Suche und
+- direkten Zugang zu Eingang, Vorgaengen, Unterlagen, Aufgaben/Agenda, Suche und
   Profilen geben.
 - Status nur zeigen, wenn Handlung noetig ist.
 - keine sensiblen Dokumentdetails global sichtbar machen.
@@ -42,8 +42,8 @@ Die Shell soll:
 | Bereich | Zweck | Typische Counts |
 |---|---|---|
 | Eingang | Draft Inbox, Upload Queue, letzte Korrekturen | Entwuerfe, Konflikte |
-| Vorgaenge | Vorgang/Subvorgang-Struktur, Beziehungen | offene Aufgaben, Fristen |
-| Dokumente | Dokumentliste, Records, persoenliche Unterlagen | Filterergebnisse |
+| Vorgaenge | eigenständige Cases, typisierte Beziehungen, Custom/Guided Workflows | offene Aufgaben, Fristen |
+| Unterlagen | Records/Nachweise, aktuelle/historische Dokumentversionen | Filterergebnisse, ablaufende Unterlagen |
 | Aufgaben | Todos, Fristen, Reminder | faellig/offen |
 | Suche | Cross-cutting Suche | keine dauerhaften Counts |
 | Profile | Haushalt, Personen, verwaltete Profile | selten Counts |
@@ -126,7 +126,7 @@ Regeln:
 
 Verwendung:
 
-- Vorgang/Subvorgang/Dokument-Hierarchie.
+- Vorgang/CaseLink/Unterlage/Dokument-Beziehungen ohne starren Dateibaum.
 - Beispiel: Autounfall 2026 / Krankenhaus / Arztbrief.
 
 Regeln:

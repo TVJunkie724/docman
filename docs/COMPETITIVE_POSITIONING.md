@@ -2,7 +2,7 @@
 title: "Mappm - Competitive Positioning"
 description: "Wettbewerbsanalyse und Positionierungsnotizen fuer Mappm als Local/Cloud-Dokumentenprodukt fuer Haushalte"
 tags: [product, strategy, competition, positioning, privacy, documents, intelligence]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 status: "working-note"
 ---
 
@@ -229,6 +229,94 @@ Luecken / Mappm-Chance:
   Review, betroffene Person, Frist, Claim, Nachweis, Aufgabe, Sharing,
   Backup und spaetere Assistenz.
 
+## Direktvergleich: fileee
+
+### Gepruefter Stand
+
+Geprueft am 2026-07-14 gegen die offiziellen Seiten:
+
+- [fileee Privatfunktionen](https://www.fileee.com/features-private)
+- [fileee Spaces](https://www.fileee.com/fileeespaces)
+- [fileee Businessfunktionen](https://www.fileee.com/features-business)
+
+Die oeffentlich beschriebenen Kernstaerken von fileee sind:
+
+- Scan und Import aus E-Mail-/Cloud-Quellen;
+- automatische Erkennung von Dokumenttyp, Absender, Datum, Betrag, IBAN und
+  Fristen;
+- automatische Benennung und Tags;
+- OCR-Volltextsuche;
+- Aufgaben und Push-/E-Mail-Erinnerungen aus Fristen sowie manuelle Tasks;
+- geraeteuebergreifender Cloud-Bestand;
+- Freigabe und Zusammenarbeit in `fileeeSpaces` mit Lese-/Schreibrechten,
+  Dokumenten, Aufgaben und Chat;
+- Business-Automationen und Exporte zu Buchhaltungsdiensten.
+
+Diese Funktionen sind keine optionalen Randideen fuer Mappm. Capture, OCR,
+Metadatenvorschlaege, Suche, Fristen/Tasks, sichere Cloud-Nutzung und spaetere
+kontrollierte Freigabe bilden die erwartbare Produktbasis, muessen bei Mappm
+aber in das eigene Trust-, Vault- und Review-Modell passen.
+
+### Spaces sind nicht Mappm-Vorgaenge
+
+Fileee beschreibt Spaces als bewusst benannte gemeinsame Bereiche, etwa fuer
+Steuererklaerung, Haushalt oder Reisekosten. Nutzer laden Personen ein, teilen
+Dokumente, vergeben Rechte, verteilen Aufgaben und koennen chatten. Das ist
+fachlich eine Sammlung/Freigabeflaeche und kann einen groben Anlass abbilden.
+
+Nach den geprueften oeffentlichen Produktseiten ist es jedoch nicht dasselbe
+wie Mappms Zielmodell eines Vorgangs mit:
+
+- eigenstaendigem Ziel, Lifecycle und Abschlusskriterium;
+- versioniertem, laender-/institutionsspezifischem Workflow;
+- Stages, Steps, parallelen/bedingten Branches und erwarteten Antworten;
+- strukturierten Claims/Submissions mit eigenen Status- und Erstattungsdaten;
+- typisierten Beziehungen zu anderen eigenstaendigen Cases;
+- gleichwertigen langlebigen Unterlagen/Records und Managed Subjects;
+- deduplizierten, kontextbezogenen Facts und naechsten Aufgaben.
+
+Das ist eine Produktinferenz aus der oeffentlichen Darstellung, keine Aussage
+ueber interne oder nicht beworbene fileee-Funktionen. Fileee Business nennt
+Automationen und Prozessfunktionen; Mappm differenziert sich deshalb nicht mit
+dem bloßen Wort `Workflow`, sondern mit privaten, nachvollziehbaren
+Lebensvorgaengen und deren fachlichem Modell.
+
+### Was Mappm uebernimmt
+
+- sehr schneller Scan/Import und eine sichere Review-Inbox;
+- automatische, korrigierbare Typ-/Absender-/Datums-/Betrags-/Fristerkennung;
+- starke Volltext- und spaeter semantische Enterprise-Suche;
+- automatische und manuelle Tasks/Reminder;
+- Dokumentfreigabe und adviser handoff in einer spaeteren kontrollierten
+  Sharing-Phase;
+- gute geräteuebergreifende Nutzbarkeit im Cloud Vault;
+- klare Datenschutz-, Verschluesselungs- und Account-Sicherheitsoberflaechen.
+
+### Was Mappm bewusst anders macht
+
+- Vorgang statt lange Dokumentliste/Tag-/Space-zentrierter Primaerorganisation;
+- Unterlagen/Records als eigener gleichwertiger Bereich statt alles als
+  einzelnes Dokument oder Sammlungsmitglied zu behandeln;
+- automatische Zuordnung zu bestaetigbaren Cases, Records, Claims, Branches,
+  Managed Subjects und ExternalParty-Kontakten;
+- konkrete naechste Schritte und Ergebnisverfolgung, nicht nur extrahierte
+  Fristerinnerungen;
+- kuratierte, versionierte Laender-/Institutionsvarianten mit manuellem Custom-
+  Case-Fallback;
+- typisierter Case-Graph und reversible Top-down-/Bottom-up-Komposition;
+- ausdrueckliche Local-/Cloud-Vault-Wahl mit verifiziertem Exit;
+- globale ergebniszentrierte Suche statt Chat/Messenger als primaere
+  Dokumentinteraktion;
+- schlanke kontextuelle Auswertungen statt Buchhaltungs- oder Dashboard-Scope.
+
+### Produktwarnung
+
+Mappm darf die Fileee-Basis nicht unterschätzen. Ein ausgefeilter Vorgangsgraph
+kompensiert keinen langsamen Scan, schlechte OCR, schwache Metadatenkorrektur,
+unzuverlaessliche Suche oder nervige Reminder. Die Differenzierung wird erst
+verkaufbar, wenn diese Basisqualitaet sitzt und der Case-Workflow nach dem
+Upload sofort weniger Arbeit erzeugt als eine manuelle Space-/Tag-Sortierung.
+
 ## Positionierung fuer Mappm
 
 Mappm sollte nicht als "noch ein DMS" und nicht als "noch ein Cloud Drive"
@@ -246,7 +334,7 @@ uebersetzen.
 Alternative Kurzform:
 
 ```text
-Private-first household document platform.
+Private document workflow platform with explicit Local/Cloud authority.
 ```
 
 Deutschsprachige Produktthese:

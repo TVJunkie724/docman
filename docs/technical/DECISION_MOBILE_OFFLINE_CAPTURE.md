@@ -2,7 +2,7 @@
 title: "Decision - Mobile Offline Capture"
 description: "Entscheidung zum Offline-Scope fuer Mobile Capture, lokale Queue, Kontext-Cache und Home-Hub-Unabhaengigkeit beim Scannen"
 tags: [decision, mobile, capture, offline, queue, home-hub, draft-inbox]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 status: "accepted"
 ---
 
@@ -64,7 +64,7 @@ gescannt.
 Nicht Teil dieser Entscheidung:
 
 - vollstaendige mobile Vorgangsverwaltung.
-- komplexe Subvorgangserstellung auf Mobile.
+- komplexe Case-Beziehungs- oder Kompositionsbearbeitung auf Mobile.
 - vollstaendige mobile Dokumentbibliothek.
 - vollstaendige mobile Suche.
 - Sync-Konfliktaufloesung auf Mobile.

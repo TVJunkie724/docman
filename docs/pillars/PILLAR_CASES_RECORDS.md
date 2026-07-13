@@ -1,13 +1,13 @@
 ---
-title: "Produkt-Säule - Vorgänge, Dokumente and Records"
-description: "Produktbereich fuer Vorgänge, Subvorgänge, Dokumente, Records/Nachweise, Versionierung, Profile und Zusammenhänge"
-tags: [pillar, cases, documents, records, versioning, profiles]
-lastUpdated: "2026-07-12"
-version: "0.3"
+title: "Produkt-Säule - Vorgänge, Unterlagen and Documents"
+description: "Produktbereich fuer eigenstaendige Vorgaenge, typisierte Beziehungen, Unterlagen/Records, Dokumente, Versionierung und verwaltete Profile"
+tags: [pillar, cases, case-links, documents, records, versioning, managed-subjects]
+lastUpdated: "2026-07-14"
+version: "0.4"
 status: "accepted-direction"
 ---
 
-# Produkt-Säule - Vorgänge, Dokumente and Records
+# Produkt-Säule - Vorgänge, Unterlagen and Documents
 
 ## Zweck
 
@@ -27,6 +27,8 @@ DocMan unterscheidet:
 - `DocumentFact`: strukturierte Aussage aus einem Dokument.
 - `CaseWorkflowInstance`: an eine konkrete kuratierte Workflow-Version
   gebundener Vorgangsablauf.
+- `CaseLink`: typisierte Beziehung zwischen eigenständigen Vorgängen; ein
+  Subvorgang ist die UI-Rolle eines `part_of`-Links.
 
 Der R4-M2 fuer Dokumente und Records ist in
 `docs/technical/DECISION_DOCUMENT_METADATA_PREVIEW.md` konkretisiert:
@@ -51,7 +53,7 @@ Viele Dokumente gehören zu einem Prozess, andere sind langlebige Nachweise:
 Langfristig darf ein Dokument in mehreren fachlichen Kontexten sichtbar sein,
 ohne dass die Datei kopiert wird. Beziehungen tragen die Bedeutung:
 
-- `DocumentCaseLink` fuer Vorgänge und Subvorgänge.
+- `DocumentCaseLink` fuer Vorgänge, Claims und Ablaufkontext.
 - `DocumentProfileLink` fuer Personen im Haushalt.
 - `DocumentFact` fuer auswertbare Inhalte.
 - `ExportJob` / `OutboxItem` fuer Ausgaben und Übergaben.
@@ -73,22 +75,18 @@ Typische Vorgänge:
 - Schulangelegenheit.
 - Reise.
 
-## Subvorgänge
+## Vorgangsbeziehungen und Ablaufzweige
 
-Subvorgänge sind Teil des schlanken M2-Slice.
+Alle Vorgänge sind eigenständige `Case`-Objekte. `part_of`, `caused_by`,
+`follow_up_to` und `related_to` beschreiben ihren Zusammenhang. Schritte,
+Aufgaben, Ereignisse, Claims und bedingte Ablaufzweige bleiben im selben
+Vorgang, solange sie demselben Nutzerziel und Gesamtergebnis dienen.
 
-Beispiele:
-
-- Hauptvorgang `Autounfall`
-- Subvorgang `Polizei`
-- Subvorgang `Werkstatt`
-- Subvorgang `Versicherung`
-- Subvorgang `Krankenhaus / Arzt`
-
-Dokumente werden nicht dupliziert. Eine primäre Zuordnung dient anfangs der
-Navigation; flexible Mehrfachrollen werden über `DocumentCaseLink` ergänzt.
-Unabhängige verwandte Vorgänge werden referenziert und nicht künstlich zu
-Subvorgängen gemacht.
+Polizei, Werkstatt, Versicherer oder Krankenhaus sind in einem Unfall nicht
+automatisch eigene Vorgänge. Ein formelles Verfahren oder eine längerfristige
+Behandlung kann bei eigenständigem Ziel als normaler verknüpfter Vorgang
+entstehen. Normative Regeln stehen in
+`docs/technical/DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`.
 
 ## Geführte Vorgänge
 
@@ -140,16 +138,18 @@ Schlanker M2-Slice:
 
 - Vorgang anlegen, bearbeiten, schließen.
 - Dokumente einem Vorgang zuordnen.
-- leere Subvorgänge erstellen.
-- aus ausgewählten Dokumenten einen Subvorgang bilden.
+- leere manuelle oder geführte Vorgänge erstellen.
+- aus ausgewählten Dokumenten einen verbundenen Vorgang bilden.
+- aus ausgewählten Dokumenten und Vorgängen einen neuen übergeordneten Vorgang
+  bilden.
 - betroffene Person / Haushaltsprofil als Pflichtzuordnung vorbereiten.
 - Dokumente ohne Vorgang erlauben.
 - Records/Nachweise konzeptionell vorbereiten.
-- Datenmodell nicht auf genau einen harten Dokument-Parent verengen.
+- Datenmodell nicht auf genau einen harten Dokument- oder Case-Parent verengen.
 
 Späterer Milestone:
 
-- volle flexible Mehrfachzuordnung mit Rollen.
+- volle flexible Mehrfachzuordnung mit Rollen und reversible Case-Komposition.
 - generische Workflow-Instanzen und kuratierte Länder-/Institutionspakete.
 - automatische Statusübergänge.
 - vollständige Haushaltsrechte.
@@ -169,8 +169,8 @@ Späterer Milestone:
 
 ## Offene Folgefragen
 
-- Wie heißt `Record` final in der deutschen UI?
-- Welche Vorgangstypen sind im M2 fest sichtbar?
+- Welche Golden Workflows und Custom-Case-Einstiege sind in Commercial 1.0
+  sichtbar?
 - Welche Dokumentrollen brauchen wir zuerst nach dem M2?
 - WF-01/WF-02: Welche Startmärkte/Golden Workflows und welche fachlichen
   Review-/Haftungsowner werden freigegeben?

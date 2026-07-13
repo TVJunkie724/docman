@@ -2,8 +2,8 @@
 title: "Produkt-Säule - Search, Facts and Insights"
 description: "Produktbereich fuer strukturierte Suche, Dokumentfakten, Claims, Finanzdaten, Gültigkeiten und Auswertungen"
 tags: [pillar, search, facts, insights, analytics, claims, finance]
-lastUpdated: "2026-07-12"
-version: "0.3"
+lastUpdated: "2026-07-14"
+version: "0.4"
 status: "accepted"
 ---
 
@@ -26,6 +26,11 @@ DocMan soll später beantworten können:
 
 M2-nahe Suche beginnt strukturiert und lokal.
 
+Die Produktoberfläche beginnt mit einem globalen, ruhigen Suchfeld und
+ergebniszentrierten Treffern. Sie ist kein Chat, Messenger oder KI-
+Gesprächsverlauf. Spätere natürliche Sprache darf die Query unterstützen, muss
+aber Treffer, Filter, Match-Gründe und direkte Aktionen liefern.
+
 Die akzeptierte Technologieentscheidung steht in `docs/technical/DECISION_SEARCH_TECHNOLOGY.md`.
 
 M2-Technologie:
@@ -39,10 +44,12 @@ Suchbare Felder:
 - Titel.
 - Dokumenttyp.
 - Vorgang.
-- Subvorgang.
+- Case-Beziehungen und Workflow-Zweige.
 - Profil.
 - Datum.
 - Anbieter/Gegenpartei.
+- ExternalParty-Kontakte einschließlich Name, Adresse, E-Mail, Telefonnummer
+  und Alias, soweit bestätigt und für den aktiven Managed Subject sichtbar.
 - Betrag, falls manuell gepflegt.
 - Status.
 - Tags.
@@ -92,13 +99,26 @@ Der Arzt-/Versicherungsworkflow ist ein wichtiger erster Vertical, aber das Mode
 
 ## Insights
 
-Insights entstehen aus geprüften Facts:
+Insights entstehen ausschließlich aus bestätigten Facts. Jeder Case kann
+Financial Entries referenzieren, aber die UI zeigt keine leere globale
+Auswertungsfläche.
 
 - Ausgaben pro Anbieter, Zeitraum, Kategorie und Profil.
 - Arztkosten brutto/netto.
 - Versicherungsprämien und erhaltene Leistungen.
 - offene und abgelehnte Claims.
 - auslaufende Verträge und Nachweise.
+
+Kontextregeln:
+
+- ein Betrag: eine ruhige Summenzeile, kein Diagramm.
+- mehrere vergleichbare Perioden: optional ein kleines Diagramm.
+- `part_of`: bestätigte Financial Entries rollen dedupliziert zum Parent hoch.
+- `caused_by`, `follow_up_to`, `related_to`: kein automatischer Finanz-Roll-up.
+- Erstattung: Rechnung, Erstattungen und Eigenanteil statt generischer Umsatz.
+- Abo: Rechnungsverlauf statt Accounting-Dashboard.
+- Steuer-Unterlagensammlung: Kandidaten/bestätigte Belege ohne
+  Absetzbarkeitsclaim.
 
 R8-D3 priorisiert drei erste Auswertungsarten:
 
@@ -131,7 +151,7 @@ Späterer Milestone:
 - automatische Fact-Extraktion.
 - große Dashboards.
 - Bankimport.
-- Steuer- oder Buchhaltungsprodukt.
+- Buchhaltung, Steuerberechnung oder verbindliche Steuerberatung.
 
 ## Abgrenzung
 
@@ -141,11 +161,16 @@ Späterer Milestone:
 - Tasks/Reminder nutzen Facts als Quelle, bleiben aber eigene Produkt-Säule.
 - Erste Insights sind in `docs/technical/DECISION_FIRST_INSIGHTS_VERTICALS.md`
   entschieden.
+- Finanz-Roll-ups folgen
+  `docs/technical/DECISION_CONTEXTUAL_REVIEW_ACTIONS_FINANCIAL_ROLLUPS.md`.
+- Länderspezifische Steuer-Unterlagensammlung folgt
+  `docs/technical/DECISION_JURISDICTIONAL_TAX_DOCUMENT_COLLECTION.md`.
 
 ## Offene Folgefragen
 
 - Welche Ranking-/Sortierregeln braucht die M2-Suche zuerst?
-- Welche Dashboard-UI braucht R8 zuerst?
+- Welcher kontextuelle Insight wird nach Claims/Erstattungen, laufenden
+  Kosten/Fristen und bestätigten Case-Zusammenfassungen zuerst aktiviert?
 
 ## Enterprise Quality Contract
 

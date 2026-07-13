@@ -98,6 +98,27 @@ Presentation -> Domain -> Data
   work; Advanced Assist, sharing and broader automation remain later.
 - Cloud timing and cryptographic trust model remain explicit decision gates;
   implementation must not silently choose them.
+- The process model has one `Case` entity. `Subvorgang` is only a UI role for
+  `CaseLink(part_of)`; the target is a typed graph, not a folder tree or a
+  separate Subcase model.
+- Workflow stage, step, task, event, branch and Claim remain inside a Case until
+  work gains its own independently understandable goal, lifecycle and outcome.
+- Guided, Assist-suggested and manual/Custom Cases use the same capabilities.
+  Users can compose a parent/linked Case from selected documents, Records,
+  tasks and Cases without copying or deleting content.
+- `Vorgänge` and `Unterlagen` are equal primary product areas. Unterlagen are
+  durable Records such as passports, birth certificates, contracts, policies
+  and warranties; documents/files are their evidence or versions.
+- Contracts/subscriptions are calm Record contexts with recurring invoices,
+  tasks and an optional minimal confirmed-value chart. Do not build an
+  accounting dashboard.
+- Managed subjects include people and, when release scope permits,
+  organizations. External providers/issuers are ExternalParty, not managed
+  organization profiles.
+- Tax collection is country-/regime-/period-specific review support only. UI
+  must not claim deductibility, calculate tax, provide advice or file returns.
+- Agenda is a focused tasks/deadlines/appointments/expected-responses view,
+  not a general calendar; external calendar sync remains opt-in and later.
 
 GitHub Issues are the source of truth for actionable follow-up work. Accepted decisions stay in `docs/technical/DECISION_*.md`.
 

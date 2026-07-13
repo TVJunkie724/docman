@@ -31,6 +31,13 @@ Read first:
   the plan explicitly says so.
 - No `print()`, TODO/FIXME/HACK, commented-out code, or debug-only behavior in
   production paths.
+- For F37 work, preserve one `Case` type, typed non-owning Case links,
+  Custom/Guided parity, distinct Records/Documents/Claims and reversible
+  composition exactly as planned. Never add a Subcase entity or strict tree as
+  a convenience implementation.
+- Do not display unconfirmed financial/tax suggestions as facts, empty insight
+  sections, single-value charts or automatic roll-ups outside approved
+  `part_of` relationships.
 
 ## Workflow
 

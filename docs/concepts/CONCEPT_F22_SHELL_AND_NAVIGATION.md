@@ -59,8 +59,8 @@ Arbeitsbereiche:
 | Bereich | Zweck |
 |---|---|
 | Eingang | Draft Inbox, mobile Uploads, Importqueue, letzte Korrekturen. |
-| Vorgaenge | Case-/Subcase-Arbeit, Zusammenhaenge, Dokumentgruppen. |
-| Dokumente | Dokumentliste, Records, Nachweise, Sucheinstieg. |
+| Vorgaenge | Eigenstaendige Cases, Workflow-Fortschritt, typisierte Beziehungen und Custom-Komposition. |
+| Unterlagen | Langlebige Records/Nachweise, Versionen, Vertraege, Polizzen und zugehoerige Dokumente. |
 | Aufgaben | To-dos, Fristen, Reminder, offene Aktionen. |
 | Suche | Cross-cutting Suche nach Dokumenten, Vorgaengen, Facts. |
 | Profile | Haushalt, Personen, verwaltete Profile, spaetere Zugriffe. |
@@ -83,7 +83,7 @@ Controls:
 | Sidebar Item | Hauptnavigation. |
 | FilterTab | Listen-Filter mit Count, z. B. Entwuerfe/Zuletzt/Konflikte. |
 | Segment | Moduswechsel, wenn Auswahl fachlich relevant ist. |
-| Breadcrumb | Vorgang/Subvorgang/Dokument-Hierarchie. |
+| Breadcrumb | Aktueller Vorgangs-/Unterlagenkontext und primaerer Anzeigeweg; Case-Links bleiben ein Graph, keine feste Ordnerhierarchie. |
 | Command Row | Kontextnahe Aktionen wie Oeffnen, Exportieren, Drucken. |
 
 Flutter-Referenz:

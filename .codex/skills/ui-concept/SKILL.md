@@ -93,8 +93,20 @@ Before broad production UI implementation, planning must cover:
 - capture/review UX: mobile capture, desktop import, draft inbox, document
   review, preview, assignment, duplicate warning.
 - documents/cases/records UX: documents, Vorgänge, Unterlagen/Nachweise,
-  relationships, versions, search.
-- tasks/facts/insights UX: reminders, claims, facts, deadlines, quick access.
+  one-Case typed relationships, Custom/Guided parity, top-down/bottom-up
+  composition, versions, search.
+- contracts/subscriptions UX: durable Record context, recurring-invoice match,
+  cadence, relevant tasks/reminders and a slim accessible confirmed-value
+  history without accounting-dashboard scope.
+- tasks/facts/insights UX: focused Agenda, quiet/notifying reminders, claims,
+  facts, deadlines, quick access, contextual financial sections and
+  deduplicated eligible `part_of` roll-ups.
+- managed-subject UX: people and conditionally organizations share management
+  interactions, while account identity, grants and external parties remain
+  distinguishable and private/business contexts never mix silently.
+- jurisdictional collection UX: country, subject, regime, period and cadence
+  are explicit; tax candidates remain reviewable and never imply
+  deductibility, calculation, advice or filing.
 - security/privacy/support UX: Local export/restore, Cloud backup/sync,
   cancellation/read-only, Cloud-to-Local migration, deletion, sharing,
   diagnostics, redaction, legal/privacy/store readiness.
@@ -249,3 +261,9 @@ Priority:
 - Planning API states without error/privacy/reference-code behavior.
 - Planning only desktop for production screens.
 - Creating mixed frontend/backend implementation work.
+- Treating workflow steps, branches, Claims, senders or institutions as
+  separate Cases without the independent goal/lifecycle/outcome test.
+- Introducing a separate Subcase UI/domain type or a strict Case folder tree.
+- Giving manual/Custom Cases fewer capabilities than Guided Cases.
+- Showing empty financial modules, unconfirmed values as truth, charts for a
+  single value, or automatic financial roll-up across non-`part_of` relations.

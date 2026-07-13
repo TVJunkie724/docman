@@ -168,7 +168,7 @@ Quelle:
 Ziel:
 
 - DocMan `docs/design-system/concepts/MP-DS-*.md`
-- bestehende DocMan F19-F35 als Uebergangs- oder Detailkonzepte, bis klar ist,
+- bestehende DocMan F19-F37 als Uebergangs- oder Detailkonzepte, bis klar ist,
   was in MP-DS gehoert.
 
 Zu migrieren/adaptieren:

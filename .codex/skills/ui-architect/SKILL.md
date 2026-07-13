@@ -41,6 +41,19 @@ UI or state behavior, the plan is not precise enough.
   implement Domain contracts.
 - Desktop is primary; mobile is mandatory for production screens.
 - Use ASCII diagrams, not Mermaid.
+- For Case work, preserve one `Case` type and typed `CaseLink` relationships.
+  Do not invent a Subcase entity, strict tree, cascade behavior or exclusive
+  document ownership.
+- Preserve Custom/Guided Case capability parity and reversible composition from
+  selections without copying content.
+- Keep Vorgang, Unterlage/Record, Document/File, workflow branch, Claim, task,
+  Person/Organization ManagedSubject and ExternalParty visually and
+  semantically distinguishable.
+- Use progressive disclosure for contextual review actions. Financial sections
+  are absent without confirmed values; charts require multiple comparable
+  values and accessible tap/focus equivalents. Do not design accounting UI.
+- Country-specific workflow, cancellation and tax policy must come from an
+  approved decision/pack; return missing policy to `ui-concept`.
 
 ## Required Plan Template
 
@@ -150,6 +163,10 @@ Before submitting a plan, verify:
 - test cases include exact expected values and negative paths.
 - accessibility, reduced motion, localization, privacy, diagnostics are covered.
 - no TODO/TBD/placeholders remain.
+- Case boundaries, relation direction, link undo and roll-up eligibility are
+  explicit wherever affected.
+- manual/Custom, guided and Assist-suggested variants share the same feature
+  contract unless an approved decision says otherwise.
 
 Ask for review and do not proceed to implementation until the user approves the
 plan explicitly.

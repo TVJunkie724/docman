@@ -2,7 +2,7 @@
 title: "Mappm - Open Questions Register"
 description: "Open product, compliance, roadmap and implementation questions found during playbook reconciliation"
 tags: [discovery, questions, blockers, playbook]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 status: "active"
 owner: "product-concept"
 ---
@@ -29,6 +29,8 @@ owner: "product-concept"
 | VC-08 | Welcher Mappm Identity Provider sowie welche Verifikations-, MFA/Passkey-, Offline-Session-, Recovery-Proof-, Reattachment- und Account/Household-Binding-Policy gelten? | security/product/identity | open-blocking | account/device sessions for all normal modes and support recovery | before account/device implementation |
 | WF-01 | Welche Länder, Regionen und Golden-Workflow-Familien werden für Commercial 1.0 fachlich unterstützt und beworben? | product/domain/commercial | open-blocking-for-workflow-claims | country-pack scope, fixtures, localization, marketing and release evidence | before approving C0 scope or any country-specific workflow phase |
 | WF-02 | Wer owns, prüft und haftet für fachliche Workflow-Inhalte, Quellen, Änderungsbeobachtung, Withdrawal und Incident-Korrekturen je Rechtsraum? | product/legal/compliance/domain | open-blocking-for-workflow-claims | catalog publication and maintenance operating model | before publishing the first reviewed workflow pack |
+| OQ-009 | Sind verwaltete Organisationen und getrennte Business-Kontexte Bestandteil von Commercial 1.0 oder ein spaeteres aktiviertes Produktpaket? | product/commercial/compliance | open-blocking-for-business-scope | C0/C3 scope, R5 managed-subject UX, business retention/export/support claims | before approving C0 scope or any OrganizationProfile implementation phase |
+| OQ-010 | Welche Steuer-Rechtsraeume, Subjekttypen, Veranlagungsarten und Sammelintervalle werden zuerst fachlich geprueft und aktiviert? | product/legal/domain/compliance | open-blocking-for-tax-claims | tax collection packs, wording, fixtures, review actions and release claims | before R8.11 or publication of any tax collection pack |
 
 ## Rules
 

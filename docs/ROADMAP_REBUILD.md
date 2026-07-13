@@ -2,8 +2,8 @@
 title: "Mappm - Commercial Core Roadmap"
 description: "Verbindliche Roadmap vom Spike zu einer verkaufbaren Local/Cloud-Vault-Applikation"
 tags: [roadmap, commercial-core, vault, cloud, product, planning]
-lastUpdated: "2026-07-12"
-version: "2.0"
+lastUpdated: "2026-07-14"
+version: "2.1"
 status: "accepted-rebaseline"
 ---
 
@@ -41,7 +41,7 @@ Recovery. Nicht enthaltene Funktionen werden nicht halb implementiert.
 | C0 Product and Trust Contract | Commercial-Core-Scope, Vault-Modi, Cloud-Timing, Trust-/Key-/Identity-Modell, Pläne, Retention und Workflow-Coverage entschieden | VC-01 bis VC-08 sowie WF-01/WF-02 geschlossen oder explizit später blockierend terminiert |
 | C1 Vault, Account and Provider Foundation | Clean Architecture, account/device/offline entitlement for every normal mode, selected Local/Cloud providers, Secure Storage and migration/recovery state | Local/Cloud/account/entitlement/recovery fakes grün; keine Legacy-Authority-Leaks; applicable VC gates closed |
 | C2 Capture, Core Assist and Draft Review Vertical | import/capture produces safe drafts; Core Assist queues OCR/classification/actor/fact suggestions for review; mobile-to-desktop handoff only when Cloud is activated | Free/Paid Local and Cloud happy/unhappy/offline/quota/restart/a11y/privacy gates grün; processing never changes authority |
-| C3 Document Core, Guided Cases, Search and Tasks | Vorgänge, Subvorgänge/Referenzen, Dokumente, Assist Review, Suche, Aufgaben und Quick Access bilden den verkaufbaren Kern | vollständige Kernflows, manual fallback, search indexing and Mehrfachbeziehungen grün; keine Länder-Workflow-Claims ohne aktiviertes geprüftes Pack |
+| C3 Document Core, Guided/Custom Cases, Search and Tasks | eigenständige Vorgänge, typisierte Beziehungen, gleichwertige Unterlagen, Assist Review, Suche, Aufgaben und Quick Access bilden den verkaufbaren Kern | vollständige Kernflows, Custom fallback, Top-down/Bottom-up-Komposition, search indexing und Mehrfachbeziehungen grün; keine Länder-Workflow-Claims ohne aktiviertes geprüftes Pack |
 | C4 Lifecycle and Commercial Safety | Local backup/export/restore always; Cloud backup, both provider migrations, cancellation/grace, reactivation and deletion when Cloud is activated | all applicable restore/migration drills and entitlement matrix grün; non-applicable rows explicitly recorded |
 | C5 Compliance, Operations and Release | CI/CD, Signing, Updates, Observability, Incident/Support, Store/Legal/Regulatory Gates sowie Katalog-Update-/Withdrawal-Governance | Release Candidate reproduzierbar; jedes aktivierte Länder-/Workflow-Pack datiert freigegeben |
 | C6 Closed Beta | synthetische und genehmigte Beta-Daten, Support-/Rollback-Prozess, SLO-Evidence | keine offenen P0/P1; Exit-/Recovery-Flows bestätigt |
@@ -130,7 +130,7 @@ Kurzform:
 
 | Gruppe | Säulen |
 |---|---|
-| Produkt | Capture & Inbox; Vorgänge/Dokumente/Records; Tasks/Reminders/Quick Access; Search/Facts/Insights; Export/External Actions; Household Profiles/Access; Templates/Workflows |
+| Produkt | Capture & Inbox; Vorgänge/Unterlagen/Dokumente; Verträge/Abos; Tasks/Agenda/Quick Access; Search/Facts/Insights; Export/External Actions; Managed Profiles/Access; Templates/Workflows |
 | Plattform | Home Hub & Sync; Intelligence & Automation; Admin/Settings/Storage Health |
 | Enterprise/Governance | QA; Observability/Runtime; Security/Privacy; Compliance/Legal; Release/Distribution; Data Lifecycle; Developer Experience; Design System/UX; Support/Diagnostics; Compatibility/Platform Support; Integration Governance |
 
@@ -204,13 +204,13 @@ Details und Subphasen stehen in `docs/roadmap/PHASE_INDEX.md` und
 | D15 | Codegen Artifact Policy | accepted | DX/Governance, Release | R3: generierte Dart-Artefakte nicht committen; Bootstrap/Codegen/Verify erzwingen | R10/R12: Release-/CI-/Audit-Governance fuer reproduzierbare Builds |
 | D16 | Milestone Quality Gates | accepted | QA, Release, DX | R3/R4: Local Change Gate, R3 Foundation Gate, M2 Readiness Gate | R10-R12: Release-, Distribution-, Support- und Governance-Gates |
 | D17 | DMS Target Architecture | accepted | Cases/Records, Search/Facts, Data Lifecycle | R0/R4: M2 verbaut Dokumente, Records, Versionen, Beziehungen und Facts nicht | R8/R11/R14: Facts/Claims, Versionierung, Retention, lokale Exportpakete, Recovery |
-| D18 | Case, Document, Record and Facts Model | accepted | Cases/Records, Search/Facts, Tasks | R4: Vorgänge, Subvorgänge, Dokumente, Record-aware Metadaten, einfache Facts vorbereitet | R8/R9/R14: flexible Mehrfachbeziehungen, Claims, Financial Entries, AI-Vorschlaege, Exportpakete |
+| D18 | Case, Document, Record and Facts Model | accepted-rebaseline | Cases/Records, Search/Facts, Tasks | R4/C3: ein Case-Typ, CaseLinks, Custom Cases, gleichwertige Unterlagen und Dokumentlinks | R8/R9/R14: Workflow-Zweige, Claims, deduplizierte Financial Entries, AI-Vorschlaege, Exportpakete |
 | D19 | Document Capture | accepted | Capture & Inbox, Cases/Records | R4/M2: Desktop Import und Mobile Scan landen zuerst in Draft-Inbox | R7/R9/R13: Batch Scan, OCR/AI-Vorschlaege, Mail/Watch-Folder/weitere Importpfade |
 | D20 | Mobile Scanner Technology | provisional | Capture, Compatibility, QA | R4: native Plattform-Scanner als Favorit; Spike vor finaler Bridge-Auswahl | R7/R10/R12: Plattformparitaet, Store-/Permission-Pruefung, Supportmatrix |
 | D21 | Mobile Capture Upload Strategy | accepted | Capture, Home Hub/Sync, Security, Data Lifecycle | R4: API-proxied Upload erlaubt, stabiler Upload-Port, Idempotency und Retry ganzer Uploads | R6/R11/R15: presigned/resumable, multipart, quotas, cleanup, integrity, E2EE-ready payloads |
 | D22 | Auth and Pairing | accepted | Home Hub/Sync, Security, Mobile | R2/R4: QR Pairing primaer, manueller Code als Fallback, Token in Secure Storage | R6/R10/R14: Device Management, Identity Provider Boundary, kein externer App-Zugriff |
 | D23 | Local Login | accepted | Security, Profiles, UX | R4/M2: kein Desktop-Login; lokales Geraet, explizite betroffene Person und Pairing genuegen | R5/R6/R10: Profile, Partnerzugriff, Identity Provider und Distribution-Anforderungen |
-| D24 | Household Profiles and Access | accepted | Profiles, Security, Compliance | R4/M2: ein Haushalt; betroffene Person je Dokument/Draft verpflichtend, ohne Default-Annahme | R5/R6/R14: Kinderprofile, Partnerzugriff, Rechte, lokaler Export ohne externen App-Zugriff |
+| D24 | Managed Subject Profiles and Access | accepted-rebaseline | Profiles, Security, Compliance | R4/C3: betroffene Person; Organisationsprofil im Zielmodell ohne eigenen Login | R5/R6/R14: Kinder-/Organisationsprofile, Partnerzugriff, Rechte, Privat-/Business-Trennung |
 | D25 | Privacy and Sync Scope | accepted | Security, Home Hub/Sync, Compliance | R2/R4: private Home-Hub-Umgebung, sensible Datenklassen, Secrets getrennt | R6/R10/R11/R15: Sync Privacy, E2EE-/Zero-Knowledge-Faehigkeit, Backup/Restore, Cloud-artige Varianten |
 | D26 | Security and Privacy Model | accepted | Security, Compliance, Data Lifecycle | R2/R3/R4: Security-by-Design, Secure Storage, log-sparsam, Trust Boundaries | R6/R9/R10/R11/R14: Sync, AI/OCR, DSGVO, Backup, lokaler Export, Redaction |
 | D27 | Workflow Rules | accepted | Templates/Workflows, Tasks, UX | R4: Workflows fuehren ueber Tasks/Statusvorschlaege, keine harten Kaefige | R8/R9/R13/R14: Claims, AI-Vorschlaege, externe Aktionsketten, geteilte Verantwortlichkeiten |
@@ -220,7 +220,7 @@ Details und Subphasen stehen in `docs/roadmap/PHASE_INDEX.md` und
 | D31 | Tasks, Reminders and Quick Access | bundled | Tasks/Reminders, UX, Observability | R4: Aufgaben, Fälligkeiten, Schnellzugriff, Reminder-Daten ohne komplexe Push-Infrastruktur | R7/R8/R13/R14: mobile Reminder, Facts/Claims-Reminder, Kalender, geteilte Aufgaben |
 | D32 | Upload Limits, Retry, Resume and Cleanup | accepted | Capture, Home Hub/Sync, Data Lifecycle, Observability | R4: kein Chunking/Resume, Retry ganzer Uploads, 25 Seiten/50 MB Startlimit, SHA-256, Idempotency, lokale Queue | R6/R11: resumable/multipart, serverseitiges Cleanup, quotas, metrics, integrity |
 | D33 | Home Hub Capture Contract | accepted | Home Hub/Sync, Capture, QA, Security | R4: OpenAPI/Microcks 3-Step Contract initiate/upload/confirm, Idempotency, Checksums, invalid-context fallback | R6/R11: presigned/resumable, richer status, quotas, server verification |
-| D34 | Mobile Capture Context Selection | accepted | Capture, Cases, Profiles, UX | R4/M2: betroffene Person/Vorgang/Notiz optional mitsenden, Draft-Inbox bleibt Fallback, keine mobile Vollverwaltung | R5/R7: Profile, mobile Review, Subvorgänge, Mehrfachzuordnung, bessere Suche |
+| D34 | Mobile Capture Context Selection | accepted | Capture, Cases, Profiles, UX | R4/M2: betroffene Person/Vorgang/Notiz optional mitsenden, Draft-Inbox bleibt Fallback, keine mobile Vollverwaltung | R5/R7: Managed Profiles, mobile Review, Case-Beziehungen, Mehrfachzuordnung, bessere Suche |
 | D35 | Draft Inbox Review Workflow | accepted | Capture, Cases, UX, Data Lifecycle | R4: Entwürfe plus letzte 10 "zuletzt verarbeitet", schnelle Korrektur, Reopen in Entwürfe | R7/R9/R13: mobile Review, OCR/AI-Vorschläge, weitere Importpfade |
 | D36 | Desktop Import Scope | accepted | Capture, UX, Data Lifecycle, DX | R4: File Picker und Drag & Drop fuer PDF/JPG/PNG hinter Import-Strategy-Port | R7/R13: Combine, Watch Folder, Mail/Share Import, weitere Formate |
 | D37 | Import Duplicate Detection | accepted | Capture, Data Lifecycle, UX | R4: Hash-basierte Warnung mit Optionen "Bestehendes öffnen", "Beide behalten", "Abbrechen" | R8/R11: Versionierung, Aehnlichkeit, Cleanup, Repair |
@@ -230,6 +230,12 @@ Details und Subphasen stehen in `docs/roadmap/PHASE_INDEX.md` und
 | D41 | Review Completion Validation | accepted | Capture & Inbox, Cases/Records, Profiles, UX | R4/M2: Review-Abschluss blockiert bei fehlender Datei, fehlender betroffener Person, Titel, Dokumenttyp oder harten Review-Konflikten | R5/R8/R9: Profilregeln, Facts, OCR/AI-Hinweise und komplexere Validierung |
 | D42 | Trust, Encryption and Deployment Model | accepted | Security, Home Hub/Sync, Intelligence, Profiles, Release | R2/R4: Data-/Processing-/Identity-Ports so schneiden, dass Local-only, Home Hub und Managed Cloud nicht verbaut werden | R6/R9/R10/R11/R14/R15: E2EE-/Zero-Knowledge-faehiger Sync, Backup, Sharing, Managed Intelligence, eIDAS/EUDI/ID-Austria-Provider |
 | D43 | Backend Contract-First Architecture | draft | Home Hub/Sync, QA, DX, Security | R3/R4: API-Slices contract-first ueber OpenAPI/Microcks planen; UI haengt an Domain-Ports und Data-Adaptern, nicht an ASP.NET Core | R6/R9/R11/R15: ASP.NET-Core-Backend, Worker, Sync, Backup, Processing und Managed-Betriebsformen gegen dieselben Contracts erweitern |
+| D44 | Case Relationships and Workflow Composition | accepted | Cases/Records, Templates/Workflows, Capture, UX | C3/R4: ein Case-Typ, Step/Branch/Claim, CaseLink, Custom Cases, reversible Komposition | R8/R9/R14: Katalogruntime, Assist Matching, Sharing/Permissions |
+| D45 | Recurring Contracts and Subscriptions | accepted | Contracts/Subscriptions, Tasks, Search/Facts | C3/R8: Vertrags-/Abo-Kontext, beliebige Perioden, Invoice Matching, Fristen | R8/R9/R13: schlanker Verlauf, Assist Routing, Notifications |
+| D46 | Managed Subjects and Business Contexts | accepted-direction | Managed Profiles, Security, Compliance | C3/R5: Personen-/Organisationstyp im Zielmodell, kein eigener Login nötig | R8/R10/R14: Steuer-/Business-Collection, Länderprüfung, mehrere Manager |
+| D47 | Jurisdictional Tax Document Collection | accepted-direction | Templates/Workflows, Search/Facts, Compliance | R8: periodisierte, ländergebundene Sammlung und Exportgrenze | spätere geprüfte Tax Packs; keine Buchhaltung/Steuerberatung ohne neue Entscheidung |
+| D48 | Contextual Review Actions and Financial Roll-ups | accepted | Capture, Search/Facts, UX | C2/C3/R8: wenige kontextuelle Aktionen, bestätigte deduplizierte Summen | R8/R9: part_of-Roll-up und barrierearme Mini-Charts |
+| D49 | Initial Case and Workflow Family Catalog | accepted-direction | Cases/Records, Templates/Workflows, Product | C0/C3: konkret definierte Cases, Record-Kontexte, Custom Cases und Nicht-Cases eindeutig | WF-01/WF-02: Release-Subset und Laendervarianten |
 
 ## 4. Phase R0 - Produkt- und Architekturentscheidungen
 
@@ -454,8 +460,10 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 - Betroffene Person / Haushaltsprofil je Dokument-Draft verpflichtend setzen.
 - Personen-/Profilzuordnung fuer Vorgänge, Dokumente und Drafts vorbereiten.
 - Vorgänge anlegen, bearbeiten, schließen.
-- Subvorgänge in einem Hauptvorgang anlegen.
-- Aus markierten Dokumenten eines Vorgangs einen Subvorgang bilden.
+- normale Vorgänge über typisierte Beziehungen verbinden.
+- aus markierten Dokumenten einen verbundenen Vorgang bilden.
+- aus Dokumenten und bestehenden Vorgängen einen übergeordneten Vorgang bilden.
+- Custom Cases ohne veröffentlichtes Template vollwertig unterstützen.
 - Dokumente als Drafts erfassen.
 - Drafts einem Vorgang zuordnen.
 - Aufgabenübersicht und einfache Aufgaben mit Fälligkeitsdatum.
@@ -492,7 +500,7 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 | R4-D3 | Welche Suchtechnologie und Suchfelder sind fuer M2 relevant? | Entschieden: Search-Boundary mit lokalem SQLite/Drift/FTS5-Adapter; strukturierte Metadaten in M2, OCR-/semantische Suche später |
 | R4-D4 | Wie wird Mobile mit dem Home Hub gekoppelt? | Entschieden fuer M2: QR Pairing primaer, manueller Code als Fallback; Details im R4-Handoff |
 | R4-D5 | Heissen Vorgänge künftig Sammlungen? | Entschieden: Nein, Vorgang bleibt Prozess-/Kontextbegriff; Dokumente/Records bekommen eigenen UI-Bereich |
-| R4-D6 | Gehören Subvorgänge in M2? | Entschieden: Ja, schlanker Start mit `parentCaseId`; Dokumente primär zugeordnet, keine flexible Mehrfachrollen-Anzeige |
+| R4-D6 | Wie werden Unter-/Folgevorgänge modelliert? | Rebaseline 2026-07-14: nur ein `Case`-Typ; `Subvorgang` ist UI-Rolle eines `part_of`-CaseLink; kein `parentCaseId`-Zielmodell |
 | R4-D7 | Muss M2 Haushaltsprofile vorbereiten? | Entschieden: Ja, betroffene Person ist Pflicht; mehrpersonenfaehiges Zielmodell fuer R5/R6 |
 | R4-D8 | Braucht M2 Aufgaben und Erinnerungen? | Entschieden: Ja, schlanker Start mit Aufgabenübersicht, Fälligkeit und Reminder-Daten; komplexe Push-/Kalenderintegration später |
 | R4-D9 | Was bedeutet Notfallzugriff? | Entschieden: Schnellzugriff auf wichtige Dokumente/Records, nicht automatisch externe Berechtigung |
@@ -514,8 +522,12 @@ Fakes schützen App-Verhalten. Microcks schützt Schnittstellenverträge. Beide 
 ### Akzeptanzkriterien
 
 - Nutzer kann einen Vorgang mit Dokumenten am Desktop vollständig verwalten.
-- Nutzer kann in einem Vorgang einen leeren Subvorgang anlegen.
-- Nutzer kann markierte Dokumente eines Vorgangs als neuen Subvorgang gruppieren, ohne Dateien zu duplizieren.
+- Nutzer kann einen leeren manuellen/geführten Vorgang anlegen und typisiert
+  verbinden.
+- Nutzer kann aus markierten Dokumenten einen verbundenen Vorgang bilden, ohne
+  Dateien zu duplizieren.
+- Nutzer kann aus Dokumenten und vorhandenen Vorgängen nachträglich einen
+  übergeordneten Custom Case bilden und die Beziehung verlustfrei lösen.
 - Nutzer muss Dokumente/Drafts einer betroffenen Person / einem Haushaltsprofil zuordnen und kann diese Zuordnung später korrigieren.
 - Nutzer sieht offene, bald fällige und überfällige Aufgaben in einer Übersicht.
 - Nutzer kann wichtige Dokumente oder Records im Schnellzugriff markieren.
@@ -764,7 +776,7 @@ Diese Themen sind wertvoll, aber aktuell zu früh:
 | R4-D2 | Minimale Dokument-Erfassung | Done |
 | R4-D3 | Search-Boundary und Suchtechnologie | Done |
 | R4-D5 | Vorgänge, Dokumente, Records und Fakten | Done |
-| R4-D6 | Subvorgänge | Done |
+| R4-D6 | Ein Case-Typ, typisierte Beziehungen und Case-Komposition | Done; rebaseline 2026-07-14 |
 | R4-D7 | Haushaltsprofile vorbereiten | Done |
 | R4-D8 | Aufgaben und Erinnerungen | Done |
 | R4-D9 | Schnellzugriff / Notfallzugriff | Done |

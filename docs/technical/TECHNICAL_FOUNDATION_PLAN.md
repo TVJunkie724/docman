@@ -59,7 +59,7 @@ Deliverables:
 
 - Alte Roadmaps/Refactoring-Pläne entfernt.
 - `ROADMAP_REBUILD.md` ist primäre Roadmap.
-- F1-F17 sind die aktiven Foundation-/Frontend-Konzepte; fachliche Produktbereiche liegen zusätzlich unter `docs/pillars/`.
+- F1-F37 sind die aktiven Foundation-/Frontend-Konzepte; fachliche Produktbereiche liegen zusätzlich unter `docs/pillars/`.
 - README wird später auf neue Richtung gebracht.
 
 Akzeptanz:

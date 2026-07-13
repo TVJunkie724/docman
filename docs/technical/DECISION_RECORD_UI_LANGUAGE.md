@@ -2,7 +2,7 @@
 title: "Decision - Record UI Language"
 description: "Entscheidung zur deutschen UI-Sprache fuer Record: Unterlagen, Persoenliche Unterlagen und Nachweisart"
 tags: [decision, product-language, records, ui-language, documents]
-lastUpdated: "2026-06-10"
+lastUpdated: "2026-07-14"
 status: "accepted"
 ---
 
@@ -72,5 +72,6 @@ Filter: Person, Nachweisart, Gueltigkeit, Kategorie
 ## Nicht entschieden
 
 - konkrete Icons und Gruppierung in der UI.
-- ob "Unterlagen" ein eigener Hauptnavigationseintrag oder eine Ansicht im
-  Dokumentbereich wird.
+- konkrete Icons und responsive mobile Gruppierung bleiben im Design-System-
+  und Phase-Contract zu entscheiden; `Unterlagen` ist als gleichwertiger
+  Hauptbereich akzeptiert.

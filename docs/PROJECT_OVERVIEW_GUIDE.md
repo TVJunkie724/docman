@@ -2,7 +2,7 @@
 title: "Mappm - Project Overview & Product Guide"
 description: "Strategischer Überblick über den verkaufbaren Commercial Core mit Local/Cloud Vaults"
 tags: [overview, guide, product, strategy, planning]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 version: "3.0"
 status: "accepted-rebaseline"
 ---
@@ -138,8 +138,8 @@ Capture / Import
 ```
 
 Ein Dokument gehört langfristig nicht genau einem Vorgang. Es kann in mehreren
-Kontexten sichtbar sein: in einem Vorgang, in einem Subvorgang, im Profil eines
-Kindes, als Version eines Records, in einer Versicherungs-/Claim-Auswertung,
+Kontexten sichtbar sein: in mehreren typisiert verbundenen Vorgängen, im Profil
+einer verwalteten Person/Organisation, als Version eines Records, in einer Versicherungs-/Claim-Auswertung,
 im Schnellzugriff oder in einem Exportpaket. Dateien werden dabei nicht
 dupliziert; Beziehungen tragen die fachliche Bedeutung.
 
@@ -151,74 +151,60 @@ Entscheidung dokumentiert in: `docs/technical/DECISION_DMS_TARGET_ARCHITECTURE.m
 
 ## 4. Empfohlene Produktprinzipien
 
-### 4.1 Private-first mit backend-agnostischem Sync
+### 4.1 Explizite Local-/Cloud-Vaults
 
-DocMan verwaltet private, langfristig wichtige Dokumente. Deshalb sollte die lokale App auch ohne Server sinnvoll funktionieren.
-
-**Entscheidung:** Mappm wird private-first, offline-capable und service-ready.
-Local-only bleibt ein unterstuetzter Betriebsmodus, aber nicht das gesamte
-Produktziel. Sync, Backup, Sharing und intelligente Assistenz brauchen spaeter
-eine klar modellierte Service-Schicht.
-
-Die stabile Produktgrenze ist nicht Tailscale und nicht der Home Hub, sondern ein generisches DocMan Sync Backend. Der Home Hub ist die erste empfohlene Self-Hosted-Betriebsform. Tailscale ist die empfohlene private Netzwerkvariante für frühe Setups ohne offene Firewall-Ports, aber kein Produktbestandteil und keine Architekturabhängigkeit.
+Mappm verwaltet private, langfristig wichtige Dokumente. Speicherautorität ist
+deshalb ein expliziter Vault-Modus und kein verstecktes Environment-Flag.
 
 ```text
-Mappm Client = lokale Arbeitsfaehigkeit / lokale Replik
-DocMan Sync Backend = replication / backup / multi-device / sharing
-Processing Layer = on-device / Home Hub / managed intelligence
-
-Backend variants:
-  - local-only single-device mode
-  - Home Hub on NAS / home server
-  - VPS / hosted private server
-  - Managed Mappm Cloud as later comfort mode
+Local Vault = lokale Wahrheit + verschluesselter Export/Restore
+Cloud Vault = Mappm-Cloud-Wahrheit + lokaler Cache/Pending Queue
+Core Assist = separater Managed Service mit reviewbaren Ergebnissen
+Local Development Cloud = synthetische Entwicklungsumgebung
 ```
 
-Entscheidung dokumentiert in: `docs/technical/DECISION_DATA_FLOW.md` und
-`docs/technical/DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md`.
+Entscheidung dokumentiert in:
+`docs/technical/DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`.
 
 ### 4.2 Desktop-Verwaltung plus Mobile Capture
 
 Desktop ist der Ort für Sortieren, Prüfen, Suchen, Zuweisen und Verwalten. Mobile ist der schnelle Eingang für Scans unterwegs.
 
-**Entscheidung:** Mobile Capture gehört in den M2, aber nicht als vollständige mobile Verwaltungs-App. Der M2 enthält eine capture-only Mobile-App mit lokaler Upload-Queue, minimalem Home-Hub-Upload und optionaler Vorgangszuordnung.
+**Entscheidung:** Mobile Capture gehört in den Commercial Core. Mobile erfasst
+offline in eine persistente Queue. Ein Local Vault verarbeitet auf demselben
+Gerät oder über einen expliziten Export/Transfer; ein Cloud Vault lädt über den
+Mappm-Cloud-Capture-Contract. Es gibt keinen impliziten Local-Desktop-Sync.
 
 Draft-Inbox bleibt der sichere Standard. Wenn eine einfache, gecachte Liste offener Vorgänge verfügbar ist, darf Mobile einen Scan direkt einem Vorgang zuordnen. Vollständige mobile Vorgangsverwaltung und echter Multi-Geräte-Sync bleiben spaetere Milestones.
 
 Entscheidung dokumentiert in: `docs/technical/DECISION_FIRST_UTILITY_SCOPE.md`.
 
-### 4.3 Private Infrastruktur zuerst, Managed Cloud vorbereiten
+### 4.3 Managed Cloud und Local Development Cloud
 
-DocMan soll nicht mit Cloud-SaaS als erster Voraussetzung starten. Die erste
-Zielrichtung bleibt ein selbst betriebener Server-Stack auf vorhandener
-Infrastruktur: NAS, Mini-Server oder größerer Heimserver, vorzugsweise als
-Docker-/Compose-Setup.
+Mappm Cloud ist die verwaltete Serverlösung für Cloud Vault, Multi-Device,
+Backup, Sharing und Managed Assist. Kundenseitiges Self-hosting ist nicht Teil
+des aktiven Produktumfangs. Local Vault bleibt trotzdem ein vollwertiger
+Speichermodus mit eigener Autorität.
 
-Gleichzeitig darf die Architektur eine spaetere Managed Mappm Cloud nicht
-verbauen. Fuer komfortablen Account-Sync, Cloud-Backup, account-uebergreifendes
-Sharing und hochwertige LLM-/OCR-Assistenz ist eine Managed-Service-Schicht
-wahrscheinlich produktstrategisch wichtig.
-
-**Entwurf:** Der erste M2 braucht wegen Mobile Capture einen minimalen Home-Hub-Anteil als Eingangskorb. Das ist noch kein vollständiges Sync Backend. Der spätere Server wird trotzdem früh grob mitgeplant, damit lokale IDs, Dokumentablage, Sync-Journal, Upload-Queue und Review-Flows nicht später gegen die Produktlogik arbeiten.
-
-Der langfristige Server-Stack ist nicht PocketBase als Produktkern, sondern ein eigener DocMan Server Stack:
+Der langfristige Server-Stack ist nicht PocketBase als Produktkern, sondern
+die verwaltete Mappm Cloud:
 
 ```text
-DocMan Server Stack
+Mappm Cloud
   -> API / Sync Backend
   -> PostgreSQL metadata store
   -> S3-compatible file storage
   -> Job queue
   -> OCR / document parsing workers
-  -> local LLM gateway
+  -> managed OCR / document intelligence gateway
   -> optional search index
 ```
 
 PocketBase kann als frühe Referenz oder Spike gelten, ist aber nach aktuellem Entwurf nicht Zielarchitektur.
 
-Die konkrete Home-Hub-Zieltechnologie ist entschieden: ASP.NET Core fuer die
-API, PostgreSQL fuer Server-Metadaten und Sync-Journal, MinIO/S3-kompatibler
-Storage fuer Dateien und Microcks fuer OpenAPI-Mocks und Contract Verification.
+Die Backend-Zieltechnologie ist ASP.NET Core fuer die API, PostgreSQL fuer
+Server-Metadaten und Sync-Journal, S3-kompatibler Storage fuer Dateien und
+Microcks fuer OpenAPI-Mocks und Contract Verification.
 Worker starten bevorzugt als .NET Hosted Services / Worker Services; OCR- und
 AI-Komponenten duerfen spaeter als getrennte Sidecars hinzukommen.
 
@@ -257,25 +243,45 @@ universelle Workflow-Familie
           -> an Vorgang gebundene Instanz
 ```
 
-Intelligence darf passende veröffentlichte Definitionen, Subvorgänge,
-Dokumentbeziehungen und nächste Schritte vorschlagen. Sie darf keine Fristen,
+Intelligence darf passende veröffentlichte Definitionen, Workflow-Zweige,
+Case-/Dokumentbeziehungen und nächste Schritte vorschlagen. Sie darf keine Fristen,
 Ansprüche oder fachlich verbindlichen Abläufe frei erfinden. Nicht unterstützte
 Fälle bleiben als klar gekennzeichnete manuelle Vorgänge nutzbar.
 
-Ein Dokument kann in mehreren Haupt-, Sub- oder referenzierten Vorgängen eine
+Ein Dokument kann in mehreren über `part_of`, `caused_by`, `follow_up_to` oder
+`related_to` verbundenen Vorgängen eine
 jeweils eigene Rolle tragen, ohne dupliziert zu werden. Laufende Vorgänge pinnen
 ihre Workflow-Version; Änderungen erfolgen nur nachvollziehbar.
 
 Entscheidung dokumentiert in:
 `docs/technical/DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md`.
 
+#### Custom Cases, Unterlagen, Abos und verwaltete Organisationen
+
+- Jeder Vorgang ist ein eigenständiger `Case`; `Subvorgang` ist nur die
+  UI-Rolle eines `part_of`-Links.
+- Nutzer können freie Custom Cases anlegen oder aus ausgewählten Dokumenten und
+  Vorgängen einen neuen verbundenen/übergeordneten Case bilden.
+- Unterlagen wie Reisepass, Geburtsurkunde, Vertrag oder Polizze sind
+  gleichwertige langlebige Records mit Dokumentversionen, keine künstlichen
+  Vorgänge.
+- Verträge/Abos ordnen beliebig periodische Rechnungen, Tasks, Fristen und einen
+  schlanken Rechnungsverlauf in einem ruhigen Kontext.
+- Eigene Organisationen können wie Kinderprofile ohne eigenen Login verwaltet
+  werden, bleiben aber von externen Firmen und vom Privatkontext getrennt.
+- Steuer-Unterlagensammlung ist länder-, subject- und periodengebunden und
+  behauptet weder Absetzbarkeit noch Buchhaltungs-/Steuerberatungsleistung.
+
+Normative Details stehen in den Entscheidungen zu Case Relationships,
+Initial Case Catalog, Subscriptions, Managed Subjects, Tax Collection und
+Contextual Review/Roll-ups.
+
 ### 4.5 KI später, aber als Pipeline mitdenken
 
 KI kann DocMan später deutlich besser machen: OCR, Auto-Tagging, Status-Vorschläge, Dokumenterkennung und Vorschläge beim Ausfüllen von Formularen. Aber ohne stabile Dokumentstruktur erzeugt KI vor allem zusätzliche Unklarheit.
 
-**Empfehlung:** P7 bleibt aus dem M2 heraus, wird aber architektonisch als
-asynchrone Processing-Pipeline vorgedacht. Die Pipeline kann on-device, auf dem
-Home Hub/private server oder spaeter als Managed Intelligence laufen. Die App
+**Entscheidung:** Core Assist gehört in C2/C3 und wird als asynchrone Managed-
+Processing-Pipeline geplant. On-device-Ausbau bleibt eine spätere Option. Die App
 übernimmt KI-Ergebnisse nicht still, sondern zeigt Vorschläge mit
 Review-Zustand.
 
@@ -297,7 +303,10 @@ DocMan wird potenziell sensible Daten enthalten: medizinische Dokumente, Ausweis
 
 **Empfehlung:** Jede Architekturentscheidung sollte Privacy, lokale Kontrolle, Exportierbarkeit und langfristige Lesbarkeit priorisieren.
 
-DocMan behandelt Dokumente, OCR-/LLM-Ergebnisse und viele Metadaten als sensible Daten. Self-hosted cloudartige Setups bleiben spaeter moeglich, muessen aber von Anfang an so vorbereitet werden, dass clientseitige Verschluesselung und Zero-Knowledge-faehige Sync-Modelle nicht verbaut werden.
+Mappm behandelt Dokumente, OCR-/LLM-Ergebnisse und viele Metadaten als sensible
+Daten. Das konkrete Managed-Trust- oder Zero-Knowledge-/E2EE-Modell muss vor
+Cloud-Dateien und echter Assist-Verarbeitung entschieden werden; kein UI- oder
+Backend-Slice darf es still vorwegnehmen.
 
 Entscheidung dokumentiert in: `docs/technical/DECISION_PRIVACY_SYNC_SCOPE.md`.
 
@@ -355,7 +364,7 @@ Enthält:
 - Familienprofile.
 - Berechtigungsmodell.
 - Generisches DocMan Sync Backend.
-- Erste empfohlene Backend-Variante: Self-Hosted Home Hub.
+- Verwaltetes Mappm-Cloud-Backend hinter versionierten Contracts.
 - Session-Persistenz.
 - Konflikt- und Sync-Status.
 - Dokumentdateien mit lokalem Cache.
@@ -400,7 +409,11 @@ Aktuell gibt es mehrere aktive Ebenen:
 
 Die alten Produkt-Roadmaps und der alte Refactoring-Plan wurden entfernt, weil sie noch `Incident`, PocketBase/OAuth, BLoC/GetIt oder andere überholte Annahmen enthielten. `ROADMAP_REBUILD.md` ist die aktive Roadmap.
 
-**Entscheidung:** Die vorhandenen `docs/concepts/CONCEPT_F*.md` bleiben als benötigte Konzept-Slots erhalten und wurden DocMan-spezifisch neu geschrieben: private-first/local-capable, self-hosted zuerst, Riverpod, Desktop-Verwaltung plus Mobile Capture, minimaler Home-Hub-Eingangskorb und spätere OCR-/LLM-Pipeline.
+**Entscheidung:** Die vorhandenen `docs/concepts/CONCEPT_F*.md` bleiben als
+benötigte Konzept-Slots erhalten und werden Mappm-spezifisch fortgeschrieben:
+explizite Local-/Cloud-Vault-Authority, Riverpod, Desktop-Verwaltung plus Mobile
+Capture, Managed Mappm Cloud, Local Development Cloud, Core Assist und
+reviewbare OCR-/LLM-Pipeline.
 
 Entscheidung dokumentiert in: `docs/technical/DECISION_FOUNDATION_CONCEPT_REWRITE.md`.
 
@@ -466,8 +479,8 @@ Meine vorgeschlagene Richtung:
 1. Produktbegriff umstellen: `Case` im Code, "Vorgang" im UI, `Event`/"Ereignis" für Timeline-Einträge.
 2. Riverpod als Zielarchitektur setzen und BLoC/GetIt nicht weiter ausbauen.
 3. M2 eng schneiden, aber Mobile Capture als Haupt-Use-Case aufnehmen.
-4. Private-first als Produktzentrum setzen; Local-only bleibt ein Betriebsmodus.
-5. Sync, Backup, Sharing und Processing backend-agnostisch halten; Home Hub ist erste Betriebsform, nicht Produktgrenze.
+4. Local und Cloud als explizite Vault-Modi mit eigener Authority behandeln.
+5. Sync, Backup, Sharing und Processing über stabile Contracts an Mappm Cloud anbinden.
 6. Historische Annahme, superseded: Core Assist gehört heute in C2/C3;
    Advanced Assist bleibt später.
 7. Workflows als Empfehlungen gestalten.
@@ -481,14 +494,14 @@ Meine vorgeschlagene Richtung:
 | D0 | Produktname | Entschieden: Produktname ist `Mappm`; `DocMan` bleibt vorerst technischer Repo-/Workspace-Name | Erledigt |
 | D1 | Zentraler Begriff | Entschieden: `Case` im Code, "Vorgang" im UI, `Event`/"Ereignis" für Timeline-Einträge | Erledigt |
 | D2 | State Management und DI | Entschieden: Riverpod ersetzt BLoC/GetIt als Zielarchitektur | Erledigt |
-| D3 | Datenfluss | Entschieden: private-first, offline-capable und service-ready; Local-only, Home Hub und spaetere Managed Cloud duerfen durch Data-/Processing-/Identity-Ports austauschbar bleiben | Erledigt |
-| D4 | Backend-Rolle | Entwurf: eigener self-hosted DocMan Server Stack per Docker/Compose; Home-Hub-Technologie akzeptiert als ASP.NET Core + PostgreSQL + MinIO/S3 + Microcks; PocketBase nicht als Zielarchitektur | Hoch |
-| D5 | First Utility Scope | Entschieden: Capture and Review Core plus Mobile Capture, minimaler Home-Hub-Eingangskorb, optionale Vorgangszuordnung | Erledigt |
+| D3 | Datenfluss | Rebaselined: Local Vault ist lokal autoritativ; Cloud Vault ist Mappm-Cloud-autoritativ; Migration ist explizit und verifiziert | Erledigt |
+| D4 | Backend-Rolle | Rebaselined: Managed Mappm Cloud mit ASP.NET Core + PostgreSQL + S3 + Microcks; Local Development Cloud nur synthetisch | Erledigt |
+| D5 | First Utility Scope | Rebaselined: Capture, Core Assist, Review, Vorgänge/Unterlagen, Search und Tasks als Commercial Core | Erledigt |
 | D6 | Erweiterte Mobile-Verwaltung | Nach M2 und stabilem Sync planen | Mittel |
 | D7 | Workflow-Regeln | Entschieden: Empfehlungen und Review statt harte Status-Käfige; harte Regeln nur für Integrität/Sicherheit | Erledigt |
 | D8 | KI-Scope | Superseded: Core Assist ist C2/C3-Commercial-Core; Advanced Assist bleibt später und jede Realverarbeitung wartet auf Trust-/AI-Gates | Rebaselined |
 | D9 | Alte Foundation-Konzepte | Entschieden: Konzept-Slots behalten, Inhalte DocMan-spezifisch neu schreiben; alte Inhalte sind nicht Source of Truth | Erledigt |
-| D10 | Remote-Sync sensibler Daten | Entschieden: M2-Sync nur private Home-Hub-Umgebung; Datenklassen und Secrets getrennt | Erledigt |
+| D10 | Remote-Sync sensibler Daten | Rebaselined: Cloud-Sync nur im gewählten Cloud Vault und nach akzeptiertem Trust-/Key-/Privacy-Modell; Local Vault lädt nicht implizit hoch | Erledigt |
 | D11 | Security-/Privacy-Baseline | Entschieden: Security-by-Design, sensible Datenklassen, Secure Storage, log-sparsam, E2EE-/Zero-Knowledge-faehig vorbereiten | Erledigt |
 | D12 | Trust-/Verschluesselungs-/Deployment-Modell | Entschieden: austauschbare Data-/Processing-/Identity-Ports, Key-Management, E2EE-/Zero-Knowledge-faehiger Sync/Backup/Sharing, eIDAS/EUDI/ID-Austria-faehige Identity-Schicht | Erledigt |
 

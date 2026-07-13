@@ -2,7 +2,7 @@
 title: "Decision - Commercial Core Product Scope"
 description: "Verbindliches Ziel fuer eine production-ready, verkaufbare erste Mappm-Version mit bewusst begrenztem Funktionsumfang"
 tags: [decision, commercial-core, release, product, account, assist, local-vault, cloud-vault]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 status: "accepted"
 owner: "product-concept"
 ---
@@ -34,11 +34,12 @@ Product promise:
 - Vault creation with clear Local/Cloud storage authority.
 - Desktop import and production-quality document capture on supported devices.
 - durable Draft Inbox and review with preview, required metadata and recovery.
-- documents, files, simple records/versions, Vorgänge/Subvorgänge and profiles.
+- documents, files, first-class Unterlagen/versions, one Case type with typed
+  CaseLinks, Custom Cases and managed person profiles.
 - structured search, filters, simple tasks/deadlines and quick access.
 - Core Assist sufficient for OCR/text extraction, document type, actor/key-field
   suggestions, case/workflow matching and human review.
-- case/subcase/reference and multi-document relationships that do not preclude
+- Case/Record/reference and multi-document relationships that do not preclude
   later curated jurisdictional workflows.
 - duplicate protection, upload/import integrity and no silent data loss.
 - encrypted Local backup/export and tested restore.
@@ -81,6 +82,8 @@ storage. It does not decide whether Mappm has a backend at all.
 - public API/plugin ecosystem.
 - customer self-hosting/Home Hub.
 - broad workflow automation.
+- organization/business contexts and tax-document collection unless their
+  release scope and country/compliance gates are explicitly activated.
 - country-specific guided workflows unless their selected workflow pack has
   passed the dated product, domain, legal, localization and release gates.
 

@@ -34,6 +34,16 @@ and Cloud authority, bounded offline session, Assist quota/opt-out/manual
 fallback and Detached Recovery. Tests must prove Assist processing never changes
 Vault authority or implies backup.
 
+For F37 work additionally cover all applicable `CaseLink` types and direction,
+`part_of` cycle rejection, link/update/unlink without content loss, Custom and
+Guided capability parity, top-down/bottom-up composition, document/Record
+multi-linking, roll-up deduplication and absence across non-`part_of` links.
+Cover contextual action ranking/overflow, no financial section without
+confirmed values, row instead of chart for one value, accessible chart detail
+for multiple values, variable-bill wording, managed person/organization versus
+ExternalParty, tax candidate versus confirmed status, and quiet/notifying
+reminder privacy.
+
 ## Fixture Rules
 
 Use deterministic synthetic names, documents, IDs, clocks and files. Never use

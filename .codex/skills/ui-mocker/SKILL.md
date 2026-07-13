@@ -46,6 +46,15 @@ or `scripts/run_mocks.sh` if available.
 - Prefer local state for interaction; do not build production Riverpod
   architecture unless the mock explicitly validates provider behavior.
 - Register every mock in `MOCK_CATALOG.md`.
+- Use the normative F37 object model in affected mocks: one Case type, typed
+  links, distinct Unterlagen/Records, equal Custom/Guided capability and no
+  copy-on-composition behavior.
+- Subscription mocks stay visually slim. A chart requires at least two
+  confirmed comparable values and must expose point values through hover, tap,
+  keyboard focus and semantics.
+- Use synthetic people, organizations and external parties with visibly
+  distinct roles. Never present tax candidates as deductible or build
+  bookkeeping/accounting behavior into a product mock.
 
 ## Workflow
 

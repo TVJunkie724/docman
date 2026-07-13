@@ -57,6 +57,15 @@ remediation.
     - broad or targeted checks run with baseline debt separated.
 12. Plan completeness:
     - every DoD item verified; nothing skipped; nothing added.
+13. F37 domain/UX integrity when applicable:
+    - one Case type and correct typed relation direction; no separate Subcase
+      model, hidden cascade, copy-on-compose or strict-tree assumption.
+    - Custom/Guided parity, distinct Unterlage/Document/Claim/subject/party
+      semantics and reversible link behavior.
+    - contextual action limits, confirmed-value gating, accessible charts and
+      deduplicated eligible financial roll-ups match the approved plan.
+    - country/tax/cancellation behavior comes from approved policy, not UI
+      invention.
 
 ## Useful Checks
 

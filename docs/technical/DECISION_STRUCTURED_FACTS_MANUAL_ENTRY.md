@@ -2,7 +2,7 @@
 title: "Decision - Structured Facts Manual Entry"
 description: "Entscheidung zu ersten manuell erfassbaren Facts, Fact-Gruppen je Dokumenttyp und leichter Nachweisart fuer persoenliche Records"
 tags: [decision, facts, claims, insights, records, document-types, finance]
-lastUpdated: "2026-06-10"
+lastUpdated: "2026-07-14"
 status: "accepted"
 ---
 
@@ -40,7 +40,7 @@ Grundregel:
 | `financial_entry` | Ausgaben, Kosten, Praemien, Rueckzahlungen, Gutschriften | Betrag, Waehrung, Datum, Anbieter, Kategorie, bezahlt/offen |
 | `deadline` | Fristen und Faelligkeiten | Datum, Grund, Status, Reminder-Quelle |
 | `claim` | Erstattungen, Einreichungen, Reklamationen, Garantieansprueche | Claim-Typ, Status, eingereicht am, Entscheidung, Erstattungsbetrag, Erstattungsquote |
-| `contract_term` | Vertrage, Laufzeiten, Kuendigungen | Start, Ende, Kuendigungsfrist, Vertragspartner, Kosten |
+| `contract_term` | Vertrage, Abos, Laufzeiten, Abrechnung und Kuendigungen | Start, Ende, Status, Vertragspartner, Abrechnungsperiode monatlich/quartalsweise/jaehrlich/custom, Mindestlaufzeit, Verlaengerung, Kuendigungsfrist, naechster Kuendigungstermin, bestaetigter wiederkehrender Betrag |
 | `coverage` | Versicherungsdeckung und Polizzenbezug | Versicherer, Polizze, versicherte Person, Gueltigkeit, Deckungshinweis |
 | `identity_validity` | Ausweis-/Nachweis-Gueltigkeit | Nummer/Identifier, ausgestellt am, gueltig bis, ausstellende Stelle |
 | `profile_fact` | Personenbezogene Fakten mit optionalem Nachweis | Label, Werttyp, Wert, Schutzklasse, Quelle/Nachweis |
@@ -104,9 +104,11 @@ Beispiele:
 - Fuehrerschein: Fuehrerscheinnummer, Klassen optional, ausgestellt am,
   gueltig bis.
 
-## Haushalts-Finanzfakten, nicht Buchhaltung
+## Haushalts-/Business-Finanzfakten, nicht Buchhaltung
 
-R8 baut keine doppelte Buchhaltung und kein Steuerprodukt.
+R8 baut keine doppelte Buchhaltung und keine Steuerberechnung. Eine getrennt
+freigegebene, länderspezifische Steuer-Unterlagensammlung darf bestätigte Facts
+und Belege nach `DECISION_JURISDICTIONAL_TAX_DOCUMENT_COLLECTION.md` nutzen.
 
 Ziel sind Haushalts-Finanz- und Dokumentenfakten:
 
@@ -116,8 +118,13 @@ Ziel sind Haushalts-Finanz- und Dokumentenfakten:
 - Welche Versicherungspraemien fallen an?
 - Welche Claims sind offen, erstattet oder abgelehnt?
 
-Bankimport, Kontenrahmen, Steuerlogik und vollstaendige Buchhaltung bleiben
-ausserhalb von R8.
+Bankimport, Kontenrahmen, verbindliche Steuerlogik und vollständige Buchhaltung
+bleiben außerhalb von R8.
+
+Eine Steuer-Vormerkung ist eine kontextuelle Klassifikation/Beziehung zu einem
+freigegebenen Tax-Collection-Case, kein `financial_entry`-Wahrheitswert und
+keine Aussage ueber Absetzbarkeit. Sie traegt Rechtsraum, Managed Subject,
+Regime, Periode und Review-Status und bleibt bis zur Bestaetigung ein Kandidat.
 
 Facts und Financial Entries duerfen auch ohne Dokument existieren. Dokumente
 sind Nachweise, aber keine Voraussetzung fuer Auswertungen. Ein manueller

@@ -1,8 +1,8 @@
 ---
 title: "Decision - Search Technology and Search Boundary"
 description: "Entscheidung zur Search-Boundary für Local/Cloud Vaults, SQLite/Drift/FTS5 und spätere Managed-/AI-Search-Adapter"
-tags: [decision, search, sqlite, drift, fts5, local-first, meilisearch, typesense, qdrant]
-lastUpdated: "2026-07-12"
+tags: [decision, search, sqlite, drift, fts5, local-vault, cloud-vault, meilisearch, typesense, qdrant]
+lastUpdated: "2026-07-14"
 status: "accepted-rebaseline"
 ---
 
@@ -13,8 +13,8 @@ status: "accepted-rebaseline"
 The SearchRepository boundary remains accepted. A Local Vault may use
 Drift/FTS5 as authority. In a Cloud Vault, local indexes are cache-derived and
 must not claim completeness while offline unless the active cache policy can
-prove it. Managed search is a Cloud backend adapter; `HomeHubSearchRepository`
-and customer self-hosted search references below are historical names.
+prove it. Managed search is a Mappm Cloud backend adapter. Customer Home Hub
+and self-hosted search are superseded product directions.
 
 ## Status
 
@@ -34,11 +34,14 @@ Der M2 nutzt nicht:
 - separaten Suchserver.
 - OCR-Volltextsuche.
 - semantische oder Vektor-Suche.
-- Home-Hub-Search als Voraussetzung.
+- verwaltete Suche als Voraussetzung fuer Local Vaults.
 
 ## Begründung
 
-DocMan ist local-first. Suche muss daher ohne Netzwerk funktionieren und darf nicht von einem Backend abhängig sein.
+Suche folgt der Vault-Authority. Ein Local Vault muss ohne Netzwerk suchen
+können. Ein Cloud Vault darf verwaltete Suche verwenden und hält einen
+policy-begrenzten lokalen Index/Cache; offline zeigt die UI dessen belegbare
+Reichweite und behauptet keine Vollständigkeit, die der Cache nicht garantiert.
 
 SQLite + Drift ist bereits die Zielrichtung für strukturierte lokale Daten. SQLite FTS5 ergänzt diese Richtung, ohne eine zweite Betriebsplattform einzuführen.
 
@@ -72,19 +75,20 @@ Data
     SQLite FTS5 metadata index
 
 Later
-  HomeHubSearchRepository
-  RemoteSearchAdapter
+  MappmCloudSearchRepository
   SemanticSearchAdapter
 ```
 
 Riverpod stellt die konkrete Implementierung bereit. Das ist Dependency Injection. Die austauschbaren Suchimplementierungen folgen dem Strategy Pattern.
 
-## M2-Suchumfang
+## Erster strukturierter Suchumfang
 
 Such- und Filterfelder:
 
 - Vorgangstitel.
-- Subvorgangstitel.
+- Titel verknüpfter Cases und typisierte Case-Beziehungen.
+- Unterlagen/Records einschließlich Vertrag/Abo und Gültigkeit.
+- verwaltete Personen und Organisationen sowie externe Akteure.
 - Dokumenttitel.
 - Record-/Nachweistitel.
 - Dokumenttyp.
@@ -103,6 +107,18 @@ Späterer Milestone:
 - externe Server-Suche.
 - komplexe Query-Sprache.
 
+## Product Search Experience
+
+Die primäre Interaktion ist ein ruhiges globales Suchfeld mit ergebniszentrierter
+Darstellung. Nutzer suchen über Vorgänge, Unterlagen, Dokumente, verwaltete
+Profile, ExternalParty-Kontakte, Claims, Tasks und bestätigte Facts, ohne zuerst
+den richtigen Ablageort kennen zu müssen.
+
+Mappm plant keinen Chat, Messenger und keine KI-Chat-Historie als primäre
+Dokumentinteraktion. Spätere natürliche oder semantische Query-Unterstützung
+darf im Suchfeld helfen, liefert aber weiterhin nachvollziehbare Treffer,
+Filter, Match-Gründe und direkte Aktionen statt eines Gesprächsverlaufs.
+
 ## Spätere Suchstufen
 
 ### R8/R9 lokal erweitert
@@ -112,15 +128,19 @@ Späterer Milestone:
 - FTS5 kann OCR-Text lokal indexieren.
 - `sqlite-vec` oder ähnliche lokale Vektor-Erweiterungen können als Forschungsoption geprüft werden, wenn lokale semantische Suche gebraucht wird.
 
-### Home Hub / Self-Hosted Search
+### Managed Cloud Search
 
-Wenn Suche über mehrere Geräte, große OCR-Bestände oder bessere Typo-/Ranking-Funktionen wichtig werden, kann ein optionaler Home-Hub-Search-Adapter ergänzt werden.
+Wenn Suche über mehrere Geräte, große OCR-Bestände oder bessere
+Typo-/Ranking-Funktionen wichtig wird, stellt Mappm Cloud einen verwalteten
+Search-Adapter hinter dem akzeptierten Cloud-, Privacy- und Authorization-
+Contract bereit. Local Development Cloud darf denselben Vertrag nur mit
+synthetischen Daten implementieren.
 
 Kandidaten:
 
 - Meilisearch.
 - Typesense.
-- PostgreSQL FTS/pgvector, falls der Home Hub ohnehin PostgreSQL nutzt.
+- PostgreSQL FTS/pgvector im verwalteten Backend.
 - Qdrant für RAG-/AI-heavy Retrieval.
 
 OpenSearch/Elasticsearch bleibt nur eine spätere Enterprise-Option, falls wirklich sehr komplexe Suche nötig wird.
@@ -149,14 +169,17 @@ Regeln:
 
 ## Konsequenzen
 
-- `R4-D3` ist entschieden.
-- `PILLAR_SEARCH_FACTS_INSIGHTS.md` muss lokale FTS5-Suche als M2-Technologie nennen.
+- `R4-D3` ist entschieden und durch die Vault-Rebaseline ergänzt.
+- `PILLAR_SEARCH_FACTS_INSIGHTS.md` muss lokale FTS5-Suche fuer Local Vault und
+  verwaltete Suche fuer Cloud Vault sauber unterscheiden.
 - `CONCEPT_F10_LOCAL_STORAGE.md` muss FTS5 und Search-Boundary vorbereiten.
-- Issue #36 ist der primäre M2-Umsetzungstracker für strukturierte Suche und Filter.
+- Ein Implementierungs-Issue muss den betroffenen Vault-Modus und die offline
+  belegbare Ergebnisreichweite explizit nennen.
 
 ## Nicht entschieden
 
-- Ob Home Hub später Meilisearch oder Typesense nutzt.
+- Ob Mappm Cloud PostgreSQL FTS/pgvector, Meilisearch oder Typesense nutzt.
 - Ob lokale semantische Suche mit `sqlite-vec` umgesetzt wird.
 - Welche OCR-Engine zuerst kommt.
-- Ob Remote-Search im privaten Home-Hub-Setup verschlüsselt oder indexseitig besonders isoliert wird.
+- Welche Verschlüsselungs-, Mandantenisolations- und Autorisierungsregeln der
+  verwaltete Suchindex benötigt.

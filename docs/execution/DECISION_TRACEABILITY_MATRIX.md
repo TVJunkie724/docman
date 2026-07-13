@@ -2,7 +2,7 @@
 title: "DocMan/Mappm - Decision Traceability Matrix"
 description: "Traceability from product decisions and discovery answers to concepts, phases and issues"
 tags: [execution, decisions, traceability, playbook]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 status: "active-baseline"
 owner: "product-concept"
 ---
@@ -26,11 +26,17 @@ owner: "product-concept"
 | Documents, OCR/LLM output and many metadata classes are sensitive | accepted | `docs/technical/DECISION_SECURITY_PRIVACY_MODEL.md` | F5, F7, F9, SEC-*, DATA-* | R2, R3, R4, R9 | accepted |
 | Core Assist is required in Commercial Core; Advanced Assist remains conditional | accepted-rebaseline | `docs/technical/DECISION_COMMERCIAL_CORE_SCOPE.md`, `DECISION_INTELLIGENCE_SCOPE.md` | AI-*, REG-02, F30/F34 | C1-C3; advanced later | VC-02/OQ-003 and AI/REG gates required before real processing |
 | Domain workflows use a generic engine plus curated, versioned jurisdiction/provider definitions; AI may select but not invent them | accepted-direction/open-scope | `docs/technical/DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md` | Templates/Workflows, Intelligence, Cases/Records | C0/C3 and later activated workflow slices | WF-01/WF-02 block country-pack release claims |
+| One `Case` type, typed `CaseLink` graph, workflow branches/Claims and reversible top-down/bottom-up composition | accepted | `docs/technical/DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md` | F37, Cases/Records, Templates/Workflows | C3/R4/R8 | accepted; phase must still define exact relation UX and persistence contract |
+| Initial concrete Case catalog separates guided Cases, Record-led contexts, Custom Cases, internal Claims/branches and discovery-only families | accepted-direction/open-country-scope | `docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md` | F37, Cases/Records, Templates/Workflows | C0/C3/R8 | WF-01/WF-02 select release subset and country variants |
+| Recurring contracts/subscriptions are first-class Records with one calm lifecycle, invoice matching, tasks and slim confirmed-value history | accepted-direction/open-category-scope | `docs/technical/DECISION_RECURRING_CONTRACT_SUBSCRIPTION_MODEL.md` | F37, Contracts/Subscriptions, Tasks, Search/Insights | C3/R8.9 | country cancellation rules and first-release categories require phase review |
+| Managed persons and organizations share the ManagedSubject mechanism; external parties remain distinct | accepted-direction/open-release-scope | `docs/technical/DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md` | F37, Managed Profiles/Access | C0/C3/R5 | OQ-009 blocks business-scope activation, not person-profile work |
+| Tax is jurisdictional document collection and review, not bookkeeping, tax calculation, advice or filing | accepted-direction/open-pack-scope | `docs/technical/DECISION_JURISDICTIONAL_TAX_DOCUMENT_COLLECTION.md` | F37, Search/Insights, Templates/Workflows | C3/R8.11 | OQ-010 and WF-02 block any tax-pack release claim |
+| Review actions are contextual and progressive; financial sections use confirmed entries and deduplicated `part_of` roll-up only | accepted | `docs/technical/DECISION_CONTEXTUAL_REVIEW_ACTIONS_FINANCIAL_ROLLUPS.md` | F30/F34/F37, Capture/Inbox, Search/Insights | C2/C3/R4/R8 | accepted; UI phase must prove no empty/noisy sections and no double counting |
 | Mappm Account is required normally; eIDAS/EUDI/ID Austria remains an optional provider/trust path | accepted-direction/open-details | `docs/technical/DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md`, `DECISION_CLOUD_IDENTITY_DEVICE_TRUST.md`, VC-08 and REG-04 | F12/F13/F36, SEC-02/03 | C0/C1/C4 | VC-08 and OQ-004 block identity implementation |
 | Commercialization, billing, SLA and procurement model | planned | COM-00..04 plus VC-03/VC-04 | COM-* | C0/C4/C5 | user/product review needed |
 | Project-local frontend entrypoint is `frontend.sh` and delegates to scripts | accepted | `docs/ops/OPS-08_PROJECT_ENTRYPOINTS.md` | OPS-00/OPS-08, F1/F6/F16 | R0/R2/R15 | accepted |
 | Playbook governance applies across C0-C7; R0-R15 remain traceability IDs | accepted-rebaseline | `docs/roadmap-standard/STANDARD_PHASES.md`, `docs/execution/PLAYBOOK_AGENT_TRACK_CLOSEOUT.md` | roadmap-standard, F concepts, pillars | C0-C7 over R0-R15 | accepted |
-| Design-system coverage must map MP-DS concepts, F concepts and HTML mock evidence before UI implementation | accepted | `docs/design-system/concepts/MP-DS-COVERAGE_MATRIX.md` | MP-DS, F23-F36 | C1-C4/R3/R4 | accepted |
+| Design-system coverage must map MP-DS concepts, F concepts and HTML mock evidence before UI implementation | accepted | `docs/design-system/concepts/MP-DS-COVERAGE_MATRIX.md` | MP-DS, F23-F37 | C1-C4/R3/R4/R8 | accepted; F37 requires phase-owned visual evidence |
 | Root-level Flutter repository layout is an accepted adaptation of the generic app-folder default | accepted | `docs/technical/DECISION_REPOSITORY_LAYOUT.md` | F1, OPS-08 | R0/R2/R3 | accepted |
 | Proposed first playbook implementation-ready phase is R3.5 target-path quality baseline | proposed | `docs/roadmap/phases/R3_5_TARGET_PATH_QUALITY_BASELINE.md` | F1/F3/F4/F15/F16, OPS-08 | R3.5 | ready for explicit user approval; implementation blocked until recorded |
 | Regulatory baseline uses dated official-source register and phase-specific legal review | accepted-baseline | `docs/regulatory/REGULATORY_SOURCE_REGISTER.md` | REG-00..08 | C0-C7 plus affected R slices | refresh at trigger |

@@ -2,7 +2,7 @@
 title: "Decision - Curated Jurisdictional Workflow Catalog"
 description: "Verbindliches Zielmodell fuer kuratierte, versionierte und laenderspezifische Mappm-Vorgangsvorlagen"
 tags: [decision, product, workflows, cases, internationalization, intelligence, compliance]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-14"
 status: "accepted"
 owner: "product-concept"
 ---
@@ -72,7 +72,7 @@ Medical expense reimbursement
 
 Austria variant
   -> applicable social-insurance path
-  -> optional supplementary-insurance subcase
+  -> optional supplementary-insurance Claim/branch in the same Case
 
 Other jurisdiction
   -> its own payer, evidence, sequence and terminology
@@ -93,7 +93,8 @@ Every published workflow definition must carry at least:
 - `validFrom`, optional `validTo`, publication date and last review date;
 - languages and localization status;
 - applicability, prerequisites and exclusion conditions;
-- steps, branches, subcases and completion outcomes;
+- steps, branches, Claims/submissions, escalation points, Case relations and
+  completion outcomes;
 - expected documents, evidence roles and required facts;
 - tasks, deadlines and the source of each deadline calculation;
 - confirmation points and actions that always require user approval;
@@ -107,14 +108,16 @@ the affected profile, residence, insurance or contract jurisdiction, document
 issuer, service location, institution and event date. Ambiguous cases require
 review.
 
-## Case, Subcase and Document Relations
+## Case Composition and Document Relations
 
-A workflow definition may create or suggest subcases. A subcase has its own
-state and tasks while remaining part of a parent outcome. Related cases with an
-independent lifecycle are connected through typed `CaseLink` relations rather
-than forced into a parent-child hierarchy.
+A workflow definition may create steps, tasks, events, Claims/submissions and
+conditional branches inside one Case. A different sender, institution,
+document set or local status does not create another Case. When a branch gains
+an independently understandable goal and lifecycle, the workflow may suggest a
+normal linked Case using `part_of`, `caused_by`, `follow_up_to` or `related_to`.
+There is no separate Subcase domain entity.
 
-A document may support multiple cases or subcases without file duplication.
+A document may support multiple Cases, branches or Claims without file duplication.
 Each `DocumentCaseLink` records its role, for example:
 
 - trigger;
@@ -135,7 +138,7 @@ Intelligence may:
 - classify a document and extract facts and actors;
 - find an existing related case;
 - rank applicable published workflow definitions;
-- suggest a new case, subcase, relation or next step;
+- suggest a new Case, branch promotion, relation or next step;
 - explain which document facts caused a suggestion;
 - flag that no supported definition applies.
 
@@ -220,15 +223,15 @@ Stop implementation or release if:
 - a country workflow has no applicability, validity, source and owner metadata;
 - a running case can change definition version without an auditable migration;
 - unsupported markets receive a UI that implies verified local guidance;
-- parent/subcase/reference or multi-document relations require file copies;
+- Case relations or multi-document contexts require file copies;
 - a high-impact workflow lacks manual fallback, review and correction paths.
 
 ## Related Decisions
 
+- `DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`
 - `DECISION_DMS_TARGET_ARCHITECTURE.md`
 - `DECISION_WORKFLOW_RULES.md`
 - `DECISION_INTELLIGENCE_SCOPE.md`
 - `DECISION_ASSISTED_REVIEW_SUGGESTIONS.md`
 - `DECISION_SECURITY_PRIVACY_MODEL.md`
 - `DECISION_LEGAL_PRIVACY_READINESS.md`
-

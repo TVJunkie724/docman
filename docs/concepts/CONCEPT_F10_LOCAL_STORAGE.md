@@ -303,7 +303,8 @@ Vorbereitet werden müssen:
 
 - optionale `caseId` für Dokumente.
 - Profil-/Household-IDs fuer spaetere Familien- und Haushaltszugriffsfaehigkeit.
-- `parentCaseId` für einfache M2-Subvorgänge.
+- `CaseLink` für `part_of`, `caused_by`, `follow_up_to` und `related_to`; kein
+  separater Subcase-Typ und kein `parentCaseId`-Zielmodell.
 - spätere Record-/Nachweis-Zuordnung.
 - Versionierungsfelder oder ein sauberer Migrationspfad dorthin.
 - strukturierte Felder für Betrag, Datum, Sender, Status und Quelle statt reinem Freitext.

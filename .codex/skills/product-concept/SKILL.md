@@ -22,6 +22,13 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
 - Read `docs/technical/DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md`.
 - Read `docs/technical/DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`.
 - Read `docs/concepts/CONCEPT_F36_VAULT_MODES_CLOUD_LIFECYCLE.md`.
+- Read `docs/technical/DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`.
+- Read `docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`.
+- Read `docs/technical/DECISION_RECURRING_CONTRACT_SUBSCRIPTION_MODEL.md`.
+- Read `docs/technical/DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md`.
+- Read `docs/technical/DECISION_JURISDICTIONAL_TAX_DOCUMENT_COLLECTION.md`.
+- Read `docs/technical/DECISION_CONTEXTUAL_REVIEW_ACTIONS_FINANCIAL_ROLLUPS.md`.
+- Read `docs/concepts/CONCEPT_F37_CASE_RECORD_CONTEXTUAL_EXPERIENCE.md`.
 - Treat Local and Cloud as explicit Vault modes, not environment flags.
 - Every normal Free/Paid Local and Cloud mode requires a Mappm Account; Local
   remains local-authoritative and Detached Recovery is the account-independent
@@ -36,6 +43,27 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
   developer infrastructure using the production contract family.
 - The first target is a production-ready, sellable Commercial Core. Deferred
   features are absent rather than incomplete.
+- Mappm has one `Case` entity. A Subvorgang is only the UI role of a normal
+  Case connected with `CaseLink(relationType=part_of)`; there is no separate
+  Subcase type or strict `parentCaseId` target tree.
+- Split workflow stages, tasks, events, branches and Claims from Cases by
+  independent goal/lifecycle/outcome, not by sender, institution, document or
+  local status. Composition is reversible and supports top-down and bottom-up
+  creation without copying content.
+- Guided, Assist-suggested and manual/Custom Cases have equal capabilities.
+- Vorgänge and Unterlagen/Records are equal product areas with distinct
+  semantics. Durable identity records, contracts and policies are Records;
+  files/documents remain evidence or versions.
+- Recurring contracts/subscriptions are first-class Record contexts. Ordinary
+  activation, change, price review, cancellation and final billing remain in
+  one context; only independently meaningful disputes become linked Cases.
+- Managed persons and managed organizations share one management principle;
+  external doctors, providers, insurers and authorities remain ExternalParty.
+- Tax capability means dated, jurisdictional document collection and review,
+  never implicit deductibility, bookkeeping, tax calculation, advice or filing.
+- Contextual actions use progressive disclosure. Financial sections appear
+  only for confirmed data, stay context-specific and deduplicate `part_of`
+  roll-ups; Mappm is not an accounting product.
 
 ## Core Product Assumptions
 

@@ -31,6 +31,22 @@ Read:
 - Normal Local and Cloud modes are account-based, but account/device state,
   Vault authority, Assist jobs and entitlements remain separate persisted
   concepts. Detached Recovery must preserve Local access without a live account.
+- Model exactly one `Case` entity plus typed graph edges in `CaseLink`:
+  `part_of`, `caused_by`, `follow_up_to`, `related_to`. Do not introduce a
+  separate Subcase table or a strict `parentCaseId` target model. `part_of`
+  must be acyclic; links do not imply cascade deletion or exclusive ownership.
+- Keep lifecycle status, workflow stage, branch, Claim/submission, task, event,
+  Record and Document relationships distinct. Stable many-to-many links must
+  allow documents and Records to participate in multiple Cases without copies.
+- Support manual, Assist-suggested and guided Case origins without changing
+  the Case capability model.
+- Treat PersonProfile and OrganizationProfile as ManagedSubject variants while
+  keeping account identity, ManagementGrant and ExternalParty separate.
+- Model recurring contracts/subscriptions as durable Records with versions,
+  cadence, invoices, confirmed facts, tasks and optional workflow context.
+- Financial roll-up is derived, deduplicated by stable FinancialEntry identity
+  and automatic only across eligible `part_of` links. Tax candidate/review
+  status is not accounting truth or a deductibility fact.
 
 ## Design Checks
 
@@ -48,6 +64,13 @@ Read:
 - Can Drift tests run in memory or isolated temp storage?
 - Are migrations explicit and reversible enough for M2 safety?
 - Does UI access data only through providers/domain repositories?
+- Can Case links be added, changed and removed without moving, copying or
+  deleting linked documents, Records, tasks or other Cases?
+- Can a custom umbrella Case be created from a selection of existing objects
+  and later dissolved without data loss?
+- Are recurring invoice matching, subject context, tax context and confirmed
+  financial entries represented without turning document types into hidden
+  workflow or accounting state machines?
 
 ## Planning Output
 
