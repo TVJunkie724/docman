@@ -13,7 +13,8 @@ widget/provider implementation plans.
 Read first:
 
 - `.codex/skills/ui-onboarding/SKILL.md`
-- `docs/PROCESS_AND_CONCEPT_MIGRATION_PLAN.md`
+- `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`
+- `docs/execution/CONCEPT_FILE_QUALITY_MATRIX.md`
 - `docs/PROJECT_OVERVIEW_GUIDE.md`
 - `docs/ROADMAP_REBUILD.md`
 - affected `docs/concepts/CONCEPT_F*.md`
@@ -46,7 +47,8 @@ Always:
 - Work in concepts, phases, roadmaps, scope, dependencies, product behavior,
   UX contracts, and quality gates.
 - Preserve DocMan Clean Architecture: Presentation -> Domain -> Data.
-- Preserve private-first, offline-capable, service-ready product direction.
+- Preserve explicit Local/Cloud Vault authority, offline-capable client
+  behavior and the managed-service product direction.
 - Treat documents, metadata, OCR/LLM outputs, profiles, and diagnostics as
   sensitive unless a decision says otherwise.
 - Use German user-facing wording in UI concepts unless discussing code,
@@ -84,17 +86,21 @@ Before broad production UI implementation, planning must cover:
   scripts, app packaging, desktop/mobile gates.
 - design system: tokens, shell, navigation, form family, actions, icons,
   feedback, overlays, data display, accessibility, platform adaptation.
-- identity/trust UX: local mode, pairing, profile identity, eIDAS/EUDI/ID
-  Austria, device/session states, access-denied.
+- identity/trust UX: account/device/session for normal Local and Cloud modes,
+  offline continuity, Detached Recovery, migration, entitlement/grace,
+  access-denied, and optional later
+  eIDAS/EUDI/ID Austria integration.
 - capture/review UX: mobile capture, desktop import, draft inbox, document
   review, preview, assignment, duplicate warning.
 - documents/cases/records UX: documents, Vorgänge, Unterlagen/Nachweise,
   relationships, versions, search.
 - tasks/facts/insights UX: reminders, claims, facts, deadlines, quick access.
-- security/privacy/support UX: backup, sync, sharing, diagnostics, redaction,
-  legal/privacy/store readiness.
-- intelligence UX: assisted review, OCR/LLM suggestions, confidence, evidence,
-  review states, processing trust boundary.
+- security/privacy/support UX: Local export/restore, Cloud backup/sync,
+  cancellation/read-only, Cloud-to-Local migration, deletion, sharing,
+  diagnostics, redaction, legal/privacy/store readiness.
+- intelligence UX: Core Assist in Commercial Core, Advanced Assist later,
+  OCR/LLM suggestions, confidence, evidence, review states, processing trust
+  boundary, quota/opt-out/offline/manual fallback and no AI-chat assumption.
 
 If an area is intentionally deferred, state the milestone and non-goal.
 

@@ -1,13 +1,21 @@
 ---
 title: "Mappm SEC-00 Security And Trust Umbrella"
 description: "Security, trust and encryption planning contract for sensitive document handling"
-tags: [security, privacy, encryption, trust, local-first, cloud, playbook]
-lastUpdated: "2026-07-08"
+tags: [security, privacy, encryption, trust, vault, cloud, playbook]
+lastUpdated: "2026-07-12"
 status: "draft"
 owner: "security/product-concept"
 ---
 
 # Mappm SEC-00 Security And Trust Umbrella
+
+Local and Cloud Vaults have different authority and trust boundaries. Managed
+Cloud storage, backup, processing, account/device recovery, subscription exit
+and provider migration are blocked from implementation until their SEC-02/03
+rows and applicable VC-02/VC-07/VC-08 decisions are accepted. Local Development Cloud is a separate synthetic
+environment, never a customer self-hosted mode.
+
+Customer self-hosting is not active product scope.
 
 ## Purpose
 

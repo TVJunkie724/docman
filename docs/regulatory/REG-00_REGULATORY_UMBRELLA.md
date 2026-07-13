@@ -2,7 +2,7 @@
 title: "Mappm REG-00 Regulatory Umbrella"
 description: "Regulatory planning contract for EU, Austrian, store and platform obligations"
 tags: [regulatory, legal, eu, gdpr, ai-act, cra, stores, playbook]
-lastUpdated: "2026-07-08"
+lastUpdated: "2026-07-12"
 status: "draft"
 owner: "compliance/product"
 ---
@@ -21,7 +21,8 @@ date.
 
 ## Baseline Date
 
-Baseline reviewed for planning: 2026-07-08.
+Baseline reviewed for planning: 2026-07-11. Official sources and application
+signals are recorded in `docs/regulatory/REGULATORY_SOURCE_REGISTER.md`.
 
 ## Required Regulatory Families
 

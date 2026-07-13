@@ -1,17 +1,37 @@
 ---
 title: "Konzept F17 - Mobile Capture Client Standards"
 description: "Querschnittliche Frontend-/Client-Regeln fuer Mobile-Capture-Qualitaet, Queue-Zustaende, Upload-Feedback und sichere M2-Grenzen"
-tags: [concept, mobile, capture, mvp, upload-queue, home-hub, draft-inbox]
-lastUpdated: "2026-06-06"
-version: "1.4"
-status: "accepted"
+tags: [concept, mobile, capture, commercial-core, upload-queue, cloud, draft-inbox]
+lastUpdated: "2026-07-12"
+version: "2.0"
+status: "accepted-rebaseline"
 ---
 
 # Konzept F17 - Mobile Capture Client Standards
 
 ## Status
 
-Accepted.
+Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
+
+## 2026 Normative Cloud Capture Model
+
+This section supersedes Home-Hub upload/pairing statements later in this file.
+Mobile Capture always stores an in-progress scan durably on the device. In a
+Cloud Vault it uploads through the approved Mappm Cloud capture contract and
+becomes complete only after Cloud confirmation. Offline capture remains queued.
+A Local mobile Vault remains single-device and does not transfer to a Local
+desktop Vault. Mobile-to-desktop continuity is a Cloud capability.
+
+## Legacy Detail Baseline (non-normative)
+
+The remaining imported detail is retained only for migration context and useful
+feature-specific examples. It must not authorize Home Hub, Tailscale, customer
+self-hosting, universal local-first authority, old milestone scope or QR server
+pairing. Where it differs, the rebaseline above,
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
+`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
+concept is used for implementation, its affected detail must be rewritten into
+the phase's approved implementation contract.
 
 ## Zweck
 
@@ -145,3 +165,11 @@ Für den M2 gilt:
 - SHA-256 prueft die Integritaet vor dem finalen Confirm.
 - Idempotency verhindert doppelte Draft-Inbox-Eintraege.
 - erfolgreiche Rohartefakte duerfen lokal nach 7 Tagen aufgeraeumt werden.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

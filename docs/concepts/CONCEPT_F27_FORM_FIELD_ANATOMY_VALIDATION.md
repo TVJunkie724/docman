@@ -2,7 +2,7 @@
 title: "Konzept F27 - Form Field Anatomy and Validation"
 description: "Detaillierte Mappm Design-System-Spezifikation fuer Feldaufbau, Pflichtfelder, Helper/Error/Success/Review-Texte, Validation States, Review Gates und Privacy-safe Form Feedback"
 tags: [concept, frontend, design-system, forms, validation, review, accessibility, flutter, production-readiness]
-lastUpdated: "2026-06-21"
+lastUpdated: "2026-07-12"
 version: "1.0"
 status: "accepted"
 ---
@@ -441,3 +441,11 @@ F27 is satisfied when:
 - F24 Form Family.
 - F25 Accessibility Patterns and Visual QA.
 - F26 Button Family.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

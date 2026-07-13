@@ -2,8 +2,8 @@
 title: "DocMan/Mappm - Concept Coverage Matrix"
 description: "Coverage matrix for required playbook concept families in the existing DocMan/Mappm project"
 tags: [execution, concepts, coverage, playbook]
-lastUpdated: "2026-07-08"
-status: "draft"
+lastUpdated: "2026-07-12"
+status: "active-baseline"
 owner: "ui-concept"
 ---
 
@@ -13,17 +13,17 @@ owner: "ui-concept"
 
 | Family | Required | Status | Owner | Existing artifacts | Blocks | Notes |
 |---|---|---|---|---|---|---|
-| F Concepts | yes | needs-review | ui-concept/foundation | `docs/concepts/CONCEPT_F1..F35` | T4/T5/T6 | Existing DocMan set is richer/different than generic F1-F31; mapping required before completion |
-| Design System | yes | active-draft | ui-concept/design | `docs/design-system/concepts/MP-DS-00..03`, `docs/design-system/concepts/MP-DS-COVERAGE_MATRIX.md`, `docs/design-system/Mock/` | UI phases | DS-04..07 and DS-04 subfamilies mapped; detailed concepts still expand before affected handoff |
-| Product Pillars | yes | draft | product-concept | `docs/pillars/*` | T5/T6 | Exists; needs playbook traceability fields and phase-as-contract links |
-| Roadmap Phases | yes | draft | product-concept | `docs/ROADMAP_REBUILD.md`, `docs/roadmap/*` | T5/T6 | R0-R15 exists; map generic P0-P11 to DocMan phases |
-| Decisions | yes | draft | product-concept | `docs/technical/DECISION_*.md` | T3/T6 | Many accepted decisions exist; matrix must classify accepted/draft-safe/needs-review |
-| Regulatory | yes | umbrella-draft | compliance/product | `docs/regulatory/REG-00_REGULATORY_UMBRELLA.md`, existing F8/F9 and legal decisions | T4/T7 | Expand REG-01..REG-08 before affected implementation; all legal checks need dated re-review |
-| Security | yes | umbrella-draft | security/product | `docs/security/SEC-00_SECURITY_TRUST_UMBRELLA.md`, security/privacy decisions | T4/T7 | Expand SEC subfamilies and map to trust/encryption decisions |
-| Data Lifecycle | yes | umbrella-draft | data/privacy | `docs/data-lifecycle/DATA-00_DATA_LIFECYCLE_UMBRELLA.md`, storage, backup, sync decisions | T4/T7 | Expand DATA subfamilies before persistence/sync/sharing phases |
-| Ops | yes | active-draft | quality/release/ops | `frontend.sh`, `docs/ops/OPS-00_OPERATIONS_UMBRELLA.md`, `docs/ops/OPS-08_PROJECT_ENTRYPOINTS.md`, scripts | T7 | Add OPS-07 CI/CD and release/support details before production gates |
-| AI/OCR/LLM | conditional-applicable | umbrella-draft | ai/compliance | `docs/ai/AI-00_AI_GOVERNANCE_UMBRELLA.md`, intelligence decision | M3/T4 | Expand AI-01..AI-06 before assisted review implementation |
-| Commercial | conditional-planned | umbrella-draft | commercial/product | `docs/commercial/COM-00_COMMERCIAL_UMBRELLA.md`, product strategy discussion | release/commercial phases | Expand COM-01..COM-04 before sales/trial/SLA decisions |
+| F Concepts | yes | covered | ui-concept/foundation | F1..F36 plus per-file quality matrix | affected phases | F24 remains intentionally draft; F36 owns Local/Cloud Vault lifecycle; every file adopts the quality contract |
+| Design System | yes | active-baseline | ui-concept/design | MP-DS-00..07, exact DS-04 mapping and HTML mock | UI phases | affected rows still require phase-specific review |
+| Product Pillars | yes | covered-proposed | product-concept | pillars plus pillar quality contract/matrix | affected phases | proposed status prevents implicit implementation but no longer blocks roadmap setup |
+| Roadmap Phases | yes | covered | product-concept | R0-R15 mapping plus approval-ready R3.5 contract | future phases | R3.5 needs explicit approval; other index entries require their own implementation contract |
+| Decisions | yes | covered | product-concept | decision traceability matrix | affected phases | draft-safe decisions block only phases that depend on them |
+| Regulatory | yes | seeded-draft | compliance/product | REG-00..08 and dated source register | legal/release/AI phases | legal reviewer required before affected implementation |
+| Security | yes | seeded-draft | security/product | SEC-00..05 and accepted trust/privacy decisions | sensitive phases | threat/key/update details require phase review |
+| Data Lifecycle | yes | seeded-draft | data/privacy | DATA-00..06 and storage/backup/sync decisions | persistence/sync phases | classification precedes new data types |
+| Ops | yes | seeded-active | quality/release/ops | OPS-00..08, frontend entrypoint and scripts | R3/release | CI provider/runtime remains scheduled, not forgotten |
+| Core/Advanced Assist, AI/OCR/LLM | Core Assist active-required; Advanced conditional | accepted-direction with implementation-blocking details | ai/compliance | Account/Vault/Assist decision, AI-00..06, REG-02 and intelligence decision | C1-C3/R5 traceability; Advanced R9 | production Core Assist blocked pending VC-02/OQ-003/provider/data/legal review |
+| Commercial | conditional-planned | seeded-draft | commercial/product | COM-00..04 | R10/R15 | pricing and commitments remain user/product decisions |
 
 ## Quality Audit
 
@@ -39,12 +39,13 @@ additional form lifecycle, permission, review and bulk-import gaps lives in
 
 ## Rules
 
-- Family rows are not enough for final completion; T4 must expand this matrix
-  into concrete per-file rows for accepted/active concept families.
+- Concrete F/pillar rows live in
+  `docs/execution/CONCEPT_FILE_QUALITY_MATRIX.md`; DS subfamilies live in
+  `docs/design-system/concepts/MP-DS-COVERAGE_MATRIX.md`.
 - No affected phase can be approved while required concept coverage is
   `missing` or unresolved `needs-review`.
 - Generic playbook templates must be adapted to Mappm terminology, privacy
-  model, local-first direction and backend/provider decisions.
+  model, Local/Cloud Vault authority and backend/provider decisions.
 - `planned` requires owner, implementation trigger, review date and target
   phase, issue or backlog item.
 - `deferred` requires reason, owner, implementation trigger, review date and

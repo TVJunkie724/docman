@@ -44,7 +44,7 @@ Use the relevant DocMan skill while drafting or reviewing the issue body:
 |---|---|
 | UI/frontend concept, phase, roadmap, design-system, form-family, mock, UX issue | `ui-concept` or `ui-architect` as appropriate |
 | UI implementation or audit follow-up | `ui-builder`, `ui-auditor`, or `ui-audit-review` as appropriate |
-| Backend/API/OpenAPI/Home Hub/Sync/Capture contract work | `contract-api` |
+| Backend/API/OpenAPI/Mappm Cloud/Sync/Capture contract work | `contract-api` |
 | Foundation/Riverpod/Drift/bootstrap/secure boundaries | `foundation-builder` |
 | Data/storage/schema/repository architecture | `data-architect` |
 | Quality/readiness/tests/fakes/fixtures/CI | `quality-readiness` |
@@ -62,7 +62,7 @@ owner prefix:
 | Prefix | Use for |
 |---|---|
 | `Frontend:` | Flutter UI, shell/navigation, frontend state, frontend repositories, generated/client consumption, fake/Microcks consumer fixtures, visual/UX behavior, frontend-owned tests |
-| `Backend:` | Home Hub/server/API implementation, persistence, sync runtime, backend security, backend-owned tests, backend contract provider work |
+| `Backend:` | Mappm Cloud/server/API implementation, persistence, sync runtime, backend security, backend-owned tests, backend contract provider work |
 | `Contract:` | OpenAPI/Microcks/API contract source-of-truth work that does not itself implement frontend or backend runtime |
 | `Foundation:` | Riverpod foundation, repository interfaces, local storage boundaries, bootstrap, codegen, architecture cleanup |
 | `Quality:` | test infrastructure, fixtures, analyzer/format debt, CI, production-readiness gates |
@@ -162,7 +162,7 @@ Use all that apply:
 | `area:distribution` | App store, packaging, signing, legal/public distribution |
 | `area:docs` | Documentation-only work |
 | `area:quality` | Test coverage, fake repositories, analyzer/format debt, CI quality gates |
-| `area:api-contracts` | OpenAPI, Microcks, contract mocks, Home Hub/Capture/Sync API boundaries |
+| `area:api-contracts` | OpenAPI, Microcks, contract mocks, Cloud/Capture/Sync/migration API boundaries |
 | `area:data-storage` | Drift, SQLite, file store, local migrations, legacy persistence retirement |
 | `area:platform` | Cross-cutting infrastructure that does not fit one product area |
 
@@ -179,7 +179,7 @@ Use all that apply, within the non-mixed implementation rule:
 | `layer:frontend` | Flutter UI/client behavior |
 | `layer:domain` | Entities, repository interfaces, use cases, workflows |
 | `layer:data` | Drift, SQLite, file store, persistence, storage, legacy adapters, sync data |
-| `layer:backend` | Home Hub/server work, API handling, backend configuration |
+| `layer:backend` | Mappm Cloud/server work, API handling, backend configuration |
 | `layer:sync` | Replication, conflict handling, offline queue, sync status |
 | `layer:tests` | Test infrastructure, fake fixtures, contract-test harnesses, QA evidence |
 | `layer:docs` | Documentation/process-only work |
@@ -223,7 +223,7 @@ Use one milestone:
 | `Mappm M1 Foundation and Quality` | R0-R3 decisions, documentation cleanup, technical foundation, quality readiness |
 | `Mappm M2 Capture and Review Core` | Capture, draft inbox, review, documents, cases, search, tasks |
 | `Mappm M3 Assisted Review` | OCR/text extraction, metadata suggestions, review of suggestions |
-| `Mappm M4 Household and Sync` | Household profiles, pairing, Home Hub, sync, extended mobile |
+| `Mappm M4 Household and Sync` | Household profiles, Cloud identity/device trust, sync/migration, extended mobile |
 | `Mappm M5 Facts, Workflows and Insights` | Facts, claims, workflows, insights, external actions |
 | `Mappm M6 Automation, Resilience and Distribution` | Backup, restore, compliance, release, sharing, local LLMs, operations |
 

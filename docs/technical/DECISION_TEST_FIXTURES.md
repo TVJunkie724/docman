@@ -2,7 +2,7 @@
 title: "Decision - Test Fixtures"
 description: "Entscheidung zu synthetischen Testfixtures, Dokumentfixtures und API-/Microcks-Beispieldaten"
 tags: [decision, testing, fixtures, synthetic-data, privacy, contracts, microcks]
-lastUpdated: "2026-05-06"
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
@@ -39,8 +39,8 @@ test/
 
 contracts/
   openapi/
-    home-hub-health.openapi.yaml
-    home-hub-pairing.openapi.yaml
+    cloud-identity-device.openapi.yaml
+    cloud-vault-entitlement.openapi.yaml
     mobile-capture-upload.openapi.yaml
     draft-inbox.openapi.yaml
   examples/

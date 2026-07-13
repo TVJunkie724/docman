@@ -1,6 +1,6 @@
 ---
 name: foundation-builder
-description: Use when implementing DocMan R2/R3 technical foundation work that is not primarily UI, including app bootstrap, Riverpod provider foundation, scripts, dependencies, codegen, cleanup of BLoC/GetIt/Isar/PocketBase expansion, secure boundaries, repository/provider wiring, and foundation verification.
+description: Use when implementing approved Mappm C1/R2/R3 technical foundation work that is not primarily UI, including bootstrap, Riverpod providers, scripts, codegen, legacy cleanup, Local/Cloud Vault boundaries, secure storage, repository/provider wiring, and verification.
 ---
 
 # DocMan Foundation Builder
@@ -11,14 +11,19 @@ Read:
 
 - `.codex/skills/ui-onboarding/SKILL.md`
 - `.codex/skills/git-safety/SKILL.md` before Git operations
-- `docs/technical/R2_TECHNICAL_FOUNDATION_IMPLEMENTATION_PLAN.md` when R2 scope is involved
-- `docs/ROADMAP_REBUILD.md` for phase boundaries
+- `docs/technical/DECISION_COMMERCIAL_CORE_SCOPE.md`
+- `docs/technical/DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md`
+- `docs/technical/DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`
+- the exact approved phase implementation contract and handoff; the old
+  `R2_TECHNICAL_FOUNDATION_IMPLEMENTATION_PLAN.md` is superseded
+- `docs/ROADMAP_REBUILD.md` and `docs/roadmap/PHASE_INDEX.md` for boundaries
 
 ## Non-Negotiables
 
 - Riverpod is the target DI/state foundation.
 - Do not expand BLoC/GetIt except for explicit temporary compatibility work.
-- SQLite + Drift is the target structured local data layer.
+- SQLite + Drift is the target client structured store: Local authority or
+  Cloud cache/pending state according to the active Vault provider.
 - Isar and PocketBase are legacy; do not add new product dependency on them.
 - Domain interfaces must not expose SDK-specific types.
 - Presentation must not import `lib/data/`.
@@ -28,6 +33,8 @@ Read:
 ## Workflow
 
 1. Confirm the phase/slice and related GitHub Issue.
+   Stop if no approved implementation contract exists or an applicable
+   VC-01..VC-08, OQ-003 or WF-01/WF-02 decision is still open.
 2. Check dirty state and protect unrelated edits.
 3. Run or record baseline verification:
 

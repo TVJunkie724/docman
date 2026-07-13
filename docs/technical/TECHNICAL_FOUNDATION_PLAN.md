@@ -2,15 +2,19 @@
 title: "DocMan - Technical Foundation Plan"
 description: "Technischer Foundation-Plan für die Überführung des aktuellen Flutter-Spikes in eine saubere DocMan-Basis"
 tags: [technical, foundation, plan, flutter, riverpod, local-first, migration]
-lastUpdated: "2026-04-27"
-status: "draft"
+lastUpdated: "2026-07-12"
+status: "superseded"
 ---
 
 # DocMan - Technical Foundation Plan
 
+> Superseded. Do not implement this Home-Hub/local-first plan. A new C1
+> Account, Vault and Provider Foundation implementation contract must be
+> approved from the Commercial-Core roadmap and Vault decisions.
+
 ## Status
 
-Draft.
+Superseded. The following content is historical and not implementation-authorizing.
 
 Dieser Plan ist der Übergang von Konzeptarbeit zu Implementation-Planung. Er ist noch kein Low-Level-Implementation-Plan und schreibt keine konkreten Klassen- oder Provider-Signaturen vor.
 

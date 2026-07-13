@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mappm Vault &amp; Cloud Lifecycle</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" data-design-navigation></aside>
+      <main class="content">
+        <section class="panel">
+          <div class="eyebrow">Product Pattern</div>
+          <h1>Konto, Speicherort und Assist bleiben verständlich.</h1>
+          <p>Mappm Account, Vault-Autorität, Assist-Verarbeitung und Datenhoheit werden getrennt gezeigt. Wechsel, Kündigung und Löschung sind niemals ein einzelner Schalter.</p>
+        </section>
+
+        <section class="panel">
+          <h2>Mappm Account</h2>
+          <span class="pill success">Free aktiv</span>
+          <p>Das Konto verwaltet dieses Gerät und das Assist-Kontingent. Es bestimmt nicht, wo die Dokumente dauerhaft gespeichert sind.</p>
+          <div class="field"><label>Gerät</label><div class="control">Dieses Gerät bestätigt</div></div>
+          <div class="field"><label>Core Assist</label><div class="control">17 von 25 Analysen verfügbar</div></div>
+          <div class="button-row"><a class="btn secondary" href="#">Konto verwalten</a><a class="btn secondary" href="#">Assist-Einstellungen</a></div>
+        </section>
+
+        <section class="section-grid">
+          <article class="panel">
+            <h2>Auf diesem Gerät</h2>
+            <span class="pill success">Local Vault</span>
+            <p>Dokumente und Metadaten liegen vollständig auf diesem Gerät. Der Mappm Account aktiviert Assist und Gerätevertrauen, aber keine Cloud-Ablage.</p>
+            <div class="field"><label>Datenschutz</label><div class="control">Lokal autoritativ</div></div>
+            <div class="field"><label>Analyse</label><div class="control">Ausstehende Dokumente werden nach Freigabe verarbeitet</div></div>
+            <div class="button-row"><a class="btn secondary" href="#">Verschlüsseltes Backup</a><a class="btn" href="#">In Cloud übertragen</a></div>
+          </article>
+          <article class="panel">
+            <h2>Mappm Cloud</h2>
+            <span class="pill info">Cloud Vault aktiv</span>
+            <p>Geräte synchronisieren über das Konto. Dieses Gerät hält ausgewählte Dateien und ausstehende Änderungen lokal verfügbar.</p>
+            <div class="field"><label>Speicher</label><div class="control">18,4 GB von 50 GB</div></div>
+            <div class="button-row"><a class="btn secondary" href="#">Offline-Dateien</a><a class="btn secondary" href="#">Plan verwalten</a></div>
+          </article>
+        </section>
+
+        <section class="panel">
+          <h2>Ohne Konto lokal weitermachen</h2>
+          <span class="pill warning">Detached Recovery</span>
+          <p>Vorhandene lokale Dokumente, Vorgänge, Aufgaben und Metadaten bleiben zugänglich und exportierbar. Assist, Sync, Sharing und verwaltetes Backup stehen nicht zur Verfügung.</p>
+          <div class="callout-card" data-callout-kind="info">
+            <strong>Kein anonymer Startmodus</strong>
+            <p>Detached Recovery ist eine Ausstiegs- und Wiederherstellungsgarantie für bestehende Daten. Eine erneute Verbindung lädt nichts automatisch in die Cloud.</p>
+          </div>
+          <div class="button-row"><a class="btn secondary" href="#">Verschlüsselten Export erstellen</a><a class="btn ghost" href="#">Konto wieder verbinden</a></div>
+        </section>
+
+        <section class="panel">
+          <h2>Zu Mappm Cloud wechseln</h2>
+          <div class="workflow-strip">
+            <span class="workflow-label past workflow-petrol">PRÜFEN</span>
+            <span class="workflow-arrow">&rarr;</span>
+            <span class="workflow-label current workflow-amber">ÜBERTRAGEN</span>
+            <span class="workflow-arrow">&rarr;</span>
+            <span class="workflow-label">VERIFIZIEREN</span>
+            <span class="workflow-arrow">&rarr;</span>
+            <span class="workflow-label">AKTIVIEREN</span>
+          </div>
+          <div class="callout-card" data-callout-kind="info">
+            <strong>12 von 48 Dokumenten übertragen</strong>
+            <p>Die lokalen Originale bleiben erhalten, bis die Cloud-Kopie vollständig geprüft und aktiviert wurde.</p>
+          </div>
+          <div class="button-row"><a class="btn secondary" href="#">Pausieren</a><a class="btn ghost" href="#">Details anzeigen</a></div>
+        </section>
+
+        <section class="section-grid">
+          <article class="panel">
+            <h2>Abo endet am 31. August</h2>
+            <span class="pill warning">Kündigung vorgemerkt</span>
+            <p>Bis dahin bleibt Mappm Cloud vollständig aktiv. Danach beginnt der zeitlich begrenzte Nur-Lesen-Zeitraum.</p>
+            <div class="button-row"><a class="btn" href="#">Kündigung zurücknehmen</a><a class="btn secondary" href="#">Daten lokal übernehmen</a></div>
+          </article>
+          <article class="panel">
+            <h2>Cloud nur lesen</h2>
+            <span class="pill warning">Noch 24 Tage</span>
+            <p>Neue Uploads sind pausiert. Lesen, Export, Reaktivierung und die geprüfte Rückkehr zu Local bleiben verfügbar.</p>
+            <div class="button-row"><a class="btn" href="#">Cloud reaktivieren</a><a class="btn secondary" href="#">Zu Local wechseln</a><a class="btn ghost" href="#">Export erstellen</a></div>
+          </article>
+        </section>
+
+        <section class="panel">
+          <h2>Cloud-Daten löschen</h2>
+          <div class="callout-card" data-callout-kind="error">
+            <strong>Getrennte, irreversible Entscheidung</strong>
+            <p>Eine Kündigung löscht keine Daten. Cloud-Vault löschen und Konto löschen sind eigene Abläufe mit eigener Bestätigung und Frist.</p>
+          </div>
+          <div class="button-row"><a class="btn secondary" href="#">Vorher exportieren</a><a class="btn ghost" href="#">Cloud-Vault löschen</a></div>
+        </section>
+      </main>
+    </div>
+    <script src="../assets/js/navigation.js"></script>
+  </body>
+</html>

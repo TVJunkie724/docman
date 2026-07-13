@@ -2,7 +2,7 @@
 title: "Mappm - Release Readiness Phases"
 description: "Release, store, CI/CD, support and operations gates that must stay planned"
 tags: [roadmap, release, cicd, store, support, playbook]
-lastUpdated: "2026-07-08"
+lastUpdated: "2026-07-12"
 status: "active-baseline"
 owner: "release/quality"
 ---
@@ -31,8 +31,8 @@ store/commercial/support readiness when the app is ready for external users.
 ## Current Baseline
 
 - Narrow widget test and target app analysis pass.
-- Full analyzer still fails because of known legacy/generated Isar and
-  PocketBase debt.
+- Full verify stops on 35 legacy formatting differences; full analyzer reports
+  84 known legacy/generated Isar, PocketBase and deprecated-UI findings.
 - No CI workflow has been established yet.
 
 ## Stop Rules

@@ -1,23 +1,42 @@
 ---
 title: "Konzept F9 - Legal and Privacy"
-description: "DocMan-spezifisches Privacy- und Compliance-Konzept für private Dokumente, Self-Hosted-Betrieb, lokale Daten, Export, Löschung und Logs"
-tags: [concept, legal, privacy, gdpr, self-hosted, documents]
-lastUpdated: "2026-04-26"
-version: "3.0"
-status: "accepted"
+description: "Mappm Privacy/Compliance fuer Local/Cloud Vaults, processors, export, cancellation, retention, deletion and sensitive documents"
+tags: [concept, legal, privacy, gdpr, cloud, documents, subscriptions]
+lastUpdated: "2026-07-12"
+version: "4.0"
+status: "accepted-rebaseline"
 ---
 
 # Konzept F9 - Legal and Privacy
 
 ## Status
 
-Accepted.
+Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
+
+## 2026 Vault/Cloud Rebaseline
+
+Local and Cloud processing purposes, roles, legal bases, retention and deletion
+must be documented separately. Cloud requires current hosting/residency,
+processor/subprocessor, transfer, incident, account, billing and DSAR review.
+Cancellation, Vault deletion and account deletion are separate. Export and safe
+Cloud-to-Local migration remain available according to accepted policy.
 
 Dieses Konzept ersetzt den importierten F9-Inhalt aus dem alten Projekt.
 
 ## Hinweis
 
 Dieses Dokument ist Produkt- und Architekturplanung, keine Rechtsberatung.
+
+## Legacy Detail Baseline (non-normative)
+
+The remaining imported detail is retained only for migration context and useful
+feature-specific examples. It must not authorize Home Hub, Tailscale, customer
+self-hosting, universal local-first authority, old milestone scope or QR server
+pairing. Where it differs, the rebaseline above,
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
+`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
+concept is used for implementation, its affected detail must be rewritten into
+the phase's approved implementation contract.
 
 ## Zweck
 
@@ -82,3 +101,11 @@ F9 gilt als umgesetzt, wenn:
 - Welche Daten werden im M2 verschlüsselt?
 - Welche Exportformate brauchen wir?
 - Wie werden Profile/Haushalte bei Löschung behandelt?
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

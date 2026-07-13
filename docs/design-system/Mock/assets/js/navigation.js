@@ -45,6 +45,7 @@
       label: 'Patterns & Standards',
       items: [
         ['Patterns', 'pages/patterns.html'],
+        ['Vault & Cloud Lifecycle', 'pages/vault-cloud-lifecycle.html'],
         ['Accessibility', 'pages/component-accessibility.html'],
       ],
     },
@@ -77,8 +78,11 @@
         <strong>Mappm</strong>
         <span>Ordnung fuer Zuhause</span>
       </div>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="design-system-nav" aria-label="Navigation einblenden" title="Navigation einblenden">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <nav class="nav" aria-label="Design-System-Navigation">
+    <nav class="nav" id="design-system-nav" aria-label="Design-System-Navigation">
       ${groups.map((group) => `
         <div class="nav-section">${group.label}</div>
         ${group.items.map(([label, href]) => {
@@ -89,4 +93,13 @@
       `).join('')}
     </nav>
   `;
+
+  const navToggle = sidebar.querySelector('.nav-toggle');
+  navToggle.addEventListener('click', () => {
+    const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+    sidebar.classList.toggle('nav-open', !expanded);
+    navToggle.setAttribute('aria-expanded', String(!expanded));
+    navToggle.setAttribute('aria-label', expanded ? 'Navigation einblenden' : 'Navigation ausblenden');
+    navToggle.setAttribute('title', expanded ? 'Navigation einblenden' : 'Navigation ausblenden');
+  });
 })();

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Error Handling"
+  short_description: "Plan and verify safe Mappm frontend failures"
+  default_prompt: "Use $frontend-error-handling to review this Mappm error flow and its diagnostics."

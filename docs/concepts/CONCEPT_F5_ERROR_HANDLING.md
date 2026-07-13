@@ -1,19 +1,39 @@
 ---
 title: "Konzept F5 - Error Handling"
-description: "DocMan-spezifisches Fehlerkonzept für Result/Failure, Offline-Betrieb, lokale Persistenz, Upload Queue, Home Hub und Nutzer-Feedback"
-tags: [concept, foundation, error-handling, failure, offline, upload-queue, home-hub]
-lastUpdated: "2026-05-05"
-version: "3.1"
-status: "accepted"
+description: "Mappm-Fehlerkonzept fuer Account, Local/Cloud Vaults, Assist, offline/cache, migration, entitlement, upload and Detached Recovery"
+tags: [concept, foundation, error-handling, failure, account, assist, offline, upload-queue, recovery]
+lastUpdated: "2026-07-12"
+version: "4.0"
+status: "accepted-rebaseline"
 ---
 
 # Konzept F5 - Error Handling
 
 ## Status
 
-Accepted.
+Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
+
+## 2026 Vault/Cloud Rebaseline
+
+Failure categories must distinguish local-storage, Cloud-unavailable,
+authentication, authorization, entitlement/payment, quota, read-only grace,
+migration preflight/transfer/verification, cache-miss-offline, bounded offline
+session, Assist queue/provider/review, Detached Recovery and retention states.
+Failure handling never changes Vault authority, implies backup, deletes source
+data or blocks export/Cloud-to-Local migration without an accepted policy.
 
 Dieses Konzept ersetzt den importierten F5-Inhalt aus dem alten Projekt.
+
+## Legacy Detail Baseline (non-normative)
+
+The remaining imported detail is retained only for migration context and useful
+feature-specific examples. It must not authorize Home Hub, Tailscale, customer
+self-hosting, universal local-first authority, old milestone scope or QR server
+pairing. Where it differs, the rebaseline above,
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
+`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
+concept is used for implementation, its affected detail must be rewritten into
+the phase's approved implementation contract.
 
 ## Zweck
 
@@ -169,3 +189,11 @@ F5 gilt als umgesetzt, wenn:
 - Welche Fehlertexte brauchen Lokalisierung?
 - Welche Failures werden später an Home-Hub-Diagnose gemeldet?
 - Welche Failures erzeugen UserNotifications, TelemetryEvents oder AuditEvents nach F18?
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

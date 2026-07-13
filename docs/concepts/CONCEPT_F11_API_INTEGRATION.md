@@ -1,19 +1,45 @@
 ---
 title: "Konzept F11 - API Integration"
-description: "DocMan-spezifisches API-Konzept für Home Hub, Capture Gateway, späteres Sync Backend, Repository-Grenzen und backend-agnostische App-Schnittstellen"
-tags: [concept, foundation, api, home-hub, capture-gateway, sync, self-hosted]
-lastUpdated: "2026-05-11"
-version: "3.3"
-status: "accepted"
+description: "Mappm-API-Konzept fuer Account, Core Assist, Managed Cloud, capture, Vault migration, identity, entitlements and backend-agnostic client boundaries"
+tags: [concept, foundation, api, account, assist, cloud, capture, migration, identity, entitlements]
+lastUpdated: "2026-07-12"
+version: "4.0"
+status: "accepted-rebaseline"
 ---
 
 # Konzept F11 - API Integration
 
 ## Status
 
-Accepted.
+Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
+
+## 2026 Normative Cloud Contract Model
+
+This section supersedes customer Home-Hub/self-hosted assumptions later in this
+file. OpenAPI is the source of truth for Mappm Cloud HTTP contracts; Microcks
+owns contract scenarios; the Local Development Cloud and managed environments
+must conform to the same accepted contract versions.
+
+Contract families include identity/device/offline entitlement for every normal
+mode, Core Assist job submission/status/cancel/delete, Vault/entitlement, capture,
+metadata/payload transfer, migration inventory/checkpoint/verification,
+export/delete, sync/conflict and later Advanced-Assist processing. Local Vault
+Assist contracts never imply durable Cloud document storage. Frontend describes required
+client states but Contract/Backend owners decide DTOs, endpoints, mapping,
+persistence and policy architecture.
 
 Dieses Konzept ersetzt den importierten F11-Inhalt aus dem alten Projekt.
+
+## Legacy Detail Baseline (non-normative)
+
+The remaining imported detail is retained only for migration context and useful
+feature-specific examples. It must not authorize Home Hub, Tailscale, customer
+self-hosting, universal local-first authority, old milestone scope or QR server
+pairing. Where it differs, the rebaseline above,
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
+`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
+concept is used for implementation, its affected detail must be rewritten into
+the phase's approved implementation contract.
 
 ## Zweck
 
@@ -211,3 +237,11 @@ F11 gilt als umgesetzt, wenn:
 - Wie sieht Pairing konkret aus?
 - Welche Upload-Größen sind realistisch?
 - Brauchen Uploads Chunking schon im M2?
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

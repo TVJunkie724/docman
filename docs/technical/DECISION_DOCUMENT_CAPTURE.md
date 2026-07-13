@@ -2,11 +2,18 @@
 title: "Decision - Document Capture"
 description: "Entscheidung zur minimalen Dokument-Erfassung: Desktop-Dateiimport und Mobile Scan landen zuerst in der Draft-Inbox"
 tags: [decision, document-capture, draft-inbox, mobile-capture, desktop, milestones]
-lastUpdated: "2026-06-06"
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
 # Decision - Document Capture
+
+## 2026 Vault Rebaseline
+
+Capture behavior remains accepted, but destination semantics follow the active
+Vault: Local capture stays authoritative on-device; Cloud capture uses the
+Mappm Cloud contract and remains pending until Cloud confirmation. Historical
+Home-Hub wording means Cloud provider handoff only.
 
 ## Status
 

@@ -2,7 +2,7 @@
 title: "Mappm DATA-00 Data Lifecycle Umbrella"
 description: "Data lifecycle planning contract for local cache, source of truth, sync, backup, export and deletion"
 tags: [data, lifecycle, local-first, sync, backup, deletion, playbook]
-lastUpdated: "2026-07-08"
+lastUpdated: "2026-07-12"
 status: "draft"
 owner: "data-architect"
 ---
@@ -19,7 +19,9 @@ The data layer remains exchangeable by provider.
 
 | Area | Direction | Status |
 |---|---|---|
-| Local-first storage | app can operate locally with fake/offline repositories during frontend buildout | active-planned |
+| Vault authority/cache | Local is authoritative; Cloud client is cache/pending; fakes cover both | active-planned |
+| Provider migration/exit | export plus verified Local-to-Cloud and Cloud-to-Local workflows | active-planned |
+| Subscription lifecycle | grace/read-only, retention and deletion remain distinct | active-planned |
 | Provider boundary | repositories depend on Domain ports; provider adapters can change later | accepted |
 | Backend source of truth | needed for sync, sharing, backup and assistant services | planned |
 | Cache policy | local cache must document retention, invalidation and encryption | planned |

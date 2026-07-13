@@ -2,15 +2,20 @@
 title: "Decision - Trust, Encryption and Deployment Model"
 description: "Entscheidung zur private-first Produktarchitektur, austauschbaren Daten-/Processing-Modi, Verschluesselung, Trust Boundaries und eID-faehiger Identity-Schicht"
 tags: [decision, trust, encryption, deployment, cloud, local-first, identity, eidas, eudi, id-austria, intelligence]
-lastUpdated: "2026-06-27"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "superseded"
 ---
 
 # Decision - Trust, Encryption and Deployment Model
 
 ## Status
 
-Accepted.
+Superseded on 2026-07-12 by
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md` and
+`DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md`. Its provider-separation,
+sensitivity and identity principles remain inputs; its private-first deployment
+assumption and implied Zero-Knowledge direction are no longer accepted facts.
+Managed Trust versus Zero-Knowledge/E2EE is explicitly open as VC-02.
 
 Diese Entscheidung erweitert die bisherige Local-first-Richtung. Mappm bleibt
 lokal nutzbar, wird aber als private-first Dokumentenplattform geplant, weil
@@ -69,7 +74,7 @@ Mappm muss mehrere Betriebsmodi tragen koennen.
 |---|---|---|---|
 | Local-only | privater Einzelgeraete-Modus | lokal | none oder on-device |
 | Private Home Hub | Haushalt / eigene Infrastruktur | lokale Replik plus privater Server | Home Hub / privater Worker |
-| Managed Mappm Cloud | komfortabler Account-Sync, Backup, Sharing | lokale Replik plus managed Sync/Backup | Managed Intelligence optional |
+| Managed Mappm Cloud | historischer Modus, heute durch Cloud Vault ersetzt | lokale Replik plus managed Sync/Backup | historische optionale Intelligence-Annahme; Core Assist ist heute erforderlich |
 | Hybrid | offlinefaehiger Client mit ausgewaehlten Diensten | je nach Policy | je nach Freigabe |
 
 Local-only darf nicht entfernt werden, aber es ist nicht die einzige
@@ -295,4 +300,3 @@ Mappm Cloud
   einzeln freigegeben wird.
 - konkrete Retention-Zeiten fuer Processing-Artefakte.
 - genaue Rollenmatrix fuer Sharing und Haushaltszugriff.
-

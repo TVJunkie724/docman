@@ -2,15 +2,19 @@
 title: "Decision - Local-first Data Flow and Self-hosted Sync Backend"
 description: "Entscheidung zu DocMans Datenfluss: lokale Quelle der Wahrheit, generisches Sync Backend, Self-Hosted-Betrieb als Zielrichtung"
 tags: [decision, architecture, local-first, sync, backend]
-lastUpdated: "2026-06-05"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "superseded"
 ---
 
 # Decision - Local-first Data Flow and Self-hosted Sync Backend
 
 ## Status
 
-Accepted.
+Superseded on 2026-07-12 by
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`. This file is historical
+context only. Local Vaults remain local-authoritative; Cloud Vaults are
+cloud-authoritative and the customer Home Hub/self-hosting direction is no
+longer active.
 
 ## Entscheidung
 

@@ -1,19 +1,38 @@
 ---
 title: "Konzept F7 - Logging"
-description: "DocMan-spezifisches Logging für lokale App, Mobile Capture, Home Hub, Upload Queue und privacy-sensible Diagnose"
+description: "Mappm-Logging fuer Local/Cloud Vaults, migration, entitlement, capture and privacy-safe managed operations"
 tags: [concept, foundation, logging, diagnostics, privacy, home-hub]
-lastUpdated: "2026-05-05"
-version: "3.1"
-status: "accepted"
+lastUpdated: "2026-07-12"
+version: "4.0"
+status: "accepted-rebaseline"
 ---
 
 # Konzept F7 - Logging
 
 ## Status
 
-Accepted.
+Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
+
+## 2026 Vault/Cloud Rebaseline
+
+Logs may record provider kind, environment, safe operation/reference code and
+coarse migration/entitlement state. They never record Vault names, document
+names/content, OCR text, account identifiers, tokens, signed URLs, local private
+paths or payment details. Local Development Cloud and production telemetry are
+separate sinks and production data is never copied into development.
 
 Dieses Konzept ersetzt den importierten F7-Inhalt aus dem alten Projekt.
+
+## Legacy Detail Baseline (non-normative)
+
+The remaining imported detail is retained only for migration context and useful
+feature-specific examples. It must not authorize Home Hub, Tailscale, customer
+self-hosting, universal local-first authority, old milestone scope or QR server
+pairing. Where it differs, the rebaseline above,
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
+`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
+concept is used for implementation, its affected detail must be rewritten into
+the phase's approved implementation contract.
 
 ## Zweck
 
@@ -99,3 +118,11 @@ F7 gilt als umgesetzt, wenn:
 - Wie lange werden lokale Logs aufbewahrt?
 - Gibt es im M2 bereits einen Diagnose-Export?
 - Welche Logs werden später zu Telemetry Events oder Audit Events nach F18?
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

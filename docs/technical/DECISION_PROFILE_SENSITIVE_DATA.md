@@ -2,7 +2,7 @@
 title: "Decision - Profile Sensitive Data"
 description: "Entscheidung zu notwendigen, sensiblen und hochsensiblen Profildaten fuer Haushaltsprofile, Versicherungen, Ausweise, Adresse und spaetere Identity-Anbindung"
 tags: [decision, profiles, household, sensitive-data, insurance, identity, privacy, id-austria]
-lastUpdated: "2026-06-04"
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
@@ -185,8 +185,8 @@ Folgen:
 - Kinderprofile brauchen besonders vorsichtige Defaults.
 - E-Mail/Account-Identity gehoert in die Auth-/Identity-Schicht, nicht in die
   einfache Profilanzeige.
-- Eine spaetere Cloud- oder self-hosted-cloudartige Variante muss diese
-  Datenklassen verschluesselbar und minimierbar halten.
+- Ein Cloud Vault muss diese Datenklassen nach VC-02 verschlüsseln, minimieren
+  und über tenant-/Vault-spezifische Autorisierung schützen.
 
 ## M2 / M3 / M4 / M5 / M6 Einordnung
 

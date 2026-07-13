@@ -2,11 +2,19 @@
 title: "Decision - Mobile Capture Upload Strategy"
 description: "Entscheidung fuer einen austauschbaren Upload-Strategy-Port mit API-proxied M2 und presigned/resumable Enterprise-Zielbild"
 tags: [decision, mobile-capture, upload, home-hub, api, minio, s3, strategy, provider]
-lastUpdated: "2026-05-11"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "accepted-rebaseline"
 ---
 
 # Decision - Mobile Capture Upload Strategy
+
+## 2026 Cloud Rebaseline
+
+The transport-independent upload port remains accepted. Cloud Vault capture
+targets the managed Mappm Cloud provider; Local Vault capture remains on the
+same device and has no implicit desktop transfer. Home Hub references below
+mean the historical server-side control role only. The C2 contract re-approves
+API-proxied versus presigned/resumable transport, limits and quota behavior.
 
 ## Status
 

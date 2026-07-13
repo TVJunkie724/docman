@@ -2,7 +2,7 @@
 title: "Enterprise-Säule - Integration Governance"
 description: "Enterprise-Bereich fuer externe Links, Deep Links, spätere APIs, Portale, Trust Boundaries, Credentials und Integrationsregeln"
 tags: [pillar, enterprise, integrations, external-links, trust-boundaries]
-lastUpdated: "2026-06-13"
+lastUpdated: "2026-07-12"
 version: "0.2"
 status: "proposed"
 ---
@@ -48,3 +48,11 @@ vertretbare Nutzungsbedingungen und sichere Fehlerbehandlung erlaubt.
 - Export and External Actions.
 - Security and Privacy Architecture.
 - Compliance and Legal Readiness.
+
+## Enterprise Quality Contract
+
+This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its milestone slices and domain boundaries remain authoritative; the shared
+contract supplies mandatory owner separation, phase slicing, security/privacy,
+accessibility/localization, verification, stop-rule and handoff requirements.
+The pillar itself is never sufficient authorization for implementation.

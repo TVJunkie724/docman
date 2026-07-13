@@ -2,7 +2,7 @@
 title: "Konzept F26 - Button Family"
 description: "Detaillierte Mappm Design-System-Spezifikation fuer Buttons, Commands, Button-Zustaende, Groessen, Icon-Nutzung, Dark/Inverse Varianten, Accessibility und Flutter-Handoff"
 tags: [concept, frontend, design-system, buttons, commands, accessibility, flutter, production-readiness]
-lastUpdated: "2026-06-21"
+lastUpdated: "2026-07-12"
 version: "1.0"
 status: "accepted"
 ---
@@ -641,3 +641,11 @@ The Button Family is ready for implementation when:
 - F23 Component System.
 - F24 Form Family.
 - F25 Accessibility Patterns and Visual QA.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

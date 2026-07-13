@@ -2,7 +2,7 @@
 title: "Konzept F30 - Form Facts, Layouts and Assisted Review"
 description: "Mappm Detailkonzept fuer numerische Facts, Betragsfelder, Slider, Stepper, Color Picker, Readonly-Werte, Assisted Review Suggestions, Layouts und Edge States"
 tags: [concept, frontend, design-system, forms, facts, assisted-review, layout, validation, flutter]
-lastUpdated: "2026-06-22"
+lastUpdated: "2026-07-12"
 version: "1.0"
 status: "accepted"
 ---
@@ -213,7 +213,7 @@ Regeln:
 
 Zweck:
 
-- Home Hub.
+- Managed-Cloud-/Intelligence-Verarbeitung innerhalb des akzeptierten Trust-Modells.
 - Pairing.
 - Storage.
 - Diagnose.
@@ -294,3 +294,11 @@ Mindestens:
 - [ ] Draft, Profile, Aufgabe, Settings, Konflikt und Export haben Layoutregeln.
 - [ ] Aufgaben/Facts koennen ohne Dokument existieren, aber Relationen nutzen.
 - [ ] Edge States sind fuer Flutter pruefbar.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

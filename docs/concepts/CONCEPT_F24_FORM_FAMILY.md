@@ -2,7 +2,7 @@
 title: "Konzept F24 - Form Family"
 description: "Draft-Konzept fuer die noch auszuarbeitende Mappm Form Family, inklusive Feldfamilien, Validierung, Review, Suggestions und Accessibility"
 tags: [concept, frontend, design-system, forms, validation, review, accessibility, draft]
-lastUpdated: "2026-06-22"
+lastUpdated: "2026-07-12"
 version: "0.6"
 status: "draft"
 ---
@@ -344,7 +344,8 @@ In spaeteren konkreten UI-Architekturplaenen zu vertiefen:
 - Vorgang erstellen/bearbeiten als eigener Screen.
 - Dokument-Metadaten im Zusammenspiel mit Preview.
 - vollstaendige Profilverwaltung mit Login-/Verwaltungsgrenze.
-- Settings-Unterseiten fuer Storage, Home Hub, Pairing und Diagnose.
+- Settings-Unterseiten fuer Mappm Account, Vault, Assist, Storage/Cache,
+  Export/Migration/Detached Recovery und Diagnose.
 - Export-Dialog im Zusammenspiel mit lokaler Datei-/ZIP-Erzeugung.
 
 ## Subkonzept F24.5 - Quality Gates
@@ -358,7 +359,7 @@ Vor Implementierung muss die Form Family beantworten:
 - Wie werden Dropdown, Combobox, Multi Select und Multi Select Dropdown
   unterschieden?
 - Wie verhalten sich Date/Time Picker auf Desktop und Mobile?
-- Wie funktionieren File Picker, Dropzone und Mobile Scan ohne Home Hub?
+- Wie funktionieren File Picker, Dropzone und Mobile Scan in Local und Cloud Vault inklusive Offline-/Pending-State?
 - Welche Selection Controls sind fuer Modus, Auswahl, Setting und Aktion
   erlaubt?
 - Welche Numeric Controls duerfen exakte Werte setzen und welche nur ungefaehre?
@@ -383,3 +384,11 @@ F24 wird erst auf `accepted` gesetzt, wenn:
 - Tests und Accessibility-Gates beschrieben sind.
 - ein UI-Architekturplan konkrete Flutter-Komponenten, Riverpod-State-Grenzen
   und Teststrategie daraus ableitet.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

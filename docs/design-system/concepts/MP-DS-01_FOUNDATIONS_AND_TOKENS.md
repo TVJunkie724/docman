@@ -1,5 +1,10 @@
 ---
+title: "MP-DS-01 Foundations And Tokens"
+description: "Visual foundations, tokens, typography, color, spacing and icon contract"
+tags: [design-system, foundations, tokens, typography, color, icons]
+lastUpdated: "2026-07-12"
 status: draft
+owner: "ui-concept"
 source_logo:
   - assets/images/logo.png
 source_theme:

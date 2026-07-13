@@ -2,8 +2,8 @@
 title: "DocMan/Mappm - Applicability Matrix"
 description: "Playbook applicability matrix for the existing DocMan/Mappm project"
 tags: [discovery, applicability, governance, playbook]
-lastUpdated: "2026-07-08"
-status: "draft"
+lastUpdated: "2026-07-12"
+status: "accepted-baseline"
 owner: "product-concept"
 ---
 
@@ -31,20 +31,21 @@ Traceability rules:
 | Product Overview | always-plan | exists and remains source of product direction | product-concept | `docs/PROJECT_OVERVIEW_GUIDE.md` | 2026-07-15 |
 | Project-local Skills | always-plan | exists under `.codex/skills/`; must remain DocMan-specific | project | `.codex/skills/*` | 2026-07-15 |
 | F Concepts | always-plan | exists, but DocMan numbering differs from generic playbook | ui-concept | `docs/concepts/*`, coverage mapping | 2026-07-15 |
-| Design System | always-plan | MP-DS foundation and HTML mock exist; component/form families need expansion | ui-concept | `docs/design-system/*` | 2026-07-15 |
-| Roadmap/Pillars | always-plan | exists as R0-R15 plus pillars; must map to playbook P0-P11 | product-concept | `docs/roadmap/*`, `docs/pillars/*` | 2026-07-15 |
+| Design System | always-plan | MP-DS-00..07, exact DS-04 family mapping and HTML mock exist | ui-concept | `docs/design-system/*` | before each UI phase |
+| Roadmap/Pillars | always-plan | C0-C7 governs release; R0-R15 preserves traceability; simplified pillars and Assurance Tracks map to P0-P11 | product-concept | `docs/ROADMAP_REBUILD.md`, `docs/roadmap/*`, `docs/pillars/*` | 2026-07-15 |
 | Execution Governance | always-plan | newly initialized by reconciliation | project-bootstrap-runner | `docs/execution/*` | 2026-07-15 |
-| CI/CD and Local Verification | always-plan | scripts and entrypoint exist; CI/CD/release gates are scheduled | quality-readiness | `frontend.sh`, F16, OPS-00/OPS-08, `docs/roadmap-standard/RELEASE_READINESS_PHASES.md`, future OPS-07 | 2026-07-15 |
-| Security | always-plan | security/privacy decisions exist; umbrella initialized, details need expansion | security/product-concept | `docs/security/SEC-00_SECURITY_TRUST_UMBRELLA.md`, existing decisions | 2026-07-15 |
-| Privacy/Data Lifecycle | always-plan | sensitive documents and metadata are core product facts | privacy/data | `docs/data-lifecycle/DATA-00_DATA_LIFECYCLE_UMBRELLA.md`, REG-01, DATA-* | 2026-07-15 |
-| Regulatory | always-plan | app is intended to become sellable and handles sensitive documents | compliance/product | `docs/regulatory/REG-00_REGULATORY_UMBRELLA.md`, future REG-01..REG-08 | 2026-07-15 |
+| CI/CD and Local Verification | always-plan | scripts and entrypoint exist; CI/CD/release gates are scheduled | quality-readiness | `frontend.sh`, F16, OPS-00/OPS-07/OPS-08, `docs/roadmap-standard/RELEASE_READINESS_PHASES.md` | 2026-07-15 |
+| Security | always-plan | security/privacy decisions plus SEC-00..05 drafts exist | security/product-concept | `docs/security/*`, existing decisions | before each sensitive phase |
+| Privacy/Data Lifecycle | always-plan | DATA-00..06 classify lifecycle requirements for sensitive documents/metadata | privacy/data | `docs/data-lifecycle/*`, REG-01 | before persistence/sync/AI/release |
+| Regulatory | always-plan | REG-00..08 and dated official-source register exist | compliance/product | `docs/regulatory/*` | 2026-08-11 or earlier feature trigger |
 | Store/Platform Compliance | planned | desktop/mobile distribution is expected, but store submission is later | release/compliance | REG-08, F8, OPS-06 | 2026-08-01 |
-| Backend/API | applicable | Home Hub, ASP.NET Core direction, OpenAPI/Microcks already decided | contract-api | F11, F22, F30, backend decisions | 2026-07-15 |
-| Sync/Backup/Sharing | planned | product direction requires later sync/backup/sharing; M2 remains limited | data/security | DATA-05, SEC-02, sync decisions | 2026-08-01 |
-| AI/OCR/LLM | applicable | Assisted Review is planned as M3 and affects privacy/compliance | ai/compliance | `docs/ai/AI-00_AI_GOVERNANCE_UMBRELLA.md`, REG-02, AI-* | 2026-07-22 |
-| Commercial/Billing | planned | product may be sold, but pricing/billing is not yet defined | commercial/product | `docs/commercial/COM-00_COMMERCIAL_UMBRELLA.md`, future COM-* | 2026-08-15 |
+| Managed Cloud/API | applicable | Cloud Vault is accepted; ASP.NET Core and OpenAPI/Microcks are the direction | contract-api/backend | F11, F36, Cloud decisions, Cloud pillar | C0/C1 |
+| Customer Self-hosting | not-applicable | Home Hub is superseded; Local Development Cloud is developer-only | product/security/ops | Vault/Cloud decision | 2027-01-12 |
+| Sync/Backup/Migration/Sharing | planned | Cloud requires sync/backup and both exit migrations; sharing remains later | data/security | F36, DATA-03/05, SEC-02/03 | C0/C4 |
+| AI/OCR/LLM | applicable | Core Assist is required in C2/C3; Advanced Assist remains later; real-document processing is blocked by VC-02/OQ-003 and AI/REG gates | ai/compliance | `docs/technical/DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md`, `docs/ai/AI-00_AI_GOVERNANCE_UMBRELLA.md`, REG-02, AI-* | before C2 approval |
+| Commercial/Billing | applicable | account-based Free/Paid Local and Cloud modes are accepted; Assist quotas, pricing and policy values remain open | commercial/product | `docs/commercial/*`, F36 | C0/C1/C4 |
 | eIDAS/EUDI/ID Austria | planned | trusted identity is strategically relevant for Austria/EU, later provider boundary | identity/compliance | REG-04, identity decision | 2026-08-15 |
-| Standard Roadmap Guardrails | always-plan | playbook phases must remain mapped to R0-R15 | product-concept | `docs/roadmap-standard/STANDARD_PHASES.md`, `ALWAYS_PLAN_CHECKLIST.md`, `CONDITIONAL_IMPLEMENTATION_MATRIX.md` | 2026-07-15 |
+| Standard Roadmap Guardrails | always-plan | playbook phases map to C0-C7 while R0-R15 remains traceability | product-concept | `docs/roadmap-standard/STANDARD_PHASES.md`, `ALWAYS_PLAN_CHECKLIST.md`, `CONDITIONAL_IMPLEMENTATION_MATRIX.md` | 2026-07-15 |
 
 ## Stop Rules
 

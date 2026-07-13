@@ -2,7 +2,7 @@
 title: "Konzept F31 - Brand System Detail"
 description: "Mappm Detailkonzept fuer Brand-Idee, Logo-Rollen, Corporate Colors, Voice, Standards und Distribution Readiness"
 tags: [concept, frontend, design-system, brand, corporate-design, logo, voice, distribution]
-lastUpdated: "2026-06-22"
+lastUpdated: "2026-07-12"
 version: "1.0"
 status: "accepted"
 ---
@@ -134,7 +134,7 @@ Beispiele:
 |---|---|
 | Draft gespeichert | `Dokument wurde gesichert.` |
 | Pflichtfeld fehlt | `Betroffene Person fehlt.` |
-| Upload offline | `Upload wartet. Der Home Hub ist gerade nicht erreichbar.` |
+| Cloud upload offline | `Upload wartet auf Verbindung zur Mappm Cloud.` |
 | Exportfehler | `Export nicht erstellt. Keine Datei wurde geteilt oder versendet.` |
 
 ## Corporate Standards
@@ -165,3 +165,11 @@ Implementation soll:
 - [ ] Brand- und Strukturfarben haben eindeutige Produktrollen.
 - [ ] Voice-Regeln verhindern sensible globale Meldungen.
 - [ ] Distribution-/Store-Readiness ist als Gate vorbereitet.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

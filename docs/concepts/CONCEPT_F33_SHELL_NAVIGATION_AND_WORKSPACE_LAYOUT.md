@@ -2,7 +2,7 @@
 title: "Konzept F33 - Shell, Navigation and Workspace Layout"
 description: "Mappm Detailkonzept fuer Product Shell, Desktop/Mobile Layout, Hauptbereiche, Navigation Controls, Tabs, Segments, Breadcrumbs und Command Rows"
 tags: [concept, frontend, design-system, shell, navigation, workspace, responsive, flutter]
-lastUpdated: "2026-06-22"
+lastUpdated: "2026-07-12"
 version: "1.0"
 status: "accepted"
 ---
@@ -47,7 +47,7 @@ Die Shell soll:
 | Aufgaben | Todos, Fristen, Reminder | faellig/offen |
 | Suche | Cross-cutting Suche | keine dauerhaften Counts |
 | Profile | Haushalt, Personen, verwaltete Profile | selten Counts |
-| Einstellungen | Home Hub, Pairing, Storage, Diagnose | nur bei Problem |
+| Einstellungen | Mappm Account, Vault, Assist, Speicher/Cache, Export, Recovery, Diagnose | nur bei Problem oder Lifecycle-Aktion |
 
 ## Desktop Shell
 
@@ -190,3 +190,11 @@ Mindestens:
 - [ ] Tabs, Segments, Breadcrumbs und Command Rows sind abgegrenzt.
 - [ ] Responsive Verhalten verhindert Menu-Content-Ueberdeckung.
 - [ ] Privacy-Regeln fuer Shell-Chrome sind pruefbar.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

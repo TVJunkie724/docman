@@ -1,12 +1,67 @@
 ---
-title: "DocMan - Project Overview & Product Guide"
-description: "Strategischer Überblick über Produktziel, Grundannahmen, kritische Entscheidungen, aktuellen Zustand und empfohlene Richtung für DocMan"
+title: "Mappm - Project Overview & Product Guide"
+description: "Strategischer Überblick über den verkaufbaren Commercial Core mit Local/Cloud Vaults"
 tags: [overview, guide, product, strategy, planning]
-lastUpdated: "2026-05-12"
-version: "2.4"
+lastUpdated: "2026-07-12"
+version: "3.0"
+status: "accepted-rebaseline"
 ---
 
-# DocMan - Project Overview & Product Guide
+# Mappm - Project Overview & Product Guide
+
+## 0. Produkt-Rebaseline 2026-07-12
+
+Mappm ist eine verkaufbare Dokumentenapplikation für sensible private und
+familiäre Unterlagen. Der erste Release ist ein production-ready Commercial
+Core mit wenigen vollständigen Kernflows, kein Prototyp-MVP.
+
+Jeder Vault hat genau einen Storage-Modus:
+
+| Modus | Wahrheit | Account | Gerätewechsel/Mehrgerät | Exit |
+|---|---|---|---|---|
+| Mappm Local | verschlüsselte lokale Metadaten und Dateien | im Normalbetrieb erforderlich | kein impliziter Sync; verschlüsselter Export/Restore | Detached Recovery bleibt lokal nutzbar |
+| Mappm Cloud | verwaltete Mappm Cloud; Client hält Cache/Pending Work | erforderlich | Sync/managed Backup nach Plan | Export, Reaktivierung oder verifizierte Cloud-to-Local-Migration |
+
+Ein Wechsel ist ein sichtbarer, überprüfter Migrationsworkflow und nie ein
+Toggle. Bei Kündigung bleibt der bezahlte Zeitraum aktiv; danach folgt ein
+zeitlich begrenzter Grace-/Read-only-Zustand. In diesem Zustand müssen Export,
+Cloud-to-Local-Migration, Reaktivierung und getrennte Löschentscheidungen
+erreichbar bleiben. Kündigung löscht weder Vault noch Account sofort.
+
+Home Hub, Tailscale-Pairing und kundenseitiges Self-hosting sind nicht mehr
+Produktziel. Der ASP.NET-/PostgreSQL-/S3-Stack wird als Managed Mappm Cloud
+gebaut; lokal läuft er als Local Development Cloud ausschließlich mit
+synthetischen Daten und denselben Contracts.
+
+Normative Quellen:
+
+- `docs/technical/DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md`;
+- `docs/technical/DECISION_COMMERCIAL_CORE_SCOPE.md`;
+- `docs/technical/DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`;
+- `docs/technical/DECISION_CLOUD_IDENTITY_DEVICE_TRUST.md`;
+- `docs/concepts/CONCEPT_F36_VAULT_MODES_CLOUD_LIFECYCLE.md`;
+- `docs/technical/DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md`;
+- `docs/ROADMAP_REBUILD.md`.
+
+Die nachfolgenden älteren Strategieabschnitte bleiben als Produktentstehung und
+fachliche DMS-Referenz erhalten. Aussagen zu Home Hub, Self-hosting, Tailscale,
+M2 oder universeller local-first Authority sind nicht normativ.
+
+### Account, Vault und Assist
+
+Mappm verlangt im normalen Free-, Local- und Cloud-Betrieb einen Account. Das
+legt den Speicherort nicht fest: Ein Local Vault bleibt lokal autoritativ, auch
+wenn Core Assist ausgewählte Inhalte vorübergehend verarbeitet. Ein Cloud Vault
+bleibt cloudautoritativ mit lokalem Cache.
+
+Core Assist gehört zum verkaufbaren Produktversprechen: Dokumenttyp, Akteure,
+wichtige Felder, Vorgangs-/Workflow-Zuordnung und Suchindex werden als prüfbare
+Vorschläge vorbereitet. Free Local erhält ein sinnvolles begrenztes Kontingent;
+exakte Tarife und Quoten bleiben offen.
+
+Accountpflicht darf keine Datenfessel sein. Offline-Kontinuität und Detached
+Recovery erhalten vorhandene lokale Dokumente, Suche, Export und manuelle
+Pflege ohne Cloud-Dienste. Detached Recovery ist kein anonymer Onboarding-Modus.
 
 ## 1. Zweck
 
@@ -187,6 +242,32 @@ Risky:
 ```
 
 Entscheidung dokumentiert in: `docs/technical/DECISION_WORKFLOW_RULES.md`.
+
+#### Kuratierter internationaler Workflow-Katalog
+
+Fachlich relevante Abläufe werden vorgegeben, aber nicht als unveränderliche
+Flutter-/Backend-Logik fest verdrahtet. Mappm trennt eine generische
+Vorgangs-Engine von kuratierten, versionierten Länder-, Regions- und
+Institutionsvarianten.
+
+```text
+universelle Workflow-Familie
+  -> geprüfte Rechtsraum-Variante
+      -> versionierte Definition
+          -> an Vorgang gebundene Instanz
+```
+
+Intelligence darf passende veröffentlichte Definitionen, Subvorgänge,
+Dokumentbeziehungen und nächste Schritte vorschlagen. Sie darf keine Fristen,
+Ansprüche oder fachlich verbindlichen Abläufe frei erfinden. Nicht unterstützte
+Fälle bleiben als klar gekennzeichnete manuelle Vorgänge nutzbar.
+
+Ein Dokument kann in mehreren Haupt-, Sub- oder referenzierten Vorgängen eine
+jeweils eigene Rolle tragen, ohne dupliziert zu werden. Laufende Vorgänge pinnen
+ihre Workflow-Version; Änderungen erfolgen nur nachvollziehbar.
+
+Entscheidung dokumentiert in:
+`docs/technical/DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md`.
 
 ### 4.5 KI später, aber als Pipeline mitdenken
 
@@ -387,7 +468,8 @@ Meine vorgeschlagene Richtung:
 3. M2 eng schneiden, aber Mobile Capture als Haupt-Use-Case aufnehmen.
 4. Private-first als Produktzentrum setzen; Local-only bleibt ein Betriebsmodus.
 5. Sync, Backup, Sharing und Processing backend-agnostisch halten; Home Hub ist erste Betriebsform, nicht Produktgrenze.
-6. KI aus M2 verschieben, aber als Trust-/Processing-Schicht frueh modellieren.
+6. Historische Annahme, superseded: Core Assist gehört heute in C2/C3;
+   Advanced Assist bleibt später.
 7. Workflows als Empfehlungen gestalten.
 8. Erst Foundation stabilisieren, dann Features bauen.
 9. Dokumentation zur Quelle der Wahrheit machen, aber alte importierte Konzepte nicht blind übernehmen.
@@ -404,7 +486,7 @@ Meine vorgeschlagene Richtung:
 | D5 | First Utility Scope | Entschieden: Capture and Review Core plus Mobile Capture, minimaler Home-Hub-Eingangskorb, optionale Vorgangszuordnung | Erledigt |
 | D6 | Erweiterte Mobile-Verwaltung | Nach M2 und stabilem Sync planen | Mittel |
 | D7 | Workflow-Regeln | Entschieden: Empfehlungen und Review statt harte Status-Käfige; harte Regeln nur für Integrität/Sicherheit | Erledigt |
-| D8 | KI-Scope | Entschieden: nicht M2, aber Processing-Pipeline fuer on-device, Home Hub und spaetere Managed Intelligence vorbereiten | Erledigt |
+| D8 | KI-Scope | Superseded: Core Assist ist C2/C3-Commercial-Core; Advanced Assist bleibt später und jede Realverarbeitung wartet auf Trust-/AI-Gates | Rebaselined |
 | D9 | Alte Foundation-Konzepte | Entschieden: Konzept-Slots behalten, Inhalte DocMan-spezifisch neu schreiben; alte Inhalte sind nicht Source of Truth | Erledigt |
 | D10 | Remote-Sync sensibler Daten | Entschieden: M2-Sync nur private Home-Hub-Umgebung; Datenklassen und Secrets getrennt | Erledigt |
 | D11 | Security-/Privacy-Baseline | Entschieden: Security-by-Design, sensible Datenklassen, Secure Storage, log-sparsam, E2EE-/Zero-Knowledge-faehig vorbereiten | Erledigt |

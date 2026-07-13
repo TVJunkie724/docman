@@ -2,9 +2,9 @@
 title: "Produkt-Säule - Capture and Inbox"
 description: "Produktbereich fuer Desktop-Import, Mobile Document Scan, Draft-Inbox, Zuordnung, Korrektur und Eingangsbearbeitung"
 tags: [pillar, capture, inbox, mobile, desktop, drafts, scanning]
-lastUpdated: "2026-05-08"
-version: "0.2"
-status: "proposed"
+lastUpdated: "2026-07-12"
+version: "0.3"
+status: "accepted-direction"
 ---
 
 # Produkt-Säule - Capture and Inbox
@@ -25,6 +25,7 @@ Der wichtigste M2-Use-Case bleibt:
 ```text
 Capture Source
   -> Draft-Inbox
+      -> Core Assist processing / manual fallback
       -> Review
           -> Document / Record / Case Assignment
               -> Done-Inbox History
@@ -46,8 +47,8 @@ Dokumentkopien.
 - aus markierten Dokumenten einen Subvorgang bilden.
 - leeren Subvorgang aus einem Vorgang heraus anlegen.
 - spätere Vorbereitung fuer Share Sheet, Mail-Import und Watch Folder.
-- spätere Vorbereitung fuer OCR-/Klassifikationsjobs und automatische
-  Zuordnungsvorschläge mit Review.
+- Core-Assist-OCR-/Klassifikationsjobs, Akteur-/Feld-/Vorgangsvorschläge und
+  Review mit Offline Queue, Quota, Opt-out und manuellem Fallback.
 
 ## Mobile Scan Qualitätsziel
 
@@ -127,3 +128,11 @@ M2-Regeln:
 - Dokumenttyp stammt aus dem lockeren M2-Katalog; "Notiz / Sonstiges" bleibt
   erlaubt.
 - Ordnerimport, Combine/Merge, OCR und Batch-Regeln bleiben spaetere Milestones.
+
+## Enterprise Quality Contract
+
+This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its milestone slices and domain boundaries remain authoritative; the shared
+contract supplies mandatory owner separation, phase slicing, security/privacy,
+accessibility/localization, verification, stop-rule and handoff requirements.
+The pillar itself is never sufficient authorization for implementation.

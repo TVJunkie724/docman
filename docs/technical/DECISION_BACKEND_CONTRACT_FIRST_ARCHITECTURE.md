@@ -2,11 +2,21 @@
 title: "Draft Decision - Backend Contract-First Architecture"
 description: "Vorlaeufige Entscheidung zur contract-first Backend-Architektur: ASP.NET Core Backend, OpenAPI/Microcks-Vertraege und UI-Anbindung ueber Domain-Ports"
 tags: [decision, draft, backend, contract-first, openapi, microcks, aspnet-core, flutter, ui-boundary]
-lastUpdated: "2026-06-28"
+lastUpdated: "2026-07-12"
 status: "draft"
 ---
 
 # Draft Decision - Backend Contract-First Architecture
+
+## 2026 Scope Rebaseline
+
+Contract-first and ownership boundaries remain the proposed direction for the
+managed Mappm service: account/device, entitlements and Core Assist for every
+normal mode, plus Cloud Vault/sync/migration when activated. Local Development
+Cloud uses the same contracts with synthetic data. Home Hub, Tailscale and
+customer self-hosting references below are historical. Frontend may describe
+required behavior; Contract/Backend owns DTOs, endpoints, mapping, persistence
+and policy architecture.
 
 ## Status
 
@@ -17,7 +27,8 @@ UI-/Feature-Slices verbinden soll. Sie ergaenzt:
 
 - `DECISION_HOME_HUB_BACKEND_TECHNOLOGY.md`
 - `DECISION_API_CONTRACT_MOCKS.md`
-- `DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md`
+- `DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`
+- `DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md`
 
 Die Backend-Technologie ASP.NET Core ist bereits akzeptiert. Diese Draft
 Decision haelt zusaetzlich fest: Mappm baut nicht server-first und nicht
@@ -182,7 +193,7 @@ OCR-/LLM-Sidecars
 ```
 
 Processing bleibt eine Trust Boundary gemaess
-`DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md`. Klartextverarbeitung ist nicht
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md` und VC-02. Klartextverarbeitung ist nicht
 identisch mit verschluesseltem Sync/Backup und braucht explizite Freigabe-,
 Retention- und Logging-Regeln.
 

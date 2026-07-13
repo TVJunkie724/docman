@@ -1,19 +1,48 @@
 ---
-title: "Konzept F10 - Local Storage"
-description: "DocMan-spezifisches Konzept für local-first Persistenz, lokale Datenbank, Datei-Cache, Draft-Inbox, Mobile-Upload-Queue und spätere Sync-Fähigkeit"
-tags: [concept, foundation, local-storage, local-first, persistence, draft-inbox, mobile-capture, sync]
-lastUpdated: "2026-05-08"
-version: "3.3"
-status: "accepted"
+title: "Konzept F10 - Client Storage, Vault Authority and Cache"
+description: "Mappm-Client-Storage fuer Local authority, Cloud cache, pending operations, Draft Inbox and provider migration"
+tags: [concept, foundation, local-storage, vault, cloud-cache, persistence, migration]
+lastUpdated: "2026-07-12"
+version: "4.0"
+status: "accepted-rebaseline"
 ---
 
-# Konzept F10 - Local Storage
+# Konzept F10 - Client Storage, Vault Authority and Cache
 
 ## Status
 
-Accepted.
+Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
+
+## 2026 Normative Vault Storage Model
+
+This section supersedes conflicting local-first/Home-Hub statements later in
+this file.
+
+| Concern | Local Vault | Cloud Vault |
+|---|---|---|
+| authority | local metadata/file stores | Mappm Cloud |
+| client structured store | complete working data | policy-limited cache/index/pending state |
+| client files | complete authoritative payloads | selected cache plus pending uploads/downloads |
+| offline writes | authoritative | durable pending operations until Cloud confirms |
+| backup/exit | encrypted export/restore | managed restore plus export and verified Local migration |
+
+Drift remains the target client structured store; files remain behind a file
+store; secrets remain in Secure Storage. Provider migration uses durable
+inventory/checkpoint/checksum reconciliation and never deletes source data
+before verified target activation. Cache cleanup is not Vault deletion.
 
 Dieses Konzept ersetzt den importierten F10-Inhalt aus dem alten Projekt. Der alte Inhalt ist nicht mehr Source of Truth für DocMan.
+
+## Legacy Detail Baseline (non-normative)
+
+The remaining imported detail is retained only for migration context and useful
+feature-specific examples. It must not authorize Home Hub, Tailscale, customer
+self-hosting, universal local-first authority, old milestone scope or QR server
+pairing. Where it differs, the rebaseline above,
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
+`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
+concept is used for implementation, its affected detail must be rewritten into
+the phase's approved implementation contract.
 
 ## Zweck
 
@@ -386,3 +415,11 @@ F10 gilt als umgesetzt, wenn:
 - Decision: Local Database.
 - Decision: File Storage Strategy and Local Docker Stack.
 - Decision: M2 Scope.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

@@ -2,9 +2,9 @@
 title: "Produkt-Säule - Vorgänge, Dokumente and Records"
 description: "Produktbereich fuer Vorgänge, Subvorgänge, Dokumente, Records/Nachweise, Versionierung, Profile und Zusammenhänge"
 tags: [pillar, cases, documents, records, versioning, profiles]
-lastUpdated: "2026-05-08"
-version: "0.2"
-status: "proposed"
+lastUpdated: "2026-07-12"
+version: "0.3"
+status: "accepted-direction"
 ---
 
 # Produkt-Säule - Vorgänge, Dokumente and Records
@@ -25,6 +25,8 @@ DocMan unterscheidet:
 - `Document`: Datei, Scan, Beleg oder konkrete Quelle.
 - `Record`: langlebiger Nachweis oder Unterlage mit Versionen.
 - `DocumentFact`: strukturierte Aussage aus einem Dokument.
+- `CaseWorkflowInstance`: an eine konkrete kuratierte Workflow-Version
+  gebundener Vorgangsablauf.
 
 Der R4-M2 fuer Dokumente und Records ist in
 `docs/technical/DECISION_DOCUMENT_METADATA_PREVIEW.md` konkretisiert:
@@ -83,7 +85,23 @@ Beispiele:
 - Subvorgang `Versicherung`
 - Subvorgang `Krankenhaus / Arzt`
 
-Dokumente werden nicht dupliziert. Ein Dokument hat eine primäre Zuordnung; flexible Mehrfachrollen können später über `DocumentCaseLink` ergänzt werden.
+Dokumente werden nicht dupliziert. Eine primäre Zuordnung dient anfangs der
+Navigation; flexible Mehrfachrollen werden über `DocumentCaseLink` ergänzt.
+Unabhängige verwandte Vorgänge werden referenziert und nicht künstlich zu
+Subvorgängen gemacht.
+
+## Geführte Vorgänge
+
+Vorgänge können manuell bleiben oder auf einer gepinnten, kuratierten
+Workflow-Version basieren. Die Case-Engine kennt generische Zustände,
+Relationen, Aufgaben, erwartete Dokumente und Ergebnisse. Länder-, Regions- und
+Institutionslogik kommt aus dem versionierten Workflow-Katalog und nicht aus
+Flutter-Widgets.
+
+Intelligence darf bestehende Vorgänge und anwendbare veröffentlichte
+Definitionen vorschlagen. Sie darf keine fachlich verbindlichen Abläufe,
+Fristen oder Ansprüche erfinden. Normative Details stehen in
+`docs/technical/DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md`.
 
 ## Records
 
@@ -132,7 +150,7 @@ Schlanker M2-Slice:
 Späterer Milestone:
 
 - volle flexible Mehrfachzuordnung mit Rollen.
-- komplexe Workflow-Engines.
+- generische Workflow-Instanzen und kuratierte Länder-/Institutionspakete.
 - automatische Statusübergänge.
 - vollständige Haushaltsrechte.
 - vollständige Export-/Outbox-Historie.
@@ -144,11 +162,23 @@ Späterer Milestone:
 - Aufgaben, Fristen und Schnellzugriff liegen in `PILLAR_TASKS_REMINDERS_QUICK_ACCESS.md`.
 - strukturierte Auswertungen liegen in `PILLAR_SEARCH_FACTS_INSIGHTS.md`.
 - externe Einreichlinks liegen in `PILLAR_EXPORT_SHARING_EXTERNAL_ACTIONS.md`.
-- Home-Hub-Sync und Datei-Replikation liegen in `PILLAR_HOME_HUB_SYNC.md`.
+- Cloud Authority, Sync und Dateiübertragung liegen in `PILLAR_CLOUD_IDENTITY_SYNC.md`.
 - OCR, Klassifikation und AI-Vorschläge liegen in `PILLAR_INTELLIGENCE_AUTOMATION.md`.
+- Definition, Review und Lifecycle des Workflow-Katalogs liegen in
+  `PILLAR_TEMPLATES_WORKFLOWS.md`.
 
 ## Offene Folgefragen
 
 - Wie heißt `Record` final in der deutschen UI?
 - Welche Vorgangstypen sind im M2 fest sichtbar?
 - Welche Dokumentrollen brauchen wir zuerst nach dem M2?
+- WF-01/WF-02: Welche Startmärkte/Golden Workflows und welche fachlichen
+  Review-/Haftungsowner werden freigegeben?
+
+## Enterprise Quality Contract
+
+This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its milestone slices and domain boundaries remain authoritative; the shared
+contract supplies mandatory owner separation, phase slicing, security/privacy,
+accessibility/localization, verification, stop-rule and handoff requirements.
+The pillar itself is never sufficient authorization for implementation.

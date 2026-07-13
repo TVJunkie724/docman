@@ -2,8 +2,8 @@
 title: "Design System Coverage Review"
 description: "Abgleich aller Mappm Design-System-Mock-Seiten gegen F-Konzepte und Detailkonzepte"
 tags: [concept, frontend, design-system, coverage, review, ssot]
-lastUpdated: "2026-06-22"
-version: "1.0"
+lastUpdated: "2026-07-12"
+version: "1.2"
 status: "accepted"
 ---
 
@@ -48,7 +48,9 @@ noetig, ein Detailkonzept abgedeckt.
 | `data-display.html` | F23 | F34 | abgedeckt |
 | `component-forms.html` | F24 | F27, F28, F29, F30 | abgedeckt |
 | `component-form-interactions.html` | F24 | F28, F29 | abgedeckt |
+| `component-form-governance.html` | MP-DS-04, F24 | F27, F29, F30, F34 | abgedeckt |
 | `patterns.html` | F25 | F35 | abgedeckt |
+| `vault-cloud-lifecycle.html` | MP-DS-05, F25 | F36 | abgedeckt |
 | `component-accessibility.html` | F25 | F35 | abgedeckt |
 
 ## Detailkonzept Coverage
@@ -72,6 +74,7 @@ noetig, ein Detailkonzept abgedeckt.
 | F33 | Shell, Navigation and Workspace Layout |
 | F34 | Status, Tags, Feedback and Data Display |
 | F35 | Product Patterns, Accessibility and Visual QA Detail |
+| F36 | Local/Cloud Vault, migration, subscription exit and deletion lifecycle |
 
 ## Review Findings
 
@@ -91,9 +94,13 @@ nicht aus HTML/CSS raten, sondern die F-Konzepte als Bauanleitung lesen.
 
 Entscheidung: in F19 festgehalten.
 
-### Finding 3 - Kein offenes Mock-Coverage-Loch
+### Finding 3 - Form-Governance-Promotion geschlossen
 
-Es wurde keine Mock-Seite gefunden, die ohne Konzept-Owner bleibt.
+Die am 2026-07-08 ergaenzte Seite `component-form-governance.html` wurde am
+2026-07-10 gegen MP-DS-04 und F27/F29/F30/F34 promotet. Sie zeigt Lifecycle,
+Locale-/Identity-Felder, sensible und permissioned Zustaende, Remote-Validation,
+Review-Diff sowie Bulk-Import-Fehler und verweist nicht mehr nur auf eine
+Coverage-Matrix.
 
 Entscheidung: kein Fix erforderlich.
 
@@ -108,7 +115,7 @@ Dieser Review muss aktualisiert werden, wenn:
 
 ## Definition of Done
 
-- [x] Alle Mock-Seiten sind in F19 gemappt.
+- [x] Alle Mock-Seiten sind in F19/MP-DS-04 gemappt.
 - [x] Jede Mock-Seite hat ein Umbrella-Konzept.
 - [x] Komplexe Bereiche haben Detailkonzepte.
 - [x] Form Family ist in implementierbare Detailbereiche aufgeteilt.

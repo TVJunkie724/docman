@@ -2,15 +2,20 @@
 title: "Decision - Sync Conflict Resolution"
 description: "Entscheidung zu Sync-Konflikten, Merge-Regeln, Tombstones und UI-Aufloesung ueber Dashboard und Konfliktansicht"
 tags: [decision, sync, conflicts, dashboard, ui, local-first, home-hub]
-lastUpdated: "2026-06-06"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "superseded"
 ---
 
 # Decision - Sync Conflict Resolution
 
+> Superseded for implementation by the Vault authority model. A new Cloud
+> conflict decision must distinguish server authority, pending operations,
+> optimistic concurrency, idempotency and explicit user review. The historical
+> local-first rules below may be used only as input to that decision.
+
 ## Status
 
-Accepted.
+Superseded. A Cloud-authority conflict decision is required before implementation.
 
 R6-D3 ist entschieden. Sync-Konflikte werden sichtbar gemacht und bewusst
 aufgeloest. Mappm ueberschreibt fachlich relevante Daten nicht still.

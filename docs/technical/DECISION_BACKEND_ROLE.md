@@ -2,15 +2,18 @@
 title: "Draft Decision - Backend Role and Self-hosted Server Stack"
 description: "Vorläufiger Entwurf zur Rolle des DocMan Backends, PocketBase, Docker/Compose, MinIO, OCR und lokalen LLMs"
 tags: [decision, draft, backend, self-hosted, docker, ocr, llm]
-lastUpdated: "2026-05-11"
-status: "draft"
+lastUpdated: "2026-07-12"
+status: "superseded"
 ---
 
 # Draft Decision - Backend Role and Self-hosted Server Stack
 
 ## Status
 
-Draft.
+Superseded on 2026-07-12 by
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`. The managed Mappm Cloud is
+the supported service direction. Docker/Compose continues as Local Development
+Cloud tooling, not a customer deployment.
 
 Dieser Entwurf ist noch keine akzeptierte Architekturentscheidung. Er hält die aktuelle Richtung fest, damit spätere M2-, Foundation- und Backend-Entscheidungen daran anschließen können.
 

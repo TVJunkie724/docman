@@ -2,8 +2,8 @@
 title: "DocMan/Mappm - Playbook Reconciliation Runbook"
 description: "Sequenzielles Runbook fuer den Abgleich des bestehenden DocMan/Mappm-Projekts gegen das Flutter Project Setup Playbook"
 tags: [execution, playbook, reconciliation, agent, setup]
-lastUpdated: "2026-07-08"
-status: "draft"
+lastUpdated: "2026-07-12"
+status: "active-baseline"
 owner: "project-bootstrap-runner"
 ---
 
@@ -28,16 +28,17 @@ hardening pass:
 | Track | Status | Required artifacts | Evidence | Blockers |
 |---|---|---|---|---|
 | T0 Bootstrap Reconciliation | done | repo/docs/app/skills scaffold, embedded playbook, scripts | `.codex/skills/*`, `docs/flutter-project-playbook/`, `lib/`, `scripts/`, `frontend.sh`, `docs/ops/OPS-08_PROJECT_ENTRYPOINTS.md` | none |
-| T1 Applicability | done | REG-00, Applicability Matrix, Always-Plan Checklist | `docs/discovery/APPLICABILITY_MATRIX.md`, `docs/roadmap-standard/ALWAYS_PLAN_CHECKLIST.md`, `docs/roadmap-standard/CONDITIONAL_IMPLEMENTATION_MATRIX.md`, REG/SEC/DATA/OPS/AI/COM umbrellas | detailed sub-concepts need expansion before affected implementation |
-| T2 Discovery Interview | done | Decision Summary, Open Questions Register, Traceability Matrix | `docs/discovery/DECISION_INTERVIEW_SUMMARY.md`, `docs/discovery/OPEN_QUESTIONS_REGISTER.md`, existing decisions | owner review still needed before commercial/cloud/legal commitments |
+| T1 Applicability | done | REG-00, source register, Applicability Matrix, Always-Plan Checklist | discovery and roadmap-standard matrices, `docs/regulatory/REGULATORY_SOURCE_REGISTER.md`, REG/SEC/DATA/OPS/AI/COM families | dated owner/legal review remains phase-specific |
+| T2 Discovery Interview | done | Decision Summary, Open Questions Register, Traceability Matrix | accepted owning decisions plus recorded user Q/A; remediation instructions are not phase approvals | open commercial/cloud/identity questions block only affected phases |
 | T3 Foundation Decisions | done | decision traceability, key decision updates | `docs/execution/DECISION_TRACEABILITY_MATRIX.md`, `docs/technical/DECISION_*.md` | draft-safe backend contract decision needs final acceptance before backend build |
-| T4 Concept Seeding | done for reconciliation | Concept Coverage Matrix, required concept drafts | `docs/execution/CONCEPT_COVERAGE_MATRIX.md`, `docs/execution/CONCEPT_QUALITY_AUDIT.md`, `docs/design-system/concepts/MP-DS-COVERAGE_MATRIX.md`, F/DS/REG/SEC/DATA/OPS/AI/COM artifacts | detailed subfamilies expand before affected implementation |
-| T5 Standard Roadmap | done for reconciliation | Pillar Index, Phase Index, Conditional Matrix | `docs/pillars/*`, `docs/roadmap/*`, `docs/roadmap-standard/*` | phase-level issue links refine as work is created |
-| T6 Implementation Readiness | done as gate definition | first implementation-ready phase, handoff, issues | `docs/roadmap/PHASE_INDEX.md`, `docs/roadmap/phases/R4_5_UPLOAD_LIMITS_RETRY_PLAN.md`, `docs/execution/CONCEPT_QUALITY_AUDIT.md` | no broad feature work without detailed phase/approved handoff |
-| T7 Verification | done as baseline | verify status, CI/CD readiness, completion reports | `frontend.sh`, `scripts/*`, `docs/execution/PLAYBOOK_AGENT_TRACK_CLOSEOUT.md` | full CI/CD and legacy analyzer cleanup remain R3/R10 work |
+| T4 Concept Seeding | done | per-file quality matrix and required concept drafts | quality contracts/matrix, MP-DS-00..07, REG-01..08, SEC-01..05, DATA-01..06, AI-01..06, OPS-01..08, COM-01..04 | draft families still require affected-phase review |
+| T5 Standard Roadmap | done | Pillar/Phase indexes, conditional matrix, aligned GitHub tracker | roadmap docs; Mappm milestones; owner-prefixed issues; epic labels | future issues refine when their phase approaches |
+| T6 Implementation Readiness | ready-for-user-approval | fully specified first phase, approval-gated specialist handoff, conforming issue | `docs/roadmap/phases/R3_5_TARGET_PATH_QUALITY_BASELINE.md`, `docs/execution/handoffs/R3_5_QUALITY_READINESS_HANDOFF.md`, issue #25 | explicit user/product-owner approval must be recorded before implementation |
+| T7 Verification | verified-pending-closeout | verify status, CI/CD readiness, completion reports | `frontend.sh`, `scripts/*`, `docs/execution/PLAYBOOK_AGENT_TRACK_CLOSEOUT.md` | closes only after T6 approval; full CI/CD and legacy analyzer cleanup remain R3/R10 work |
 
 Status values: `not-started`, `in-progress`, `planned`, `blocked`, `done`,
-`not-applicable`.
+`not-applicable`, `ready-for-user-approval`, `verified-pending-closeout`.
+The two approval-related values are not equivalent to `done`.
 
 ## Rules
 
@@ -75,6 +76,8 @@ Status values: `not-started`, `in-progress`, `planned`, `blocked`, `done`,
 - `frontend.sh` is the project-local frontend entrypoint. It delegates to
   existing scripts and documents the current command contract without claiming
   backend ownership.
+- Root-level Flutter layout is an accepted project adaptation documented in
+  `docs/technical/DECISION_REPOSITORY_LAYOUT.md`.
 
 ## Track Closeout - T0 Bootstrap Reconciliation
 
@@ -107,5 +110,6 @@ Accepted assumptions:
 - Decision traceability status.
 - First implementation-ready phase or reason why no phase can proceed.
 
-See `docs/execution/PLAYBOOK_AGENT_TRACK_CLOSEOUT.md` for the current
-reconciliation closeout and residual risks.
+See `docs/execution/PLAYBOOK_AGENT_TRACK_CLOSEOUT.md` and
+`docs/execution/TRACK_COMPLETION_REPORT_T0_T7.md` for final evidence and
+residual risks.

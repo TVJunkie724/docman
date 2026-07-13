@@ -1,9 +1,9 @@
 ---
 title: "Konzept F3 - Coding Conventions"
-description: "DocMan-spezifische Dart-/Flutter-Konventionen für Clean Architecture, Riverpod, local-first Features, Naming, Imports und Dokumentationsnähe"
+description: "Mappm-Dart-/Flutter-Konventionen fuer Clean Architecture, Riverpod, Vault providers, Cloud clients, naming and imports"
 tags: [concept, foundation, coding-conventions, flutter, dart, riverpod, clean-architecture]
-lastUpdated: "2026-04-26"
-version: "3.0"
+lastUpdated: "2026-07-12"
+version: "4.0"
 status: "accepted"
 ---
 
@@ -12,6 +12,13 @@ status: "accepted"
 ## Status
 
 Accepted.
+
+## 2026 Vault/Cloud Rebaseline
+
+Use provider-neutral product terms such as `Vault`, `StorageMode`,
+`LocalVault`, `CloudVault`, `CloudClient`, `LocalAvailability`, `Entitlement`
+and `VaultMigration`. Do not introduce `HomeHub` into new product code.
+`LocalDevelopmentCloud` is tooling/configuration vocabulary only.
 
 Dieses Konzept ersetzt den importierten F3-Inhalt aus dem alten Projekt.
 
@@ -29,7 +36,7 @@ Im Code gelten die Domain-Begriffe:
 - `Task`
 - `Profile`
 - `Draft`
-- `HomeHub`
+- `CloudVault`
 - `MobileCapture`
 
 In deutschsprachiger UI:
@@ -75,13 +82,14 @@ home_hub_status_provider.dart
 - Businesslogik gehört in Notifier/Application, nicht in `build()`.
 - Widget-State bleibt nur für visuelle Controller und Fokus/Scroll.
 
-## Local-first Regeln
+## Vault-Authority-Regeln
 
 - Netzwerk darf lokale Kernflows nicht blockieren.
 - Uploads und Drafts dürfen nicht verloren gehen.
 - Offline ist ein Status, kein Ausnahmezustand.
-- Home-Hub-Begriffe bleiben aus Domain-Kontrakten fern, außer das Feature ist ausdrücklich `home_hub`.
-- Tailscale erscheint nicht im Code als Produktlogik.
+- `HomeHub`, Tailscale und customer-self-hosting erscheinen nicht in neuem Produktcode.
+- Local-/Cloud-Unterschiede werden über `Vault`, `StorageMode`, Provider,
+  Authority, Cache/Pending und Migration modelliert, nicht über Server-URLs.
 
 ## Fehlerregeln
 
@@ -125,3 +133,11 @@ F3 gilt als umgesetzt, wenn:
 - Welche Namenskonvention bekommt der spätere Server-Stack?
 - Wird Codegen für Riverpod/Freezed direkt verbindlich oder phasenweise eingeführt?
 
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

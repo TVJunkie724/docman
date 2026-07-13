@@ -2,11 +2,17 @@
 title: "Decision - Import Duplicate Detection"
 description: "Entscheidung zur M2-Duplikaterkennung beim Desktop-Import und Mobile-Capture-Handoff mit klaren Nutzeroptionen"
 tags: [decision, import, duplicate-detection, hash, draft-inbox, desktop, mobile-capture]
-lastUpdated: "2026-05-21"
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
 # Decision - Import Duplicate Detection
+
+## 2026 Vault Rebaseline
+
+Duplicate rules remain accepted per Vault. Local compares authoritative local
+records; Cloud compares server-authoritative records and may expose incomplete
+offline results. Home-Hub references below mean the Cloud provider.
 
 ## Status
 

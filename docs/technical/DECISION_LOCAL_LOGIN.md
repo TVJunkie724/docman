@@ -2,15 +2,21 @@
 title: "Decision - Local Login"
 description: "Entscheidung, dass der lokale frühe Produkt-Slice kein Desktop-Login erzwingt, aber Identity-Grenzen fuer spaeter vorbereitet"
 tags: [decision, auth, identity, local-first, mobile-capture, milestones]
-lastUpdated: "2026-05-29"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "superseded"
 ---
 
 # Decision - Local Login
 
+> Superseded by `DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md` and
+> `DECISION_CLOUD_IDENTITY_DEVICE_TRUST.md`. Every normal product mode now uses
+> a Mappm Account; account-independent Local access remains only as offline
+> continuity and Detached Recovery. Home-Hub pairing is not an active product
+> flow.
+
 ## Status
 
-Accepted.
+Superseded by the Cloud Identity and Device Trust baseline.
 
 ## Entscheidung
 

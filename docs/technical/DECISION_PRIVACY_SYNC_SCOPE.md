@@ -2,15 +2,19 @@
 title: "Decision - Privacy and Sync Scope"
 description: "Entscheidung zu Privacy-Klassen und Sync-Grenzen fuer Mappm Home Hub, Backup und spaetere Self-hosted-Synchronisation"
 tags: [decision, privacy, sync, data-classification, self-hosted]
-lastUpdated: "2026-06-06"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "superseded"
 ---
 
 # Decision - Privacy and Sync Scope
 
 ## Status
 
-Accepted.
+Superseded on 2026-07-12 by
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`. Data classification remains
+useful input, but its Home-Hub/self-hosted transfer permissions are not an
+active product policy. Production Cloud processing remains blocked until the
+new trust/key decision is accepted.
 
 ## Entscheidung
 

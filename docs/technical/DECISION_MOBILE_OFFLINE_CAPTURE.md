@@ -2,11 +2,17 @@
 title: "Decision - Mobile Offline Capture"
 description: "Entscheidung zum Offline-Scope fuer Mobile Capture, lokale Queue, Kontext-Cache und Home-Hub-Unabhaengigkeit beim Scannen"
 tags: [decision, mobile, capture, offline, queue, home-hub, draft-inbox]
-lastUpdated: "2026-06-06"
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
 # Decision - Mobile Offline Capture
+
+## 2026 Vault Rebaseline
+
+Offline durability remains accepted. Local mobile Vault captures remain on that
+device. Cloud Vault captures queue as pending work until Mappm Cloud confirms;
+they do not become completed merely because bytes exist locally.
 
 ## Status
 

@@ -1,6 +1,6 @@
 ---
 name: ui-onboarding
-description: Use before substantial DocMan Flutter work to understand the app structure, rebuild roadmap, Clean Architecture boundaries, Riverpod target architecture, Drift/local-first direction, legacy debt, and UI workflow constraints.
+description: Use before substantial Mappm Flutter work to understand the app structure, Commercial Core roadmap, Clean Architecture boundaries, Riverpod target architecture, Local/Cloud Vault providers, legacy debt, and UI workflow constraints.
 ---
 
 # DocMan UI Onboarding
@@ -41,7 +41,8 @@ docman/
 
 - Riverpod is the target architecture for state management and dependency injection.
 - Existing `flutter_bloc` and GetIt code is legacy/spike code. Do not expand it except for temporary compatibility explicitly required by an approved migration plan.
-- SQLite + Drift is the target local structured persistence layer.
+- SQLite + Drift is the target client structured persistence layer: authority
+  for Local Vaults and cache/pending state for Cloud Vaults.
 - Isar is legacy until migrated or removed. Do not add new Isar surface area.
 - PocketBase is historical spike/backend-adapter code, not target architecture.
 - Files and documents are stored separately from structured metadata.
@@ -49,7 +50,17 @@ docman/
 - Freezed may be used for immutable entities and union types. Generated Dart artifacts are ignored and reproduced through `scripts/codegen.sh`.
 - `font_awesome_flutter` is available for icons.
 
-No NSwag, .NET, PocketBase, cloud-first, or mandatory OAuth assumptions.
+The managed backend direction is ASP.NET Core with PostgreSQL and
+S3-compatible object storage behind OpenAPI contracts. Flutter must not import
+server DTOs, storage SDKs or backend implementation details. Authentication and
+device/entitlement state are required for every normal Local and Cloud mode.
+Local Vault data remains local-authoritative and available under bounded
+offline continuity; Detached Recovery preserves account-independent exit.
+Provider, key and recovery details remain explicit decisions.
+
+Home Hub, Tailscale pairing and customer self-hosting are superseded product
+assumptions. `local-development-cloud` is developer-only infrastructure with
+synthetic data and the same accepted contracts as managed environments.
 
 ## Clean Architecture Boundaries
 
@@ -75,12 +86,18 @@ Presentation -> Domain -> Data
 - Keep business logic out of `build()` methods.
 - Keep local Flutter `StatefulWidget` state for visual-only concerns such as animation controllers, text controllers, focus, and scroll.
 
-## Rebuild Roadmap Anchors
+## Product And Roadmap Anchors
 
-- R2 Technical Foundation: bootstrap, Riverpod, Drift direction, secure boundaries, migration away from legacy patterns.
-- R3 Quality & Production Readiness: tests, fake repositories, Microcks/contract mocks, scripts, target-path analyzer/format gates, legacy isolation/removal.
-- R4/M2 Capture and Review Core: first product slice after foundation/quality.
-- R5/M3 Assisted Review: OCR/extraction suggestions for metadata so optional fields do not become permanent manual work.
+- Commercial Core means every included slice is secure, tested, accessible,
+  supportable, distributable and operable; no prototype-only release path.
+- Foundation covers Riverpod, Local/Cloud repository providers, Drift authority
+  semantics, secure boundaries, account/device sessions and migration state.
+- Quality covers deterministic Local/Cloud fakes, Microcks, Local Development
+  Cloud, migrations, cancellation/entitlement and target-path gates.
+- Product slices include Core Assist in capture/review and guided document/case
+  work; Advanced Assist, sharing and broader automation remain later.
+- Cloud timing and cryptographic trust model remain explicit decision gates;
+  implementation must not silently choose them.
 
 GitHub Issues are the source of truth for actionable follow-up work. Accepted decisions stay in `docs/technical/DECISION_*.md`.
 

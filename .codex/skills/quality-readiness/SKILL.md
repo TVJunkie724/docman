@@ -1,6 +1,6 @@
 ---
 name: quality-readiness
-description: Use for DocMan R3 Quality & Production Readiness work: test strategy, test coverage for existing code, fake repositories, fixtures, analyzer/format debt, verify gates, CI readiness, production-readiness hardening, and separating legacy baseline debt from new regressions.
+description: "Use for Mappm R3/C1 quality and production-readiness work: test coverage, fake repositories, fixtures, analyzer/format debt, verify gates, CI readiness, Vault migration/lifecycle quality, and separating legacy baseline debt from new regressions."
 ---
 
 # DocMan Quality Readiness
@@ -20,7 +20,8 @@ Read:
 DocMan uses two separate test layers:
 
 - Fake repositories: fast Flutter/domain/Riverpod/widget tests without network.
-- Contract mocks: Microcks or equivalent for Home Hub, Capture, Sync, and API boundaries.
+- Contract mocks: Microcks for Mappm account/device, Core Assist, Cloud Vault,
+  Capture, Sync, migration, entitlement and API boundaries.
 
 Do not use one layer as a substitute for the other.
 
@@ -28,11 +29,14 @@ Do not use one layer as a substitute for the other.
 
 1. Data loss and document safety.
 2. Secure handling of secrets and sensitive logs.
-3. Local-first behavior without network.
-4. Mobile capture queue and retry reliability.
-5. Drift/local storage correctness and migrations.
-6. Provider/domain logic with deterministic fakes.
-7. Analyzer, format, and CI gates.
+3. Local Vault offline continuity, Detached Recovery and Cloud Vault
+   cache/pending behavior offline.
+4. Core Assist queue/review/quota/opt-out/provider-failure behavior without
+   authority changes or data loss.
+5. Mobile capture queue and retry reliability.
+6. Drift/local storage correctness and migrations.
+7. Provider/domain logic with deterministic fakes.
+8. Analyzer, format, and CI gates.
 
 ## Workflow
 

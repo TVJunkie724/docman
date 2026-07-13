@@ -1,16 +1,21 @@
 ---
-title: "Decision - Home Hub Backend Technology"
-description: "Entscheidung fuer ASP.NET Core, PostgreSQL und einen modularen Home-Hub-Server-Stack fuer Mappm"
+title: "Decision - Mappm Cloud Backend Technology and Local Development Cloud"
+description: "Entscheidung fuer ASP.NET Core, PostgreSQL, S3-kompatiblen Storage und eine lokale Development Cloud"
 tags: [decision, backend, home-hub, aspnet-core, postgresql, openapi, docker, workers]
-lastUpdated: "2026-06-05"
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
-# Decision - Home Hub Backend Technology
+# Decision - Mappm Cloud Backend Technology and Local Development Cloud
 
 ## Status
 
-Accepted.
+Accepted with product-scope rebaseline on 2026-07-12.
+
+ASP.NET Core, PostgreSQL, S3-compatible storage, OpenAPI/Microcks and worker
+boundaries remain the technical direction. References below to a customer Home
+Hub or self-hosted deployment are superseded: the local stack is the Local
+Development Cloud; supported customer service is managed Mappm Cloud.
 
 ## Entscheidung
 

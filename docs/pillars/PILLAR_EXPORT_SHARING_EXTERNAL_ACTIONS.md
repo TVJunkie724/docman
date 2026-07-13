@@ -2,7 +2,7 @@
 title: "Produkt-Säule - Export and External Actions"
 description: "Produktbereich fuer Export, lokale Übergabe, externe App-/Website-Links, Einreichportale und manuelle Ausgabe von Dokumenten"
 tags: [pillar, export, external-links, integrations, privacy]
-lastUpdated: "2026-06-13"
+lastUpdated: "2026-07-12"
 version: "0.3"
 status: "proposed"
 ---
@@ -155,3 +155,11 @@ Empfohlen:
 - Welche Linktypen sind im R4-M2 sichtbar?
 - Brauchen Profile eigene externe Links schon in R5?
 - Wie wird `ExportPackage` in der UI genannt?
+
+## Enterprise Quality Contract
+
+This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its milestone slices and domain boundaries remain authoritative; the shared
+contract supplies mandatory owner separation, phase slicing, security/privacy,
+accessibility/localization, verification, stop-rule and handoff requirements.
+The pillar itself is never sufficient authorization for implementation.

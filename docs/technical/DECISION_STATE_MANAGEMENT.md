@@ -2,11 +2,17 @@
 title: "Decision - State Management and Dependency Injection"
 description: "Entscheidung zu Riverpod als Zielarchitektur für State Management und Dependency Injection in DocMan"
 tags: [decision, architecture, riverpod, state-management, dependency-injection]
-lastUpdated: "2026-04-24"
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
 # Decision - State Management and Dependency Injection
+
+## 2026 Vault Rebaseline
+
+Riverpod remains accepted. Replace generic local-first/sync state with the F2
+model: Vault authority, local availability, Cloud confirmation, pending work,
+entitlement/grace/quota and migration are independent dimensions.
 
 ## Status
 

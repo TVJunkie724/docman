@@ -2,7 +2,7 @@
 title: "Produkt-Säule - Search, Facts and Insights"
 description: "Produktbereich fuer strukturierte Suche, Dokumentfakten, Claims, Finanzdaten, Gültigkeiten und Auswertungen"
 tags: [pillar, search, facts, insights, analytics, claims, finance]
-lastUpdated: "2026-06-10"
+lastUpdated: "2026-07-12"
 version: "0.3"
 status: "accepted"
 ---
@@ -55,7 +55,7 @@ Spätere Kandidaten:
 
 - FTS5 auch für geprüften lokalen OCR-Text.
 - optional `sqlite-vec` für lokale semantische Suche.
-- optional Meilisearch oder Typesense als Home-Hub-Search.
+- optionaler verwalteter Search-Service hinter dem akzeptierten Cloud-/Privacy-Contract.
 - Qdrant nur, wenn AI/RAG-Retrieval zentral wird.
 
 ## Facts
@@ -146,3 +146,11 @@ Späterer Milestone:
 
 - Welche Ranking-/Sortierregeln braucht die M2-Suche zuerst?
 - Welche Dashboard-UI braucht R8 zuerst?
+
+## Enterprise Quality Contract
+
+This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its milestone slices and domain boundaries remain authoritative; the shared
+contract supplies mandatory owner separation, phase slicing, security/privacy,
+accessibility/localization, verification, stop-rule and handoff requirements.
+The pillar itself is never sufficient authorization for implementation.

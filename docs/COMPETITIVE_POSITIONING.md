@@ -1,8 +1,8 @@
 ---
 title: "Mappm - Competitive Positioning"
-description: "Wettbewerbsanalyse und Positionierungsnotizen fuer Mappm als private-first Dokumentenplattform fuer Haushalte"
+description: "Wettbewerbsanalyse und Positionierungsnotizen fuer Mappm als Local/Cloud-Dokumentenprodukt fuer Haushalte"
 tags: [product, strategy, competition, positioning, privacy, documents, intelligence]
-lastUpdated: "2026-06-27"
+lastUpdated: "2026-07-12"
 status: "working-note"
 ---
 
@@ -11,6 +11,12 @@ status: "working-note"
 ## Status
 
 Working note.
+
+2026-07-12 product rebaseline: customer self-hosting/Home Hub is not a Mappm
+product mode. Competitive references to self-hosted products remain category
+analysis only. Mappm differentiates through user-selected Local or Cloud data
+authority, account-backed Core Assist and a trustworthy account-independent
+exit/recovery path.
 
 Diese Analyse haelt die ersten Wettbewerbsbeobachtungen aus der
 Produktstrategie fest. Sie ist keine finale Marktstudie und keine technische
@@ -45,7 +51,7 @@ kopieren. Die Chance liegt in einer klaren Verbindung:
 Private Haushaltsdokumente
   + Vorgänge, Fristen, Profile und Nachweise
   + sichere Sync-/Backup-/Sharing-Modi
-  + optionale intelligente Assistenz
+  + intelligente, prüfbare Core Assistenz
   + europaeische Vertrauens- und Identity-Schicht
 ```
 
@@ -83,7 +89,8 @@ Luecken / Mappm-Chance:
 - haeufig US-zentriert.
 - weniger EU-/eIDAS-/ID-Austria-Vertrauensposition.
 - oft eher Vault als vorgangsorientierte Arbeitsflaeche.
-- weniger lokale/private/self-hosted Betriebsmodi.
+- selten eine echte Wahl lokaler Datenautorität bei gleichzeitig
+  servicegestützter Assistenz und überprüfbarer Cloud-Exit-Migration.
 - weniger starkes Modell fuer Dokumente als Teil von Vorgang, Frist, Claim,
   Nachweis, Profil und Workflow.
 
@@ -258,7 +265,7 @@ Gegen Paperless-ngx:
   Comfort und europaeische Trust-Schicht.
 
 Gegen Family / Life Vaults:
-  staerkeres Vorgangs-/Dokumenten-/Fristenmodell, private/self-hosted Modi,
+  staerkeres Vorgangs-/Dokumenten-/Fristenmodell, Local/Cloud-Wahl und Exit,
   EU-/eIDAS-/ID-Austria-Vertrauensposition und spaetere Assistenz.
 
 Gegen E2EE Cloud Storage:
@@ -277,21 +284,22 @@ Gegen Scanner Apps:
 
 - Vertrauen und Familiennutzen muessen genauso stark formuliert werden wie
   technische Privacy.
-- Mappm darf nicht als rein technisches Self-hosted-Projekt wirken.
+- Mappm darf weder wie ein technisches Serverprojekt noch wie ein beliebiger
+  Cloud-Speicher wirken.
 - Mobile Capture muss schnell und vertraut sein, aber direkt in Review und
   Haushaltskontext fuehren.
-- Die neue private-first/service-ready Architektur ist marktseitig sinnvoll:
-  Local-only fuer Kontrolle, Home Hub fuer private Infrastruktur, Managed Cloud
-  fuer Komfort und echte Assistenz-UX.
-- E2EE-/Zero-Knowledge-faehiger Sync, Backup und Sharing sind nicht nur
-  Technik, sondern Wettbewerbsdifferenzierung.
+- Die Provider-Architektur ist marktseitig sinnvoll: Local fuer lokale
+  Datenautorität, Mappm Cloud fuer Multi-Device und managed Backup, Core Assist
+  fuer beide Modi und überprüfbare Migration in beide Richtungen.
+- Das noch offene Managed-Trust-versus-E2EE-Modell ist ein potenzielles
+  Wettbewerbsmerkmal, darf vor VC-02 aber nicht versprochen werden.
 - eIDAS/EUDI/ID Austria kann im DACH-/EU-Kontext ein glaubwuerdiger
   Vertrauensanker werden, darf aber nicht zur nationalen Sackgasse werden.
 
 ## Offene Folgefragen
 
-- Welche Zielgruppe ist zuerst wichtiger: technisch affine Self-hosted-Nutzer,
-  privacy-bewusste Familien oder normale Haushalte mit Managed-Cloud-Bedarf?
+- Welche Zielgruppe ist zuerst wichtiger: privacy-bewusste Local-Nutzer oder
+  normale Haushalte mit Managed-Cloud-Bedarf?
 - Wird Mappm zuerst als "private Dokumentenplattform" oder als "Familien-
   Readiness / Life Admin" kommuniziert?
 - Welche Funktionen muessen fuer den ersten kaufbaren Eindruck sitzen:
@@ -299,4 +307,3 @@ Gegen Scanner Apps:
 - Welche Wettbewerber brauchen spaeter eine tiefere Feature-by-Feature-Matrix?
 - Welche rechtlichen und vertrieblichen Anforderungen entstehen, wenn eIDAS,
   ID Austria, Cloud-Backup oder Managed Intelligence aktiv beworben werden?
-

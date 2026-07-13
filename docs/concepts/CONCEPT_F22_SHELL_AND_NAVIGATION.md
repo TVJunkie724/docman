@@ -2,7 +2,7 @@
 title: "Konzept F22 - Product Shell and Navigation"
 description: "Mappm App Shell, Desktop/Mobile Navigation, Arbeitskontexte, Sidebar, Tabs, Segments und responsive Verhalten"
 tags: [concept, frontend, design-system, shell, navigation, responsive, desktop, mobile]
-lastUpdated: "2026-06-22"
+lastUpdated: "2026-07-12"
 version: "1.1"
 status: "accepted"
 ---
@@ -111,3 +111,11 @@ F22 ist umgesetzt, wenn:
 - FilterTabs, Segments, Breadcrumbs und Command Rows klare Einsatzregeln haben.
 - Privacy-Regeln fuer Shell-Status eingehalten werden.
 - Responsive Screenshots oder visuelle Tests Desktop und Mobile abdecken.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

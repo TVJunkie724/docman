@@ -2,15 +2,19 @@
 title: "Decision - Foundation Concept Rewrite"
 description: "Entscheidung zum Umgang mit importierten Foundation-Konzepten aus einem anderen Projekt"
 tags: [decision, documentation, concepts, source-of-truth, foundation]
-lastUpdated: "2026-04-26"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "superseded"
 ---
 
 # Decision - Foundation Concept Rewrite
 
+> Superseded as an execution decision by the completed playbook reconciliation,
+> `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md` and the per-file
+> quality matrix. The historical rewrite inventory below is not current scope.
+
 ## Status
 
-Accepted.
+Superseded by the completed playbook reconciliation and current concept contracts.
 
 ## Entscheidung
 

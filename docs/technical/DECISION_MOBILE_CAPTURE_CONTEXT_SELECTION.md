@@ -2,11 +2,17 @@
 title: "Decision - Mobile Capture Context Selection"
 description: "Entscheidung zur optionalen Personen-, Vorgangs- und Notizzuordnung beim mobilen Scannen"
 tags: [decision, mobile-capture, context, profiles, cases, draft-inbox, milestones]
-lastUpdated: "2026-05-29"
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
 # Decision - Mobile Capture Context Selection
+
+## 2026 Cloud Rebaseline
+
+Optional context and Draft-Inbox fallback remain accepted. Cross-device mobile
+handoff is a Cloud Vault capability; historical Home-Hub contract references
+map to the C2 Mappm Cloud Capture contract.
 
 ## Status
 

@@ -14,10 +14,28 @@
           <div class="panel">
             <div class="eyebrow">Form Governance</div>
             <h1>Formulare muessen Lifecycle, Rechte, sensible Werte und Review sichtbar machen.</h1>
-            <p>Diese Seite schliesst die Playbook-Gaps fuer DS-04-19 bis DS-04-29. Sie ist Mock-Evidenz, keine Flutter-Implementation.</p>
+            <p>Diese Seite liefert Review-Evidenz fuer DS-04-19 bis DS-04-29. Normative Regeln stehen in MP-DS-04 und den zugeordneten F-Konzepten.</p>
             <div class="button-row">
               <a class="btn secondary" href="component-forms.html">Form Family</a>
               <a class="btn secondary" href="component-form-interactions.html">Interaktionen</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Locale, Identity and Dependent Fields</h2>
+          <div class="form-layout three">
+            <div class="form-section">
+              <span class="form-section-title">Date and Time</span>
+              <div class="field required"><label>Faellig am</label><div class="control">31.07.2026, 18:00</div><p class="helper-text">Deutschsprachiges Format; Zeitzone bleibt bei relevanten Terminen sichtbar.</p></div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Money and Unit</span>
+              <div class="field"><label>Betrag</label><div class="control">1.249,90 EUR</div><p class="helper-text">Wert und Waehrung bleiben getrennt validierbar.</p></div>
+            </div>
+            <div class="form-section">
+              <span class="form-section-title">Identity and Address</span>
+              <div class="field required"><label>Betroffene Person</label><div class="control">Kind A</div><p class="helper-text">Adressfelder erscheinen erst, wenn der Versandweg sie benoetigt.</p></div>
             </div>
           </div>
         </section>
@@ -83,10 +101,32 @@
             </article>
             <article class="validation-card">
               <strong>Server Error</strong>
-              <div class="field"><label>Home Hub</label><div class="control error">Nicht erreichbar</div></div>
+              <div class="field"><label>Mappm Cloud</label><div class="control error">Nicht erreichbar</div></div>
               <span class="task-badge warning">Offline fortsetzen</span>
               <p>Backend-Fehler blockieren nur, wenn der aktuelle Flow echte Serverwahrheit braucht.</p>
             </article>
+            <article class="validation-card">
+              <strong>Stale Ignored</strong>
+              <div class="field"><label>Aktenzeichen</label><div class="control warning">AB-2026-18</div></div>
+              <span class="task-badge info">Alte Antwort verworfen</span>
+              <p>Nur das Ergebnis fuer den aktuellen Eingabewert darf den Feldstatus veraendern.</p>
+            </article>
+            <article class="validation-card">
+              <strong>Validated</strong>
+              <div class="field"><label>Referenz</label><div class="control success">AT-3921</div></div>
+              <span class="task-badge success">Bestaetigt</span>
+              <p>Erfolg bleibt feldnah und enthaelt keine sensiblen Details in globalem Feedback.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Permission Outcomes</h2>
+          <div class="state-grid">
+            <article class="state-card"><strong>Readonly</strong><p>Wert sichtbar, Bearbeitung gesperrt, Grund und zustaendige Rolle genannt.</p></article>
+            <article class="state-card"><strong>Hidden</strong><p>Nur wenn bereits die Existenz des Felds nicht offengelegt werden darf.</p></article>
+            <article class="state-card"><strong>Denied</strong><p>Zugriff verweigert; keine vertraulichen Werte oder Policy-Details anzeigen.</p></article>
+            <article class="state-card"><strong>Request Access</strong><p>Nur anbieten, wenn ein echter Domain-/Backend-Workflow existiert.</p></article>
           </div>
         </section>
 
@@ -97,6 +137,7 @@
             <div class="diff-row"><span>Dokumenttyp</span><del>Sonstiges</del><ins>Rechnung / Beleg</ins></div>
             <div class="diff-row"><span>Betroffene Person</span><del>fehlt</del><ins>Kind A</ins></div>
           </div>
+          <div class="button-row mt-18"><button class="btn primary">Aenderungen bestaetigen</button><button class="btn secondary">Weiter bearbeiten</button><button class="btn ghost">Vorschlaege verwerfen</button></div>
           <p>Aenderungen vor Abschluss sichtbar machen. AI/OCR-Vorschlaege duerfen nicht still ueberschreiben.</p>
         </section>
 
@@ -108,6 +149,7 @@
             <div class="bulk-row"><span>scan-kind-a.jpg</span><span class="token-chip warning">Person fehlt</span><span>Zuordnen</span></div>
             <div class="bulk-row"><span>duplicate.pdf</span><span class="token-chip danger">Duplikat</span><span>Pruefen</span></div>
           </div>
+          <div class="callout-card warning mt-18"><div class="callout-token" data-callout-icon="alert" aria-hidden="true"></div><div class="callout-body"><strong>2 bereit, 1 braucht Zuordnung, 1 Duplikat</strong><p>Nur gueltige Zeilen importieren oder zuerst alle Probleme pruefen. Fehlerbericht bleibt synthetisch und exportiert keine Dokumentinhalte.</p></div></div>
           <p>Partial Success ist sichtbar. Fehlerhafte Zeilen blockieren nicht automatisch gueltige Zeilen.</p>
         </section>
 

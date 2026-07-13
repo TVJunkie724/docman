@@ -1,12 +1,17 @@
 ---
-title: "Decision - Home Hub Capture Contract"
-description: "Entscheidung zum fachlichen API-Vertrag fuer Mobile-Capture-Uploads an den Home Hub und Draft-Inbox-Handoff"
+title: "Rebaseline - Mappm Cloud Capture Contract Shape"
+description: "Historischer 3-Schritt-Capture-Vertrag als Input für den neuen Mappm-Cloud-Contract"
 tags: [decision, home-hub, mobile-capture, openapi, microcks, upload, draft-inbox]
-lastUpdated: "2026-05-14"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "accepted-shape-recontract-required"
 ---
 
-# Decision - Home Hub Capture Contract
+# Rebaseline - Mappm Cloud Capture Contract Shape
+
+The initiate/upload/confirm shape, idempotency and checksum requirements remain
+accepted as contract input. The old Home Hub/pairing DTO and policy details are
+not implementation-authorizing. Issue #27 and `contract-api` must produce and
+approve the Mappm Cloud OpenAPI/Microcks contract after VC-01/VC-02.
 
 ## Status
 

@@ -30,12 +30,15 @@ docs/design-system/Mock/index.html
 | `pages/components.html` | Component catalogue and shared state taxonomy. |
 | `pages/component-buttons.html` | Buttons, command hierarchy and action rules. |
 | `pages/component-forms.html` | Forms, field anatomy and validation states. |
+| `pages/component-form-interactions.html` | Interactive picker, sensitive and mobile form behavior. |
+| `pages/component-form-governance.html` | Lifecycle, locale, permission, async validation, review and bulk-import governance. |
 | `pages/component-navigation.html` | Tabs, segments, sidebar and command navigation. |
 | `pages/component-status.html` | Status chips, sync, backup, privacy and review signals. |
 | `pages/component-tags.html` | Tag chips, tag rules, filtering and edit behavior. |
 | `pages/component-feedback.html` | Banners, empty states, failures, progress and retry. |
 | `pages/data-display.html` | Lists, document rows, facts and timelines. |
 | `pages/patterns.html` | Capture, Draft Inbox, document detail and export patterns. |
+| `pages/vault-cloud-lifecycle.html` | Mappm Account, Local/Cloud authority, Core Assist, migration, Detached Recovery, cancellation, grace/read-only, exit and deletion separation. |
 | `pages/component-accessibility.html` | Contrast, keyboard, text scale and QA gates. |
 
 ## Rules
@@ -70,3 +73,8 @@ Implementation-facing frontend rules are documented in:
 | `docs/concepts/CONCEPT_F23_COMPONENT_SYSTEM.md` | Components, buttons, status, tags, feedback, data display. |
 | `docs/concepts/CONCEPT_F24_FORM_FAMILY.md` | Forms draft; requires follow-up before implementation. |
 | `docs/concepts/CONCEPT_F25_ACCESSIBILITY_PATTERNS_AND_VISUAL_QA.md` | Patterns, accessibility, privacy and visual QA. |
+| `docs/concepts/CONCEPT_F36_VAULT_MODES_CLOUD_LIFECYCLE.md` | Account/device, Vault choice, Assist, migration, entitlement, Detached Recovery, cancellation, exit and deletion UX. |
+| `docs/design-system/concepts/MP-DS-04_COMPONENT_SYSTEM.md` | Normative DS-04-01..29 family mapping and gates. |
+| `docs/design-system/concepts/MP-DS-05_PRODUCT_PATTERNS.md` | Product composition patterns. |
+| `docs/design-system/concepts/MP-DS-06_ACCESSIBILITY_AND_QUALITY_GATES.md` | Accessibility and visual evidence gates. |
+| `docs/design-system/concepts/MP-DS-07_PLATFORM_ADAPTATION.md` | Desktop/mobile adaptation rules. |

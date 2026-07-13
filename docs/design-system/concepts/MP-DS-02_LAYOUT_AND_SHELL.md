@@ -1,5 +1,10 @@
 ---
+title: "MP-DS-02 Layout And Shell"
+description: "Responsive layout, navigation and workspace-shell contract"
+tags: [design-system, layout, shell, navigation, responsive]
+lastUpdated: "2026-07-12"
 status: draft
+owner: "ui-concept"
 source_mock:
   - docs/design-system/Mock/index.html
 ---

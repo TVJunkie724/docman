@@ -2,7 +2,7 @@
 title: "Produkt-Säule - Household Profiles and Access"
 description: "Produktbereich fuer Haushaltsprofile, Kinderprofile, Partnerzugriff, Profilzuordnung und spätere Rechte"
 tags: [pillar, profiles, household, access, family, permissions]
-lastUpdated: "2026-05-06"
+lastUpdated: "2026-07-12"
 version: "0.1"
 status: "proposed"
 ---
@@ -81,3 +81,11 @@ Dokumente werden nicht kopiert. Zusammenhänge entstehen über Links und Profile
 - Welche Profildaten speichern wir bewusst nicht im M2?
 - Wie sichtbar sind Kinderprofile in Mobile Capture?
 - Welche Rechte braucht Partnerzugriff zuerst?
+
+## Enterprise Quality Contract
+
+This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its milestone slices and domain boundaries remain authoritative; the shared
+contract supplies mandatory owner separation, phase slicing, security/privacy,
+accessibility/localization, verification, stop-rule and handoff requirements.
+The pillar itself is never sufficient authorization for implementation.

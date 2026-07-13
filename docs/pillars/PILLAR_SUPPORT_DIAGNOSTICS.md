@@ -2,7 +2,7 @@
 title: "Enterprise-Säule - Support and Diagnostics"
 description: "Enterprise-Bereich fuer Diagnosepakete, Support-Modus, Fehleranalyse, Nutzerhilfe und sichere Debuggability"
 tags: [pillar, enterprise, support, diagnostics]
-lastUpdated: "2026-06-12"
+lastUpdated: "2026-07-12"
 version: "0.2"
 status: "proposed"
 ---
@@ -11,7 +11,7 @@ status: "proposed"
 
 ## Zweck
 
-Auch ein privates/self-hosted Produkt braucht Antworten auf: Was ist kaputt, warum sehe ich meinen Upload nicht, und wie kann man helfen, ohne sensible Daten offenzulegen?
+Ein verkauftes Local-/Cloud-Produkt braucht Antworten auf: Was ist kaputt, warum sehe ich meinen Upload nicht, und wie kann man helfen, ohne sensible Daten offenzulegen?
 
 ## Scope
 
@@ -46,3 +46,11 @@ normalen Logs und Fehlerzustaenden.
 - Observability and Runtime Operations.
 - Admin, Settings and Storage Health.
 - Security and Privacy Architecture.
+
+## Enterprise Quality Contract
+
+This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its milestone slices and domain boundaries remain authoritative; the shared
+contract supplies mandatory owner separation, phase slicing, security/privacy,
+accessibility/localization, verification, stop-rule and handoff requirements.
+The pillar itself is never sufficient authorization for implementation.

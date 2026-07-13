@@ -1,12 +1,20 @@
 ---
 title: "Decision - Search Technology and Search Boundary"
-description: "Entscheidung zu DocMan M2-Suche, langfristiger Search-Boundary, SQLite/Drift/FTS5, späteren Home-Hub- und AI-Search-Adaptern"
+description: "Entscheidung zur Search-Boundary für Local/Cloud Vaults, SQLite/Drift/FTS5 und spätere Managed-/AI-Search-Adapter"
 tags: [decision, search, sqlite, drift, fts5, local-first, meilisearch, typesense, qdrant]
-lastUpdated: "2026-05-06"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "accepted-rebaseline"
 ---
 
 # Decision - Search Technology and Search Boundary
+
+## 2026 Vault Rebaseline
+
+The SearchRepository boundary remains accepted. A Local Vault may use
+Drift/FTS5 as authority. In a Cloud Vault, local indexes are cache-derived and
+must not claim completeness while offline unless the active cache policy can
+prove it. Managed search is a Cloud backend adapter; `HomeHubSearchRepository`
+and customer self-hosted search references below are historical names.
 
 ## Status
 

@@ -2,7 +2,7 @@
 title: "Konzept F25 - Accessibility, Product Patterns and Visual QA"
 description: "Mappm Accessibility-, Privacy-, Product-Pattern- und visuelle QA-Gates fuer enterprise-grade UI-Umsetzung"
 tags: [concept, frontend, design-system, accessibility, patterns, visual-qa, privacy, production-readiness]
-lastUpdated: "2026-06-22"
+lastUpdated: "2026-07-12"
 version: "1.1"
 status: "accepted"
 ---
@@ -45,7 +45,7 @@ Pattern-Familien:
 | Draft Inbox | Pruefen, zuordnen, korrigieren, zuletzt verarbeitet. |
 | Document Detail | Preview, Metadaten, Facts, Beziehungen, Aktionen. |
 | Export | Einzeldokument, Vorgang als ZIP, manuelle Weitergabe. |
-| Settings | Home Hub, Pairing, Storage, Diagnose. |
+| Settings | Mappm Account, Vault-Modus, Assist, Speicher/Cache, Export/Recovery, Diagnose. |
 | Conflict Resolution | Sync-/Review-Konflikte bewusst aufloesen. |
 
 Regeln:
@@ -114,3 +114,11 @@ F25 ist umgesetzt, wenn:
 - visuelle Tests oder Screenshots Teil der Definition of Done sind.
 - zentrale Product Patterns nicht durch isolierte Screens widersprochen werden.
 - Audits konkrete Dateien, Screens, Zustaende und Tests pruefen koennen.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

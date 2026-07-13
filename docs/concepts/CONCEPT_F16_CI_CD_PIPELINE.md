@@ -1,19 +1,39 @@
 ---
 title: "Konzept F16 - CI/CD Pipeline and Quality Gates"
-description: "DocMan-spezifische Quality Gates für Flutter App, Dokumentation, spätere Home-Hub/Compose-Checks und sichere Releases"
+description: "Mappm Quality/CI/CD gates for Flutter, Cloud contracts/providers, migrations, environments and commercial releases"
 tags: [concept, ci, cd, quality-gates, flutter, docs, compose]
-lastUpdated: "2026-05-06"
-version: "3.5"
-status: "accepted"
+lastUpdated: "2026-07-12"
+version: "4.0"
+status: "accepted-rebaseline"
 ---
 
 # Konzept F16 - CI/CD Pipeline and Quality Gates
 
 ## Status
 
-Accepted.
+Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
+
+## 2026 Cloud Delivery Rebaseline
+
+CI/CD must separate Flutter, OpenAPI/generated clients, backend providers,
+infrastructure and release promotion. Gates cover Local and Cloud fakes,
+Microcks consumer/provider conformance, migration/source-preservation,
+entitlement/cancellation, security/supply-chain, environment config drift,
+backup/restore and rollback. Local Development Cloud is reproducible tooling;
+Staging and Production promotion use separate secrets and approvals.
 
 Dieses Konzept ersetzt den importierten F16-Inhalt aus dem alten Projekt.
+
+## Legacy Detail Baseline (non-normative)
+
+The remaining imported detail is retained only for migration context and useful
+feature-specific examples. It must not authorize Home Hub, Tailscale, customer
+self-hosting, universal local-first authority, old milestone scope or QR server
+pairing. Where it differs, the rebaseline above,
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
+`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
+concept is used for implementation, its affected detail must be rewritten into
+the phase's approved implementation contract.
 
 ## Zweck
 
@@ -134,3 +154,11 @@ F16 gilt als umgesetzt, wenn:
 - Wann wird Docker/Compose in CI geprüft?
 - Wann wird Microcks als Compose-Service ergänzt?
 - Welche API-Spezifikation wird zuerst contract-getestet?
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

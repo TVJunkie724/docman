@@ -2,7 +2,7 @@
 title: "Mappm COM-00 Commercial Umbrella"
 description: "Commercialization, packaging, procurement and support planning contract"
 tags: [commercial, pricing, billing, sla, sales, support, playbook]
-lastUpdated: "2026-07-08"
+lastUpdated: "2026-07-12"
 status: "draft"
 owner: "commercial/product"
 ---
@@ -11,7 +11,7 @@ owner: "commercial/product"
 
 ## Purpose
 
-Mappm may become a sellable product. Commercial planning must therefore keep
+Mappm targets a sellable Commercial Core. Commercial planning must therefore keep
 packaging, cloud cost, support, procurement, subscriptions and trust messaging
 visible without blocking early frontend foundation work.
 
@@ -29,8 +29,11 @@ visible without blocking early frontend foundation work.
 
 ## Rules
 
-- Free/local/offline capability and paid/service-backed capability must be
-  distinguishable in UX and architecture.
+- Local and paid/service-backed capability must be distinguishable in UX and
+  architecture. Normal Local and Cloud use is account-based; Free/Paid Local,
+  Cloud packaging and Core/Advanced Assist quotas remain VC-03.
+- Cancellation, Cloud Vault deletion and account deletion remain separate;
+  export and supported Local migration are never normal paid-write features.
 - Pricing cannot be decided without cloud cost, support and compliance impact.
 - Commercial commitments cannot promise AI accuracy, backup recovery or
   security guarantees beyond implemented and verified behavior.

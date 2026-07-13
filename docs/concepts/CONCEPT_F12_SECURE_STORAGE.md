@@ -1,19 +1,45 @@
 ---
 title: "Konzept F12 - Secure Storage"
-description: "DocMan-spezifisches Secure-Storage-Konzept für Pairing Secrets, Sessions, Geräteidentität, lokale Schlüssel und Abgrenzung zu Local Storage"
-tags: [concept, foundation, secure-storage, security, pairing, sessions, home-hub]
-lastUpdated: "2026-05-06"
-version: "3.1"
-status: "accepted"
+description: "Mappm Secure Storage fuer Local/Cloud keys, account/device sessions, migration checkpoints and trust boundaries"
+tags: [concept, foundation, secure-storage, security, sessions, cloud, keys]
+lastUpdated: "2026-07-12"
+version: "4.0"
+status: "accepted-rebaseline"
 ---
 
 # Konzept F12 - Secure Storage
 
 ## Status
 
-Accepted.
+Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
+
+## 2026 Normative Secret Boundary
+
+Customer Home-Hub pairing secrets are superseded. Secure Storage may contain
+Local Vault key material, Cloud access/refresh tokens, device credentials,
+wrapped key references, recovery state and sensitive migration credentials.
+Normal Drift/cache stores contain no usable secrets. Managed Trust versus
+Zero-Knowledge/E2EE remains VC-02; no implementation may invent key ownership,
+recovery or server-decryption behavior before approval.
 
 Dieses Konzept ersetzt den importierten F12-Inhalt aus dem alten Projekt.
+
+## Legacy Detail Baseline (non-normative)
+
+The remaining imported detail is retained only for migration context and useful
+feature-specific examples. It must not authorize Home Hub, Tailscale, customer
+self-hosting, universal local-first authority, old milestone scope or QR server
+pairing. Where it differs, the rebaseline above,
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
+`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
+concept is used for implementation, its affected detail must be rewritten into
+the phase's approved implementation contract.
+
+Normative rebaseline: every normal Local and Cloud mode stores account/device
+session and entitlement material in Secure Storage. Local content keys remain
+device/recovery scoped so Detached Recovery cannot depend solely on a live
+account token. Assist upload/job credentials are separate from Vault keys and
+must not imply Cloud document authority.
 
 ## Zweck
 
@@ -142,3 +168,11 @@ F12 gilt als umgesetzt, wenn:
 - Welches Flutter-Package wird konkret genutzt?
 - Welche Secrets müssen zwischen Desktop und Mobile getrennt sein?
 - Wird lokale Datei-/DB-Verschlüsselung im M2 geprüft oder verschoben?
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

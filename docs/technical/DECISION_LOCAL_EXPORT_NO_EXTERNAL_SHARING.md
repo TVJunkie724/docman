@@ -2,11 +2,17 @@
 title: "Decision - Local Export Instead of External Sharing"
 description: "Entscheidung gegen externes App-Sharing und fuer bewussten lokalen Export einzelner Dokumente oder ganzer Vorgaenge"
 tags: [decision, export, sharing, privacy, zip, external-access]
-lastUpdated: "2026-06-13"
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
 # Decision - Local Export Instead of External Sharing
+
+## 2026 Portability Rebaseline
+
+Local export remains accepted, but is now also a required Cloud exit path.
+Cloud-to-Local migration is separate and must be verified. Historical
+private/self-hosted positioning below does not limit managed Cloud portability.
 
 ## Status
 

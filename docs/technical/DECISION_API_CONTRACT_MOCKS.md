@@ -2,11 +2,18 @@
 title: "Decision - API Contract Source and Mock Runner"
 description: "Entscheidung zu OpenAPI als Contract Source of Truth und Microcks als Contract-Mock-/Verification-Runner"
 tags: [decision, api, contracts, openapi, microcks, testing, home-hub, mobile-capture]
-lastUpdated: "2026-05-08"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "accepted-rebaseline"
 ---
 
 # Decision - API Contract Source and Mock Runner
+
+## 2026 Cloud Rebaseline
+
+OpenAPI and Microcks remain accepted. Contract families now target Mappm Cloud
+and include identity/device session, Vault/entitlement, Capture, migration,
+export/delete, sync/conflict and later processing. Historical Home-Hub file
+names are migration inputs, not the new contract namespace.
 
 ## Status
 

@@ -2,7 +2,7 @@
 title: "Konzept F23 - Component System"
 description: "Mappm Komponentenfamilien fuer Buttons, Status, Tags, Feedback, Callouts, Data Display und Component Composition"
 tags: [concept, frontend, design-system, components, buttons, status, tags, feedback, data-display]
-lastUpdated: "2026-06-22"
+lastUpdated: "2026-07-12"
 version: "1.2"
 status: "accepted"
 ---
@@ -213,3 +213,11 @@ F23 ist umgesetzt, wenn:
   risikobasiert abgedeckt sind.
 - Accessibility Labels und Tastaturbedienung fuer relevante Komponenten stehen.
 - Widget-Tests oder visuelle Tests fuer zentrale Varianten existieren.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

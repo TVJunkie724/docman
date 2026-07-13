@@ -1,22 +1,24 @@
 ---
-title: "DocMan Product Pillar Index"
-description: "Master-Landkarte der DocMan Produkt-, Plattform-, Enterprise- und Governance-Säulen"
+title: "Mappm Product Pillar Index"
+description: "Master-Landkarte der Mappm Produkt- und Plattform-Säulen sowie querschnittlichen Assurance Tracks"
 tags: [pillars, roadmap, product, enterprise, governance]
-lastUpdated: "2026-05-12"
-version: "0.3"
-status: "proposed"
+lastUpdated: "2026-07-12"
+version: "1.0"
+status: "accepted"
 ---
 
-# DocMan Product Pillar Index
+# Mappm Product Pillar Index
 
 ## Zweck
 
-Dieser Index ist die Säulenlandkarte für DocMan.
+Dieser Index ist die Säulenlandkarte für Mappm.
 
 Eine Säule beschreibt einen großen Verantwortungsbereich des Produkts oder der Produktentwicklung. Säulen sind nicht identisch mit Roadmap-Phasen:
 
 - Roadmap-Phasen beantworten: Wann bauen wir welches Stück?
 - Säulen beantworten: Welche Bereiche muss DocMan dauerhaft abdecken?
+- Assurance Tracks beantworten: Welche Qualitäts-, Sicherheits-, Rechts- und
+  Betriebsanforderungen müssen jede betroffene Phase begleiten?
 - F-Konzepte beantworten: Welche querschnittlichen Frontend-/Foundation-Regeln gelten über Säulen hinweg?
 
 Alle Produkt-Säulen bauen auf der DMS-Zielarchitektur in
@@ -38,17 +40,25 @@ sondern in `docs/roadmap/PILLAR_ROADMAP_INDEX.md`.
 | `PILLAR_SEARCH_FACTS_INSIGHTS.md` | Suche, strukturierte Fakten, Claims, finanzielle und fachliche Auswertungen |
 | `PILLAR_EXPORT_SHARING_EXTERNAL_ACTIONS.md` | Export, Druck, Mail, externe App-/Website-Links, lokale Exportpakete |
 | `PILLAR_HOUSEHOLD_PROFILES_ACCESS.md` | Haushalt, Profile, Kinderprofile, Partnerzugriff und spätere Rechte |
-| `PILLAR_TEMPLATES_WORKFLOWS.md` | Vorlagen, Checklisten, empfohlene nächste Schritte und Workflow-Hilfen |
+
+Vorlagen, Checklisten und Workflow-Hilfen sind eine unterstützende Capability
+der Aufgaben-/Workflow-Säule, keine eigenständig releasbare Kernsäule. Das
+historische Dokument `PILLAR_TEMPLATES_WORKFLOWS.md` bleibt als Detailquelle.
 
 ## Plattform-Säulen
 
 | Säule | Zweck |
 |---|---|
-| `PILLAR_HOME_HUB_SYNC.md` | Home Hub, Pairing, Upload, Sync, Konflikte, backend-agnostische Self-Hosted-Basis |
-| `PILLAR_INTELLIGENCE_AUTOMATION.md` | OCR, Klassifikation, Fact-Vorschläge, Formularvorbefüllung, lokale LLM-Pipelines |
-| `PILLAR_ADMIN_SETTINGS_STORAGE_HEALTH.md` | Setup, Einstellungen, Speicherzustand, Backup-Status, lokale Administration |
+| `PILLAR_CLOUD_IDENTITY_SYNC.md` | Mappm Cloud, Account/Gerätevertrauen, Vaults, Entitlements, Upload, Sync, Konflikte und Migration |
+| `PILLAR_INTELLIGENCE_AUTOMATION.md` | Core Assist mit OCR, Klassifikation, Akteur-/Fact-/Vorgangsvorschlägen sowie spätere Advanced-Assist-Automation |
+| `PILLAR_ADMIN_SETTINGS_STORAGE_HEALTH.md` | Client-Plattform, Vault-/Account-Einstellungen, Speicher-/Cachezustand, Backup/Export und Diagnose |
 
-## Enterprise- und Governance-Säulen
+## Assurance Tracks
+
+Diese Bereiche sind keine gleichrangigen Feature-Säulen. Sie liefern
+verbindliche Gates und Slices in jede betroffene Phase und können parallel von
+eigenen Owners bearbeitet werden. Kein Feature darf sie auf einen späten
+"Hardening"-Block verschieben.
 
 | Säule | Zweck |
 |---|---|
@@ -64,16 +74,22 @@ sondern in `docs/roadmap/PILLAR_ROADMAP_INDEX.md`.
 | `PILLAR_COMPATIBILITY_PLATFORM_SUPPORT.md` | macOS, iOS, Android, später Windows/Linux, Plattformfähigkeiten und Unterschiede |
 | `PILLAR_INTEGRATION_GOVERNANCE.md` | Regeln für externe Links, Deep Links, spätere APIs, Trust Boundaries und Credentials |
 
-## M2-Regel
+## Slice-Regel
 
-Eine Säule darf im M2 nur einen kleinen Slice liefern.
+Eine Phase implementiert einen vertikalen Slice aus einer oder mehreren
+Säulen. Sie aktiviert zugleich die betroffenen Assurance Tracks. Eine Säule
+kann parallel bearbeitet werden, wenn ihre Contracts und Abhängigkeiten
+akzeptiert sind; Basisslices werden vor abhängigen Slices geplant.
 
 Beispiel:
 
 - `Capture & Inbox` liefert echten M2-Nutzen.
-- `Compliance & Legal Readiness` liefert Mindestregeln, aber noch keine vollständige Store-Einreichung.
+- `Compliance & Legal Readiness` liefert phasenbezogene Regeln; die konkrete
+  Store-Einreichung bleibt ein Release-Gate.
 - `Observability` liefert lokale Diagnose- und Redaction-Regeln, aber noch keinen großen Monitoring-Stack.
-- `Intelligence` wird vorbereitet, aber nicht gebaut.
+- `Core Assist` ist C2/C3-Scope, wird aber erst mit akzeptierten
+  Daten-/Trust-/AI-Gates für echte Dokumente aktiviert; Advanced Assist bleibt
+  ein späterer Slice.
 
 ## Akzeptanz
 
@@ -83,3 +99,11 @@ Die Säulenlandkarte ist akzeptiert, wenn:
 - Roadmap-Phasen auf Säulen verweisen.
 - GitHub Issues und Milestones später einer Phase und mindestens einer Säule zugeordnet werden können.
 - F-Konzepte nicht mehr für fachliche Produktbereiche missbraucht werden.
+
+## Enterprise Quality Contract
+
+This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its milestone slices and domain boundaries remain authoritative; the shared
+contract supplies mandatory owner separation, phase slicing, security/privacy,
+accessibility/localization, verification, stop-rule and handoff requirements.
+The pillar itself is never sufficient authorization for implementation.

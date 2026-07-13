@@ -1,19 +1,38 @@
 ---
 title: "Konzept F2 - State Management"
-description: "DocMan-spezifisches Riverpod-Konzept für local-first App-State, Feature-Provider, Draft-Inbox, Mobile Upload Queue, Home-Hub-Status und Testbarkeit"
+description: "Mappm-Riverpod-Konzept fuer Local/Cloud Vault authority, cache, pending operations, entitlement, migration and testability"
 tags: [concept, foundation, riverpod, state-management, dependency-injection, local-first]
-lastUpdated: "2026-04-26"
-version: "3.0"
-status: "accepted"
+lastUpdated: "2026-07-12"
+version: "4.0"
+status: "accepted-rebaseline"
 ---
 
 # Konzept F2 - State Management
 
 ## Status
 
-Accepted.
+Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
+
+## 2026 Vault/Cloud Rebaseline
+
+State must model Vault authority, local availability, Cloud confirmation,
+pending operations, entitlement/grace/quota and migration as separate
+dimensions. Local Vault repositories are authoritative; Cloud Vault repository
+state is server-authoritative with durable local cache/queue. A generic
+`connected` or `syncStatus` flag is insufficient.
 
 Dieses Konzept ersetzt den importierten F2-Inhalt aus dem alten Projekt.
+
+## Legacy Detail Baseline (non-normative)
+
+The remaining imported detail is retained only for migration context and useful
+feature-specific examples. It must not authorize Home Hub, Tailscale, customer
+self-hosting, universal local-first authority, old milestone scope or QR server
+pairing. Where it differs, the rebaseline above,
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
+`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
+concept is used for implementation, its affected detail must be rewritten into
+the phase's approved implementation contract.
 
 ## Zweck
 
@@ -197,3 +216,11 @@ F2 gilt als umgesetzt, wenn:
 - Welche Provider werden `keepAlive`?
 - Wie genau wird Person-/Profilkontext appweit gehalten, ohne stille Default-Zuordnung zu erzwingen?
 - Welche gemeinsamen Test-Helpers brauchen ProviderScope und Overrides?
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

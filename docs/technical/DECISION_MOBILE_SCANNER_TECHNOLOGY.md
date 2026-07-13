@@ -2,11 +2,18 @@
 title: "Decision - Mobile Scanner Technology and Capture Artifacts"
 description: "Entscheidung fuer native Plattform-Scanner, Capture-Intent, Scanqualitaet und primaere Artefakte fuer Dokumentenscan vs. Foto/Bild"
 tags: [decision, mobile, capture, scanner, android, ios, ml-kit, visionkit, spike]
-lastUpdated: "2026-06-06"
+lastUpdated: "2026-07-12"
 status: "provisional-accepted"
 ---
 
 # Decision - Mobile Scanner Technology
+
+## 2026 Vault Rebaseline
+
+Scanner quality and platform-adapter decisions remain applicable. File
+assembly/normalization must not depend on a customer Home Hub: Local Vault does
+it on-device; Cloud Vault may use approved managed processing only after a
+durable upload and the accepted trust/processing contract.
 
 ## Status
 

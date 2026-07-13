@@ -2,7 +2,7 @@
 title: "Mappm - Conditional Implementation Matrix"
 description: "Trigger matrix for optional but planning-required product areas"
 tags: [roadmap, conditional, implementation, playbook]
-lastUpdated: "2026-07-08"
+lastUpdated: "2026-07-12"
 status: "active-baseline"
 owner: "product-concept"
 ---
@@ -11,14 +11,16 @@ owner: "product-concept"
 
 | Trigger | Required planning | Status | Owner | Earliest implementation trigger | Review due | Follow-up phase / issue | Possible implementation |
 |---|---|---|---|---|---|---|---|
-| Backend planned | F11, F22-equivalent, F30-equivalent, OPS-08, contract-api | active-planned | contract-api/backend | Home Hub or sync API boundary appears | 2026-07-15 | R3/R4/R6, issues #27/#34 | OpenAPI, Microcks, generated client, backend issue |
-| Cloud/managed mode planned | SEC-02, DATA-04/05, REG-01, OPS-04, COM-* | planned | product/security/commercial | managed service is accepted | 2026-08-01 | R6/R10/R15 | provider-backed source of truth, DPAs, cloud ops |
-| Sync planned | SEC-02, DATA-05, F11, F18 | planned | security/data | multi-device account scope is accepted | 2026-08-01 | R6 | sync journal, conflict UX, trust boundary |
-| Backup planned | DATA-05, SEC-03, OPS-04 | planned | data/security/ops | user data must survive device loss | 2026-08-01 | R11 | encrypted backup/restore |
+| Managed Account/Core Assist backend | Account/Vault/Assist decision, F11, F36, SEC-02/03, AI-*, OPS-01..08, COM-*, contract-api | active-required | contract-api/backend/ai | accepted normal account + Core Assist product model; VC-02/03/08 and OQ-003 block implementation details | before C1/C2 | C1-C3 plus contract/backend/frontend owner issues | identity, entitlement, Assist OpenAPI/Microcks, provider, managed infrastructure |
+| Cloud Vault backend | F11, F36, SEC-02/03, DATA-04/05, OPS-01..08, COM-*, contract-api | conditional | contract-api/backend | VC-01 includes Cloud Vault storage in target release | C0 | C1-C5, Contract #27, Frontend #34, Backend #39 | Vault/sync/migration OpenAPI, Microcks, generated client, ASP.NET provider, managed infrastructure |
+| Customer self-hosting | new deployment/security/support decision | not-applicable | product/security/ops | explicit future product decision | 2027-01-12 | none | no implementation; Local Development Cloud is not self-hosting |
+| Sync | SEC-02, DATA-05, F11, F18, F36 | active-required for Cloud | security/data | Cloud Vault enters target release | C0 | C1/C4 | pending journal, conflict UX, trust boundary |
+| Backup | DATA-05, SEC-03, OPS-04 | active-required | data/security/ops | any production data is persisted | C1 | C4 | Local encrypted export/restore; managed Cloud backup/restore |
 | Sharing planned | SEC-02, DATA-02/06, identity/access | planned | security/product | document/account sharing enters scope | 2026-08-15 | R14 | permissions, revoke, audit |
-| AI/OCR/LLM planned | REG-02, AI-*, DATA-01, SEC-02 | planned | ai/compliance | OCR/extraction/assistant feature enters scope | 2026-07-22 | R5/R9 | OCR/assistant, human review, evals |
+| Core Assist / AI/OCR | REG-02, AI-*, DATA-01, SEC-02, F30 | active-required | ai/compliance/security | accepted C2/C3 Core Assist scope; VC-02/OQ-003 block real-document processing | before C2 | C1-C3 plus R5 traceability | OCR/extraction, actor/case/workflow suggestions, human review, evals, manual fallback |
 | Store distribution planned | REG-08, F8, F8b, OPS-06, OPS-07 | planned | release/compliance | external beta or store review is planned | 2026-08-01 | R10 | signing, notarization, privacy labels, review access |
-| Billing planned | COM-01, COM-02, REG-08 | planned | commercial | sale/trial/entitlement scope is accepted | 2026-08-15 | R10/R15 | entitlements, payment UI |
+| Plan/entitlement | COM-01, F36, SEC-02 | active-required | commercial/product/backend | every normal mode has Free/Paid entitlement; VC-03 blocks values | C0 | C1-C3 | plan capabilities, Assist quotas, offline entitlement, downgrade/recovery |
+| Billing planned | COM-02, F36, REG-08 | conditional | commercial | any paid Local/Cloud plan enters target release | C0 | C1/C4/C5 | provider, cancellation, grace, reactivation, invoices/payment UI |
 | Enterprise customers planned | COM-03, COM-04, REG-05, SEC-* | planned | commercial/security | enterprise trial/procurement is planned | 2026-08-15 | R15 | org admin, SLA, security docs |
 | eIDAS/EUDI/ID Austria planned | REG-04, SEC-02, identity/access decision | planned | identity/compliance | trusted identity is required for access, signing or sharing | 2026-08-15 | R6/R14/R15 | identity provider adapter, account binding |
 

@@ -1,6 +1,6 @@
 ---
 name: ui-mocker
-description: Use when creating isolated visual or interactive Flutter UI mocks for DocMan/Mappm concepts inside the workspace. Mocks live under lib/presentation/screens/mocks, must be synthetic, and must not call real repositories, Drift, Isar, PocketBase, file storage, secure storage, Microcks, Home Hub, or external APIs.
+description: Use when creating isolated visual or interactive Flutter UI mocks for Mappm concepts inside the workspace. Mocks live under lib/presentation/screens/mocks, must be synthetic, and must not call real repositories, Drift, Isar, PocketBase, file storage, secure storage, Microcks, Mappm Cloud, or external APIs.
 ---
 
 # DocMan UI Mocker
@@ -37,7 +37,7 @@ or `scripts/run_mocks.sh` if available.
 
 - Presentation-only code.
 - No real repositories, Drift, Isar, PocketBase, file storage, secure storage,
-  HTTP, Microcks, Home Hub, or external APIs.
+  HTTP, Microcks, Mappm Cloud, Local Development Cloud, or external APIs.
 - Use fully synthetic data only. No real names, addresses, document text,
   screenshots, files, tokens, IDs, or secrets.
 - Hardcoded data is allowed inside mocks; reusable production components must

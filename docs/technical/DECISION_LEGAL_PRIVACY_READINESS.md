@@ -2,15 +2,18 @@
 title: "Decision - Legal and Privacy Readiness Gate"
 description: "Entscheidung zur rechtlichen und datenschutzbezogenen Readiness vor oeffentlicher Distribution von Mappm"
 tags: [decision, compliance, legal, privacy, distribution, gdpr, app-store]
-lastUpdated: "2026-06-10"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "superseded"
 ---
 
 # Decision - Legal and Privacy Readiness Gate
 
 ## Status
 
-Accepted.
+Superseded on 2026-07-12. Commercial Local and Cloud modes both require their
+applicable Legal/Privacy/Store readiness before sale; private/self-hosted is no
+longer an earlier customer distribution shortcut. See
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md` and REG-00..08.
 
 R10-D2 ist entschieden. Mappm wird privat/self-hosted weiter geplant und gebaut,
 aber Privacy-, Security-, Store- und Rechtsanforderungen werden bei der

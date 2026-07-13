@@ -2,7 +2,7 @@
 title: "Konzept F32 - Foundations, Tokens, Typography and Icons"
 description: "Mappm Detailkonzept fuer Palette, semantische Tokens, Typografie, Icon-System, Spacing, Radius, Density und Elevation"
 tags: [concept, frontend, design-system, tokens, colors, typography, icons, spacing, flutter]
-lastUpdated: "2026-06-22"
+lastUpdated: "2026-07-12"
 version: "1.0"
 status: "accepted"
 ---
@@ -200,3 +200,11 @@ Ein Token ist implementierungsreif, wenn:
 - [ ] Lucide ist als Produkt-Icon-Set mit Lizenzhinweis geplant.
 - [ ] Spacing, Radius, Density und Elevation sind implementierbar beschrieben.
 - [ ] Keine Komponente braucht freie Hexwerte oder freie Icon-Wahl.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

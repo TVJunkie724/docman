@@ -2,7 +2,7 @@
 title: "Decision - File Storage Strategy and Local Docker Stack"
 description: "Entscheidung zur austauschbaren Dateiablage, lokalem File Store, Home-Hub-Storage, MinIO/S3-Kompatibilität und Docker/Compose-Entwicklungsstack"
 tags: [decision, storage, files, docker, compose, minio, s3, home-hub, local-first]
-lastUpdated: "2026-05-11"
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
@@ -10,7 +10,12 @@ status: "accepted"
 
 ## Status
 
-Accepted.
+Accepted with product-scope rebaseline on 2026-07-12.
+
+The storage-port separation remains binding. `HomeHubFileStore` and customer
+self-hosting references below are historical names: use Local Vault File Store,
+Cloud Vault Object Store and Fake Store. Docker/Compose is the Local Development
+Cloud and is not a supported customer deployment.
 
 ## Entscheidung
 

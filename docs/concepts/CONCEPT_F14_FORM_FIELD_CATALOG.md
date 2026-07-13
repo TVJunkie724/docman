@@ -2,7 +2,7 @@
 title: "Konzept F14 - Form Field Catalog"
 description: "DocMan-spezifischer Formularfeld-Katalog für Vorgänge, Dokumente, Profile, Draft Review, Upload Queue und spätere KI-Vorschläge"
 tags: [concept, forms, ui, fields, review, documents, cases]
-lastUpdated: "2026-05-06"
+lastUpdated: "2026-07-12"
 version: "3.1"
 status: "accepted"
 ---
@@ -45,7 +45,8 @@ F14 definiert die fachlichen Formulartypen, die DocMan braucht. Exakte visuelle 
 - Dokument optional einem Record/Nachweis zuordnen.
 - Dokumenttyp aus dem M2-Katalog wählen.
 - Profil wählen.
-- Home-Hub-Adresse setzen.
+- Mappm Account/Gerät/Entitlement verwalten, Assist-Policy anzeigen oder
+  Vault-Migration/Detached Recovery starten; keine Serveradresse im Produkt.
 - Mobile Upload optional kommentieren.
 
 Der M2-Dokumenttyp-Katalog ist in
@@ -91,3 +92,11 @@ F14 gilt als umgesetzt, wenn:
 
 - Welche Vorgangstypen brauchen eigene Formularfelder?
 - Wann wird ein visuelles Form-Design-System konkretisiert?
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Test Coverage"
+  short_description: "Design strict Mappm frontend test coverage"
+  default_prompt: "Use $frontend-test-coverage to define production-ready coverage for this Mappm slice."

@@ -2,11 +2,19 @@
 title: "Decision - Upload Limits, Retry, Resume and Cleanup"
 description: "Entscheidung zu M2-Grenzen fuer Mobile-Capture-Uploads, Retry, Idempotency, Resume-Verzicht und spaeterem Enterprise-Zielbild"
 tags: [decision, mobile-capture, upload, retry, idempotency, cleanup, home-hub, observability]
-lastUpdated: "2026-05-14"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "accepted-rebaseline"
 ---
 
 # Decision - Upload Limits, Retry, Resume and Cleanup
+
+## 2026 Cloud Rebaseline
+
+Queue durability, idempotency, checksum, source preservation, limits and
+cleanup principles remain accepted for Cloud Vault capture. Replace Home Hub
+with the accepted Mappm Cloud Capture provider and replace pairing failures with
+account/device-session failures. Exact values and transport are re-approved in
+the C2 contract; historical M2 values are not commercial policy by themselves.
 
 ## Status
 

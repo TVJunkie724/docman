@@ -2,7 +2,7 @@
 title: "Konzept F19 - Design System Governance and SSOT"
 description: "Querschnittliches Frontend-Konzept fuer Mappm Design-System-Governance, Mock-to-Concept-Promotion, SSOT-Regeln und Agent-Gates"
 tags: [concept, frontend, design-system, ux, ssot, governance, production-readiness]
-lastUpdated: "2026-06-22"
+lastUpdated: "2026-07-12"
 version: "1.3"
 status: "accepted"
 ---
@@ -112,3 +112,11 @@ F19 ist umgesetzt, wenn:
 - keine konkurrierenden UI-Patterns ohne klare Rolle existieren.
 - Token, Callouts, Icons und Core-Komponenten nur eine zentrale Quelle haben.
 - zukuenftige Agents wissen, welche Dokumente vor Umsetzung zu lesen sind.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

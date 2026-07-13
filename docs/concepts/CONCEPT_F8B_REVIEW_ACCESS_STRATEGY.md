@@ -1,8 +1,8 @@
 ---
 title: "Konzept F8b - Review Access Strategy"
-description: "DocMan-spezifische Strategie für Demo-/Review-Zugänge, synthetische Daten und testbare private/self-hosted Setups"
+description: "Mappm-Strategie für Demo-/Review-Zugänge, synthetische Daten und getrennte Local-/Cloud-Testumgebungen"
 tags: [concept, review, demo, distribution, synthetic-data]
-lastUpdated: "2026-04-26"
+lastUpdated: "2026-07-12"
 version: "3.0"
 status: "accepted"
 ---
@@ -30,8 +30,9 @@ Keine echten Haushaltsdokumente, keine echten Ausweise, keine echten Rechnungen.
 | Modus | Zweck |
 |---|---|
 | Local Demo Data | App mit synthetischem Haushalt und Dokumenten |
-| Fake Home Hub | Upload/Health/Pairing simulieren |
-| Private Review Hub | später kontrollierter self-hosted Demo-Hub |
+| Fake Cloud Provider | Account, Vault, Upload, Sync, Entitlement und Ausfälle simulieren |
+| Local Development Cloud | echten Contract-/Backend-Stack ausschließlich mit synthetischen Daten prüfen |
+| Managed Review Environment | kontrollierte Staging-/Review-Accounts und synthetische Vaults |
 
 ## Anforderungen
 
@@ -47,7 +48,7 @@ F8b gilt als umgesetzt, wenn:
 
 - Demo-/Review-Datenkonzept existiert.
 - Reviewer keine echten Daten brauchen.
-- Fake/Home-Hub-Review mit F15 zusammenpasst.
+- Fake-/Microcks-/Local-Development-Cloud-/Staging-Review mit F15 zusammenpasst.
 
 ## Offene Folgefragen
 
@@ -55,3 +56,11 @@ F8b gilt als umgesetzt, wenn:
 - Soll es einen Demo-Modus in der App geben?
 - Welche synthetischen Dokumente decken Kernflows ab?
 
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

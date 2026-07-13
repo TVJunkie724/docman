@@ -2,12 +2,17 @@
 title: "R2 Technical Foundation Implementation Plan"
 description: "Implementation-ready plan for migrating the current DocMan Flutter spike into the R2 foundation baseline"
 tags: [implementation-plan, r2, foundation, flutter, riverpod, drift, clean-architecture]
-lastUpdated: "2026-05-05"
-status: "proposed"
+lastUpdated: "2026-07-12"
+status: "superseded"
 sourceIssue: "https://github.com/TVJunkie724/docman/issues/4"
 ---
 
 # R2 Technical Foundation Implementation Plan
+
+> Superseded and not implementation-authorizing. Its Home-Hub pairing,
+> HomeHubClient and universal local-first assumptions conflict with the accepted
+> Vault model. Reuse only verified Clean Architecture/Riverpod details in a new
+> C1 implementation contract.
 
 ## 0. Git Branch
 

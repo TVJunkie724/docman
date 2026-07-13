@@ -2,15 +2,18 @@
 title: "Decision - Distribution Strategy"
 description: "Entscheidung zur ersten privaten/self-hosted Distribution und vorbereiteter Store-Readiness fuer spaetere mobile/Desktop-Verteilung"
 tags: [decision, distribution, self-hosted, app-store, release, privacy]
-lastUpdated: "2026-06-10"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "superseded"
 ---
 
 # Decision - Distribution Strategy
 
+> Superseded by `DECISION_COMMERCIAL_CORE_SCOPE.md`, the C0-C7 roadmap and F8.
+> Private/self-hosted-first distribution is no longer the product direction.
+
 ## Status
 
-Accepted.
+Superseded. The following content is historical.
 
 R10-D1 ist entschieden. Mappm wird zuerst privat/self-hosted genutzt. Store-
 Regeln werden trotzdem frueh vorbereitet.

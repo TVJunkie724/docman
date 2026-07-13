@@ -2,11 +2,19 @@
 title: "Decision - DMS Target Architecture"
 description: "Langfristiges Zielbild fuer Mappm als vollwertiges Dokumentenmanagementsystem statt nur Dokumentanhaenge an Vorgängen"
 tags: [decision, dms, documents, records, cases, capture, inbox, outbox, intelligence, sync]
-lastUpdated: "2026-05-08"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "accepted-rebaseline"
 ---
 
 # Decision - DMS Target Architecture
+
+## 2026 Vault Rebaseline
+
+The domain model remains accepted independently of storage mode. Every domain
+object belongs to one Vault. Local and Cloud repository providers implement the
+same domain meaning with different authority/cache rules. Home Hub and
+self-hosted deployment references below are superseded by managed Mappm Cloud
+and Local Development Cloud.
 
 ## Status
 
@@ -70,6 +78,8 @@ Mappm trennt langfristig folgende Objekte:
 | `InboxItem` | Capture-/Review-Arbeitseinheit, nicht der eigentliche Speicherort |
 | `ExportJob` / `OutboxItem` | Vorbereitete Ausgabe, Download, Druck, Mail, lokales ZIP oder Einreichpaket |
 | `ProcessingJob` | OCR, Scan-Nachbearbeitung, Klassifikation, Matching, Indexing oder AI-Vorschlag |
+| `WorkflowDefinition` | Kuratierte, versionierte Vorgangsvorlage mit Rechtsraum, Gültigkeit, Quellen, Schritten und Review-Regeln |
+| `CaseWorkflowInstance` | An einen Vorgang gebundene Instanz einer unveränderlich referenzierten Workflow-Version |
 
 ## Zentrale Modellregeln
 
@@ -146,6 +156,26 @@ Ein großer Vorgang wie ein Autounfall kann Subvorgänge haben:
 
 Dokumente liegen nicht doppelt im Haupt- und Subvorgang. Der Hauptvorgang zeigt
 Subvorgänge und kann später kontextuell Dokumente aus Subvorgängen einblenden.
+
+Parent-/Subcase-Beziehungen modellieren einen gemeinsamen fachlichen Ablauf.
+Verwandte Vorgänge mit eigenständigem Lebenszyklus werden über typisierte
+`CaseLink`-Referenzen verbunden. Ein Dokument darf über `DocumentCaseLink`
+gleichzeitig Auslöser, Nachweis, Einreichung, Antwort, Entscheidung oder
+Zahlungsbeleg in mehreren Vorgängen sein. Eine primäre Zuordnung dient nur der
+Navigation und bedeutet keine exklusive fachliche Eigentümerschaft.
+
+### Workflows sind versionierter Produktinhalt
+
+Die Vorgangs-Engine bleibt generisch. Länder-, Regions- und
+Institutionsvarianten werden als kuratierte `WorkflowDefinition`-Versionen
+modelliert und nicht in Screens oder plattformspezifischen Controllern
+festgeschrieben. Eine `CaseWorkflowInstance` pinnt die verwendete Version, damit
+laufende und abgeschlossene Vorgänge historisch erklärbar bleiben.
+
+Sprache und Rechtsraum sind getrennte Dimensionen. Wenn keine geprüfte Variante
+anwendbar ist, bleibt ein manueller Vorgang mit Dokumenten, Relationen, Aufgaben
+und Timeline möglich. Das vollständige Governance-Modell steht in
+`DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md`.
 
 ### Haushalts- und Personenbezug ist kein Ordnersystem
 
@@ -239,7 +269,8 @@ Zielbild:
 FileRecord accepted
   -> OCR / text extraction
   -> document type suggestion
-  -> profile/case/record suggestion
+  -> actor/profile/case/record suggestion
+  -> applicable published workflow suggestion
   -> fact suggestion
   -> search indexing
   -> user review
@@ -248,6 +279,8 @@ FileRecord accepted
 
 Fehler in dieser Pipeline duerfen Dokumentverwaltung nicht blockieren.
 Processing-Ergebnisse haben Status, Fehlerquelle, Zeitpunkt und Review-Zustand.
+Intelligence darf nur veröffentlichte Workflow-Definitionen vorschlagen; sie ist
+nicht Autorität für Rechtsraum, Frist, Anspruch oder Ablauf.
 
 ## Search- und Analytics-Konsequenzen
 
@@ -296,6 +329,7 @@ Der M2 darf aber nicht verbauen:
 - spätere Sync-/Backup-Fähigkeit.
 - spätere Processing-Jobs.
 - spätere Exportpakete.
+- kuratierte, versionierte und internationalisierbare Workflow-Definitionen.
 
 ## Konsequenzen fuer Planung
 
@@ -305,6 +339,8 @@ Der M2 darf aber nicht verbauen:
   Claims, Finanzdaten und Auswertungen den DMS-Kern erweitern.
 - R9 Intelligence darf nur Vorschläge liefern, die in DMS-Objekte übernommen
   oder verworfen werden können.
+- Workflow-Katalog und Länderpakete werden als eigenes fachliches Produkt- und
+  Compliance-Asset geplant, nicht als LLM-Prompt oder UI-Konfiguration.
 - BusinessCompanion-Technologien werden separat bewertet. Das Modell entscheidet
   zuerst, Technologien danach.
 

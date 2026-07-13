@@ -2,7 +2,7 @@
 title: "Decision - Security and Privacy Model"
 description: "Entscheidung zum Security-/Privacy-Grundmodell fuer sensible Dokumente, Home Hub und spaetere Cloud-faehige Betriebsformen"
 tags: [decision, accepted, security, privacy, encryption, backup, e2ee, zero-knowledge]
-lastUpdated: "2026-06-02"
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
@@ -10,7 +10,14 @@ status: "accepted"
 
 ## Status
 
-Accepted.
+Accepted with Cloud rebaseline on 2026-07-12.
+
+Documents, metadata, OCR/LLM output, profiles, credentials and diagnostics
+remain sensitive. The first-operating-mode and customer Home-Hub statements
+below are superseded by
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`. Cloud production remains
+blocked until Managed Trust versus Zero-Knowledge/E2EE, recovery and AI access
+are explicitly accepted.
 
 DocMan behandelt Dokumente, extrahierte Inhalte und viele Metadaten als sensible Daten. Die erste Betriebsform ist private/self-hosted Home-Hub-Synchronisation. Die Architektur muss aber von Anfang an so geschnitten sein, dass spaetere self-hosted cloudartige Setups oder optionale Managed-Varianten mit starker clientseitiger Verschluesselung und Zero-Knowledge-Faehigkeit moeglich bleiben.
 
@@ -35,7 +42,7 @@ DocMan schuetzt nicht nur Secrets.
 |---|---|---|
 | Secrets | Pairing-Token, Session-Token, Recovery Keys | nur Secure Storage, nie SQLite, nie Logs |
 | Dokumentdateien | Scans, PDFs, Fotos, Arztbriefe, Vertrage, Ausweise | lokale Dateiablage, Home-Hub nur privat/self-hosted, spaeter verschluesselbarer Payload |
-| OCR-/LLM-Ergebnisse | extrahierter Text, Klassifikation, Formularvorschlaege | nicht M2; spaeter lokal/self-hosted oder explizit freigegeben, reviewbar |
+| Assist-/OCR-/LLM-Daten | Upload-Payload, extrahierter Text, Klassifikation, Formular-/Vorgangsvorschlaege | Core Assist in C2/C3 nur nach VC-02/OQ-003 und AI/REG/SEC/DATA Gates; minimiert, reviewbar, löschbar, nie normales Logging/Training |
 | Strukturierte Metadaten | Titel, Absender, Datum, Betrag, Status, Tags, Case-Zuordnung | SQLite/Drift, sync-vorbereitet, Sensitivitaet mitdenken |
 | Hochsensible Metadaten | Passnummern, Ausweisnummern, SV-/Versicherungsnummern, medizinische Details, Versicherungsbeziehungen | klassifizieren, minimieren, explizit als sensitiv markieren und nicht in normalen Listen/Logs/Telemetry ausgeben |
 | Profil-/Identity-Daten | Anzeigename, rechtlicher Name, Geburtsdatum, Adresse/Meldeinformation, E-Mail als Account-Identifier, spaetere ID-Austria-Verknuepfung | Schutzklasse nach `DECISION_PROFILE_SENSITIVE_DATA.md`; lokale Profile nicht mit Login-Accounts verwechseln |
@@ -153,10 +160,10 @@ Regeln:
 - Server-APIs werden so geplant, dass verschluesselte Dateien und verschluesselte Metadaten spaeter moeglich sind.
 - Eine Managed- oder extern gehostete Variante darf nicht voraussetzen, dass der Betreiber Dokumentinhalte lesen kann.
 
-Ergaenzend gilt `DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md`: Mappm wird als
-private-first, offline-capable und service-ready Plattform geplant. Sync,
-Backup und Sharing sollen E2EE-/Zero-Knowledge-faehig bleiben; OCR, Mapping und
-LLM-Assistenz brauchen dagegen eine eigene Processing- und Trust Boundary, weil
+Ergaenzend gelten `DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md` sowie
+VC-02/VC-07/VC-08: Local und Cloud haben getrennte Authority-, Key- und
+Identity-Grenzen. OCR, Mapping und LLM-Assistenz brauchen eine eigene Processing-
+und Trust Boundary, weil
 sie temporaeren Klartextzugriff benoetigen koennen.
 
 ## Nicht entschieden
@@ -189,5 +196,6 @@ Die Entscheidung ist akzeptiert, wenn:
 
 - Issue #3 geschlossen ist.
 - `docs/ROADMAP_REBUILD.md` R2-D6 als erledigt markiert.
-- `docs/technical/TECHNICAL_FOUNDATION_PLAN.md` diese Security-/Privacy-Baseline als R2-Vorgabe behandelt.
-- F9 Legal/Privacy, F12 Secure Storage und `DECISION_PRIVACY_SYNC_SCOPE.md` nicht widersprechen.
+- ein neuer C1/R2-Implementation-Contract diese Security-/Privacy-Baseline als
+  Vorgabe behandelt.
+- F9 Legal/Privacy, F12 Secure Storage, F36 und die Vault-Decision nicht widersprechen.

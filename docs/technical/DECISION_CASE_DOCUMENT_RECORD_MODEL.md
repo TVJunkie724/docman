@@ -1,8 +1,8 @@
 ---
 title: "Decision - Case, Document, Record and Facts Model"
-description: "Entscheidung zu Vorgängen, Dokumenten, Records/Nachweisen, Versionierung und strukturierten Fakten als DocMan-Kernmodell"
-tags: [decision, domain-model, cases, documents, records, facts, versioning, insights]
-lastUpdated: "2026-05-08"
+description: "Entscheidung zu Vorgängen, Dokumenten, Records/Nachweisen, Versionierung, Workflow-Instanzen und strukturierten Fakten als Mappm-Kernmodell"
+tags: [decision, domain-model, cases, documents, records, facts, versioning, workflows, insights]
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
@@ -20,6 +20,10 @@ DocMan trennt künftig vier fachliche Kernkonzepte:
 - **Document / Dokument**: konkrete Datei, Scan oder Unterlage.
 - **Record / Unterlage**: langlebiger fachlicher Gegenstand mit aktueller und historischen Versionen. In der UI heisst dieser Bereich "Unterlagen"; im Profilkontext "Persoenliche Unterlagen". "Nachweis" ist eine spezifische Art.
 - **DocumentFact / strukturierter Fakt**: geprüfte oder vorgeschlagene Aussage aus einem Dokument.
+- **WorkflowDefinition / Vorgangsvorlage**: kuratierte, versionierte Definition
+  eines fachlichen Ablaufs für einen bestimmten Gültigkeits- und Rechtsraum.
+- **CaseWorkflowInstance / Vorgangsablauf**: an einen Vorgang gebundene Instanz
+  einer konkreten Workflow-Version.
 
 Zusätzlich gilt: Diese Objekte leben in einem Haushaltskontext und koennen Profil-/Personenbezug tragen.
 
@@ -51,6 +55,11 @@ Beispiele:
 Ein Vorgang kann Dokumente, Records, Aufgaben, Ereignisse, Zahlungen, Claims und verwandte Vorgänge verbinden. Ein Vorgang muss aber nicht für jedes einzelne Dokument existieren.
 
 Vorgänge können hierarchisch oder relational verbunden sein. Ein großer Lebensvorgang wie ein Autounfall darf als Hauptvorgang sichtbar bleiben und kleinere Teilstränge als Subvorgänge führen.
+
+Ein Vorgang kann manuell geführt werden oder eine versionierte
+`CaseWorkflowInstance` besitzen. Fachlich relevante Definitionen stammen aus
+dem kuratierten Katalog gemäß
+`DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md`.
 
 ### Document / Dokument
 
@@ -231,7 +240,10 @@ Schlanker M2-Slice:
 Zielmodell nach dem M2:
 
 - Dokumente gleichzeitig in mehreren Vorgängen mit Rollen anzeigen.
-- `DocumentCaseLink` mit Rollen wie `primary`, `context`, `evidence`, `source`.
+- `DocumentCaseLink` mit Rollen wie `primary`, `trigger`, `context`, `evidence`,
+  `submission`, `response`, `decision`, `payment_proof` oder `source`.
+- typisierte `CaseLink`-Beziehungen unterscheiden Subvorgang, Folge, Ursache und
+  unabhängige fachliche Referenz.
 - Profil-/Personenbezug ueber `DocumentProfileLink`.
 - Export-/Ausgangshistorie ueber `ExportJob` oder `OutboxItem`.
 - Hauptvorgang-Dokumentliste mischt Subvorgang-Dokumente kontextuell ein.
@@ -285,6 +297,8 @@ Stattdessen:
 - `caseType` beschreibt die Art des Vorgangs.
 - `lifecycleStatus` beschreibt grob den Zustand: `draft`, `active`, `waiting`, `review`, `done`, `archived`.
 - `workflowStageKey` beschreibt optionale typ-spezifische Phasen.
+- `workflowDefinitionId` und `workflowDefinitionVersion` pinnen bei geführten
+  Vorgängen die kuratierte Definition.
 - `attentionFlags` markieren Dinge wie offene Aufgaben, neue Drafts, Frist bald fällig oder Review nötig.
 
 Dokumente und Records bekommen eigene Status:
@@ -300,6 +314,9 @@ Dokumente und Records bekommen eigene Status:
 - R4-D3 Suche muss Vorgänge, Dokumente und Records berücksichtigen.
 - R4 plant Subvorgänge als schlanke M2-Funktion.
 - Flexible Dokument-Mehrfachverlinkung mit Rollen bleibt spaetere Milestones.
+- Kuratierte Länder-/Institutionsworkflows bleiben vom generischen Case-Modell
+  getrennt; Sprache allein bestimmt keinen Rechtsraum.
+- Laufende geführte Vorgänge wechseln ihre Workflow-Version nie still.
 - Haushaltsprofile und spätere Berechtigungen werden als Zielmodell berücksichtigt.
 - Schnellzugriff ist eine kuratierte Sicht, kein Ersatz fuer Records und kein externes Berechtigungsmodell.
 - Structured Facts und Auswertungen werden als eigene spätere Phase geplant.

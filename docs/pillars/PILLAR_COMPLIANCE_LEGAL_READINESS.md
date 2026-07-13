@@ -2,7 +2,7 @@
 title: "Enterprise-Säule - Compliance and Legal Readiness"
 description: "Enterprise-Bereich fuer DSGVO/GDPR, EU/AT Datenschutz, Apple/Google/Microsoft Store Policies, Lizenz-Compliance und rechtliche Produktreife"
 tags: [pillar, enterprise, compliance, legal, dsgvo, gdpr, store]
-lastUpdated: "2026-05-06"
+lastUpdated: "2026-07-12"
 version: "0.1"
 status: "proposed"
 ---
@@ -11,7 +11,7 @@ status: "proposed"
 
 ## Zweck
 
-DocMan muss rechtliche und Store-bezogene Anforderungen früh mitdenken, auch wenn der M2 privat und self-hosted startet.
+Mappm muss rechtliche, Cloud-, Subscription- und Store-Anforderungen ab C0 mitdenken, auch wenn ein Local Release zuerst erscheint.
 
 R10-D2 entscheidet: Privacy-, Security-, Store- und Rechtsanforderungen werden
 bei der Implementierung immer mitgedacht. Oeffentliche Distribution oder Store-
@@ -37,7 +37,7 @@ Zu berücksichtigen:
 - Apple App Store Review Guidelines.
 - Google Play Developer Policies.
 - Microsoft Store Policies.
-- private/self-hosted Distribution.
+- Local- und Managed-Cloud-Distribution sowie direkte und Store-basierte Kanäle.
 - Review-/Demo-Zugriff ohne echte Nutzerdaten.
 - App Signing und Plattformvorgaben.
 - Open-Source- und Lizenz-Compliance.
@@ -60,3 +60,11 @@ Dieses Dokument ist Produktplanung, keine Rechtsberatung.
 
 Vor öffentlicher Distribution, Store-Release oder produktiver Verarbeitung
 außerhalb des privaten Haushalts braucht es eine separate rechtliche Prüfung.
+
+## Enterprise Quality Contract
+
+This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its milestone slices and domain boundaries remain authoritative; the shared
+contract supplies mandatory owner separation, phase slicing, security/privacy,
+accessibility/localization, verification, stop-rule and handoff requirements.
+The pillar itself is never sufficient authorization for implementation.

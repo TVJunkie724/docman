@@ -2,7 +2,7 @@
 title: "Produkt-Säule - Tasks, Reminders and Quick Access"
 description: "Produktbereich fuer Aufgaben, To-dos, Fristen, Erinnerungen, Benachrichtigungsquellen und Schnellzugriff"
 tags: [pillar, tasks, reminders, quick-access, deadlines, notifications]
-lastUpdated: "2026-05-06"
+lastUpdated: "2026-07-12"
 version: "0.1"
 status: "proposed"
 ---
@@ -115,3 +115,11 @@ Späterer Milestone:
 - Heißt der UI-Bereich `Schnellzugriff`, `Wichtig` oder `Notfallmappe`?
 - Werden lokale OS-Benachrichtigungen schon im R4-M2 umgesetzt?
 - Welche Reminder werden automatisch aus Records vorgeschlagen?
+
+## Enterprise Quality Contract
+
+This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its milestone slices and domain boundaries remain authoritative; the shared
+contract supplies mandatory owner separation, phase slicing, security/privacy,
+accessibility/localization, verification, stop-rule and handoff requirements.
+The pillar itself is never sufficient authorization for implementation.

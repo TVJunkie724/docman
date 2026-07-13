@@ -2,7 +2,7 @@
 title: "Decision - Local Database"
 description: "Entscheidung zur lokalen Datenbankstrategie fuer DocMan"
 tags: [decision, accepted, local-storage, database, mobile, desktop, drift, sqlite]
-lastUpdated: "2026-04-30"
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
@@ -159,7 +159,8 @@ R2 muss:
 
 Die Entscheidung ist akzeptiert, wenn:
 
-- `docs/technical/TECHNICAL_FOUNDATION_PLAN.md` R2 gegen diese Entscheidung plant.
+- ein neuer C1/R2-Implementation-Contract Local authority sowie Cloud
+  cache/pending semantics gegen diese Entscheidung und F10 plant.
 - Issue #1 geschlossen ist.
 - R2 keine erneute Grundsatzentscheidung zwischen Isar, Drift und NoSQL braucht.
 

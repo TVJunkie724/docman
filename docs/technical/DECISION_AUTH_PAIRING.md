@@ -2,15 +2,19 @@
 title: "Decision - Auth and Pairing"
 description: "Entscheidung fuer Mobile-/Desktop-Pairing, Home-Hub-Zugriff und spaetere Identity Provider"
 tags: [decision, accepted, auth, pairing, mobile-capture, home-hub, identity]
-lastUpdated: "2026-05-06"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "superseded"
 ---
 
 # Decision - Auth and Pairing
 
 ## Status
 
-Accepted.
+Superseded on 2026-07-12 for customer-product authentication. Normal Local and
+Cloud use requires account/device identity under
+`DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md`.
+QR/manual Home-Hub pairing may remain only as historical or local-development
+test input until a new Identity/Device Trust decision is accepted.
 
 Der M2 verwendet **QR Pairing** als primaeren Flow fuer die Kopplung an den privaten Home Hub. Ein **manueller Pairing-Code** ist der Fallback.
 
@@ -83,7 +87,9 @@ Cloud Identity bleibt wertvoll, aber spaeter:
 - fuer Rollen, Einladungen und Account-Verwaltung.
 - fuer optionales Identity Federation.
 
-Sie darf aber nicht Voraussetzung fuer lokale/private Nutzung werden.
+This historical statement is superseded: account/device identity is now a
+normal Local and Cloud prerequisite, while offline continuity and Detached
+Recovery prevent account dependence from becoming data lock-in.
 
 ## Architekturregeln
 

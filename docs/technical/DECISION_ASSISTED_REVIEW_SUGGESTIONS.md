@@ -2,8 +2,8 @@
 title: "Decision - Assisted Review Suggestions"
 description: "Entscheidung zu ersten OCR-/AI-/Regelvorschlaegen im Draft Review und Human-in-the-loop-Regeln"
 tags: [decision, assisted-review, ocr, ai, suggestions, draft-inbox, privacy]
-lastUpdated: "2026-06-04"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "accepted-rebaseline"
 ---
 
 # Decision - Assisted Review Suggestions
@@ -12,7 +12,8 @@ status: "accepted"
 
 Accepted.
 
-R5-D5 ist entschieden. Assisted Review darf Arbeit reduzieren, aber keine
+The former R5-only timing is superseded: this suggestion contract is part of
+C2/C3 Core Assist. Assisted Review darf Arbeit reduzieren, aber keine
 fachlich oder datenschutzrelevanten Entscheidungen still finalisieren.
 
 ## Entscheidung
@@ -159,8 +160,9 @@ Assisted Review darf frueh nicht:
 - M2 bereitet Review-Zustaende und Pflichtfelder vor, aber ohne OCR/AI.
 - M3/R5 fuehrt erste Assisted-Review-Vorschlaege im Draft Review ein.
 - M5 kann Claims/Facts/Insights auf bestaetigten Vorschlaegen aufbauen.
-- M6/R9 kann robuste OCR-/AI-Pipelines, Reprocessing und lokale/self-hosted
-  Intelligence-Jobs ausbauen.
+- Ein später aktivierter Intelligence-Slice kann robuste on-device oder
+  Managed-Cloud-OCR-/AI-Pipelines und Reprocessing ausbauen, nachdem VC-02 und
+  die AI-/REG-Gates akzeptiert sind.
 
 ## Konsequenzen
 

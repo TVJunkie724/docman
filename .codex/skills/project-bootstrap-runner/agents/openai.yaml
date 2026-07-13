@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Bootstrap Runner"
+  short_description: "Run the Mappm playbook tracks end to end"
+  default_prompt: "Use $project-bootstrap-runner to execute and verify the Mappm playbook tracks."

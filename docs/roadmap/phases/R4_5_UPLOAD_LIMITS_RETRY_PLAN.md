@@ -2,11 +2,16 @@
 title: "R4.5 Phase Plan - Upload Limits, Retry and Cleanup"
 description: "Implementation-faehige Subphasen fuer R4-D14: Mobile-Capture-Upload-Limits, Queue-Retry, Idempotency, Cleanup, Contract-Anforderungen und Observability"
 tags: [roadmap, phase-plan, r4, mobile-capture, upload, retry, cleanup, observability]
-lastUpdated: "2026-05-14"
-status: "proposed"
+lastUpdated: "2026-07-12"
+status: "superseded-recontract-required"
 ---
 
 # R4.5 Phase Plan - Upload Limits, Retry and Cleanup
+
+> Not implementation-authorizing. Recontract this phase under C2 for Mappm
+> Cloud account/device, entitlement, quota, offline/pending and Local
+> Development Cloud semantics. Historical Home-Hub/pairing details are inputs
+> only.
 
 ## Zweck
 

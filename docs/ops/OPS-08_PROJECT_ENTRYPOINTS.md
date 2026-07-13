@@ -2,7 +2,7 @@
 title: "Mappm OPS-08 Project Entrypoints"
 description: "Project-local command contract for setup, code generation, verification, mocks and app start"
 tags: [ops, entrypoints, scripts, setup, runbook]
-lastUpdated: "2026-07-08"
+lastUpdated: "2026-07-12"
 status: "active-draft"
 owner: "foundation-builder"
 ---
@@ -23,8 +23,9 @@ remembering shell history.
 | `scripts/bootstrap.sh` | active | foundation | dependency install plus code generation |
 | `scripts/codegen.sh` | active | foundation/data | generated Dart artifacts |
 | `scripts/verify.sh` | active | quality-readiness | format, analyzer and tests |
+| `scripts/verify_target.sh` | planned in R3.5 | quality-readiness | fixed target-path format, analysis, widget test and forbidden-dependency checks |
 | `scripts/run_mocks.sh` | active-draft | contract-api | local mock service handoff |
-| Backend entrypoint | planned | backend/ops | Home Hub services when backend repo exists |
+| Backend entrypoint | planned | backend/ops | Local Development Cloud and managed backend services when backend workspace exists |
 | Client generator | planned | contract-api | OpenAPI-generated clients when contracts are active |
 
 ## Frontend Command Contract
@@ -35,9 +36,16 @@ remembering shell history.
 - `setup` and `setup --verify` for bootstrap behavior.
 - `codegen` for generated Dart source output.
 - `verify`, `analyze` and `test` for local gates.
+- `verify-target`, after explicit R3.5 approval and implementation, delegating
+  to `scripts/verify_target.sh` with the fixed R3.5 target and exit contract.
 - `mocks` as a documented handoff to mock service scripts.
 - `run --device <id>` for local Flutter execution.
 - `help`/`--help` output.
+
+R3.5 target scope is exactly `lib/app/**`,
+`lib/core/id/id_generator.dart`, `lib/core/time/clock.dart`,
+`lib/presentation/theme/app_theme.dart` and `test/widget_test.dart`. OPS-08 does
+not authorize implementation before the R3.5 approval record is complete.
 
 ## Instance And Config Position
 

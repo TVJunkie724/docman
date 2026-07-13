@@ -2,12 +2,34 @@
 title: "DocMan - Phase Index"
 description: "Detaillierter Phasen- und Subphasen-Index fuer planbare Milestone-Implementation-Slices"
 tags: [roadmap, phases, subphases, implementation-plan, planning]
-lastUpdated: "2026-05-29"
-version: "0.2"
-status: "proposed"
+lastUpdated: "2026-07-12"
+version: "1.0"
+status: "accepted-rebaseline"
 ---
 
 # DocMan - Phase Index
+
+## Commercial-Core-Rebaseline
+
+Die Reihenfolge wird durch C0-C7 in `docs/ROADMAP_REBUILD.md` gesteuert. R0-R15
+bleiben stabile Traceability-IDs und fachliche Slice-Kandidaten. Kein Eintrag
+in diesem Index ist ohne detaillierten, geprüften Implementation Contract
+freigegeben.
+
+| Historischer Slice | Neuer Slice/Gate |
+|---|---|
+| R0.5/R5 accountfreie Local- und spätere Assisted-Review-Annahme | C0 Account/Vault/Assist Contract; C1 account/device/entitlement; C2/C3 Core Assist |
+| R0.3 Local-first/Home-Hub-Richtung | C0 Vault authority, Cloud timing und Trust Contract |
+| R3.4 Home-Hub Contract Baseline | C1 Mappm Cloud OpenAPI/Microcks Foundation |
+| R4.6 Home Hub Capture Contract | C2 Cloud Capture Contract |
+| R4.7 Upload zum Home Hub | C2 Cloud Capture Provider Slice |
+| R6 Home Hub, Sync and Auth | C1/C4 Cloud, Identity, Entitlements, Sync and Migration |
+| R11 lokale/Home-Hub Backups | C4 Local Export/Restore plus Managed Cloud Backup/Restore |
+| R15 Hosted/Self-hosted Option | C5 Managed Cloud Productization; customer self-hosting not in scope |
+
+Local Development Cloud ist ein C1/C2 Engineering-Deliverable, kein
+Kundenfeature. Alle späteren historischen Texte sind unter dieser Rebaseline zu
+lesen.
 
 ## Zweck
 
@@ -89,9 +111,9 @@ Ziel: Grundsatzentscheidungen treffen, bevor Code weiterwächst.
 |---|---|---|
 | R0.1 Naming and Language | Produktname und Kernbegriffe klaeren | Product Name, Product Language |
 | R0.2 Product Scope | ersten nutzbaren Produkt-Slice und langfristiges DMS-Ziel trennen | First Utility Scope, DMS Target Architecture |
-| R0.3 Architecture Direction | Local-first, Backend-Rolle, State, Storage entscheiden | Data Flow, State Management, Backend Role, File Storage |
+| R0.3 Architecture Direction | Local/Cloud Vault authority, Managed Backend, State und Storage entscheiden | Vault/Cloud Product Model, State Management, Backend Role, File Storage |
 | R0.4 Security and Privacy Baseline | sensible Daten, Sync-Grenzen und Trust Boundaries definieren | Privacy Sync Scope, Security Privacy Model |
-| R0.5 Intelligence and Workflow Boundaries | KI und Workflows als eigene Milestone-Slices schneiden | Intelligence Scope, Workflow Rules |
+| R0.5 Intelligence and Workflow Boundaries | Core Assist im Commercial Core von Advanced Assist und kuratierten Workflows trennen | Account/Vault/Assist Model, Intelligence Scope, Workflow Rules |
 
 ## R1 - Documentation Source of Truth
 
@@ -115,7 +137,7 @@ Ziel: Der aktuelle Spike wird in eine saubere App-Basis ueberfuehrt.
 | R2.2 Riverpod Foundation | Riverpod als State/DI-Fundament aufbauen | ProviderScope, Provider-Struktur |
 | R2.3 Domain Ports and Failures | Domain-Ports, Result/Failure, Notifications definieren | Domain Contracts, Failure Model |
 | R2.4 Local Persistence Boundary | SQLite/Drift und File Store Grenzen vorbereiten | Local DB/File Store Boundary |
-| R2.5 Secure Storage Boundary | Secrets/Pairing/Tokens sauber trennen | Secure Storage Port |
+| R2.5 Secure Storage Boundary | Account-/Device-/Assist-Tokens und lokale Key-/Recovery-Grenzen sauber trennen | Secure Storage Port |
 | R2.6 Foundation Verification | Zielpfad analysierbar und testbar machen | Smoke Tests, Analyzer Zielpfad |
 
 ## R3 - Quality and Production Readiness Foundation
@@ -127,8 +149,8 @@ Ziel: Das Projekt wird reproduzierbar, testbar und wartbar.
 | R3.1 Bootstrap and Codegen | frische Checkouts reproduzierbar machen | setup/codegen/verify scripts |
 | R3.2 Fake Repositories | App-/Domain-Tests ohne Netzwerk ermoeglichen | Fake Repos |
 | R3.3 Test Fixtures | synthetische Daten fuer alle fruehen Produkt-Domains | fixtures |
-| R3.4 Contract Baseline | OpenAPI/Microcks fuer Home-Hub/Capture vorbereiten | contracts/openapi, Microcks config |
-| R3.5 Target Path Gates | Legacy vom Zielpfad trennen | Analyzer, import checks |
+| R3.4 Contract Baseline | OpenAPI/Microcks fuer Mappm Cloud, Identity, Vault und Capture vorbereiten | contracts/openapi, Microcks config |
+| R3.5 Target Path Gates | Legacy vom Zielpfad trennen | `docs/roadmap/phases/R3_5_TARGET_PATH_QUALITY_BASELINE.md` (ready for user approval), analyzer, import checks |
 | R3.6 Readiness Gates | Security, Compliance, Data Lifecycle, Observability minimum pruefen | Milestone Quality Gates |
 | R3.7 Playbook Verification Closeout | Playbook-Agent-Track, Konzeptcoverage, DS-Gaps und Roadmap-Gates pruefen | Closeout, Coverage, Always-Plan/Conditional Matrix |
 
@@ -146,8 +168,8 @@ gebaut.
 | R4.3 Mobile Scanner Spike | native Scanner-Qualitaet beweisen | Android/iOS Scanner evidence |
 | R4.4 Mobile Scan Client | Mobile Scan, optionale Kontextauswahl und lokale Queue bauen | scan session, context selection, local queue |
 | R4.5 Upload Limits and Retry | D32 umsetzen | `docs/roadmap/phases/R4_5_UPLOAD_LIMITS_RETRY_PLAN.md` |
-| R4.6 Home Hub Capture Contract | D33 als OpenAPI/Microcks-Spec modellieren | mobile-capture-upload.openapi.yaml |
-| R4.7 API-proxied Upload Slice | erster echter Capture Upload zum Home Hub | CaptureUploadPort strategy |
+| R4.6 Cloud Capture Contract | Capture als OpenAPI/Microcks-Spec modellieren | mobile-capture-upload.openapi.yaml |
+| R4.7 Cloud Upload Slice | erster echter Capture Upload zur Local Development Cloud/Staging | CaptureUploadPort strategy |
 | R4.8 Cases/Subcases Core | Vorgänge und Subvorgänge nutzbar machen | Case UI/domain |
 | R4.9 Document/Record Metadata Core | D38/D39/D41 Dokument-Metadaten, betroffene Person, Validierung und Preview umsetzen | metadata, review validation, preview, pdfrx adapter |
 | R4.10 Tasks/Quick Access Core | Aufgaben, Fälligkeiten, Schnellzugriff | task overview, quick access |
@@ -159,33 +181,39 @@ gebaut.
 
 ## R5 - Assisted Review and Household Profiles
 
+Rebaseline: R5 bleibt eine stabile Traceability-ID. R5.1-R5.3 sind keine
+spätere Option mehr, sondern werden in C1/C2/C3 als Core Assist umgesetzt.
+R5.4-R5.8 bleiben Profil-/Haushaltsslices entsprechend ihrer C-Gate-Zuordnung.
+
 Ziel: Mappm reduziert manuelle Review-Arbeit und wird von einer Einzelperson-App zu einer Haushalts-App.
 
 | Subphase | Ziel | Hauptdeliverables |
 |---|---|---|
-| R5.1 Assisted Review Text Extraction | OCR/Text-Extraktion fuer Draft Review beweisen | text extraction adapter |
-| R5.2 Metadata Suggestions | Titel, Typ, Datum, Absender, Betrag, Fälligkeit und Tags vorschlagen | suggestion model |
-| R5.3 Suggestion Review UX | Vorschlaege annehmen, korrigieren oder ablehnen | review interaction |
+| R5.1 Assisted Review Text Extraction | C2 Core Assist: OCR/Text-Extraktion fuer Draft Review production-ready liefern | provider/contract/client boundary, offline queue, deletion |
+| R5.2 Metadata Suggestions | C2/C3: Titel, Typ, Datum, Akteure, Betrag, Fälligkeit, Vorgang/Workflow und Tags vorschlagen | evidence/confidence suggestion model |
+| R5.3 Suggestion Review UX | C2/C3: Vorschlaege annehmen, korrigieren oder ablehnen | review, quota, opt-out/manual fallback interaction |
 | R5.4 Profile Data Classification | sensible Profildaten klassifizieren | profile data policy |
 | R5.5 Profile Domain Model | Profile/Kinder/Erwachsene modellieren | profile model |
 | R5.6 Profile-aware Objects | Cases, Docs, Tasks, Drafts profilbewusst machen | profile links |
 | R5.7 Partner/Adult Management | gemeinsame Verwaltung vorbereiten | access model |
 | R5.8 Profile UX Gate | Profilwechsel und Korrekturen klar machen | UX validation |
 
-## R6 - Home Hub, Sync and Auth
+## R6 - Cloud, Identity, Sync and Migration
 
 Ziel: Daten koennen zwischen Geraeten repliziert und Sessions sicher verwaltet
 werden.
 
 | Subphase | Ziel | Hauptdeliverables |
 |---|---|---|
-| R6.1 Home Hub Skeleton | ASP.NET-Core Home-Hub Basis | API skeleton, health |
-| R6.2 Pairing and Device Tokens | Pairing/Device Management umsetzen | pairing endpoints |
+| R6.1 Managed Cloud Skeleton | ASP.NET-Core Cloud-Basis plus Local Development Cloud | API skeleton, readiness |
+| R6.2 Account and Device Sessions | Account/Device Management umsetzen | identity/session contracts |
 | R6.3 Upload Sessions | serverseitige Upload Sessions und Validation | upload sessions |
 | R6.4 Sync Journal | Aenderungsjournal und Tombstones | sync journal |
 | R6.5 Conflict Detection | Konflikte erkennen und darstellen | conflict model |
 | R6.6 Sync Contract Tests | OpenAPI/Microcks + Server verification | sync contracts |
 | R6.7 Privacy Sync Gate | remote Datenklassen und Encryption-Faehigkeit pruefen | privacy gate |
+| R6.8 Entitlement and Grace | Plan, Quota, Kündigung, Read-only und Reaktivierung | commercial lifecycle |
+| R6.9 Vault Provider Migration | Local-to-Cloud und Cloud-to-Local verifiziert umsetzen | migration workflow |
 
 ## R7 - Extended Mobile
 
@@ -212,6 +240,8 @@ Ziel: Dokumente werden strukturiert auswertbar.
 | R8.4 Validity and Deadlines | Gültigkeiten/Ablaufdaten/Fristen | validity facts |
 | R8.5 First Insights | erste Auswertungen | insights views |
 | R8.6 Facts QA Gate | Korrekturen, Tests, Datenschutz | facts gate |
+| R8.7 Workflow Catalog Foundation | generische, versionierte Definitionen und gepinnte Vorgangsinstanzen modellieren | catalog schema, validators, case/subcase/reference runtime, fixtures |
+| R8.8 First Reviewed Country Pack | ausgewählte Golden Workflows für einen freigegebenen Rechtsraum publizieren | dated sources, applicability, localization, professional review, withdrawal/update ownership |
 
 ## R9 - Intelligence, OCR and Automation
 
@@ -225,6 +255,7 @@ Ziel: Mappm unterstützt beim Erkennen, Sortieren und Vorschlagen.
 | R9.4 Form Prefill | Formularfelder vorbereiten | prefill proposals |
 | R9.5 Review UX | Vorschläge pruefen/annehmen/verwerfen | review UI |
 | R9.6 AI Trust Gate | Privacy, Audit, Redaction, lokale Modelle pruefen | AI gate |
+| R9.7 Workflow Matching Suggestions | bestehende Vorgänge und anwendbare veröffentlichte Definitionen vorschlagen, aber keine Abläufe erfinden | ranked catalog matches, evidence, confidence, unsupported fallback |
 
 ## R10 - Compliance, Legal and Distribution Readiness
 

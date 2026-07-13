@@ -2,7 +2,7 @@
 title: "Mappm OPS-00 Operations Umbrella"
 description: "Operations, local development, CI/CD, release and support governance for Mappm"
 tags: [ops, cicd, release, support, frontend, playbook]
-lastUpdated: "2026-07-08"
+lastUpdated: "2026-07-12"
 status: "draft"
 owner: "quality-readiness"
 ---
@@ -23,10 +23,11 @@ contracts and are activated phase by phase.
 | Local verification | active-draft | quality-readiness | `scripts/verify.sh`, `CONCEPT_F16_CI_CD_PIPELINE.md` |
 | Code generation | active-draft | foundation/contract-api | `scripts/codegen.sh`, client/codegen decisions |
 | Mock services | draft | contract-api/quality | `scripts/run_mocks.sh`, Microcks decisions |
-| CI/CD pipeline | planned | quality/release | future OPS-07 plus F16 |
+| CI/CD pipeline | planned | quality/release | OPS-07 plus F16 |
 | Release channels | planned | release/compliance | distribution and store decisions |
 | Support diagnostics | planned | support/ops | support pillar, logging/error concepts |
-| Incident/change governance | planned | release/ops | future release operations concept |
+| Incident/change governance | planned | release/ops | OPS-03 and OPS-06 |
+| Managed Cloud operations | planned | backend/ops/security | OPS-01..07, SEC/DATA/REG concepts |
 
 ## Rules
 

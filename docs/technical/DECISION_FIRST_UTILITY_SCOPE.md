@@ -2,15 +2,18 @@
 title: "Decision - First Utility Scope"
 description: "Entscheidung zum ersten nutzbaren Produkt-Slice: Desktop-Verwaltung, Mobile Capture und minimaler Home-Hub-Eingangskorb"
 tags: [decision, product, milestones, mobile-capture, desktop, home-hub]
-lastUpdated: "2026-05-29"
-status: "accepted"
+lastUpdated: "2026-07-12"
+status: "superseded"
 ---
 
 # Decision - First Utility Scope
 
 ## Status
 
-Accepted.
+Superseded on 2026-07-12 by the Commercial Core rebaseline in
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md` and the active roadmap.
+Capture/Review remains core product value; a customer Home Hub and QR pairing
+do not.
 
 ## Entscheidung
 

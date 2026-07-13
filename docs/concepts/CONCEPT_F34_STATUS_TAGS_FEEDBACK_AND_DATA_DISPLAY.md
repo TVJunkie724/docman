@@ -2,7 +2,7 @@
 title: "Konzept F34 - Status, Tags, Feedback and Data Display"
 description: "Mappm Detailkonzept fuer Statussignale, Tags, Callouts, Empty/Error Feedback, Dokumentzeilen, Typfarben, Fact-Gruppen und Timelines"
 tags: [concept, frontend, design-system, components, status, tags, feedback, data-display, flutter]
-lastUpdated: "2026-06-22"
+lastUpdated: "2026-07-12"
 version: "1.0"
 status: "accepted"
 ---
@@ -244,3 +244,11 @@ Mindestens:
 - [ ] Dokumentzeilen trennen Typ/Kategorie von Person/Profil.
 - [ ] Typfarben passen zur Corporate Palette.
 - [ ] Fact-Gruppen und Timelines sind fuer Auswertungen/Verlauf vorbereitet.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

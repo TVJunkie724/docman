@@ -2,7 +2,7 @@
 title: "Decision - Product Name"
 description: "Entscheidung zum Produktnamen Mappm und zur Abgrenzung vom technischen Arbeitsnamen DocMan"
 tags: [decision, accepted, product, naming, branding, mappm]
-lastUpdated: "2026-07-08"
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
@@ -24,7 +24,7 @@ Das Projekt soll eine ruhige, vertrauenswuerdige Dokumenten-App fuer Familien un
 - Alltagsthemen als Vorgaenge zusammenhalten.
 - unterwegs schnell erfassen.
 - zuhause ruhig pruefen, sortieren und abschliessen.
-- self-hosted/local-first statt Cloud-SaaS.
+- Local oder Mappm Cloud mit klarer Datenhoheit statt unklarer Speicher-/Sync-Zustände.
 
 ## Entscheidung
 
@@ -50,7 +50,7 @@ Das bedeutet:
 
 - GitHub-Repository, bestehende Milestones, Issues und viele interne Dokumente dürfen vorerst `DocMan` behalten.
 - Neue produktnahe UI-/Branding-Texte sollen `Mappm` verwenden.
-- Architekturbegriffe bleiben neutral, z.B. `Home Hub`, `Sync Backend`, `Capture`, `Search`.
+- Architekturbegriffe bleiben neutral, z.B. `Vault`, `Cloud Backend`, `Capture`, `Search`.
 - Eine vollständige technische Umbenennung wird separat geplant und nicht nebenbei durchgeführt.
 
 ## Anforderungen an den Namen
@@ -73,8 +73,9 @@ Produktnahe Namen:
 |---|---|
 | App/Product | `Mappm` |
 | Mobile App | `Mappm` oder `Mappm Mobile`, falls Plattformtexte unterscheiden müssen |
-| Home Hub | `Mappm Home Hub` als Produkttext möglich; technisch weiter `Home Hub` |
-| Backend/Sync | `Mappm Sync` als Produkttext möglich; technisch weiter `Sync Backend` |
+| Managed Cloud | `Mappm Cloud` als Produkt- und Servicebegriff |
+| Local Development Cloud | nur technischer Entwicklungsbegriff, nie Kundenbranding |
+| Backend/Sync | interne neutrale Begriffe; Produkt-UI spricht von Vault, Cloud und lokal verfügbar |
 | Repo/Arbeitsdoku | vorerst `docman` / `DocMan` |
 
 Vor öffentlicher Distribution müssen geprüft werden:

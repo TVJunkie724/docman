@@ -2,15 +2,20 @@
 title: "DocMan - Process and Concept Migration Plan"
 description: "Arbeitsplan zur Migration der strengen Matchmia/Stonehall Arbeitsweise nach DocMan/Mappm"
 tags: [process, migration, skills, concepts, roadmap, quality, frontend]
-lastUpdated: "2026-07-07"
-status: "draft"
+lastUpdated: "2026-07-12"
+status: "superseded-by-closeout"
 ---
 
 # DocMan - Process and Concept Migration Plan
 
+> This migration plan is historical and no longer authorizes product or
+> architecture work. Current governance lives in `docs/execution/`, current
+> product scope in the Vault/Commercial-Core decisions, and current sequencing
+> in the C0-C7 roadmap.
+
 ## Status
 
-Draft.
+Superseded by the completed execution closeout and current quality contracts.
 
 Dieses Dokument plant die Migration der strengeren Matchmia/Stonehall
 Arbeitsweise nach DocMan/Mappm. Ziel ist nicht, Matchmia-Inhalte blind zu

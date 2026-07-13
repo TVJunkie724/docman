@@ -2,7 +2,7 @@
 title: "Decision - Profile Identity and Management"
 description: "Entscheidung zur Trennung von Login-/Identity-Faehigkeit und Verwaltung eines Profils"
 tags: [decision, profiles, household, identity, login, management, permissions]
-lastUpdated: "2026-06-04"
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
@@ -108,7 +108,7 @@ sein, wenn eine aktive Verwaltungsbeziehung existiert.
 - Verwaltung ist reversibel und separat steuerbar.
 - Dokumente gehoeren fachlich zu Profilen, nicht zu Login-Accounts.
 - R6 muss Identity, Sessions, Sync und Rechte gegen diese Trennung planen.
-- `DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md` konkretisiert die spaetere
+- `DECISION_CLOUD_IDENTITY_DEVICE_TRUST.md` und REG-04 konkretisieren die spaetere
   Identity-Schicht: ID Austria ist ein sinnvoller erster oesterreichischer
   Provider, muss aber ueber eine generische eIDAS-/EUDI-faehige
   `TrustedIdentityProvider`-Grenze austauschbar bleiben. Identity beantwortet,

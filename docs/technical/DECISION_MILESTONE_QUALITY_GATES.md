@@ -2,11 +2,17 @@
 title: "Decision - Milestone Quality Gates"
 description: "Entscheidung zu verpflichtenden lokalen, R3- und Milestone-Quality-Gates fuer DocMan"
 tags: [decision, quality-gates, r3, milestones, testing, ci, production-readiness]
-lastUpdated: "2026-05-29"
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
 # Decision - Milestone Quality Gates
+
+## 2026 Commercial-Core Rebaseline
+
+Quality gates apply to C0-C7. Replace Home-Hub boundaries with Mappm Cloud and
+Local Development Cloud; add Local/Cloud authority, migration, entitlement,
+cancellation, restore, environment separation and release-operation evidence.
 
 ## Status
 

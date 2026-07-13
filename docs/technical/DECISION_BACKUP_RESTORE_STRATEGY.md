@@ -2,7 +2,7 @@
 title: "Decision - Backup and Restore Strategy"
 description: "Entscheidung zur minimalen Backup-/Restore-Strategie vor echtem Haushaltsbetrieb von Mappm"
 tags: [decision, backup, restore, resilience, home-hub, local-first]
-lastUpdated: "2026-06-12"
+lastUpdated: "2026-07-12"
 status: "accepted"
 ---
 
@@ -10,7 +10,12 @@ status: "accepted"
 
 ## Status
 
-Accepted.
+Accepted with Vault-mode rebaseline on 2026-07-12.
+
+The invariant "sync is not backup" remains binding. Home-Hub backup references
+below are superseded. Local Vaults require encrypted export/restore; Cloud
+Vaults require managed backup/restore plus free export and verified
+Cloud-to-Local migration.
 
 R11-D1 ist entschieden. Mappm braucht vor echtem Haushaltsbetrieb ein
 verlaessliches Backup-/Restore-Minimum. Sync ist nicht das Sicherheitsnetz.

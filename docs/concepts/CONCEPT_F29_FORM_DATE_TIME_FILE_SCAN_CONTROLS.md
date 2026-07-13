@@ -2,7 +2,7 @@
 title: "Konzept F29 - Form Date, Time, File and Scan Controls"
 description: "Mappm Detailkonzept fuer Date Picker, Date Range, Time, Time Range, Recurrence, Reminder, File Picker, Scan Mode, Upload Queue und Permissions"
 tags: [concept, frontend, design-system, forms, date-picker, file-picker, scan, mobile-capture, flutter]
-lastUpdated: "2026-06-22"
+lastUpdated: "2026-07-12"
 version: "1.0"
 status: "accepted"
 ---
@@ -194,7 +194,7 @@ Regeln:
 Verwendung:
 
 - Mobile Capture offline.
-- Home Hub temporaer nicht erreichbar.
+- Mappm Cloud temporaer nicht erreichbar oder Cloud-Vault offline ohne gecachte Datei.
 - spaeter Sync/Backup.
 
 Regeln:
@@ -272,3 +272,11 @@ Mindestens:
 - [ ] Scan Mode deckt PDF, Bild und Review-Entscheidung ab.
 - [ ] Upload Queue ist privacy-sicher und offline-faehig geplant.
 - [ ] Native Scanner/Picker bleiben austauschbar.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

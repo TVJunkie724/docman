@@ -2,7 +2,7 @@
 title: "Konzept F35 - Product Patterns, Accessibility and Visual QA Detail"
 description: "Mappm Detailkonzept fuer zentrale Produktmuster, Accessibility-Gates, Privacy UI Gates und visuelle QA"
 tags: [concept, frontend, design-system, patterns, accessibility, privacy, visual-qa, production-readiness]
-lastUpdated: "2026-06-22"
+lastUpdated: "2026-07-12"
 version: "1.0"
 status: "accepted"
 ---
@@ -96,7 +96,8 @@ Nicht-Ziel:
 
 Zweck:
 
-- Home Hub.
+- Mappm Account/Gerät, Vault-Autorität, Assist-Entitlement, Migration und
+  Detached Recovery.
 - Pairing.
 - Storage.
 - Diagnose.
@@ -194,3 +195,11 @@ Auditor prueft:
 - [ ] Privacy UI Gates verhindern Datenlecks in Shell, Feedback und QA.
 - [ ] Visual QA ist verpflichtender Teil spaeterer UI-Umsetzung.
 - [ ] Handoff/Audit koennen ohne Mock-Raten arbeiten.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

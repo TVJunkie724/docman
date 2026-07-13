@@ -1,12 +1,68 @@
 ---
-title: "DocMan - Rebuild Roadmap"
-description: "Vorgeschlagene Roadmap, um DocMan vom aktuellen Spike zu einer stabilen, lokalen, erweiterbaren Dokumenten-App zu entwickeln"
-tags: [roadmap, rebuild, product, planning, foundation]
-lastUpdated: "2026-05-29"
-version: "1.20"
+title: "Mappm - Commercial Core Roadmap"
+description: "Verbindliche Roadmap vom Spike zu einer verkaufbaren Local/Cloud-Vault-Applikation"
+tags: [roadmap, commercial-core, vault, cloud, product, planning]
+lastUpdated: "2026-07-12"
+version: "2.0"
+status: "accepted-rebaseline"
 ---
 
-# DocMan - Rebuild Roadmap
+# Mappm - Commercial Core Roadmap
+
+## 0. Normative Rebaseline 2026-07-12
+
+Diese Rebaseline ersetzt die frühere Leitidee eines kundenseitigen Home Hubs
+und eines universell local-first Produkts. Normative Grundlagen sind:
+
+- `docs/technical/DECISION_COMMERCIAL_CORE_SCOPE.md`;
+- `docs/technical/DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md`;
+- `docs/technical/DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`;
+- `docs/technical/DECISION_CLOUD_IDENTITY_DEVICE_TRUST.md`;
+- `docs/technical/DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md`;
+- `docs/concepts/CONCEPT_F36_VAULT_MODES_CLOUD_LIFECYCLE.md`.
+
+Mappm wird als klassische Client-/Managed-Service-Architektur mit zwei
+expliziten Vault-Modi geplant: Local ist lokal autoritativ; Cloud ist
+serverautoritativ mit lokalem Cache und Pending Queue. Jeder normale Tarif
+verwendet Mappm Account und Core-Assist-Entitlement. Accountunabhängiger
+Local-Zugriff ist Exit-/Recovery-Garantie, nicht Onboarding-Modus. Die Local
+Development Cloud ersetzt den Home Hub ausschließlich für Entwicklung und
+Integration mit synthetischen Daten.
+
+Der erste Release ist kein Wegwerf-MVP. Er ist ein verkaufbarer Commercial
+Core: wenige, aber vollständige Funktionen mit Security, Datenschutz,
+Accessibility, Tests, Support, Distribution, Upgrade, Backup/Export und
+Recovery. Nicht enthaltene Funktionen werden nicht halb implementiert.
+
+### Commercial-Core-Release-Train
+
+| Gate | Ergebnis | Exit-Kriterium |
+|---|---|---|
+| C0 Product and Trust Contract | Commercial-Core-Scope, Vault-Modi, Cloud-Timing, Trust-/Key-/Identity-Modell, Pläne, Retention und Workflow-Coverage entschieden | VC-01 bis VC-08 sowie WF-01/WF-02 geschlossen oder explizit später blockierend terminiert |
+| C1 Vault, Account and Provider Foundation | Clean Architecture, account/device/offline entitlement for every normal mode, selected Local/Cloud providers, Secure Storage and migration/recovery state | Local/Cloud/account/entitlement/recovery fakes grün; keine Legacy-Authority-Leaks; applicable VC gates closed |
+| C2 Capture, Core Assist and Draft Review Vertical | import/capture produces safe drafts; Core Assist queues OCR/classification/actor/fact suggestions for review; mobile-to-desktop handoff only when Cloud is activated | Free/Paid Local and Cloud happy/unhappy/offline/quota/restart/a11y/privacy gates grün; processing never changes authority |
+| C3 Document Core, Guided Cases, Search and Tasks | Vorgänge, Subvorgänge/Referenzen, Dokumente, Assist Review, Suche, Aufgaben und Quick Access bilden den verkaufbaren Kern | vollständige Kernflows, manual fallback, search indexing and Mehrfachbeziehungen grün; keine Länder-Workflow-Claims ohne aktiviertes geprüftes Pack |
+| C4 Lifecycle and Commercial Safety | Local backup/export/restore always; Cloud backup, both provider migrations, cancellation/grace, reactivation and deletion when Cloud is activated | all applicable restore/migration drills and entitlement matrix grün; non-applicable rows explicitly recorded |
+| C5 Compliance, Operations and Release | CI/CD, Signing, Updates, Observability, Incident/Support, Store/Legal/Regulatory Gates sowie Katalog-Update-/Withdrawal-Governance | Release Candidate reproduzierbar; jedes aktivierte Länder-/Workflow-Pack datiert freigegeben |
+| C6 Closed Beta | synthetische und genehmigte Beta-Daten, Support-/Rollback-Prozess, SLO-Evidence | keine offenen P0/P1; Exit-/Recovery-Flows bestätigt |
+| C7 Commercial 1.0 | verkaufbarer, betreibbarer Release mit klaren In-/Out-of-Scope-Funktionen | Go/No-Go durch Product, Security, Privacy, Quality, Ops, Release |
+
+Die vorhandenen R0-R15-IDs bleiben als fachliche Backlog- und
+Traceability-Struktur erhalten. Sie sind allein keine
+Implementierungsfreigabe. Jeder betroffene R-Slice muss einem C-Gate zugeordnet
+und als Phase-as-Implementation-Contract neu bestätigt werden. Alte Home-Hub-,
+Pairing-, self-hosted- oder universelle local-first-Aussagen in späteren
+Abschnitten sind historisch und nicht normativ.
+
+## Historical R0-R15 Traceability Appendix (non-normative)
+
+Everything below this heading preserves the original roadmap vocabulary,
+decision numbering and discovery history. Its status words such as `accepted`,
+`planned` or `done` describe that historical baseline only. They do not override
+C0-C7, the Vault/Commercial-Core decisions or the current open-question
+register, and they never authorize implementation. Future agents must use
+`docs/roadmap/PHASE_INDEX.md` for current mappings and create a reviewed phase
+implementation contract before work starts.
 
 ## 1. Zweck
 
@@ -211,7 +267,7 @@ Hinweis: Die Produkt-Baseline, Security-/Privacy-Baseline, Storage-Grenze und Ho
 | R0-D4 | Rolle von PocketBase und Backend? | Entwurf: eigener self-hosted DocMan Server Stack per Docker/Compose; PocketBase nicht als Zielarchitektur |
 | R0-D5 | Was ist der erste nutzbare Produkt-Slice? | Entschieden: Desktop-Verwaltung plus Mobile Capture mit minimalem Home-Hub-Eingangskorb |
 | R0-D6 | Wie streng sind Workflows? | Entschieden: Empfehlungen/Review; harte Regeln nur für Integrität/Sicherheit |
-| R0-D7 | Gehört KI/OCR in den ersten nutzbaren Produkt-Slice? | Entschieden: Nicht als Voraussetzung; Assisted Review folgt als eigener M3-Nutzwert |
+| R0-D7 | Gehört KI/OCR in den ersten nutzbaren Produkt-Slice? | Historisch superseded: Core Assist gehört heute in C2/C3; Advanced Assist folgt später |
 | R0-D8 | Welche Sync-Grenzen gelten für sensible Daten? | Entschieden: frueher Sync nur in privater Home-Hub-Umgebung; Secrets getrennt |
 | R0-D9 | Ist DocMan nur Vorgangsverwaltung mit Anhängen oder ein vollwertiges DMS? | Entschieden: vollwertiges privates DMS; M2 ist nur der erste nutzbare Slice |
 | R0-D10 | Wie wird Dateiablage technisch geschnitten? | Entschieden: austauschbarer Storage-Port; App-local File Store zuerst, MinIO/S3-kompatibel fuer Home Hub |

@@ -1,5 +1,10 @@
 ---
+title: "MP-DS-03 Corporate Design"
+description: "Mappm brand identity, voice, palette and asset-governance contract"
+tags: [design-system, corporate-design, brand, voice, palette]
+lastUpdated: "2026-07-12"
 status: draft
+owner: "ui-concept"
 source_logo:
   - assets/images/logo.png
 source_docs:
@@ -66,7 +71,7 @@ Bevorzugt:
 
 - "Dokument wurde gesichert."
 - "Dieser Entwurf braucht noch eine betroffene Person."
-- "Backup fehlgeschlagen. Bitte Verbindung zum Home Hub pruefen."
+- "Cloud-Backup fehlgeschlagen. Bitte Verbindung und Kontostatus prüfen."
 
 Vermeiden:
 

@@ -1,19 +1,39 @@
 ---
 title: "Konzept F15 - Mock Repository Blueprint"
-description: "DocMan-spezifische Mock- und Fake-Strategie für UI, Riverpod, lokale Daten, Home Hub, Mobile Capture und spätere Sync-Fälle"
+description: "Mappm Fakes for Local/Cloud Vaults, entitlements, migrations, capture, cache and contract consumers"
 tags: [concept, foundation, mocks, fakes, testing, riverpod, mobile-capture]
-lastUpdated: "2026-05-06"
-version: "3.4"
-status: "accepted"
+lastUpdated: "2026-07-12"
+version: "4.0"
+status: "accepted-rebaseline"
 ---
 
 # Konzept F15 - Mock Repository Blueprint
 
 ## Status
 
-Accepted.
+Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
+
+## 2026 Vault/Cloud Fake Matrix
+
+Required deterministic fakes cover Local Vault, Cloud Vault, local cache,
+pending queue, account/device session, entitlement/grace/quota, migration,
+Core-Assist jobs, offline entitlement and Detached Recovery,
+export/delete and Cloud failures. A Fake Cloud client tests app behavior;
+Microcks tests contracts; Local Development Cloud tests real integration. No
+fake silently calls a managed environment and all data/assets are synthetic.
 
 Dieses Konzept ersetzt den importierten F15-Inhalt aus dem alten Projekt.
+
+## Legacy Detail Baseline (non-normative)
+
+The remaining imported detail is retained only for migration context and useful
+feature-specific examples. It must not authorize Home Hub, Tailscale, customer
+self-hosting, universal local-first authority, old milestone scope or QR server
+pairing. Where it differs, the rebaseline above,
+`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
+`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
+concept is used for implementation, its affected detail must be rewritten into
+the phase's approved implementation contract.
 
 ## Zweck
 
@@ -150,3 +170,11 @@ F15 gilt als umgesetzt, wenn:
 
 - Gibt es einen globalen Dev-Fake-Modus?
 - Welche Fake-Szenarien werden im UI auswählbar?
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.

@@ -1,5 +1,10 @@
 ---
+title: "MP-DS-00 Design System Umbrella"
+description: "Governance and source-of-truth contract for the Mappm design system"
+tags: [design-system, governance, umbrella, ui]
+lastUpdated: "2026-07-12"
 status: draft
+owner: "ui-concept"
 provenance:
   language: de
   source_logo:
@@ -54,10 +59,10 @@ ein Steuerportal oder ein dekoratives Familienalbum wirken.
 | `MP-DS-01 Foundations And Tokens` | Farbrollen, Icon-Set, Typografie, Spacing, Radius, Elevation, Statusfarben, Token-Promotion. | draft |
 | `MP-DS-02 Layout And Shell` | Desktop-/Mobile-Shell, Navigation, Arbeitsflaechen, responsive Verhalten. | draft |
 | `MP-DS-03 Corporate Design` | Brand-Idee, Logo-System, Corporate Colors, Voice, Usage Standards. | draft |
-| `MP-DS-04 Component System` | Buttons, Formulare, Selection, Navigation, Feedback, Status, Tags, Data Display. | planned |
-| `MP-DS-05 Product Patterns` | Capture, Draft Inbox, Vorgang, Dokumentdetail, Export, Settings, Backup/Sync. | planned |
-| `MP-DS-06 Accessibility And Quality Gates` | Contrast, Keyboard, Text Scale, Visual QA, responsive gates. | planned |
-| `MP-DS-07 Platform Adaptation` | macOS, iOS, Android, spaeter Windows/Linux. | planned |
+| `MP-DS-04 Component System` | Buttons, Formulare, Selection, Navigation, Feedback, Status, Tags, Data Display. | active-draft |
+| `MP-DS-05 Product Patterns` | Capture, Draft Inbox, Vorgang, Dokumentdetail, Export, Settings, Backup/Sync. | active-draft |
+| `MP-DS-06 Accessibility And Quality Gates` | Contrast, Keyboard, Text Scale, Visual QA, responsive gates. | active-baseline |
+| `MP-DS-07 Platform Adaptation` | macOS, iOS, Android, spaeter Windows/Linux. | active-draft |
 
 ## Aktuelle Review-Flaeche
 
@@ -84,3 +89,11 @@ docs/design-system/Mock/index.html
 - Logo und Farben duerfen aus `assets/images/logo.png` abgeleitet werden, aber
   das aktuelle Logo ist noch kein vollstaendiges Logo-System.
 - Coral/Rose ist Brand-Akzent, nicht globale App-Flaeche.
+
+## Stop Rules And Handoff
+
+- Stop if a UI phase cannot name exact MP-DS and F-concept owners.
+- Stop if mock evidence is treated as a Flutter implementation plan.
+- Stop if a visible mock pattern has no normative concept owner.
+- Handoff to `ui-architect` only from an approved phase and review the resulting
+  plan with `ui-plan-review`.

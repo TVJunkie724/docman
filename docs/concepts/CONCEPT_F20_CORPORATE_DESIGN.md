@@ -2,7 +2,7 @@
 title: "Konzept F20 - Corporate Design and Brand Application"
 description: "Mappm Corporate Design, Logo-System, Brand-Farben, Voice, Standards und produktnahe Brand-Anwendung"
 tags: [concept, frontend, design-system, corporate-design, brand, colors, logo, voice]
-lastUpdated: "2026-06-22"
+lastUpdated: "2026-07-12"
 version: "1.1"
 status: "accepted"
 ---
@@ -121,7 +121,7 @@ Beispiele:
 |---|---|
 | Draft gespeichert | "Dokument wurde gesichert." |
 | Pflichtfeld fehlt | "Betroffene Person fehlt." |
-| Home Hub offline | "Upload wartet. Der Home Hub ist gerade nicht erreichbar." |
+| Cloud upload offline | "Upload wartet auf Verbindung zur Mappm Cloud." |
 | Exportfehler | "Export nicht erstellt. Keine Datei wurde geteilt oder versendet." |
 
 ## Subkonzept F20.5 - Corporate Standards
@@ -146,3 +146,11 @@ F20 ist umgesetzt, wenn:
 - Voice-Regeln in Fehler-, Empty-, Review- und Exportpfaden angewendet werden.
 - Brand-Farben nicht als unstrukturierte Statuspalette verwendet werden.
 - Third-Party-/Icon-Lizenzhinweise fuer Distribution vorbereitet sind.
+
+## Enterprise Quality Contract
+
+This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
+Its own scope and status remain authoritative; the shared contract supplies the
+mandatory ownership, security/privacy, accessibility/localization, verification,
+stop-rule and handoff defaults wherever this file does not define a stricter
+rule. Any conflict must stop the affected phase and be resolved in this concept.
