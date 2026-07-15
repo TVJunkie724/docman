@@ -2,10 +2,10 @@
 title: "Mappm - Competitive Positioning"
 description: "Wettbewerbsanalyse und Positionierungsnotizen fuer Mappm als Local/Cloud-Dokumentenprodukt fuer Haushalte"
 tags: [product, strategy, competition, positioning, privacy, documents, intelligence]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-15"
 status: "working-note"
+owner: "product-concept"
 ---
-
 # Mappm - Competitive Positioning
 
 ## Status
@@ -297,8 +297,11 @@ Lebensvorgaengen und deren fachlichem Modell.
 - Vorgang statt lange Dokumentliste/Tag-/Space-zentrierter Primaerorganisation;
 - Unterlagen/Records als eigener gleichwertiger Bereich statt alles als
   einzelnes Dokument oder Sammlungsmitglied zu behandeln;
-- automatische Zuordnung zu bestaetigbaren Cases, Records, Claims, Branches,
-  Managed Subjects und ExternalParty-Kontakten;
+- automatische, in der aktuellen Reifestufe bestaetigungspflichtige
+  Zuordnungsvorschlaege zu Cases, Records, Claims, Branches, Managed Subjects
+  und ExternalParty-Kontakten;
+- verpflichtende editierbare Backend-/Core-Assist-Titelvorschlaege fuer neue
+  logische Dokumente, Cases und Records;
 - konkrete naechste Schritte und Ergebnisverfolgung, nicht nur extrahierte
   Fristerinnerungen;
 - kuratierte, versionierte Laender-/Institutionsvarianten mit manuellem Custom-

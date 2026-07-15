@@ -2,16 +2,18 @@
 title: "Enterprise-Säule - Security and Privacy Architecture"
 description: "Enterprise-Bereich fuer Security-by-Design, Privacy-by-Design, Verschlüsselung, Secure Storage, Trust Boundaries und Zugriffsschutz"
 tags: [pillar, enterprise, security, privacy, encryption]
-lastUpdated: "2026-07-12"
-version: "0.1"
+lastUpdated: "2026-07-15"
+version: "0.2"
 status: "proposed"
+owner: "security/privacy"
 ---
 
 # Enterprise-Säule - Security and Privacy Architecture
 
 ## Zweck
 
-DocMan verwaltet sensible Dokumente: medizinische Unterlagen, Verträge, Identitätsnachweise, finanzielle Daten und Familiendokumente.
+Mappm verwaltet sensible Dokumente: medizinische Unterlagen, Vertraege,
+Identitaetsnachweise, finanzielle Daten und Familiendokumente.
 
 Security und Privacy sind deshalb Architekturthemen, nicht nachträgliche Features.
 
@@ -26,11 +28,11 @@ Security und Privacy sind deshalb Architekturthemen, nicht nachträgliche Featur
 - Berechtigungsmodell.
 - sichere Defaults.
 
-## M2-Minimum
+## C1/C2-Minimum
 
 - keine Secrets in lokaler DB.
 - keine sensiblen Daten in Logs/Notifications.
-- Pairing-Token widerrufbar.
+- Device Sessions und Trust widerrufbar.
 - Security-Grenzen in Repository/API-Contracts sichtbar.
 - E2EE-/Zero-Knowledge-fähige Richtung nicht verbauen.
 
@@ -42,8 +44,9 @@ Security und Privacy sind deshalb Architekturthemen, nicht nachträgliche Featur
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

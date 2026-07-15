@@ -1,185 +1,89 @@
 ---
 title: "Decision - Search Technology and Search Boundary"
-description: "Entscheidung zur Search-Boundary für Local/Cloud Vaults, SQLite/Drift/FTS5 und spätere Managed-/AI-Search-Adapter"
-tags: [decision, search, sqlite, drift, fts5, local-vault, cloud-vault, meilisearch, typesense, qdrant]
-lastUpdated: "2026-07-14"
-status: "accepted-rebaseline"
+description: "Search-Boundary für Local und Cloud Vault, strukturierte Filter, FTS5 und spätere semantische Adapter"
+tags: [decision, search, sqlite, drift, fts5, local-vault, cloud-vault]
+lastUpdated: "2026-07-15"
+status: "accepted"
+owner: "data-architect/product"
 ---
-
 # Decision - Search Technology and Search Boundary
-
-## 2026 Vault Rebaseline
-
-The SearchRepository boundary remains accepted. A Local Vault may use
-Drift/FTS5 as authority. In a Cloud Vault, local indexes are cache-derived and
-must not claim completeness while offline unless the active cache policy can
-prove it. Managed search is a Mappm Cloud backend adapter. Customer Home Hub
-and self-hosted search are superseded product directions.
 
 ## Status
 
-Accepted.
+Angenommen. Suche ist eine austauschbare Domain-Boundary und folgt der
+Authority des aktiven Vaults.
 
 ## Entscheidung
 
-DocMan führt Suche als eigene austauschbare Domain-Boundary ein.
-
-Der M2 nutzt lokal:
-
-- SQLite + Drift für strukturierte Abfragen und Filter.
-- SQLite FTS5 für gepflegte textuelle Metadaten.
-
-Der M2 nutzt nicht:
-
-- separaten Suchserver.
-- OCR-Volltextsuche.
-- semantische oder Vektor-Suche.
-- verwaltete Suche als Voraussetzung fuer Local Vaults.
-
-## Begründung
-
-Suche folgt der Vault-Authority. Ein Local Vault muss ohne Netzwerk suchen
-können. Ein Cloud Vault darf verwaltete Suche verwenden und hält einen
-policy-begrenzten lokalen Index/Cache; offline zeigt die UI dessen belegbare
-Reichweite und behauptet keine Vollständigkeit, die der Cache nicht garantiert.
-
-SQLite + Drift ist bereits die Zielrichtung für strukturierte lokale Daten. SQLite FTS5 ergänzt diese Richtung, ohne eine zweite Betriebsplattform einzuführen.
-
-FTS5 ist keine Wegwerf-Lösung. Es bleibt langfristig der lokale Suchindex für:
-
-- gepflegte Metadaten.
-- Vorgänge.
-- Dokumente.
-- Records/Nachweise.
-- Tasks.
-- später OCR-Text, wenn dieser lokal geprüft und gespeichert wird.
-
-## Search Boundary
-
-Die App darf nicht direkt an eine konkrete Suchtechnologie gekoppelt werden.
-
-Zielbild:
-
 ```text
 Domain
-  SearchRepository / SearchService
+  SearchRepository
     search(query, filters)
-    indexDocumentMetadata(...)
-    removeFromIndex(...)
-    rebuildIndex()
+    index(...)
+    remove(...)
+    rebuild()
 
 Data
   LocalSqliteSearchRepository
-    Drift structured queries
-    SQLite indexes
-    SQLite FTS5 metadata index
-
-Later
   MappmCloudSearchRepository
-  SemanticSearchAdapter
+  spätere semantische Adapter
 ```
 
-Riverpod stellt die konkrete Implementierung bereit. Das ist Dependency Injection. Die austauschbaren Suchimplementierungen folgen dem Strategy Pattern.
+Ein Local Vault verwendet Drift für strukturierte Abfragen und SQLite FTS5 für
+lokal verfügbare, freigegebene Textdaten. Ein Cloud Vault darf Managed Search
+verwenden und hält nur einen policy-begrenzten lokalen Cache/Index. Offline
+kennzeichnet die UI dessen belegbare Reichweite und behauptet keine
+Vollständigkeit, die der Cache nicht garantieren kann.
 
-## Erster strukturierter Suchumfang
+## Product Experience
 
-Such- und Filterfelder:
+Die primäre Interaktion ist ein ruhiges globales Suchfeld. Nutzerinnen müssen
+weder einen Ablageort noch eine Taxonomie kennen. Ergebnisse dürfen Cases,
+Records, Dokumente, verwaltete Personen und Organisationen, externe Akteure,
+Claims, Aufgaben und bestätigte Facts umfassen.
 
-- Vorgangstitel.
-- Titel verknüpfter Cases und typisierte Case-Beziehungen.
-- Unterlagen/Records einschließlich Vertrag/Abo und Gültigkeit.
-- verwaltete Personen und Organisationen sowie externe Akteure.
-- Dokumenttitel.
-- Record-/Nachweistitel.
-- Dokumenttyp.
-- Profil.
-- Datum.
-- Anbieter/Gegenpartei.
-- Status.
-- Tags/Keywords.
-- Aufgabenstatus und Fälligkeit.
+Mappm plant keinen Chat, Messenger oder KI-Gesprächsverlauf als primäre
+Dokumentinteraktion. Natürliche oder semantische Queries dürfen später im
+Suchfeld helfen, liefern aber weiterhin nachvollziehbare Treffer, Filter,
+Match-Gründe und direkte Aktionen.
 
-Späterer Milestone:
+## Indexierbarer Scope
 
-- OCR-Volltext.
-- semantische Suche.
-- Vektor-Suche.
-- externe Server-Suche.
-- komplexe Query-Sprache.
+Der strukturierte und textuelle Scope kann umfassen:
 
-## Product Search Experience
+- Titel von Cases, Records und Dokumenten;
+- typisierte Case-Beziehungen;
+- Dokumenttyp, Datum, Status und Tags;
+- Managed Subjects, externe Akteure und Rollen;
+- Aufgabenstatus und Fälligkeit;
+- bestätigte Facts sowie lokal verfügbare OCR-Texte.
 
-Die primäre Interaktion ist ein ruhiges globales Suchfeld mit ergebniszentrierter
-Darstellung. Nutzer suchen über Vorgänge, Unterlagen, Dokumente, verwaltete
-Profile, ExternalParty-Kontakte, Claims, Tasks und bestätigte Facts, ohne zuerst
-den richtigen Ablageort kennen zu müssen.
+Core Assist erzeugt in C2/C3 die notwendigen Titel, Metadaten und OCR-
+Grundlagen. Unbestätigte Vorschläge müssen im Suchmodell als solche erkennbar
+bleiben und dürfen nicht wie verifizierte Fakten gerankt werden.
 
-Mappm plant keinen Chat, Messenger und keine KI-Chat-Historie als primäre
-Dokumentinteraktion. Spätere natürliche oder semantische Query-Unterstützung
-darf im Suchfeld helfen, liefert aber weiterhin nachvollziehbare Treffer,
-Filter, Match-Gründe und direkte Aktionen statt eines Gesprächsverlaufs.
+## Technische Regeln
 
-## Spätere Suchstufen
+- Presentation und Domain kennen keine konkrete Suchengine.
+- Der lokale Index ist rebuildbar und keine Daten-Authority.
+- Managed Search ist ein Mappm-Cloud-Backend-Adapter hinter Authorization-,
+  Privacy-, Tenant- und Löschverträgen.
+- Welche Server- oder Vektortechnologie verwendet wird, bleibt eine spätere
+  Implementierungsentscheidung anhand gemessener Anforderungen.
+- Local Development Cloud verwendet dieselben Contracts ausschließlich mit
+  synthetischen Daten.
 
-### R8/R9 lokal erweitert
+## Datenschutz und Qualität
 
-- OCR erzeugt Text.
-- OCR-Text wird lokal geprüft oder reviewbar markiert.
-- FTS5 kann OCR-Text lokal indexieren.
-- `sqlite-vec` oder ähnliche lokale Vektor-Erweiterungen können als Forschungsoption geprüft werden, wenn lokale semantische Suche gebraucht wird.
+Suchindex, Queries und Treffer können hochsensibel sein. Deshalb gelten:
 
-### Managed Cloud Search
+- keine Suchbegriffe, OCR-Inhalte, privaten Titel oder Treffer in normalen
+  Logs, Telemetrie oder Benachrichtigungen;
+- lösch- und rebuildbare Indizes;
+- identische Authorization- und Tenant-Grenzen wie für die Quelldaten;
+- Ranking-, Filter-, Offline-, Empty-, Fehler- und Berechtigungstests;
+- sichtbare Provenienz, wenn ein Treffer aus Vorschlägen oder
+  nicht-vollständigem Offline-Cache stammt.
 
-Wenn Suche über mehrere Geräte, große OCR-Bestände oder bessere
-Typo-/Ranking-Funktionen wichtig wird, stellt Mappm Cloud einen verwalteten
-Search-Adapter hinter dem akzeptierten Cloud-, Privacy- und Authorization-
-Contract bereit. Local Development Cloud darf denselben Vertrag nur mit
-synthetischen Daten implementieren.
-
-Kandidaten:
-
-- Meilisearch.
-- Typesense.
-- PostgreSQL FTS/pgvector im verwalteten Backend.
-- Qdrant für RAG-/AI-heavy Retrieval.
-
-OpenSearch/Elasticsearch bleibt nur eine spätere Enterprise-Option, falls wirklich sehr komplexe Suche nötig wird.
-
-## Datenschutz
-
-Der Suchindex ist sensibel.
-
-Das gilt für:
-
-- Metadaten.
-- OCR-Text.
-- Tags.
-- Gegenparteien.
-- finanzielle Fakten.
-- medizinische Begriffe.
-
-Suchindex-Daten dürfen nicht als harmlose technische Daten behandelt werden.
-
-Regeln:
-
-- Keine Suchbegriffe oder Treffer mit sensiblen Details in Logs.
-- Keine unverschlüsselte externe Suche ohne explizite Sync-/Privacy-Entscheidung.
-- Suchindex muss lösch- und rebuildbar sein.
-- Spätere Remote-Search muss dieselben Trust Boundaries wie Sync erfüllen.
-
-## Konsequenzen
-
-- `R4-D3` ist entschieden und durch die Vault-Rebaseline ergänzt.
-- `PILLAR_SEARCH_FACTS_INSIGHTS.md` muss lokale FTS5-Suche fuer Local Vault und
-  verwaltete Suche fuer Cloud Vault sauber unterscheiden.
-- `CONCEPT_F10_LOCAL_STORAGE.md` muss FTS5 und Search-Boundary vorbereiten.
-- Ein Implementierungs-Issue muss den betroffenen Vault-Modus und die offline
-  belegbare Ergebnisreichweite explizit nennen.
-
-## Nicht entschieden
-
-- Ob Mappm Cloud PostgreSQL FTS/pgvector, Meilisearch oder Typesense nutzt.
-- Ob lokale semantische Suche mit `sqlite-vec` umgesetzt wird.
-- Welche OCR-Engine zuerst kommt.
-- Welche Verschlüsselungs-, Mandantenisolations- und Autorisierungsregeln der
-  verwaltete Suchindex benötigt.
+Semantische oder Vektorsuche wird erst nach eigenem Privacy-, Quality- und
+Kosten-Gate freigegeben.

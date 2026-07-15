@@ -2,16 +2,18 @@
 title: "Enterprise-Säule - Developer Experience and Architecture Governance"
 description: "Enterprise-Bereich fuer Bootstrap, Codegen, Architekturregeln, Decisions, GitHub Issues, Milestones und Definition of Done"
 tags: [pillar, enterprise, dx, architecture, governance]
-lastUpdated: "2026-07-12"
-version: "0.1"
+lastUpdated: "2026-07-15"
+version: "0.2"
 status: "proposed"
+owner: "foundation/quality-readiness"
 ---
 
 # Enterprise-Säule - Developer Experience and Architecture Governance
 
 ## Zweck
 
-DocMan soll langfristig wartbar bleiben und von neuen Arbeitsabschnitten sicher erweitert werden können.
+Mappm soll langfristig wartbar bleiben und von neuen Arbeitsabschnitten sicher
+erweitert werden koennen.
 
 ## Scope
 
@@ -26,7 +28,7 @@ DocMan soll langfristig wartbar bleiben und von neuen Arbeitsabschnitten sicher 
 - Definition of Done.
 - Handoff- und Review-Prozesse.
 
-## M2-Minimum
+## C1-Minimum
 
 - frischer Checkout kann initialisiert werden.
 - generierte Dateien sind reproduzierbar.
@@ -42,8 +44,9 @@ DocMan soll langfristig wartbar bleiben und von neuen Arbeitsabschnitten sicher 
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

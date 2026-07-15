@@ -1,69 +1,26 @@
 ---
 title: "Superseded - Home Hub and Sync"
-description: "Historische Plattform-Säule; ersetzt durch Cloud, Identity and Sync"
-tags: [pillar, platform, home-hub, sync, pairing, self-hosted]
-lastUpdated: "2026-07-12"
-version: "1.0"
+description: "Historischer Verweis; vollständig ersetzt durch Account, Cloud, Identity and Sync"
+tags: [pillar, historical, superseded]
+lastUpdated: "2026-07-15"
+version: "2.0"
 status: "superseded"
+owner: "product-concept"
 ---
 
 # Superseded - Home Hub and Sync
 
-Dieses Dokument ist nicht mehr normativ. Es wird vollständig ersetzt durch
-`PILLAR_CLOUD_IDENTITY_SYNC.md` und
-`docs/technical/DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`.
+Dieses Dokument autorisiert keine Planung oder Implementierung. Die fruehere
+kundenseitige Home-Hub-/Tailscale-/Self-Hosting-Richtung wurde verworfen.
 
-Home Hub, Tailscale-Pairing und ein kundenseitig self-hosted Server sind kein
-aktiver Produktpfad. Die lokale Serverumgebung ist ausschließlich eine Local
-Development Cloud mit synthetischen Daten.
+Verbindliche Quellen sind:
 
-## Historischer Inhalt
+- `docs/pillars/PILLAR_CLOUD_IDENTITY_SYNC.md`;
+- `docs/technical/DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`;
+- `docs/technical/DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md`;
+- `docs/concepts/CONCEPT_F36_VAULT_MODES_CLOUD_LIFECYCLE.md`.
 
-## Zweck
-
-Diese Säule beschreibt den privaten, self-hosted Weg von DocMan:
-
-- Mobile Pairing.
-- Upload an Home Hub.
-- späterer Sync.
-- Konfliktbehandlung.
-- austauschbare Backend-Implementierung.
-
-## Grundsatz
-
-DocMan bleibt local-first und backend-agnostisch.
-
-Tailscale/Home Hub ist eine erste private Betriebsform, aber keine Produktfessel. Eine spätere self-hosted Cloud oder andere Infrastruktur muss möglich bleiben, wenn die Schnittstellen stabil bleiben.
-
-## M2-Scope
-
-M2:
-
-- QR Pairing und manueller Code als Fallback.
-- Mobile Upload-Token.
-- Upload in Draft-Inbox.
-- Gerät widerrufbar machen.
-- keine vollständige bidirektionale Synchronisation.
-
-spaetere Milestones:
-
-- Sync-Journal.
-- Konfliktansicht.
-- Remote-Dateispeicher.
-- Multi-Geräte-Sync.
-- optionale Identity Provider.
-
-## Enterprise-Grenzen
-
-- Dokumentdateien und Metadaten sind beide sensibel.
-- Secrets gehören in Secure Storage.
-- Logs dürfen keine Dokumentinhalte oder Tokens enthalten.
-- Sync muss später E2EE-/Zero-Knowledge-fähig bleiben.
-
-## Enterprise Quality Contract
-
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Die lokale Serverumgebung ist ausschliesslich eine Local Development Cloud mit
+synthetischen Daten. Sie ist kein Kundenfeature und kein verkaufbarer
+Deploymentmodus. Historische Details werden nicht in diesem Dokument erhalten,
+weil sie Agenten keine zweite Zielarchitektur anbieten duerfen.

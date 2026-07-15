@@ -1,105 +1,80 @@
 ---
 title: "Decision - Backup and Restore Strategy"
-description: "Entscheidung zur minimalen Backup-/Restore-Strategie vor echtem Haushaltsbetrieb von Mappm"
-tags: [decision, backup, restore, resilience, home-hub, local-first]
-lastUpdated: "2026-07-12"
+description: "Vault-spezifische Backup-, Export-, Restore- und Recovery-Strategie vor produktiver Nutzung"
+tags: [decision, backup, restore, resilience, vault, cloud, local]
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "data-architect/operations/product"
 ---
 
 # Decision - Backup and Restore Strategy
 
-## Status
-
-Accepted with Vault-mode rebaseline on 2026-07-12.
-
-The invariant "sync is not backup" remains binding. Home-Hub backup references
-below are superseded. Local Vaults require encrypted export/restore; Cloud
-Vaults require managed backup/restore plus free export and verified
-Cloud-to-Local migration.
-
-R11-D1 ist entschieden. Mappm braucht vor echtem Haushaltsbetrieb ein
-verlaessliches Backup-/Restore-Minimum. Sync ist nicht das Sicherheitsnetz.
-
 ## Entscheidung
 
-Vor echtem Haushaltsbetrieb braucht Mappm mindestens:
+Sync ist kein Backup. Vor produktiver Nutzung benoetigt jeder aktivierte
+Vault-Modus einen nachgewiesenen, wiederherstellbaren Exit-/Recovery-Pfad.
 
-- lokales Backup fuer strukturierte Metadaten und Dokumentdateien.
-- Home Hub als Backup-Ziel, nicht nur als Sync-Ziel.
-- manuellen "Backup jetzt erstellen"-Flow.
-- automatische regelmaessige Backups.
-- sichtbaren Backup-Status.
-- sichtbare Backup-Fehler.
-- Restore-Test als Pflichtbestandteil der Backup-Readiness.
-
-Ein Backup gilt erst als vertrauenswuerdig, wenn Mappm es testweise
-wiederherstellen und die wichtigsten Integritaetspruefungen bestehen kann.
-
-## Sync Ist Kein Backup
-
-Sync und Backup haben unterschiedliche Produktrollen.
-
-| Funktion | Zweck |
+| Vault-Modus | Verbindliches Minimum |
 |---|---|
-| Sync | aktuellen Zustand zwischen Geraeten replizieren |
-| Backup | gegen Datenverlust, defekte Migrationen, versehentliches Loeschen, Geraeteverlust und kaputte Sync-Zustaende schuetzen |
+| Local Vault | verschluesselter vollstaendiger Export/Backup, Restore und Integritaetspruefung |
+| Cloud Vault | managed Backup/Restore, freier Export und verifizierte Cloud-to-Local-Migration |
 
-Multi-Geraete-Sync darf deshalb nie das einzige Sicherheitsnetz sein.
+Backupfaehigkeit wird nicht durch blosse Jobausfuehrung bewiesen. Ein Backup
+gilt erst als vertrauenswuerdig, wenn Restore, Counts, Referenzen und Checksums
+in einer isolierten Testumgebung erfolgreich geprueft wurden.
 
-## Minimale Produktanforderungen
+## Local Vault
 
-Die App muss anzeigen koennen:
+- Backup umfasst strukturierte Daten, Originaldateien, relevante Manifeste und
+  die fuer Restore notwendige Version-/Schemainformation.
+- Verschluesselung und Key-/Recovery-Handhabung folgen der akzeptierten
+  Security-Entscheidung.
+- Zielort, Zeit, Umfang, letzter Erfolg und Fehler sind sichtbar.
+- Betriebssystem-Backups gelten nur nach ausdruecklicher Security-/Platform-
+  Pruefung als zulaessiger Teil der Strategie.
+- Detached Recovery und Export bleiben auch ohne aktiven Servicezugang moeglich.
 
-- wann das letzte erfolgreiche Backup gelaufen ist.
-- ob das aktuelle Geraet gesichert ist.
-- ob der Home Hub erreichbar und als Backup-Ziel nutzbar ist.
-- ob Backup oder Restore Fehler haben.
-- ob ein Restore-Test erfolgreich war.
+## Cloud Vault
 
-Die App darf Backup-Fehler nicht still verschlucken.
+- Managed Backups sind von Live-Storage und normaler Replikation getrennt.
+- Restore besitzt definierte RPO/RTO, Retention, Region und Operatorzugriff.
+- User-Export und Cloud-to-Local sind keine kostenpflichtig blockierbaren
+  Premium-Extras im Kuendigungs-/Grace-Pfad.
+- Backup-Retention und User-Loeschung werden rechtlich/technisch abgestimmt und
+  transparent kommuniziert.
+- Multi-Vault-/Tenant-Restore darf keine fremden Daten exponieren.
 
-## Scope Des Backups
+## Restore und Migration
 
-Ein vollwertiges Backup umfasst:
+- Restore laeuft in einen klaren Zielkontext und ueberschreibt keine aktive
+  Autoritaet still.
+- Vor Aktivierung werden Inventar, Counts, Checksums und Referenzen geprueft.
+- Schema-/App-Versionen besitzen einen dokumentierten Upgradepfad.
+- Fehlende oder korrupte Eintraege werden gelistet; Erfolg darf sie nicht
+  verbergen.
+- Restore-, Rollback- und Disaster-Recovery-Drills werden regelmaessig
+  wiederholt und datiert dokumentiert.
 
-- lokale strukturierte Daten.
-- Dokumentdateien und technische Artefakte, die fuer Wiederherstellung relevant
-  sind.
-- Dateihashes und Integritaetsmetadaten.
-- Versionen, Tombstones und Loeschinformationen, sobald sie Teil des
-  Datenmodells sind.
-- notwendige App-Konfiguration ohne Secrets im Klartext.
+## Security, Privacy und Operations
 
-Secrets, Tokens und Recovery-Schluessel duerfen nicht unkontrolliert in normale
-Backups wandern. Sie brauchen eine eigene Security-/Recovery-Regel.
+- Backups sind verschluesselt, zugriffskontrolliert, redigiert diagnostizierbar
+  und besitzen Retention/Deletion.
+- Keine Dokumentnamen oder Inhalte in globalem Backup-Status, Logs oder Alerts.
+- Backup-Schluessel und Recovery Secrets liegen nicht im Backup selbst ohne
+  akzeptiertes Envelope-/Recovery-Modell.
+- Monitoring erkennt ausbleibende/fehlerhafte Backups; Fehler sind sichtbar und
+  supportbar.
 
-## Home Hub Rolle
+## Tests und Gates
 
-Der Home Hub ist fuer den ersten produktiven Haushaltsbetrieb:
+- automatisierte Backup-/Restore-Integritaetstests mit synthetischen Vaults.
+- Crash, unvollstaendiges Backup, falscher Key, Korruption und Schemawechsel.
+- Cloud-Tenant-Isolation und lokale Zielplatz-/Speicherfehler.
+- Restore Drill vor Closed Beta und vor Commercial 1.0.
+- dokumentierte RPO/RTO-/Retention-Abnahme fuer Managed Cloud.
 
-- Sync Coordinator.
-- Backup-Ziel.
-- Restore-Quelle.
-- Storage-Health-Pruefpunkt.
+## Stop Rules
 
-Der Home Hub ersetzt aber nicht die lokale App-Arbeitsbasis. Desktop und Mobile
-muessen weiterhin offline nutzbar bleiben.
-
-## Konsequenzen
-
-- R11-D1 ist entschieden.
-- Backup/Restore wird als Produktfunktion geplant, nicht als Nebeneffekt von
-  Sync.
-- R11 braucht eigene Phasen fuer Backup-Erzeugung, Home-Hub-Backup, Restore,
-  Integritaetspruefung und UI-Status.
-- Admin-/Storage-Health muss Backup- und Restore-Zustaende anzeigen koennen.
-- Loeschung, Tombstones, Versionierung und Migrationen muessen mit Backup und
-  Restore zusammengedacht werden.
-
-## Nicht entschieden
-
-- konkretes Backup-Dateiformat.
-- konkrete Verschluesselungsstrategie fuer Backups.
-- Backup-Retention-Regeln.
-- ob Backups spaeter versioniert, inkrementell oder dedupliziert werden.
-- UX-Details fuer Recovery nach Geraeteverlust.
+Stop, wenn Sync als Backup gilt, Restore nie ausgefuehrt wurde, Exit durch
+Kuendigung/Quota blockiert wird, Backup-Schluessel ungeklärt sind oder ein
+Restore zwei schreibende Autoritaeten erzeugen kann.

@@ -2,7 +2,7 @@
 title: "Decision - Jurisdictional Tax Document Collection"
 description: "Produktgrenze fuer private und geschaeftliche Steuer-Unterlagensammlung ohne Buchhaltungs- oder Steuerberatungsclaim"
 tags: [decision, product, tax, jurisdiction, business, documents, workflows, compliance]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-15"
 status: "accepted-direction"
 owner: "product-concept"
 ---
@@ -104,6 +104,13 @@ approved product decision expands scope.
 - Every template is dated, versioned and source-backed.
 - Regulatory changes trigger review, withdrawal or a new workflow version.
 - Existing historical collections remain readable and auditable.
+
+The dated, non-normative Austrian discovery inventory lives in
+`docs/discovery/AUSTRIA_TAX_CASE_CATALOG_DRAFT.md`. It explores employee,
+personal-income, VAT, corporate, partnership, procedural and professional-
+handoff candidates, but does not close OQ-010 or authorize an AT workflow pack.
+The broader preliminary country mapping is in
+`docs/discovery/AUSTRIA_CASE_WORKFLOW_COUNTRY_PACK_DRAFT.md`.
 
 ## Stop Rules
 

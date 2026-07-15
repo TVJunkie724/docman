@@ -1,96 +1,64 @@
 ---
-title: "Decision - Local Export Instead of External Sharing"
-description: "Entscheidung gegen externes App-Sharing und fuer bewussten lokalen Export einzelner Dokumente oder ganzer Vorgaenge"
-tags: [decision, export, sharing, privacy, zip, external-access]
-lastUpdated: "2026-07-12"
+title: "Decision - Export Baseline and Deferred Secure Sharing"
+description: "Bewusster Export als Commercial-Core-Baseline; sicheres Sharing bleibt eigener spaeterer Trust-Slice"
+tags: [decision, export, sharing, privacy, portability, external-access]
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "product-concept/security"
 ---
 
-# Decision - Local Export Instead of External Sharing
-
-## 2026 Portability Rebaseline
-
-Local export remains accepted, but is now also a required Cloud exit path.
-Cloud-to-Local migration is separate and must be verified. Historical
-private/self-hosted positioning below does not limit managed Cloud portability.
-
-## Status
-
-Accepted.
-
-R14-D1 ist entschieden. Mappm bietet keine externen Zugriffe auf die App und
-kein Cloud-Sharing fuer Personen ausserhalb des Haushalts. Die sichere
-Uebergabeform ist bewusster lokaler Export.
+# Decision - Export Baseline and Deferred Secure Sharing
 
 ## Entscheidung
 
-Mappm soll Dokumente herausgeben koennen, aber nicht selbst zum externen
-Sharing-Portal werden.
+Mappm liefert im Commercial Core einen bewussten lokalen Export und einen
+vollstaendigen Cloud-Exit. Account-zu-Account-Sharing und zeitlich begrenzte
+Freigaben sind geplant, aber keine Nebenwirkung des Exportflows. Sie werden erst
+in R14 nach eigenem Trust-/Rights-/Contract-/Revocation-/Audit-Gate aktiviert.
 
-Erlaubte erste Exportformen:
+## Exportformen
 
-- einzelnes Dokument als Originaldatei lokal speichern, ohne ZIP.
-- mehrere ausgewaehlte Dokumente als ZIP exportieren.
-- ganzen Vorgang als ZIP exportieren.
-- optional spaeter Exportmanifest/Deckblatt mitgeben.
-- optional spaeter redigierte Varianten erzeugen.
+- einzelnes Dokument als Originaldatei.
+- mehrere ausgewaehlte Dokumente als Paket.
+- Case-/Record-Export mit optionalem Manifest und bestaetigten Metadaten.
+- vollstaendiger Vault-/Account-Datenexport gemaess Policy/Betroffenenrecht.
+- Cloud-to-Local-Migration als verifizierter Autoritaetswechsel, getrennt vom
+  einfachen Export.
 
-Nicht geplant:
+Export dupliziert keine fachliche Besitzstruktur in Mappm. Nach lokaler Uebergabe
+an Mail, Portal, Druck, Share Sheet oder Datentraeger liegt der externe Versand
+ausserhalb der Mappm-Vertrauensgrenze.
 
-- externe Nutzerkonten fuer Anwalt, Arzt, Schule, Versicherung oder Behoerde.
-- externe App-Zugriffe auf Mappm.
-- oeffentliche oder zeitlich begrenzte Cloud-Share-Links.
-- Linkfreigaben auf einzelne Dokumente oder Vorgaenge.
-- externes Rollenmodell fuer Personen ausserhalb des Haushalts.
+## Secure Sharing als eigener Slice
 
-Nach dem Export entscheidet die Nutzerin selbst, wie sie die Dateien
-verschickt: Mail, Portal-Upload, Messenger, USB-Stick, Druck oder ein anderer
-Kanal. Dieser Versand liegt ausserhalb der Mappm-Vertrauensgrenze.
+Vor Aktivierung muessen entschieden und getestet sein:
 
-## Warum
+- Empfaengeridentitaet und Berechtigung.
+- Objekt-/Action-Scope, Ablauf und Widerruf.
+- Verschluesselung, Key-/Download-Modell und Reauth.
+- Copy/Download/Weitergabe-Grenzen und transparente Nicht-Garantien.
+- Audit, Notifications, Retention, Loeschung und Betroffenenrechte.
+- Missbrauch, verlorener Zugriff, Account-Loeschung und Support.
 
-Mappm verwaltet hochsensible Haushaltsdokumente. Externes Sharing wuerde sofort
-zusatzliche Risiken erzeugen:
+Ein Exportlink, unbefristeter Object-Storage-Link oder externes Rollenmodell ist
+kein zulaessiger Shortcut.
 
-- Auth und Identitaet fremder Personen.
-- Widerruf und Ablauf von Freigaben.
-- Zugriffshistorie und Audit.
-- Hosting und Verfuegbarkeit.
-- versehentliche Ueberfreigabe.
-- rechtliche und Store-/Privacy-Fragen.
+## Security und Privacy
 
-Lokaler Export ist verstaendlicher, sicherer und passt besser zur
-private/self-hosted Produktlinie.
+- Vor Export zeigt die UI Umfang, Profile/Vaults, Dateizahl und sensible
+  Konsequenz.
+- Archive/Manifeste enthalten nur bewusst gewaehlte Daten.
+- Temporare Exportartefakte besitzen sichere Ablage und Cleanup.
+- Keine Dokumenttitel/-inhalte in globalen Notifications, Logs oder Audit.
+- Kuendigung/Quota blockiert erforderlichen Export/Cloud-to-Local nicht.
 
-## Produktverhalten
+## Tests und Stop Rules
 
-Die UI soll Export als bewusste Aktion darstellen:
+- Einzeldokument, Paket, kompletter Export, Abbruch, Speicherfehler und Cleanup.
+- Multi-Profile-/Vault-Scope und keine unbeabsichtigte Datenbeimischung.
+- Integritaet/Manifest und Restore-/Import-Lesbarkeit, soweit zugesichert.
+- Export nach Kuendigung/Grace/Read-only.
 
-- `Dokument exportieren`.
-- `Ausgewaehlte Dokumente als ZIP exportieren`.
-- `Vorgang als ZIP exportieren`.
-
-Vor dem Export soll sichtbar sein:
-
-- welche Dokumente enthalten sind.
-- welche Profile/Personen betroffen sind.
-- ob optionale Metadaten oder ein Manifest enthalten sind.
-- wohin exportiert wird.
-
-## Konsequenzen
-
-- R14-D1 ist entschieden.
-- Export ersetzt externes Sharing.
-- Einzeldokumente werden als Originaldatei exportiert, nicht als ZIP.
-- Outbox/Ausgang kann spaeter eine lokale Exporthistorie sein, kein
-  Freigabeportal.
-- R14 fokussiert lokale Exportpakete, Redaction und sichere Nutzerentscheidung.
-- Externe Freigaben bleiben explizit ausserhalb des Produktplans, bis die
-  Nutzerin diese Grenze neu entscheidet.
-
-## Nicht entschieden
-
-- konkreter UI-Name fuer Exportpakete.
-- ob ein Exportmanifest im ersten Export-Slice enthalten ist.
-- ob Redaction schon beim ersten ZIP-Export verfuegbar ist.
-- ob Exporte optional verschluesselt werden koennen.
+Stop, wenn Sharing still ueber Export aktiviert wird, unbefristete Links ohne
+Revocation entstehen, Exportprofile vermischt oder Exit durch Entitlement
+blockiert wird.

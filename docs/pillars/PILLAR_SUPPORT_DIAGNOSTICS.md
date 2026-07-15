@@ -2,9 +2,10 @@
 title: "Enterprise-Säule - Support and Diagnostics"
 description: "Enterprise-Bereich fuer Diagnosepakete, Support-Modus, Fehleranalyse, Nutzerhilfe und sichere Debuggability"
 tags: [pillar, enterprise, support, diagnostics]
-lastUpdated: "2026-07-12"
-version: "0.2"
+lastUpdated: "2026-07-15"
+version: "0.3"
 status: "proposed"
+owner: "quality-readiness/support"
 ---
 
 # Enterprise-Säule - Support and Diagnostics
@@ -22,15 +23,16 @@ Ein verkauftes Local-/Cloud-Produkt braucht Antworten auf: Was ist kaputt, warum
 - redigierte Log-Exporte.
 - Nutzerhilfen für häufige Fehler.
 
-## M2-Minimum
+## C2/C3-Minimum
 
 - verständliche Fehlerzustände.
 - keine privaten Inhalte oder Secrets in normalen Logs/Fehlerzustaenden.
-- Upload-Queue und Pairing-Status erklärbar machen.
+- Upload-/Processing-Queue sowie Account-/Device-/Session-Status erklaerbar
+  machen.
 
 ## Offene Entscheidung
 
-R12-D1 bleibt offen und ist kein M1-Thema:
+R12-D1 bleibt offen und ist kein frueher Foundation-Slice:
 
 - konkretes Diagnosepaket.
 - Support-Modus.
@@ -49,8 +51,9 @@ normalen Logs und Fehlerzustaenden.
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

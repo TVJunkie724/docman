@@ -2,7 +2,7 @@
 title: "Decision - Curated Jurisdictional Workflow Catalog"
 description: "Verbindliches Zielmodell fuer kuratierte, versionierte und laenderspezifische Mappm-Vorgangsvorlagen"
 tags: [decision, product, workflows, cases, internationalization, intelligence, compliance]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-15"
 status: "accepted"
 owner: "product-concept"
 ---
@@ -49,18 +49,25 @@ capabilities change.
 ## Layered Model
 
 ```text
-Workflow family
-  -> universal pattern
-      -> jurisdiction variant
-          -> regional/institution variant
-              -> versioned workflow definition
-                  -> case workflow instance
+one generic Case entity
+  -> optional visible domain template
+      -> reusable workflow pattern and modules
+          -> jurisdiction variant
+              -> regional/institution/provider variant
+                  -> versioned workflow definition
+                      -> case workflow instance
 ```
+
+The exact workflow-pattern and document catalog remains an R0.6 decision. The
+accepted separation is that a national form, provider or visible specialist
+workflow does not become a new core Case type. A Case without a guided
+workflow remains a complete, valid document/context collection.
 
 Example:
 
 ```text
-Medical expense reimbursement
+generic Case + settlement workflow pattern
+  -> medical-expense domain template
   -> capture invoice
   -> identify affected person and provider
   -> determine possible payer
@@ -87,7 +94,7 @@ applicable reviewed variant.
 Every published workflow definition must carry at least:
 
 - stable definition ID and immutable version;
-- workflow family and case type;
+- visible domain-template ID and reusable workflow-pattern ID;
 - supported country, jurisdiction and optional region;
 - supported institution/provider variants;
 - `validFrom`, optional `validTo`, publication date and last review date;
@@ -229,6 +236,10 @@ Stop implementation or release if:
 ## Related Decisions
 
 - `DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`
+- `../discovery/DYNAMIC_DOMAIN_COUNTRY_PACK_MODEL_DRAFT.md` (non-normative
+  schema/registry/runtime exploration)
+- `../discovery/AUSTRIA_CASE_WORKFLOW_COUNTRY_PACK_DRAFT.md` (non-normative
+  whole-catalog AT inventory)
 - `DECISION_DMS_TARGET_ARCHITECTURE.md`
 - `DECISION_WORKFLOW_RULES.md`
 - `DECISION_INTELLIGENCE_SCOPE.md`

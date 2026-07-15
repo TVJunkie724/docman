@@ -2,16 +2,18 @@
 title: "Produkt-Säule - Tasks, Reminders and Quick Access"
 description: "Produktbereich fuer Aufgaben, To-dos, Fristen, Erinnerungen, Benachrichtigungsquellen und Schnellzugriff"
 tags: [pillar, tasks, reminders, quick-access, deadlines, notifications]
-lastUpdated: "2026-07-14"
-version: "0.2"
+lastUpdated: "2026-07-15"
+version: "0.3"
 status: "accepted-direction"
+owner: "product-concept"
 ---
 
 # Produkt-Säule - Tasks, Reminders and Quick Access
 
 ## Zweck
 
-DocMan soll nicht nur Dokumente speichern, sondern helfen, nächste Schritte nicht zu vergessen.
+Mappm soll nicht nur Dokumente speichern, sondern helfen, naechste Schritte
+nicht zu vergessen.
 
 Beispiele:
 
@@ -43,7 +45,8 @@ Antworten, Gültigkeiten und Reminder. Es ist kein allgemeiner Kalender.
 
 ## Task
 
-Eine Aufgabe kann manuell erstellt oder später aus Workflows, Facts, Claims, Records oder OCR/LLM-Vorschlägen erzeugt werden.
+Eine Aufgabe kann manuell erstellt oder im C2/C3-Kern aus bestaetigten
+Workflow-, Fact-, Claim-, Record- oder Core-Assist-Vorschlaegen erzeugt werden.
 
 Mindestfelder:
 
@@ -59,7 +62,7 @@ Mindestfelder:
 
 ## Reminder
 
-Ein Reminder beschreibt, wann DocMan erinnern soll.
+Ein Reminder beschreibt, wann Mappm erinnern soll.
 
 ```text
 Reminder
@@ -86,7 +89,8 @@ Preisänderung vorgeschlagen.
 
 ## Quick Access
 
-Mit Notfallzugriff meint DocMan hier Schnellzugriff, nicht automatisch externe Berechtigung.
+Mit Notfallzugriff meint Mappm hier Schnellzugriff, nicht automatisch externe
+Berechtigung.
 
 Schnellzugriff ist eine kuratierte Sicht auf wichtige Dokumente, Records oder Vorgänge:
 
@@ -98,9 +102,9 @@ Schnellzugriff ist eine kuratierte Sicht auf wichtige Dokumente, Records oder Vo
 - wichtige medizinische Unterlagen.
 - Schlüsseldokumente fuer Kinder.
 
-## M2-Scope
+## C3-Scope
 
-Schlanker M2-Slice:
+Schlanker C3-Slice:
 
 - Aufgabenübersicht.
 - Aufgaben manuell erstellen, erledigen, verwerfen.
@@ -116,7 +120,8 @@ Späterer Milestone:
 - komplexe wiederkehrende Aufgaben.
 - Kalenderintegration.
 - Push über mehrere Geräte.
-- automatische OCR/LLM-Aufgabenerzeugung ohne Review.
+- automatische Aufgabenerzeugung ohne Review; bestaetigte Vorschlaege gehoeren
+  bereits zum Core.
 - externe Freigabe als Notfallzugriff.
 
 ## Abgrenzung
@@ -128,15 +133,16 @@ Späterer Milestone:
 ## Offene Folgefragen
 
 - Heißt der UI-Bereich `Schnellzugriff`, `Wichtig` oder `Notfallmappe`?
-- Werden lokale OS-Benachrichtigungen schon im R4-M2 umgesetzt?
+- Welche lokalen OS-Benachrichtigungen gehoeren in C3 und welche erst in C5?
 - Welche Reminder werden automatisch aus Records vorgeschlagen?
 - Welche ruhigen/benachrichtigenden Defaults gelten je Plattform und
   Schutzklasse?
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

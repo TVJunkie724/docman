@@ -2,10 +2,10 @@
 title: "Decision - Workflow Rules"
 description: "Entscheidung zu Mappm-Workflows: kuratierte Führung und nachvollziehbare Vorschläge statt harter Status-Käfige"
 tags: [decision, product, workflow, cases, tasks, internationalization]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "product-concept/domain"
 ---
-
 # Decision - Workflow Rules
 
 ## Status
@@ -56,10 +56,13 @@ Beispiele:
 
 ## Konsequenzen
 
-- M2-Workflows sind leichtgewichtig.
+- Der Commercial Core startet mit wenigen kompositorischen Workflow-Mustern
+  statt einer großen, für Nutzerinnen sichtbaren Typauswahl.
 - Status und Aufgaben helfen beim Sortieren, ersetzen aber nicht Nutzerentscheidung.
 - Konflikte und unsichere Automationen landen in Review.
-- Spätere Intelligence erzeugt Vorschläge, keine stillen Entscheidungen.
+- In der aktuellen Reifestufe erzeugt Intelligence Vorschläge, keine stillen
+  Entscheidungen. Spätere Automatisierung folgt ausschließlich den
+  klassenspezifischen Quality Gates der Assisted-Routing-Entscheidung.
 - Nicht unterstützte Länder-/Anbieterkombinationen fallen auf einen klar
   gekennzeichneten manuellen Vorgang zurück.
 - Fachliche Vorgaben sind versionierter Produktinhalt, nicht Widget- oder

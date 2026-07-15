@@ -1,115 +1,60 @@
 ---
-title: "Decision - Mobile Offline Capture"
-description: "Entscheidung zum Offline-Scope fuer Mobile Capture, lokale Queue, Kontext-Cache und Home-Hub-Unabhaengigkeit beim Scannen"
-tags: [decision, mobile, capture, offline, queue, home-hub, draft-inbox]
-lastUpdated: "2026-07-14"
+title: "Decision - Mobile Offline Capture and Processing Queue"
+description: "Offline-feste mobile Erfassung mit dauerhaftem Dokumentmanifest, Vault-konformer Queue und späterer Assist-Verarbeitung"
+tags: [decision, mobile, capture, offline, queue, processing, batch, vault]
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "product-concept"
 ---
 
-# Decision - Mobile Offline Capture
-
-## 2026 Vault Rebaseline
-
-Offline durability remains accepted. Local mobile Vault captures remain on that
-device. Cloud Vault captures queue as pending work until Mappm Cloud confirms;
-they do not become completed merely because bytes exist locally.
+# Decision - Mobile Offline Capture and Processing Queue
 
 ## Status
 
-Accepted.
-
-R7-D2 ist entschieden. Mobile Capture muss offline funktionieren. Der Home Hub
-ist Upload-/Sync-Ziel, aber keine Voraussetzung fuer das Scannen.
+Angenommen. Frühere Desktop-/Home-Hub-Fallbacks und Vorab-Kontextauswahl sind
+ersetzt.
 
 ## Entscheidung
 
-Capture darf nie am Netzwerk scheitern. Kontext darf fehlen.
+Netzwerk- oder Assist-Verfügbarkeit blockiert niemals Capture. Mobile sichert
+Originale, Seitenreihenfolge, Dokumentgrenzen und ausdrückliche Nutzerabsicht
+dauerhaft und setzt Transfer sowie Verarbeitung fort, sobald der aktive
+Vault-/Providerpfad verfügbar ist.
 
-Mobile muss Dokumente und Bildnachweise offline erfassen, lokal speichern und in
-einer persistenten Upload Queue halten koennen. Wenn der Home Hub nicht
-erreichbar ist, wird der Upload spaeter nachgeholt. Fehlender oder veralteter
-Kontext wird im Desktop Draft Review korrigiert.
+Offline unterstützt mindestens Dokumentenscan, Bildnachweis, mehrseitige und
+mehrere nacheinander abgeschlossene Dokumente, Retake/Remove/Reorder/Cancel,
+lokale Qualitätsprüfung, optional „Neuen Case starten“, persistente Queue und
+privacy-sichere Statusanzeige. Profil-, Case- oder Metadatenwahl vor dem Scan
+ist nicht erforderlich.
 
-## Offline zwingend
+## Vault-Semantik
 
-Mobile muss offline koennen:
+- Local Vault bleibt auf dem Gerät autoritativ; Assist wartet auf den separat
+  akzeptierten Processing-Pfad.
+- Cloud Vault bleibt pending, bis Mappm Cloud die Speicherung bestätigt.
+- Processing-Beginn ist keine Cloud-Speicherbestätigung.
+- Core Assist erzeugt für Local Vault keine stille Cloud-Ablage oder Sicherung.
 
-- Dokumentenscan aufnehmen.
-- Foto/Bildnachweis aufnehmen.
-- Capture Intent setzen: `DocumentScan` oder `PhotoOrImageEvidence`.
-- lokale Artefakte sicher speichern.
-- Upload Queue persistieren.
-- Queue ueber App-Neustart behalten.
-- Queue-Status anzeigen.
-- Notiz hinzufuegen.
-- Retake/Abbrechen/lokalen Entwurf loeschen.
-- spaeter manuell oder automatisch hochladen, wenn Home Hub erreichbar ist.
+## Zustandsfamilien
 
-## Offline optional, aber sinnvoll
+Der konkrete Contract wird im Implementation Slice definiert, muss aber lokale
+Sicherung, Warten auf Verbindung, Transfer, Cloud-Bestätigung beziehungsweise
+lokale Bereitschaft, Processing, Vorschlag, Review, wiederholbaren Fehler,
+manuellen Fallback und Bestätigung unterscheiden.
 
-Mobile darf offline anbieten:
+Zustand, Idempotenz, Seitenreihenfolge und Retry überstehen Neustart,
+doppelte Callbacks und Partial-Batch-Fehler.
 
-- betroffene Person aus gecachtem Haushaltsprofil waehlen.
-- Vorgang aus gecachter Liste waehlen.
-- zuletzt verwendete Vorgänge anbieten.
-- einfache Tags oder Kurznotiz setzen.
-- Queue-Eintrag vor Upload korrigieren.
-- Upload pausieren oder erneut versuchen.
+## Ergebnis und Fallback
 
-Diese Felder duerfen Capture nicht blockieren. Wenn Cache fehlt, wird trotzdem
-gescannt.
+Die Nutzerin darf die App unmittelbar nach dauerhafter Sicherung verlassen.
+OCR, Indexierung und Matching können Sekunden oder Minuten dauern.
+Benachrichtigungen zeigen standardmäßig keine sensiblen Titel oder Inhalte.
 
-## Nicht noetig fuer R7
+Bleibt Assist nicht verfügbar, bleibt das Original zugänglich. Ein begrenzter
+manueller Fallback darf den Mindest-Review abschließen, behauptet aber keine
+gleichwertige Erkennungsqualität.
 
-Nicht Teil dieser Entscheidung:
-
-- vollstaendige mobile Vorgangsverwaltung.
-- komplexe Case-Beziehungs- oder Kompositionsbearbeitung auf Mobile.
-- vollstaendige mobile Dokumentbibliothek.
-- vollstaendige mobile Suche.
-- Sync-Konfliktaufloesung auf Mobile.
-- OCR/AI auf Mobile.
-- Rechteverwaltung.
-- grosse Sync-Konfiguration.
-
-## Queue-Zustaende
-
-Die Mobile Queue braucht mindestens:
-
-```text
-localSaved
-waitingForConnection
-uploading
-uploaded
-uploadFailed
-reviewNeeded
-```
-
-Zustaende muessen fuer Nutzerinnen ruhig und verstaendlich sein. Wenn Home Hub
-nicht erreichbar ist, zeigt Mobile z. B. "Wird spaeter hochgeladen" statt
-Capture zu blockieren.
-
-## Draft-Inbox-Fallback
-
-Wenn Kontext fehlt oder ungueltig wird:
-
-- Upload bleibt erlaubt.
-- Desktop Draft-Inbox ist der sichere Zielort.
-- Review Completion verlangt spaeter die betroffene Person und Pflichtfelder.
-- ungueltige `profileId` oder `caseId` fuehrt zu Review, nicht zu Datenverlust.
-
-## Konsequenzen
-
-- R7-D2 ist entschieden: Offline-Capture mit persistenter Queue ist Pflicht.
-- Home-Hub-Erreichbarkeit ist keine Capture-Voraussetzung.
-- Kontextauswahl ist Komfort, nicht Pflicht.
-- Mobile bleibt Capture-first und wird nicht zur vollstaendigen Desktop-Verwaltung.
-- F17 Mobile Capture muss diese Offline-Regel als DoD behalten.
-
-## Nicht entschieden
-
-- exakte lokale Mobile-Persistenz fuer Queue-Artefakte.
-- wie lange fehlgeschlagene Uploads lokal behalten werden, ausser bestehende
-  Cleanup-Regeln greifen.
-- ob Upload automatisch oder manuell startet, sobald Verbindung zurueck ist.
-- wie viel Mobile-Review spaeter in R7 ausgebaut wird.
+Stop, wenn Offline-Capture gecachte Cases/Profile voraussetzt, ein Neustart
+Artefakte verliert, Cloud vor Bestätigung als abgeschlossen gilt, Teilfehler
+erfolgreiche Dokumente verwerfen oder fehlender Assist das Original löscht.

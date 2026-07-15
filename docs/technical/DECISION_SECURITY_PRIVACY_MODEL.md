@@ -1,201 +1,124 @@
 ---
 title: "Decision - Security and Privacy Model"
-description: "Entscheidung zum Security-/Privacy-Grundmodell fuer sensible Dokumente, Home Hub und spaetere Cloud-faehige Betriebsformen"
-tags: [decision, accepted, security, privacy, encryption, backup, e2ee, zero-knowledge]
-lastUpdated: "2026-07-12"
+description: "Security- und Privacy-Grundmodell für sensible Dokumente, Vaults, Core Assist, Backup, Export und Recovery"
+tags: [decision, security, privacy, encryption, backup, e2ee, zero-knowledge]
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "security/product-concept"
 ---
-
 # Decision - Security and Privacy Model
 
 ## Status
 
-Accepted with Cloud rebaseline on 2026-07-12.
+Angenommen als verbindliche Baseline. Die konkrete Kryptografie für Cloud
+Vault, lokale Daten und Core Assist bleibt ein blockierendes Folge-Gate; dieses
+Dokument behauptet keine bereits entschiedene E2EE- oder Zero-Knowledge-Lösung.
 
-Documents, metadata, OCR/LLM output, profiles, credentials and diagnostics
-remain sensitive. The first-operating-mode and customer Home-Hub statements
-below are superseded by
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`. Cloud production remains
-blocked until Managed Trust versus Zero-Knowledge/E2EE, recovery and AI access
-are explicitly accepted.
+## Grundentscheidung
 
-DocMan behandelt Dokumente, extrahierte Inhalte und viele Metadaten als sensible Daten. Die erste Betriebsform ist private/self-hosted Home-Hub-Synchronisation. Die Architektur muss aber von Anfang an so geschnitten sein, dass spaetere self-hosted cloudartige Setups oder optionale Managed-Varianten mit starker clientseitiger Verschluesselung und Zero-Knowledge-Faehigkeit moeglich bleiben.
+Mappm behandelt Dokumente, Metadaten, OCR-/LLM-Ausgaben, Profile, Credentials,
+Suchindizes und Diagnoseinformationen nach ihrem tatsächlichen Schutzbedarf.
 
-## Entscheidung
+- Local Vault ist lokal autoritativ.
+- Cloud Vault ist in Mappm Cloud autoritativ; Clients halten nur
+  policy-begrenzten Cache und Pending State.
+- Core Assist ist eine eigene Processing- und Trust-Grenze. Er ändert den
+  Vault-Modus nicht.
+- Normale Nutzung verwendet Account-, Session-, Device- und Entitlement-Trust.
+- Detached Recovery ist der accountunabhängige Exit für lokale Daten, kein
+  versteckter normaler Betriebsmodus.
+- Secrets liegen ausschließlich in Secure Storage.
+- Keine Implementierung startet, solange ihre Key-, Recovery-, Provider-,
+  Retention-, Training-, Lösch- oder AI-Trust-Gates offen sind.
 
-DocMan verfolgt **Security-by-Design in Stufen**:
+## Datenklassen
 
-- M2/Home Hub bleibt private, selbst kontrollierte Infrastruktur.
-- Secrets liegen ausschliesslich in Secure Storage.
-- Dokumentdateien, OCR-Text und sensible Metadaten gelten als schuetzenswerte Nutzdaten.
-- Logs enthalten keine Dokumentinhalte, Tokens, Pairing-Codes, OCR-Texte oder sensiblen Metadaten.
-- Sync- und Storage-Grenzen werden so geplant, dass spaetere clientseitige Ende-zu-Ende-Verschluesselung moeglich bleibt.
-- Server, Home Hub oder spaetere Cloud-Komponenten duerfen langfristig nicht als zwingende Klartext-Owner der Dokumente modelliert werden.
-
-Der M2 muss noch keine vollstaendige App-Level-Verschluesselung fuer lokale Datenbank und Dateiablage implementieren. Er darf aber keine Architekturentscheidung treffen, die clientseitige Verschluesselung, Key Management, Recovery oder Zero-Knowledge-Sync spaeter verhindert.
-
-## Schutzgueter
-
-DocMan schuetzt nicht nur Secrets.
-
-| Datenklasse | Beispiele | Regel |
+| Datenklasse | Beispiele | Mindestregel |
 |---|---|---|
-| Secrets | Pairing-Token, Session-Token, Recovery Keys | nur Secure Storage, nie SQLite, nie Logs |
-| Dokumentdateien | Scans, PDFs, Fotos, Arztbriefe, Vertrage, Ausweise | lokale Dateiablage, Home-Hub nur privat/self-hosted, spaeter verschluesselbarer Payload |
-| Assist-/OCR-/LLM-Daten | Upload-Payload, extrahierter Text, Klassifikation, Formular-/Vorgangsvorschlaege | Core Assist in C2/C3 nur nach VC-02/OQ-003 und AI/REG/SEC/DATA Gates; minimiert, reviewbar, löschbar, nie normales Logging/Training |
-| Strukturierte Metadaten | Titel, Absender, Datum, Betrag, Status, Tags, Case-Zuordnung | SQLite/Drift, sync-vorbereitet, Sensitivitaet mitdenken |
-| Hochsensible Metadaten | Passnummern, Ausweisnummern, SV-/Versicherungsnummern, medizinische Details, Versicherungsbeziehungen | klassifizieren, minimieren, explizit als sensitiv markieren und nicht in normalen Listen/Logs/Telemetry ausgeben |
-| Profil-/Identity-Daten | Anzeigename, rechtlicher Name, Geburtsdatum, Adresse/Meldeinformation, E-Mail als Account-Identifier, spaetere ID-Austria-Verknuepfung | Schutzklasse nach `DECISION_PROFILE_SENSITIVE_DATA.md`; lokale Profile nicht mit Login-Accounts verwechseln |
-| Sync-/Upload-State | Queue, Remote-ID, Revision, Tombstone, Konfliktstatus | noetig fuer Robustheit, keine Geheimnisse enthalten |
-| Logs/Diagnose | Fehlerklassen, Sync-Status, technische Ereignisse | keine Inhalte, keine Tokens, keine personenbezogenen Details |
+| Secrets | Session-/Device-Token, Recovery Keys | nur Secure Storage; nie SQLite, Logs oder Telemetrie |
+| Dokumentdateien | Scans, PDFs, Fotos, Ausweise, Arztbriefe | kontrollierter Local- oder Cloud-Storage nach akzeptiertem Key-/Trust-Modell |
+| Assist-Daten | Upload-Payload, OCR-Text, Prompts, Modelloutput, Vorschläge | sensible Nutzdaten; minimiert, zweckgebunden, löschbar, nicht für normales Training oder Logging |
+| Strukturierte Metadaten | Titel, Datum, Betrag, Status, Zuordnungen | Schutz und Sichtbarkeit nach fachlichem Inhalt, Vault und Berechtigung |
+| Hochsensible Daten | Gesundheits-, Ausweis-, Sozialversicherungs-, Steuer- und Versicherungsdaten | minimieren, klassifizieren, maskieren und nur zweckgebunden anzeigen |
+| Sync-/Queue-State | Revision, Remote-ID, Tombstone, Pending Operation | robust und auditierbar, aber ohne Secrets oder Dokumentinhalte |
+| Diagnose | Fehlerklasse, Komponente, technische Korrelation | inhaltsfrei, redigiert und zeitlich begrenzt |
 
-## Cloud-Verstaendnis
+## Trust Boundaries
 
-"Cloud" bedeutet fuer DocMan nicht automatisch fremde SaaS.
+**Local Vault:** Dateien und Metadaten sind lokal autoritativ. Temporäre
+Managed-Assist-Verarbeitung erzeugt weder stille Cloud-Ablage noch ein
+Backup-Versprechen.
 
-Moegliche spaetere Betriebsformen:
+**Cloud Vault:** Mappm Cloud ist Authority für Dateien und Metadaten. Managed
+Backup, Multi-Device, Offline-Cache, Retention und Recovery sind explizite,
+getestete Produktverträge.
 
-- privater Home Hub im Heimnetz.
-- self-hosted Server auf NAS, Heimserver oder VPS.
-- self-hosted cloudartiges Setup mit extern erreichbarem privaten Server.
-- optional spaeter eine Managed-Variante.
+**Local Development Cloud:** verwendet dieselben Contract-Familien nur mit
+synthetischen Daten, eigenen Secrets und strikt getrennten Umgebungen.
 
-Die Regeln gelten fuer alle Varianten:
+**Core Assist:** Klartextzugriff ist nur innerhalb eines akzeptierten Zwecks,
+Providers und Datenpfads zulässig. Retention, Löschung, Redaction,
+Observability, Training, Unterauftragsverarbeiter und Nutzerverhalten müssen
+vor realen Dokumenten feststehen.
 
-- Server duerfen als Storage-/Sync-Komponenten betrachtet werden, nicht automatisch als vertrauenswuerdige Klartext-Verarbeiter.
-- Eine spaetere Cloud- oder self-hosted-cloudartige Variante muss Dokumente und sensible Nutzdaten verschluesselt speichern koennen.
-- Verarbeitung von Klartext, etwa OCR oder LLM, braucht eine explizite Trust Boundary und Nutzerfreigabe.
-- Export, Loeschung und Recovery muessen planbar bleiben.
+## Commercial-Core-Minimum
 
-## M2-Minimum
+- Account-, Session-, Device- und Recovery-Secrets nur in Secure Storage.
+- Originale werden vor asynchronem Processing dauerhaft gesichert und gehen
+  bei Queue-, Restart- oder Partial-Batch-Fehlern nicht still verloren.
+- Logs, Telemetrie und Benachrichtigungen enthalten keine Dokumentinhalte,
+  OCR-Texte, privaten Titel, lokalen Dateipfade, Prompts, Tokens oder
+  hochsensiblen Identifikatoren.
+- Abgelaufene Session, fehlendes Entitlement, Quota, Retention, Netzwerk,
+  Storage und Provider-Ausfall sind getrennte, verständliche Zustände.
+- Local Export/Restore und Cloud Export/Cloud-to-Local Exit werden getestet.
+  Sync allein ist kein Backup-Nachweis.
+- Tenant-, Household-, Managed-Subject- und Objektberechtigungen gelten auch
+  für Suche, Assist, Export, Support und Diagnose.
 
-Im M2 gilt:
+## Verschlüsselungs-Gate
 
-- keine Drittanbieter-Cloud-Abhaengigkeit.
-- Sync nur zur privaten Home-Hub-Umgebung.
-- Pairing-/Session-Secrets nur in Secure Storage.
-- Dokumentdateien lokal im App-Dateispeicher.
-- strukturierte Daten in SQLite/Drift.
-- keine Dokumentinhalte, OCR-Texte, Tokens oder Pairing-Codes in Logs.
-- Upload Queue verliert lokale Dateien nicht still.
-- widerrufene oder abgelaufene Tokens erzeugen Review-/Re-Pairing-Zustaende.
-- Backups und Exporte passieren bewusst, nicht still in fremde Dienste.
+Vor der jeweiligen Implementierung werden mindestens entschieden und getestet:
 
-## Verschluesselung
+- Verschlüsselung lokaler Dateien und strukturierter Daten;
+- Cloud Managed Trust gegenüber Zero Knowledge/E2EE;
+- Content Keys, Key Wrapping, Rotation und Gerätewechsel;
+- Recovery ohne unkontrollierten Betreiberzugriff;
+- Suchbarkeit und Assist-Zugriff unter dem gewählten Kryptomodell;
+- Mandantenisolation, Backup-Schlüssel und Löschbarkeit.
 
-M2:
+Repository-, Storage- und API-Grenzen dürfen keine unnötige
+Server-Klartextpflicht festschreiben. Gleichzeitig darf keine E2EE-Zusage
+gemacht werden, solange Assist, Suche, Sharing, Recovery und Support damit nicht
+nachweislich funktionieren.
 
-- Betriebssystemschutz und App-Sandbox werden genutzt.
-- Secure Storage schuetzt Secrets.
-- App-Level-Verschluesselung fuer komplette SQLite-Datenbank und Dateiablage ist nicht M2-Pflicht.
+## Backup, Export, Kündigung und Löschung
 
-Architekturpflicht:
+- Local Vault hat keine stille Fremd-Cloud-Sicherung.
+- Cloud Backup zeigt Scope, Status, Retention, letzte erfolgreiche Sicherung
+  und getesteten Restore wahrheitsgemäß.
+- Export bleibt im definierten Kündigungs-, Grace-, Read-only- und Exit-Pfad
+  erreichbar.
+- Der Nutzer kann von Cloud zu Local wechseln; die Quelle wird erst nach
+  verifizierter Zielaktivierung und ausdrücklicher Löschentscheidung entfernt.
+- Löschung berücksichtigt Authority, Caches, Queues, Processing-Artefakte,
+  Suchindizes, Backups, Tombstones und gesetzliche Aufbewahrung, ohne falsche
+  Sofort-Vollständigkeit zu behaupten.
 
-- Dokument-Storage wird abstrahiert, damit verschluesselte Payloads spaeter moeglich sind.
-- Sync-Payloads duerfen spaeter clientseitig verschluesselt werden.
-- Domain- und Repository-Grenzen duerfen keine Klartext-Verarbeitung auf dem Server erzwingen.
-- OCR/LLM-Pipeline wird als optionale Klartext-Verarbeitung mit eigener Trust Boundary geplant.
-- Key Management, Recovery und Geraetewechsel werden als eigene Konzepte behandelt.
+## Verifikation und Stop Rules
 
-Langfristig zu pruefen:
+Jeder betroffene Implementation Contract enthält Threat Model, Datenfluss,
+Missbrauchsfälle, Berechtigungs- und Tenant-Tests, Secret-/Log-Scanning,
+Recovery-/Deletion-Nachweise sowie verantwortliche Freigaben.
 
-- verschluesselte Dokumentdateien at rest.
-- verschluesselte lokale Datenbank oder sensible Spalten.
-- clientseitige Content Keys pro Haushalt oder Datenraum.
-- Key Wrapping fuer mehrere Geraete.
-- Recovery-Key oder Recovery-Kit.
-- Zero-Knowledge-faehiger Sync fuer spaetere Cloud-/Self-hosted-Cloud-Varianten.
+Stop Rules:
 
-## Logging und Diagnose
+- keine realen Dokumente vor akzeptiertem Trust-/Provider-Gate;
+- keine Cloud-Produktionsfreigabe ohne beschlossenes Key- und Recovery-Modell;
+- kein Sharing ohne vollständige Authorization- und Revocation-Verträge;
+- keine Datenschutz-, E2EE-, Backup- oder Löschzusage ohne prüfbare Evidenz;
+- keine Rechtsbehauptung allein aus diesem technischen Dokument.
 
-Logs duerfen helfen, Probleme zu finden, aber nicht private Inhalte rekonstruierbar machen.
-
-Erlaubt:
-
-- technische Fehlerklasse.
-- Komponente.
-- Zeitpunkt.
-- nicht-sensitive Statuscodes.
-- anonymisierte oder lokale Korrelationen.
-
-Nicht erlaubt:
-
-- Dokumenttitel, wenn sie private Inhalte verraten koennen.
-- Dateinamen oder vollstaendige lokale Pfade mit privaten Informationen.
-- OCR-Text.
-- Chat-/LLM-Prompts mit Dokumentinhalt.
-- Pairing-Code, Token, Secret, Recovery Key.
-- Ausweisnummern, Versicherungsnummern, medizinische Details.
-- Passnummern, SV-Nummern, Versicherungsbeziehungen, Adressen/Meldeinformationen.
-
-## Backup, Export, Loeschung
-
-Backup und Export sind Produktfunktionen, keine Nebeneffekte.
-
-R11-D1 bestaetigt diese Grenze: Backup braucht eigene Erzeugung, sichtbaren
-Status und Restore-Test. Sync allein reicht nicht als Sicherheitsnetz.
-
-M2-Regel:
-
-- keine automatische Fremd-Cloud-Sicherung.
-- Export/Backup muss bewusst ausgeloest werden.
-- Export muss Nutzerin klar zeigen, welche Daten enthalten sind.
-- Loeschung muss lokale Daten, Upload Queue und spaeter Sync-/Home-Hub-Kopien beruecksichtigen.
-
-Spaeter:
-
-- verschluesselte Backups pruefen.
-- Recovery-Konzept fuer Geraeteverlust.
-- Household-/Owner-basierte Export- und Loeschrechte.
-
-## Auswirkungen auf Home Hub und spaetere Server
-
-Home Hub darf im M2 pragmatisch sein, aber nicht zum langfristigen Klartext-Zwang werden.
-
-Regeln:
-
-- Home Hub ist erste private Sync-/Upload-Grenze.
-- Home Hub kann Dateien speichern und in die Draft Inbox uebernehmen.
-- Home Hub darf fuer spaetere OCR/LLM Klartext nur innerhalb einer explizit akzeptierten Trust Boundary verarbeiten.
-- Server-APIs werden so geplant, dass verschluesselte Dateien und verschluesselte Metadaten spaeter moeglich sind.
-- Eine Managed- oder extern gehostete Variante darf nicht voraussetzen, dass der Betreiber Dokumentinhalte lesen kann.
-
-Ergaenzend gelten `DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md` sowie
-VC-02/VC-07/VC-08: Local und Cloud haben getrennte Authority-, Key- und
-Identity-Grenzen. OCR, Mapping und LLM-Assistenz brauchen eine eigene Processing-
-und Trust Boundary, weil
-sie temporaeren Klartextzugriff benoetigen koennen.
-
-## Nicht entschieden
-
-Diese Entscheidung legt die Richtung fest, aber nicht die genaue Kryptografie.
-
-Noch offen:
-
-- konkrete Verschluesselungsbibliotheken.
-- Key-Derivation-Parameter.
-- Recovery-UX.
-- verschluesselte Suche.
-- Detailmodell fuer geteilte Haushalte und Rollen.
-- konkrete Cloud-/Managed-Produktpolitik.
-
-## Konsequenzen fuer R2
-
-R2 muss:
-
-- sensible Datenklassen in Planung und Tests beruecksichtigen.
-- Secrets strikt von SQLite/Dateispeicher trennen.
-- Log-Regeln in F7 und Implementation-Plan aufnehmen.
-- Dateiablage abstrahieren.
-- keine Server-Klartextpflicht in Domain- oder API-Grenzen einbauen.
-- OCR/LLM ausserhalb des M2 halten, aber als spaetere Trust Boundary vormerken.
-
-## Akzeptanz
-
-Die Entscheidung ist akzeptiert, wenn:
-
-- Issue #3 geschlossen ist.
-- `docs/ROADMAP_REBUILD.md` R2-D6 als erledigt markiert.
-- ein neuer C1/R2-Implementation-Contract diese Security-/Privacy-Baseline als
-  Vorgabe behandelt.
-- F9 Legal/Privacy, F12 Secure Storage, F36 und die Vault-Decision nicht widersprechen.
+Maßgeblich ergänzend sind die Vault-, Secure-Storage-, Legal-, AI-,
+Observability-, Backup- und Exportkonzepte sowie das aktuelle Regulatory Source
+Register.

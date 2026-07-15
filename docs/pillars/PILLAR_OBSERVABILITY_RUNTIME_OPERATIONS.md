@@ -2,16 +2,18 @@
 title: "Enterprise-Säule - Observability and Runtime Operations"
 description: "Enterprise-Bereich fuer Logging, Audit, Telemetry, Metrics, Health Checks, Runtime-Diagnose und Redaction"
 tags: [pillar, enterprise, observability, runtime, logging, audit]
-lastUpdated: "2026-07-12"
-version: "0.1"
+lastUpdated: "2026-07-15"
+version: "0.2"
 status: "proposed"
+owner: "quality-readiness/operations"
 ---
 
 # Enterprise-Säule - Observability and Runtime Operations
 
 ## Zweck
 
-DocMan muss im Fehlerfall erklärbar sein, ohne sensible Dokumentdaten preiszugeben.
+Mappm muss im Fehlerfall erklaerbar sein, ohne sensible Dokumentdaten
+preiszugeben.
 
 ## Scope
 
@@ -24,7 +26,7 @@ DocMan muss im Fehlerfall erklärbar sein, ohne sensible Dokumentdaten preiszuge
 - Redaction-Regeln.
 - verwaltete, umgebungsgetrennte Cloud-Observability mit redigierten Signalen.
 
-## M2-Minimum
+## C1/C2-Minimum
 
 - lokale, sparsame Diagnose.
 - keine Dokumentinhalte, Tokens oder Secrets in Logs.
@@ -39,8 +41,9 @@ DocMan muss im Fehlerfall erklärbar sein, ohne sensible Dokumentdaten preiszuge
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

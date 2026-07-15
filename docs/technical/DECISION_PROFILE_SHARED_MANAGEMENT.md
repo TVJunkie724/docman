@@ -2,19 +2,17 @@
 title: "Decision - Profile Shared Management"
 description: "Entscheidung zur gemeinsamen Verwaltung eines Profils durch mehrere Profile ohne fruehe Rollenmatrix"
 tags: [decision, profiles, household, management, permissions]
-lastUpdated: "2026-06-04"
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "product-concept/security"
 ---
-
 # Decision - Profile Shared Management
 
 ## Status
 
-Accepted.
-
-R5-D3 ist entschieden. Mehrere Profile duerfen ein anderes Profil gemeinsam
-verwalten, aber fruehe Milestones brauchen noch keine feingranulare
-Viewer-/Editor-Rollenmatrix.
+Angenommen. Mehrere berechtigte Subjects dürfen ein anderes Managed Subject
+gemeinsam verwalten; der erste aktivierte Scope benötigt noch keine
+feingranulare Viewer-/Editor-Rollenmatrix.
 
 ## Entscheidung
 
@@ -50,11 +48,12 @@ role: manager
 ```
 
 Wenn spaeter `viewer`, `editor`, dokumentbezogene Rechte oder externe
-Freigaben noetig werden, gehoeren sie in einen spaeteren R6/R14-Ausbau.
+  Freigaben noetig werden, gehoeren sie in einen spaeteren ausdrücklich
+  freigegebenen Access-/Sharing-Slice.
 
 ## Konsequenzen
 
-- R5-D3 ist entschieden: mehrere Manager pro verwaltetem Profil sind erlaubt.
+- Mehrere Manager pro verwaltetem Profil sind erlaubt.
 - Frueh gibt es nur aktive/inaktive/widerrufene Verwaltung.
 - `viewer` und `editor` sind fuer den aktuellen Plan zu viel.
 - Das Datenmodell darf spaetere Rollen nicht blockieren, aber UI und

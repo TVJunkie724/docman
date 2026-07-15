@@ -1,66 +1,49 @@
 ---
 title: "Decision - Product Language"
-description: "Entscheidung zu zentralen Fachbegriffen in DocMan: Case, Vorgang, Event, Ereignis"
+description: "Verbindliche Fachbegriffe für Cases, Records, Dokumente, Beziehungen, Aufgaben und Ereignisse"
 tags: [decision, product-language, domain-model]
-lastUpdated: "2026-06-10"
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "product-concept"
 ---
-
 # Decision - Product Language
 
 ## Status
 
-Accepted.
+Angenommen für neue Konzepte, Contracts, Code und sichtbare Produkttexte.
+Legacy-Begriffe bleiben nur in klar markiertem Migrationskontext.
 
-## Entscheidung
+## Begriffe
 
-DocMan verwendet künftig diese zentralen Begriffe:
+| Ebene | Begriff | Deutsche UI | Bedeutung |
+|---|---|---|---|
+| Domain | `Case` | Vorgang | Generischer, leichter Kontext für ein Nutzerziel, einen Verlauf oder eine bewusste Sammlung |
+| Domain | `CustomCase` als Konfiguration, nicht Typ | Vorgang | Derselbe `Case` ohne verpflichtendes Workflow-Muster; darf fast leer beginnen |
+| Domain | `CaseLink` | Verknüpfung / kontextuelle Bezeichnung | Typisierte Beziehung `part_of`, `caused_by`, `follow_up_to` oder `related_to` |
+| Domain | `Record` | Unterlage | Langlebiger fachlicher Gegenstand mit möglichen Versionen, etwa Vertrag, Polizze oder Ausweis |
+| Domain | `Document` | Dokument | Eigenständiges logisches Dokument mit einem oder mehreren Datei-/Seitenartefakten |
+| Domain | `Event` | Ereignis | Zeitpunkt oder Historieneintrag, kein Hauptcontainer |
+| Domain | `Task` | Aufgabe | Nächster Schritt, Fälligkeit oder Erinnerung |
+| Domain | `ManagedSubject` | Person / Organisation | Vom Account verwalteter fachlicher Kontext ohne zwingenden eigenen Login |
+| Domain | `ExternalParty` | Absender / Anbieter / Stelle | Externe Person oder Organisation mit Kontaktdaten und Rollen |
 
-| Ebene | Begriff | Bedeutung |
-|---|---|---|
-| Code / Domain | `Case` | Langlebiger Container für einen Alltagsvorgang |
-| Deutsche UI | Vorgang | Nutzer sichtbarer Name für `Case` |
-| Code / Domain | `Event` | Zeitpunkt oder Historieneintrag innerhalb eines `Case` |
-| Deutsche UI | Ereignis | Nutzer sichtbarer Name für `Event` |
-| Code / Domain | `Document` | Dokument, Datei oder Nachweis |
-| Deutsche UI | Dokument | Nutzer sichtbarer Name für `Document` |
-| Code / Domain | `Record` | langlebiger fachlicher Gegenstand mit Versionen |
-| Deutsche UI | Unterlage / Unterlagen | Nutzer sichtbarer Name fuer `Record`; im Profilkontext "Persoenliche Unterlagen" |
-| Code / Domain | `Task` | Nächster Schritt oder Aufgabe |
-| Deutsche UI | Aufgabe | Nutzer sichtbarer Name für `Task` |
+## Regeln
 
-## Begründung
+- `Incident` ist zu eng und wird in neuen Zielpfaden nicht verwendet.
+- `Event` bezeichnet keinen langlebigen Vorgang.
+- `Subcase` ist kein eigener Domain-Typ. „Subvorgang“ darf in der UI eine
+  verständliche Rolle eines `part_of`-Links beschreiben.
+- Custom und geführt verwenden denselben `Case`-Typ. Workflow-Muster, Titel,
+  Aufgaben, Termine und Beziehungen sind optionale Komposition.
+- Ein Dokument kann mehrere Cases/Records referenzieren, besitzt nach Review
+  aber einen primären Navigationskontext.
+- „Unterlage“ ist der allgemeine UI-Begriff für `Record`; „Nachweis“,
+  „Vertrag“ oder „Polizze“ können kontextspezifische Bezeichnungen sein.
+- Die Marke heißt in sichtbarer Produktkommunikation `Mappm`; `DocMan` ist nur
+  technischer Repository-/Legacy-Name bis zur geplanten Migration.
 
-Der bisherige Begriff `Incident` beschreibt technisch zwar einen Container, klingt aber produktlich nach Unfall, Störung oder Support-Ticket. DocMan verwaltet auch harmlose oder laufende Alltagsthemen wie Reisen, Bestellungen, Versicherungen, Schulzettel und Ausweisdokumente. `Incident` ist dafür zu eng und zu dramatisch.
+## Migration
 
-`Event` / "Ereignis" wurde als Hauptmodell geprüft, aber verworfen. Ein Ereignis klingt nach einem punktuellen Zeitpunkt. DocMan braucht jedoch einen langlebigen Container, der Dokumente, Aufgaben, Status, Historie und verwandte Vorgänge zusammenhält.
-
-`Case` ist kurz, international verständlich und passt zu Medizin, Verwaltung, Versicherung, Bestellungen und allgemeinen Vorgängen. In der deutschen UI ist "Vorgang" alltagsnäher und weniger juristisch.
-
-## Modell
-
-```text
-Household
-  -> Profiles
-      -> Cases / Vorgänge
-          -> Events / Ereignisse
-          -> Documents / Dokumente
-          -> Tasks / Aufgaben
-          -> Related cases / Verknüpfte Vorgänge
-```
-
-## Konsequenzen
-
-- Neue Konzepte und Implementationspläne verwenden `Case` statt `Incident`.
-- Deutsche UI-Texte verwenden "Vorgang".
-- Deutsche UI-Texte verwenden "Unterlagen" fuer `Record`; "Nachweis" ist eine
-  spezifische Art von Unterlage.
-- `Event` bleibt für Timeline, Historie und punktuelle Vorgangsereignisse reserviert.
-- Bestehender Code mit `Incident` wird nicht spontan umbenannt. Die Umstellung wird später als eigene Refactoring-Phase geplant.
-- Alte Roadmaps mit `Incident`-Sprache wurden entfernt. `Incident` bleibt nur noch als bestehender Code- und Migrationskontext sichtbar.
-
-## Offene Folgefragen
-
-- Wann wird bestehender Code von `Incident*` auf `Case*` migriert?
-- Wird die Datenbank-Migration die Umbenennung physisch vollziehen oder zunächst Alias-/Kompatibilitätsschichten nutzen?
-- Welche Ereignistypen braucht ein `Case` im M2?
+Bestehende `Incident*`-, alte Parent- oder Draft-Inbox-Typen werden nicht
+spontan umbenannt. Ein freigegebener Foundation-/Data-Slice definiert
+Schema-/Code-Migration, Kompatibilität, Tests und Entfernungskriterien.

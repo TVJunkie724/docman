@@ -1,153 +1,194 @@
 ---
-title: "Decision - Document Type Catalog"
-description: "Entscheidung zum lockeren Dokumenttyp-Katalog ohne harte typenspezifische Pflichtfelder oder Workflows"
-tags: [decision, document-types, metadata, draft-inbox, forms, milestones]
-lastUpdated: "2026-07-14"
-status: "accepted"
+title: "Decision - Document Taxonomy and Role Model"
+description: "Mappm-Taxonomie fuer getrennte Dokumentgrundarten, semantische Varianten, Domaenen, Record-Arten, Quellen und beziehungsbezogene Rollen; der vollstaendige Produktkatalog bleibt offen"
+tags: [decision, document-types, subtypes, roles, metadata, records, workflows, intelligence]
+lastUpdated: "2026-07-15"
+status: "accepted-direction"
+owner: "product-concept"
 ---
 
-# Decision - Document Type Catalog
+# Decision - Document Taxonomy and Role Model
 
 ## Status
 
-Accepted.
+The taxonomy axes and relationship-role model are accepted. The complete set of
+document base types/semantic variants and its full mapping to optional workflow
+patterns and domain templates is not yet accepted and requires the R0.6 product
+review.
+`docs/discovery/CASE_DOCUMENT_TAXONOMY_CANDIDATES.md` currently proposes a
+reduced set of global base types and retains roughly 300 terms only as
+normalization, alias, OCR and fixture vocabulary.
 
-## Entscheidung
+The former mixed M2 catalog (`invoice`, `contract`, `health`, `authority`,
+`evidence_photo`, `note_other`, etc.) is a historical seed only. It must not be
+implemented as the final normalized taxonomy because it mixes semantic type,
+domain, medium, Record meaning and fallback values.
 
-R4/M2 verwendet einen lockeren Dokumenttyp-Katalog.
+## Decision
 
-Dokumenttypen helfen beim:
+Mappm classifies a document across separate axes:
 
-- Anzeigen.
-- Filtern.
-- Suchen.
-- Sortieren.
-- spaeteren Vorschlagen von Metadaten, Facts und Workflows.
-
-Sie erzwingen in M2 keine dokumenttypspezifischen Pflichtfelder, keine
-komplexen Formulare und keine Statusmaschinen.
-
-## M2-Katalog
-
-| Key | UI-Name | Beispiele |
+| Axis | Question | Example |
 |---|---|---|
-| `invoice` | Rechnung | Arzt-, Handwerker-, Online- oder Haushaltsrechnung |
-| `contract` | Vertrag | Mietvertrag, Dienstvertrag, Abo, Vereinbarung |
-| `insurance_policy` | Versicherung / Polizze | Polizze, Deckungsblatt, Versicherungsinfo |
-| `health` | Arzt / Gesundheit | Arztbrief, Befund, Rezept, Überweisung |
-| `authority` | Behörde / Amt | Bescheid, Antrag, Meldeunterlage, Finanzamt |
-| `identity_record` | Ausweis / Nachweis | Ausweis, Geburtsurkunde, Meldezettel, Staatsbürgerschaft |
-| `education` | Schule / Ausbildung | Zeugnis, Kursunterlage, Schulbrief, Zertifikat |
-| `purchase_warranty` | Garantie / Kaufbeleg | Garantie, Rechnung als Kaufbeleg, Seriennummernbeleg |
-| `evidence_photo` | Foto / Beweis | Unfallfoto, Schadensfoto, Zustand vorher/nachher |
-| `note_other` | Notiz / Sonstiges | unklarer Eingang, freie Notiz, nicht klassifiziert |
+| document base type | Welche stabile fachliche Grundart hat das Dokument? | Rechnung/Charge, Entscheidung, Vertrag/Polizze, Report |
+| optional semantic variant | Welche global stabile, produktrelevante Auspraegung liegt vor? | Gutschrift, Entlassungsbrief, Laborbefund, Einspruch |
+| domain | In welchem Fachbereich tritt es auf? | Gesundheit, Wohnen, Arbeit, Steuer |
+| relationship role | Welche Funktion hat es in genau diesem Case/Claim/Record? | Ausloeser, Nachweis, Einreichung, Antwort, Entscheidung |
+| Record kind | Welches langlebige Objekt/versioniert es? | Reisepass, Polizze, Mietvertrag |
+| source/format | Wie kam es herein und welches Medium ist es? | Mobile Scan, PDF, Bildnachweis, E-Mail spaeter |
+| jurisdiction/provider context | Welche gepruefte Variante ist anwendbar? | AT, konkrete SV/Versicherung/Behoerde |
 
-Der Katalog darf spaeter erweitert werden. Bestehende Keys duerfen nicht leicht
-umbenannt werden, weil sie fuer Filter, Migration und Sync relevant werden.
+These axes are not flattened into one global enum or user form.
 
-## M2-Verhalten
+## Base Type and Semantic Variant
 
-In M2 steuert der Dokumenttyp nur:
+Document base type is the stable semantic class used for search, display,
+extraction and broad workflow compatibility. A semantic variant adds precision
+only where it produces real product value across countries/providers.
 
-- Icon/Farbe/Label.
-- Filter und Suche.
-- optionale Metadatenvorschlaege.
-- spaetere Workflow-/Fact-Vorbereitung.
+A semantic variant is justified only when it is globally understandable, is
+not already represented by another axis and changes one or more of:
 
-In M2 steuert der Dokumenttyp nicht:
+- expected facts/evidence;
+- compatible workflow pattern/domain template;
+- matching and document-boundary recognition;
+- next action or expected response;
+- retention/export/presentation;
+- explainability to the user.
 
-- Pflichtfelder.
-- automatische Statuswechsel.
-- automatische Aufgaben.
-- automatische Claims.
-- automatische OCR/KI-Klassifikation.
-- harte Validierung, die Draft Review blockiert.
+Semantic variant must not encode temporary workflow state, provider, country,
+sender, format or Case role. A phrase such as `OeGK-Wahlarztrechnung 2026`
+therefore resolves to a financial base type plus Medical Domain, local aliases,
+Payer/Party, Facts, link roles and pack context, not one subtype.
 
-## Sonstiges ist erlaubt
+Backend/Core Assist proposes base type and semantic variant. The user corrects
+through a small relevant choice surface; the default flow does not expose a
+full taxonomy form.
 
-`note_other` / "Notiz / Sonstiges" ist ein gueltiger M2-Typ.
+## Domain
 
-Das ist bewusst so: Der Nutzer soll ein Dokument schnell ablegen koennen, auch
-wenn der genaue Typ unklar ist. Spaetere Review, Suche oder KI kann eine bessere
-Klassifikation vorschlagen.
+Domain is orthogonal. `invoice` can occur in health, housing, purchase, work or
+tax contexts. `health` therefore must not remain a top-level type equivalent to
+`invoice`.
 
-## Spätere Milestones
+A document may have one primary domain and additional contextual domains where
+needed, but domain alone does not select a jurisdictional workflow or prove a
+Case relation.
 
-In spaeteren Milestones koennen spezialisierte Typen oder Subtypen entstehen:
+## Relationship Roles
 
-- Arztrechnung mit SV-/Zusatzversicherungs-Claim.
-- Vertrag mit Kuendigungsfrist.
-- Vertrag/Abo mit monatlicher, quartalsweiser, jaehrlicher oder eigener
-  Abrechnungsperiode und wiederkehrenden Rechnungen.
-- Versicherungspolizze mit Ablaufdatum und Reminder.
-- Rechnung mit Zahlung/Faelligkeit.
-- Garantie mit Garantieende.
-- Behördendokument mit Fristen oder Einreichstatus.
-- Schul-/Kinderunterlagen mit Profil-/Jahreskontext.
+A role describes what a document does in a specific relationship, not what the
+document is globally.
 
-Solche Erweiterungen muessen als Facts, Claims, Tasks oder Workflow-Regeln
-modelliert werden, nicht als versteckte Sonderlogik im Dokumenttyp-Feld.
+The same document may be:
 
-## Beziehung zu Metadaten
+- `decision` in one Case;
+- `evidence` in a linked benefit Case;
+- `context` in an accident Case;
+- a version/source of one durable Record.
 
-`DECISION_DOCUMENT_METADATA_PREVIEW.md` bleibt fuehrend fuer Pflicht- und
-optionale Metadaten.
+Roles therefore belong on link/slot objects such as `DocumentCaseLink`,
+Claim/evidence links or Record-version relations. They do not belong as one
+global mutable field on `Document`.
 
-Der Dokumenttyp darf optionale Felder nahelegen, aber nicht erzwingen.
+Sparse universal role vocabulary may include:
 
-Beispiele:
+- `trigger`;
+- `evidence`;
+- `submission`;
+- `response`;
+- `decision`;
+- `confirmation`;
+- `payment_proof`;
+- `context`.
 
-- `invoice` legt Betrag und Faelligkeit nahe.
-- `contract` legt Vertragspartner und Kuendigungsfrist spaeter nahe.
-- `invoice` darf einen bestehenden Vertrags-/Abo-Record matchen oder bereits
-  bei der ersten aussagekraeftigen Rechnung dessen Anlage vorschlagen;
-  Wiederholung ist keine Voraussetzung.
-- `insurance_policy` legt Versicherer und Gueltigkeit spaeter nahe.
-- `identity_record` legt Gueltigkeit und Profilbezug spaeter nahe.
+Workflow-specific slots may be more precise, for example
+`primary_payer_decision` or `repair_estimate`, only when the precision changes:
 
-## Optionale Nachweisart
+- workflow completeness;
+- expected response;
+- next action;
+- grouping/display;
+- export/handoff;
+- explainability.
 
-`identity_record` bleibt der Top-Level-Typ fuer Ausweise und persoenliche
-Nachweise. Mappm spaltet diese Dokumente nicht frueh in viele harte
-Dokumenttypen auf.
+Users do not normally configure technical role/slot keys. Backend/Core Assist
+proposes them from document content and the selected workflow; current material
+consequences remain reviewable.
 
-Spaeter darf optional `recordKind` genutzt werden, zum Beispiel:
+## Record Kind
 
-- `birth_certificate`.
-- `residence_registration`.
-- `citizenship_certificate`.
-- `passport`.
-- `identity_card`.
-- `driving_license`.
-- `marriage_certificate`.
-- `name_change_record`.
-- `other`.
+Record kind classifies the durable object, not the incoming file. A passport
+scan may have a document base type/semantic variant and simultaneously become
+the current version of `Record(kind=passport)`. Contracts, policies, identity
+records and warranties follow the same distinction.
 
-`recordKind` hilft bei Anzeige, Suche, Fact-Vorschlaegen, Gueltigkeit,
-Versionierung und Quick Access, erzwingt aber keine Pflichtfelder.
+Record kind controls versioning/validity behavior only where explicitly
+defined. It must not be used as a substitute for document base type or
+workflow.
 
-Details stehen in `DECISION_STRUCTURED_FACTS_MANUAL_ENTRY.md`.
+## Fallback and Unknown Values
 
-## Konsequenzen
+The product needs safe unknown/fallback values, but they must be axis-specific:
 
-- Draft Review bekommt einen ueberschaubaren Typ-Auswahldialog.
-- Suche/Filter koennen Dokumenttyp sofort nutzen.
-- R4 bleibt schnell und offen.
-- R8/R9 koennen Facts, Claims und KI-Vorschlaege auf dem Katalog aufbauen.
-- R8 nutzt Fact-Gruppen je Dokumenttyp statt harter Spezialformulare.
-- F14 Form Field Catalog hat seine offene Dokumenttypfrage beantwortet.
+- unknown document base type;
+- unknown semantic variant;
+- no supported domain;
+- generic relationship role/context;
+- unknown Record kind.
 
-## Nicht entschieden
+One combined `note_other` value must not hide whether the unknown concerns type,
+domain, medium or product support.
 
-- exakte Icons/Farben.
-- ob spaeter eigene Subtypen statt Tags genutzt werden.
-- ob Nutzer eigene Dokumenttypen definieren duerfen.
-- wann Typen in spezialisierte Workflows uebergehen.
+Unknown classification is reviewable and reprocessable. It does not justify
+invented specificity or a large mandatory form.
 
-## Abgrenzung zu Records und Workflows
+## Relationship to Cases and Workflows
 
-Der Dokumenttyp `contract` ist nicht selbst das langlebige Vertragsobjekt. Ein
-Vertrag oder Abo wird als `Record` mit Versionen, Rechnungen, Facts, Tasks und
-optionalem Workflow-Kontext verwaltet. `invoice` bleibt der Typ einzelner
-Rechnungsdokumente. Details stehen in
-`DECISION_RECURRING_CONTRACT_SUBSCRIPTION_MODEL.md`.
+- Document base type/variant narrows compatible templates but does not hardcode
+  one.
+- The `Case` entity remains generic. Optional workflow pattern, domain template
+  and pack describe guided behavior, the visible user goal and local rules.
+- Relationship role/slot explains the document's function in that Case/Claim.
+- A lightweight Custom Case may accept documents before a guided workflow is
+  known.
+- If a Custom Case later adopts a compatible guided workflow, Backend/Core
+  Assist proposes more precise slots without losing prior links/history.
+- Country/provider rules live in versioned workflow packs, not in global type
+  keys.
+
+## Capture and Title Behavior
+
+Backend/Core Assist proposes base type, semantic variant, roles and a localized
+editable title as part of every capture result. Title is not derived by merely
+exposing the taxonomy label; it uses actual document/context evidence according
+to `DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md`.
+
+## Required Next Review
+
+Before implementation locks a catalog, product discovery must review:
+
+- the proposed global base-type/semantic-variant set against the complete raw
+  terminology inventory;
+- the proposed minimal workflow patterns and all visible domain templates;
+- durable Record kinds;
+- universal versus jurisdiction/provider-specific values;
+- role/slot coverage per workflow;
+- unknown/fallback and migration behavior;
+- synthetic fixtures and ambiguity cases;
+- localization, accessibility and search terminology;
+- stable keys/versioning/deprecation policy.
+
+## Stop Rules
+
+Stop if:
+
+- the historical M2 table is treated as the final catalog;
+- domain, medium, Record kind and semantic type are mixed in one enum;
+- one global role is stored on Document;
+- every workflow detail becomes a universal role;
+- base-type/variant selection becomes a large default capture form;
+- AI type/title output becomes final without the active review/automation gate;
+- country/provider rules are encoded in global document-type keys;
+- implementation starts before the dedicated complete-catalog review is
+  accepted.

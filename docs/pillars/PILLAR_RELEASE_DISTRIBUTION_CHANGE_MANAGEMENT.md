@@ -2,16 +2,17 @@
 title: "Enterprise-Säule - Release, Distribution and Change Management"
 description: "Enterprise-Bereich fuer CI/CD, Versionierung, Migrationen, Rollback, Signing, Release Notes und Distribution"
 tags: [pillar, enterprise, release, distribution, ci-cd, migrations]
-lastUpdated: "2026-07-12"
-version: "0.2"
+lastUpdated: "2026-07-15"
+version: "0.3"
 status: "proposed"
+owner: "quality-readiness/release"
 ---
 
 # Enterprise-Säule - Release, Distribution and Change Management
 
 ## Zweck
 
-DocMan braucht reproduzierbare Releases und kontrollierte Änderungen.
+Mappm braucht reproduzierbare Releases und kontrollierte Aenderungen.
 
 ## Scope
 
@@ -28,7 +29,7 @@ DocMan braucht reproduzierbare Releases und kontrollierte Änderungen.
 Commercial-Core- und VC-01-Gates entscheiden den ersten Local-/Cloud-Release; Store-Regeln
 werden vorbereitet, aber oeffentliche Stores sind kein frueher Blocker.
 
-## M2-Minimum
+## C1/C5-Minimum
 
 - lokaler Verify-/Bootstrap-Pfad.
 - Codegen reproduzierbar.
@@ -40,13 +41,14 @@ werden vorbereitet, aber oeffentliche Stores sind kein frueher Blocker.
 - F16 CI/CD Pipeline.
 - F8 Distribution Readiness.
 - F8b Review Access Strategy.
-- `docs/technical/DECISION_COMMERCIAL_CORE_SCOPE.md` and F8. The old
-  `DECISION_DISTRIBUTION_STRATEGY.md` is superseded.
+- `docs/technical/DECISION_COMMERCIAL_CORE_SCOPE.md` und F8. Die alte
+  `DECISION_DISTRIBUTION_STRATEGY.md` ist superseded.
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

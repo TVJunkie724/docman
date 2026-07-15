@@ -1,96 +1,28 @@
 ---
-title: "Decision - Legal and Privacy Readiness Gate"
-description: "Entscheidung zur rechtlichen und datenschutzbezogenen Readiness vor oeffentlicher Distribution von Mappm"
-tags: [decision, compliance, legal, privacy, distribution, gdpr, app-store]
-lastUpdated: "2026-07-12"
+title: "Superseded Decision - Legal and Privacy Readiness Gate"
+description: "Historischer Verweis; aktuelle datierte Compliance- und Release-Gates gelten fuer alle verkauften Modi"
+tags: [decision, compliance, legal, privacy, historical, superseded]
+lastUpdated: "2026-07-15"
 status: "superseded"
+owner: "legal/compliance/product"
 ---
 
-# Decision - Legal and Privacy Readiness Gate
+# Superseded Decision - Legal and Privacy Readiness Gate
 
-## Status
+Die fruehere Annahme, ein privater/self-hosted Distributionspfad koenne vor
+rechtlicher und datenschutzrechtlicher Readiness verkauft werden, ist
+verworfen.
 
-Superseded on 2026-07-12. Commercial Local and Cloud modes both require their
-applicable Legal/Privacy/Store readiness before sale; private/self-hosted is no
-longer an earlier customer distribution shortcut. See
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md` and REG-00..08.
+Verbindlich sind:
 
-R10-D2 ist entschieden. Mappm wird privat/self-hosted weiter geplant und gebaut,
-aber Privacy-, Security-, Store- und Rechtsanforderungen werden bei der
-Implementierung immer mitgedacht. Vor oeffentlicher Distribution oder Store-
-Release braucht Mappm ein separates Legal-/Privacy-Readiness-Gate.
+- `docs/concepts/CONCEPT_F8_APP_STORE_COMPLIANCE.md`;
+- `docs/concepts/CONCEPT_F9_LEGAL_COMPLIANCE.md`;
+- `docs/regulatory/` mit datierten Quellen- und Applicability-Pruefungen;
+- `docs/technical/DECISION_COMMERCIAL_CORE_SCOPE.md`;
+- C5 in `docs/ROADMAP_REBUILD.md`.
 
-## Entscheidung
-
-Private/self-hosted Nutzung darf frueher entstehen als oeffentliche
-Distribution.
-
-Oeffentliche Distribution ist erst erlaubt, wenn eine eigene rechtliche und
-datenschutzbezogene Pruefung abgeschlossen ist.
-
-Das gilt fuer:
-
-- Apple App Store.
-- Google Play.
-- Microsoft Store.
-- oeffentliche Desktop-Downloads.
-- gehostete oder fremd betriebene Varianten.
-- produktive Nutzung ausserhalb des privaten Haushaltskontexts.
-
-## Implementierungsleitplanke
-
-Jede Implementierung muss Datenschutz und spaetere Review-Faehigkeit mitdenken:
-
-- keine versteckten externen Dienste.
-- keine echten privaten Dokumente in Tests, Demos, Fixtures oder Review-Daten.
-- keine Logs mit Dokumentinhalten, OCR-Rohtexten, Secrets oder sensiblen
-  personenbezogenen Details.
-- minimale Plattform-Permissions.
-- klare Datenklassen fuer Dokumente, Metadaten, OCR/AI-Ergebnisse, Secrets und
-  Diagnosedaten.
-- Loeschung, Export, Backup und Restore nicht durch Datenmodell-Entscheidungen
-  verbauen.
-- KI/OCR/LLM-Verarbeitung nur hinter expliziten Trust-Boundaries.
-- Store-/Review-Modus muss spaeter mit synthetischen Daten moeglich sein.
-
-## Legal-/Privacy-Gate Vor Public Release
-
-Vor Store-Release oder oeffentlicher Distribution braucht Mappm mindestens:
-
-- DSGVO/GDPR-Review fuer Dokumente, Gesundheitsdaten, Versicherungsdaten,
-  Kinderdaten und Identitaetsdokumente.
-- Datenschutzerklaerung.
-- Datenfluss- und Trust-Boundary-Beschreibung.
-- Loesch-, Export- und Auskunftsmodell.
-- Permission-Begruendung fuer Kamera, Dateien, Netzwerk und Benachrichtigungen.
-- App-Store-Policy-Matrix fuer Apple, Google und Microsoft.
-- Demo-/Review-Zugang mit synthetischen Daten.
-- Open-Source- und Lizenzpruefung.
-- Support-, Kontakt-, Impressums- und Disclaimer-Entscheidungen.
-
-## Warum
-
-Mappm verwaltet extrem sensible Haushaltsdokumente: Arztbriefe, Rechnungen,
-Versicherungen, Ausweise, Nachweise, Dokumente von Kindern und spaeter
-extrahierte Fakten. Deshalb duerfen Datenschutz und Sicherheit nicht erst kurz
-vor Release aufgesetzt werden.
-
-Gleichzeitig soll die private/self-hosted Produktentwicklung nicht blockiert
-werden, solange keine fremden Nutzer, keine fremde Cloud und keine oeffentliche
-Distribution betroffen sind.
-
-## Konsequenzen
-
-- R10-D2 ist entschieden.
-- Private/self-hosted bleibt der erste Distributionspfad.
-- Jede Implementierung behandelt Privacy/Legal/Store-Readiness als
-  Architekturleitplanke.
-- Public/Store Release bekommt ein hartes Gate.
-- Dieses Dokument ist Produktplanung und keine Rechtsberatung.
-
-## Nicht entschieden
-
-- konkrete Rechtsberatung oder Ansprechperson.
-- konkreter Store-Release-Zeitpunkt.
-- konkrete Privacy-Policy-Formulierung.
-- ob Mappm jemals oeffentlich oder gehostet angeboten wird.
+Jeder verkaufte Local- oder Cloud-Modus benoetigt die anwendbaren Legal-,
+Privacy-, Security-, Consumer-, Subscription-, Store- und Regulatory-Gates.
+Alle Rechts- und Storeangaben werden vor dem jeweiligen Release mit aktuellem
+Datum und primaeren Quellen neu geprueft. Dieses Dokument ist keine
+Rechtsberatung und kein Release-Nachweis.

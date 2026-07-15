@@ -1,110 +1,119 @@
 ---
 title: "Decision - API Contract Source and Mock Runner"
-description: "Entscheidung zu OpenAPI als Contract Source of Truth und Microcks als Contract-Mock-/Verification-Runner"
-tags: [decision, api, contracts, openapi, microcks, testing, home-hub, mobile-capture]
-lastUpdated: "2026-07-12"
-status: "accepted-rebaseline"
+description: "OpenAPI als Contract Source of Truth und Microcks als Contract-Mock-/Verification-Runner"
+tags: [decision, api, contracts, openapi, microcks, testing, cloud, capture]
+lastUpdated: "2026-07-15"
+status: "accepted"
+owner: "contract-api"
 ---
 
 # Decision - API Contract Source and Mock Runner
 
-## 2026 Cloud Rebaseline
-
-OpenAPI and Microcks remain accepted. Contract families now target Mappm Cloud
-and include identity/device session, Vault/entitlement, Capture, migration,
-export/delete, sync/conflict and later processing. Historical Home-Hub file
-names are migration inputs, not the new contract namespace.
-
-## Status
-
-Accepted.
-
 ## Entscheidung
 
-DocMan verwendet fuer HTTP-basierte Home-Hub-, Capture- und spaetere Sync-Schnittstellen **OpenAPI** als maschinenlesbare Contract Source of Truth.
+Mappm verwendet fuer HTTP-basierte Mappm-Cloud-Schnittstellen **OpenAPI** als
+maschinenlesbare Contract Source of Truth. **Microcks** ist der Standard fuer
+Contract Mocks, Consumer-Szenarien und Provider Verification.
 
-**Microcks** ist der bevorzugte und geplante Contract-Mock- und Contract-Verification-Runner.
+Prism, WireMock oder parallele Stubbing-Standards werden nicht vorsorglich
+eingefuehrt. Eine Abweichung benoetigt einen nachgewiesenen, von Microcks nicht
+erfuellten Bedarf und eine neue Entscheidung.
 
-Prism, WireMock oder andere HTTP-Stubbing-Tools werden nicht als paralleler Fallback in die Standardplanung aufgenommen. Sie koennen spaeter neu bewertet werden, wenn Microcks eine konkrete Anforderung nicht abdecken kann. Bis dahin gilt: ein Contract-Format, ein Contract-Mock-Runner, ein Compose-/CI-Pfad.
+## Scope
 
-## Geltungsbereich
+Vertragsfamilien umfassen:
 
-Diese Entscheidung betrifft API-Grenzen zwischen App, Mobile Capture, Home Hub und spaeterem Sync Backend.
+- Account, Session, Device Trust und Offline-Berechtigung.
+- Plan, Entitlement, Quota, Grace und Read-only.
+- Vault-Inventar, Cloud-Autoritaet, Cache/Pending, Sync und Konflikte.
+- Capture Upload, Artefakte, asynchrone Verarbeitung und Proposal Review.
+- Core Assist mit Titel-, Typ-, Fact-, Managed-Subject- und
+  Case-/Record-Vorschlaegen.
+- Local-to-Cloud/Cloud-to-Local-Migration, Export, Restore und Loeschung.
+- spaeteres Sharing und Advanced Assist nur nach eigener Freigabe.
 
-Sie betrifft nicht:
-
-- Flutter UI-Konzeptmocks.
-- Riverpod-/Widget-/Domain-Tests mit Fake-Repositories.
-- lokale Drift-/Repository-Tests.
-- die konkrete ASP.NET-Core-Implementierung des Home Hubs.
-
-## Contract-Grenzen
-
-OpenAPI/Microcks werden fuer diese Schnittstellen geplant:
-
-- Home-Hub Health und Capabilities.
-- Pairing Session, QR-/Code-Pairing und Device Token.
-- Mobile Capture Upload.
-- Upload-Status und Retry-/Fehlerantworten.
-- Draft-Inbox-Handoff.
-- einfache offene Vorgangsliste fuer Mobile Capture, wenn im M2 verfuegbar.
-- spaeter Sync-Status, Konflikte, Tombstones und Conflict Responses.
-- spaeter OCR-/AI-Job-Status, falls daraus HTTP-Grenzen entstehen.
+Nicht Teil dieser Entscheidung sind UI-Mocks, Riverpod-/Domain-Tests mit Fakes,
+lokale Drift-Tests und konkrete ASP.NET-Core-Persistenz.
 
 ## Testschichten
 
 ```text
-Flutter UI / Domain
-  -> Fake Repositories fuer schnelle App-Tests
+Domain / Riverpod / Widgets
+  -> deterministische Fake-Repositories
 
-API Client / Home Hub Boundary
-  -> OpenAPI Contract
-  -> Microcks Mock/Contract Verification
+API Consumer
+  -> OpenAPI
+  -> Microcks-Szenarien
 
-Real Home Hub
-  -> muss denselben OpenAPI-Vertrag erfuellen
+Local Development Cloud / Managed Backend
+  -> Provider Verification gegen denselben Vertrag
 ```
 
-Fake-Repositories und Microcks ersetzen einander nicht.
-
-- Fakes pruefen App-Verhalten ohne Netzwerk.
-- Microcks prueft API-Vertraege, Response-Szenarien und Client-/Server-Kompatibilitaet.
+Fakes beweisen App-Verhalten. Microcks beweist Contract-Verhalten. Local
+Development Cloud beweist echte Integration. Keine Ebene ersetzt eine andere.
 
 ## Regeln
 
-- API-Aenderungen starten mit oder aktualisieren die OpenAPI-Spezifikation.
-- `DECISION_BACKEND_CONTRACT_FIRST_ARCHITECTURE.md` konkretisiert die
-  Implementierungsreihenfolge: OpenAPI zuerst, Microcks-Szenarien, Flutter
-  Client gegen Mock, ASP.NET-Core-Implementierung gegen denselben Vertrag.
-- Microcks-Szenarien muessen Erfolgs-, Auth-, Validation-, Network-/Retry- und Serverfehler abdecken.
-- Contract-Beispiele duerfen nur synthetische Daten enthalten.
-- Keine echten Dokumente, echten Haushaltsdaten, Tokens oder Secrets in Specs, Examples oder Mock-Daten.
-- API-Fehler werden in F5-Failure-Kategorien gemappt.
-- Der echte Home Hub muss spaeter gegen denselben Vertrag getestet werden.
-- Flutter-Konzeptmocks duerfen Microcks nicht direkt verwenden.
+- API-Aenderungen beginnen mit einem akzeptierten Contract-Change.
+- Contract-/Backend-Owner entscheiden DTOs, Endpunkte, Mapping, Persistenz,
+  Autorisierungs- und Policy-Architektur.
+- Frontend beschreibt benoetigte Zustaende, Aktionen und Fehler, erfindet aber
+  keine Serverloesung.
+- Remote DTOs werden im Data Layer gemappt und sind keine Domain Entities.
+- Fehler besitzen stabile Codes und harmlose Referenz-IDs; Servertexte werden
+  nicht direkt als Nutzertexte angezeigt.
+- OpenAPI Examples und Microcks-Daten sind ausschliesslich synthetisch.
+- Keine Dokumente, OCR-Texte, privaten Dateinamen, Accountdaten, Tokens,
+  Secrets oder Presigned URLs in Specs, Examples oder Reports.
+- Breaking Changes benoetigen Versionierung, Migrations-/Rolloutplan und
+  Kompatibilitaetsnachweis.
+- Vertrag und Provider pruefen Idempotenz, Retry/Resume, Teilfehler und
+  Retention dort, wo sie fachlich relevant sind.
 
-## Erste Spezifikationen
+## Capture-Mindestabdeckung
 
-Empfohlene Reihenfolge:
+Capture-Szenarien trennen Upload-Bestaetigung, Processing und Review. Sie decken
+mindestens ab:
 
-1. `home-hub-health.openapi.yaml`
-2. `home-hub-pairing.openapi.yaml`
-3. `mobile-capture-upload.openapi.yaml`
-4. `draft-inbox.openapi.yaml`
-5. spaeter `sync.openapi.yaml`
+- ein logisches Dokument mit mehreren Seiten und mehrere Dokumente je Session.
+- durable Originalannahme, Idempotency Replay und Checksum-Fehler.
+- Processing-Stufen, Teilfehler, Cancel, Retry und Restart.
+- verpflichtenden Titelvorschlag fuer neue Cases sowie gerankte Case-/Record-
+  Kandidaten mit Confidence und Provenance.
+- New-Case-/Case-Intent als Signal, nicht als finale Zuordnung.
+- Auth, Entitlement, Quota, Rate Limit, Unsupported Media und Servicefehler.
 
-Die konkrete Ablage der Specs wird in R3 festgelegt. Naheliegend ist ein dedizierter Contract-Ordner, z. B. `contracts/openapi/`, plus Microcks/Compose-Konfiguration.
+## Ablage und Namensraum
 
-## Konsequenzen
+Die geplante Zielablage fuer normative Specs ist `contracts/openapi/`, fuer
+synthetische Examples `contracts/examples/` und fuer Runner-Konfiguration
+`contracts/microcks/`. Diese Pfade werden erst durch einen freigegebenen
+Contract-Implementation-Plan angelegt, sofern dieser keinen begruendeten und
+geprueften alternativen Projektpfad festlegt. Neue Namen verwenden
+`mappm-cloud` oder die fachliche Vertragsfamilie, nicht den historischen
+Home-Hub-Namensraum.
 
-- R3-D3 ist entschieden.
-- F11 API Integration verwendet OpenAPI als Ziel fuer API-Vertraege.
-- F4 Testing Strategy trennt Fake-Repositories und Microcks-Contract-Tests verbindlich.
-- F16 CI/CD plant Microcks als Contract-Gate, sobald API-Slices entstehen.
-- Ein Prism-/WireMock-Fallback wird nicht proaktiv gebaut.
+## Verifikation
 
-## Nicht entschieden
+- OpenAPI-Lint und Example-Validierung.
+- Microcks Happy-, Failure-, Auth-, Conflict-, Idempotency- und
+  Retention-Szenarien.
+- Flutter Consumer-Tests fuer DTO-Mapping und F5-Failures.
+- Provider Verification in Local Development Cloud und Staging.
+- CI blockiert nicht kompatible Contract-Aenderungen.
+- Security-Scan fuer Secrets/PII in Contract-Artefakten.
 
-- genaue Ablage der OpenAPI-Dateien.
-- konkrete Microcks-Compose-Konfiguration.
-- ob Client-Code aus OpenAPI generiert oder zunaechst handgeschrieben wird.
+## Stop Rules
+
+Stop, wenn:
+
+- Controllercode oder ein Fake zur Contract Source of Truth wird.
+- Frontend allein DTOs, Endpunkte oder Policy festlegt.
+- echte oder anonymisierte private Daten in Contract-Artefakte gelangen.
+- Capture-Intent als endgueltiges Routing gilt.
+- ein Breaking Change ohne Versionierungs- und Rolloutplan freigegeben wird.
+
+## Handoff
+
+OpenAPI/Microcks geht an `contract-api`; App-Fakes an `quality-readiness`;
+Provider-Implementierung an ein getrenntes Backend-Issue/-Team.

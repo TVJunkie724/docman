@@ -1,117 +1,109 @@
 ---
-title: "Decision - Mobile Capture Context Selection"
-description: "Entscheidung zur optionalen Managed-Subject-, Vorgangs- und Notizzuordnung beim mobilen Scannen"
-tags: [decision, mobile-capture, context, profiles, cases, draft-inbox, milestones]
-lastUpdated: "2026-07-14"
-status: "accepted"
+title: "Decision - Mobile Capture Context Intent"
+description: "Entscheidung zur minimalen mobilen Capture-Absicht: automatisches Matching ist immer aktiv, ein neuer Vorgang bleibt der einzige primaere Vorab-Shortcut"
+tags: [decision, mobile-capture, context, cases, intelligence, review, progressive-disclosure]
+lastUpdated: "2026-07-15"
+status: "accepted-rebaseline"
+owner: "product-concept"
 ---
 
-# Decision - Mobile Capture Context Selection
-
-## 2026 Cloud Rebaseline
-
-Optional context and Draft-Inbox fallback remain accepted. Cross-device mobile
-handoff is a Cloud Vault capability; historical Home-Hub contract references
-map to the C2 Mappm Cloud Capture contract.
+# Decision - Mobile Capture Context Intent
 
 ## Status
 
-Accepted.
+Accepted and rebaselined on 2026-07-15. The earlier optional pre-scan sequence
+for Managed Subject, existing Case and note is superseded for global capture.
 
-## Entscheidung
+## Decision
 
-Mobile Capture darf in M2 Kontext mitschicken, muss ihn beim Scannen aber nie
-erzwingen. Der Managed Subject ist erst fuer den Abschluss des Draft Reviews
-pflichtig.
+Automatic document analysis and Case/Record matching run for every supported
+capture. They are not a user-selectable mode.
 
-Der Primaerflow bleibt:
+Global mobile capture must remain immediately usable without profile selection,
+Case search, role selection, note or metadata form. The only primary optional
+pre-capture context intent is:
 
 ```text
-Scan
-  -> optional Managed Subject waehlen
-  -> optional Vorgang waehlen
-  -> optionale Notiz
-  -> Upload
-  -> Draft-Inbox oder direkt zugeordneter Draft
+Neuen Vorgang starten
 ```
 
-Wenn kein Kontext gewaehlt wird, die Vorgangsliste nicht verfuegbar ist oder
-ein Kontext spaeter ungueltig wird, landet das Dokument sicher in der
-Draft-Inbox.
+Selecting it explicitly requests a new primary Case but does not require title,
+workflow or metadata input. Backend/Core Assist proposes those values from the
+captured material and still checks:
 
-## M2-Verhalten
+- whether documents in the session are unrelated;
+- whether a document also belongs to existing Cases/Records/Claims;
+- whether an existing context is a likely duplicate or better relation;
+- whether a durable Record is more appropriate for an item.
 
-Mobile Capture darf:
+## Normal Flow
 
-- einen erlaubten Managed Subject anbieten, wenn Mobile ihn sicher kennt oder der User ihn auswaehlt.
-- eine einfache Liste offener/aktiver Vorgänge anzeigen, wenn verfuegbar.
-- optional einen Vorgang mitsenden.
-- optional eine kurze Notiz mitsenden.
-- einen Upload ohne Vorgang starten.
+```text
+open global capture
+  -> scan
+  -> durable queue/processing
+  -> automatic proposal
+  -> confirm or correct
+```
 
-Mobile Capture muss:
+No context form is inserted before the scan.
 
-- auch ohne Vorgangsliste scannen koennen.
-- den Draft-Inbox-Fallback immer erhalten.
-- ungueltige `caseId`/`managedSubjectId` als Review-Fall behandeln.
-- Kontextauswahl als Komfortpfad behandeln, nicht als Voraussetzung.
+## New-Case Intent
 
-Mobile Capture darf keine stillen Default-Zuordnungen erfinden. Ein fehlender
-fehlender Managed-Subject-Kontext ist kein Upload-Fehler, aber ein blockierender Review-Punkt am
-Desktop.
+```text
+choose Neuen Vorgang starten
+  -> scan one or more documents
+  -> create/retain draft Case intent
+  -> Backend/Core Assist proposes title, Managed Subject, workflow and facts
+  -> flag unrelated batch items and additional matches
+  -> confirm/correct final visible result
+```
 
-## Nicht in M2
+A generated title is mandatory. A placeholder may exist internally while
+processing, but the user must not be required to invent a title before the
+document has been understood.
 
-Mobile Capture baut noch nicht:
+## Existing-Case Shortcut
 
-- vollstaendige mobile Vorgangsverwaltung.
-- komplexe mobile Suche ueber alle Vorgänge.
-- Case-Beziehungen oder Bottom-up-Komposition.
-- Dokumente mehreren Vorgängen direkt am Handy zuordnen.
-- Rollen-/Rechteverwaltung.
-- Konfliktaufloesung fuer Profil- oder Vorgangskontext.
+Selecting an existing Case before global capture is not required and is not a
+primary capture control. It may later be exposed as a secondary shortcut if
+usability evidence justifies it. Existing Cases are always available through
+the result/correction path.
 
-Diese Themen gehoeren in R5, R6, R7 oder spaetere Mobile-Review-Phasen.
+Capture launched from inside an existing Case is a separate deliberate path and
+may carry that explicit Case context without showing another selector.
 
-## Fallback-Regeln
+## Managed Subject and Notes
 
-| Situation | Verhalten |
-|---|---|
-| Kein Managed Subject gewaehlt | Draft-Inbox Review; Abschluss erst nach expliziter Zuordnung |
-| Keine Vorgangsliste verfuegbar | Upload ohne `caseId` |
-| `caseId` inzwischen ungueltig | Draft-Inbox Review |
-| `managedSubjectId` nicht mehr erlaubt | Draft-Inbox Review oder Re-Auth-/Berechtigungsfehler je nach Ursache |
-| Nutzer ist in Eile | Scan ohne Kontext bleibt erlaubt |
+Backend/Core Assist proposes the Managed Subject. The user confirms it when it
+is new, ambiguous or consequential. If the selected/confirmed Case already has
+one unambiguous Managed Subject, the review need not repeat redundant profile
+information unless there is a conflict.
 
-## Begruendung
+A free note may remain available after capture or in details, but is not part of
+the default pre-scan sequence.
 
-Der wichtigste Mobile-Use-Case ist schnelles Erfassen unterwegs. Eine zu starke
-Kontextpflicht wuerde den Scanfluss verlangsamen und bei schlechter Verbindung
-blockieren.
+## Offline Behavior
 
-Gleichzeitig ist eine optionale Vorzuordnung wertvoll, weil sie Desktop-Review
-reduziert. Deshalb wird Kontext als hilfreiche Metadaten geplant, aber nicht
-als harte Voraussetzung fuer Datenannahme.
+Global capture and new-Case intent work offline. The original and intent are
+stored durably. Assist processing and result review wait until the approved
+processing path is available. Missing cached Cases or profiles never blocks
+capture.
 
-## Auswirkungen auf R4
+## UI Boundary
 
-- R4.4 Mobile Scan Client muss Kontextauswahl als optionalen Schritt planen.
-- C2 Mappm Cloud Capture Contract muss `managedSubjectId?`, `caseId?` und `note?`
-  akzeptieren koennen.
-- R4.7 API-proxied Upload muss invalid-context fallback unterstuetzen.
-- R4.8 Cases/Relations Core bleibt Desktop-first fuer Erstellung und Struktur.
+This decision does not choose exact control placement, wording, tap/swipe
+confirmation or result layout. It limits the visible pre-capture choice surface
+to protect the capture-first product principle.
 
-## Konsequenzen
+## Stop Rules
 
-- Mobile bleibt fuer M2 schlank.
-- Draft-Inbox bleibt die zentrale Sicherheitslinie.
-- Spaetere mobile Review kann auf denselben Kontextfeldern aufbauen.
-- Mehrfachzuordnung und Case-Komposition werden nicht versehentlich in den
-  Mobile-Capture-Kern gezogen.
+Stop if:
 
-## Nicht entschieden
-
-- genaue UI-Darstellung der Kontextauswahl.
-- ob Mobile in M2 eine minimale Vorgangssuche bekommt oder nur eine kurze Liste.
-- wie viele zuletzt verwendete Vorgänge Mobile lokal cached.
-- ob Auswahl typisierter Case-Beziehungen vor R7 angeboten wird.
+- `Automatisch vorschlagen` appears as a mode that can be turned off;
+- global capture requires Managed Subject, existing Case or note before scan;
+- more capture modes/options are added without a new product decision;
+- `Neuen Vorgang starten` opens a mandatory blank title form;
+- existing-Case selection crowds the primary capture action;
+- selected new-Case intent suppresses analysis, title generation or additional
+  matching.

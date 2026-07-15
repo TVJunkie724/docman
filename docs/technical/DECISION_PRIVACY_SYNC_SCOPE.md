@@ -1,97 +1,86 @@
 ---
-title: "Decision - Privacy and Sync Scope"
-description: "Entscheidung zu Privacy-Klassen und Sync-Grenzen fuer Mappm Home Hub, Backup und spaetere Self-hosted-Synchronisation"
-tags: [decision, privacy, sync, data-classification, self-hosted]
-lastUpdated: "2026-07-12"
-status: "superseded"
+title: "Decision - Privacy and Remote Data Scope"
+description: "Datenklassifikation und Trust-Grenzen fuer Local/Cloud Vault, Core Assist, Sync, Backup, Export und Telemetry"
+tags: [decision, privacy, sync, cloud, data-classification, assist]
+lastUpdated: "2026-07-15"
+status: "accepted-direction-trust-details-open"
+owner: "security/privacy/product"
 ---
 
-# Decision - Privacy and Sync Scope
-
-## Status
-
-Superseded on 2026-07-12 by
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`. Data classification remains
-useful input, but its Home-Hub/self-hosted transfer permissions are not an
-active product policy. Production Cloud processing remains blocked until the
-new trust/key decision is accepted.
+# Decision - Privacy and Remote Data Scope
 
 ## Entscheidung
 
-Mappm synchronisiert zuerst in eine private, selbst kontrollierte Home-Hub-
-Umgebung. R6-D2 ist entschieden: Remote-Sync wird nach einfachen Privacy-
-Klassen geplant, nicht nach fachlich unterschiedlichen Regeln fuer LAN,
-Tailscale/VPN oder private Server.
-
-Eine Drittanbieter-Cloud- oder externe SaaS-Synchronisation ist nicht Teil der
-fruehen Produktplanung. Self-hosted cloudartige Setups, etwa privater VPS oder
-extern erreichbarer eigener Server, bleiben als spaetere Varianten moeglich und
-muessen `docs/technical/DECISION_SECURITY_PRIVACY_MODEL.md` einhalten.
+Mappm klassifiziert Daten nach Schutzbedarf und Verarbeitungszweck. Eine
+Datenklasse allein erlaubt keine Uebertragung: Vault-Modus, konkrete Operation,
+Rechtsgrundlage/Einwilligung, Entitlement, Empfaenger, Verschluesselung,
+Retention und User-Aktion bestimmen gemeinsam die zulaessige Verarbeitung.
 
 ## Datenklassen
 
-| Klasse | Beispiele | Sync-Regel |
+| Klasse | Beispiele | Mindestregel |
 |---|---|---|
-| `normal` | Anzeigename, Profil-ID, Vorgangsstatus, Tags, einfache Aufgaben | syncbar mit normaler Zugriffskontrolle |
-| `sensitive` | Adresse/Meldeadresse, Geburtsdatum, Dokument-Metadaten, Anbieter, Fälligkeit, Beträge | syncbar im Home Hub; nicht in Logs/Push/externem Export ohne bewusste Auswahl |
-| `highlySensitive` | Passnummer, Ausweisnummer, SV-/Versicherungsnummern, medizinische Details, Versicherungsbeziehungen, sensible Profil-Fakten | syncbar fuer privaten Home Hub/Backup, aber nie in normalen Listen/Logs/Telemetry; spaetere Feld-/Payload-Verschluesselung vorbereiten |
-| `documentPayload` | Scans, PDFs, Bilder, Arztbriefe, Verträge, Ausweise | Home Hub erlaubt; ueber Storage-Port, Hash/Checksum, keine Inhalte in PostgreSQL-Logs, spaeter verschluesselbarer Payload |
-| `ocrDerived` | OCR-Rohtext, Klassifikation, LLM-Vorschlaege, extrahierte Fakten | bestaetigte Vorschlaege/Fakten syncbar nach Schutzklasse; Roh-OCR/LLM nur mit separater Trust-Boundary |
-| `secret` | Pairing Secret, Session Token, Device Token, OAuth Token, Recovery Key, presigned URL | nie als normale Sync-Daten; Secure Storage oder serverseitig zweckgebunden/hashed/kurzlebig |
-| `diagnostic` | Fehlerklasse, Komponente, Zeitpunkt, Operation-ID, Sync-Status | nur inhaltsarm; keine Dokumenttitel, Pfade, OCR-Texte, Personen-IDs mit Klartext, Tokens oder sensiblen Werte |
+| `account` | Account-ID, Plan, Device Trust, Session | getrennt von Dokumentinhalt; eng gescoped |
+| `personal` | Name, Kontakt, Profil, Haushalt/Organisation | nur fuer benoetigten Managed-Subject-Kontext |
+| `sensitiveMetadata` | Absender, Betrag, Frist, Case-/Record-Titel | keine unredigierte Telemetry/Notification |
+| `specialCategory` | Gesundheits-, Versicherungs-, Identitaets- und vergleichbare Daten | besondere Rechts-/Security-Pruefung |
+| `documentPayload` | Scan, PDF, Bild, Anhang | Vault-/Operation-spezifische Payload-Policy |
+| `derivedContent` | OCR-Text, Fakten, Embeddings, Titel, Kandidaten | gleich sensibel wie Quelle oder strenger |
+| `secret` | Token, Key, Recovery Secret, Presigned URL | Secure Storage/kurzlebig; nie normale Sync-Daten |
+| `diagnostic` | Referenzcode, redigierter Stage-/Failure-Code | keine fachlichen Labels/Inhalte |
 
-## Netzwerk- und Deployment-Kontext
+Eine Phase darf Klassen verfeinern, aber keine niedrigere Schutzstufe ohne
+Security-/Privacy-Entscheidung annehmen.
 
-Die Privacy-Klasse ist unabhaengig davon, ob sich App und Home Hub im selben
-Netzwerk befinden.
+## Zweckgrenzen
 
-Unterschieden wird:
+### Local Vault
 
-- Datenklasse: Was ist es und wie sensibel ist es?
-- Transport-/Deployment-Kontext: LAN, Tailscale/VPN, privater Server,
-  self-hosted cloudartig.
+Metadaten und Dateien bleiben lokal autoritativ. Account-/Entitlementdaten
+duerfen den Service nutzen. Core Assist uebertraegt nur die fuer den expliziten
+Processing-Auftrag benoetigten Daten gemaess Trust-/Retention-Vertrag. Daraus
+entstehen kein Cloud Vault, kein Backup und kein Sync.
 
-Die Datenklasse entscheidet, ob und wie ein Wert syncbar ist. Der
-Transport-/Deployment-Kontext beeinflusst Setup, Warnungen, Health Checks,
-TLS/Auth-Anforderungen und Performance, aber nicht die fachliche
-Schutzklassifizierung.
+### Cloud Vault
 
-Eine Passnummer, ein Arztbrief oder OCR-Rohtext bleibt also gleich sensibel,
-egal ob der Home Hub im selben LAN, ueber Tailscale oder auf einem privaten VPS
-erreichbar ist.
+Mappm Cloud ist Autoritaet fuer aktivierte Vault-Daten, Sync und Managed
+Backup/Restore. Clientcache und Pending Operations folgen separaten
+Retention-/Encryption-Regeln. Cloud-to-Local, Export und Loeschung bleiben
+auch in Grace/Read-only erreichbar.
 
-## Regeln
+### Core/Advanced Assist
 
-- Keine externen Dienste ohne neue Entscheidung.
-- Keine Secrets in normaler lokaler DB.
-- Keine Dokumentinhalte in Logs.
-- Mobile Uploads duerfen an den Home Hub gehen, weil Mobile Capture geplant ist.
-- Vollständiger Multi-Geräte-Sync nutzt dieselben Privacy-Klassen.
-- Löschung, Export und Geräte-Entkopplung bleiben Produktanforderungen.
-- Home Hub darf Sync und Backup fuer produktrelevante Daten tragen, aber nicht
-  alle Daten werden gleich behandelt.
-- Document Payloads gehoeren in den Storage-Port, nicht als DB-Blob-Default.
-- Bestaetigte OCR-/AI-Vorschlaege werden nach ihrer fachlichen Schutzklasse
-  behandelt.
-- Roh-OCR, LLM-Prompts und LLM-Responses brauchen eine spaetere explizite
-  Trust-Boundary-Entscheidung.
-- Secrets und Credentials gehoeren nie in normale Sync-Journale oder
-  Diagnoseereignisse.
+Assist ist eine eigene Verarbeitungsgrenze. Provider, Region, Klartextzugriff,
+Training, Subprozessoren, Retention, Loeschbestaetigung und Telemetry werden vor
+echten Dokumenten akzeptiert. Trainingsverwendung echter Dokumente ist nicht
+erlaubt. Advanced Assist benoetigt eine neue Applicability-Pruefung.
 
-## Konsequenzen
+### Export, Sharing und externe Aktionen
 
-- F10/F12/F7/F11 sind verbindlich auf Privacy-Grenzen auszurichten.
-- Sync-Modelle müssen Datenklassen berücksichtigen.
-- Sensitive abgeleitete Daten wie OCR-Text werden später bewusst eingeführt, nicht nebenbei.
-- R6-D2 ist entschieden: einfache Privacy-Klassen statt netzwerkabhaengiger
-  Fachlogik.
-- R6-D3 kann Konfliktregeln auf diesen Datenklassen aufbauen.
-- R8 Facts/Claims/Financial Entries sind syncbar, muessen aber nach ihrer
-  fachlichen Sensitivitaet klassifiziert werden.
+Export ist eine bewusste User-Aktion mit sichtbarem Umfang. Sharing benoetigt
+separate Empfaenger-, Rechte-, Ablauf-, Widerrufs- und Auditregeln. Externe
+Portale liegen ausserhalb der Mappm-Vertrauensgrenze.
 
-## Nicht entschieden
+### Telemetry und Support
 
-- konkrete Verschluesselungsbibliothek.
-- konkrete Feld- oder Payload-Verschluesselung je Datenklasse.
-- Roh-OCR-/LLM-Speicherstrategie.
-- spaetere Managed-Cloud-Produktpolitik.
+Keine Dokumentinhalte, OCR-Texte, Suchqueries, fachlichen Titel, Beträge,
+Kontakte, Kandidatenlabels, Secrets oder direkten Identifier. Supportpakete
+benoetigen Preview, Redaction und explizite Freigabe.
+
+## Offene Trust-Entscheidungen
+
+Konkrete Kryptographie, Key Ownership/Recovery, Providerregionen,
+Subprozessoren, Retention-Dauern und E2EE-/Zero-Knowledge-Faehigkeit bleiben in
+den VC-/SEC-/DATA-Gates offen. Keine Phase darf aus diesem Richtungsentscheid
+eine fertige Verschluesselungs- oder Rechtsgrundlage ableiten.
+
+## Tests und Stop Rules
+
+- Data-flow-/Threat-Model pro aktivierter Operation.
+- Tests fuer Redaction, Tenant-/Vault-Isolation, Export und Delete.
+- Contract-/Provider-Nachweis fuer Retention und Zweckbindung.
+- synthetische Fixtures; keine anonymisierten privaten Dokumente.
+
+Stop, wenn Datenklasse als pauschale Sync-/Assist-Erlaubnis verwendet wird,
+Assist Backup impliziert, Secrets normal repliziert werden oder Provider,
+Region, Retention beziehungsweise Rechtsgrundlage fuer echte Daten offen sind.

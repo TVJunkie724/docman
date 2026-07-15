@@ -2,10 +2,10 @@
 title: "Decision - Product Name"
 description: "Entscheidung zum Produktnamen Mappm und zur Abgrenzung vom technischen Arbeitsnamen DocMan"
 tags: [decision, accepted, product, naming, branding, mappm]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "product-concept"
 ---
-
 # Decision - Product Name
 
 ## Status

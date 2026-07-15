@@ -2,10 +2,10 @@
 title: "Decision - Mock UI Strategy"
 description: "Entscheidung zum Umgang mit Legacy-App, UI-Spikes, Mock-Screens, Fake-Repositories und Contract-Mocks"
 tags: [decision, mocks, ui, fakes, testing, legacy, riverpod]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "ui-concept/quality-readiness"
 ---
-
 # Decision - Mock UI Strategy
 
 ## Status
@@ -14,11 +14,11 @@ Accepted.
 
 ## Entscheidung
 
-DocMan verwendet Mock-UI nur als kontrollierte Konzeptvalidierung, nicht als zweiten Produktpfad.
+Mappm verwendet Mock-UI nur als kontrollierte Konzeptvalidierung, nicht als zweiten Produktpfad.
 
 Die bestehende App bleibt vorerst als Legacy-Referenz erhalten. Sie darf fuer Designgefuehl, fachliche Ideen und bestehende Flow-Ansichten gelesen werden, wird aber nicht als Zielarchitektur weiterentwickelt.
 
-Neue UI-Mocks entstehen isoliert in einem klar markierten Mock-Bereich und verwenden synthetische Daten. Wenn ein Mock fachlich ueberzeugt, wird daraus ein normaler Feature-Plan oder ein R2/R3/R4-Handoff. Der Mock selbst wird nicht heimlich zur Produktimplementierung.
+Neue UI-Mocks entstehen isoliert in einem klar markierten Mock-Bereich und verwenden synthetische Daten. Wenn ein Mock fachlich ueberzeugt, wird daraus ein freigegebener UI-Implementation-Plan und Phase-Handoff. Der Mock selbst wird nicht heimlich zur Produktimplementierung.
 
 ## Begriffe
 
@@ -28,7 +28,7 @@ Neue UI-Mocks entstehen isoliert in einem klar markierten Mock-Bereich und verwe
 | UI-Mock | isolierter Screen oder Flow zur visuellen und interaktiven Konzeptpruefung |
 | Fake Repository | Test-/Dev-Implementierung eines echten Domain-Repository-Vertrags |
 | Contract-Mock | externer API-Mock, z. B. Microcks, fuer Cloud-Identity-, Vault-, Capture-, Sync- und Migrationsvertraege |
-| Produktpfad | echte App-Screens und Provider, die in den M2 wachsen duerfen |
+| Produktpfad | echte App-Screens und Provider, die ausschließlich aus einem freigegebenen Plan entstehen |
 
 ## Regeln
 
@@ -75,12 +75,14 @@ Der erste Mock-Flow ist:
 ```text
 Mobile Capture
   -> Upload-Queue
-  -> Draft-Inbox
-  -> Dokument pruefen
-  -> optional Vorgang zuordnen
+  -> asynchrone Processing-/Review-Inbox
+  -> Backend-/Assist-Titel und bestes Case-/Record-Matching pruefen
+  -> bestaetigen oder gezielt korrigieren
 ```
 
-Der Mock soll beantworten, ob sich Mobile Capture mit Draft-Inbox und optionaler Vorgangszuordnung als M2-Kern richtig anfuehlt.
+Der Mock soll beantworten, ob globales Mobile Capture, optionales
+`Neuen Vorgang starten`, Warte-/Fehlerzustand und kompakter Ergebnisreview ohne
+Metadatenformular verstaendlich sind. Konkrete finale UI bleibt offen.
 
 ## Synthetische Daten
 
@@ -114,7 +116,7 @@ Nicht blind uebernommen werden:
 
 ## Konsequenzen
 
-- R2-D3 ist entschieden: Mock-UI wird isoliert, nicht entfernt und nicht als Produktpfad vermischt.
+- Mock-UI wird isoliert, nicht entfernt und nicht mit dem Produktpfad vermischt.
 - F15 beschreibt nicht nur Test-Fakes, sondern auch die Grenze fuer UI-Konzeptmocks.
 - Die alte App kann waehrend des Rebuilds als Design-/Fachreferenz bleiben, muss aber klar vom Zielpfad getrennt sein.
 - Mock-Screens sind wertvoll, solange sie Entscheidungen beschleunigen und spaeter sauber in Feature-Arbeit ueberfuehrt oder geloescht werden.

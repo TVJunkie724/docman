@@ -2,7 +2,7 @@
 title: "Decision - Vault Storage Modes and Mappm Cloud Product Model"
 description: "Verbindliche Produkt- und Architekturentscheidung fuer lokale und cloudverwaltete Vaults, Assist-Trennung, Migration, Subscription-Lifecycle und lokale Development Cloud"
 tags: [decision, vault, local, cloud, account, assist, subscription, storage, migration, portability]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 status: "accepted"
 owner: "product-concept"
 ---
@@ -296,11 +296,15 @@ This decision supersedes the product/deployment direction in:
 - `DECISION_HOME_HUB_BACKEND_TECHNOLOGY.md` only as customer deployment; its
   stack remains the Local Development Cloud and managed-cloud baseline.
 
-Existing upload limits, checksums, idempotency, Draft Inbox and review rules
+Existing upload limits, checksums, idempotency, Capture Inbox and review rules
 remain valid after replacing the destination term with an approved Cloud Vault
 contract.
 
 ## Open Decisions
+
+Die folgende Tabelle spiegelt die stabilen `VC-*`-IDs im Kontext dieser
+Entscheidung. Status und Re-check-Trigger werden ausschliesslich im
+`docs/discovery/OPEN_QUESTIONS_REGISTER.md` gepflegt.
 
 | ID | Question | Owner | Blocks |
 |---|---|---|---|

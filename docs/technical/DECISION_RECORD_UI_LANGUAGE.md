@@ -2,10 +2,10 @@
 title: "Decision - Record UI Language"
 description: "Entscheidung zur deutschen UI-Sprache fuer Record: Unterlagen, Persoenliche Unterlagen und Nachweisart"
 tags: [decision, product-language, records, ui-language, documents]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "product-concept/ui-concept"
 ---
-
 # Decision - Record UI Language
 
 ## Status

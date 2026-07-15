@@ -1,181 +1,110 @@
 ---
 title: "Rebaseline - Mappm Cloud Capture Contract Shape"
-description: "Historischer 3-Schritt-Capture-Vertrag als Input für den neuen Mappm-Cloud-Contract"
-tags: [decision, home-hub, mobile-capture, openapi, microcks, upload, draft-inbox]
-lastUpdated: "2026-07-12"
+description: "Akzeptierte fachliche Capture-Vertragsform; konkrete OpenAPI-Rekontraktierung erforderlich"
+tags: [decision, cloud, mobile-capture, openapi, microcks, upload, processing]
+lastUpdated: "2026-07-15"
 status: "accepted-shape-recontract-required"
+owner: "contract-api"
 ---
 
 # Rebaseline - Mappm Cloud Capture Contract Shape
 
-The initiate/upload/confirm shape, idempotency and checksum requirements remain
-accepted as contract input. The old Home Hub/pairing DTO and policy details are
-not implementation-authorizing. Issue #27 and `contract-api` must produce and
-approve the Mappm Cloud OpenAPI/Microcks contract after VC-01/VC-02.
-
 ## Status
 
-Accepted.
+Die fachliche Form `initiate -> transfer -> confirm` sowie Idempotenz,
+Checksum und durable Originalannahme sind akzeptiert. Dieses Dokument legt
+keine DTOs, Endpunkte, Fehlercodes oder Limits fest. Der konkrete Mappm-Cloud-
+Vertrag muss durch `contract-api` als OpenAPI/Microcks-Slice rekontraktiert und
+reviewt werden.
 
-## Entscheidung
+Der historische Dateiname bleibt nur fuer Traceability bestehen. Es gibt keinen
+Customer Home Hub und kein QR-Pairing im Produktvertrag.
 
-Der R4-M2 verwendet fuer Mobile Capture einen fachlichen 3-Schritt-Vertrag:
+## Fachlicher Ablauf
 
 ```text
-1. initiateCaptureUpload
-2. uploadCaptureBytes
-3. confirmCaptureUpload
+1. Upload initiieren
+2. Artefakte ueber den ausgehandelten Transport uebertragen
+3. Upload mit Manifest und Integritaetsnachweis bestaetigen
+4. Originale dauerhaft annehmen und Processing Job queuen
+5. Processing-/Proposal-Status separat bereitstellen
+6. User-Bestaetigung/Korrektur separat persistieren
 ```
 
-Der M2-Transport darf API-proxied sein. Der Vertrag bleibt aber so modelliert,
-dass presigned/resumable Uploads spaeter hinter demselben fachlichen Vertrag
-moeglich bleiben.
+Upload-Bestaetigung finalisiert weder logische Dokumentgrenzen noch
+Case-/Record-Zuordnung.
 
-OpenAPI ist die Contract Source of Truth. Microcks muss die relevanten
-Erfolgs-, Fehler- und Retry-Szenarien vor echter Home-Hub-Implementation
-simulieren koennen.
+## Fachliche Anforderungen
 
-## Contract Flow
+Der konkrete Vertrag muss mindestens ausdruecken koennen:
 
-### 1. initiateCaptureUpload
+- Account-/Device-/Vault-/Entitlement-Kontext.
+- stabile Client-Operation und Idempotency Key.
+- Artefaktmanifest, Groesse, MIME, Seitenzahl und Checksum.
+- ein logisches Dokument mit mehreren Seiten sowie mehrere Dokumente pro
+  technischer Capture Session.
+- optionalen New-Case-, vorhandenen Case- oder Managed-Subject-Intent als
+  Matching-Signal.
+- Upload-, Verifikations- und Processing-Referenzen.
+- Retry/Resume/Expiry und Teilfehler.
+- maschinenlesbare Failure-/Conflict-/Review-Semantik.
 
-Mobile teilt dem Home Hub mit, dass ein Scan-Paket hochgeladen werden soll.
+Contract/API Owner entscheiden die finalen Felder, DTOs und Operationen.
 
-M2-Felder:
+## Intent- und Review-Regel
 
-- `deviceId`
-- `idempotencyKey`
-- `profileId?`
-- `caseId?`
-- `pageCount`
-- `totalSizeBytes`
-- `contentType`
-- `sha256`
-- `captureSource`
-- `createdAt`
-- `artifactManifest`
+Ein ungueltiger oder veralteter Intent darf ein valides Original nicht
+zerstoeren. Die Capture Session bleibt verarbeitbar; der Intent wird als
+sichtbarer Review-Konflikt behandelt. Assist liefert weiterhin beste
+Case-/Record-Kandidaten. Bei sehr niedriger Confidence steht ein neuer leichter
+Custom Case mit vorgeschlagenem Titel zuerst; vorhandene Cases bleiben
+auswaehlbar.
 
-Der Home Hub prueft:
+Core Assist liefert pro logischem Dokument insbesondere:
 
-- Device Token und Pairing.
-- Upload-Policy aus `DECISION_UPLOAD_LIMITS_RETRY_RESUME_CLEANUP.md`.
-- Idempotency.
-- optionalen Profil-/Vorgangskontext.
+- editierbaren Dokument- und gegebenenfalls Case-/Record-Titel.
+- Typ, relevante Fakten, Managed Subject und External Party.
+- gerankte Case-/Record-/Claim-Kandidaten mit Confidence und Provenance.
+- Workflow-/Task-/Fristvorschlaege innerhalb freigegebener Definitionen.
 
-### 2. uploadCaptureBytes
+## Fehler- und Security-Grenze
 
-Mobile laedt die Bytes des Upload-Pakets hoch.
+Der Vertrag muss Auth, Authorization, Entitlement/Quota, Validation, Payload-
+Policy, Integrity, Expiry, Conflict, Rate Limit und retrybaren Servicefehler
+unterscheidbar machen. Exakte Codes und HTTP-Mappings gehoeren in OpenAPI.
 
-Im M2 ist das ein API-proxied Upload an den Home Hub. Storage-Details,
-Buckets, presigned URLs oder MinIO-Schluessel leaken nicht in Domain oder UI.
+- Keine Tokens, URLs, Dokumentinhalte, OCR-Texte oder sensiblen Dateinamen in
+  Logs, Examples oder Fehlertexten.
+- Storage Keys und Providerdetails sind Infrastruktur, keine Domain-/UI-Daten.
+- Local-Vault-Capture/Assist darf keine dauerhafte Cloud-Vault-Speicherung
+  implizieren.
+- Cleanup darf Originale erst nach bestaetigter Policy-/Lifecycle-Bedingung
+  entfernen.
 
-### 3. confirmCaptureUpload
+## Microcks-Mindestfaelle
 
-Mobile bestaetigt, dass die Bytes uebertragen wurden.
+- Initiate/Transfer/Confirm erfolgreich.
+- wiederholtes Confirm idempotent.
+- Checksum-/Manifest-/MIME-/Groessenfehler.
+- abgelaufene Session und widerrufenes Device.
+- Quota/Rate Limit/Retryable Service Failure.
+- ungueltiger Intent bei erhaltenem Upload.
+- Processing queued, Teilfehler und Review-ready.
+- App-/Client-Restart mit Fortsetzung.
 
-Der Home Hub prueft:
+Alle Examples sind vollsynthetisch.
 
-- Auth/Device Token.
-- Upload Session.
-- Groesse.
-- MIME-Type.
-- SHA-256.
-- Vollstaendigkeit des Artefakt-Manifests.
-- Idempotency.
-- optionalen `caseId`/`profileId`.
+## Stop Rules
 
-Erst nach erfolgreichem Confirm erzeugt oder bestaetigt der Home Hub einen
-Draft-Inbox-Eintrag.
+Stop, wenn:
 
-## Invalid Context Fallback
+- dieses Shape-Dokument als fertiger API-Vertrag behandelt wird.
+- Frontend konkrete DTOs, Endpunkte oder Backend-Policy festlegt.
+- Confirm bereits Routing finalisiert.
+- ein Intent oder Teilfehler ein valides Original verliert.
+- Vertrag und Microcks keine Idempotenz-/Restart-Szenarien besitzen.
 
-Ein ungueltiger oder inzwischen geloeschter `caseId` darf den Upload nicht
-zerstoeren.
+## Handoff
 
-Wenn der Datei-Upload valide ist, aber der Kontext nicht mehr passt, landet das
-Dokument in der Draft-Inbox mit Review-Hinweis. Der Nutzer kann es spaeter am
-Desktop neu zuordnen.
-
-## Response Model
-
-Antworten liefern mindestens:
-
-- `uploadSessionId`
-- `status`
-- `inboxItemId?`
-- `requiresReview`
-- `acceptedContext`
-- `retryAfter?`
-- `errorCode?`
-- `errorCategory?`
-
-Statuswerte muessen zu den Queue- und Upload-Zustaenden aus
-`DECISION_UPLOAD_LIMITS_RETRY_RESUME_CLEANUP.md` passen.
-
-## Error Semantics
-
-Fehler sind maschinenlesbar. Mobile muss unterscheiden koennen:
-
-- Retry spaeter.
-- Re-Pairing erforderlich.
-- Upload splitten oder reduzieren.
-- finaler Validierungsfehler.
-- Review am Desktop erforderlich.
-
-M2-Fehlerklassen:
-
-- `auth_required`
-- `device_revoked`
-- `payload_too_large`
-- `unsupported_media_type`
-- `validation_failed`
-- `checksum_mismatch`
-- `session_expired`
-- `context_invalid_review_required`
-- `conflict`
-- `rate_limited`
-- `server_retryable`
-- `unexpected`
-
-## Microcks Scenarios
-
-R4.6 muss mindestens diese Szenarien modellieren:
-
-- initiate success.
-- upload bytes success.
-- confirm success with Draft-Inbox item.
-- idempotent repeated confirm.
-- invalid case/profile context with review fallback.
-- payload too large.
-- unsupported media type.
-- validation failure.
-- checksum mismatch.
-- expired session.
-- revoked/expired device token.
-- rate limited with `retryAfter`.
-- retryable server failure.
-
-Alle Beispiele muessen synthetisch sein und duerfen keine echten Dokumentnamen,
-Haushaltsdaten, Tokens oder Dateiinhalte enthalten.
-
-## Security and Privacy
-
-- Keine Tokens, presigned URLs, Dokumentinhalte, OCR-Texte oder sensitiven
-  Dateinamen in Logs, Specs oder Mock Examples.
-- Idempotency Keys duerfen in Diagnose nur gehasht erscheinen.
-- Storage-Keys sind technische Adapterdaten, keine Domain- oder UI-Daten.
-- Der Contract darf spaetere verschluesselte Payloads nicht verhindern.
-
-## Konsequenzen
-
-- R4.6 kann den OpenAPI/Microcks-Spec konkret erstellen.
-- R4.7 kann den API-proxied Upload gegen denselben fachlichen Vertrag bauen.
-- F11 API Integration verweist auf diesen Capture-Vertrag.
-- R4-D15 ist entschieden, ohne die konkrete ASP.NET-Core-Implementation vorwegzunehmen.
-
-## Nicht entschieden
-
-- exakte URL-Pfade und Operation-IDs.
-- konkrete Ablage der OpenAPI-Datei.
-- ob der M2-Client handgeschrieben oder aus OpenAPI generiert wird.
-- welche presigned/resumable Variante spaeter zuerst umgesetzt wird.
+Der naechste Schritt ist ein separates `contract-api`-Issue fuer OpenAPI,
+Microcks, Consumer Mapping und Backend-Provider-Verification.

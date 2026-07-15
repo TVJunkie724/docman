@@ -2,9 +2,10 @@
 title: "Produkt-Säule - Contracts and Subscriptions"
 description: "Produktbereich fuer Vertraege, Abos, wiederkehrende Rechnungen, Laufzeiten, Kuendigungen, Reminder und schlanke Rechnungsverlaeufe"
 tags: [pillar, contracts, subscriptions, records, invoices, reminders, insights]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-15"
 version: "0.1"
 status: "accepted-direction"
+owner: "product-concept"
 ---
 
 # Produkt-Säule - Contracts and Subscriptions
@@ -92,7 +93,7 @@ Normative Details:
 
 ## Stop Rules und Handoff
 
-Stop if:
+Stop, wenn:
 
 - jede Rechnung einen eigenen Case erzeugt;
 - Abschluss, Änderung oder Kündigung ohne eigenständiges Ziel fragmentiert wird;
@@ -110,8 +111,9 @@ Product-/UX-Slices gehen über `ui-concept-review` und eine freigegebene Phase a
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

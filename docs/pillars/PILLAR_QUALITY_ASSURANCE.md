@@ -2,16 +2,17 @@
 title: "Enterprise-Säule - Quality Assurance"
 description: "Enterprise-Bereich fuer Teststrategie, Regression, Fake-Repositories, Microcks, Accessibility, Visual Checks und Release-Qualität"
 tags: [pillar, enterprise, qa, testing, quality]
-lastUpdated: "2026-07-12"
-version: "0.1"
+lastUpdated: "2026-07-15"
+version: "0.2"
 status: "proposed"
+owner: "quality-readiness"
 ---
 
 # Enterprise-Säule - Quality Assurance
 
 ## Zweck
 
-QA stellt sicher, dass DocMan nicht als Spike weiterwächst.
+QA stellt sicher, dass Mappm nicht als Spike weiterwaechst.
 
 ## Scope
 
@@ -25,7 +26,7 @@ QA stellt sicher, dass DocMan nicht als Spike weiterwächst.
 - Testfixtures ohne private Daten.
 - Definition of Done je Phase.
 
-## M2-Minimum
+## C1-C3-Minimum
 
 - reproduzierbarer Verify-Befehl.
 - Zielpfad-Analyse grün.
@@ -42,8 +43,9 @@ QA stellt sicher, dass DocMan nicht als Spike weiterwächst.
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

@@ -2,10 +2,10 @@
 title: "Decision - First Insights Verticals"
 description: "Entscheidung zu ersten Haushalts-Finanz- und Claim-Auswertungen auf Basis von Facts, Claims, Unterlagen, Vorgängen und manuellen Eintraegen"
 tags: [decision, insights, facts, claims, finance, household, health, insurance]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "product-concept/domain"
 ---
-
 # Decision - First Insights Verticals
 
 ## Status

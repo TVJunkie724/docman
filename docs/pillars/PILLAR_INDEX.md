@@ -2,9 +2,10 @@
 title: "Mappm Product Pillar Index"
 description: "Master-Landkarte der Mappm Produkt- und Plattform-Säulen sowie querschnittlichen Assurance Tracks"
 tags: [pillars, roadmap, product, enterprise, governance]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-15"
 version: "1.1"
 status: "accepted"
+owner: "product-concept"
 ---
 
 # Mappm Product Pillar Index
@@ -16,14 +17,14 @@ Dieser Index ist die Säulenlandkarte für Mappm.
 Eine Säule beschreibt einen großen Verantwortungsbereich des Produkts oder der Produktentwicklung. Säulen sind nicht identisch mit Roadmap-Phasen:
 
 - Roadmap-Phasen beantworten: Wann bauen wir welches Stück?
-- Säulen beantworten: Welche Bereiche muss DocMan dauerhaft abdecken?
+- Säulen beantworten: Welche Bereiche muss Mappm dauerhaft abdecken?
 - Assurance Tracks beantworten: Welche Qualitäts-, Sicherheits-, Rechts- und
   Betriebsanforderungen müssen jede betroffene Phase begleiten?
 - F-Konzepte beantworten: Welche querschnittlichen Frontend-/Foundation-Regeln gelten über Säulen hinweg?
 
 Alle Produkt-Säulen bauen auf der DMS-Zielarchitektur in
-`docs/technical/DECISION_DMS_TARGET_ARCHITECTURE.md` auf. Der M2 darf kleine
-Slices liefern, aber die langfristige Produktstruktur bleibt ein verbundenes
+`docs/technical/DECISION_DMS_TARGET_ARCHITECTURE.md` auf. C1-C5 liefern kleine
+vertikale Slices, aber die langfristige Produktstruktur bleibt ein verbundenes
 Dokumentenmanagementsystem mit Dokumenten, Dateien, Versionen, Vorgängen,
 Profilen, Fakten, Aufgaben, Suche, Export, Sync und Intelligence.
 
@@ -34,7 +35,7 @@ sondern in `docs/roadmap/PILLAR_ROADMAP_INDEX.md`.
 
 | Säule | Zweck |
 |---|---|
-| `PILLAR_CAPTURE_INBOX.md` | Dokumente erfassen, importieren, scannen, prüfen und aus der Draft-Inbox verarbeiten |
+| `PILLAR_CAPTURE_INBOX.md` | Dokumente global erfassen, dauerhaft verarbeiten, automatisch matchen, kompakt bestätigen und aus Ausnahmen wiederherstellen |
 | `PILLAR_CASES_RECORDS.md` | eigenständige Vorgänge, typisierte Beziehungen, Unterlagen, Dokumente und Versionen |
 | `PILLAR_CONTRACTS_SUBSCRIPTIONS.md` | Verträge, Abos, wiederkehrende Rechnungen, Kündigungsfristen und schlanke Verläufe |
 | `PILLAR_TASKS_REMINDERS_QUICK_ACCESS.md` | Aufgaben, Fristen, Erinnerungen, Schnellzugriff |
@@ -75,6 +76,15 @@ eigenen Owners bearbeitet werden. Kein Feature darf sie auf einen späten
 | `PILLAR_COMPATIBILITY_PLATFORM_SUPPORT.md` | macOS, iOS, Android, später Windows/Linux, Plattformfähigkeiten und Unterschiede |
 | `PILLAR_INTEGRATION_GOVERNANCE.md` | Regeln für externe Links, Deep Links, spätere APIs, Trust Boundaries und Credentials |
 
+## Superseded Traceability
+
+`PILLAR_HOME_HUB_SYNC.md` bleibt ausschliesslich als historischer Tombstone im
+Repository. Es ist keine aktive Produkt-, Plattform- oder Assurance-Saeule und
+darf weder Roadmap-Slices noch Implementierung autorisieren. Seine noch
+relevanten Verantwortungen liegen in `PILLAR_CLOUD_IDENTITY_SYNC.md`,
+`PILLAR_DATA_LIFECYCLE_RESILIENCE.md` und
+`PILLAR_SECURITY_PRIVACY_ARCHITECTURE.md`.
+
 ## Slice-Regel
 
 Eine Phase implementiert einen vertikalen Slice aus einer oder mehreren
@@ -84,13 +94,13 @@ akzeptiert sind; Basisslices werden vor abhängigen Slices geplant.
 
 Beispiel:
 
-- `Capture & Inbox` liefert echten M2-Nutzen.
+- `Capture & Inbox` liefert in C2/C3 einen vollstaendigen nutzbaren Vertical.
 - `Compliance & Legal Readiness` liefert phasenbezogene Regeln; die konkrete
   Store-Einreichung bleibt ein Release-Gate.
 - `Observability` liefert lokale Diagnose- und Redaction-Regeln, aber noch keinen großen Monitoring-Stack.
-- `Core Assist` ist C2/C3-Scope, wird aber erst mit akzeptierten
-  Daten-/Trust-/AI-Gates für echte Dokumente aktiviert; Advanced Assist bleibt
-  ein späterer Slice.
+- `Core Assist` ist C2/C3-Scope; die Aktivierung mit echten Dokumenten setzt
+  akzeptierte Daten-/Trust-/AI-Gates voraus. Advanced Assist bleibt ein
+  spaeterer Slice.
 
 ## Akzeptanz
 
@@ -103,8 +113,9 @@ Die Säulenlandkarte ist akzeptiert, wenn:
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

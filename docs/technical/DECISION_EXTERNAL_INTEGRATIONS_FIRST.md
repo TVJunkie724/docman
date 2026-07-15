@@ -2,10 +2,10 @@
 title: "Decision - External Integrations First"
 description: "Entscheidung zu externen Links, Exportaktionen und spaeterer Portalautomatisierung in Mappm"
 tags: [decision, integrations, external-links, export, portals, sharing]
-lastUpdated: "2026-06-13"
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "product-concept/security"
 ---
-
 # Decision - External Integrations First
 
 ## Status

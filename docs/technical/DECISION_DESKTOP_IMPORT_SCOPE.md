@@ -1,158 +1,67 @@
 ---
 title: "Decision - Desktop Import Scope"
-description: "Entscheidung zum R4-M2-Umfang fuer Desktop-Dateiimport, Drag & Drop, Dateitypen, Import-Port und Package-Abstraktion"
-tags: [decision, desktop-import, drag-drop, file-picker, draft-inbox, flutter, mvp]
-lastUpdated: "2026-05-19"
+description: "Scope für Dateiauswahl, Drag-and-drop, sichere Importkandidaten und Adaptergrenzen"
+tags: [decision, desktop-import, drag-drop, file-picker, capture, flutter]
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "product-concept/ui-concept"
 ---
-
 # Decision - Desktop Import Scope
 
 ## Status
 
-Accepted.
+Angenommen. Konkrete Flutter-Packages bleiben vor Implementierung durch einen
+Wartungs-, Plattform-, Lizenz- und Security-Spike zu bestätigen.
 
 ## Entscheidung
 
-Der R4-M2 plant Desktop Import mit **Dateiauswahl und Drag & Drop**.
-
-Beide Eingangswege laufen ueber denselben Import-Port und erzeugen dieselben
-fachlichen Import-Kandidaten:
+Desktop unterstützt Dateiauswahl und Drag-and-drop über denselben
+Import-Contract:
 
 ```text
-File Picker
-Drag & Drop
-  -> DesktopImportController / Notifier
-  -> DesktopImportSourcePort
-      -> FilePickerImportSource
-      -> DragDropImportSource
-  -> ImportCandidate[]
-  -> ImportValidation
-  -> Local File Store copy
-  -> Draft-Inbox Item
-```
-
-Der M2 verwendet als Zielrichtung:
-
-- `file_picker` fuer native Dateiauswahl.
-- `desktop_drop` fuer Desktop Drag & Drop.
-
-Beide Packages bleiben Infrastructure-/Adapterdetails. Domain, Draft-Inbox und
-Review-Workflow duerfen keine `file_picker`, `desktop_drop`, `XFile`,
-`PlatformFile` oder Plattform-SDK-Typen kennen.
-
-## Strategy / Provider Boundary
-
-Die austauschbare Implementierung ist eine Strategy hinter einem Port.
-Riverpod verdrahtet die aktive Implementierung.
-
-```text
-Application / Presentation
+Picker oder Drop
   -> DesktopImportPort
-
-Infrastructure Strategies
-  -> FilePickerDesktopImportStrategy
-  -> DragDropDesktopImportStrategy
-  -> FakeDesktopImportStrategy
-
-Riverpod
-  -> desktopImportStrategyProvider
+  -> neutrale Importkandidaten
+  -> Validierung und dauerhafte kontrollierte Kopie
+  -> Capture Session
+  -> asynchrone Preview-, OCR-, Index- und Routing-Vorschläge
 ```
 
-Damit kann spaeter ein anderes Drag-&-Drop-Package, ein anderer File Picker,
-eine platform-spezifische Implementierung oder ein Watch-Folder-Adapter
-eingefuehrt werden, ohne Domain- oder Draft-Inbox-Modelle umzubauen.
+Picker-, Drop-, Plattform- und SDK-Typen bleiben Infrastructure-Details. Domain
+und Presentation arbeiten mit Mappm-eigenen Modellen. Riverpod verdrahtet
+Produkt-, Plattform- und Fake-Strategien.
 
-## Neutraler Import-Kandidat
+## Kandidat und Validierung
 
-App-intern wird ein eigener neutraler Typ geplant:
+Ein neutraler Kandidat enthält stabile Session-/Item-ID, Quellart, Dateiname,
+temporäre Quelle, Größe, erkannten MIME-Typ, Erweiterung und Erfassungszeit.
+Vor Abschluss werden mindestens Lesbarkeit, reguläre Datei, Format/MIME,
+Größenlimit, Malware-/Security-Policy, Hash und erfolgreiche kontrollierte
+Kopie geprüft.
 
-```text
-DesktopImportCandidate
-  id
-  sourceKind: picker | dragDrop
-  originalName
-  localPathOrTempPath
-  sizeBytes
-  mimeType?
-  extension
-  capturedAt
-```
+Der ursprüngliche Pfad ist keine dauerhafte Abhängigkeit und darf nur redigiert
+als technische Provenienz verwendet werden. Fehler sind pro Datei sichtbar;
+ein Teilfehler blockiert nicht den restlichen Batch.
 
-Dieser Typ ist ein Application-/Data-Transfer-Objekt fuer Importverarbeitung,
-nicht das finale Dokumentmodell.
+## Formate und Batch
 
-## M2-Dateitypen
+Der erste freigegebene Slice unterstützt mindestens PDF, JPEG und PNG. Weitere
+Formate wie HEIC/TIFF, Office, Mail, ZIP, Ordner, Watch Folder oder Scanner-
+Hardware werden nur nach Format-, Security-, Preview- und Testentscheidung
+aktiviert.
 
-Der M2 akzeptiert:
+Mehrere gemeinsam gewählte Dateien bilden eine technische Sitzung, keinen
+fachlichen Case. Jedes logische Dokument wird separat verarbeitet. Compound-
+Dateien dürfen reversible Split-/Merge-Vorschläge erhalten; Originale bleiben
+erhalten und Outlier sichtbar.
 
-- PDF.
-- JPG/JPEG.
-- PNG.
+## Abhängigkeiten und Tests
 
-Nicht im M2:
+`file_picker` und `desktop_drop` sind derzeit mögliche Adapter, keine
+Domainentscheidung. Vor Pinning werden aktuelle Plattformabdeckung,
+Maintainer-Status, Lizenz, native Berechtigungen, Dateipfad-/Byte-Verhalten,
+Accessibility und Testbarkeit geprüft.
 
-- Ordnerimport.
-- ZIP.
-- E-Mail-Dateien.
-- Office-Dokumente.
-- HEIC/TIFF.
-- Scanner-Hardware-Import.
-- automatische OCR/Klassifikation.
-- Batch-Regeln.
-
-## Mehrfachauswahl und Drag mehrerer Dateien
-
-Wenn mehrere Dateien ausgewählt oder gedroppt werden, entstehen mehrere
-Draft-Inbox-Einträge.
-
-Ausnahme:
-
-- Ein mehrseitiges PDF bleibt ein einzelner Dokument-Draft.
-
-Mehrere Bilder werden im M2 nicht automatisch zu einem mehrseitigen Dokument
-zusammengefuegt. Combine/Merge bleibt ein spaeteres Import-Feature.
-
-## Validierung
-
-Vor dem Kopieren in den lokalen File Store prueft der Import:
-
-- Datei existiert und ist lesbar.
-- Eingabe ist eine Datei, kein Ordner.
-- Dateityp ist erlaubt.
-- Groesse ist lesbar.
-- Hash kann berechnet werden.
-- Kopie in lokalen File Store gelingt.
-
-Fehler werden als sichtbare Import-/Draft-Fehler behandelt und nicht still
-verschluckt.
-
-Wenn der Hash bereits existiert, gilt `DECISION_IMPORT_DUPLICATE_DETECTION.md`:
-Die App zeigt eine Warnung mit den Optionen "Bestehendes öffnen",
-"Beide behalten" und "Abbrechen".
-
-## Speicherregel
-
-Nach erfolgreichem Import arbeitet Mappm mit einer Kopie im lokalen File Store.
-
-Der Originalpfad ist keine dauerhafte Abhaengigkeit. Er darf hoechstens als
-redigierbare technische Herkunfts-/Diagnoseinformation gespeichert werden.
-
-## Konsequenzen
-
-- R4.2 Desktop Import + Draft Inbox muss Drag & Drop und Dateiauswahl
-  gemeinsam planen.
-- `file_picker` und `desktop_drop` duerfen als Dependencies vorbereitet werden,
-  aber nicht in Domain leaken.
-- F10 Local Storage muss Desktop-Import als File-Store-Kopie behandeln.
-- D37 Import Duplicate Detection muss Hash-Treffer als Review-/Warnzustand
-  behandeln, nicht als harten Fehler.
-- F15/F4 Tests brauchen Fake-Import-Kandidaten fuer Picker und Drag & Drop.
-- Spaetere Importquellen wie Watch Folder, Mail Import oder Share Sheet koennen
-  als weitere Strategies geplant werden.
-
-## Nicht entschieden
-
-- exakte UI-Gestaltung der Drop-Zone.
-- ob Drag & Drop direkt im Inbox-Screen oder in einem Import-Dialog liegt.
-- konkrete maximale Desktop-Import-Dateigroesse.
+Fakes und Tests decken Picker, Drop, Mehrfachauswahl, ungültige/zu große oder
+beschädigte Datei, Dublette, Partial Failure, Neustart, Split/Merge und
+plattformabhängige Abbrüche ab.

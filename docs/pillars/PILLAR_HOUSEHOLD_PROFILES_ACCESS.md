@@ -2,9 +2,10 @@
 title: "Produkt-Säule - Managed Profiles and Access"
 description: "Produktbereich fuer Haushaltsprofile, Kinderprofile, verwaltete Organisationen, Partnerzugriff und spätere Rechte"
 tags: [pillar, profiles, managed-subjects, organizations, household, access, family, permissions]
-lastUpdated: "2026-07-14"
-version: "0.2"
+lastUpdated: "2026-07-15"
+version: "0.3"
 status: "proposed"
+owner: "product-concept"
 ---
 
 # Produkt-Säule - Household Profiles and Access
@@ -34,17 +35,18 @@ Dokumente, Vorgänge, Records, Tasks, Claims und Quick-Access-Einträge können
 einem Personen- oder Organisationsprofil zugeordnet werden. Externe Anbieter
 bleiben `ExternalParty` und werden nicht mit eigenen Organisationen vermischt.
 
-## M2-Vorbereitung
+## C1/C3-Vorbereitung
 
-Schlanker M2-Slice:
+Schlanker Commercial-Core-Slice:
 
 - ein Haushalt.
-- betroffene Person / Haushaltsprofil als Pflichtzuordnung je Dokument-Draft.
+- Managed Subject durch Core Assist vorschlagen und bei Unsicherheit oder
+  materieller Folge korrigierbar machen.
 - Personen-/Profil-ID in den relevanten Modellen vorbereiten.
-- Draft-Inbox kann Personenzuordnung korrigieren.
+- Capture Review kann die Managed-Subject-Zuordnung korrigieren.
 - Mobile Capture bewahrt den Personenkontext, falls vorhanden.
 
-Noch nicht M2:
+Spaetere Slices:
 
 - mehrere echte Nutzeraccounts.
 - Partnerfreigabe.
@@ -84,14 +86,14 @@ Dokumente werden nicht kopiert. Zusammenhänge entstehen über Links und Profile
 
 - Vorgangsstruktur liegt in `PILLAR_CASES_RECORDS.md`.
 - Tasks und Reminder liegen in `PILLAR_TASKS_REMINDERS_QUICK_ACCESS.md`.
-- Sync/Auth liegt in `PILLAR_HOME_HUB_SYNC.md`.
+- Account/Cloud/Identity liegt in `PILLAR_CLOUD_IDENTITY_SYNC.md`.
 - Steuer-/Business-Unterlagensammlung folgt
   `DECISION_JURISDICTIONAL_TAX_DOCUMENT_COLLECTION.md`.
 - Security- und Privacy-Regeln liegen in technischen Entscheidungen und querschnittlichen Konzepten.
 
 ## Offene Folgefragen
 
-- Welche Profildaten speichern wir bewusst nicht im M2?
+- Welche Profildaten speichern wir bewusst nicht im Commercial Core?
 - Wie sichtbar sind Kinderprofile in Mobile Capture?
 - Welche Rechte braucht Partnerzugriff zuerst?
 - Werden Organisationsprofile in Commercial 1.0 aktiviert oder nur im
@@ -99,8 +101,9 @@ Dokumente werden nicht kopiert. Zusammenhänge entstehen über Links und Profile
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

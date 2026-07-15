@@ -1,176 +1,132 @@
 ---
 title: "Decision - Document Capture"
-description: "Entscheidung zur minimalen Dokument-Erfassung: Desktop-Dateiimport und Mobile Scan landen zuerst in der Draft-Inbox"
-tags: [decision, document-capture, draft-inbox, mobile-capture, desktop, milestones]
-lastUpdated: "2026-07-14"
+description: "Verbindliche Erfassung für Mobile Scan und Desktop Import mit dauerhaftem Eingang, asynchronem Assist und bestätigtem Routing"
+tags: [decision, document-capture, mobile-capture, desktop, intelligence, review, batch, commercial-core]
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "product-concept"
 ---
 
 # Decision - Document Capture
 
-## 2026 Vault Rebaseline
-
-Capture behavior remains accepted, but destination semantics follow the active
-Vault: Local capture stays authoritative on-device; Cloud capture uses the
-Mappm Cloud contract and remains pending until Cloud confirmation. Historical
-Home-Hub wording means Cloud provider handoff only.
-
 ## Status
 
-Accepted.
+Angenommen. Frühere Annahmen eines primär manuellen Draft-Inbox-Flows und erst
+späterer OCR-/KI-Verarbeitung sind ersetzt. Die normativen Routing- und
+Automatisierungsregeln stehen in
+`DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md`.
 
 ## Entscheidung
 
-M2 hat zwei Dokument-Eingänge:
+Der Commercial Core besitzt zwei nutzergesteuerte Eingänge:
 
-1. Desktop-Dateiimport.
-2. Mobile Document Scan.
+1. mobilen Dokumentenscan beziehungsweise Foto-/Bildnachweis;
+2. Desktop-Dateiauswahl und Drag-and-drop-Import.
 
-Beide Eingänge führen zuerst in die Draft-Inbox. Direkte Vorgangszuordnung ist
-in M2 ein Komfortpfad, aber nie die einzige sichere Ablage.
-
-## M2-Flow
+Beide sichern zuerst Original und Manifest dauerhaft und verwenden danach
+denselben asynchronen Verarbeitungs- und Review-Pfad:
 
 ```text
-Desktop Dateiimport oder Mobile Scan
-  -> Draft-Inbox
-  -> pruefen
-  -> Managed Subject setzen oder korrigieren
-  -> Metadaten ergaenzen
-  -> Vorgang zuordnen oder Zuordnung korrigieren
-  -> erledigt / abgelegt
-  -> unter den letzten 10 zuletzt verarbeitet sichtbar
+Scan oder Import
+  -> Original und Artefaktmanifest dauerhaft sichern
+  -> Qualität, Sicherheit und Dublette prüfen
+  -> je Vault lokal bereitstellen oder bestätigt hochladen
+  -> Preview, OCR, Klassifikation, Extraktion und Indexierung
+  -> Titel-, Case-/Record- und Workflow-Vorschläge erzeugen
+  -> relevante Folgen bestätigen oder korrigieren
+  -> akzeptiertes Dokument mit primärem Case oder Record
 ```
 
-## Desktop-Dateiimport
+Die Nutzerin darf die App nach der dauerhaften Sicherung verlassen. Status,
+Ergebnis und Fehler überstehen Neustarts.
 
-Desktop muss mindestens eine lokale Datei als Dokument-Draft aufnehmen können.
+## Capture-first
 
-Zielbild:
+Globales Capture ist der alltägliche Hauptweg. Vor dem Scan sind weder Profil,
+Case, Dokumentrolle noch Metadatenformular erforderlich. Matching und
+Vorschläge laufen immer, sobald die notwendige Verarbeitung verfügbar ist.
 
-- Datei auswählen.
-- Drag & Drop.
-- PDF, JPG/JPEG und PNG vorbereiten.
-- Quelle als `desktop_import` oder vergleichbar speichern.
-- Managed Subject setzen oder später im Draft Review korrigieren.
-- Datei sicher im lokalen File Store ablegen.
-- Draft-Inbox-Eintrag anlegen.
+Als einzige frühe optionale Absicht darf globales Capture „Neuen Case starten“
+anbieten. Dadurch entfällt die Wartezeit auf das primäre Matching, nicht aber
+die Analyse: Core Assist schlägt weiterhin Titel, Metadaten, Workflow,
+Aufgaben und zusätzliche Beziehungen vor. Ein leerer Titel- oder
+Konfigurationsdialog ist unzulässig.
 
-Der konkrete Desktop-Import-Scope steht in `DECISION_DESKTOP_IMPORT_SCOPE.md`.
+Capture innerhalb eines bestehenden Case oder Record bleibt als sekundärer,
+bewusster Weg verfügbar. Es ist kein Standardverhalten für den zufälligen
+Dokumenteingang. Konkrete Controls, Gesten und Layouts werden erst im
+UI-Implementation-Contract festgelegt.
 
-Desktop-Import ist keine vollständige Import-Automation. Er ist der zuverlässige manuelle Eingang.
+## Dokumentgrenzen und Batch
 
-## Mobile Document Scan
+- Eine abgeschlossene mobile Scan-Einheit ist genau ein logisches Dokument.
+- Ein Dokument darf mehrere Seiten besitzen; danach wird ausdrücklich das
+  nächste Dokument begonnen.
+- Mehrere Dokumente dürfen in einer Sitzung nacheinander erfasst oder am
+  Desktop gemeinsam ausgewählt werden.
+- Sitzungsnähe beweist keine fachliche Zusammengehörigkeit.
+- Core Assist validiert Grenzen und schlägt Split/Merge nur bei wahrscheinlichem
+  Fehler oder zusammengesetztem Import vor.
+- Originale bleiben erhalten; Split, Merge, Sortierung und Neuzuordnung sind
+  reversibel und idempotent.
+- Ein Teilfehler verwirft keine erfolgreichen Dokumente.
 
-Mobile Capture muss echte Dokumentenscan-Qualität vorbereiten, nicht nur normalen Foto-Upload.
+## Mobile Qualität
 
-Zielbild:
+Der mobile Dokumentenscan bereitet Auto-Capture, Rand-/Perspektivkorrektur,
+Rotation, lesbare Optimierung, Mehrseitigkeit, Vorschau, Wiederholung,
+Entfernen und Sortieren vor. Ein normaler Kamera-/Datei-Fallback bleibt
+sichtbar als niedrigere Qualitätsstufe und wird nicht als gleichwertiger Scan
+bezeichnet.
 
-- Auto-Capture.
-- Rand-/Perspektivkorrektur.
-- Dokumentoptimierung mit hellem Hintergrund und gut lesbarem dunklem Text.
-- lokale Upload Queue.
-- Upload an Home Hub.
-- Draft-Inbox-Eintrag am Desktop.
-- Personenkontext, wenn Mobile ihn kennt oder der Desktop ihn beim Review setzt.
-- optionale `caseId`, wenn eine gecachte Vorgangsliste verfügbar ist.
+Mappm unterscheidet:
 
-Vorlaeufiger Technologiepfad: native Plattform-Scanner, also Google ML Kit
-Document Scanner auf Android und Apple VisionKit Document Camera auf iOS. Die
-konkrete Flutter-Bridge wird erst nach einem Qualitaets-Spike final entschieden.
-Details stehen in `docs/technical/DECISION_MOBILE_SCANNER_TECHNOLOGY.md`.
+- `DocumentScan`: papierartiges Dokument; nutzbares Dokument/PDF ist das
+  primäre Artefakt, Quellseiten bleiben für Nachweis und Reprocessing erhalten;
+- `PhotoOrImageEvidence`: Unfall-, Schaden-, Produkt- oder anderer Bildnachweis;
+  das Bild bleibt primäres Artefakt.
 
-Wenn die direkte `caseId` ungueltig, unsicher oder nicht mehr verfügbar ist, bleibt der Upload als Draft zur Prüfung sichtbar.
+Die Zuordnung ist korrigierbar und verliert nie das Original.
 
-## Capture Intent
+## Desktop Import
 
-Mobile und Desktop unterscheiden zwischen Dokumentenscan und Bildnachweis:
+Desktop unterstützt Dateiauswahl, Drag-and-drop und mehrere Dateien pro
+Importsitzung. Unterstützte Formate folgen der Release- und Sicherheits-Policy.
+Die App kopiert Eingaben vor weiterer Verarbeitung in kontrollierten Storage
+und hängt nicht dauerhaft vom ursprünglichen Dateipfad ab.
 
-- `DocumentScan`: fuer papierartige Dokumente; primaeres Nutzerartefakt ist
-  PDF, technische Seitenbilder bleiben fuer Upload, Preview, OCR oder
-  Reprocessing moeglich.
-- `PhotoOrImageEvidence`: fuer Passfoto, Unfallfoto, Schadenfoto, Produktfoto
-  oder andere Bildnachweise; primaeres Nutzerartefakt bleibt Bild.
+## Vault und Offline
 
-Die UI darf den Modus vorschlagen, muss ihn aber korrigierbar halten.
+- Local-Vault-Capture bleibt lokal autoritativ.
+- Cloud-Vault-Capture bleibt pending, bis Mappm Cloud die Speicherung
+  bestätigt.
+- Core Assist erzeugt für Local Vault weder stille Cloud-Ablage noch Backup.
+- Offline-Capture bleibt möglich; Transfer und Assist warten in einer
+  persistenten Queue.
+- Netzwerk-, Preview-, Modell- oder Providerfehler löschen nie das Original.
 
-## Nicht in M2
+## Kontext und Review
 
-Nicht Teil dieser M2-Entscheidung:
+Core Assist schlägt Managed Subject, primären Case oder Record, zusätzliche
+Beziehungen, Dokumenttyp/-variante, Rolle, Workflow-Slot, lokalisierten Titel
+und relevante nächste Schritte vor. Der Titelvorschlag ist verpflichtend und
+editierbar.
 
-- E-Mail-Import.
-- Watch Folder.
-- automatische OCR-/LLM-Klassifikation.
-- automatisches Formularausfüllen.
-- komplexe Duplikaterkennung.
-- Scanner-Hardware-Integration am Desktop.
-- Batch-Import-Regeln.
-- vollständige mobile Vorgangsverwaltung.
+Die aktuelle Reifestufe verlangt Nutzerbestätigung, bevor primäre Zuordnung
+oder materielle Folgen endgültig werden. Nach abgeschlossenem Review besitzt
+jedes Dokument einen bestätigten primären Case oder Record. Passt kein
+bestehender oder geführter Kontext, wird ein leichter Custom Case mit
+automatisch vorgeschlagenem Titel angelegt; ein dauerhafter loser
+Dokumentzustand ist kein Abschlussweg.
 
-## Vorausplanung
+## Pflichtfehler und Stop Rules
 
-Der Import muss spätere Erweiterungen vorbereiten:
+Pläne und Tests decken mindestens lokale Speicherfehler, Offline/Pending,
+Upload-Retry, Session/Entitlement/Quota, beschädigte oder nicht unterstützte
+Datei, unlesbaren Scan, Dublette, Partial Batch, Processing-Fehler,
+Split-/Merge-Unsicherheit sowie erneutes Öffnen und Korrigieren ab.
 
-- `source` / `origin` fuer Desktop, Mobile, spaeter Mail, Watch Folder, API oder OCR.
-- `managedSubjectId` fuer Personen-/Organisationskontext; Legacy-`profileId`
-  wird nur an Adaptergrenzen gemappt.
-- Originaldatei und normalisierte/optimierte Dokumentversion trennen.
-- Draft-Status und Review-Zustand eindeutig modellieren.
-- spaetere OCR-/LLM-Vorschlaege als Vorschlaege, nicht als still fertige Zuordnung.
-- Export/Outbox bleibt ein separater Vorgangs- oder Dokument-Flow, nicht Teil der Draft-Inbox.
-
-## Managed-Subject-Kontext
-
-Draft Review muss langfristig Haushaltsprofile unterstützen.
-
-M2:
-
-- Managed Subject ist fuer den Review-Abschluss verpflichtend.
-- Personen-/Organisationszuordnung kann beim Review gesetzt oder korrigiert werden.
-- optionaler Vorgang/Record-/Claim-Kontext gehoert typischerweise zu diesem
-  verwalteten Profil oder kann bewusst davon abweichen.
-
-Spaeter:
-
-- mehrere Haushaltsprofile.
-- Kinderprofile gemeinsam verwalten.
-- Partner-/Erwachsenenrechte.
-- Dokumente und Records mit mehreren betroffenen Profilen verknuepfen.
-
-## Vorgaenge aus Dokumenten und Auswahl
-
-Aus markierten Dokumenten darf ein normaler verbundener Vorgang entstehen.
-Aus Dokumenten und bestehenden Vorgängen darf ebenfalls ein neuer
-übergeordneter Vorgang gebildet werden.
-
-Regeln:
-
-- Die Datei wird nicht dupliziert.
-- Das Dokument bleibt ein einzelnes Dokumentobjekt.
-- Der neue Vorgang wird über einen typisierten `CaseLink` wie `part_of` oder
-  `caused_by` verbunden.
-- Dokumente behalten bestehende Links und erhalten zusätzliche
-  `DocumentCaseLink`-Rollen.
-- Ein bevorzugter Link darf die Navigation vereinfachen, ist aber nicht exklusiv.
-- Die Operation und ihre Beziehung sind ohne Datenverlust reversibel.
-
-Normative Details stehen in
-`DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`.
-
-## Konsequenzen
-
-- R4-D2 ist entschieden.
-- Draft-Inbox ist der zentrale Sicherheitsanker fuer neue Dokumente.
-- Hash-basierte Duplikatwarnung ist M2-Teil; Details stehen in `DECISION_IMPORT_DUPLICATE_DETECTION.md`.
-- Der konkrete Desktop-Review-Workflow steht in `DECISION_DRAFT_INBOX_REVIEW_WORKFLOW.md`.
-- Case-Komposition ist vorgesehen, aber ohne separate Subcase-Entität oder
-  Dokumentduplikation.
-- F10, F17 und First Utility Scope bestaetigen diese Richtung bereits.
-- R4-Implementation muss Desktop-Dateiimport und Mobile-Scan-Handoff getrennt planen, aber beide in denselben Draft-Review-Flow führen.
-
-## Nicht entschieden
-
-- welche Bildformate in M2 exakt unterstützt werden.
-- welche native Scanner-Bridge final genutzt wird.
-- ob PDF-Erzeugung auf Mobile in M2 Pflicht ist oder ob Bild-plus-Metadaten
-  zuerst reicht und Home Hub/Desktop normalisiert.
+Stop, wenn Originale verloren gehen, Capture eine Vorabklassifikation
+erzwingt, Batch-Nähe als Beziehung gilt, Local Assist als Cloud Backup
+erscheint, versteckte Vorschläge bestätigt werden oder Echtdokumente ohne
+akzeptierte Security-/Privacy-/Provider-Gates verarbeitet werden.

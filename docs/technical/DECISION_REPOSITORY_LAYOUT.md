@@ -2,7 +2,7 @@
 title: "Decision - Repository Layout"
 description: "Entscheidung zur bewussten Abweichung vom Playbook-App-Unterordner"
 tags: [decision, repository, flutter, playbook, structure]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 status: "accepted"
 owner: "foundation/product"
 ---
@@ -11,9 +11,9 @@ owner: "foundation/product"
 
 ## Status
 
-Accepted for the current DocMan repository.
+Für das aktuelle Mappm-Repository angenommen.
 
-## Decision
+## Entscheidung
 
 Mappm remains a root-level Flutter repository for now: `lib/`, `test/`,
 platform directories, `pubspec.yaml` and `scripts/` stay beside `docs/`.
@@ -24,7 +24,7 @@ existing Flutter project into a new subdirectory would add package, IDE,
 platform, CI, script and generated-path churn without improving the current
 single-app ownership boundary.
 
-## Consequences
+## Konsequenzen
 
 - `frontend.sh` remains in the repository root and delegates to root-level
   `scripts/`.

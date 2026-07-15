@@ -1,96 +1,58 @@
 ---
 title: "Decision - Test Fixtures"
-description: "Entscheidung zu synthetischen Testfixtures, Dokumentfixtures und API-/Microcks-Beispieldaten"
+description: "Zentrale synthetische Fixtures für App, Dokumente, OpenAPI und Microcks"
 tags: [decision, testing, fixtures, synthetic-data, privacy, contracts, microcks]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "quality-readiness"
 ---
-
 # Decision - Test Fixtures
 
 ## Status
 
-Accepted.
+Angenommen. Echte, pseudonymisierte oder nur anonymisiert geglaubte private
+Daten sind in Tests, Mocks, Screenshots, OpenAPI-Examples und Microcks-
+Artefakten verboten.
 
-## Entscheidung
-
-DocMan verwendet zentrale, synthetische App-Testfixtures unter `test/fixtures/`.
-
-API-/Microcks-Beispiele gehoeren zu den API-Vertraegen unter `contracts/`, nicht in die App-Testfixtures.
-
-Echte private Daten und anonymisierte private Daten sind fuer Tests, Mock-UIs, OpenAPI-Examples und Microcks-Artefakte verboten. DocMan verwendet frei erfundene, aber realistische Beispiele.
-
-## Zielstruktur
+## Orte und Ownership
 
 ```text
-test/
-  fixtures/
-    domain/
-      cases.json
-      documents.json
-      draft_inbox.json
-      upload_queue.json
-    files/
-      pdf/
-      images/
-      scans/
-    ui/
-      mobile_capture_states.json
+test/fixtures/
+  domain/       Cases, Records, Documents, Subjects, Tasks, Claims
+  files/        synthetische PDF-, Bild- und Scanartefakte
+  ui/           Capture-, Processing-, Review-, Vault- und Fehlerzustände
 
 contracts/
-  openapi/
-    cloud-identity-device.openapi.yaml
-    cloud-vault-entitlement.openapi.yaml
-    mobile-capture-upload.openapi.yaml
-    draft-inbox.openapi.yaml
-  examples/
-    pairing.examples.yaml
-    mobile-capture-upload.examples.yaml
+  openapi/      versionierte API-Verträge
+  examples/     synthetische Request-/Response- und Microcks-Beispiele
 ```
+
+App-Fixtures gehören Tests und Fakes. Contract-Beispiele gehören dem
+API-Vertrag und werden nicht aus Flutter-Modellen zur Source of Truth gemacht.
 
 ## Regeln
 
-- Keine echten Namen.
-- Keine echten Adressen.
-- Keine echten Arztbriefe, Rechnungen, Vertraege, Amtsdokumente oder Haushaltsunterlagen.
-- Keine echten Screenshots, Scans, Fotos oder Datei-Inhalte.
-- Keine echten Tokens, Secrets, lokalen Pfade oder Netzwerkadressen.
-- Keine anonymisierten privaten Daten; nur vollstaendig synthetische Daten.
-- Kleine, lesbare JSON/YAML-Fixtures bevorzugen.
-- Grosse PDF-/Scan-Fixtures nur verwenden, wenn ein Test sie wirklich braucht.
-- API-Beispiele muessen zu OpenAPI/Microcks passen und in `contracts/` liegen.
-- App-Fixtures duerfen API-Vertraege referenzieren, aber nicht zur Contract Source of Truth werden.
+- Alle Namen, Adressen, Firmen, Identifikatoren, medizinischen Angaben,
+  Dokumenttexte, Scans und Bilder sind vollständig erfunden.
+- Keine echten Tokens, URLs, Secrets, lokalen Pfade oder Netzwerkadressen.
+- Kleine lesbare JSON-/YAML-Fixtures; große Dateien nur für einen belegten
+  Testzweck.
+- Fixtures erhalten stabile IDs, klare Szenarionamen, erwartete Ergebnisse und
+  soweit nötig Version/Locale/Country-Pack.
+- Ambiguität, niedrige Scanqualität, falsches Matching, Mixed Batch, mehrere
+  Versicherungen, Vault-Unterschiede, Quota, Retry und Löschung sind explizite
+  Szenarien, nicht zufällige Datenvariation.
+- Medizinische und behördliche Beispiele enthalten nur die minimal nötigen
+  synthetischen Inhalte.
+- Goldens/Screenshots dürfen keine Hostnamen, Benutzernamen oder absolute
+  Pfade der Entwicklungsmaschine enthalten.
 
-## Beispiel-Domänen
+## Verifikation
 
-Erlaubte synthetische Beispieldaten:
+CI prüft Schema-/Contract-Gültigkeit, deterministische Ladebarkeit, fehlende
+Secrets/absolute Pfade und die Zuordnung kritischer Fixtures zu Tests. OpenAPI-
+Beispiele müssen gegen den Vertrag validieren und in Microcks importierbar sein.
 
-- Laborbefund ohne echte medizinische Details.
-- Mietnachtrag ohne echte Adresse.
-- Reiseunterlage mit frei erfundenen Orten und Buchungsnummern.
-- Versicherungsbrief mit synthetischer Polizzennummer.
-- Formular mit generischen Feldern.
-- Kassenbeleg mit frei erfundenem Geschaeft und Betrag.
-
-## Testschichten
-
-| Ebene | Fixture-Ort |
-|---|---|
-| Domain / Riverpod / Widget Tests | `test/fixtures/domain/`, `test/fixtures/ui/` |
-| Datei-/Scan-nahe Tests | `test/fixtures/files/` |
-| OpenAPI Contract Examples | `contracts/examples/` |
-| Microcks Import Artifacts | `contracts/openapi/` und `contracts/examples/` |
-
-## Konsequenzen
-
-- R3-D2 ist entschieden.
-- F4 Testing Strategy nutzt `test/fixtures/` als App-Fixture-Root.
-- F15 Mock Repository Blueprint verweist auf dieselbe synthetische Fixture-Regel.
-- R3 kann ein kleines initiales Fixture-Set anlegen, ohne echte Daten zu riskieren.
-- Microcks/OpenAPI-Beispiele werden zusammen mit Contracts gepflegt.
-
-## Nicht entschieden
-
-- genaue Dateinamen fuer alle spaeteren Fixture-Sets.
-- ob Fixtures als JSON oder YAML starten.
-- welche synthetischen PDF-/Scan-Dateien zuerst erzeugt werden.
+F4, F15 und jeder Implementation Contract benennen die benötigten Fixture-
+Szenarien. Neue Produktlogik darf keine privaten Daten als vermeintlich
+realistischere Testgrundlage einführen.

@@ -2,9 +2,10 @@
 title: "Plattform-Säule - Account, Cloud, Identity and Sync"
 description: "Mappm Account- und Gerätevertrauen für alle Normalmodi sowie Cloud-Vault-Lifecycle, Entitlements, Capture, Sync und Provider-Migration"
 tags: [pillar, platform, account, cloud, identity, vault, sync, entitlements, recovery, migration]
-lastUpdated: "2026-07-12"
-version: "1.0"
+lastUpdated: "2026-07-15"
+version: "1.1"
 status: "accepted"
+owner: "product-concept/contract-api"
 ---
 
 # Plattform-Säule - Account, Cloud, Identity and Sync
@@ -17,8 +18,9 @@ Client/Server-Grenzen, die einen Cloud Vault ermöglichen. Sie besitzt nicht die
 fachliche Dokument-, Vorgangs- oder Aufgabenlogik; diese bleibt in den
 jeweiligen Produkt-Säulen.
 
-Customer self-hosting is not active product scope. Local Development Cloud is
-developer-only infrastructure and never a sellable deployment mode.
+Kundenseitiges Self-Hosting ist kein aktiver Produktscope. Die Local
+Development Cloud ist ausschliesslich Entwickler-Infrastruktur und nie ein
+verkaufbarer Deploymentmodus.
 
 ## Verantwortungen
 
@@ -43,9 +45,10 @@ developer-only infrastructure and never a sellable deployment mode.
 | Commercial lifecycle | Entitlement, Kündigung, Grace/Read-only, Reaktivierung | COM-01/02, REG-06/08 |
 | Exit and deletion | Export, verifizierte Local-Migration, getrennte Vault-/Account-Löschung | DATA-02/03/05, F36 |
 
-Account/device/offline-entitlement and Detached Recovery are Commercial-Core
-foundation regardless of VC-01. VC-01 decides whether Cloud-specific slices are
-part of Commercial 1.0. Every included slice must be production-ready.
+Account, Device Trust, Offline-Entitlement und Detached Recovery sind unabhaengig
+von VC-01 Commercial-Core-Foundation. VC-01 entscheidet, welche
+Cloud-spezifischen Slices Commercial 1.0 erreichen. Jeder aktivierte Slice muss
+production-ready sein.
 
 ## Local Development Cloud
 
@@ -61,8 +64,8 @@ lokalen Netzwerk für Entwicklung und Integration. Sie:
 ## Quality Gates
 
 - Local und Cloud Authority sind in Domain, UI und Tests unmissverständlich.
-- Account/session, entitlement, Vault authority, Assist processing and backup
-  are separate states.
+- Account/Session, Entitlement, Vault-Autoritaet, Assist-Verarbeitung und Backup
+  sind getrennte Zustaende.
 - Vertragsänderungen bestehen Lint, Breaking-Change-Prüfung, Microcks Consumer
   und Provider Verification.
 - Wiederholung nach Timeout erzeugt keine doppelten Dokumente oder Buchungen.
@@ -80,8 +83,8 @@ Stop, wenn:
 - Frontend oder Roadmap DTOs, Endpunkte, Mapping, Persistence oder Backend
   Policy Architecture festlegt;
 - Subscription-Kündigung, Vault-Löschung und Account-Löschung vermischt werden;
-- Account deletion can silently remote-wipe Local data or Detached Recovery
-  requires a live service token;
+- Account-Loeschung lokale Daten still remote loeschen kann oder Detached
+  Recovery ein aktives Service-Token benoetigt;
 - ein Cloud-Feature ohne Offline-, Retry-, Idempotenz-, Quota-, Recovery-,
   Retention-, Support- und Rollback-Verhalten geplant wird;
 - die Local Development Cloud als verkaufbares Self-hosted-Produkt erscheint.

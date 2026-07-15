@@ -1,144 +1,160 @@
 ---
-title: "Produkt-Säule - Capture and Inbox"
-description: "Produktbereich fuer Desktop-Import, Mobile Document Scan, Draft-Inbox, Zuordnung, Korrektur und Eingangsbearbeitung"
-tags: [pillar, capture, inbox, mobile, desktop, drafts, scanning]
-lastUpdated: "2026-07-14"
-version: "0.3"
+title: "Produkt-Saeule - Capture and Inbox"
+description: "Produktbereich fuer globales Mobile/Desktop Capture, Scannerqualitaet, Offline-/Upload-Queue, asynchrone Assist-Verarbeitung, Batch-Trennung, Review und Korrektur"
+tags: [pillar, capture, inbox, mobile, desktop, processing, intelligence, batch, review]
+lastUpdated: "2026-07-15"
+version: "0.4"
 status: "accepted-direction"
+owner: "product-concept/ui-concept"
 ---
 
-# Produkt-Säule - Capture and Inbox
+# Produkt-Saeule - Capture and Inbox
 
 ## Zweck
 
-Diese Säule beschreibt, wie Dokumente in DocMan hineinkommen und zuerst geprüft werden.
+Diese Saeule verantwortet den Weg vom willkuerlich eintreffenden Dokument bis
+zum bestaetigten fachlichen Ergebnis. Der Nutzer soll nicht vorsortieren oder
+vor dem Scan Profile, Cases, Rollen und Metadaten konfigurieren muessen.
 
-Der wichtigste M2-Use-Case bleibt:
+Normative Entscheidungen:
 
-- unterwegs mit Mobile ein Dokument scannen
-- zuhause am Desktop in der Draft-Inbox prüfen
-- verwaltetes Profil, Vorgang/Beziehung, Unterlage, Dokumenttyp und erste
-  Metadaten korrigieren
-- danach als erledigten Eingang auffindbar halten
+- `DECISION_DOCUMENT_CAPTURE.md`;
+- `DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md`;
+- `DECISION_MOBILE_CAPTURE_CONTEXT_SELECTION.md`;
+- `DECISION_DRAFT_INBOX_REVIEW_WORKFLOW.md`;
+- `DECISION_ASSISTED_REVIEW_SUGGESTIONS.md`.
 
 ## Zielbild
 
 ```text
-Capture Source
-  -> Draft-Inbox
-      -> Core Assist processing / manual fallback
-      -> Review
-          -> Document / Record / Case Assignment
-              -> Done-Inbox History
+mobile scan / desktop import
+  -> durable capture and artifact manifest
+  -> quality/security/duplicate checks
+  -> Local/Cloud queue and upload confirmation
+  -> async Backend/Core Assist processing
+  -> document-boundary validation/import correction, OCR, facts, index and
+     candidate matching
+  -> automatic title/context/workflow proposals
+  -> concise user confirmation/correction
+  -> accepted Document with primary Case or Record
 ```
 
-Die Inbox ist eine Arbeitsfläche, nicht der eigentliche Speicherort. Ein
-erledigter Eingang verweist auf ein Dokument im DMS-Kern. Korrekturen ändern
-die Beziehungen, Metadaten oder Facts des Dokuments; sie erzeugen keine
-Dokumentkopien.
+Inbox ist Processing-, Review- und Ausnahmeflaeche, nicht Archiv oder
+Dokumentbesitzstruktur.
 
 ## In Scope
 
-- Desktop-Dateiimport.
-- Mobile Document Scan.
-- Draft-Inbox mit unbearbeiteten Eingängen.
-- Done-/Erledigt-Bereich fuer zuletzt abgearbeitete Eingänge.
-- Korrektur von Profil/Organisation, Vorgang/Beziehung, Unterlage,
-  Dokumenttyp und Metadaten.
-- Vorschau oder klarer Preview-Platzhalter im Draft Review.
-- aus markierten Dokumenten einen normalen verbundenen Vorgang bilden.
-- aus markierten Dokumenten/Vorgängen einen übergeordneten Case bilden.
-- leeren manuellen/geführten Vorgang und typisierte Beziehung anlegen.
-- kontextuelle Aktionen wie Vertrag/Abo, Claim, Steuerprüfung, Zahlung,
-  Business-Kontext, Aufgabe oder Schnellzugriff anbieten.
-- spätere Vorbereitung fuer Share Sheet, Mail-Import und Watch Folder.
-- Core-Assist-OCR-/Klassifikationsjobs, Akteur-/Feld-/Vorgangsvorschläge und
-  Review mit Offline Queue, Quota, Opt-out und manuellem Fallback.
+- globaler Mobile Document Scan und Photo/Image Evidence;
+- Desktop-Dateiauswahl, Drag & Drop und Multi-File-Import;
+- scannernahe Qualitaet, Multi-Page, Retake, Reorder und Rescan;
+- persistente Offline-/Upload-/Processing-Zustaende;
+- Local-/Cloud-Vault-konforme Capture-Semantik;
+- asynchrone Preview/OCR/Extraktion/Klassifikation/Indexierung;
+- verpflichtende Backend-/Core-Assist-Titelvorschlaege;
+- Case-/Record-/Claim-/Workflow-Matching und Alternativen;
+- gemischte Batches, Dokumentgrenzen, Split/Merge und Outlier;
+- aktuelle menschliche Bestaetigung und schnelle Korrektur;
+- spaetere qualitaetsgegatete reversible Auto-Zuordnung;
+- Reopen/Undo ohne Datei-/Dokumentduplikation;
+- manuelle Fallbacks bei nicht verfuegbarem Assist.
 
-## Mobile Scan Qualitätsziel
+## Capture Interaction Boundary
 
-Mobile Capture soll sich am Document-Scan-Erlebnis von Google Drive orientieren:
+Automatische Analyse/Matching laufen immer und sind kein Modus. Globales
+Capture darf **Neuen Vorgang starten** als einzige primaere optionale
+Vorab-Absicht anbieten. Bestehenden Case vorab auswaehlen ist hoechstens ein
+sekundaerer Shortcut und nicht Voraussetzung.
 
-- automatische Dokumenterkennung.
-- Auto-Capture, wenn das Dokument stabil erkannt wird.
-- Perspektivkorrektur.
-- sauberer Dokument-Look mit hellem/weissem Hintergrund und dunklem Text.
-- mehrseitige Dokumente vorbereiten.
-- Rohbild und finales Dokument getrennt planbar halten.
+Der Nutzer erhaelt keinen leeren Titel-/Metadatenflow. Titel,
+Dokumentgrundart/semantische Variante, Managed Subject, primaerer Case/Record,
+weitere Beziehungen, optionaler Workflow und relevante Folgeaktionen werden
+vorbereitet.
 
-Das ist ein Zielbild. Die konkrete Scan-Technologie wird separat entschieden.
+Konkrete Controls, Gesten und Screenlayouts sind nicht Teil der Saeule.
 
-## M2-Scope
+## Quality and Batch Contract
 
-Schlanker M2-Slice:
+Mobile orientiert sich an hochwertiger Dokumentenscan-Qualitaet. Desktop und
+Mobile duerfen mehrere Dateien/Dokumente in einer Session annehmen.
 
-- Desktop-Import mit Dateiauswahl und Drag & Drop fuer PDF/JPG/PNG.
-- Mobile Scan als Upload in Draft-Inbox.
-- lokale mobile Upload-Queue.
-- optionale mobile Vorgangszuordnung über gecachte offene Vorgänge.
-- Drafts bleiben korrigierbar.
-- die letzten 10 erledigten Eingänge bleiben im Bereich "Zuletzt verarbeitet"
-  sichtbar, damit Fehlzuordnungen schnell korrigiert werden können.
+Eine Session ist kein Case. Die Saeule garantiert:
 
-Späterer Milestone:
+- getrennte Erkennung von Seiten, logischen Dokumenten und fachlichen Gruppen;
+- Originalerhalt und reversible Grenzen;
+- per-Dokument-Matching;
+- Sessionnaehe nur als schwaches Signal;
+- Outlier statt Zwangszuordnung;
+- Partial Success;
+- Idempotency/Retry ohne Duplikate.
 
-- automatische OCR-Klassifikation.
-- Mail-Import.
-- Watch Folder.
-- Batch-Regeln.
-- vollständige mobile Verwaltung.
-- vollständige Processing-Pipeline.
+## Review Maturity
 
-## Abgrenzung
+Commercial Core startet mit vorbereitetem Ein-Aktions-Review:
 
-- Vorgangsstruktur liegt in `PILLAR_CASES_RECORDS.md`.
-- Aufgaben und Reminder liegen in `PILLAR_TASKS_REMINDERS_QUICK_ACCESS.md`.
-- Externe Links oder Portale zum Einreichen liegen in `PILLAR_EXPORT_SHARING_EXTERNAL_ACTIONS.md`.
-- Local Storage, Mocks, Tests und Runtime-Regeln bleiben querschnittliche `F`-Konzepte.
+- bestes Ergebnis zuerst;
+- Case-/Record-Zuordnung durch Nutzer bestaetigt;
+- nur relevante sichtbare Folgen;
+- Details optional;
+- geringe Confidence zeigt weiterhin beste Kandidaten sowie neuen/bestehenden
+  Case und passenden Record-Fallback;
+- Bestaetigung akzeptiert keine versteckten Facts.
 
-## Offene Folgefragen
+Spaetere Auto-Zuordnung ist nur pro Dokument-/Workflow-/Risiko-Klasse nach
+Messung, Abstention, Undo, Rollback und nahezu fehlerfreien Profilgrenzen
+zulassig.
 
-- Welche Scan-Technologie ist fuer Mobile die beste erste Umsetzung?
-- Wird PDF oder Bild das primäre Speicherformat fuer mehrseitige Scans?
+## Primary Context Handoff
 
-## Draft Review M2
+Nach Review geht jedes akzeptierte Dokument an:
 
-Die verbindliche Review-Entscheidung steht in
-`docs/technical/DECISION_DRAFT_INBOX_REVIEW_WORKFLOW.md`.
+- einen bestehenden/neuen Case; oder
+- einen bestehenden/neuen Record.
 
-M2-Regeln:
+Wenn nichts passt, wird ein leichter Custom Case mit automatisch
+vorgeschlagenem Titel erzeugt. Dokumente bleiben technisch eigenstaendige,
+mehrfach verlinkbare Objekte.
 
-- Inbox hat die Bereiche Entwürfe und Zuletzt verarbeitet.
-- Die letzten 10 zuletzt verarbeiteten Eingänge bleiben sichtbar.
-- Schnelle Korrektur von Titel, verwaltetem Profil, Vorgang/Beziehung,
-  Unterlage, Dokumenttyp, Notiz
-  und einfachen Metadaten ist erlaubt.
-- Falsch zugeordnete Dokumente werden korrigiert, nicht dupliziert.
-- Ein erledigter Eingang darf zurück in Entwürfe/Review gesetzt werden.
-- Export, Mail, Druck und Outbox bleiben eigene Dokument-/Vorgangsflows.
+## Cross-Pillar Boundaries
 
-## Desktop Import M2
+- Case/Record-Semantik: `PILLAR_CASES_RECORDS.md`.
+- Workflow-/Laenderkatalog: `PILLAR_TEMPLATES_WORKFLOWS.md`.
+- Search/Facts: `PILLAR_SEARCH_FACTS_INSIGHTS.md`.
+- Tasks/Agenda: `PILLAR_TASKS_REMINDERS_QUICK_ACCESS.md`.
+- Vault/Sync/Identity: `PILLAR_CLOUD_IDENTITY_SYNC.md`.
+- Assist provider/governance/automation: `PILLAR_INTELLIGENCE_AUTOMATION.md`.
+- Externe Aktionen: `PILLAR_EXPORT_SHARING_EXTERNAL_ACTIONS.md`.
 
-Die verbindliche Desktop-Import-Entscheidung steht in
-`docs/technical/DECISION_DESKTOP_IMPORT_SCOPE.md`.
+Capture darf diese Saeulen nur ueber bestaetigte Vorschlaege/Contracts
+aktivieren, nicht ihre fachliche Logik duplizieren.
 
-M2-Regeln:
+## Security, Accessibility and Quality
 
-- Dateiauswahl und Drag & Drop werden gemeinsam geplant.
-- `file_picker` und `desktop_drop` sind Adapter, nicht Domain.
-- PDF, JPG/JPEG und PNG sind erlaubt.
-- Mehrere Dateien erzeugen mehrere Drafts.
-- Ein mehrseitiges PDF bleibt ein Dokument-Draft.
-- Hash-Treffer erzeugen eine Duplikatwarnung mit "Bestehendes öffnen",
-  "Beide behalten" und "Abbrechen".
-- Dokumenttyp stammt aus dem lockeren M2-Katalog; "Notiz / Sonstiges" bleibt
-  erlaubt.
-- Ordnerimport, Combine/Merge, OCR und Batch-Regeln bleiben spaetere Milestones.
+- Dokumente, OCR, Titel, Fakten und Kandidaten sind sensibel.
+- Keine Inhalte/sensiblen Titel in Logs, Telemetry oder Default-Notifications.
+- App-Neustart/Offline/Providerfehler verlieren keine Originale.
+- Status und Unsicherheit sind screenreader-tauglich und nicht farbabhaengig.
+- Gesten haben sichtbare/keyboard-/screenreader-faehige Alternativen.
+- Synthetic Fixtures decken schlechte Scans, mixed batches, Profilgrenzen,
+  Titelvorschlag, Korrektur, Retry und Partial Success ab.
+
+## Stop Rules
+
+Stop, wenn:
+
+- Capture vor dem Scan Formulare verlangt;
+- automatisches Matching optional/abschaltbar als Normalmodus wird;
+- Core-Assist-Titelvorschlag oder Batch aus Commercial Core verschoben wird;
+- eine Session als eine fachliche Gruppe behandelt wird;
+- Review alle extrahierten Fakten standardmaessig zeigt;
+- aktuelles Routing ohne Nutzerbestaetigung finalisiert;
+- spaetere Automation ohne Quality Gate aktiviert wird;
+- Inbox zum Archiv wird.
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

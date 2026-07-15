@@ -2,16 +2,18 @@
 title: "Enterprise-Säule - Design System and UX Governance"
 description: "Enterprise-Bereich fuer Design-System, Navigation, Komponenten, leere/fehlerhafte Zustände, Accessibility und responsive UX"
 tags: [pillar, enterprise, design-system, ux, accessibility]
-lastUpdated: "2026-07-12"
-version: "0.2"
+lastUpdated: "2026-07-15"
+version: "0.3"
 status: "proposed"
+owner: "ui-concept"
 ---
 
 # Enterprise-Säule - Design System and UX Governance
 
 ## Zweck
 
-DocMan soll sich über Desktop und Mobile hinweg konsistent, ruhig und vertrauenswürdig anfühlen.
+Mappm soll sich ueber Desktop und Mobile hinweg konsistent, ruhig und
+vertrauenswuerdig anfuehlen.
 
 Die aktive Design-System-Quelle liegt unter:
 
@@ -36,7 +38,7 @@ vollstaendiges Logo-System.
 - responsive Regeln.
 - Mobile/Desktop-Konsistenz.
 
-## M2-Minimum
+## Commercial-Core-Minimum
 
 - keine UI-Sonderwege ohne Grund.
 - wiederverwendbare Komponenten für zentrale Workflows.
@@ -60,8 +62,9 @@ vollstaendiges Logo-System.
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

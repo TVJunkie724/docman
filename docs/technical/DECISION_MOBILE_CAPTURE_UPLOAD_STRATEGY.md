@@ -1,221 +1,137 @@
 ---
 title: "Decision - Mobile Capture Upload Strategy"
-description: "Entscheidung fuer einen austauschbaren Upload-Strategy-Port mit API-proxied M2 und presigned/resumable Enterprise-Zielbild"
-tags: [decision, mobile-capture, upload, home-hub, api, minio, s3, strategy, provider]
-lastUpdated: "2026-07-12"
-status: "accepted-rebaseline"
+description: "Transportunabhaengiger Capture-Upload-Port fuer Mappm Cloud mit durablem Retry und spaeterem resumable Transport"
+tags: [decision, mobile-capture, upload, cloud, api, s3, strategy, provider]
+lastUpdated: "2026-07-15"
+status: "accepted"
+owner: "data-architect/contract-api"
 ---
 
 # Decision - Mobile Capture Upload Strategy
 
-## 2026 Cloud Rebaseline
-
-The transport-independent upload port remains accepted. Cloud Vault capture
-targets the managed Mappm Cloud provider; Local Vault capture remains on the
-same device and has no implicit desktop transfer. Home Hub references below
-mean the historical server-side control role only. The C2 contract re-approves
-API-proxied versus presigned/resumable transport, limits and quota behavior.
-
-## Status
-
-Accepted.
-
 ## Entscheidung
 
-Mappm trennt den fachlichen Upload-Vertrag vom konkreten Upload-Transport.
-
-Der M2 darf mit **API-proxied Upload** starten. Das Enterprise-Zielbild bleibt
-**presigned, content-addressed und resumable Upload** ueber den Home Hub als
-Kontrollinstanz.
-
-Beide Varianten implementieren denselben fachlichen Port:
+Mappm trennt den fachlichen Capture-Upload-Port vom Transport. Domain und UI
+kennen Upload Session, Artefaktmanifest, Fortschritt, Bestaetigung, Retry und
+Failure, aber weder HTTP-Form, Presigned URL noch Object-Storage-SDK.
 
 ```text
-Application / Domain-facing contract
-  -> CaptureUploadRepository / CaptureUploadPort
+Domain/Application
+  -> CaptureUploadPort
 
-Data strategies
-  -> ApiProxiedCaptureUploadStrategy
-  -> PresignedStorageCaptureUploadStrategy
-  -> FakeCaptureUploadStrategy
-
-Riverpod
-  -> captureUploadStrategyProvider wires the active implementation
+Data Adapter
+  -> API-proxied Strategy
+  -> Presigned/resumable Strategy
+  -> Fake Strategy
 ```
 
-Der Begriff `provider` beschreibt die Verdrahtung. Der fachliche Schutz kommt
-vom Port/Interface und den stabilen Upload-Session-Begriffen.
+Der konkrete C2-Ersttransport wird mit dem akzeptierten OpenAPI-Slice
+entschieden. API-proxied Upload ist fuer kleine Artefakte zulaessig; der Vertrag
+und lokale Queue-State muessen einen spaeteren Wechsel zu
+presigned/resumable/multipart erlauben, ohne Domain oder Review-Flow umzubauen.
 
-## Stabiler Upload-Vertrag
+## Vault-Grenze
 
-Unabhaengig vom Transport gilt dieses Zielmuster:
+- Cloud Vault uebertraegt Capture-Artefakte an die verwaltete Mappm Cloud und
+  bleibt serverautoritativ.
+- Local Vault sichert Capture auf demselben Geraet autoritativ. Eine explizite
+  Assist-Uebertragung ist ein Processing-Auftrag und kein Backup, Sync oder
+  dauerhafter Cloud-Vault-Upload.
+- Es gibt keinen impliziten Transfer an einen Desktop oder Customer Home Hub.
+
+## Stabiler fachlicher Vertrag
 
 ```text
-1. initiateUpload(metadata, artifacts, size, contentType, checksum?, idempotencyKey)
-2. upload bytes or parts to returned upload target
-3. confirmUpload(uploadSessionId, checksum, artifactManifest)
-4. Home Hub validates and creates/updates FileRecord, DocumentVersion and InboxItem
+initiate(operation, manifest, policy facts)
+  -> negotiated upload session
+transfer(bytes oder parts)
+  -> transport progress/checkpoints
+confirm(session, manifest, checksums)
+  -> durable artifact acceptance and queued processing
 ```
 
-Der Home Hub bleibt immer Autoritaet fuer:
+Erforderliche Eigenschaften:
 
-- Pairing/Auth und Device Token.
-- Upload Session.
-- erlaubte MIME-Typen und Groessen.
-- Profil-/Vorgangs-/Draft-Kontext.
-- Idempotency.
-- Quota und Policy.
-- Hash-/Checksum-Verifikation.
-- finalen FileRecord-/DocumentVersion-/Inbox-Zustand.
+- stabile Operation-/Session-IDs und Idempotency Keys.
+- Checksum, Groesse, MIME und Manifest-Verifikation.
+- per Dokument/Artefakt Fortschritt und Teilfehler.
+- Restart-faehige lokale Queue.
+- explizite Expiry-, Retry-, Cancel- und Cleanup-Semantik.
+- Quota-/Entitlement-/Policy-Pruefung auf Serverseite.
+- keine fachliche Case-/Record-Finalisierung beim Confirm.
 
-Object Storage ist nur Byte-Speicher, nicht Produktlogik.
+## Artefaktmodell
 
-## M2-Transport: API-proxied
+Ein logisches Dokument kann Originalseiten und abgeleitete Renditions besitzen.
+Das Manifest muss Quelle, Seitenreihenfolge und Ableitungsstatus unterscheiden.
+Preview, PDF-Rendition und OCR-Ergebnis duerfen Originale nicht ersetzen.
 
-Im M2 ist API-proxied Upload erlaubt und bevorzugt, wenn er die Umsetzung
-vereinfacht.
+Mobile schliesst eine Scan-Einheit pro logischem Dokument ab. Mehrere Dokumente
+in einer technischen Session erhalten getrennte Upload-/Processing-Identitaet,
+auch wenn ein Transport mehrere Artefakte buendelt.
 
-```text
-Mobile
-  -> Home Hub API initiateUpload
-  -> Home Hub API upload bytes
-  -> Home Hub API confirmUpload
-  -> Draft-Inbox
-```
+## Transportentwicklung
 
-Vorteile fuer den M2:
+### Kleiner erster Slice
 
-- einfacher mit Pairing/Auth zu sichern.
-- einfacher zu debuggen.
-- einfacher in OpenAPI/Microcks zu modellieren.
-- keine fruehe presigned-MinIO-/S3-Komplexitaet im Mobile Slice.
-- keine direkte Storage-Integration auf Mobile noetig.
+API-proxied ist nur zulaessig, wenn akzeptierte Limits, Timeout-/Retry-Verhalten,
+Idempotenz, Memory-/Streaming-Verhalten und Produktionsbenchmarks den aktivierten
+Plattformen genuegen.
 
-Der M2 darf Uploads als ganze Datei retryen. Chunking/Multipart ist kein
-M2-Muss, solange klare Groessenlimits und Fehlerzustaende existieren.
+### Resumable Ziel
 
-## Enterprise-Ziel: Presigned und resumable
+Presigned/resumable oder multipart wird aktiviert, sobald Groesse, Mobilnetz,
+SLO oder Kosten es rechtfertigen. Uploadtickets sind kurzlebig, eng an Account,
+Device, Vault und Operation gebunden. Parts und Gesamtobjekt werden verifiziert,
+bevor Processing startet.
 
-Das langfristige Zielbild:
+Der Wechsel ist ein Data-/Contract-Adapterwechsel, keine neue Domainsemantik.
 
-```text
-Mobile
-  -> Home Hub API initiateUpload(metadata, artifacts, checksum, size)
-  -> Home Hub prueft Auth, Policy, Quota und Kontext
-  -> Home Hub erzeugt kurzlebige Upload-Ziele
-  -> Mobile laedt Bytes oder Parts direkt in Object Storage
-  -> Mobile ruft confirmUpload(checksum, parts, artifactManifest)
-  -> Home Hub validiert Hash, Size, Content-Type und Vollstaendigkeit
-  -> Home Hub erstellt FileRecord, DocumentVersion und InboxItem
-  -> Worker erzeugt Preview, OCR, Index und Cleanup async
-```
+## Retry, Idempotenz und Cleanup
 
-Enterprise-Anforderungen:
+- Retry wiederholt nie ungeschuetzt eine bereits bestaetigte Operation.
+- Wiederholtes Confirm liefert denselben fachlichen Zustand.
+- App-Neustart setzt an durablem Checkpoint fort oder startet kontrolliert mit
+  demselben Idempotency Key neu.
+- Abgebrochene/abgelaufene Sessions werden nach definierter serverseitiger
+  Retention bereinigt.
+- Lokale Originale werden erst nach bestaetigter Uebernahme und anwendbarer
+  Lifecycle-Policy aufraeumbar.
 
-- kurzlebige Upload-Tickets oder presigned URLs.
-- verpflichtende Checksums/Hashes.
-- Idempotency Keys gegen doppelte Uploads.
-- Upload Session Status: `created`, `uploading`, `uploaded`, `verified`,
-  `failed`, `expired`.
-- Artefakt-Manifest fuer `sourceImages`, `pdfRendition`, `preview` und spaeter
-  OCR-/Text-Artefakte.
-- klare Groessenlimits und Quotas.
-- Cleanup fuer abgebrochene Uploads.
-- Audit Events ohne Dokumentinhalte, sensible Dateinamen, Tokens oder URLs.
-- optionale Content-/MIME-/Malware-Validation vorbereiten.
-- client-side-encryption-/E2EE-faehiges Modell vorbereiten.
-- resumable oder multipart Uploads fuer groessere Scans spaetere Milestones.
-
-## Artefakt-Manifest
-
-Mobile Capture darf mehr als eine Datei erzeugen.
-
-Der Upload-Vertrag muss deshalb ein Artefakt-Manifest vorbereiten:
-
-```text
-CaptureUploadManifest
-  -> pdfRendition?
-  -> sourceImages[]
-  -> preview?
-  -> metadata
-  -> scanQuality
-  -> pageCount
-  -> createdAt
-```
-
-Im M2 kann das Manifest minimal sein. Es muss aber spaeter Rohseiten,
-PDF-Rendition, Previews und OCR-/Processing-Ergebnisse aufnehmen koennen, ohne
-den Upload-Port neu zu erfinden.
-
-## Fehler, Retry und Idempotency
-
-Die konkreten M2-Grenzen fuer Upload-Limits, Retry, Resume-Verzicht und
-Cleanup sind in `DECISION_UPLOAD_LIMITS_RETRY_RESUME_CLEANUP.md`
-entschieden. Diese Strategieentscheidung bleibt fuer den Transport-Schnitt
-zustaendig.
-
-M2:
-
-- Retry ganzer Uploads.
-- Upload Session bleibt lokal queued.
-- Idempotency Key verhindert doppelte Drafts bei erneutem Confirm.
-- 413, 422, 401/403, 409 und 5xx werden nach F5 gemappt.
-
-spaetere Milestones:
-
-- resumable/multipart Upload.
-- Parts mit Checksums.
-- Session-Recovery nach App-Neustart.
-- serverseitiges Cleanup abgelaufener Sessions.
+Exakte Limits und Retention gehoeren in den Contract-/Policy-Slice, nicht als
+unbelegte Konstanten in die Flutter-App.
 
 ## Security und Privacy
 
-Dateien und viele Metadaten sind sensibel.
+- Keine Uploadtickets, Presigned URLs, Tokens, Storage Keys, Dokumentinhalte,
+  OCR-Texte oder sensitive Dateinamen in Logs/Telemetry.
+- Storage Key ist keine Berechtigung.
+- Server validiert Content-Type, Groesse, Manifest und Checksum.
+- Malware-/Content-Validation wird pro aktivierter Plattform/Policy bewertet.
+- Verschluesselungs- und Key-Grenzen duerfen durch Transportwahl nicht verbaut
+  werden.
 
-Regeln:
+## Tests und Verifikation
 
-- keine Upload-Tickets, presigned URLs, Tokens, Hash-Inputs mit sensiblen
-  Kontextdaten oder Dokumentinhalte in Logs.
-- technische Storage Keys sind keine Berechtigung.
-- Upload Tickets sind kurzlebig.
-- Confirm prueft Checksum/Size/Content-Type.
-- Home Hub gibt keine Storage-Interna an Domain/UI weiter.
-- spaetere verschluesselte Payloads muessen moeglich bleiben.
+- Fake-Port fuer App-/Notifier-/Widget-Tests.
+- Microcks fuer Initiate/Confirm/Failure-Contract.
+- Adaptertests fuer Stream, Timeout, Cancel, Restart und Idempotency Replay.
+- Integration gegen Local Development Cloud mit synthetischen Artefakten.
+- Produktionsnahe Mobile-Netz-/Groessenbenchmarks vor Transportfreigabe.
+- Privacy-Test fuer Logs, URLs und Diagnosepakete.
 
-## Contract- und Teststrategie
+## Stop Rules
 
-OpenAPI/Microcks modellieren die fachliche Upload-Session, nicht nur den
-aktuellen Transport.
+Stop, wenn:
 
-Mindestszenarien:
+- UI oder Domain HTTP-/S3-Details kennt.
+- C2 pauschal Whole-file Retry ohne gemessene Limits und SLO freigibt.
+- Confirm Routing finalisiert oder Originale vorzeitig loescht.
+- ein Transportwechsel Domain-/Review-Code umbauen muss.
+- Local-Vault-Assist als Cloud-Backup dargestellt wird.
 
-- initiate success.
-- upload success.
-- confirm success.
-- idempotent retry.
-- invalid/expired session.
-- auth failure.
-- validation failure.
-- payload too large.
-- checksum mismatch.
-- server retryable failure.
+## Handoff
 
-Flutter App-Tests verwenden `FakeCaptureUploadStrategy`. Sie sprechen nicht mit
-Microcks und nicht mit MinIO.
-
-## Konsequenzen
-
-- R4-D13 ist entschieden: Upload-Transport ist austauschbar per Strategy/Port
-  und Riverpod Provider.
-- M2 startet pragmatisch mit API-proxied Upload, falls das schneller und
-  sicherer fuer den ersten Slice ist.
-- OpenAPI muss den Enterprise-Zielvertrag vorbereiten.
-- MinIO/S3 bleibt Data-/Server-Adapter, nicht Domain- oder UI-Begriff.
-- Der spaetere Wechsel auf presigned/resumable Upload darf Domain, UI und
-  Draft-Inbox-Flow nicht umbauen.
-
-## Nicht entschieden
-
-- konkrete Endpoint-Namen.
-- ob presigned Upload zuerst single-object oder multipart umgesetzt wird.
-- konkrete Verschluesselungsstrategie fuer remote Payloads.
+Lokale Queue/Persistenz geht an `data-architect`; OpenAPI/Policy an
+`contract-api`; Backendtransport in ein getrenntes Backend-Issue;
+Qualitaetsnachweise an `quality-readiness`.

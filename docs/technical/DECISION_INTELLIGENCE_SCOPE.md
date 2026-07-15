@@ -1,86 +1,101 @@
 ---
 title: "Decision - Intelligence Scope"
-description: "Entscheidung zum KI-/OCR-/LLM-Scope: Core Assist im Commercial Core, Advanced Assist als spätere kontrollierte Erweiterung"
+description: "Entscheidung zum verpflichtenden Core Assist und zu späteren kontrollierten Intelligence-Erweiterungen"
 tags: [decision, intelligence, assist, ocr, llm, commercial-core, managed-service]
-lastUpdated: "2026-07-12"
-status: "accepted-rebaseline"
+lastUpdated: "2026-07-15"
+status: "accepted"
+owner: "product-concept/ai"
 ---
-
 # Decision - Intelligence Scope
-
-## 2026 Trust Rebaseline
-
-On-device and managed intelligence are the supported planning boundaries.
-Customer Home Hub/self-hosted processing is not active scope. No real-document
-Cloud processing starts before VC-02 plus provider, retention, training,
-redaction, evidence and human-review decisions.
-
-The former statement that OCR/classification is outside the first useful
-product is superseded. Core Assist is required by
-`DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md` and
-`DECISION_COMMERCIAL_CORE_SCOPE.md`.
 
 ## Status
 
-Accepted.
+Angenommen. Dieses Dokument ersetzt frühere Annahmen, nach denen OCR,
+Klassifikation oder Cloud-Assistenz erst nach dem ersten verkaufbaren Produkt
+relevant wären.
 
 ## Entscheidung
 
-Core Assist is part of the sellable Commercial Core. It provides the accepted
-minimum OCR/text extraction, document/actor/key-field classification,
-case/workflow matching, search-index input and human review. Advanced Assist,
-open-ended AI interaction and broad automation remain later slices.
+**Core Assist ist ein verpflichtender Bestandteil des Commercial Core.** Die
+App bleibt ohne Chat- oder Messenger-Oberfläche bedienbar; ihre zentrale
+Intelligenz zeigt sich in einem möglichst arbeitsarmen Capture-, Such- und
+Review-Erlebnis.
 
-Mappm implements these capabilities as a controlled processing pipeline:
+Core Assist umfasst mindestens:
+
+- Qualitäts- und Dokumentgrenzenprüfung je logischem Dokument;
+- OCR beziehungsweise Textextraktion;
+- Erkennung von Dokumenttyp, Absender, betroffener Person oder Organisation
+  und relevanten Schlüsselfakten;
+- einen editierbaren, lokalisierten Titelvorschlag für jedes Dokument sowie
+  für vorgeschlagene Cases und Records;
+- Vorschläge für primären Case oder Record, zusätzliche Beziehungen,
+  Workflow-Muster, Aufgaben und Fristen;
+- Suchindex-Eingaben und nachvollziehbare Match-Gründe;
+- eine schnelle, progressive und fehlertolerante Bestätigung oder Korrektur.
+
+## Verarbeitung
 
 ```text
-Dokument speichern
-  -> Text/OCR extrahieren
-  -> Dokumenttyp erkennen
-  -> Felder vorschlagen
-  -> bestehenden Vorgang oder veröffentlichte Workflow-Definition vorschlagen
-  -> Nutzerin prüft
-  -> akzeptierte Vorschläge übernehmen
+Original dauerhaft sichern
+  -> Qualität und logische Dokumentgrenze prüfen
+  -> Text und Fakten extrahieren
+  -> Typ, Akteure und Kontextkandidaten bestimmen
+  -> Titel, Case/Record, Beziehungen und Workflow-Schritte vorschlagen
+  -> nur relevante Folgen zur Bestätigung oder Korrektur zeigen
+  -> akzeptierte Ergebnisse versioniert übernehmen
 ```
 
-## Zielrichtung
+Die Verarbeitung ist asynchron. Je nach Scanqualität, Dokumentkomplexität,
+Gerät und Provider darf sie länger dauern; die UI zeigt einen ehrlichen Zustand
+und blockiert die weitere Nutzung nicht.
 
-- On-device processing may handle approved capabilities where quality and
-  platform resources are sufficient.
-- Managed Assist is the planned quality path for capabilities that cannot be
-  delivered reliably on supported client devices.
-- Managed Assist is allowed only when
-  `DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md` eingehalten wird: explizite
-  Trust Boundary, klare Freigabe, keine Trainingsnutzung ohne Zustimmung,
-  begrenzte Retention und loeschbare Processing-Artefakte.
-- Vorschläge mit Review-Zustand.
-- Keine stillen automatischen Statusänderungen.
-- OCR-/LLM-Ergebnisse sind löschbar und privacy-sensibel.
-- Keine frei erfundenen fachlichen Workflows, Fristen, Ansprüche oder
-  Rechtsraum-Zuordnungen.
-- Workflow-Vorschläge referenzieren eine kuratierte, gültige Definition gemäß
-  `DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md` und erklären die
-  verwendeten Dokument-/Profilmerkmale.
+## Entscheidungsgrenze
 
-## Core Versus Advanced
+In der aktuellen Reifestufe finalisiert Core Assist keine Case-, Record- oder
+Workflow-Zuordnung ohne Nutzerbestätigung. Auch bei niedriger Konfidenz werden
+die besten Kandidaten gezeigt; bei sehr niedriger Konfidenz steht „Neuen Case
+anlegen“ zuerst. „Bestehenden Case auswählen“ bleibt immer erreichbar.
 
-Core Assist:
+Spätere automatische Zuordnung ist ein ausdrückliches Produktziel, aber nur je
+Dokument-/Entscheidungsklasse nach belegter Qualität, typischerweise höchstens
+1–5 Prozent Fehlentscheidungen, und mit Abstention, Undo, Auditierbarkeit sowie
+Rollback. Eine globale Automatikfreigabe ist unzulässig.
 
-- is available in a meaningful limited Free entitlement;
-- is planned in C2/C3 rather than deferred beyond the sellable product;
-- supports search-first and review-first UX, not a mandatory AI chat;
-- has manual/offline/opt-out fallbacks without claiming feature equivalence.
+## Provider- und Trust-Grenzen
 
-Advanced Assist may include higher quotas, broader extraction, semantic
-answers, specialized processing and more automation. It cannot weaken evidence,
-review, privacy or workflow-catalog rules.
+- Zugelassene On-Device-Verarbeitung darf verwendet werden, wenn Qualität,
+  Ressourcen und Plattformabdeckung genügen.
+- Managed Assist ist der geplante Qualitätspfad für Fähigkeiten, die auf den
+  unterstützten Endgeräten nicht zuverlässig erbracht werden können.
+- Reale Dokumente dürfen erst nach den einschlägigen Security-, Privacy-,
+  Provider-, Retention-, Training-, Lösch- und AI-Regulatory-Gates verarbeitet
+  werden.
+- Assist-Artefakte sind sensible Nutzdaten, zweckgebunden, minimiert,
+  löschbar und kein Inhalt für normales Logging oder Training.
+- Local Vault und Cloud Vault behalten ihre jeweilige Authority; Assist ist
+  eine eigene Processing-Grenze und macht einen Local Vault nicht zum Cloud
+  Vault.
+
+## Core und Advanced Assist
+
+Core Assist steht in einer sinnvoll begrenzten Free-Ausprägung zur Verfügung
+und wird in C2/C3 als verkaufbarer End-to-End-Pfad umgesetzt. Quoten und
+Fallbacks dürfen die Produktgrenzen ehrlich erklären, aber keine nicht
+vorhandene Gleichwertigkeit behaupten.
+
+Advanced Assist darf später höhere Quoten, umfassendere Extraktion,
+semantische Antworten, spezialisierte Modelle und mehr Automatisierung bieten.
+Er darf Evidenz, Review, Datenschutz, Länderpakete oder kuratierte
+Workflow-Regeln nicht umgehen.
 
 ## Konsequenzen
 
-- C1 prepares account/device/entitlement, provider and secure processing
-  boundaries.
-- C2 delivers capture-to-Core-Assist-to-review as a complete vertical.
-- C3 integrates accepted suggestions into cases, search, tasks and profiles.
-- F9/F10/F11/F14/F17/F30 and AI/REG concepts govern the implementation.
-- No real-document processing begins before VC-02/OQ-003 and applicable
-  security/privacy/AI-regulatory gates are accepted.
+- C1 schafft Account-, Device-, Entitlement-, Contract- und Trust-Grenzen.
+- C2 liefert Capture, Core Assist und Review als vollständigen vertikalen Pfad.
+- C3 integriert akzeptierte Vorschläge in Cases, Records, Suche, Aufgaben und
+  verwaltete Profile.
+- Workflow-Vorschläge referenzieren ausschließlich gültige, versionierte
+  Definitionen gemäß `DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md`.
+- Die maßgeblichen UI-, Daten-, API-, Security-, Test- und Rechtskonzepte
+  müssen in jedem Implementation Contract verlinkt werden.

@@ -1,233 +1,151 @@
 ---
-title: "Draft Decision - Backend Contract-First Architecture"
-description: "Vorlaeufige Entscheidung zur contract-first Backend-Architektur: ASP.NET Core Backend, OpenAPI/Microcks-Vertraege und UI-Anbindung ueber Domain-Ports"
-tags: [decision, draft, backend, contract-first, openapi, microcks, aspnet-core, flutter, ui-boundary]
-lastUpdated: "2026-07-12"
-status: "draft"
+title: "Decision - Backend Contract-First Architecture"
+description: "Vorlaeufige contract-first Architektur fuer Managed Mappm Cloud, Local Development Cloud und Flutter-Domain-Ports"
+tags: [decision, backend, contract-first, openapi, microcks, aspnet-core, flutter]
+lastUpdated: "2026-07-15"
+status: "accepted-provisional"
+owner: "contract-api/backend"
 ---
 
-# Draft Decision - Backend Contract-First Architecture
-
-## 2026 Scope Rebaseline
-
-Contract-first and ownership boundaries remain the proposed direction for the
-managed Mappm service: account/device, entitlements and Core Assist for every
-normal mode, plus Cloud Vault/sync/migration when activated. Local Development
-Cloud uses the same contracts with synthetic data. Home Hub, Tailscale and
-customer self-hosting references below are historical. Frontend may describe
-required behavior; Contract/Backend owns DTOs, endpoints, mapping, persistence
-and policy architecture.
+# Decision - Backend Contract-First Architecture
 
 ## Status
 
-Draft.
+Vorlaeufig akzeptiert. ASP.NET Core als Zieltechnologie, OpenAPI/Microcks als
+Contract-Standard sowie die Ownership-Grenze sind verbindliche Richtung.
+Konkrete Contract-Familien, DTOs, Operationen und Backend-Module werden erst
+durch getrennte Contract-/Backend-Implementation-Contracts freigegeben.
 
-Diese Entscheidung konkretisiert, wie Mappm Backend, Flutter-App und spaetere
-UI-/Feature-Slices verbinden soll. Sie ergaenzt:
+## Entscheidung
 
-- `DECISION_HOME_HUB_BACKEND_TECHNOLOGY.md`
-- `DECISION_API_CONTRACT_MOCKS.md`
-- `DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`
-- `DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md`
-
-Die Backend-Technologie ASP.NET Core ist bereits akzeptiert. Diese Draft
-Decision haelt zusaetzlich fest: Mappm baut nicht server-first und nicht
-UI-direkt-gegen-Controller, sondern **contract-first**.
-
-## Vorlaeufige Entscheidung
-
-Mappm verwendet fuer Home Hub, spaeteren Sync, Backup, Sharing und
-Processing-Orchestration ein ASP.NET-Core-Backend, aber die stabile Grenze
-zwischen App und Backend ist der OpenAPI-Vertrag.
+Mappm baut den Managed Service **contract-first**. Die stabile Produktgrenze ist
+der versionierte OpenAPI-Vertrag, nicht ASP.NET Controller, EF-Modelle,
+PostgreSQL-Tabellen oder Object-Storage-SDKs.
 
 ```text
-Flutter App
-  -> Presentation / Riverpod Feature State
-  -> Domain Interfaces
-  -> Data Adapters
-  -> OpenAPI Client
-  -> Backend Contract
+Flutter Presentation / Riverpod
+  -> Domain Ports / Use Cases
+      -> Data Adapter
+          -> OpenAPI Client
+              -> Mappm Cloud Contract
 
-Backend
+Mappm Cloud
   -> ASP.NET Core API
-  -> PostgreSQL metadata / sync journal / jobs / audit
-  -> S3-compatible storage, e.g. MinIO
-  -> .NET Worker / Hosted Services
-  -> optional OCR-/LLM-Sidecars
+  -> PostgreSQL fuer Metadaten, Revisionen, Jobs und Audit
+  -> S3-kompatibler Object Storage fuer Payloads
+  -> Worker/Hosted Services fuer Processing und Lifecycle Jobs
 ```
 
-Die UI darf nicht direkt an ASP.NET Core, HTTP-Details, MinIO, EF Core oder
-serverseitige DTOs gekoppelt werden. Die Flutter-App spricht fachlich gegen
-Domain-Ports und Repository-Interfaces. Der Data Layer entscheidet, ob eine
-Operation lokal, ueber Sync, ueber Home Hub oder spaeter ueber Managed Cloud
-erfuellt wird.
+Die Local Development Cloud fuehrt denselben Stack und dieselben akzeptierten
+Vertragsversionen mit ausschliesslich synthetischen Daten aus. Sie ist kein
+Kundenfeature und kein Self-Hosting-Produkt.
 
-## Contract-First Regel
+## Ownership-Grenze
 
-API-Slices starten mit dem Vertrag:
+Frontend darf beschreiben:
+
+- benoetigte Nutzeraktionen und sichtbare Zustaende.
+- Offline-, Loading-, Error-, Retry-, Conflict- und Review-Verhalten.
+- benoetigte fachliche Operationen und Acceptance Conditions.
+- synthetische Consumer-Szenarien.
+
+Contract-/Backend-Owner entscheiden:
+
+- DTOs, Endpunkte und Operation IDs.
+- Authentifizierungs-/Autorisierungs- und Policy-Architektur.
+- serverseitiges Mapping, Persistenz, Transaktionen und Retention.
+- Job-, Queue-, Object-Storage- und Deploymentarchitektur.
+- SLOs, Limits und serverseitige Fehlercodes in Abstimmung mit Product/Ops.
+
+Frontend- und Backend-Implementation bleiben getrennte Issues. Ein
+Cross-Cutting-Epic darf beide koordinieren, aber nicht ihre Deliverables
+vermischen.
+
+## Contract-first Ablauf
 
 ```text
-1. OpenAPI Contract definieren oder aktualisieren.
-2. Synthetische Examples und Fehlerfaelle pflegen.
-3. Microcks Mock-/Contract-Szenarien bereitstellen.
-4. Flutter API Client gegen den Mock testen.
-5. ASP.NET Core Endpoint implementieren.
-6. ASP.NET Core gegen denselben Contract verifizieren.
+1. Produkt-/Trust-Gates und fachliche Capability akzeptieren.
+2. Contract/API Owner definiert OpenAPI und synthetische Examples.
+3. Microcks bildet relevante Consumer-Szenarien ab.
+4. Flutter implementiert/mapped den Consumer hinter Domain-Ports.
+5. Backend implementiert denselben Vertrag.
+6. Provider Verification, Integration und Staging Smoke laufen.
+7. Breaking-Change-/Rollout- und Observability-Nachweis schliessen den Slice.
 ```
 
-ASP.NET Core muss den Vertrag erfuellen. Der Vertrag wird nicht aus zufaelligen
-Controller-Implementierungen abgeleitet.
+## Portfamilien
 
-## UI- und Domain-Boundary
+App-seitig werden getrennte fachliche Ports vorgesehen fuer:
 
-Flutter-Presentation und Riverpod Feature State duerfen nur fachliche
-Interfaces sehen, zum Beispiel:
+- Account, Session, Device Trust und Entitlement.
+- Local-/Cloud-Vault, Cache, Pending Operations und Sync.
+- Capture Upload und Processing Job.
+- Core Assist und Proposal Review.
+- Migration, Export, Restore und Delete.
+- spaeter Sharing und Advanced Assist.
 
-```text
-DocumentRepository
-DraftInboxRepository
-CaptureUploadRepository
-PairingRepository
-SyncStatusRepository
-ProcessingJobRepository
-KeyManagementRepository
-IdentityProviderRepository
-```
+Local Vault, Cloud Vault, Fake und Contract Consumer implementieren passende
+Ports. Ein Port darf keine ASP.NET-, EF-, PostgreSQL-, S3- oder Remote-DTO-
+Typen in Domain/Presentation exponieren.
 
-Data Adapter duerfen diese Interfaces unterschiedlich erfuellen:
+## Capture und Processing
 
-```text
-Local-only
-  -> Drift / local file store / secure storage
+Capture Upload bestaetigt ausschliesslich die dauerhafte technische Annahme und
+queued Processing. Es finalisiert weder Dokumentgrenze noch Case-/Record-
+Zuordnung. Core Assist erzeugt pro logischem Dokument Titel, Typ, Fakten,
+Managed Subject sowie gerankte Case-/Record-Kandidaten mit Provenance.
 
-Private Home Hub
-  -> Drift local replica + OpenAPI client + secure storage
+Ein New-Case-/Case-Intent bleibt Signal. Der Nutzer bestaetigt aktuell
+folgenreiche Zuordnungen; spaetere Automation benoetigt klassenweise Quality-
+Freigabe. Der konkrete Vertrag liegt beim Contract/API Owner.
 
-Managed Mappm Cloud
-  -> local replica + OpenAPI client + cloud sync/backup/sharing
+## Backendform
 
-Tests
-  -> fake repositories and synthetic fixtures
-```
+Mappm startet als modularer Monolith plus Worker-Grenze, nicht als
+Microservice-Landschaft. API und einfache Background Jobs duerfen anfangs in
+einem Deployable liegen. Ein separater Worker/Broker wird erst eingefuehrt,
+wenn Durchsatz, Isolation, Retry oder Betriebsmetriken dies rechtfertigen.
 
-Damit bleiben UI, Domain und Feature-State stabil, auch wenn der Betriebsmodus
-wechselt.
+Spezialisierte OCR-/LLM-Komponenten duerfen hinter einem Processing-Port in
+anderen Laufzeiten arbeiten. Providerdetails und Rohantworten bleiben
+Infrastruktur und leaken nicht in Domain/UI.
 
-## Backend-Form
+## Security und Privacy
 
-Der bevorzugte Start fuer die echte Backend-Implementierung bleibt:
+- Keine Secrets oder privaten Inhalte in Specs, Examples, Logs oder normalen
+  Fehlern.
+- Account, Device, Vault und Operation begrenzen jeden Zugriff.
+- Uploadziele sind kurzlebig und eng gescoped.
+- Local-Vault-Assist aktiviert keine dauerhafte Cloud-Vault-Speicherung.
+- Sync, Backup, Assist und Telemetry sind getrennte Trust-/Retention-Grenzen.
+- Backend-Persistenzmodelle sind kein API-Vertrag.
 
-```text
-Mappm.HomeHub.Api
-  -> health / capabilities
-  -> pairing / device tokens
-  -> capture upload
-  -> draft inbox handoff
-  -> admin / storage health
-  -> later sync endpoints
+## Tests und Verifikation
 
-Mappm.HomeHub.Worker
-  -> cleanup
-  -> outbox/job polling
-  -> backup tasks
-  -> indexing handoff
-  -> OCR/AI orchestration
-```
+- OpenAPI-/Microcks-Consumer- und Provider-Verifikation.
+- App-Tests ueber Fake-Ports und Contract Consumer.
+- Backend-Tests fuer Auth, Policy, Transaktion, Idempotenz und Tenant-Isolation.
+- Integration gegen Local Development Cloud; Staging-Smoke vor Release.
+- Restart-, Retry-, Conflict-, Migration- und Retention-Szenarien je betroffenem
+  Slice.
 
-API und einfache Background Services duerfen am Anfang in einem Deployable
-leben. Ein separater Worker wird eingefuehrt, sobald Jobs, Retries, OCR,
-Indexing oder Cleanup eine eigene Laufzeitgrenze brauchen.
+## Stop Rules
 
-## Erste Contract-Reihenfolge
+Stop, wenn:
 
-Die erste Contract-Arbeit sollte klein und vertikal bleiben:
+- UI direkt Controller, Remote DTOs oder Storage-SDKs verwendet.
+- Frontend Backend-Policy oder Persistenz festlegt.
+- OpenAPI nachtraeglich aus zufaellig implementierten Endpoints abgeleitet wird.
+- Local Development Cloud als Kundenprodukt erscheint.
+- ein Slice ohne Contract-, Failure-, Security- und Provider-Verification-
+  Nachweis gebaut werden soll.
 
-```text
-contracts/openapi/home-hub-health.yaml
-contracts/openapi/home-hub-pairing.yaml
-contracts/openapi/mobile-capture-upload.yaml
-contracts/openapi/draft-inbox.yaml
-```
+## Offene Entscheidungen
 
-Spaeter:
+- konkrete .NET-Solution- und Modulstruktur.
+- Minimal APIs versus Controller pro Slice.
+- Client-Codegen versus handgeschriebener Client.
+- konkrete Auth-Libraries, Sync-/Conflict- und Sharing-Protokolle.
 
-```text
-contracts/openapi/sync.yaml
-contracts/openapi/backup-restore.yaml
-contracts/openapi/processing-jobs.yaml
-contracts/openapi/sharing.yaml
-contracts/openapi/identity-provider.yaml
-```
-
-Der erste echte Backend-Slice sollte nicht mit vollem Sync, Account-Plattform,
-Sharing oder Intelligence beginnen. Empfohlener erster Slice:
-
-```text
-GET  /health
-GET  /capabilities
-POST /pairing/sessions
-POST /devices/pair
-POST /capture/uploads/initiate
-PUT  /capture/uploads/{uploadId}/content
-POST /capture/uploads/{uploadId}/confirm
-GET  /capture/uploads/{uploadId}
-```
-
-Endpoint-Namen bleiben vorlaeufig und muessen in der OpenAPI-Spezifikation
-fachlich finalisiert werden.
-
-## OCR, LLM und Processing
-
-ASP.NET Core orchestriert Processing, aber muss nicht jede Spezialverarbeitung
-selbst ausfuehren.
-
-```text
-ASP.NET Core
-  -> Auth, Policy, Storage, Jobs, Status, Audit, Retry
-
-.NET Worker
-  -> Job polling, cleanup, orchestration, state transitions
-
-OCR-/LLM-Sidecars
-  -> Tesseract/PaddleOCR/Docling/Ollama/vLLM/etc. as needed
-```
-
-Processing bleibt eine Trust Boundary gemaess
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md` und VC-02. Klartextverarbeitung ist nicht
-identisch mit verschluesseltem Sync/Backup und braucht explizite Freigabe-,
-Retention- und Logging-Regeln.
-
-## Security- und Privacy-Regeln
-
-- Keine Secrets in OpenAPI Examples, Microcks Artefakten, Logs oder normaler DB.
-- Contract-Beispiele verwenden nur synthetische Daten.
-- Dokumentinhalte, OCR-Text, Tokens und hochsensible Metadaten werden nicht
-  geloggt.
-- API-Fehler sind maschinenlesbar und auf App-Failure-Kategorien mapbar.
-- Upload-, Sync- und Processing-Operationen brauchen idempotente oder
-  wiederaufnehmbare Zustandsmodelle, sobald Wiederholung realistisch ist.
-- Backend-DTOs werden nicht zu Flutter-Domain-Entities.
-- Server-Persistenzmodelle werden nicht zu API-Vertraegen.
-- MinIO/S3, EF Core, Npgsql und ASP.NET-spezifische Typen leaken nicht in die
-  Flutter-Domain.
-
-## Konsequenzen
-
-- UI- und Feature-Arbeit kann gegen Fake-Repositories und Microcks laufen,
-  bevor das echte Backend fertig ist.
-- Backend-Implementierung und Flutter-App koennen parallel arbeiten, solange
-  sie denselben OpenAPI-Vertrag erfuellen.
-- Der Data Layer bleibt austauschbar zwischen Local-only, Home Hub, Managed
-  Cloud und Tests.
-- ASP.NET Core ist die bevorzugte Implementierung, aber nicht die fachliche
-  Produktgrenze.
-- OpenAPI/Microcks werden frueh zur Integrations- und CI-Grenze.
-
-## Nicht entschieden
-
-- genaue Ablage- und Namenskonvention fuer alle Contract-Dateien.
-- Minimal APIs vs Controller pro Backend-Slice.
-- Client-Codegenerierung vs handgeschriebener Client fuer die ersten Slices.
-- konkrete .NET-Solution-Struktur.
-- konkrete Auth-Libraries fuer spaetere Cloud-/Identity-Provider.
-- genaue Sync-/Conflict-/Sharing-Protokolle.
+Diese Punkte werden pro Contract-/Backend-Slice entschieden und nicht vom
+Frontend vorweggenommen.

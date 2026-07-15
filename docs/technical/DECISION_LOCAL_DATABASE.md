@@ -1,172 +1,88 @@
 ---
 title: "Decision - Local Database"
-description: "Entscheidung zur lokalen Datenbankstrategie fuer DocMan"
-tags: [decision, accepted, local-storage, database, mobile, desktop, drift, sqlite]
-lastUpdated: "2026-07-12"
+description: "Entscheidung zu SQLite und Drift für Local Authority sowie Cloud Cache und Pending State"
+tags: [decision, local-storage, database, mobile, desktop, drift, sqlite, vault]
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "data-architect"
 ---
-
 # Decision - Local Database
 
 ## Status
 
-Accepted.
+Angenommen. Mappm verwendet **SQLite mit Drift** für strukturierte lokale
+Daten auf Mobile und Desktop.
 
-DocMan verwendet fuer strukturierte lokale Daten **SQLite mit Drift**.
+## Authority
 
-## Entscheidung
+- Im **Local Vault** ist die lokale Datenbank autoritativ für strukturierte
+  Produktdaten.
+- Im **Cloud Vault** enthält sie nur policy-begrenzten Cache, Pending
+  Operations und den für Offline-Verhalten erforderlichen Zustand. Sie darf
+  keine lokale Vollständigkeit behaupten, die nicht belegt ist.
+- Die Vault-Authority wird über Repository- und Provider-Wiring gewählt; sie
+  darf nicht als UI- oder Drift-Sonderfall durchsickern.
 
-SQLite + Drift ist die Zieltechnologie fuer lokale strukturierte Daten in Desktop- und Mobile-App.
+## Scope
 
-Die Entscheidung gilt fuer:
+SQLite/Drift speichert unter anderem:
 
-- Case-/Vorgangs-Metadaten.
-- Dokument-Metadaten.
-- Profile und Haushaltskontext im M2-Umfang.
-- Draft Inbox.
-- Mobile Upload Queue.
-- Sync-Metadaten und spaetere Tombstones.
-- OCR-/LLM-Ergebnisstatus und Review-Zustaende, sobald diese spaeter eingefuehrt werden.
+- Cases, Records, Dokumentmetadaten und typisierte Beziehungen;
+- Managed Subjects, externe Akteure, Facts, Claims, Aufgaben und Termine;
+- Capture-Manifeste, Seiten, logische Dokumentgrenzen, Upload- und
+  Processing-Status;
+- Vorschläge, Konfidenz, Provenienz, Review und Korrekturen;
+- lokale IDs, Remote-Referenzen, Revisionen, Queue-State und Tombstones;
+- lokalen Suchindex gemäß der Search-Entscheidung.
 
-Drift ist dabei eine **Data-Layer-Implementierung**, kein Domain- oder UI-Konzept.
-
-```text
-Presentation
-  -> Riverpod providers / feature state
-      -> Domain repository interfaces
-          -> Data repositories
-              -> Drift / SQLite
-```
-
-## Begruendung
-
-DocMan ist keine reine Objektablage. Das Produkt verwaltet langlebige Beziehungen und Zustaende:
-
-- Vorgaenge mit Dokumenten, Aufgaben und Ereignissen.
-- Dokumente mit Profilen, Drafts, Upload-Jobs und spaeter OCR-Ergebnissen.
-- lokale IDs, optionale Remote-IDs, Sync-Status, Konflikte und Tombstones.
-- Review-Zustaende fuer Vorschlaege und automatische Erkennung.
-
-Diese Struktur ist relational und migrationslastig. SQLite + Drift passt deshalb besser als ein objektorientierter NoSQL-Kern.
-
-Wichtige Gruende:
-
-- SQLite laeuft stabil auf Mobile und Desktop.
-- Drift bietet type-safe Queries, reaktive Streams, Migrationen und gute Testbarkeit.
-- Relationale Tabellen machen Sync-, Queue- und Review-Zustaende explizit.
-- SQLite ist langfristig exportierbar, inspectable und fuer private Dokumentdaten vertrauenswuerdig.
-- Drift laesst sich sauber hinter Repository-Interfaces verstecken.
-
-## Abgrenzung
-
-### Nicht in SQLite
-
-Originaldateien, Scans, PDFs, Vorschaubilder und grosse Binardaten liegen nicht als grosse BLOBs in SQLite.
-
-Sie liegen im App-Dateispeicher. SQLite speichert nur Metadaten, lokale Datei-Referenzen, Hashes, Status und Zuordnungen.
-
-### Nicht in SQLite
-
-Secrets, Pairing-Tokens, Session-Tokens und andere Zugangsdaten liegen nicht in SQLite.
-
-Sie liegen in Secure Storage gemaess `docs/concepts/CONCEPT_F12_SECURE_STORAGE.md`.
-
-### Optional flexibel
-
-Flexible oder wenig stabile Nebendaten duerfen als JSON-Spalten modelliert werden, wenn sie nicht sinnvoll normalisiert werden koennen.
-
-Beispiele:
-
-- rohe OCR-/Extraktionsdetails.
-- provider-spezifische Analyse-Metadaten.
-- temporaere Import- oder Klassifikationsdetails.
-
-Stabile Produktdaten werden bevorzugt als explizite Tabellen modelliert.
+Originaldateien, Scans, PDFs, Vorschaubilder und andere große Binärdaten liegen
+nicht als BLOBs in SQLite. Secrets, Session-/Device-Tokens und Recovery-Material
+liegen ausschließlich in Secure Storage.
 
 ## Architekturgrenze
 
-Die Austauschbarkeit entsteht durch zwei Ebenen:
+```text
+Presentation
+  -> Riverpod Feature State
+    -> Domain Repository Interfaces
+      -> Data Repositories
+        -> Drift / SQLite
+```
 
-- **Strategy Boundary:** Domain definiert Repository-Interfaces; Drift ist nur eine konkrete Strategie.
-- **Provider Wiring:** Riverpod stellt im Produktmodus Drift-Repositories und in Tests/Fakes alternative Implementierungen bereit.
+Drift-Typen, Tabellen und DAOs bleiben im Data Layer. Domain und Presentation
+verwenden stabile Produktmodelle und Repository-Interfaces. Fakes und
+Contract-Adapter implementieren dieselben Interfaces; Provider Overrides
+wählen die konkrete Strategie.
 
-Erlaubt:
+## Schema- und Migrationsregeln
 
-- `DriftDocumentRepository` implementiert `DocumentRepository`.
-- `FakeDocumentRepository` implementiert dasselbe Interface fuer Tests und Mocks.
-- Provider Overrides ersetzen Datenquellen in Tests.
-
-Nicht erlaubt:
-
-- Drift-Tabellen oder Drift-DAOs in Presentation.
-- Drift-Typen in Domain-Entities oder Repository-Interfaces.
-- direkte Datenbankzugriffe aus Riverpod Feature-State-Providern.
-
-## Sync-Vorbereitung
-
-Das erste Schema muss nicht vollen Sync implementieren. Es muss Sync aber vorbereiten.
-
-Zielmetadaten fuer sync-faehige Tabellen:
-
-- stabile lokale ID.
-- optionale Remote-ID.
-- `createdAt`.
-- `updatedAt`.
-- optional `deletedAt` fuer Tombstones.
-- lokaler Sync-/Upload-Status.
-- optionale Version oder Revision fuer spaetere Konfliktbehandlung.
-
-Delete-Verhalten:
-
-- Produktdaten, die spaeter synchronisiert werden koennen, werden nicht blind physisch geloescht.
-- Fuer Sync-relevante Daten wird ein Tombstone-/Soft-Delete-Konzept vorgesehen.
-- Lokale temporaere Daten duerfen physisch geloescht werden, wenn sie nicht sync-relevant sind.
+- Produktentitäten erhalten stabile, providerunabhängige IDs.
+- Sync-fähige Tabellen führen mindestens Erstellungs-, Änderungs-,
+  Versions- und Löschinformationen, soweit ihr Contract dies erfordert.
+- Flexible, providernahe Rohdaten dürfen gezielt in versionierten JSON-Spalten
+  liegen; stabile fachliche Felder werden explizit modelliert.
+- Migrationen sind vorwärts und rückwärts gegen unterstützte Upgrade-Pfade zu
+  testen; fehlgeschlagene Migrationen dürfen Originaldaten nicht zerstören.
+- Isar- und PocketBase-Spike-Modelle sind keine Zielarchitektur. Ihre Ablösung
+  erfolgt kontrolliert und ohne ihre Typen in neue Domain-Verträge zu tragen.
 
 ## Suche
 
-M2:
+Drift-Abfragen decken strukturierte Filter ab. SQLite FTS5 ist der lokale
+Volltextindex für bestätigte Metadaten und, sobald C2/C3 dies freigibt, für
+lokal verfügbare OCR-Texte. Der Index ist rebuildbar und keine eigene Authority.
 
-- strukturierte Queries ueber Titel, Datum, Sender, Tags, Profil, Case/Vorgang und Status.
+## Verifikation
 
-Spaeter:
+Jeder Implementierungsslice mit Persistenz weist mindestens nach:
 
-- SQLite FTS fuer OCR-/Volltextsuche pruefen.
-- Ein externer Suchindex bleibt optional und darf nicht Voraussetzung fuer lokale Nutzung werden.
+- Repository- und Providergrenzen ohne Drift-Leakage;
+- Local- und Cloud-Vault-Semantik;
+- Migration, Rollback-/Recovery-Verhalten und Datenintegrität;
+- Queue-, Restart-, Partial-Failure- und Tombstone-Verhalten;
+- sichere Trennung von Dateien, strukturierten Daten und Secrets;
+- deterministische Fake- und Datenbanktests ohne private Echtdaten.
 
-## Migration aus dem Spike
-
-Der aktuelle Isar-basierte Code ist Spike-/Legacy-Code.
-
-Konsequenzen:
-
-- Isar wird nicht weiter als Zielarchitektur ausgebaut.
-- Bestehende Isar-Pfade werden in R2 isoliert, ersetzt oder kontrolliert migriert.
-- PocketBase-Modelle bestimmen nicht das lokale Datenmodell.
-- R2 plant die konkrete Migration, bevor Produktfeatures darauf aufgebaut werden.
-
-## Konsequenzen fuer R2
-
-R2 muss:
-
-- Drift als lokale Persistenzstrategie einplanen.
-- Domain-Repository-Interfaces vor Drift-Typen schuetzen.
-- lokale Dateiablage separat modellieren.
-- Secure Storage separat halten.
-- Draft Inbox und Mobile Upload Queue persistierbar machen.
-- Migrationen und Tests als Foundation-Arbeit einplanen.
-
-## Akzeptanz
-
-Die Entscheidung ist akzeptiert, wenn:
-
-- ein neuer C1/R2-Implementation-Contract Local authority sowie Cloud
-  cache/pending semantics gegen diese Entscheidung und F10 plant.
-- Issue #1 geschlossen ist.
-- R2 keine erneute Grundsatzentscheidung zwischen Isar, Drift und NoSQL braucht.
-
-## Offene Folgefragen
-
-- Wie minimal darf das erste Drift-Schema sein?
-- Welche Tabellen gehoeren in R2, welche erst in R3?
-- Wird FTS bereits in R3 vorbereitet oder erst nach OCR-Text?
-- Wie genau wird der bestehende Isar-Spike aus dem Code entfernt oder isoliert?
+Die konkrete erste Tabellenmenge gehört in den freigegebenen C1/C2-
+Implementation-Contract und wird nicht in dieser Technologieentscheidung
+vorweggenommen.

@@ -2,16 +2,17 @@
 title: "Produkt-Säule - Export and External Actions"
 description: "Produktbereich fuer Export, lokale Übergabe, externe App-/Website-Links, Einreichportale und manuelle Ausgabe von Dokumenten"
 tags: [pillar, export, external-links, integrations, privacy]
-lastUpdated: "2026-07-12"
-version: "0.3"
+lastUpdated: "2026-07-15"
+version: "0.4"
 status: "proposed"
+owner: "product-concept/security"
 ---
 
 # Produkt-Säule - Export and External Actions
 
 ## Zweck
 
-DocMan muss Dokumente nicht nur aufnehmen, sondern auch wieder nutzbar machen:
+Mappm muss Dokumente nicht nur aufnehmen, sondern auch wieder nutzbar machen:
 
 - Dokument herunterladen.
 - PDF öffnen oder drucken.
@@ -27,15 +28,18 @@ R13-D1 entscheidet: Der erste Integrationspfad sind manuelle Links und
 bewusste Export-/Oeffnen-Aktionen. Automatische Portalaktionen sind nur ein
 spaeteres Pruefthema und kein Produktversprechen.
 
-R14-D1 entscheidet: Mappm bietet keinen externen App-Zugriff und keine
-Cloud-Share-Links. Die sichere Uebergabeform ist lokaler Export: ein einzelnes
-Dokument als Originaldatei, mehrere Dokumente oder ein ganzer Vorgang als ZIP.
+Der Commercial Core startet mit bewusstem Export und manueller Uebergabe.
+Spaeteres Account-zu-Account-Sharing und zeitlich begrenzte Freigaben benoetigen
+einen eigenen Trust-, Contract-, Rechte-, Revocation- und Audit-Slice; sie
+werden durch Export weder ausgeschlossen noch implizit aktiviert.
 
 ## Grundsatz
 
-Externe Apps und Websites sind Aktionsziele, keine vertrauenswürdige DocMan-Datenhaltung.
+Externe Apps und Websites sind Aktionsziele, keine vertrauenswuerdige
+Mappm-Datenhaltung.
 
-DocMan speichert im M2 keine externen Zugangsdaten, Tokens oder Session-Cookies fuer solche Dienste.
+Mappm speichert im Commercial Core keine externen Zugangsdaten, Tokens oder
+Session-Cookies fuer solche Dienste.
 
 Export und externe Aktionen sind Teil des DMS-Zielbildes, aber nicht
 Teil der Dokument-Besitzstruktur. Ein Outbox-/Export-Eintrag verweist auf
@@ -82,7 +86,7 @@ Mobile:
 
 ## ExportPackage
 
-spaetere Milestones sollte DocMan Exportpakete modellieren:
+Spaetere Slices koennen Exportpakete modellieren:
 
 - ein einzelnes Dokument als Originaldatei.
 - ausgewählte Dokumente als ZIP.
@@ -106,9 +110,9 @@ Langfristig kann daraus eine echte Outbox entstehen:
 
 Diese Zustände gehören zur Aktion, nicht zum Dokument selbst.
 
-## M2-Scope
+## C3/C4-Scope
 
-Schlanker M2-Slice:
+Schlanker Commercial-Core-Slice:
 
 - manuellen externen Link an Task oder Vorgang speichern.
 - Link sicher öffnen.
@@ -124,8 +128,8 @@ Späterer Milestone:
 - Passwortmanager-/Credential-Integration nur mit eigener Security-Entscheidung.
 - automatische Formularübermittlung nur, wenn Portal, Recht, Auth und Wartung
   tragfaehig sind.
-- keine externe Benutzerfreigabe.
-- keine zeitlich begrenzten Cloud-Share-Links.
+- Account-zu-Account-Sharing und Cloud-Share-Links nur in R14 nach eigener
+  Trust-/Security-/Privacy-/Contract-Freigabe.
 
 ## UI-Empfehlung
 
@@ -145,21 +149,22 @@ Empfohlen:
 - Links können sensible Kontexte verraten.
 - Notifications dürfen Linktitel und Dokumentdetails redigieren.
 - Audit darf Aktion und Zieltyp speichern, aber keine Secrets.
-- externe Dienste liegen außerhalb der DocMan-Vertrauensgrenze.
+- externe Dienste liegen ausserhalb der Mappm-Vertrauensgrenze.
 - automatische Portalaktionen koennen scheitern, verboten sein oder instabil
   werden; manuelle Links bleiben deshalb der robuste Basispfad.
 - der Versand nach dem Export liegt ausserhalb der Mappm-Vertrauensgrenze.
 
 ## Offene Folgefragen
 
-- Welche Linktypen sind im R4-M2 sichtbar?
+- Welche Linktypen sind in C3 sichtbar?
 - Brauchen Profile eigene externe Links schon in R5?
 - Wie wird `ExportPackage` in der UI genannt?
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

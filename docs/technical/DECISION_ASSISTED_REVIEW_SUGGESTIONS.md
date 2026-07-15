@@ -1,189 +1,156 @@
 ---
 title: "Decision - Assisted Review Suggestions"
-description: "Entscheidung zu ersten OCR-/AI-/Regelvorschlaegen im Draft Review und Human-in-the-loop-Regeln"
-tags: [decision, assisted-review, ocr, ai, suggestions, draft-inbox, privacy]
-lastUpdated: "2026-07-14"
+description: "Entscheidung zu Backend-/Core-Assist-Vorschlaegen fuer Titel, Dokumentfakten, Case-/Record-Routing, Workflows und sichtbare Human-in-the-loop-Bestaetigung"
+tags: [decision, assisted-review, ocr, ai, title, routing, suggestions, privacy]
+lastUpdated: "2026-07-15"
 status: "accepted-rebaseline"
+owner: "product-concept"
 ---
 
 # Decision - Assisted Review Suggestions
 
 ## Status
 
-Accepted.
+Accepted and rebaselined on 2026-07-15. Assisted Review and automatic title/
+routing proposals are Commercial Core capabilities, not a later R5-only add-on.
 
-The former R5-only timing is superseded: this suggestion contract is part of
-C2/C3 Core Assist. Assisted Review darf Arbeit reduzieren, aber keine
-fachlich oder datenschutzrelevanten Entscheidungen still finalisieren.
+## Decision
 
-## Entscheidung
+Backend/Core Assist automatically prepares the best supported review result.
+Current-release domain assignments and material consequences remain human-
+confirmed. The user reviews a concise result, not a raw extraction form.
 
-Assisted Review arbeitet nach Human-in-the-loop-Regeln:
+Suggestions are:
 
-- Vorschlaege sind sichtbar, pruefbar und korrigierbar.
-- Vorschlaege werden nicht still als finale Wahrheit uebernommen.
-- Fachlich relevante Vorschlaege brauchen Annahme, Ablehnung oder Korrektur.
-- Hochsensible Vorschlaege brauchen besonders klare Quelle und bewusste
-  Bestaetigung.
-- Die betroffene Person / das Haushaltsprofil darf vorgeschlagen, aber nicht
-  still gesetzt werden.
+- versioned and attributable to rule/model/OCR/linked evidence;
+- distinguishable from confirmed facts;
+- correctable and rejectable;
+- safe to reprocess without overwriting confirmed values;
+- filtered by permissions and sensitivity;
+- presented through progressive disclosure.
 
-Das Ziel ist nicht Automatisierung um jeden Preis, sondern schnellerer Review
-ohne falsche Ablage sensibler Dokumente.
+## Mandatory Title Suggestion
 
-## Erste Ziel-Felder
+Every captured logical Document and every proposed new Case/Record receives an
+editable localized title proposal from Backend/Core Assist. This is mandatory
+even when the user intentionally selected **Neuen Vorgang starten**.
 
-Assisted Review darf zuerst diese Felder vorschlagen:
+The title proposal includes provenance/confidence internally. Accepting it
+creates a confirmed title; later reprocessing may suggest an alternative but
+cannot silently replace the confirmed title.
 
-| Feld | Regel |
-|---|---|
-| Titel | darf vorgeschlagen und einfach uebernommen/korrigiert werden |
-| Dokumenttyp | darf vorgeschlagen werden, nie hart erzwingen |
-| Absender/Aussteller | darf vorgeschlagen werden |
-| Dokumentdatum | darf vorgeschlagen werden |
-| Betrag | darf vorgeschlagen werden, braucht Review |
-| Fälligkeit | darf vorgeschlagen werden, braucht Review |
-| Tags | darf vorgeschlagen werden, leicht verwerfbar |
-| Vorgang/Case-Beziehung/Workflow-Zweig | nur als Hinweis/Vorschlag, keine stille Ablage |
-| Versicherung/Polizze | nur als Hinweis/Vorschlag, keine stille Claim-Aktion |
-| Claim-/Erstattungs-Kontext | nur als Hinweis/Vorschlag |
-| Profil-Fakten | als Vorschlag mit Quelle, bewusst bestaetigen |
-| betroffene Person | nur vorschlagen, nie still setzen |
+## Supported Proposal Families
 
-## Schutzklassen fuer Vorschlaege
+| Family | Examples | Current confirmation rule |
+|---|---|---|
+| Identity/title | document title, new Case title, Record title | visible acceptance/correction in result bundle |
+| Taxonomy | document base type, semantic variant, domain | required base meaning is visible/confirmed in the compact result, without a separate field when title/template already communicates it; variant/domain only when material |
+| Actors/subject | Managed Subject, sender, issuer, recipient, provider | conflicts/new sensitive subject visible; no hidden cross-profile acceptance |
+| Facts | dates, references, amounts, deadlines, expected response | material consequences visible; other extracted facts remain proposed until reviewed/used |
+| Primary routing | Case or durable Record | always user-confirmed in current maturity |
+| Additional routing | other Cases, Records, Claims | confirmed when proposed as a relationship |
+| Workflow | domain template/definition version, pattern/modules, branch, document role/slot, next step | material consequences confirmed; internal keys hidden by default |
+| Work | task, reminder, appointment, expected document | visible if created/activated; external actions never implicit |
+| Relationships | `part_of`, `caused_by`, `follow_up_to`, `related_to` | user-confirmed; causality requires strong evidence |
 
-### Unkritische Vorschlaege
+## Suggestion and Bundle Model
 
-Beispiele:
-
-- Titel.
-- Dokumenttyp.
-- Datum.
-- Absender/Aussteller.
-- Tags.
-
-Diese Vorschlaege duerfen prominent angezeigt werden und schnell uebernehmbar
-sein. Trotzdem bleibt Korrektur jederzeit moeglich.
-
-### Fachlich wichtige Vorschlaege
-
-Beispiele:
-
-- Betrag.
-- Fälligkeit.
-- Versicherung.
-- Vorgang, Case-Beziehung oder Workflow-Zweig.
-- Claim-/Erstattungs-Kontext.
-
-Diese Vorschlaege brauchen klare Review-Bestaetigung, weil sie Aufgaben,
-Workflows, Fristen, Suche oder Auswertungen beeinflussen.
-
-### Hochsensible Vorschlaege
-
-Beispiele:
-
-- betroffene Person / Haushaltsprofil.
-- Passnummer.
-- SV-Nummer.
-- Versicherungsnummer.
-- medizinische Details.
-- sonstige hochsensible Profil-Fakten.
-
-Diese Vorschlaege duerfen nur mit Quelle/Evidenz angezeigt werden und brauchen
-bewusste Bestaetigung. Sie werden nicht in normalen Listen, Logs, Telemetry oder
-Benachrichtigungstexten ausgegeben.
-
-## Suggestion Model
+Conceptually:
 
 ```text
+ReviewProposalBundle
+  processingJob/version
+  logicalDocumentIds
+  proposedPrimaryContexts
+  proposedTitles
+  visibleConsequences
+  alternativeCandidates
+  warnings/outliers
+  suggestions[]
+
 ReviewSuggestion
-  draftId
-  fieldKey
+  targetObject/field/relation
   proposedValue
-  confidence optional
-  source: ocr | rule | model | userPattern | linkedRecord
-  sourceDocumentId optional
-  sourceRecordId optional
-  evidenceTextRange optional
-  sensitivity: normal | sensitive | highlySensitive
-  status: suggested | accepted | rejected | edited
-  createdAt
-  reviewedAt optional
+  source: ocr | deterministicRule | model | userPattern | linkedEvidence
+  evidence/provenance optional
+  confidence/calibration optional
+  sensitivity
+  status: proposed | accepted | rejected | edited | superseded
 ```
 
-Wichtig:
+Exact contracts belong to `contract-api`; the semantic separation is required.
 
-- `status=suggested` bedeutet noch keine finale Uebernahme.
-- `accepted` bedeutet bewusst bestaetigt.
-- `edited` bedeutet Nutzerin hat den Vorschlag korrigiert und uebernommen.
-- `rejected` bedeutet bewusst verworfen.
+## Visible Confirmation Rule
 
-## Betroffene Person
+A user action only confirms what the result makes visible as a consequence.
+Hidden extracted values, role keys or model assumptions are not silently
+accepted with the primary routing.
 
-Die betroffene Person ist besonders kritisch.
+Already confirmed/entailed context need not be repeated. For example, if the
+confirmed Case already establishes one Managed Subject and provider, review may
+omit the unchanged provider. A conflicting subject/provider or a fact that
+changes task, deadline, payer, permission or external action must be surfaced.
 
-Assisted Review darf sagen:
+## Confidence and Alternatives
 
-```text
-Dieses Dokument betrifft vermutlich Kind A.
-```
+- Confidence is used to rank, abstain and select review behavior.
+- User-facing raw percentages are optional and not a substitute for plain
+  uncertainty language.
+- High confidence supports a one-action confirmation path.
+- Medium confidence exposes a small ranked alternative set.
+- Low confidence still returns best candidates; new Case is first for Case
+  routing and full existing-Case selection remains accessible.
+- Poor scan/evidence may require rescan or targeted manual fallback.
 
-Assisted Review darf nicht still tun:
+## Managed Subject Safety
 
-```text
-Dokument automatisch Kind A zuordnen und Review abschliessen.
-```
+Managed Subject is highly consequential. Backend/Core Assist may infer it from
+the selected/confirmed Case or propose it from document evidence.
 
-Grund:
+- Cross-profile candidates are access-filtered.
+- A new, changed or ambiguous subject is visible before confirmation.
+- Existing unambiguous subject inherited from a confirmed Case need not become a
+  redundant form field.
+- No model output may silently move content across permission boundaries.
 
-- falsche Profilzuordnung kann sensible Dokumente falsch sichtbar machen.
-- Haushaltsdokumente koennen mehrere Personen betreffen.
-- aehnliche Namen, Versicherungsdaten oder Arztkontexte koennen irrefuehrend
-  sein.
-- die betroffene Person ist fuer Review Completion ein Pflichtfeld und muss
-  bewusst bestaetigt werden.
+## Current and Future Automation
 
-## Nicht Erlaubt
+Current maturity:
 
-Assisted Review darf frueh nicht:
+- primary/secondary context assignments are proposals;
+- user confirmation completes review;
+- generated tasks/deadlines with material consequences are visible;
+- external actions always require explicit action.
 
-- Draft Review still abschliessen.
-- Dokumente still einem Profil, Vorgang oder Claim zuordnen.
-- Aufgaben still als verbindlich erzeugen.
-- Einreichungen oder externe Portalaktionen starten.
-- Claims als abgeschlossen markieren.
-- hochsensible Fakten ohne Review speichern.
-- private Inhalte in Logs, Telemetry oder Benachrichtigungen ausgeben.
+Future maturity may auto-finalize only eligible reversible internal assignments
+after the class-specific quality gates in
+`DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md`. Suggestion acceptance history and
+undo remain available.
 
-Kontextabhängig darf Review außerdem zwei oder drei relevante Aktionen aus
-`DECISION_CONTEXTUAL_REVIEW_ACTIONS_FINANCIAL_ROLLUPS.md` vorschlagen, etwa
-Vertrag/Abo, Claim, Zahlung, Steuerprüfung, Business-Kontext, Aufgabe oder
-Quick Access. Eine universelle Checkbox-Wand ist kein Ziel.
+## Not Allowed
 
-## Milestone-Einordnung
+Backend/Core Assist must not:
 
-- M2 bereitet Review-Zustaende und Pflichtfelder vor, aber ohne OCR/AI.
-- M3/R5 fuehrt erste Assisted-Review-Vorschlaege im Draft Review ein.
-- M5 kann Claims/Facts/Insights auf bestaetigten Vorschlaegen aufbauen.
-- Ein später aktivierter Intelligence-Slice kann robuste on-device oder
-  Managed-Cloud-OCR-/AI-Pipelines und Reprocessing ausbauen, nachdem VC-02 und
-  die AI-/REG-Gates akzeptiert sind.
+- omit title generation and require blank manual naming;
+- silently overwrite confirmed titles/facts/links;
+- execute a submission, cancellation, payment, sharing or deletion;
+- infer/publish a workflow, deadline, entitlement or diagnosis outside an
+  approved definition;
+- expose sensitive content in logs, telemetry or notifications;
+- treat user corrections as training consent;
+- use capture-session proximity as proof that documents belong together;
+- hide additional accepted assignments inside a bulk confirmation.
 
-## Konsequenzen
+## Verification
 
-- R5-D5 ist entschieden: Assisted Review macht Vorschlaege, keine stillen
-  finalen Entscheidungen.
-- Betroffene Person wird nur vorgeschlagen, nie still gesetzt.
-- Vorschlaege brauchen Status, Quelle, Sensitivitaet und Review-Zustand.
-- Hochsensible Vorschlaege brauchen explizite Bestaetigung.
-- Workflow-, Claim- und externe Aktionsautomatisierung bleiben spaeter und
-  reviewpflichtig.
+Tests/fixtures cover title proposal, edit, rejection, reprocessing, high/medium/
+low confidence, subject conflict, mixed batch, multiple Case links, visible-only
+confirmation, sensitive notification redaction and provider failure. Fixtures
+remain synthetic.
 
-## Nicht entschieden
+## Intentionally Open
 
-- konkrete OCR-Engine.
-- konkrete LLM-/AI-Modelle.
-- UI-Details fuer Vorschlagskarten.
-- Confidence-Schwellen.
-- ob spaeter bestimmte niedrigkritische Felder mit Nutzerregel automatisch
-  uebernommen werden duerfen.
+- concrete OCR/model providers;
+- exact UI presentation and gestures;
+- calibrated confidence thresholds;
+- production automation eligibility per document/workflow class.

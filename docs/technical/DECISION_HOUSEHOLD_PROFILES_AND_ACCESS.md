@@ -1,191 +1,109 @@
 ---
 title: "Decision - Household and Managed Subject Access"
-description: "Entscheidung zum Zielmodell fuer Haushaltsmitglieder, Kinderprofile, verwaltete Organisationen, Profilzuordnung und spätere Berechtigungen"
+description: "Zielmodell für Haushalte, verwaltete Personen und Organisationen, Zuordnung und spätere Berechtigungen"
 tags: [decision, household, profiles, managed-subjects, organizations, family, access, permissions, sharing]
-lastUpdated: "2026-07-14"
-status: "accepted-rebaseline"
+lastUpdated: "2026-07-15"
+status: "accepted"
+owner: "product-concept"
 ---
-
-# Decision - Household Profiles and Access
+# Decision - Household and Managed Subject Access
 
 ## Status
 
-Accepted and extended on 2026-07-14. Household behavior remains accepted;
-managed organizations follow
+Angenommen. Verwaltete Organisationen folgen ergänzend
 `DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md`.
 
 ## Entscheidung
 
-Mappm wird als Dokumentenmanagement für verwaltete Personen und optionale
-verwaltete Organisationen geplant. Der Haushalt bleibt der erste private
-Kontext.
-
-M2 startet minimal mit einem Haushalt und expliziter Zuordnung zu einer
-betroffenen Person / einem Haushaltsprofil. Es gibt keine Annahme, dass ein
-Dokument meistens der aktuell nutzenden Person gehoert. Das Zielmodell bleibt
-mehrpersonenfaehig: Familienmitglieder werden als eigene Profile verwaltet,
-Kinderprofile koennen von Erwachsenen gemeinsam gesehen und bearbeitet werden,
-und spaeter kommen Rollen, Rechte und Sync/Identity dazu.
-
-## Zielmodell
+Mappm verwaltet Dokumente nicht nur für die angemeldete Person. Ein Account
+kann einen Haushalt, weitere Personen ohne eigenen Login und eigene
+Organisationen verwalten. Natürliche Personen und Organisationen verwenden
+dasselbe Management-Prinzip, behalten aber getrennte Felder, Schutzregeln und
+Länderlogik.
 
 ```text
-Household
-  Members / Profiles
-    Profile mit eigener Identity optional
-    verwaltete Profile optional
-    Profile mit Identity und weiter aktiver Verwaltung optional
-
-Profile
-  eigene Dokumente
-  eigene Records/Nachweise
-  eigene Vorgänge
-  eigene Facts/Claims
-
-Managed Organization
-  ohne eigenen Login verwaltbar
-  eigene Dokumente/Unterlagen/Vorgaenge/Steuerperioden
-  explizit von Privatkontext getrennt
+Account / Household
+  Managed Subject: Person
+    optional eigene Identity
+    Dokumente, Records, Cases, Facts und Claims
+  Managed Subject: Organisation
+    kein eigener Login erforderlich
+    getrennte geschäftliche Dokumente, Records, Cases und Perioden
 ```
 
-Ein Dokument, Record, Vorgang, Fact oder Claim kann:
+Ein Dokument oder fachliches Objekt kann:
 
-- primaer einem Profil gehoeren.
-- mehrere Profile betreffen.
-- von bestimmten Haushaltsmitgliedern verwaltet werden.
-- spaeter eigene Sicht-/Bearbeitungsrechte tragen.
-- einer verwalteten Organisation statt einer Person zugeordnet sein.
-- mehrere Rollen wie Empfänger, Zahler oder betroffene Person/Organisation
-  getrennt ausdrücken.
+- eine primär betroffene Person oder Organisation besitzen;
+- weitere Beteiligte mit Rollen wie Empfänger, Zahler oder versicherte Person
+  referenzieren;
+- von mehreren berechtigten Personen verwaltet werden;
+- später eigene Sicht- und Bearbeitungsrechte erhalten.
 
-## M2
+## Commercial-Core-Scope
 
-In M2 gilt:
+- Der erste verkaufbare Scope unterstützt mindestens einen Haushalt, die
+  Account-Person sowie verwaltete Personen und Organisationen im Datenmodell.
+- Globales Capture verlangt keine Profilwahl vor dem Scan.
+- Core Assist schlägt aus Inhalt und Kontext das wahrscheinlich betroffene
+  Managed Subject vor.
+- Die aktuelle Reifestufe verlangt nur dann eine sichtbare Bestätigung oder
+  Korrektur, wenn die Zuordnung unsicher ist oder eine wesentliche Folge hat.
+- Implizite, bereits klare Informationen werden nicht wiederholt abgefragt.
+- Capture-, Processing- und Review-Zustände dürfen den vorgeschlagenen oder
+  bestätigten Profilkontext nicht verlieren.
+- Vollständige gemeinsame Verwaltung, Rollen und Einladungen werden erst in
+  einem freigegebenen späteren Slice umgesetzt; das Datenmodell darf sie nicht
+  blockieren.
 
-- ein Haushalt.
-- betroffene Person / Haushaltsprofil ist beim Review-Abschluss verpflichtend.
-- Dokumente, Vorgänge, Drafts und Records bereiten mehrpersonenfaehige Profilzuordnung vor.
-- Draft-Inbox und Mobile Capture muessen Personenkontext setzen oder nachtraeglich korrigierbar machen.
-- Kinder-/Partnerzugriff wird noch nicht vollständig umgesetzt.
-
-M2 soll also nicht die volle Rechteverwaltung bauen, aber auch nicht so tun, als
-gäbe es nur eine anonyme Einzelperson.
-
-## Spätere Milestones
-
-R5/R6 bauen aus:
-
-- mehrere Profile in einem Haushalt.
-- verwaltete Profile ohne eigene Accounts.
-- verwaltete Profile koennen spaeter eigene Identity/Login-Anbindung bekommen.
-- aktive Verwaltung bleibt separat und kann deaktiviert oder entfernt werden.
-- mehrere Profile koennen dasselbe Profil gemeinsam verwalten.
-- frueh bleibt Verwaltung binaer; Viewer-/Editor-Rollen kommen erst spaeter,
-  wenn sie wirklich gebraucht werden.
-- Account-/Identity-Profile koennen andere Profile verwalten.
-- Eltern/Haushaltsmanager haben frueh Zugriff auf alle Profile im Haushalt.
-- Partner-/Haushaltszugriff erfolgt ueber Rechte, nicht ueber Dokumentkopien.
-- spaetere Rollen wie `owner`, `manager`, `editor`, `viewer`.
-- Sync/Auth verbindet Personen, Geraete und Haushaltsrechte.
-
-## Draft-Inbox und Scan
-
-Beim Scan oder Draft Review braucht DocMan langfristig diese Zuordnungen:
-
-- Profil: z. B. Kind A.
-- primaerer Vorgang: z. B. Arztbesuch Kind A.
-- optional neuer manueller/geführter Vorgang oder neue Case-Beziehung.
-- optional spaeter verknuepfte Records: z. B. Zusatzversicherung Kind A.
-- optional spaeter Claims/Facts: z. B. SV-Erstattung oder Zusatzversicherung.
-
-M2:
-
-- betroffene Person waehlen oder nachtraeglich setzen.
-- bevorzugten Vorgang wählen oder einen neuen Vorgang/eine Beziehung erstellen.
-- Dokument darf in mehreren Kontexten liegen; ein bevorzugter Link dient nur
-  der Navigation.
-
-Spaeter:
-
-- Dokumente mehreren Vorgängen, Claims oder Records mit Rollen zuordnen.
-- verknuepfte Records wie Polizzen anzeigen, ohne sie in jeden Arztbesuch zu duplizieren.
-- Claims und Financial Facts direkt aus Draft Review erzeugen.
-
-## Beispiel: Kind Beim Arzt
+## Beispiel
 
 ```text
-Profile: Kind A
+Managed Subject: Kind A
 
 Record: Zusatzversicherung Kind A
-  current version: Polizze 2026
-
-Case: Arztbesuch Kind A
-  primaryProfile: Kind A
-  documents:
-    - Arztbrief
-    - Arztrechnung
-    - Apothekenrechnung
-  linkedRecords:
-    - Zusatzversicherung Kind A
-  claims:
-    - SV Erstattung
-    - Zusatzversicherung Erstattung
-
-Branch/Claim im selben Case: Apotheke / Rezept
-  documents:
-    - Rezept
-    - Apothekenrechnung
+Case: Kniebehandlung 2026
+  Dokumente: Überweisung, Befund, Arztbrief
+  verknüpfter Case: Arztrechnung und Erstattung
+  verknüpfter Record: Zusatzversicherung Kind A
 ```
 
-Die Polizze wird nicht in den Arztbesuch kopiert. Sie bleibt ein Record des Kindes und wird kontextuell verknüpft.
+Die Polizze bleibt ein Record des Kindes und wird nicht in jeden medizinischen
+Case kopiert. Rechnungs-, Behandlungs- und Erstattungsbeziehungen werden durch
+Case-Links und Rollen ausgedrückt.
+
+## Access-Zielmodell
+
+Spätere Ausbaustufen dürfen unterstützen:
+
+- verwaltete Profile ohne Account;
+- nachträgliche Identity-Verknüpfung ohne Datenkopie;
+- gemeinsame Verwaltung durch mehrere Personen;
+- feinere Rollen wie `owner`, `manager`, `editor` und `viewer`;
+- getrennte Grants für Haushalt, Profil, Organisation und einzelne Objekte;
+- nachvollziehbaren Entzug, Export und Übergabe der Verwaltung.
+
+Frühe Implementierungen erfinden keine halbfertige Rollenmatrix. Jede
+Freigabestufe braucht explizite Authorization-, Audit-, Konflikt- und
+Missbrauchstests.
 
 ## Security und Privacy
 
-Haushaltsprofile enthalten sensible Daten. Organisationsprofile können Steuer-,
-Vertrags- und Geschäftsidentifikatoren enthalten und sind ebenfalls sensibel.
+- Profil- und Organisationsdaten folgen
+  `DECISION_PROFILE_SENSITIVE_DATA.md` und dem Security-/Privacy-Modell.
+- Ausweis-, Sozialversicherungs-, Versicherungs-, medizinische, schulische,
+  Steuer- und Geschäftsidentifikatoren sind hochsensibel.
+- Identity, Login und fachliches Profil bleiben getrennte Konzepte.
+- Rechte- oder Profilwechsel dürfen keine Daten unbeabsichtigt sichtbar machen.
+- Exporte, Löschung, Suche, Telemetrie und Benachrichtigungen berücksichtigen
+  die betroffenen Managed Subjects.
+- Kinderprofile erhalten besonders zurückhaltende Defaults.
+- ID Austria ist ein möglicher österreichischer Identity Provider innerhalb
+  einer austauschbaren eIDAS-/EUDI-fähigen Identity-Schicht, keine
+  fachliche Profilquelle.
 
-Regeln:
+## Offene Entscheidungen
 
-- Profildaten folgen `docs/technical/DECISION_PROFILE_SENSITIVE_DATA.md`.
-- Core Profile Data darf fuer Zuordnung, Filter und UI sichtbar sein.
-- Ausweis-/Passnummern, SV-/Versicherungsnummern und Versicherungsbeziehungen
-  sind hochsensibel.
-- Login/Identity und Verwaltung werden separat geplant.
-- Ein Profil kann eine eigene Identity haben und trotzdem weiterhin verwaltet
-  werden.
-- Verwaltung kann spaeter eingeschraenkt, deaktiviert oder entfernt werden.
-- Adresse und Meldeinformation werden als verwandter Datenbereich geplant; sie
-  sind innerhalb des Haushalts normal nutzbar, aber nicht fuer Logs,
-  Benachrichtigungen oder externen Export ohne bewusste Auswahl.
-- Telefonnummer ist nach aktueller Anforderung nicht noetig.
-- E-Mail gehoert zur spaeteren Account-/Login-Identity,
-  nicht zum einfachen Kontaktprofil.
-- ID Austria soll als erster oesterreichischer Provider innerhalb einer
-  generischen eIDAS-/EUDI-faehigen Identity-Schicht geprueft werden.
-- Versicherungen werden als mehrfache strukturierte Beziehungen/Records geplant,
-  nicht nur als Textfeld am Profil.
-- Kinderprofile brauchen besonders vorsichtige Defaults.
-- Medizinische, schulische, Ausweis- und Versicherungsdaten sind hochsensibel.
-- Rechte- und Profilwechsel duerfen nicht dazu fuehren, dass Dokumente versehentlich sichtbar werden.
-- Haushaltszugriff und Sync brauchen Audit-/Telemetry-Regeln ohne Inhaltsdaten.
-- Exporte und Loeschungen muessen profilbezogen planbar sein.
-
-## Konsequenzen
-
-- R5 Assisted Review and Household Profiles wird wichtiger als reine Komfortphase.
-- R4 muss Profilzuordnung vorbereiten.
-- Draft-Inbox darf Profilkontext nicht verlieren.
-- F10/F14/F17 muessen Profil-/Haushaltskontext berücksichtigen.
-- R5-D2 folgt `docs/technical/DECISION_PROFILE_IDENTITY_AND_MANAGEMENT.md`.
-- R5-D3 folgt `docs/technical/DECISION_PROFILE_SHARED_MANAGEMENT.md`.
-- R5-D4 folgt `docs/technical/DECISION_HOUSEHOLD_MANAGER_ACCESS.md`.
-- Vollstaendige Rollenmatrix bleibt ein spaeterer Milestone, aber das Datenmodell darf sie nicht blockieren.
-- Personen- und Organisationsprofile teilen Management-Grants, aber nicht
-  automatisch Datenfelder, Schutzregeln oder Länderlogik.
-
-## Nicht entschieden
-
-- exaktes Rollenmodell.
-- wie Konflikte geloest werden, wenn zwei Erwachsene dasselbe Dokument bearbeiten.
-- wie lokaler Export fuer Anwalt, Arzt, Schule oder Behoerde spaeter
-  komfortabel und sicher funktioniert.
+Vor einer Freigabe gemeinsamer Verwaltung sind insbesondere Rollenmatrix,
+Einladungs- und Entzugsablauf, Konfliktverhalten, Minderjährigenschutz sowie
+profilbezogener Export und Löschung als eigene Implementation Contracts zu
+entscheiden.

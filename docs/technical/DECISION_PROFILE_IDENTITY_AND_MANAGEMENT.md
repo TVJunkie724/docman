@@ -2,20 +2,18 @@
 title: "Decision - Profile Identity and Management"
 description: "Entscheidung zur Trennung von Login-/Identity-Faehigkeit, verwalteten Personen/Organisationen und Management-Beziehungen"
 tags: [decision, profiles, managed-subjects, persons, organizations, household, identity, login, management, permissions]
-lastUpdated: "2026-07-14"
-status: "accepted-rebaseline"
+lastUpdated: "2026-07-15"
+status: "accepted"
+owner: "product-concept/security"
 ---
-
 # Decision - Profile Identity and Management
 
 ## Status
 
-Accepted and extended on 2026-07-14 through
-`DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md`.
-
-R5-D2 ist entschieden. Login-/Identity-Faehigkeit und Verwaltung eines Profils
-sind zwei getrennte Achsen. R5-D3 regelt gemeinsame Verwaltung ohne fruehe
-Rollenmatrix in `DECISION_PROFILE_SHARED_MANAGEMENT.md`.
+Angenommen und durch `DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md`
+erweitert. Login-/Identity-Fähigkeit und Verwaltung eines Managed Subject sind
+zwei getrennte Achsen. Gemeinsame Verwaltung regelt
+`DECISION_PROFILE_SHARED_MANAGEMENT.md`.
 
 ## Entscheidung
 
@@ -112,23 +110,23 @@ sein, wenn eine aktive Verwaltungsbeziehung existiert.
 
 ## Konsequenzen
 
-- R5-D2 ist entschieden: verwaltete Profile brauchen in fruehen Phasen keinen
+- Verwaltete Profile brauchen in frühen Phasen keinen
   eigenen Login, koennen aber spaeter eine Login-/Identity-Anbindung erhalten.
 - Ein Login entfernt Verwaltung nicht automatisch.
 - Verwaltung ist reversibel und separat steuerbar.
 - Dokumente gehoeren fachlich zu Profilen, nicht zu Login-Accounts.
 - Private und geschäftliche Profile dürfen nicht allein aufgrund derselben
   verwaltenden Person zusammengeführt werden.
-- R6 muss Identity, Sessions, Sync und Rechte gegen diese Trennung planen.
-- `DECISION_CLOUD_IDENTITY_DEVICE_TRUST.md` und REG-04 konkretisieren die spaetere
-  Identity-Schicht: ID Austria ist ein sinnvoller erster oesterreichischer
-  Provider, muss aber ueber eine generische eIDAS-/EUDI-faehige
+- Identity-, Session-, Sync- und Rechte-Slices müssen diese Trennung wahren.
+- `DECISION_CLOUD_IDENTITY_DEVICE_TRUST.md` und REG-04 konkretisieren die spätere
+  Identity-Schicht: ID Austria ist ein zu prüfender österreichischer Provider
+  und muss über eine generische eIDAS-/EUDI-fähige
   `TrustedIdentityProvider`-Grenze austauschbar bleiben. Identity beantwortet,
   wer eine Person ist; Key Management beantwortet, welche Daten entschluesselt
   werden duerfen.
-- R5-D3 baut auf `ProfileManagementGrant` mit einfacher gemeinsamer Verwaltung
-  auf.
-- R5-D4 klaert Partner-/Haushaltszugriff ohne Dokumentkopien.
+- Gemeinsame Verwaltung baut auf `ProfileManagementGrant` auf.
+- Haushaltszugriff folgt `DECISION_HOUSEHOLD_MANAGER_ACCESS.md` ohne
+  Dokumentkopien.
 
 ## Nicht entschieden
 

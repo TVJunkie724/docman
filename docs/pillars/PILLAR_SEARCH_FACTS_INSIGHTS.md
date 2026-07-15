@@ -2,18 +2,19 @@
 title: "Produkt-Säule - Search, Facts and Insights"
 description: "Produktbereich fuer strukturierte Suche, Dokumentfakten, Claims, Finanzdaten, Gültigkeiten und Auswertungen"
 tags: [pillar, search, facts, insights, analytics, claims, finance]
-lastUpdated: "2026-07-14"
-version: "0.4"
+lastUpdated: "2026-07-15"
+version: "0.5"
 status: "accepted"
+owner: "product-concept"
 ---
 
 # Produkt-Säule - Search, Facts and Insights
 
 ## Zweck
 
-Diese Säule sorgt dafür, dass DocMan nicht bei Dateiablage stehen bleibt.
+Diese Saeule sorgt dafuer, dass Mappm nicht bei Dateiablage stehen bleibt.
 
-DocMan soll später beantworten können:
+Mappm soll spaeter beantworten koennen:
 
 - Was habe ich im letzten Jahr bei einem Anbieter ausgegeben?
 - Wie viel haben Arztbesuche gekostet?
@@ -24,7 +25,7 @@ DocMan soll später beantworten können:
 
 ## Suche
 
-M2-nahe Suche beginnt strukturiert und lokal.
+Die C3-Suche beginnt strukturiert und Vault-konform.
 
 Die Produktoberfläche beginnt mit einem globalen, ruhigen Suchfeld und
 ergebniszentrierten Treffern. Sie ist kein Chat, Messenger oder KI-
@@ -33,7 +34,7 @@ aber Treffer, Filter, Match-Gründe und direkte Aktionen liefern.
 
 Die akzeptierte Technologieentscheidung steht in `docs/technical/DECISION_SEARCH_TECHNOLOGY.md`.
 
-M2-Technologie:
+C3-Client-Technologie:
 
 - SQLite + Drift für strukturierte Filter.
 - SQLite FTS5 für gepflegte textuelle Metadaten.
@@ -50,17 +51,20 @@ Suchbare Felder:
 - Anbieter/Gegenpartei.
 - ExternalParty-Kontakte einschließlich Name, Adresse, E-Mail, Telefonnummer
   und Alias, soweit bestätigt und für den aktiven Managed Subject sichtbar.
-- Betrag, falls manuell gepflegt.
+- bestaetigter Betrag.
 - Status.
 - Tags.
 - Record-/Nachweisart.
 - Aufgabenstatus und Fälligkeit.
 
-OCR-Volltext, semantische Suche und KI-gestützte Suche sind spätere Ausbaustufen.
+OCR-Volltext-Indexinput und Case-/Record-Matching gehoeren zum C2/C3 Core
+Assist. Semantische/natuerliche Suche und breitere AI-Retrieval-Funktionen
+bleiben Ausbaustufen. Local Vault und Cloud Vault duerfen unterschiedliche
+Suchadapter nutzen, muessen aber dieselben Domain-Ergebnisgrenzen einhalten.
 
 Spätere Kandidaten:
 
-- FTS5 auch für geprüften lokalen OCR-Text.
+- erweiterte FTS5-/Ranking-Nutzung fuer bestaetigten/provenance-markierten OCR-Text.
 - optional `sqlite-vec` für lokale semantische Suche.
 - optionaler verwalteter Search-Service hinter dem akzeptierten Cloud-/Privacy-Contract.
 - Qdrant nur, wenn AI/RAG-Retrieval zentral wird.
@@ -82,7 +86,9 @@ Typen:
 - `identity_validity`.
 - `task_suggestion`.
 
-Facts können manuell gepflegt oder später vorgeschlagen werden. Fachlich relevante Facts werden nicht still übernommen.
+Core Assist schlaegt relevante Facts im C2/C3-Kern vor. Manuelle Pflege bleibt
+Korrektur und Fallback. Fachlich relevante Facts werden nicht still
+uebernommen.
 
 ## Claims
 
@@ -134,14 +140,15 @@ Facts und Financial Entries duerfen manuell ohne Dokument erfasst werden.
 Dokumente und Unterlagen erhoehen die Nachweisqualitaet, sind aber keine
 Voraussetzung fuer Auswertungen.
 
-## M2-Scope
+## C3-Scope
 
-Schlanker M2-Slice:
+Schlanker C3-Slice:
 
 - lokale strukturierte Suche.
 - einfache Filter nach Vorgang, Dokument, Profil, Status und Datum.
 - FTS5-Metadatensuche über gepflegte Textfelder.
-- Beträge, Fälligkeiten und Anbieter so erfassen, dass spätere Facts nicht blockiert werden.
+- bestaetigte Beträge, Fälligkeiten und Anbieter aus Core Assist korrigierbar
+  und suchbar machen.
 
 Späterer Milestone:
 
@@ -149,7 +156,7 @@ Späterer Milestone:
 - semantische Suche.
 - eigener Suchserver.
 - automatische Fact-Extraktion.
-- große Dashboards.
+- konfigurierbare oder buchhaltungsartige Dashboards sind kein Produktziel.
 - Bankimport.
 - Buchhaltung, Steuerberechnung oder verbindliche Steuerberatung.
 
@@ -168,14 +175,15 @@ Späterer Milestone:
 
 ## Offene Folgefragen
 
-- Welche Ranking-/Sortierregeln braucht die M2-Suche zuerst?
+- Welche Ranking-/Sortierregeln braucht die C3-Suche zuerst?
 - Welcher kontextuelle Insight wird nach Claims/Erstattungen, laufenden
   Kosten/Fristen und bestätigten Case-Zusammenfassungen zuerst aktiviert?
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

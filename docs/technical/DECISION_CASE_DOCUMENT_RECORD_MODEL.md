@@ -2,22 +2,22 @@
 title: "Decision - Case, Document, Record and Facts Model"
 description: "Entscheidung zu Vorgängen, Dokumenten, Records/Nachweisen, Versionierung, Workflow-Instanzen und strukturierten Fakten als Mappm-Kernmodell"
 tags: [decision, domain-model, cases, documents, records, facts, versioning, workflows, insights]
-lastUpdated: "2026-07-14"
-status: "accepted-rebaseline"
+lastUpdated: "2026-07-15"
+status: "accepted"
+owner: "product-concept/data-architect"
 ---
-
 # Decision - Case, Document, Record and Facts Model
 
 ## Status
 
-Accepted and rebaselined on 2026-07-14. The normative Case relationship and
-workflow-composition rules are defined in
-`DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`. Earlier `parentCaseId`
-and separate-Subcase descriptions are superseded.
+Angenommen und am 15. Juli 2026 auf die aktuelle Produktbaseline gebracht.
+Normative Case-Beziehungen und Workflow-Komposition stehen in
+`DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`. Frühere Modelle mit
+`parentCaseId` oder eigenem Subcase-Typ sind ersetzt.
 
 ## Entscheidung
 
-DocMan trennt künftig vier fachliche Kernkonzepte:
+Mappm trennt vier fachliche Kernkonzepte:
 
 - **Case / Vorgang**: Prozess, Kontext oder Verlauf.
 - **Document / Dokument**: konkrete Datei, Scan oder Unterlage.
@@ -34,10 +34,16 @@ verwalteten Personen oder Organisationen gemäß
 
 Der UI-Begriff **Vorgang** bleibt erhalten. Er wird nicht durch **Sammlung** ersetzt. Sammlung klingt zu passiv und beschreibt weder Status, Aufgaben, Timeline noch Prozesskontext gut genug.
 
+Das widerspricht nicht dem schlanken Grundmodell: Ein Vorgang **kann** anfangs
+oder dauerhaft nur eine benannte, durchsuchbare Dokumentensammlung sein.
+`Vorgang` bleibt der breitere UI-Begriff, weil derselbe Case spaeter optional
+Workflow, Aufgaben, Termine, Claims und Beziehungen aufnehmen kann.
+
 Diese Entscheidung steht unter der DMS-Zielarchitektur aus
 `DECISION_DMS_TARGET_ARCHITECTURE.md`: Dokumente sind langfristig eigenständige,
 versionierte und sensible Wissensobjekte mit Beziehungen zu Vorgängen,
-Records, Profilen, Fakten, Aufgaben, Exporten und Processing-Jobs. Der M2 darf
+Records, Profilen, Fakten, Aufgaben, Exporten und Processing-Jobs. Der erste
+Commercial-Core-Slice darf
 eine primäre Vorgangszuordnung nutzen, aber das Zielmodell bleibt
 beziehungsbasiert und nicht ordner- oder parent-basiert.
 
@@ -57,7 +63,10 @@ Beispiele:
 - Vertragsabschluss oder Kündigung.
 - Kurs oder Schulveranstaltung.
 
-Ein Vorgang kann Dokumente, Records, Aufgaben, Ereignisse, Zahlungen, Claims und verwandte Vorgänge verbinden. Ein Vorgang muss aber nicht für jedes einzelne Dokument existieren.
+Ein Vorgang kann Dokumente, Records, Aufgaben, Ereignisse, Zahlungen, Claims und
+verwandte Vorgänge verbinden. Im Capture-/Processing-Zustand kann ein Dokument
+noch ohne Vorgang existieren; abgeschlossener Review verlangt jedoch einen
+primaeren Case- oder Record-Kontext.
 
 Vorgänge werden über typisierte `CaseLink`-Beziehungen verbunden. Jeder
 Vorgang bleibt eine eigenständige `Case`-Entität. `Subvorgang` ist nur die
@@ -68,13 +77,18 @@ Ein Vorgang kann manuell geführt werden oder eine versionierte
 dem kuratierten Katalog gemäß
 `DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md`.
 
+Es gibt keinen verpflichtenden `caseType` und keine sichtbare Taxonomie, aus
+der Nutzer vor dem Anlegen waehlen muessen. Ein optionaler Domain-Template-Key
+und eine optionale Workflowdefinition beschreiben Fuehrung und Matching, nicht
+eine andere Case-Entitaet.
+
 ### Document / Dokument
 
 Ein Dokument ist die konkrete Datei oder der konkrete Scan.
 
 Jedes Dokument kann versioniert werden, unabhängig vom Dokumenttyp.
 
-Der R4-M2 konkretisiert Dokument-Metadaten und Vorschau in
+Der C2/C3-Slice konkretisiert Dokument-Metadaten und Vorschau in
 `DECISION_DOCUMENT_METADATA_PREVIEW.md`. Vorschau ist ein abgeleitetes
 Artefakt fuer Review, nicht die Originaldatei.
 
@@ -139,12 +153,21 @@ DocumentFact
   macht Inhalte auswertbar, suchbar und reviewbar
 ```
 
-Cases sind optionaler Kontext. Records sind optionales Langzeitobjekt. Documents sind immer erlaubt.
+Documents sind technisch eigenstaendige Objekte und waehrend Capture/Processing
+auch ohne Links erlaubt. Nach abgeschlossenem Review besitzt jedes akzeptierte
+Dokument mindestens einen bestaetigten primaeren Case- oder Record-Kontext.
+Es gibt keinen separaten dauerhaften UI-Zustand "eigenstaendiges Dokument".
+
+Wenn weder ein vorhandener/geführter Case noch ein langlebiger Record passt,
+schlaegt Backend/Core Assist einen leichten Custom Case vor. Dieser darf anfangs
+nur Titel, Managed Subject und ein Dokument enthalten. Titel, Metadaten,
+Workflow, Aufgaben und Beziehungen werden automatisch vorgeschlagen und nur
+entsprechend der Review-/Automatisierungsreife finalisiert.
 
 Ein Dokument darf mit mehreren Kontexten verbunden sein, ohne dass die Datei
 dupliziert wird. Dauerhaft soll dies ueber explizite Link-Objekte wie
 `DocumentCaseLink`, `DocumentProfileLink` und spaeter `ExportJob` /
-`OutboxItem` geschehen. Im M2 kann diese Flexibilität in der UI reduziert
+`OutboxItem` geschehen. Im Commercial Core kann diese Flexibilität in der UI reduziert
 werden, solange das Datenmodell nicht in eine harte Ein-Parent-Struktur
 eingesperrt wird.
 
@@ -212,7 +235,9 @@ Case: Kurs Algebra 1
   verbindet Skripten, Aufgaben, Prüfungsinfos und Notizen
 ```
 
-Der Case ist hilfreich, aber nicht für jede einzelne Datei Pflicht.
+Der Case ist hilfreich, aber nicht fuer jede einzelne Datei Pflicht. Jede
+akzeptierte Datei braucht dennoch einen primaeren Kontext; hier kann bereits der
+Record `Mathe-Skript Algebra` dieser Kontext sein.
 
 ### Autounfall
 
@@ -275,7 +300,8 @@ Mappm plant zwei gleichwertige zentrale Arbeitsbereiche:
 - **Unterlagen** fuer langlebige Records/Nachweise, Versionen, Gültigkeiten und
   zugehörige Dokumentdateien.
 
-Die Draft-Inbox bleibt ein eigener Eingang, weil sie nicht Archiv ist, sondern Review-Arbeit.
+Die Capture-Inbox bleibt eine eigene Processing-/Review-/Ausnahmeflaeche. Sie ist
+weder Archiv noch fachliche Ownership-Struktur.
 
 Die spätere Outbox ist ebenfalls kein zweites Archiv. Sie beschreibt
 vorbereitete oder ausgeführte Ausgaben wie Download, Druck, Mail, lokales ZIP,
@@ -309,13 +335,16 @@ keine Summen oder Abschlusszustände automatisch.
 
 ## Statusmodell
 
-DocMan vermeidet ein globales, riesiges Status-Enum für alle Vorgangstypen.
+Mappm vermeidet ein globales, riesiges Status- oder Typ-Enum fuer Vorgaenge.
 
 Stattdessen:
 
-- `caseType` beschreibt die Art des Vorgangs.
-- `lifecycleStatus` beschreibt grob den Zustand: `draft`, `active`, `waiting`, `review`, `done`, `archived`.
-- `workflowStageKey` beschreibt optionale typ-spezifische Phasen.
+- `lifecycleStatus` beschreibt generisch den Zustand: `draft`, `active`,
+  `waiting`, `review`, `done`, `archived`.
+- ein optionaler `domainTemplateKey` referenziert das sichtbare fachliche Ziel
+  und Matchingprofil, ohne Case-Konstruktion oder UI-Picker zu steuern.
+- `workflowStageKey` beschreibt nur bei gefuehrten Cases die Phase der
+  gepinnten Definition.
 - `workflowDefinitionId` und `workflowDefinitionVersion` pinnen bei geführten
   Vorgängen die kuratierte Definition.
 - `attentionFlags` markieren Dinge wie offene Aufgaben, neue Drafts, Frist bald fällig oder Review nötig.
@@ -330,11 +359,15 @@ Dokumente und Records bekommen eigene Status:
 - Legacy-Statusmodell wird nicht übernommen.
 - `Vorgang` bleibt der UI-Begriff fuer Cases.
 - `Sammlung` wird nicht Kernbegriff; kann später höchstens für lose Sets oder gespeicherte Sichten verwendet werden.
-- R4-D3 Suche muss Vorgänge, Dokumente und Records berücksichtigen.
+- Die Search-Boundary muss Vorgänge, Dokumente und Records berücksichtigen.
 - Der Zielpfad plant `CaseLink` und `DocumentCaseLink` direkt; `parentCaseId`
-  bleibt nur historische M2-Traceability.
+  bleibt nur historische Legacy-Traceability.
 - Custom Cases und geführte Cases nutzen denselben Domain-Typ und dieselben
-  Produktfähigkeiten.
+  Produktfähigkeiten; ein leichter Custom Case muss diese Faehigkeiten nicht
+  sofort verwenden oder ein ausformuliertes Outcome besitzen.
+- Custom/guided sind Verhaltens- und Herkunftszustaende, keine `caseType`-Werte.
+- Backend/Core Assist schlaegt fuer jedes neue Dokument, jeden neuen Case und
+  jeden neuen Record einen editierbaren Titel vor.
 - Kuratierte Länder-/Institutionsworkflows bleiben vom generischen Case-Modell
   getrennt; Sprache allein bestimmt keinen Rechtsraum.
 - Laufende geführte Vorgänge wechseln ihre Workflow-Version nie still.
@@ -345,11 +378,17 @@ Dokumente und Records bekommen eigene Status:
   bei bestätigten relevanten Fakten.
 - Verträge und Abos folgen
   `DECISION_RECURRING_CONTRACT_SUBSCRIPTION_MODEL.md`.
-- R2/R4 müssen vermeiden, Fakten nur in unstrukturierte `metadata`-Maps zu kippen.
-- R2/R4 müssen vermeiden, Dokumente dauerhaft als reine Anhänge mit genau einem Parent zu modellieren.
-- BusinessCompanion dient als Referenz fuer FileStorage, Databox, Ingestion und Document-Silo-Ideen, aber Mappm uebernimmt ein kleineres, local-first DMS-Kernmodell.
+- Foundation- und Capture-Slices müssen vermeiden, Fakten nur in
+  unstrukturierte `metadata`-Maps zu kippen.
+- Foundation- und Capture-Slices müssen vermeiden, Dokumente dauerhaft als
+  reine Anhänge mit genau einem Parent zu modellieren.
+- BusinessCompanion dient als Referenz fuer FileStorage, Databox, Ingestion und
+  Document-Silo-Ideen, aber Mappm uebernimmt ein kleineres provider-faehiges
+  Local-/Cloud-Vault-DMS-Kernmodell.
 
 ## Nicht entschieden
 
-- welche DocumentFact-Typen im M2 manuell erfassbar sind.
-- ob Lernunterlagen und Notizen im M2 sichtbar oder erst später aktiviert werden.
+- welche DocumentFact-Typen im ersten aktivierten Facts-Slice manuell
+  erfassbar sind.
+- ob Lernunterlagen und Notizen im Commercial Core sichtbar oder erst später
+  aktiviert werden.

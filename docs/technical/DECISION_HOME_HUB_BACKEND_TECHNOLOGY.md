@@ -1,46 +1,52 @@
 ---
 title: "Decision - Mappm Cloud Backend Technology and Local Development Cloud"
 description: "Entscheidung fuer ASP.NET Core, PostgreSQL, S3-kompatiblen Storage und eine lokale Development Cloud"
-tags: [decision, backend, home-hub, aspnet-core, postgresql, openapi, docker, workers]
-lastUpdated: "2026-07-12"
+tags: [decision, backend, managed-cloud, aspnet-core, postgresql, openapi, docker, workers]
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "backend/contract-api"
 ---
 
 # Decision - Mappm Cloud Backend Technology and Local Development Cloud
 
 ## Status
 
-Accepted with product-scope rebaseline on 2026-07-12.
+Akzeptiert und am 2026-07-12 auf den neuen Produktscope rebaselined.
 
-ASP.NET Core, PostgreSQL, S3-compatible storage, OpenAPI/Microcks and worker
-boundaries remain the technical direction. References below to a customer Home
-Hub or self-hosted deployment are superseded: the local stack is the Local
-Development Cloud; supported customer service is managed Mappm Cloud.
+ASP.NET Core, PostgreSQL, S3-kompatibler Storage, OpenAPI/Microcks und
+Worker-Grenzen sind die technische Richtung. Der lokale Stack ist die Local
+Development Cloud; der unterstuetzte Kundendienst ist Managed Mappm Cloud.
+
+Capture Confirm persistiert Originalartefakte und queued asynchrone
+Verarbeitung; es finalisiert keine Case-/Record-Zuordnung. Worker verantworten
+OCR, Titelvorschlag, Dokumentgrenzpruefung, Index und Matching-Vorschlaege. Der
+aktuelle Reifegrad verlangt User-Bestaetigung des Routings.
 
 ## Entscheidung
 
-Mappm verwendet fuer den Home Hub und den spaeteren selbst gehosteten
-Server-Stack **ASP.NET Core** als primaere Backend-Technologie.
+Mappm verwendet fuer den verwalteten Mappm-Cloud-Stack und die kompatible Local
+Development Cloud **ASP.NET Core** als primaere Backend-Technologie.
 
-Der Home Hub ist fuer R6 und spaetere Milestones Sync Coordinator,
-Backup-Server, Upload-Ziel und Erweiterungsplattform. Er ist nicht die
-Voraussetzung fuer normale Desktop- oder Mobile-Nutzung: die Apps bleiben
-local-first und muessen offline arbeitsfaehig bleiben.
+Mappm Cloud traegt Account/Device Sessions, Entitlements und Core Assist fuer
+jeden normalen Produktmodus. Bei aktiviertem Cloud Vault ist sie zusaetzlich
+Storage-, Sync-, Backup- und Multi-Device-Autoritaet. Local Vault bleibt lokal
+autoritativ und auf demselben Geraet offline arbeitsfaehig; Cloud-Vault-Clients
+verwenden einen begrenzten Offline-Cache/Pending State.
 
-Der akzeptierte Zielstack fuer die erste echte Home-Hub-Implementierung ist:
+Der akzeptierte Zielstack ist:
 
 ```text
-mappm-homehub-api        ASP.NET Core API
+mappm-cloud-api          ASP.NET Core API
 postgres                Server-Metadaten, Sync-Journal, Jobs, Audit
-minio                   S3-kompatibler Datei-Storage
+object-storage          S3-kompatibler Datei-Storage
 microcks                OpenAPI Mock und Contract Verification
+mappm-cloud-worker       .NET Worker / Hosted Services fuer Core Assist und Jobs
 ```
 
-spaetere Milestones kann derselbe Stack erweitert werden:
+Nach belastbarer Anforderung kann derselbe Stack erweitert werden:
 
 ```text
-mappm-homehub-worker     .NET Worker / Hosted Services
-ocr-worker               optional Python/OCR worker
+ocr-worker               optional spezialisierter Python/OCR worker
 llm-gateway              optional Ollama/vLLM gateway
 search-service           optional Meilisearch/Typesense/Postgres FTS adapter
 observability            optional Loki/Grafana/Prometheus/Tempo
@@ -50,59 +56,56 @@ observability            optional Loki/Grafana/Prometheus/Tempo
 
 Diese Entscheidung betrifft:
 
-- Home-Hub API.
+- Mappm-Cloud API und Local Development Cloud.
 - Mobile-Capture Upload Boundary.
-- Pairing und Device-Token API.
-- spaeteren Sync-Server.
-- serverseitige Storage-, Backup-, Job- und Admin-Endpoints.
-- spaetere Worker fuer OCR, Indexing und Intelligence-Orchestration.
+- Account-, Session-, Device- und Entitlement-API.
+- Core-Assist-Processing, OCR, Titel, Indexing und Matching-Proposals.
+- Cloud-Vault Sync, Storage, Backup, Migration, Job- und Admin-Endpoints, wenn
+  der Cloud-Vault-Slice aktiviert ist.
 
 Sie betrifft nicht:
 
 - Flutter App-local Persistenz.
 - lokale SQLite/Drift-Implementierung.
-- App-Offline-Faehigkeit als Produktgrundsatz.
-- Python-basierte OCR/AI-Worker, falls diese spaeter sinnvoll sind.
+- Local-Vault-Offline-Autoritaet und begrenzte Cloud-Vault-Offline-Faehigkeit.
+- spezialisierte Python-/Provider-Worker hinter dem stabilen Processing-Port.
 - API-Contract Source of Truth. Diese bleibt OpenAPI/Microcks.
 
-## Home-Hub-Rolle im Sync
+## Managed-Cloud-Rolle
 
-R6-D1 ist akzeptiert:
+C1/C2/C4 verwenden dieselbe verwaltete Plattform hinter getrennten Ports:
 
-- Home Hub traegt den ersten echten Sync- und Backup-Server.
-- Desktop und Mobile bleiben local-first.
-- Home Hub koordiniert Replikation, Remote-Kopien, Sync-Revisions,
-  Tombstones, Uploads und spaetere Jobs.
-- Home Hub wird spaeter um OCR, LLM, Search, Reprocessing, Operations und
-  Backup/Restore erweitert.
-- Home Hub ist eine austauschbare Backend-Implementierung hinter generischen
-  Sync-, Storage-, Upload- und Job-Ports.
-
-Der Home Hub ist damit kein Server-first-Modell. Wenn der Home Hub nicht
-erreichbar ist, duerfen Kernfunktionen wie lokale Dokumentverwaltung,
-Draft-Review, Suche ueber lokale strukturierte Daten und mobile Capture-Queue
-nicht unbrauchbar werden.
+- Account/Device/Entitlement und Core Assist sind normale Servicegrenzen.
+- Cloud Vault koordiniert Authority, Replikation, Sync-Revisions, Tombstones,
+  Uploads, Backup/Restore und Migration.
+- Local Vault verwendet Cloud nur fuer Account/Entitlement und explizite
+  Assist-Jobs; daraus entsteht keine stille Cloud-Dokumentablage.
+- Sync-, Storage-, Upload-, Processing- und Job-Ports halten Flutter Domain/UI
+  unabhaengig von ASP.NET Core, PostgreSQL, S3 und konkreten AI Providern.
+- Offline-Verhalten folgt dem aktiven Vault-Modus und darf nicht durch einen
+  generischen `connected`-Schalter ersetzt werden.
 
 Startpfad:
 
 ```text
 Mobile Capture
   -> lokale Queue
-  -> Home Hub Upload / Remote Backup
-  -> Desktop Draft Inbox Handoff
+  -> Mappm Cloud Capture
+  -> durable Capture Session
+  -> Processing / Proposals / cross-platform Review
 
 Desktop/Mobile Local DB
   -> Sync Port
-  -> Home Hub Sync Coordinator
+  -> Mappm Cloud Sync Coordinator (Cloud Vault only)
   -> Remote metadata copy / sync journal / backup metadata
 ```
 
-Spaetere Erweiterung:
+Provider-/Betriebserweiterung:
 
 ```text
-Home Hub
+Mappm Cloud Worker
   -> OCR jobs
-  -> local/self-hosted LLM jobs
+  -> managed/specialized LLM provider jobs
   -> indexing / reprocessing
   -> backup / restore
   -> operations dashboard
@@ -116,7 +119,8 @@ ASP.NET Core passt fuer Mappm besonders gut, weil:
   funktionieren.
 - OpenAPI-Unterstuetzung direkt im ASP.NET-Core-Stack vorhanden ist.
 - Health Checks und Hosted Services/Worker Services offizielle Plattformbausteine sind.
-- .NET gut zu langlebigen Self-hosted Services, Docker und typed configuration passt.
+- .NET gut zu langlebigen Managed Services, Containern und typisierter
+  Konfiguration passt.
 - PostgreSQL-Anbindung ueber Npgsql/EF Core etabliert ist.
 - BusinessCompanion bereits wertvolle Muster fuer ASP.NET Core, Worker,
   Health, OpenAPI und Docker zeigt, ohne dass Mappm dessen Microservice-Breite
@@ -128,7 +132,7 @@ ASP.NET Core passt fuer Mappm besonders gut, weil:
 
 | Option | Bewertung fuer Mappm |
 |---|---|
-| ASP.NET Core | Beste Gesamtpassung fuer Home Hub, OpenAPI, Worker, Health, PostgreSQL, Docker und langfristige Wartbarkeit |
+| ASP.NET Core | Beste Gesamtpassung fuer Mappm Cloud, OpenAPI, Worker, Health, PostgreSQL, Docker und langfristige Wartbarkeit |
 | FastAPI | Sehr gut fuer Python-nahe OCR/AI APIs, aber als Hauptbackend wuerde es Domain/API/Worker enger an Python binden als noetig |
 | NestJS | Solides TypeScript-Backend mit OpenAPI-Modul, aber fuer Mappm weniger naheliegend als .NET, weil Flutter/Dart nicht vom TS-Stack profitiert |
 | Go | Sehr robust und klein, aber fuer unsere fachliche Domain, OpenAPI-Komfort, Migrations-/Worker-Produktivitaet und spaetere Entwicklerergonomie weniger passend |
@@ -141,15 +145,15 @@ Mappm startet nicht mit vielen Microservices.
 Empfohlen:
 
 ```text
-Mappm.HomeHub.Api
+Mappm.Cloud.Api
   -> Health / Capabilities
-  -> Pairing / Device Tokens
+  -> Account / Device Sessions / Entitlements
   -> Capture Upload
-  -> Draft Inbox Handoff
+  -> Capture Session / Processing Handoff
   -> Admin / Storage Health
-  -> later Sync endpoints
+  -> Vault / Sync / Migration endpoints
 
-Mappm.HomeHub.Worker
+Mappm.Cloud.Worker
   -> outbox/job polling
   -> cleanup
   -> indexing handoff
@@ -166,8 +170,9 @@ Serverseitig wird PostgreSQL als Ziel-Metadatenspeicher verwendet.
 
 Geplante Inhalte:
 
-- Haushalte und Geraete.
-- Pairing Sessions und Device Tokens, soweit nicht secret-only.
+- Accounts, Vault-Mitgliedschaften und autorisierte Geraete.
+- Device Sessions/Trust und Entitlements, soweit nicht ausschliesslich
+  secret-/tokenbasiert.
 - Capture Upload Sessions.
 - File metadata.
 - Sync Journal und Tombstones.
@@ -183,7 +188,8 @@ spaeter mit Dapper oder SQL gezielt optimiert werden, ohne das Domain-Modell zu
 
 ## Job- und Queue-Strategie
 
-Der erste Home Hub verwendet keine RabbitMQ-/MassTransit-Pflicht.
+Das erste Mappm-Cloud-Deployable verwendet keine
+RabbitMQ-/MassTransit-Pflicht.
 
 Akzeptierte Startstrategie:
 
@@ -215,37 +221,36 @@ ASP.NET Core ist nur die Implementierung. Die Security-Grenzen bleiben
 produktfachlich:
 
 - Dokumente und viele Metadaten sind sensibel.
-- Pairing Tokens, Device Tokens, presigned URLs und Secrets werden nicht geloggt.
+- Session-/Device-Tokens, presigned URLs und Secrets werden nicht geloggt.
 - Admin-/Health-Endpunkte duerfen keine Dokumentinhalte ausgeben.
-- spaetere Cloud- oder Self-hosted-cloudartige Varianten duerfen nicht
-  voraussetzen, dass ein Betreiber alle Dokumentinhalte lesen kann.
+- Managed-Cloud-Verarbeitung darf nicht pauschal voraussetzen, dass Betreiber
+  Dokumentinhalte ausserhalb des akzeptierten Trust-/Key-Modells lesen duerfen.
 - OCR/LLM-Klartextverarbeitung bleibt eine explizite Trust Boundary.
 - Backup und Sync duerfen keine stillen Fremd-Cloud-Abhaengigkeiten einfuehren.
 
-## Quellencheck
+## Aktualitätsgate
 
-Stand 2026-05-08:
-
-- Microsoft dokumentiert aktuelle ASP.NET-Core-OpenAPI-Unterstuetzung.
-- Microsoft dokumentiert Hosted Services/Worker Services fuer Background Tasks.
-- Microsoft dokumentiert ASP.NET-Core-Health-Checks.
-- Npgsql dokumentiert .NET-/EF-Core-Unterstuetzung fuer PostgreSQL.
-- FastAPI und NestJS haben ebenfalls OpenAPI-Unterstuetzung, bleiben aber
-  Alternativen statt Zielstack.
+Vor dem ersten Backend-Implementation-Contract werden unterstützte .NET-/ASP.NET-
+Core-, EF-Core-/Npgsql-, PostgreSQL-, S3-Adapter- und Container-Versionen aus
+den offiziellen Herstellerquellen neu geprüft, gepinnt und mit Supportende,
+Lizenz sowie Upgradepfad dokumentiert. Diese Architekturentscheidung ersetzt
+keinen aktuellen Dependency-/Security-Review.
 
 ## Konsequenzen
 
-- R0-D4/R6-D1 Backend-Technologie ist fuer die Planung entschieden:
-  ASP.NET Core + PostgreSQL + MinIO/S3-kompatibler Storage + Microcks.
-- `DECISION_BACKEND_ROLE.md` bleibt als breiter Backend-Rollenentwurf bestehen,
-  verweist aber auf diese konkrete Technologieentscheidung.
-- R3 Contract-/Mock-Setup kann OpenAPI/Microcks ohne echten ASP.NET Server starten.
-- R4 Mobile Capture kann gegen Microcks und spaeter gegen ASP.NET Core Home Hub
+- Die Backend-Technologie ist fuer die Planung entschieden: ASP.NET Core,
+  PostgreSQL, S3-kompatibler Storage und OpenAPI/Microcks.
+- `DECISION_BACKEND_ROLE.md` ist historisch ersetzt;
+  `DECISION_BACKEND_CONTRACT_FIRST_ARCHITECTURE.md` definiert die aktuelle
+  Rollen- und Ownership-Grenze.
+- C1 Contract-/Mock-Setup kann OpenAPI/Microcks ohne echten ASP.NET-Server
+  starten.
+- C2 Mobile Capture kann gegen Microcks und danach gegen ASP.NET Core Mappm Cloud
   getestet werden.
-- R6 Sync/Auth plant den ersten echten Home-Hub-Server in diesem Stack.
-- R6-D1 ist entschieden: Home Hub ist Sync Coordinator, Backup Server und
-  spaetere LLM/OCR-Erweiterungsplattform, waehrend Desktop und Mobile offline
-  nutzbar bleiben.
+- C1/C4 Account, Cloud Vault, Sync und Migration verwenden denselben Stack mit
+  getrennten Contract-/Backend-/Frontend-Issues.
+- Core Assist ist C2/C3-Scope und keine spaetere optionale Backend-Erweiterung;
+  Advanced Assist und breitere Automation bleiben spaeter.
 
 ## Nicht entschieden
 

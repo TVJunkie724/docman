@@ -2,16 +2,17 @@
 title: "Enterprise-Säule - Compatibility and Platform Support"
 description: "Enterprise-Bereich fuer macOS, iOS, Android, später Windows/Linux, Plattformfähigkeiten und Store-/OS-Unterschiede"
 tags: [pillar, enterprise, compatibility, platform, macos, ios, android]
-lastUpdated: "2026-07-12"
-version: "0.1"
+lastUpdated: "2026-07-15"
+version: "0.2"
 status: "proposed"
+owner: "product-concept/quality-readiness"
 ---
 
 # Enterprise-Säule - Compatibility and Platform Support
 
 ## Zweck
 
-DocMan läuft über mehrere Plattformen mit unterschiedlichen Fähigkeiten.
+Mappm laeuft ueber mehrere Plattformen mit unterschiedlichen Faehigkeiten.
 
 ## Scope
 
@@ -26,9 +27,9 @@ DocMan läuft über mehrere Plattformen mit unterschiedlichen Fähigkeiten.
 - Scanner APIs.
 - Store-Vorgaben je Plattform.
 
-## M2-Minimum
+## Commercial-Core-Minimum
 
-- Zielplattformen für M2 explizit benennen.
+- Zielplattformen je C-Gate und Release explizit benennen.
 - Mobile Scan nicht als plattformneutralen Foto-Upload verkürzen.
 - sichere Fallbacks definieren, wenn Plattformfähigkeiten fehlen.
 
@@ -40,8 +41,9 @@ DocMan läuft über mehrere Plattformen mit unterschiedlichen Fähigkeiten.
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

@@ -1,140 +1,103 @@
 ---
-title: "Decision - Document Metadata and Preview"
-description: "Entscheidung zu Pflichtmetadaten, optionalen Metadaten und Vorschau/Thumbnail im R4-Capture-and-Review-Core"
-tags: [decision, documents, metadata, preview, thumbnails, draft-inbox, milestones]
-lastUpdated: "2026-07-14"
-status: "accepted"
+title: "Decision - Document Metadata, Generated Titles and Preview"
+description: "Entscheidung zu Backend-/Assist-vorgeschlagenen Dokumentmetadaten, bestaetigten Werten, primaerem Kontext und asynchroner Vorschau"
+tags: [decision, documents, metadata, title, preview, intelligence, review]
+lastUpdated: "2026-07-15"
+status: "accepted-rebaseline"
+owner: "product-concept"
 ---
 
-# Decision - Document Metadata and Preview
+# Decision - Document Metadata, Generated Titles and Preview
 
 ## Status
 
-Accepted.
+Accepted and rebaselined for Commercial Core on 2026-07-15. Blank manual
+metadata forms and OCR-later assumptions are superseded.
 
-## Entscheidung
+## Decision
 
-R4/M2 verwendet ein leichtes generisches Dokument-Metadatenmodell und
-macht **Vorschau** zu einer Pflichtanforderung fuer Draft Review.
+Each captured logical Document carries technical metadata, proposed semantic
+metadata and confirmed semantic values separately. Backend/Core Assist prepares
+the semantic result; the user reviews only relevant visible consequences.
 
-M2 baut keine dokumenttypspezifischen Pflichtformulare und keine
-automatische OCR-/KI-Klassifikation. Er erfasst genug Struktur, damit Dokumente
-pruefbar, auffindbar und spaeter ausbaubar bleiben.
+## Required Accepted-Document Meaning
 
-## Pflicht in M2
+Before review completes, an accepted Document has:
 
-Ein Dokument-Draft muss mindestens tragen:
+- stable Document/File identity and readable original or accepted fallback;
+- source/capture provenance and timestamps;
+- preview status;
+- automatically proposed and confirmed editable title;
+- confirmed document base type at the supported taxonomy level;
+- confirmed Managed Subject;
+- confirmed primary Case or Record context;
+- review/processing provenance;
+- no unresolved hard quality/duplicate/security/context conflict.
 
-- Titel.
-- Dokumenttyp aus `DECISION_DOCUMENT_TYPE_CATALOG.md`.
-- verwaltete Person/Organisation (`managedSubjectId`).
-- Datei/FileRecord.
-- Vorschau/Preview-Status.
-- Quelle: Desktop Import oder Mobile Capture.
-- Erfassungsdatum.
-- Ablagedatum.
-- Review-Status.
-- optionale Vorgangs-, Record-, Claim- und Case-Beziehungen.
+Semantic variant, domain, additional links and workflow role/slot follow the
+taxonomy and may remain proposed when they do not block a selected
+workflow/action.
 
-Die genaue Abschlussvalidierung steht in
-`DECISION_REVIEW_COMPLETION_VALIDATION.md`.
+## Backend/Core Assist Proposals
 
-## Optionale M2-Metadaten
+Processing proposes where supported:
 
-Optional in M2:
+- localized Document, new-Case and new-Record titles;
+- document base type/semantic variant/domain;
+- sender/issuer/recipient/provider;
+- dates, references, amounts, deadlines and expected responses;
+- primary/additional Case, Record and Claim links;
+- workflow/document-role/next-action candidates.
 
-- Aussteller/Absender.
-- Dokumentdatum.
-- Notiz.
-- Betrag.
-- Fälligkeitsdatum.
-- Tags.
+Confirmed values are not overwritten by later reprocessing. Every proposal
+retains source/provenance and sensitivity appropriate to its use.
 
-Diese Felder duerfen leer bleiben. Sie sollen Draft Review, Suche, Aufgaben und
-spaetere Facts vorbereiten, aber keine komplexen Workflows erzwingen. Sie
-werden in M3 Assisted Review priorisiert, weil dauerhafte manuelle Pflege
-dieser optionalen Felder nicht realistisch ist.
+## Preview Rules
 
-## Vorschau-Regeln
+Preview is required review evidence, but preview generation remains
+asynchronous and recoverable:
 
-Vorschau ist Pflicht fuer die Review-Erfahrung, aber nicht als unfehlbare
-Rendering-Pipeline.
+- PDF: representative page/thumbnail and later multi-page navigation according
+  to phase scope;
+- images: safe image preview;
+- mobile scan: page/document preview;
+- pending/failed: stable placeholder and access to safe original fallback where
+  supported;
+- split/merge: preview preserves mapping to original source pages/files.
 
-M2-Regeln:
+Preview is derived data. It may be deleted/rebuilt without altering the
+original, confirmed metadata or document history.
 
-- PDF: erste Seite als Preview/Thumbnail, mindestens aber klarer PDF-Platzhalter
-  mit Dateiname und Fehler-/Pending-Status, falls Rendering noch nicht geht.
-- JPG/JPEG/PNG: Bildvorschau.
-- Mobile Scan: Scan-Preview oder erstes Seitenbild.
-- Fehlerfall: klarer Platzhalter mit Fehlerstatus, nicht leerer oder kaputter
-  UI-Bereich.
+## Optional and Contextual Metadata
 
-Preview/Thumbnail ist ein abgeleitetes Artefakt. Originaldatei und normalisierte
-Dokumentdatei bleiben im File Store. Vorschauen duerfen geloescht und neu
-erzeugt werden.
+Facts such as sender, date, amount, due date, tags, notes and secondary links do
+not become universal mandatory fields. A selected workflow may require one for
+a visible next action; otherwise missing values do not block review.
 
-Die technische Preview-Strategie ist in
-`DECISION_PREVIEW_GENERATION_STRATEGY.md` entschieden: `pdfrx` ist der
-vorlaeufig bevorzugte PDF-Adapter hinter einem austauschbaren
-`PreviewGenerationPort`; Preview laeuft asynchron und blockiert den Import
-nicht.
+The default review does not show every extracted field. Known implicit facts
+remain in details unless they conflict or change subject, routing, deadline,
+permission, payer or next action.
 
-## Nicht in M2
+## Taxonomy Boundary
 
-Nicht Teil von R4-D20:
+Base type, semantic variant, domain, Record kind, source/format and relationship
+role remain separate axes under `DECISION_DOCUMENT_TYPE_CATALOG.md`.
+Preview/metadata must not flatten them into a single legacy type or
+unstructured map.
 
-- dokumenttypspezifische Pflichtfelder.
-- automatische OCR-Extraktion.
-- KI-Klassifikation.
-- komplexe Formularvalidierung je Workflow.
-- feste Templates pro Dokumenttyp.
-- mehrseitige Preview-Navigation.
-- OCR-Overlay.
-- Annotationen.
-- Preview-Vergleich mehrerer Versionen.
-- Preview-Cache-Rebuild-UI.
+## Verification
 
-## Beziehung zu Facts
+Cover generated title accept/edit/reprocess protection, preview pending/failure/
+rebuild, poor scan, multi-page/source traceability, visible-only confirmation,
+optional facts and primary Case/Record completion using synthetic fixtures.
 
-Felder wie Betrag, Fälligkeit, Aussteller oder Dokumentdatum sind in M2
-einfache Metadaten.
+## Stop Rules
 
-Spaeter koennen daraus `DocumentFact`, Claims, Financial Entries oder
-Workflow-Vorschlaege entstehen. M2 darf diese Daten nicht in einer
-beliebigen unstrukturierten Map verstecken, wenn sie bereits fachlich bekannt
-sind.
+Stop if:
 
-Der Dokumenttyp-Katalog ist bewusst locker. Dokumenttypen helfen bei
-Anzeige, Filter und spaeteren Vorschlaegen, erzwingen aber keine
-typspezifischen Pflichtfelder.
-
-## Auswirkungen auf Draft Review
-
-Draft Review muss zeigen koennen:
-
-- Vorschau oder klaren Platzhalter.
-- Titel.
-- Dokumenttyp.
-- verwaltete Person/Organisation.
-- optionale Vorgangszuordnung.
-- Quelle.
-- relevante optionale Metadaten.
-- Review-/Fehlerstatus.
-
-Ohne Vorschau ist der Draft nicht kaputt, aber als `previewPending` oder
-`previewFailed` sichtbar.
-
-## Konsequenzen
-
-- R4.9 wird als Document/Record Metadata, Review Validation and Preview Core verstanden.
-- F10 Local Storage muss Preview/Thumbnail als abgeleitetes Artefakt behandeln.
-- Capture & Inbox muss Draft Review mit Vorschau planen.
-- Search Core kann gepflegte Textmetadaten nutzen, ohne OCR vorauszusetzen.
-- Intelligence/OCR kann spaeter auf demselben Review-Modell aufsetzen.
-- Reisepass, Geburtsurkunde, Vertrag oder Polizze werden als `Record`/Unterlage
-  mit Dokumentversionen vorbereitet und nicht zu künstlichen Vorgängen gemacht.
-
-## Nicht entschieden
-
-- exakte Thumbnail-Groessen.
-- wie viele Preview-Stufen spaeter gecached werden.
+- title is a blank mandatory field instead of Backend/Core Assist proposal;
+- preview failure deletes/invalidates the original;
+- confirmed values are silently replaced by reprocessing;
+- every extracted fact becomes a blocking form field;
+- accepted review has no primary Case/Record;
+- taxonomy axes are flattened into one metadata enum/map.

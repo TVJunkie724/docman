@@ -2,23 +2,23 @@
 title: "Decision - DMS Target Architecture"
 description: "Langfristiges Zielbild fuer Mappm als vollwertiges Dokumentenmanagementsystem statt nur Dokumentanhaenge an Vorgängen"
 tags: [decision, dms, documents, records, cases, capture, inbox, outbox, intelligence, sync]
-lastUpdated: "2026-07-14"
-status: "accepted-rebaseline"
+lastUpdated: "2026-07-15"
+status: "accepted"
+owner: "product-concept/data-architect"
 ---
-
 # Decision - DMS Target Architecture
 
-## 2026 Vault Rebaseline
+## Vault-Baseline 2026
 
-The domain model remains accepted independently of storage mode. Every domain
-object belongs to one Vault. Local and Cloud repository providers implement the
-same domain meaning with different authority/cache rules. Home Hub and
-self-hosted deployment references below are superseded by managed Mappm Cloud
-and Local Development Cloud.
+Das Domainmodell gilt unabhängig vom Speichermodus. Jedes Domainobjekt gehört
+zu genau einem Vault. Local- und Cloud-Repository-Provider implementieren
+dieselbe fachliche Bedeutung mit unterschiedlichen Authority- und Cache-Regeln.
+Frühere Home-Hub- oder kundenseitige Self-hosting-Annahmen sind durch Mappm
+Cloud und Local Development Cloud ersetzt.
 
 ## Status
 
-Accepted.
+Angenommen.
 
 ## Entscheidung
 
@@ -37,7 +37,7 @@ Dokumente, Dateien, Versionen, Records, Vorgänge, Personen, Fakten,
 Aufgaben, externe Aktionen, Sync und Intelligence bilden ein verbundenes DMS.
 ```
 
-Der M2 darf davon nur einen kleinen Slice bauen. Das Datenmodell, die API-Grenzen,
+Der Commercial Core darf davon zunächst nur einen kleinen Slice bauen. Das Datenmodell, die API-Grenzen,
 die Suchgrenze und die Speichergrenzen duerfen aber nicht so geschnitten werden,
 dass Dokumente dauerhaft an genau einen Vorgang oder an eine Ordnerstruktur
 gebunden sind.
@@ -55,8 +55,10 @@ BusinessCompanion zeigt ein wichtiges Muster:
 - Document Silos bilden grobe Zugriffsräume fuer Dokumente.
 
 Diese Bausteine sind fuer Mappm wertvoll, aber die konkrete BusinessCompanion-
-Architektur wird nicht kopiert. Mappm bleibt local-first, haushaltszentriert und
-kleiner geschnitten. Insbesondere wird kein ERP-artiges `ParentEntityType` /
+Architektur wird nicht kopiert. Mappm bleibt Vault-provider-aware,
+haushaltszentriert und kleiner geschnitten: Local Vault ist lokal autoritativ,
+Cloud Vault serverautoritativ mit lokalem Cache/Pending State. Insbesondere wird
+kein ERP-artiges `ParentEntityType` /
 `ParentEntityId` als dauerhaftes Kernmodell uebernommen.
 
 ## Zielmodell
@@ -75,7 +77,8 @@ Mappm trennt langfristig folgende Objekte:
 | `DocumentProfileLink` | Personen-/Profilbezug fuer Dokumente, Records, Facts und Vorgänge |
 | `DocumentFact` | Strukturierte, such- und auswertbare Aussage aus Dokumenten oder manueller Erfassung |
 | `Task` / `Reminder` | Handlungsbedarf, Frist, Zahlung, Einreichung, Termin oder Wiedervorlage |
-| `InboxItem` | Capture-/Review-Arbeitseinheit, nicht der eigentliche Speicherort |
+| `CaptureSession` / `DocumentUnit` / `PageManifest` | Erfassungseinheit, logisch getrenntes Dokument und unveraenderliche Seiten-/Originalzuordnung |
+| `ReviewProposal` | Versionierter, korrigierbarer Vorschlag fuer Titel, primaeren Kontext, Subject, Facts und materielle Folgen |
 | `ExportJob` / `OutboxItem` | Vorbereitete Ausgabe, Download, Druck, Mail, lokales ZIP oder Einreichpaket |
 | `ProcessingJob` | OCR, Scan-Nachbearbeitung, Klassifikation, Matching, Indexing oder AI-Vorschlag |
 | `WorkflowDefinition` | Kuratierte, versionierte Vorgangsvorlage mit Rechtsraum, Gültigkeit, Quellen, Schritten und Review-Regeln |
@@ -85,7 +88,11 @@ Mappm trennt langfristig folgende Objekte:
 
 ### Dokumente sind eigenständige Objekte
 
-Ein Dokument darf ohne Vorgang existieren.
+Ein Dokument existiert technisch unabhaengig und darf waehrend Capture/
+Processing ohne Case-/Record-Link bestehen. Nach Review besitzt jedes
+akzeptierte Dokument einen bestaetigten primaeren Case- oder Record-Kontext.
+Wenn nichts passt, dient ein leichter Custom Case als Kontext; es gibt keinen
+dauerhaften losen Dokument-UI-Zustand.
 
 Beispiele:
 
@@ -122,11 +129,12 @@ Die Inbox ist kein Archiv und keine Besitzstruktur.
 
 Sie beschreibt:
 
-- neuer Capture.
-- Draft.
-- Review nötig.
-- erledigt, aber als einer der letzten 10 verarbeiteten Eingänge kurzfristig korrigierbar.
-- wieder geöffnet.
+- lokal gesicherte oder neu erfasste Dokumenteinheit.
+- laufende asynchrone Verarbeitung.
+- bestaetigungsbereiter Vorschlag oder Review noetig.
+- bestaetigt/kuerzlich verarbeitet und nach Produkt-Retention schnell
+  korrigierbar oder wieder zu oeffnen.
+- wieder geoeffnet, fehlgeschlagen oder blockiert.
 
 Die Outbox ist ebenfalls kein zweites Archiv. Sie beschreibt vorbereitete oder
 ausgeführte Ausgaben:
@@ -136,7 +144,7 @@ ausgeführte Ausgaben:
 - lokal exportieren oder per Mail uebergeben.
 - Exportpaket erzeugen.
 - externe Website oder App öffnen.
-- manuelle Uebergabe ausserhalb von DocMan vorbereiten.
+- manuelle Uebergabe ausserhalb von Mappm vorbereiten.
 
 Die eigentlichen Dokumente bleiben im DMS-Kern.
 
@@ -203,39 +211,43 @@ Beispiele:
 - Kündigungsfrist.
 - Garantieende.
 
-OCR/AI darf Facts später vorschlagen. Fachlich relevante Facts bleiben
-reviewbar und nachvollziehbar.
+Backend/Core Assist schlaegt OCR-basierte Facts, Titel und Beziehungen im
+Commercial Core vor. Fachlich relevante Facts bleiben reviewbar,
+provenance-markiert und nachvollziehbar.
 
 ## Zielarchitektur nach Verantwortungen
 
 ```text
-Capture
-  -> InboxItem
-      -> Review
-          -> DocumentRecord
-              -> FileRecord / DocumentVersion
-              -> DocumentCaseLink
-              -> DocumentProfileLink
-              -> DocumentFact
-              -> Task / Reminder
-              -> Search Index
-              -> ProcessingJob
-              -> ExportJob / OutboxItem
+CaptureSession
+  -> DocumentUnit -> PageManifest -> FileRecord
+      -> ProcessingJob
+          -> ReviewProposal
+              -> User confirmation/correction
+                  -> DocumentRecord / DocumentVersion
+                      -> DocumentCaseLink / Record link
+                      -> DocumentProfileLink
+                      -> DocumentFact
+                      -> Task / Reminder
+                      -> Search Index
+                      -> ExportJob / OutboxItem
 ```
 
 ## Storage- und Sync-Konsequenzen
 
-Mappm speichert strukturierte Metadaten lokal in SQLite/Drift. Dateien liegen
-separat im Dateispeicher und werden über stabile IDs referenziert.
+Mappm speichert beim Local Vault strukturierte Metadaten autoritativ in
+SQLite/Drift. Beim Cloud Vault dient der Client-Store als policy-begrenzter
+Cache, Index und Pending State; Mappm Cloud ist autoritativ. Dateien liegen in
+beiden Modi getrennt von strukturierten Metadaten und werden ueber stabile IDs
+referenziert.
 
 Langfristig muss das Modell folgende Betriebsformen tragen:
 
-- Single-device local-first.
-- Desktop plus Mobile Capture.
-- Home Hub im privaten Netz.
-- Multi-Geräte-Sync im Haushalt.
-- Self-hosted cloudartiger Betrieb.
-- spätere verschlüsselte Remote-Dateiablage.
+- Single-device Local Vault.
+- Local-Vault Capture und Review auf demselben Geraet.
+- Cloud Vault mit Desktop/Mobile-Kontinuitaet und Multi-Geraete-Sync.
+- Managed Mappm Cloud fuer Account, Core Assist und optionale Cloud Authority.
+- Local Development Cloud mit ausschliesslich synthetischen Daten.
+- verschluesselungsfaehige Remote-Dateiablage nach akzeptiertem Trust-Modell.
 - Backup/Restore mit Integritätsprüfung.
 
 Deshalb braucht das Modell:
@@ -244,13 +256,14 @@ Deshalb braucht das Modell:
 - `createdAt`, `updatedAt`, `deletedAt` oder Tombstones.
 - Hashes fuer Datei-Integritaet und Dubletten.
 - klare Trennung von Secrets, Nutzdaten und Logs.
-- Storage-Abstraktion fuer lokale Dateien, Home-Hub-Dateien und spaeter S3-kompatible Stores.
+- Storage-Abstraktion fuer lokale Dateien, Cloud-Cache/Pending-Artefakte und
+  serverseitige S3-kompatible Stores.
 - keine harte Annahme, dass ein Server dauerhaft Klartext-Owner aller Dokumente ist.
 
 Die konkrete Storage-Leitplanke steht in
-`DECISION_FILE_STORAGE_AND_DOCKER_STACK.md`: App-local verwendet lokalen
-Dateispeicher hinter einem Storage-Port; der Home-Hub-/Server-Stack plant
-MinIO/S3-kompatiblen Storage als austauschbaren Adapter.
+`DECISION_FILE_STORAGE_AND_DOCKER_STACK.md`: Local Vault verwendet lokalen
+Dateispeicher hinter einem Storage-Port; Mappm Cloud und Local Development
+Cloud verwenden S3-kompatiblen Storage als austauschbaren Adapter.
 
 ## Processing- und Intelligence-Konsequenzen
 
@@ -289,17 +302,24 @@ Suche muss langfristig mehrere Ebenen abdecken:
 - OCR-Text.
 - später semantische Suche und RAG.
 
-Der M2 darf SQLite/Drift/FTS5 nutzen. Die Domain-Grenze bleibt aber so
+Der erste Local-Search-Slice darf SQLite/Drift/FTS5 nutzen. Die Domain-Grenze bleibt aber so
 geschnitten, dass spätere Indexer wie Meilisearch, Typesense, PostgreSQL FTS,
 Qdrant oder andere Provider ergänzt werden können.
 
-## Abgrenzung zum M2
+## Commercial-Core Capture Slice
 
-Der M2 baut nur den kleinsten nutzbaren Schnitt:
+Der erste verkaufbare Capture-/Review-Slice baut:
 
 - Desktop-Import.
-- Mobile Capture in die Draft-Inbox.
-- betroffene Person / Haushaltsprofil als Pflichtzuordnung je Dokument-Draft.
+- globales Mobile Capture mit lokaler dauerhafter Queue und asynchroner
+  Verarbeitung.
+- Desktop- und Mixed-Batch-Import mit technischer Capture-Session statt
+  voreiliger Dokument-/Case-Gruppierung.
+- Backend/Core-Assist-Vorschlaege fuer logische Dokumentgrenzen, Titel,
+  betroffene Person/Organisation, Dokumenttaxonomie, Case/Record, Rollen/Facts
+  und relevante Folgeaktionen.
+- kompakte Nutzerbestaetigung aller fachlichen Zuordnungen in der aktuellen
+  Reifestufe; implizite unveraenderte Fakten bleiben verborgen.
 - Vorgänge mit typisierten Beziehungen, manueller Erstellung und
   Bottom-up-Komposition.
 - einfache Dokumentannahme.
@@ -307,32 +327,32 @@ Der M2 baut nur den kleinsten nutzbaren Schnitt:
 - Aufgaben/Reminder-Daten.
 - Schnellzugriff.
 
-Der M2 darf vereinfachen:
+Der Slice darf vereinfachen:
 
 - ein primärer Vorgang je Dokument.
 - keine vollständigen `DocumentCaseLink`-Rollen in der UI.
-- keine automatische OCR-/AI-Übernahme.
+- keine unbeaufsichtigte automatische Finalisierung der Assist-Vorschlaege.
 - keine vollständige Outbox.
 - kein vollständiger Haushaltsrechte-Editor.
 
-Der M2 darf aber nicht verbauen:
+Der Commercial Core darf aber nicht verbauen:
 
 - flexible Mehrfachbeziehungen.
 - Versionierung.
 - strukturierte Facts.
 - Personen-/Profilbezug.
 - spätere Sync-/Backup-Fähigkeit.
-- spätere Processing-Jobs.
+- dauerhafte, wiederaufnehmbare Processing-Jobs.
 - spätere Exportpakete.
 - kuratierte, versionierte und internationalisierbare Workflow-Definitionen.
 
 ## Konsequenzen fuer Planung
 
-- R4 bleibt ein M2-Slice, aber nicht die DMS-Endarchitektur.
-- R5/R6 müssen Haushaltsprofile, Rechte und Sync auf dem DMS-Kern aufbauen.
-- R8 ist nicht nur "Insights", sondern die Phase, in der strukturierte Facts,
+- C2/C3 bleibt ein Commercial-Core-Slice, aber nicht die DMS-Endarchitektur.
+- Spätere Profil-, Rechte- und Sync-Slices bauen auf dem DMS-Kern auf.
+- Der aktivierte Facts-/Insights-Slice führt strukturierte Facts,
   Claims, Finanzdaten und Auswertungen den DMS-Kern erweitern.
-- R9 Intelligence darf nur Vorschläge liefern, die in DMS-Objekte übernommen
+- Intelligence darf nur Vorschläge liefern, die in DMS-Objekte übernommen
   oder verworfen werden können.
 - Workflow-Katalog und Länderpakete werden als eigenes fachliches Produkt- und
   Compliance-Asset geplant, nicht als LLM-Prompt oder UI-Konfiguration.

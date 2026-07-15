@@ -1,107 +1,114 @@
 ---
 title: "Decision - Milestone Quality Gates"
-description: "Entscheidung zu verpflichtenden lokalen, R3- und Milestone-Quality-Gates fuer DocMan"
-tags: [decision, quality-gates, r3, milestones, testing, ci, production-readiness]
-lastUpdated: "2026-07-12"
+description: "Verbindliche Quality Gates fuer lokale Aenderungen und Commercial-Core-Gates C0-C7"
+tags: [decision, quality, testing, ci, production-readiness, gates]
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "quality-readiness"
 ---
 
 # Decision - Milestone Quality Gates
 
-## 2026 Commercial-Core Rebaseline
-
-Quality gates apply to C0-C7. Replace Home-Hub boundaries with Mappm Cloud and
-Local Development Cloud; add Local/Cloud authority, migration, entitlement,
-cancellation, restore, environment separation and release-operation evidence.
-
-## Status
-
-Accepted.
-
 ## Entscheidung
 
-DocMan verwendet gestufte Quality Gates:
+Mappm verwendet ein lokales Change Gate und gestaffelte C0-C7-Gates. Ein Gate
+misst den freigegebenen Zielpfad und seine Abhaengigkeiten. Historische
+Milestone-Namen, eine hohe Testzahl oder ein gruener Happy Path ersetzen keinen
+Nachweis der Produktversprechen.
 
-1. **Local Change Gate** fuer jede konkrete Aenderung.
-2. **R3 Foundation Gate** fuer den Abschluss der Quality-&-Production-Readiness-Phase.
-3. **M2 Readiness Gate** fuer den Start echter Produkt-Slice-Arbeit und den Abschluss des Capture-and-Review-Kerns.
+## Change Gate
 
-Die Gates sollen neue Arbeit sauber halten und verhindern, dass Legacy-Schuld in den Zielpfad leckt. Sie duerfen Legacy-Probleme nicht verstecken, aber sie muessen realistisch genug sein, um den alten Spike geordnet zu isolieren, zu migrieren oder zu entfernen.
+Jede Aenderung prueft mindestens:
 
-## Gate 1 - Local Change Gate
+- Formatierung/Lint/Analyzer fuer betroffene Quellen.
+- relevante Unit-, Provider-, Repository- und Widgettests.
+- Dokumentlinks/Frontmatter/Contract-Examples, falls betroffen.
+- keine neue Legacy-Abhaengigkeit oder Architekturverletzung.
+- keine Secrets, privaten Fixtures oder sensiblen Logs.
+- aktualisierte Acceptance-/Verification-Evidence.
 
-Jede Aenderung muss mindestens die zum Scope passenden Checks bestehen.
+Exakte Commands stehen im Implementation Contract und verwenden nach
+Moeglichkeit `frontend.sh`/`scripts/verify.sh`.
 
-Pflicht fuer Flutter-/Dart-Code:
+## C0 - Product and Trust Contract
 
-```bash
-dart format --output=none --set-exit-if-changed <changed dart paths>
-flutter analyze <changed dart paths or target package path>
-flutter test <relevant tests>
-```
+- Scope, Owner und Source of Truth eindeutig.
+- Vault-/Account-/Assist-/Commercial-/Country-/Taxonomie-Gates geschlossen oder
+  mit Owner, Zielphase und zulässigem Nicht-Scope explizit verschoben.
+- aktuelle Legal-/Regulatory-/Store-Applicability mit Datum/Quelle geplant.
+- keine widerspruechliche aktive Architektur in Concepts/Decisions/Roadmap.
 
-Pflicht fuer reine Dokumentation:
+## C1 - Vault, Account and Provider Foundation
 
-- Links und Dateipfade plausibel.
-- betroffene Roadmap/Decision/Concept-Dokumente widersprechen sich nicht.
-- keine fremden Projektnamen oder alten Importannahmen in aktiver Planung.
+- Clean Architecture/Riverpod/Domain-Port-Zielpfad analysierbar.
+- Local/Cloud Authority, Cache, Pending, Session/Device und Entitlement getrennt.
+- Drift/File/Secure-Storage-Grenzen und Migrationen testbar.
+- Fakes/Fixtures vollsynthetisch und deterministisch.
+- OpenAPI/Microcks-Baseline fuer aktivierte Provider.
+- Bootstrap/Codegen/Verify aus frischem Checkout reproduzierbar.
 
-Pflicht fuer API-Contract-Aenderungen:
+## C2 - Capture, Core Assist and Review
 
-- OpenAPI-Spezifikation aktualisiert oder neu angelegt.
-- synthetische Examples aktualisiert.
-- Microcks-Szenarien fuer relevante Erfolgs- und Fehlerfaelle geplant oder umgesetzt.
+- hochwertige Mobile-/Desktop-Erfassung mit haltbarem Original.
+- ein logisches Dokument pro Scan-Einheit; Mixed Session/Import korrigierbar.
+- OCR/Extraction/Index/Matching sowie verpflichtender Titelvorschlag.
+- High/Medium/Low Confidence, Outlier, Teilfehler, App-Kill und Retry.
+- User-Bestaetigung sichtbarer Folgen bis zur freigegebenen Automation.
+- Local-/Cloud-/Free-/Paid-/Offline-/Quota-Matrix fuer aktivierten Scope.
+- Contract Consumer/Provider, Privacy, A11y und Mobile-Build-Evidence.
 
-## Gate 2 - R3 Foundation Gate
+## C3 - Document Core, Cases, Records, Search and Tasks
 
-R3 gilt erst als abgeschlossen, wenn:
+- jedes akzeptierte Dokument besitzt primaeren Case oder Record.
+- Custom/Guided Case parity, Mehrfachbeziehungen und Korrektur.
+- Search, Tasks/Agenda und relevante Facts funktionieren im aktivierten Scope.
+- kein grosser Case-Typ-Picker, keine losen Dokumente, kein Subcase-Datentyp.
+- responsive/keyboard/semantics/privacy Evidence fuer Kernflows.
 
-- frischer Checkout per `scripts/bootstrap.sh` arbeitsfaehig wird.
-- `scripts/codegen.sh` reproduzierbar laeuft.
-- `scripts/verify.sh` als Standard-Gate laeuft.
-- `flutter test` gruen ist.
-- `flutter analyze` fuer den Zielpfad gruen ist.
-- Legacy nicht mehr in Produktstart, Zielanalyse, Tests oder Builds hineinleckt.
-- neue Riverpod-/Domain-/Repository-Logik mit Fake-Repositories testbar ist.
-- synthetische Fixtures unter `test/fixtures/` und API-Beispiele unter `contracts/` vorbereitet sind.
-- keine Tests, Fixtures, Examples oder Mock-UIs echte private Daten enthalten.
-- API-Grenzen fuer Home Hub/Capture/Sync OpenAPI-/Microcks-faehig geplant sind.
+## C4 - Lifecycle and Commercial Safety
 
-R3 darf nicht abgeschlossen werden, wenn harte Zielpfad-Analyzer-Fehler, kaputte Tests, fehlende Codegen-Reproduzierbarkeit oder aktive Legacy-Leaks in Produktpfade offen bleiben.
+- Local Export/Backup/Restore und aktivierte Managed-Cloud-Backups.
+- Local-to-Cloud/Cloud-to-Local mit Checkpoint, Verifikation und einer
+  Autoritaet.
+- Entitlement, Kuendigung, Grace, Read-only, Reaktivierung und getrennte
+  Vault-/Account-Loeschung.
+- Exit bleibt bei Quota/Payment/Cancellation erreichbar.
+- Restore-/Migration-/Deletion-/Rollback-Drills dokumentiert.
 
-## Gate 3 - M2 Readiness Gate
+## C5 - Compliance, Operations and Release
 
-Vor M2-Abschluss muessen zusaetzlich gelten:
+- CI/CD, Supply Chain, Signing, Update, Migration und Rollback.
+- Staging/Production-Config-/Secret-/Environment-Isolation.
+- Observability, SLO/Incident, Support und redigierte Diagnose.
+- datierte Legal/Privacy/AI-Act/CRA/eIDAS/EUDI/Store-/Country-Pack-Gates.
+- reproduzierbarer Release Candidate mit SBOM/Lizenzen und Review Access.
 
-- `scripts/bootstrap.sh --verify` funktioniert auf einem frischen Checkout.
-- `flutter analyze` ist fuer Produktpfade ohne neue Issues gruen.
-- `flutter test` ist gruen.
-- Desktop-Smoke-Build ist gruen.
-- Mobile-Capture-relevante Unit-/Widget-/Smoke-Tests sind gruen.
-- lokale Persistenz-, Upload-Queue- und Draft-Inbox-Flows sind testabgedeckt.
-- API-Slices fuer Home Hub/Capture haben OpenAPI-Specs und Microcks-Contract-Smokes.
-- Security-/Privacy-Mindestregeln sind pruefbar: keine Secrets in Logs, keine privaten Testdaten, Secure-Storage-Grenze fuer Tokens.
-- kritische Bugs fuer Datenverlust, Security, Login/Pairing oder Upload-Verlust sind geschlossen oder bewusst als M2-blockierend markiert.
-- aktive Konzepte/Decisions/Roadmap widersprechen dem implementierten M2-Slice nicht.
+## C6 - Closed Beta
 
-## Legacy-Regel
+- freigegebene realistische Beta-Daten/Accounts und Supportprozess.
+- Recovery, Export, Migration, Rollback und Incident unter realen Bedingungen.
+- keine offenen P0/P1; P2-Risiken bewertet und geowned.
+- Telemetry/Privacy/SLO-Evidence ohne sensible Datenlecks.
 
-Legacy-Schuld darf waehrend R2/R3 existieren, aber nur als eingefrorene Referenz ausserhalb des Zielpfads.
+## C7 - Commercial 1.0
 
-- Neue Zielpfade duerfen keine neuen BLoC/GetIt/Isar/PocketBase-Abhaengigkeiten aufbauen.
-- Legacy-Warnungen im alten Spike werden nicht einzeln als Production-Readiness-Arbeit abgearbeitet.
-- Ein Legacy-Problem muss dann getrackt werden, wenn es Zielpfad, Build, Tests oder Analyze blockiert.
-- Neue Aenderungen duerfen Legacy nicht erweitern und keine Legacy-Abhaengigkeit in Zielpfade ziehen.
+- dokumentiertes Go/No-Go durch Product, Security, Privacy, Quality,
+  Operations, Legal/Compliance und Release.
+- alle aktivierten Produktclaims, Maerkte, Plaene, Plattformen und Provider sind
+  exakt durch Evidence gedeckt.
+- Support-, Update-, Incident-, Retention- und Decommission-Verpflichtungen sind
+  finanzierbar und betreibbar.
 
-## Konsequenzen
+## Legacy und Waiver
 
-- R3-D5 ist entschieden.
-- R3-D1 legt den Scope fest: Zielpfad sauber, Legacy eingefroren.
-- F16 beschreibt diese Gate-Stufen als Quality-Gate-Modell.
-- F4 nutzt diese Gates fuer Regression und milestone-kritische Flow-Tests.
+Legacy darf isoliert und als Baseline dokumentiert sein, aber keinen
+Produktstart, Analyzer, Build, Test, Migration oder Releasepfad beeinflussen.
+Waiver sind klein, risikobewertet, mit Owner/Issue/Ablaufdatum versehen und
+duerfen Datenverlust, Security, Privacy, Legal, Restore oder Exit nicht umgehen.
 
-## Nicht entschieden
+## Stop Rules
 
-- konkrete CI-Runner und GitHub-Actions-Ausgestaltung.
-- exakte Microcks-Compose-Datei.
-- ob Golden Tests vor M2 verpflichtend werden.
+Stop, wenn ein Gate nur als Checklist ohne Evidence abgehakt wird, Local/Cloud
+nicht getrennt getestet sind, Contract-/Restore-/Migration-/Privacy-
+Nachweise fehlen, bekannte P0/P1 offen sind oder ein veralteter Rechts-/Store-
+Check als aktuelle Freigabe gilt.

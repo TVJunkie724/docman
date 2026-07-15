@@ -2,16 +2,18 @@
 title: "Enterprise-Säule - Data Lifecycle and Resilience"
 description: "Enterprise-Bereich fuer Backup, Restore, Retention, Löschung, Tombstones, Storage Integrity, Migration und Recovery"
 tags: [pillar, enterprise, data-lifecycle, backup, restore, resilience]
-lastUpdated: "2026-07-12"
-version: "0.2"
+lastUpdated: "2026-07-15"
+version: "0.3"
 status: "proposed"
+owner: "data-architect/quality-readiness"
 ---
 
 # Enterprise-Säule - Data Lifecycle and Resilience
 
 ## Zweck
 
-DocMan darf Dokumente nicht nur speichern. Es muss Datenverlust verhindern, Löschung respektieren und Wiederherstellung planen.
+Mappm darf Dokumente nicht nur speichern. Es muss Datenverlust verhindern,
+Loeschung respektieren und Wiederherstellung planen.
 
 R11-D1 entscheidet: Mappm braucht vor echtem Haushaltsbetrieb lokales Backup
 plus Managed-Cloud-Backup, sichtbaren Backup-Status, keine stillen Backup-Fehler und
@@ -30,7 +32,7 @@ einen Restore-Test. Sync ist Replikation, aber kein Ersatz fuer Backup.
 - Disaster Recovery.
 - Exportierbarkeit.
 
-## M2-Minimum
+## C1-Minimum
 
 - Datei- und Metadaten-Referenzen konsistent halten.
 - Löschungen nicht so modellieren, dass Sync später bricht.
@@ -54,8 +56,9 @@ einen Restore-Test. Sync ist Replikation, aber kein Ersatz fuer Backup.
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

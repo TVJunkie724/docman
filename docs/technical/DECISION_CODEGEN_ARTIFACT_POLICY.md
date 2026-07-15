@@ -1,121 +1,66 @@
 ---
 title: "Decision - Codegen Artifact Policy"
-description: "Entscheidung, dass DocMan generierte Dart-Artefakte nicht committed und Codegen stattdessen reproduzierbar erzwingt"
-tags: [decision, codegen, r3, ci, production-readiness, generated-files]
-lastUpdated: "2026-05-06"
+description: "Reproduzierbare Codegenerierung ohne generierte Dart-Artefakte als Source of Truth"
+tags: [decision, codegen, ci, production-readiness, generated-files]
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "foundation-builder"
 ---
-
 # Decision - Codegen Artifact Policy
 
 ## Status
 
-Accepted.
+Angenommen. Generierte Dart-Artefakte sind nicht die Source of Truth und werden
+grundsätzlich nicht committed, solange sie aus gepinnten Quellen vollständig
+reproduzierbar sind.
 
-## Entscheidung
-
-DocMan committed keine generierten Dart-Artefakte als Source of Truth.
-
-Das Repository enthält Quellen, Verträge, Konfiguration und Migrationsnachweise. Generator-Output wird in frischen Checkouts, lokaler Entwicklung und CI reproduzierbar erzeugt.
+## Repository-Policy
 
 Nicht committen:
 
-- `*.freezed.dart`
-- `*.g.dart`
-- Riverpod-generator Output
-- Drift-generierter Dart-Code
-- OpenAPI-generierte Clients, solange sie vollständig reproduzierbar sind
+- `*.freezed.dart` und `*.g.dart`;
+- Riverpod-/Drift-Generatoroutput;
+- vollständig reproduzierbare OpenAPI-Clients.
 
 Committen:
 
-- `pubspec.yaml`
-- `pubspec.lock`, weil DocMan eine App ist
-- `build.yaml` und Generator-Konfiguration
-- OpenAPI-Spezifikationen und synthetische Examples unter `contracts/`
-- Drift-Schema- oder Migration-Snapshots, falls sie als Migrationsnachweis oder Testfixture dienen
-- handgeschriebene Migrationsdateien
+- `pubspec.yaml` und bei der App `pubspec.lock`;
+- Generator- und Build-Konfiguration;
+- OpenAPI-Verträge und synthetische Examples unter `contracts/`;
+- handgeschriebene Migrationen;
+- ausdrücklich benötigte Drift-Schema-/Migrationssnapshots als überprüfbare
+  Evidenz.
 
-## Begründung
+Eine Ausnahme braucht Begründung, Owner, Updateweg und CI-Verifikation in einer
+Decision oder im betroffenen Implementation Contract.
 
-Diese Policy reduziert Review-Rauschen und verhindert, dass generierter Code als Architekturquelle missverstanden wird. Sie ist aber nur production-ready, wenn Reproduzierbarkeit hart erzwungen wird.
-
-Deshalb gilt: Nicht committen ist kein Komfortmodus. Nicht committen ist nur erlaubt, wenn Bootstrap, Codegen und Verify zuverlässig funktionieren.
-
-## Enterprise-Grade Anforderungen
-
-### 1. Eine Codegen-Quelle
-
-Alle Generatoren laufen über:
+## Reproduzierbarkeit
 
 ```bash
 scripts/codegen.sh
-```
-
-Niemand ruft im normalen Workflow manuell unterschiedliche `build_runner`-Varianten auf.
-
-### 2. Bootstrap baut einen frischen Checkout
-
-Ein frischer Checkout muss genügen:
-
-```bash
 scripts/bootstrap.sh --verify
+scripts/verify.sh
 ```
 
-Das Script holt Dependencies, führt Codegen aus und startet die lokalen Mindestchecks.
+- `scripts/codegen.sh` ist der einzige normale Codegen-Einstieg.
+- Bootstrap muss einen frischen Checkout herstellen können.
+- Verify führt Codegen, Format-/Analyze-Gates und Tests für den aktiven Zielpfad
+  aus.
+- Generator- und Runtime-Versionen sind über Lockfile/Toolchain gepinnt.
+- CI erkennt unerwartet getrackten Generatoroutput oder eine dokumentierte
+  Legacy-Allowlist.
 
-### 3. Verify erzwingt Reproduzierbarkeit
+## Legacy-Migration
 
-`scripts/verify.sh` muss mindestens prüfen:
+Bereits getrackte Generatorartefakte werden erst entfernt, wenn der Zielpfad
+sie aus einem frischen Checkout reproduzieren und analysieren kann. Reihenfolge:
 
-```bash
-scripts/codegen.sh
-flutter analyze <target paths>
-flutter test
-```
+1. Quellen, Generatoren und Toolchain fixieren;
+2. Zielpfad erfolgreich generieren, analysieren und testen;
+3. Ignore-/CI-Regeln aktivieren;
+4. Legacy-Artefakte selektiv aus Git entfernen;
+5. nicht mehr benötigte alte Generatorpfade isolieren oder löschen.
 
-Wenn Codegen fehlschlägt, ist der Build rot. Wenn generierte Imports fehlen, ist Analyze rot.
-
-### 4. Git bleibt frei von Generator-Output
-
-`.gitignore` muss generierte Dart-Dateien ausschließen. Bereits getrackte Legacy-Generator-Dateien werden in einer R3-Cleanup-Änderung aus Git entfernt, sobald der Zielpfad ohne sie reproduzierbar ist.
-
-Nach dem R3-Cleanup prueft CI zusätzlich:
-
-```bash
-git ls-files | rg '(\\.freezed\\.dart|\\.g\\.dart)$'
-```
-
-Bis dahin gibt es entweder noch keinen harten CI-Blocker oder eine explizite Legacy-Allowlist. Für dauerhafte Ausnahmen braucht es eine explizite Begründung in dieser Decision oder einer Folge-Decision.
-
-### 5. Generator-Versionen sind gepinnt
-
-Generatoren und Runtime-Pakete werden über `pubspec.lock` stabilisiert. Upgrades erfolgen bewusst und werden mit Codegen, Analyze und Tests geprüft.
-
-### 6. Keine privaten Daten im Output
-
-Generatoren dürfen keine lokalen Pfade, Secrets, Nutzerdateien oder private Testdaten in erzeugte Dateien schreiben. Falls ein Generator solche Daten erzeugen könnte, wird er nicht in den Standard-Codegen aufgenommen.
-
-## Umgang mit Legacy
-
-Der aktuelle Spike enthält bereits getrackte `*.freezed.dart`- und `*.g.dart`-Dateien. Diese Dateien gelten als Legacy-Artefakte.
-
-R3 entfernt sie nicht blind. Die sichere Reihenfolge ist:
-
-1. Zielpfad-Codegen definieren.
-2. `.gitignore` und CI-Regel ergänzen.
-3. Zielpfad-Analyze und Tests gegen frisch erzeugte Artefakte grün bekommen.
-4. Legacy-Generator-Dateien aus Git entfernen, sobald keine Zielpfade mehr davon abhängen.
-5. alte Isar/BLoC/Incident-Artefakte zusammen mit dem Legacy-Pfad löschen oder isolieren.
-
-## Konsequenzen
-
-- R3-D4 ist entschieden.
-- Codegen-Reproduzierbarkeit wird ein R3- und M2-Gate.
-- Reviews konzentrieren sich auf Quellen, Verträge, Tests und Scripts.
-- Generator-Output darf lokal existieren, aber nicht als geplante Git-Änderung landen.
-
-## Nicht entschieden
-
-- ob einzelne Drift-Migrations-Snapshots dauerhaft committed werden.
-- wann OpenAPI-generierte Clients entstehen.
-- ob Riverpod-Codegen im M2 genutzt wird oder erst nach dem manuellen Riverpod-Start.
+Generatoren dürfen keine Secrets, privaten Daten oder nutzerspezifischen
+absoluten Pfade in Artefakte schreiben. Codegen-Reproduzierbarkeit ist ein
+C1-/CI-Gate und gilt für jeden späteren Slice fortlaufend.

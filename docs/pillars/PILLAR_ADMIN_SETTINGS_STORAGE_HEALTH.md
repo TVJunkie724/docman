@@ -2,24 +2,25 @@
 title: "Plattform-Säule - Admin, Settings and Storage Health"
 description: "Plattformbereich fuer Setup, Einstellungen, Speicherzustand, lokale Administration, Backup-Status und Wartung"
 tags: [pillar, platform, admin, settings, storage, health]
-lastUpdated: "2026-07-12"
-version: "0.2"
+lastUpdated: "2026-07-15"
+version: "0.3"
 status: "proposed"
+owner: "product-concept/ui-concept"
 ---
 
 # Plattform-Säule - Admin, Settings and Storage Health
 
 ## Zweck
 
-DocMan braucht eine kontrollierbare Betriebsoberfläche:
+Mappm braucht eine kontrollierbare Betriebsoberflaeche:
 
 - App-Setup.
 - aktiver Vault-Modus, Mappm Account/Gerät und Entitlement in jedem normalen
   Modus sowie Detached-Recovery-Status.
 - Core/Advanced-Assist-Kontingent, Verarbeitung, Opt-out und manuelle
   Degradation getrennt von Vault-Speicher/Backup.
-- Geräte/Pairing.
-- Storage-Orte.
+- autorisierte Geraete und Sessions.
+- lokale Verfuegbarkeit, Cache und Speicherbedarf.
 - Backup-Status.
 - Diagnose.
 - lokale Wartung.
@@ -28,15 +29,16 @@ R11-D1 ergaenzt: Backup- und Restore-Zustaende muessen in Admin/Settings
 sichtbar werden. Ein Backup-Fehler ist ein Betriebszustand, kein stiller
 Hintergrundfehler.
 
-## M2-Scope
+## Commercial-Core-Scope
 
-M2:
+C1-C4:
 
 - Einstellungen für Local/Cloud Vault, Cache, Export, Migration und Diagnose.
-- sichtbarer Pairing-/Upload-Status.
+- sichtbarer Device-/Session-/Upload-/Processing-Status, wenn Handlungsbedarf
+  besteht.
 - Speicherort und sichere Basisinformationen vorbereiten.
 
-spaetere Milestones:
+Spaetere Slices:
 
 - Speicherprüfung.
 - Backup-/Restore-Status inklusive letztem erfolgreichen Backup, Restore-Test
@@ -54,8 +56,9 @@ Diagnose muss redigiert sein und darf keine Secrets enthalten.
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

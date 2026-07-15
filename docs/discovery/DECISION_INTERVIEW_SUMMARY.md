@@ -2,7 +2,7 @@
 title: "Mappm - Decision Interview Summary"
 description: "Zusammenfassung der bisherigen Produktentscheidungen fuer den Playbook-Agent-Track"
 tags: [discovery, decisions, product, playbook]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 status: "accepted-baseline"
 owner: "product-concept"
 ---
@@ -39,6 +39,12 @@ unaccepted and block only their affected phases.
 | Frontend/backend ownership | Frontend may describe backend needs, but backend/API owners decide contracts, DTOs, endpoints, mapping, persistence and policy architecture. | `.codex/skills/github-issue/SKILL.md`, `docs/ops/OPS-08_PROJECT_ENTRYPOINTS.md` |
 | Demo/fake buildout | UI can be built before backend through fake repositories and synthetic demo content. | `docs/concepts/CONCEPT_F15_MOCK_REPOSITORY.md` |
 | Customer self-hosting | Not active product scope; the former Home Hub exists only as superseded history. | Vault/Cloud decision, Cloud/Identity/Sync pillar |
+| Capture and routing | Global capture is normal; analysis/matching always runs asynchronously; mixed sessions are split per logical document; Backend/Core Assist must propose titles and ranked Case/Record contexts; current routing is user-confirmed from a compact result. | `docs/technical/DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md` |
+| Primary context | Every accepted document has a primary Case or Record. When no existing/guided Case or durable Record fits, a lightweight Custom Case may start with generated title, Managed Subject and one document. | Capture-first decision, Case/Record model |
+| Case graph | There is one `Case` entity; `part_of`, `caused_by`, `follow_up_to` and `related_to` express composition, causality, successor chains and context without content ownership. | `docs/technical/DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md` |
+| Document taxonomy | Base type, optional semantic variant, domain, Record kind, source/format and relationship role are separate axes. The exact base-type/variant and workflow-template mapping is intentionally still open. | `docs/technical/DECISION_DOCUMENT_TYPE_CATALOG.md` |
+| Case/workflow catalog | Mappm has one generic Case. Der aktuelle Katalog beschreibt sichtbare Fachvorlagen, keine Case-Typ-Taxonomie; R0.6 prueft die acht optionalen Workflow-Muster sowie ihre Domain-/Laendervarianten. | `docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md` |
+| Medical Case model | Medical scenarios and candidate models have been collected, but Case families, boundaries, reimbursement composition and relationship defaults are not yet decided. | `docs/discovery/MEDICAL_CASE_MODEL_DISCOVERY.md` |
 
 ## Planning Consequence
 

@@ -2,7 +2,7 @@
 title: "Decision - Commercial Core Product Scope"
 description: "Verbindliches Ziel fuer eine production-ready, verkaufbare erste Mappm-Version mit bewusst begrenztem Funktionsumfang"
 tags: [decision, commercial-core, release, product, account, assist, local-vault, cloud-vault]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-15"
 status: "accepted"
 owner: "product-concept"
 ---
@@ -33,12 +33,21 @@ Product promise:
   recovery behavior.
 - Vault creation with clear Local/Cloud storage authority.
 - Desktop import and production-quality document capture on supported devices.
-- durable Draft Inbox and review with preview, required metadata and recovery.
+- durable Capture Sessions, asynchronous per-document Processing and compact
+  proposal review with preview, recovery, partial success and restart.
 - documents, files, first-class Unterlagen/versions, one Case type with typed
   CaseLinks, Custom Cases and managed person profiles.
 - structured search, filters, simple tasks/deadlines and quick access.
-- Core Assist sufficient for OCR/text extraction, document type, actor/key-field
-  suggestions, case/workflow matching and human review.
+- Core Assist sufficient for OCR/text extraction, validation of explicit mobile
+  document boundaries and reviewed compound-import correction,
+  mandatory editable Document/Case/Record title proposals, taxonomy,
+  actor/key-field suggestions, ranked Case/Record/workflow matching and
+  current-release human confirmation.
+- mixed related/unrelated session/import handling with preserved originals,
+  reversible split/merge/reorder and outlier review.
+- a confirmed primary Case or Record for each accepted document, with a
+  lightweight Custom Case fallback when no durable Record or guided/existing
+  Case fits.
 - Case/Record/reference and multi-document relationships that do not preclude
   later curated jurisdictional workflows.
 - duplicate protection, upload/import integrity and no silent data loss.
@@ -62,7 +71,7 @@ Mobile-to-desktop continuity requires a Cloud Vault. A Local Vault is
 single-device; a Local mobile Vault does not silently transfer into a Local
 desktop Vault.
 
-Therefore a Local-first Commercial 1.0 may offer desktop import and on-device
+Therefore a Local-Vault-first Commercial 1.0 may offer desktop import and on-device
 mobile capture only as separate single-device experiences. It must not market
 mobile capture as feeding a desktop Inbox. If that continuity is part of the
 first sellable promise, VC-01 must include the Cloud Vault capability and

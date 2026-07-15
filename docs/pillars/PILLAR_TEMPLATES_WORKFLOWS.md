@@ -2,16 +2,18 @@
 title: "Produkt-Säule - Templates and Workflows"
 description: "Produktbereich fuer Vorgangsvorlagen, Checklisten, empfohlene nächste Schritte und workflowbasierte Assistenz"
 tags: [pillar, templates, workflows, checklists, tasks]
-lastUpdated: "2026-07-14"
-version: "0.3"
+lastUpdated: "2026-07-15"
+version: "0.4"
 status: "accepted-direction"
+owner: "product-concept"
 ---
 
 # Produkt-Säule - Templates and Workflows
 
 ## Zweck
 
-DocMan soll wiederkehrende Lebenssituationen nicht jedes Mal bei null starten lassen.
+Mappm soll wiederkehrende Lebenssituationen nicht jedes Mal bei null starten
+lassen.
 
 Universelle Workflow-Muster:
 
@@ -29,6 +31,12 @@ Verträge/Abos, Kauf/Garantie, Behörden, Wohnen/Umzug, persönliche/familiäre
 Ereignisse, Identität/Nachweise, Steuer-Unterlagensammlung, Bildung/Betreuung,
 Arbeit/Einkommen, Fahrzeug/Mobilität und konkrete Reise-/Auslandsabläufe.
 
+Fuer Gesundheit ist als Discovery-Richtung ein ortsunabhaengiger Verlauf fuer
+Abklaerung, Behandlung und Nachsorge vorgesehen, ergaenzt um Erstattung und
+eigenstaendige Versicherungsleistungen. Die genaue Grenze zwischen Etappe,
+Claim, Workflow-Zweig und verbundenem Folge-Case ist noch nicht akzeptiert und
+bleibt in `docs/discovery/MEDICAL_CASE_MODEL_DISCOVERY.md` offen.
+
 ## Zielbild
 
 Mappm besitzt eine generische Vorgangs-Engine und einen kuratierten,
@@ -38,7 +46,7 @@ Gültigkeitszeitraum und gegebenenfalls Institution veröffentlicht.
 
 Ein Template kann vorschlagen:
 
-- typische Dokumenttypen.
+- typische Dokumentgrundarten, semantische Varianten und Rollen.
 - Schritte, Ablaufzweige, Claims und bei eigenständigem Ziel typisierte
   Case-Beziehungen.
 - Tasks und Fristen.
@@ -54,14 +62,19 @@ Ein neuer Case entsteht erst bei eigenständig verständlichem Ziel und
 Lebenszyklus. `Subvorgang` ist nur die UI-Rolle eines `part_of`-Links.
 Dokumente können mehreren Vorgängen zugeordnet sein, ohne Dateien zu duplizieren.
 
-Manuelle/Custom Cases sind ein gleichwertiger Produktpfad. Nutzer können sie
-frei anlegen, aus ausgewählten Dokumenten bilden oder aus bestehenden Cases und
-Dokumenten nachträglich einen übergeordneten Case erzeugen. Ein kompatibles
-Template kann später bewusst übernommen werden.
+Manuelle/Custom Cases sind ein gleichwertiger Produktpfad. Sie duerfen mit
+automatisch vorgeschlagenem Titel, Managed Subject und einem Dokument nahezu
+leer beginnen, frei angelegt, aus ausgewaehlten Dokumenten gebildet oder aus
+bestehenden Cases/Dokumenten nachtraeglich uebergeordnet werden. Ein kompatibles
+Template kann spaeter bewusst uebernommen werden; Backend/Core Assist schlaegt
+dabei Titel, Slots, Tasks und Beziehungen vor, ohne bestaetigte Historie zu
+ersetzen.
 
 ## Internationalisierung
 
-- Workflow-Familien definieren wiederverwendbare universelle Muster.
+- Optionale Workflow-Muster definieren wiederverwendbare universelle
+  Prozessbausteine; sie sind keine sichtbaren Case-Typen und muessen nicht als
+  exklusive Case-Klassifikation persistiert werden.
 - Länder-/Regionspakete konkretisieren Rechtsraum, Institutionen, Nachweise,
   Fristen, Terminologie und Einreichungswege.
 - Sprache ist nicht gleich Rechtsraum.
@@ -70,15 +83,11 @@ Template kann später bewusst übernommen werden.
 - Jeder veröffentlichte Workflow braucht Version, Gültigkeit, Quellen,
   Reviewdatum, Owner, Risikoklasse und getestete Fallbacks.
 
-## M2-Scope
+## Release Slices
 
-M2:
-
-- keine vollständige Template-Engine.
-- Case, CaseLink, Workflow-Schritt/-Zweig und Custom-Case-Ursprung so
-  modellieren, dass Templates später möglich sind.
-
-spaetere Milestones:
+Foundation/Commercial Core modelliert Case, CaseLink, Workflow-Schritt/-Zweig,
+Claim und Custom-Case-Ursprung ohne harte UI-Logik. Aktivierte Release-Slices
+liefern danach:
 
 - Definition und technische Validierung des Katalogformats.
 - fachlich geprüfte Golden Workflows für die ausgewählten Startmärkte.
@@ -89,8 +98,9 @@ spaetere Milestones:
 ## Grenzen
 
 - Templates dürfen keine rechtlich oder medizinisch verbindlichen Entscheidungen treffen.
-- Automatische Statusänderungen brauchen Review.
-- LLM-generierte Vorschläge gehören später zur Intelligence-Säule und bleiben bestätigungspflichtig.
+- Automatische Statusänderungen folgen der aktiven Review-/Automatisierungsreife.
+- Backend/Core-Assist-Vorschlaege gehoeren zum Commercial Core; spaetere
+  Finalisierung bleibt qualitaetsgegatet.
 - LLMs wählen nur aus veröffentlichten Definitionen; sie publizieren oder
   erfinden keine fachlich verbindlichen Abläufe.
 - Laufende Vorgänge pinnen ihre Workflow-Version und wechseln nur über eine
@@ -107,8 +117,9 @@ Custom-Beispiele und nur benannten Kandidatenfamilien steht in
 
 ## Enterprise Quality Contract
 
-This pillar adopts `docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its milestone slices and domain boundaries remain authoritative; the shared
-contract supplies mandatory owner separation, phase slicing, security/privacy,
-accessibility/localization, verification, stop-rule and handoff requirements.
-The pillar itself is never sufficient authorization for implementation.
+Diese Saeule uebernimmt
+`docs/execution/PILLAR_ENTERPRISE_QUALITY_CONTRACT.md`. Ihre Milestone-Slices
+und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
+verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
+Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
+Handoff. Die Saeule allein autorisiert niemals eine Implementierung.

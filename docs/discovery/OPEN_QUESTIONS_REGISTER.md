@@ -2,7 +2,7 @@
 title: "Mappm - Open Questions Register"
 description: "Open product, compliance, roadmap and implementation questions found during playbook reconciliation"
 tags: [discovery, questions, blockers, playbook]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-15"
 status: "active"
 owner: "product-concept"
 ---
@@ -30,7 +30,9 @@ owner: "product-concept"
 | WF-01 | Welche Länder, Regionen und Golden-Workflow-Familien werden für Commercial 1.0 fachlich unterstützt und beworben? | product/domain/commercial | open-blocking-for-workflow-claims | country-pack scope, fixtures, localization, marketing and release evidence | before approving C0 scope or any country-specific workflow phase |
 | WF-02 | Wer owns, prüft und haftet für fachliche Workflow-Inhalte, Quellen, Änderungsbeobachtung, Withdrawal und Incident-Korrekturen je Rechtsraum? | product/legal/compliance/domain | open-blocking-for-workflow-claims | catalog publication and maintenance operating model | before publishing the first reviewed workflow pack |
 | OQ-009 | Sind verwaltete Organisationen und getrennte Business-Kontexte Bestandteil von Commercial 1.0 oder ein spaeteres aktiviertes Produktpaket? | product/commercial/compliance | open-blocking-for-business-scope | C0/C3 scope, R5 managed-subject UX, business retention/export/support claims | before approving C0 scope or any OrganizationProfile implementation phase |
-| OQ-010 | Welche Steuer-Rechtsraeume, Subjekttypen, Veranlagungsarten und Sammelintervalle werden zuerst fachlich geprueft und aktiviert? | product/legal/domain/compliance | open-blocking-for-tax-claims | tax collection packs, wording, fixtures, review actions and release claims | before R8.11 or publication of any tax collection pack |
+| OQ-010 | Welche Steuer-Rechtsraeume, Subjekttypen, Veranlagungsarten und Sammelintervalle werden zuerst fachlich geprueft und aktiviert? `AUSTRIA_TAX_CASE_CATALOG_DRAFT.md` ist nur datierter Discovery-Input. | product/legal/domain/compliance | open-blocking-for-tax-claims | tax collection packs, wording, fixtures, review actions and release claims | review the AT draft with named Tax/Legal owner before R8.11 or publication of any tax collection pack |
+| OQ-011 | Wird das Zielmodell aus einem einzigen generischen Case, acht optionalen internen Workflow-Mustern, sichtbaren Domainvorlagen, getrennten Record-Arten sowie normalisierten Dokumentgrundarten/Varianten/Rollen akzeptiert; welche Muster/Grundarten werden kombiniert, getrennt oder verworfen und wie werden sie versioniert/gemappt? `CASE_DOCUMENT_TAXONOMY_CANDIDATES.md`, `AUSTRIA_CASE_WORKFLOW_COUNTRY_PACK_DRAFT.md` und `DYNAMIC_DOMAIN_COUNTRY_PACK_MODEL_DRAFT.md` sind nicht normative Workshop-Inputs. | product/domain/search/ai/data | open-blocking | R0.6; C2/C3 taxonomy schema, extraction, matching, fixtures and user-facing terminology | accept/revise the lean normalization and dynamic-pack boundaries in the dedicated R0.6 workshop before C2/C3 schema implementation |
+| OQ-012 | Wird die aktuelle Medical-Discovery-Richtung akzeptiert: ein Medical-Care-Anker ab erstem medizinischem Dokument, ein `part_of` Cost-Settlement-Case je wirtschaftlicher Verpflichtung, Claims je Payer; und wie werden wiederkehrende Kontrollen, Benefits sowie echte Folge-Cases final abgegrenzt? | product/domain/compliance | open-blocking-for-medical-scope | medical catalog keys and any R8.12 medical workflow/record/claim implementation; not generic capture or CaseLink mechanics | resolve inside R0.6 with `docs/discovery/MEDICAL_CASE_MODEL_DISCOVERY.md`, then apply WF-01/WF-02 and AT/provider review |
 
 ## Rules
 

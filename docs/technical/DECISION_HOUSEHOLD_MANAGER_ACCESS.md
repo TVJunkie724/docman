@@ -1,121 +1,70 @@
 ---
 title: "Decision - Household Manager Access"
-description: "Entscheidung zu Eltern-/Haushaltsmanager-Zugriff, Partnerdokumenten und Profilzugriff ohne Dokumentkopien"
+description: "Haushalts- und Profilzugriff über Grants statt Dokumentkopien"
 tags: [decision, household, profiles, access, sharing, permissions, parents]
-lastUpdated: "2026-06-04"
+lastUpdated: "2026-07-15"
 status: "accepted"
+owner: "product-concept/security"
 ---
-
 # Decision - Household Manager Access
 
 ## Status
 
-Accepted.
-
-R5-D4 ist entschieden. Frueh startet Mappm mit vertrauensbasiertem
-Haushaltsmanager-Zugriff: die Eltern bzw. vollwertigen Haushaltsmanager haben
-Zugriff auf alle Profile im Haushalt. Dokumente werden dafuer nicht kopiert.
+Angenommen als Zielrichtung. Eine produktive gemeinsame Verwaltung wird erst
+mit freigegebenem Authorization-, Audit-, Consent- und Revocation-Contract
+aktiviert.
 
 ## Entscheidung
 
-Mappm trennt zwischen:
+Mappm trennt fachliche Betroffenheit/Eigentum von Zugriffsrechten. Dokumente,
+Records, Cases, Aufgaben, Facts und Versicherungen bleiben dem betroffenen
+Managed Subject zugeordnet. Mehrere berechtigte Personen greifen über
+`HouseholdAccessGrant` oder `ProfileManagementGrant` darauf zu; Daten werden
+nicht für jede berechtigte Person kopiert.
 
-- Dokument-/Datenbesitz: welches Profil betrifft oder besitzt ein Dokument?
-- Haushaltsmanager-Zugriff: wer darf im Haushalt Profile und deren Daten
-  verwalten?
-
-Fuer die fruehen Haushaltsphasen gilt:
-
-- Eltern/Haushaltsmanager haben Zugriff auf alle Haushaltsprofile.
-- Dieser Zugriff umfasst auch verwaltete Profile, Kinderprofile und spaeter
-  Profile mit eigener Identity, solange sie im Haushalt entsprechend freigegeben
-  oder verwaltet sind.
-- Partnerdokumente werden nicht kopiert.
-- Dokumente, Records, Vorgänge, Aufgaben, Fakten und Versicherungen bleiben dem
-  fachlich betroffenen Profil zugeordnet.
-- Zugriff entsteht durch Household-/Profile-Access, nicht durch Duplikate.
-
-Damit kann ein Elternteil z. B. Dokumente fuer alle Kinder sehen und bearbeiten,
-und beide Eltern koennen denselben Haushaltsbestand pflegen.
+Frühe gemeinsame Haushaltsverwaltung darf mit einer verständlichen Manager-
+Rolle starten. Sie ist trotzdem keine implizite Allzugriffsannahme: besonders
+sensible Bereiche, volljährige Profile, Organisationskontexte und
+Rechtsraumregeln benötigen vor Aktivierung klare Defaults und Zustimmung.
 
 ## Modellrichtung
-
-Frueh reicht ein grobes Haushaltsmanager-Konzept:
 
 ```text
 HouseholdAccessGrant
   householdId
-  profileId
-  kind: householdManager
-  status: active | disabled | revoked
+  granteeSubjectId
+  role: manager
+  status: pending | active | disabled | revoked
+  createdAt
+  revokedAt optional
+
+ProfileManagementGrant
+  managedSubjectId
+  managerSubjectId
+  status: pending | active | disabled | revoked
 ```
 
-`ProfileManagementGrant` bleibt fuer explizite Verwaltung eines bestimmten
-Profils nuetzlich. `HouseholdAccessGrant` beschreibt dagegen den breiteren
-Haushaltsmanager-Zugriff.
+Spätere feinere Rollen werden ergänzt, ohne Dokumentidentitäten oder
+fachliche Zuordnungen zu verändern.
 
-## Keine Dokumentkopien
+## Scope-Grenzen
 
-Ein Dokument soll nicht in mehrere Profile kopiert werden, nur weil mehrere
-Personen Zugriff brauchen.
+- Keine Dokument-für-Dokument-Matrix im ersten Haushalts-Slice.
+- Keine automatische Freigabe außerhalb des Haushalts.
+- Account-zu-Account-Sharing und zeitlich begrenzte Freigaben sind geplant,
+  aber ein eigener Security-/Privacy-/Contract-Slice.
+- Bewusster lokaler Export ist kein verstecktes Account-Sharing.
+- Grant-Entzug, Geräte-/Session-Widerruf und Offline-Cache-Bereinigung müssen
+  vor produktiver Freigabe getestet sein.
 
-Beispiel:
+## Verifikation und offene Punkte
 
-```text
-Profile: Kind A
-  Document: Arztbrief
+Tests decken Einladung, Annahme, Ablehnung, Entzug, Sessionwechsel, Offline-
+Cache, mehrere Manager, volljähriges Profil, Kinderprofil, Organisation,
+Tenant-Isolation und fehlende Rechte ab. Audit-Daten enthalten keine
+Dokumentinhalte.
 
-Household Manager: Elternteil A
-Household Manager: Elternteil B
-
-Beide Eltern sehen den Arztbrief wegen HouseholdAccessGrant.
-Der Arztbrief gehoert weiterhin fachlich zu Kind A.
-```
-
-Das gleiche gilt fuer Partnerdokumente:
-
-```text
-Profile: Partner A
-  Document: Versicherungsvertrag
-
-Profile: Partner B
-  Zugriff ueber HouseholdAccessGrant oder spaetere explizite Freigabe
-```
-
-## Fruehe Grenzen
-
-R5 braucht noch keine feingranulare Rechteverwaltung:
-
-- keine Dokument-fuer-Dokument-Rechtematrix.
-- keine Viewer-/Editor-Rollen fuer jedes Dokument.
-- keine externe Freigabe an Anwalt, Schule, Arzt oder Behoerde.
-- keine automatische Freigabe ausserhalb des Haushalts.
-
-Spaetere Milestones koennen differenzieren:
-
-- private Dokumentbereiche.
-- dokumentbezogene Rechte innerhalb des Haushalts.
-- lokale Exportpakete fuer externe Personen.
-- Rollen wie viewer/editor fuer Partner oder Haushaltsmitglieder.
-- Audit-Regeln fuer Zugriffsaenderungen.
-
-## Konsequenzen
-
-- R5-D4 ist entschieden: Partner-/Haushaltszugriff erfolgt ueber Rechte, nicht
-  ueber Dokumentkopien.
-- Eltern/Haushaltsmanager haben frueh Zugriff auf alle Profile im Haushalt.
-- Dokumente bleiben fachlich dem betroffenen Profil, Record oder Vorgang
-  zugeordnet.
-- Vollstaendige Rollenmatrix fuer Haushaltszugriff bleibt ein spaeteres Thema.
-- Externe App-Freigabe an Personen ausserhalb des Haushalts ist nach R14-D1
-  nicht geplant; stattdessen lokaler Export.
-- R6 muss Sync/Auth gegen HouseholdAccessGrant und ProfileManagementGrant
-  planen.
-
-## Nicht entschieden
-
-- ob es in spaeteren Milestones private Bereiche innerhalb eines Haushalts gibt.
-- ob und wie ein volljaehriges Profil Haushaltsmanager-Zugriff einschraenken
-  darf.
-- konkrete Audit- und Benachrichtigungsregeln fuer Zugriffsaenderungen.
-- konkrete Export-/ZIP-UX fuer Personen ausserhalb des Haushalts.
+Offen bleiben die spätere Rollenmatrix, Consent-/Minderjährigenregeln,
+private Bereiche innerhalb eines Haushalts, Notification-Policy und der genaue
+Secure-Sharing-Vertrag. Keine dieser Funktionen wird aus diesem Dokument
+implizit freigegeben.
