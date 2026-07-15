@@ -1,111 +1,129 @@
 ---
-title: "Konzept F9 - Legal and Privacy"
-description: "Mappm Privacy/Compliance fuer Local/Cloud Vaults, processors, export, cancellation, retention, deletion and sensitive documents"
-tags: [concept, legal, privacy, gdpr, cloud, documents, subscriptions]
-lastUpdated: "2026-07-12"
-version: "4.0"
-status: "accepted-rebaseline"
+title: "Konzept F9 - Legal, Privacy and Regulatory Compliance"
+description: "Datierte Legal-/Privacy-/EU-Regulatory-Gates fuer Local/Cloud Vault, Assist, Verkauf und Betrieb"
+tags: [concept, legal, privacy, gdpr, cloud, ai-act, cra, eidas, subscriptions]
+lastUpdated: "2026-07-15"
+version: "5.0"
+status: "accepted-governance"
+owner: "legal/compliance/product"
 ---
 
-# Konzept F9 - Legal and Privacy
-
-## Status
-
-Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
-
-## 2026 Vault/Cloud Rebaseline
-
-Local and Cloud processing purposes, roles, legal bases, retention and deletion
-must be documented separately. Cloud requires current hosting/residency,
-processor/subprocessor, transfer, incident, account, billing and DSAR review.
-Cancellation, Vault deletion and account deletion are separate. Export and safe
-Cloud-to-Local migration remain available according to accepted policy.
-
-Dieses Konzept ersetzt den importierten F9-Inhalt aus dem alten Projekt.
+# Konzept F9 - Legal, Privacy and Regulatory Compliance
 
 ## Hinweis
 
-Dieses Dokument ist Produkt- und Architekturplanung, keine Rechtsberatung.
-
-## Legacy Detail Baseline (non-normative)
-
-The remaining imported detail is retained only for migration context and useful
-feature-specific examples. It must not authorize Home Hub, Tailscale, customer
-self-hosting, universal local-first authority, old milestone scope or QR server
-pairing. Where it differs, the rebaseline above,
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
-`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
-concept is used for implementation, its affected detail must be rewritten into
-the phase's approved implementation contract.
-
-## Zweck
-
-DocMan verarbeitet sehr sensible private Dokumente. F9 definiert Privacy-Prinzipien, die App, Home Hub, Logs und spätere Intelligence-Flows einhalten müssen.
+Dieses Dokument ist Produkt-/Architektur-Governance und keine Rechtsberatung.
+Vor Verkauf, realer Datenverarbeitung und jedem relevanten Release ist eine
+aktuelle fachkundige Rechts-/Compliance-Pruefung erforderlich.
 
 ## Grundsatz
 
-Private-first vor Funktionsfülle.
+Legal, Privacy und Regulatory Readiness werden ab C0 pro Slice geplant und
+nicht in ein spaetes Hardening verschoben. Local Vault, Cloud Vault, Core
+Assist, Billing, Sharing, Identity und jedes Country/Provider Pack werden
+getrennt auf Anwendbarkeit, Rollen, Zwecke, Datenfluesse und Risiken geprueft.
 
-## Privacy-Regeln
+## Regulatorische Themen
 
-- Keine Drittanbieter-Cloud- oder Cloud-SaaS-Abhängigkeit.
-- Self-hosted cloudartige Betriebsformen bleiben möglich, müssen aber die Security-/Privacy-Baseline einhalten.
-- Keine externen Requests ohne bewusste Entscheidung.
-- Keine Dokumentinhalte in Logs.
-- Keine Secrets in normalem Storage.
-- Export und Löschung müssen langfristig möglich sein.
-- KI/OCR lokal oder self-hosted planen.
-- Nutzerin muss verstehen, wo Daten liegen.
+Die verbindliche, datierte Arbeitsstruktur liegt unter `docs/regulatory/`:
 
-## Datenklassen
+- REG-01 DSGVO/GDPR und nationale Datenschutzanforderungen.
+- REG-02 EU AI Act.
+- REG-03 Cyber Resilience Act.
+- REG-04 eIDAS/EUDI/ID Austria und Identity Trust.
+- REG-05 NIS2-Applicability.
+- REG-06 Data Act, Portabilitaet und Cloud Switching.
+- REG-07 Produkthaftung, Verbraucher-, Vertrags- und Supportthemen.
+- REG-08 Store-/Plattform-Compliance.
 
-| Klasse | Beispiele | Schutz |
-|---|---|---|
-| Hochsensibel | Medizin, Ausweise, Schule, Versicherungen | besondere Vorsicht |
-| Sensibel | Rechnungen, Verträge, Bestellungen | Standard privat |
-| Technisch | IDs, Status, Queue | keine Inhalte |
-| Geheimnisse | Tokens, Pairing Secrets | F12 |
+Das Source Register fuehrt zusaetzlich oesterreichisches DSG/NISG 2026,
+Accessibility, digitale Verbraucherleistungen, Fernabsatz/E-Commerce, DSA und
+den European Health Data Space mit expliziten Applicability-Triggern. Hinzu
+kommen Urheber-/Lizenzrecht, UWG/Marketing Claims, Steuer-/Medizin-
+Haftungsgrenzen, Export/Sharing und laenderspezifische Regeln der aktivierten
+Maerkte.
 
-## Export und Löschung
+## Datierte Quellenregel
 
-DocMan muss langfristig unterstützen:
+Jede rechtliche, regulatorische oder Store-Aussage traegt:
 
-- Export von Dokumenten und Metadaten.
-- Löschung lokaler Daten.
-- Entfernen eines Geräts.
-- Unpair vom Home Hub.
-- später Haushalts-/Profil-Export.
+- `asOf`-/Pruefdatum.
+- Rechtsraum, Produktmodus, Nutzergruppe und betroffenen Flow.
+- Primaerquelle und gegebenenfalls fachkundige Reviewquelle.
+- Applicability: applicable, not applicable, conditional oder open.
+- konkrete Produkt-/Contract-/Data-/Ops-Auswirkung.
+- Owner, naechstes Reviewdatum und Trigger fuer ausserplanmaessige Pruefung.
 
-## Intelligence
+Vor einem neuen Projekt, Markt, Provider, Store, AI-Modell, Billingmodell oder
+Release werden Quellen erneut aktuell geprueft. Historische Checklisten sind
+kein Freigabenachweis.
 
-OCR/LLM-Ergebnisse können besonders sensibel sein, weil sie Inhalte leichter durchsuchbar machen.
+## Datenschutzvertrag
 
-Regeln:
+Pro Verarbeitung werden dokumentiert:
 
-- keine stille externe Verarbeitung.
-- Vorschläge brauchen Review.
-- abgeleitete Texte müssen löschbar sein.
-- Logs enthalten keine OCR-/LLM-Inhalte.
+- Verantwortlicher/Auftragsverarbeiter/Subprozessor und Kontakt.
+- Zweck, Datenklassen, Rechtsgrundlage und Transparenz.
+- Datenminimierung, Privacy by Default und besondere Kategorien.
+- Region, Transfermechanismus und Zugriff.
+- Retention, Loeschung, Backupauswirkung und Audit.
+- Betroffenenrechte: Auskunft, Export, Berichtigung, Einschraenkung,
+  Widerspruch und Loeschung.
+- DPIA-/DSFA-, DPO- und Incident/Breach-Pruefung, falls anwendbar.
 
-## Definition of Done
+Kuendigung, Vault-Loeschung und Account-Loeschung sind getrennt. Export und
+Cloud-to-Local bleiben gemaess akzeptierter Policy erreichbar.
 
-F9 gilt als umgesetzt, wenn:
+## AI/OCR
 
-- Privacy-Regeln in F10/F12/F7/F11 berücksichtigt sind.
-- Dokumentinhalte nicht in Logs oder Telemetrie landen.
-- Export-/Löschbarkeit als Ziel geplant ist.
-- lokale/self-hosted Verarbeitung als Produktprinzip sichtbar bleibt.
+- Core Assist ist eine eigene Verarbeitung mit dokumentiertem Provider,
+  Region, Zweck, Datenumfang, Retention, Loeschung und Human Oversight.
+- Keine stillen externen Requests oder Trainingsverwendung echter Dokumente.
+- Vorschlaege, Confidence, Provenance, Korrektur und Automation werden
+  risikobasiert dokumentiert.
+- Rechtlich/medizinisch/steuerlich verbindliche Claims kommen nicht aus einem
+  LLM ohne freigegebene fachliche Quelle und Governance.
+- Jede Advanced-Assist-Erweiterung startet eine neue AI-/Privacy-
+  Applicability-Pruefung.
 
-## Offene Folgefragen
+## Security, CRA und Betrieb
 
-- Welche Daten werden im M2 verschlüsselt?
-- Welche Exportformate brauchen wir?
-- Wie werden Profile/Haushalte bei Löschung behandelt?
+Anwendbare Secure-by-Design-, Vulnerability-, Update-, SBOM-, Incident-,
+Supportzeitraum- und Reportingpflichten werden in Produkt, CI/CD und Operations
+abgebildet. Marketing, Terms, Privacy Notice, Supportversprechen und tatsaechlich
+gelieferte Updatefaehigkeit muessen uebereinstimmen.
+
+## Country-/Provider-Packs
+
+Jedes aktivierte Pack ist versioniert, datiert, quellenbasiert, fachlich
+reviewt, lokalisierbar, withdrawbar und besitzt einen Update-/Haftungsowner.
+Mappm behauptet keine Frist, Anspruchsberechtigung, Absetzbarkeit oder
+Vollstaendigkeit ausserhalb des freigegebenen Scopes.
+
+## Tests und Evidence
+
+- Data-flow-/RoPA-/DPIA-Inputs pro relevantem Slice.
+- DSAR-, Export-, Correction-, Delete- und Retention-Tests.
+- Consent/Notice/Opt-out-/Withdrawal- und Dark-Pattern-Review.
+- AI Human-Oversight-, Abstention-, Correction- und Audit-Nachweise.
+- SBOM, Vulnerability, Update, Incident und Supportprozess.
+- Store-/Market-/Country-Pack-Check mit Datum und Primaerquellen.
+
+## Stop Rules
+
+Stop, wenn Quellen/Pruefdatum fehlen, Applicability offen ist, echte Daten ohne
+akzeptierte Rolle/Rechtsgrundlage/Retention fliessen, AI Training unklar ist,
+Country Claims ungeprueft sind oder ein Release Datenschutz-/CRA-/Store-/
+Consumer-Gates auf spaeter verschiebt.
+
+## Handoff
+
+Jeder betroffene Implementation Contract nennt Legal-/Privacy-/Regulatory-
+Owner und Evidence. Frontend, Backend, Data, Security und Operations erhalten
+getrennte Issues fuer ihre Konsequenzen.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Bei Widerspruechen gilt
+die strengere Regel und die Phase stoppt.

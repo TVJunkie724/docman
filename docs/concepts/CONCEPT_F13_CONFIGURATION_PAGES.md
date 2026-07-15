@@ -1,105 +1,113 @@
 ---
 title: "Konzept F13 - Configuration Pages"
-description: "Mappm Settings UX fuer Account, Vault storage mode, Assist/plan, local cache, migration, recovery, profiles and diagnostics"
-tags: [concept, configuration, ux, settings, account, vault, assist, cloud, recovery, profiles]
-lastUpdated: "2026-07-12"
-version: "4.0"
-status: "accepted-rebaseline"
+description: "Ruhige Settings-UX fuer Account, Devices, Vault, Assist, Migration, Recovery, Profile und Diagnose"
+tags: [concept, configuration, ux, settings, account, vault, assist, cloud, recovery]
+lastUpdated: "2026-07-15"
+version: "5.0"
+status: "accepted"
+owner: "ui-concept"
 ---
 
 # Konzept F13 - Configuration Pages
 
-## Status
-
-Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
-
-## 2026 Normative Settings Model
-
-Remove customer server URL, Home Hub health and pairing settings. Settings must
-show active Vault, `Auf diesem Gerät` versus `Mappm Cloud`, account/device,
-Free/Paid plan, Core/Advanced Assist quota and processing state, local
-availability/cache, backup/export, migration, offline continuity, Detached
-Recovery and cancellation/grace/deletion surfaces. Provider change launches
-the F36 migration flow; it is never a toggle. Assist enablement/opt-out never
-looks like a storage-provider switch. Local Development Cloud configuration is
-developer tooling and not visible in production settings.
-
-Dieses Konzept ersetzt den importierten F13-Inhalt aus dem alten Projekt.
-
-## Legacy Detail Baseline (non-normative)
-
-The remaining imported detail is retained only for migration context and useful
-feature-specific examples. It must not authorize Home Hub, Tailscale, customer
-self-hosting, universal local-first authority, old milestone scope or QR server
-pairing. Where it differs, the rebaseline above,
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
-`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
-concept is used for implementation, its affected detail must be rewritten into
-the phase's approved implementation contract.
-
 ## Zweck
 
-F13 definiert, welche Konfigurationsflächen DocMan braucht und wie sie sich fachlich verhalten.
+F13 definiert fachliche Settings-Flaechen. Einstellungen sind eine
+Arbeits-/Kontrolloberflaeche, kein Marketingbereich und kein Ort fuer
+Customer-Server-URLs oder Entwicklerkonfiguration.
 
-## Grundsatz
+## Bereiche
 
-Konfiguration ist kein Marketingbereich. Sie muss ruhig, klar und diagnosefähig sein.
-
-## M2-Konfigurationsbereiche
-
-| Bereich | Zweck |
+| Bereich | Nutzerzweck |
 |---|---|
-| Allgemein | Sprache, Theme, lokale Präferenzen |
-| Profile | Personen-/Profilverwaltung und Standardansichten |
-| Haushalt | spätere Haushaltsmitglieder, Kinderprofile, Zugriffsstatus |
-| Home Hub | URL, Health Check, Pairing-Status |
-| Storage | lokale Speicherorte, Cache-Status, Export später |
-| Mobile Capture | verbundenes Gerät, Upload-Status, Queue-Hinweise |
-| Diagnose | App-Version, Logs, Health, Feature Flags |
+| Account und Plan | Account, Session, Free/Paid, Quota, Billing-/Grace-Status |
+| Autorisierte Geraete | aktive Geraete/Sessions ansehen und widerrufen |
+| Vaults und Speicher | Autoritaet, lokale Verfuegbarkeit, Cache, Speicherbedarf |
+| Assist | Verarbeitung, Kontingent, Datenschutzinfo, Opt-out/manueller Fallback |
+| Migration und Recovery | Local-to-Cloud, Cloud-to-Local, Export, Detached Recovery |
+| Backup und Restore | letzter nachgewiesener Status, Fehler, Restore-/Exit-Aktion |
+| Profile und Kontexte | verwaltete Personen/Organisationen und Zugriffe |
+| Notifications | Reminder-Kanaele, Privacy und Plattformberechtigung |
+| Datenschutz und Daten | Export, Loeschung, Retention, Einwilligungen/Notices |
+| Diagnose und Support | Version, sichere Referenzcodes, redigiertes Supportpaket |
+| Allgemein | Sprache, Theme und nicht fachliche Praeferenzen |
 
-## UX-Regeln
+Nur Bereiche, die fuer Modus, Plattform und Entitlement anwendbar sind, werden
+angezeigt. Nicht aktivierte Zukunftsfunktionen erscheinen nicht als leere
+Settings.
 
-- Status zuerst, Details darunter.
-- Keine Secrets anzeigen.
-- Verbindungsprobleme handlungsorientiert erklären.
-- Lokale Nutzung nicht als Fehler darstellen, wenn kein Home Hub verbunden ist.
-- Riskante Aktionen brauchen Bestätigung.
-- Diagnose darf technisch sein, aber nicht panisch.
+## Vault- und Assist-Regeln
 
-## Home-Hub Setup
+- `Auf diesem Geraet` und `Mappm Cloud` zeigen Autoritaet und Konsequenzen
+  eindeutig.
+- Ein Providerwechsel startet F36-Migration mit Preflight, Fortschritt,
+  Verifikation und Recovery; er ist nie ein Toggle.
+- Assist-Opt-out oder Quota aendert weder Vault-Autoritaet noch Backup.
+- Local Vault ohne Cloud-Backup wird nicht als Fehler dargestellt.
+- Cloud Cache, lokales Original und Cloud-Speicherung werden textlich getrennt.
 
-Die Home-Hub-Konfiguration muss zeigen:
+## Account, Kuendigung und Loeschung
 
-- Backend-Adresse.
-- Erreichbarkeit.
-- Capabilities.
-- Pairing-Status.
-- letzte erfolgreiche Verbindung.
-- Upload-Fähigkeit.
+Settings trennen:
 
-Tailscale wird höchstens als Setup-Hinweis erwähnt, nicht als Produktzustand.
+- Logout/Session beenden.
+- Device widerrufen.
+- Plan kuendigen/downgraden/reaktivieren.
+- Vault exportieren oder migrieren.
+- Vault loeschen.
+- Account loeschen.
 
-## Definition of Done
+Jede destruktive Aktion nennt Scope, Folgen, Fristen und verbleibende
+Recovery-/Exportmoeglichkeit. Account-Loeschung darf lokale Daten nicht still
+remote loeschen.
 
-F13 gilt als umgesetzt, wenn:
+## Progressive Disclosure
 
-- Settings-Struktur für M2 klar ist.
-- Home-Hub-Verbindung verständlich konfigurierbar ist.
-- Secrets nicht sichtbar sind.
-- Diagnose Status und nächste Aktion trennt.
-- Profil- und Haushaltsbereiche getrennt geplant sind, damit M2-Profilwahl nicht mit späterer Rechteverwaltung vermischt wird.
+Standardansichten zeigen Status, Handlungsbedarf und naechste Aktion. Technische
+IDs, Contract-Versionen, Queue-Details und Logs liegen nur in einer bewussten
+Diagnoseflaeche. Normale Nutzer sehen keine Backend-, Bucket-, Endpoint- oder
+Providerinternen Begriffe.
 
-## Offene Folgefragen
+## Security und Privacy
 
-- Braucht der M2 einen Setup-Wizard?
-- Wie wird Mobile Pairing dargestellt?
-- Welche Storage-Informationen sind für normale Nutzer sinnvoll?
-- Welche Haushalts-/Kinderprofilverwaltung ist R5-Minimum?
+- Keine Tokens, Keys, Presigned URLs oder Recovery Secrets als Klartext.
+- Sensible Werte benoetigen kontextgerechtes Masking/Reauth.
+- Supportexport zeigt vor Freigabe Umfang und Redaction.
+- Local Development Cloud/Fake/Feature Flags erscheinen nie in Production
+  Settings.
+- Screenshots/Telemetry globaler Settings enthalten keine privaten
+  Vault-/Dokument-/Profilnamen.
+
+## Accessibility und Localization
+
+- Settings sind mit Tastatur, Screenreader und Touch vollstaendig bedienbar.
+- Status und Gefahr werden nicht nur farblich angezeigt.
+- Fokus kehrt nach Dialog/Unterseite sinnvoll zur Ausgangszeile zurueck.
+- Lange deutsche Texte und Textscale `2.0` verdecken keine Folgen/Actions.
+- Bestaetigungen sind konkret und vermeiden Dark Patterns.
+
+## Tests und Verifikation
+
+- Local/Cloud, Free/Paid, online/offline, quota/grace/read-only.
+- Device revoke, reauth, cancellation, reactivation und getrennte Loeschflows.
+- Migration/Export/Recovery bei Fehler, Restart und unzureichendem Speicher.
+- Assist offline/opt-out/failure ohne Vault-Statuswechsel.
+- keine Dev-/Server-URL-/Secret-Flaechen in Production.
+- Keyboard, Semantics, Fokus, Textscale und Datenschutz.
+
+## Stop Rules
+
+Stop, wenn Vaultwechsel als Toggle erscheint, Assist und Backup vermischt sind,
+Loeschscopes unklar sind, technische Infrastruktur die normale UI dominiert
+oder Production Entwickler-/Self-Hosting-Konfiguration exponiert.
+
+## Handoff
+
+Settings-Phasen gehen an `ui-architect`; Lifecycle-/Datenverhalten an
+`data-architect`; Account-/Cloud-Vertraege an `contract-api`.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Bei Widerspruechen gilt
+die strengere Regel und die Phase stoppt.

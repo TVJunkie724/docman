@@ -1,178 +1,109 @@
 ---
 title: "Konzept F12 - Secure Storage"
-description: "Mappm Secure Storage fuer Local/Cloud keys, account/device sessions, migration checkpoints and trust boundaries"
+description: "Secure-Storage-Grenze fuer Vault Keys, Account-/Device-Sessions, Assist, Migration und Recovery"
 tags: [concept, foundation, secure-storage, security, sessions, cloud, keys]
-lastUpdated: "2026-07-12"
-version: "4.0"
-status: "accepted-rebaseline"
+lastUpdated: "2026-07-15"
+version: "5.0"
+status: "accepted-trust-details-open"
+owner: "security/data-architect"
 ---
 
 # Konzept F12 - Secure Storage
 
 ## Status
 
-Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
-
-## 2026 Normative Secret Boundary
-
-Customer Home-Hub pairing secrets are superseded. Secure Storage may contain
-Local Vault key material, Cloud access/refresh tokens, device credentials,
-wrapped key references, recovery state and sensitive migration credentials.
-Normal Drift/cache stores contain no usable secrets. Managed Trust versus
-Zero-Knowledge/E2EE remains VC-02; no implementation may invent key ownership,
-recovery or server-decryption behavior before approval.
-
-Dieses Konzept ersetzt den importierten F12-Inhalt aus dem alten Projekt.
-
-## Legacy Detail Baseline (non-normative)
-
-The remaining imported detail is retained only for migration context and useful
-feature-specific examples. It must not authorize Home Hub, Tailscale, customer
-self-hosting, universal local-first authority, old milestone scope or QR server
-pairing. Where it differs, the rebaseline above,
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
-`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
-concept is used for implementation, its affected detail must be rewritten into
-the phase's approved implementation contract.
-
-Normative rebaseline: every normal Local and Cloud mode stores account/device
-session and entitlement material in Secure Storage. Local content keys remain
-device/recovery scoped so Detached Recovery cannot depend solely on a live
-account token. Assist upload/job credentials are separate from Vault keys and
-must not imply Cloud document authority.
+Die Speichergrenze ist akzeptiert. Konkretes Key Ownership, Recovery,
+Server-Decryption und Managed-Trust-versus-E2EE/Zero-Knowledge bleiben durch
+VC-02/SEC-Gates offen. Keine Implementierung darf diese Details erfinden.
 
 ## Zweck
 
-F12 definiert, welche sicherheitskritischen Daten DocMan lokal geschützt speichern muss.
-
-F10 speichert normale lokale App-Daten und Dateien. F12 speichert Geheimnisse.
-
-## Secure-Storage-Daten
-
-| Datum | Zweck | M2 |
-|---|---|---|
-| Device ID Secret | Gerät stabil identifizieren, ohne es als Klartext-Geheimnis zu behandeln | Ja |
-| Pairing Secret | Mobile/Desktop mit Home Hub koppeln | Ja |
-| Session Token | authentifizierte Home-Hub-Kommunikation | Falls Login/Pairing umgesetzt |
-| Refresh Token | spätere längere Sessions | Später |
-| Local Encryption Key | spätere lokale Verschlüsselung sensibler Daten | Prüfen |
-| Sync Device Key | spätere Sync-/Signatur-/E2E-Modelle | Später |
-
-Nicht in Secure Storage:
-
-- Cases.
-- Documents.
-- Drafts.
-- Upload Queue Metadaten.
-- nicht geheime Settings.
-- Dateiinhalte, solange keine Verschlüsselungsentscheidung getroffen ist.
-
-## Grundsatz
-
-Secrets dürfen nicht in:
-
-- normaler lokaler DB.
-- Shared Preferences.
-- Logs.
-- Crash Reports.
-- URL Query Parametern.
-- UI-State.
-
-App-Code greift nicht direkt auf OS-Keychain/KeyStore zu. Zugriff läuft über ein SecureStorageRepository.
-
-## Plattformziel
-
-DocMan ist Desktop + Mobile.
-
-Secure Storage muss diese Plattformen unterstützen:
-
-- macOS.
-- Windows.
-- Linux Desktop.
-- iOS.
-- Android.
-
-Web ist aktuell kein Ziel.
-
-## Repository-Grenze
+F12 trennt Secrets und Schluesselmaterial von Drift, File Store, UI-State,
+Logs und normaler Konfiguration. App-Code greift ueber einen Port auf
+plattformspezifische Keychain/Keystore/Credential Stores zu.
 
 ```text
-Feature Provider / Application
-  -> SecureStorageRepository Contract
-      -> Secure Storage Implementation
-          -> OS Keychain / Credential Store / KeyStore
+Application/Data Adapter
+  -> SecureStoragePort
+      -> Platform Secure Storage
+      -> In-memory Fake fuer Tests
 ```
 
-Regeln:
+## Zulaessige Daten
 
-- F12 definiert Speicherung, nicht den kompletten Auth-Flow.
-- Pairing/Auth-Provider aus F2 nutzen F12.
-- F11 API-Clients erhalten Tokens nur über sichere Infrastruktur.
-- Tests verwenden In-Memory-Fakes.
+- Account Access-/Refresh-/Offline-Session-Material.
+- widerrufbare Device-Credentials/Trust-Referenzen.
+- Local-Vault-Keymaterial oder wrapped Key References gemaess akzeptiertem
+  Kryptomodell.
+- Cloud-/Assist-Job-Credentials und kurzlebige Uploadtickets, falls lokal
+  persistiert werden muessen.
+- Recovery-/Migration-Credentials und sichere Checkpoint-Referenzen.
 
-## Pairing
+Nicht in Secure Storage gehoeren Domain Entities, Dokumente, OCR-Texte,
+Upload-Queue-Metadaten, normale Settings oder grosse Payloads.
 
-Mobile Capture nutzt im M2 Pairing statt Login. Der lokale Desktop-M2 erzwingt kein klassisches Login.
+## Regeln
 
-Pairing muss:
+- Keine Secrets in SQLite, Shared Preferences, Env-Dateien, Dart Defines,
+  URLs, Logs, Crash Reports oder Provider-State.
+- Secure-Storage-Eintraege sind nach Instanz, Environment, Account, Device und
+  Vault gescoped, soweit fachlich notwendig.
+- Assist-Credentials sind von Vault-Keys getrennt und begruenden keine
+  Cloud-Autoritaet.
+- Local Content Keys bleiben so recovery-faehig, dass Detached Recovery nicht
+  nur von einem aktiven Accounttoken abhaengt.
+- Logout, Device-Revoke, Account Delete und Vault Delete besitzen getrennte
+  Secret-Cleanup-Regeln und loeschen keine Dokumente als Nebenwirkung.
+- Es gibt keinen stillen unsicheren Persistenz-Fallback. Development darf einen
+  klar markierten In-memory Fake verwenden.
 
-- ein Gerät eindeutig freigeben.
-- widerrufbar sein.
-- ohne Cloud-SaaS funktionieren.
-- Home-Hub-Adresse und geheime Kopplung trennen.
+## Plattform
 
-F10 darf die nicht geheime Home-Hub-Adresse speichern. F12 speichert das Pairing Secret.
-
-## Session-Verhalten
-
-M2 darf einfach starten:
-
-- gekoppelte Geräte speichern Secret.
-- Home Hub akzeptiert Capture Uploads nur von freigegebenen Geräten.
-- ungültiges Secret erzeugt AuthFailure nach F5.
-
-Später kann daraus ein vollständiger Session-/Refresh-Flow werden.
-
-## Linux-Fallback
-
-Linux Secure Storage kann je nach Desktop-Umgebung schwieriger sein.
-
-Regel:
-
-- Produktpfad soll sichere Speicherung erwarten.
-- Development darf In-Memory-Fallback haben, wenn klar sichtbar.
-- Stiller unsicherer Persistenz-Fallback ist nicht erlaubt.
+Aktivierte Plattformen muessen vor Release ihre Secure-Storage-
+Implementierung, Lock-/Biometrie-/Backup-Eigenschaften und Fehlerfaelle
+nachweisen. Windows/Linux werden erst aktiviert, wenn ein sicherer Adapter und
+Recovery-Verhalten freigegeben sind. Web ist nicht automatisch eingeschlossen.
 
 ## Verlust und Recovery
 
-Wenn Secure Storage verloren geht:
+Bei verlorenen/ungueltigen Secrets bleiben Originaldaten unangetastet.
+Account-/Device-Credentials koennen Reauth verlangen. Ein Local-Vault-Keyverlust
+darf nicht durch stilles Neuanlegen kaschiert werden; die App zeigt einen
+Integrity-/Recovery-State. Pending Uploads bleiben erhalten, soweit ihr lokales
+Original zugaenglich ist.
 
-- lokale App-Daten bleiben erhalten.
-- Home-Hub-Verbindung muss neu gekoppelt werden.
-- Upload Queue darf nicht gelöscht werden.
-- nicht hochgeladene Dateien bleiben lokal sichtbar.
+## Security und Privacy
 
-## Definition of Done für F12
+- Secrets werden im Speicher nur so lange wie noetig gehalten und nicht in
+  Debug UI/DevTools exponiert.
+- Reveal/Export von Recoverymaterial ist eine eigene reauthentifizierte Aktion.
+- Key Rotation, Backup, Recovery und Loeschung brauchen atomare, auditable
+  Transitionen.
+- Keine echten Secrets in Fixtures, Screenshots oder Contract Examples.
 
-F12 gilt als umgesetzt, wenn:
+## Tests und Verifikation
 
-- Secrets nicht in F10 landen.
-- SecureStorageRepository existiert.
-- Pairing-/Session-Secrets geschützt gespeichert werden.
-- Tests ohne OS-Keychain laufen können.
-- Fehler in Secure Storage als F5-Failures sichtbar werden.
-- Logout/Unpair Secrets löscht, ohne lokale Dokumente zu zerstören.
+- Port-/Adaptertests pro aktivierter Plattform.
+- Missing/locked/corrupt/revoked/rotated Credential.
+- Logout/Reauth/Device-Revoke ohne Datenverlust.
+- Detached-Recovery- und Local-Key-Verlustpfad.
+- Environment-/Account-/Vault-Isolation.
+- Negative Scans fuer Secret-Leaks in DB, Config, Logs und State.
+- Production-Fail-closed bei fehlendem sicherem Adapter.
 
-## Offene Folgefragen
+## Stop Rules
 
-- Welches Flutter-Package wird konkret genutzt?
-- Welche Secrets müssen zwischen Desktop und Mobile getrennt sein?
-- Wird lokale Datei-/DB-Verschlüsselung im M2 geprüft oder verschoben?
+Stop, wenn Key Ownership/Recovery offen ist, ein unsicherer Fallback persistiert,
+Secrets in normalen Stores/Logs landen, Logout Daten loescht oder Local
+Recovery ein Live-Service-Token zwingend benoetigt.
+
+## Handoff
+
+Kryptographie/Trust an Security Owner, Persistenzadapter an `data-architect`,
+Umsetzung an `foundation-builder`, Nachweise an `quality-readiness`.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Bei Widerspruechen gilt
+die strengere Regel und die Phase stoppt.

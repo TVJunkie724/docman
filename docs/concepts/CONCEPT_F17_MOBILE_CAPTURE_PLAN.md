@@ -1,175 +1,214 @@
 ---
 title: "Konzept F17 - Mobile Capture Client Standards"
-description: "Querschnittliche Frontend-/Client-Regeln fuer Mobile-Capture-Qualitaet, Queue-Zustaende, Upload-Feedback und sichere M2-Grenzen"
-tags: [concept, mobile, capture, commercial-core, upload-queue, cloud, draft-inbox]
-lastUpdated: "2026-07-12"
-version: "2.0"
-status: "accepted-rebaseline"
+description: "Querschnittliche Regeln fuer globales Mobile Capture, Scannerqualitaet, Offline-Queue, asynchrone Verarbeitung und minimale Vorabinteraktion"
+tags: [concept, mobile, capture, commercial-core, offline, processing, intelligence, accessibility]
+lastUpdated: "2026-07-15"
+version: "4.0"
+status: "accepted"
+owner: "ui-concept"
 ---
 
 # Konzept F17 - Mobile Capture Client Standards
 
-## Status
+## Status und Quellen
 
-Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
+Akzeptiert. F17 definiert das mobile Clientverhalten, nicht konkrete Screens,
+Widgets oder Provider. Produkt- und Domainquellen sind:
 
-## 2026 Normative Cloud Capture Model
+- `docs/pillars/PILLAR_CAPTURE_INBOX.md`;
+- `docs/technical/DECISION_DOCUMENT_CAPTURE.md`;
+- `docs/technical/DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md`;
+- `docs/technical/DECISION_MOBILE_CAPTURE_CONTEXT_SELECTION.md`;
+- `docs/technical/DECISION_MOBILE_OFFLINE_CAPTURE.md`.
 
-This section supersedes Home-Hub upload/pairing statements later in this file.
-Mobile Capture always stores an in-progress scan durably on the device. In a
-Cloud Vault it uploads through the approved Mappm Cloud capture contract and
-becomes complete only after Cloud confirmation. Offline capture remains queued.
-A Local mobile Vault remains single-device and does not transfer to a Local
-desktop Vault. Mobile-to-desktop continuity is a Cloud capability.
+## Produktprinzip
 
-## Legacy Detail Baseline (non-normative)
-
-The remaining imported detail is retained only for migration context and useful
-feature-specific examples. It must not authorize Home Hub, Tailscale, customer
-self-hosting, universal local-first authority, old milestone scope or QR server
-pairing. Where it differs, the rebaseline above,
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
-`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
-concept is used for implementation, its affected detail must be rewritten into
-the phase's approved implementation contract.
-
-## Zweck
-
-F17 ist kein Produkt-Säulen-Dokument. Der fachliche Capture-/Inbox-Scope liegt in `docs/pillars/PILLAR_CAPTURE_INBOX.md`.
-
-F17 definiert die querschnittlichen Frontend-/Client-Regeln fuer Mobile Capture: Scan-Qualitaet, lokale Queue-Zustaende, Upload-Feedback, Fehlergrenzen und die Abgrenzung zur vollständigen mobilen Verwaltung.
-
-## Grundsatz
-
-Mobile ist im M2 ein schneller Eingang, nicht die vollständige DocMan-Verwaltung.
-
-R7-D2 ergaenzt: Capture darf nie am Netzwerk scheitern. Mobile muss offline
-scannen, lokal speichern und spaeter an den Home Hub hochladen koennen.
-
-Mobile Capture soll sich wie ein hochwertiger Dokumentenscanner anfuehlen, nicht wie ein normaler Foto-Upload. Das Zielbild ist die Scan-Qualitaet moderner Mobile-Scanner wie Google Drive Document Scan: Dokument automatisch erkennen, automatisch erfassen, zuschneiden, perspektivisch korrigieren und als saubere Dokumentansicht mit hellem/weissem Hintergrund und gut lesbarem dunklem Text ausgeben.
-
-Das ist eine Produktqualitaetsanforderung. Sie bedeutet nicht, dass DocMan Google Drive integriert oder Cloud-Dienste nutzt.
-
-## Scan-Qualitaetsziel
-
-Der M2-Scanner soll mindestens vorbereiten:
-
-- automatische Dokumenterkennung und Auto-Capture.
-- Rand-/Eckenerkennung mit manueller Korrektur.
-- Perspektivkorrektur.
-- automatische Rotation.
-- Scan-Optimierung fuer Dokumente, insbesondere heller Hintergrund und dunkler, gut lesbarer Text.
-- Mehrseiten-Scan als PDF-Zielbild.
-- optionaler Export einzelner Seiten als Bild, falls fuer Upload/Preview noetig.
-
-Technische Zielrichtung:
-
-- Android: bevorzugt Google ML Kit Document Scanner API, weil sie dem Google-Drive-Scan-Erlebnis am naechsten liegt.
-- iOS: native VisionKit Document Camera als funktionales Pendant pruefen.
-- Flutter soll diese nativen Scanner kapseln, aber nicht selbst mit einfachem Kamera-Foto plus eigener Bildbearbeitung starten.
-
-Diese Richtung ist in `docs/technical/DECISION_MOBILE_SCANNER_TECHNOLOGY.md`
-vorlaeufig akzeptiert. Die konkrete Flutter-Bridge wird erst nach einem
-Qualitaets-Spike final gewaehlt.
-
-Wenn eine Plattform die gewuenschte Qualitaet nicht liefern kann, darf der M2 nicht still auf normalen Foto-Upload zurueckfallen. Dann braucht es einen sichtbaren Fallback mit Hinweis, dass der Scan nur Fotoqualitaet hat.
-
-## M2-Flow
+Mobile ist der schnellste Alltagseingang fuer willkuerlich ankommende
+Haushaltsdokumente. Der Nutzer muss vor dem Scan weder Profil, Case, Record,
+Dokumenttyp, Rolle noch Workflow kennen.
 
 ```text
-Mobile
-  -> Foto/Scan aufnehmen
-  -> lokal speichern
-  -> optional Profilkontext setzen, wenn verfügbar
-  -> optional Vorgang aus gecachter Liste wählen
-  -> Upload an Home Hub
-  -> Draft-Inbox als sichere Ablage
-
-Desktop
-  -> Draft prüfen
-  -> Metadaten ergänzen
-  -> Vorgang zuordnen oder korrigieren
+global erfassen
+  -> ein Dokument mit einer oder mehreren Seiten scannen/importieren
+  -> Original dauerhaft sichern
+  -> App darf verlassen werden
+  -> OCR, Extraktion, Indexierung und Matching
+  -> AI-Matching kompakt pruefen
+  -> bestaetigen oder schnell korrigieren
 ```
 
-## In Scope
+Automatische Analyse und Matching laufen immer. Sie sind kein Modus-Schalter.
+`Neuen Vorgang starten` ist die einzige primaere optionale Vorab-Absicht. Eine
+bestehende Case-Auswahl ist hoechstens ein sekundaerer Shortcut. Capture aus
+einem bereits geoeffneten Case bleibt als bewusster seltener Pfad moeglich.
 
-- Dokumentenscan in Scanner-Qualitaet aufnehmen.
-- lokale Upload Queue.
-- Queue über App-Neustart erhalten.
-- Home-Hub-Upload.
-- Retry bei Verbindungsfehlern.
-- optionale Vorgangszuordnung über einfache gecachte Liste.
-- Profilkontext fuer Haushalts-/Kinderzuordnung vorbereiten.
-- Notiz oder kurzer Kontext beim Upload.
-- Status: wartet, lädt hoch, fehlgeschlagen, hochgeladen, Review nötig.
+## Scannerqualitaet
 
-## Out of Scope
+Der Releasepfad bietet Dokument- statt normaler Kameraqualitaet:
 
-- vollständige mobile Vorgangsverwaltung.
-- vollständiger Multi-Geräte-Sync.
-- OCR/LLM-Verarbeitung.
-- komplexe mobile Suche.
-- vollständige Rechte-/Familienverwaltung.
+- Seiten-/Dokumenterkennung und verlaessliches Auto-Capture, wo unterstuetzt.
+- Kanten- und Perspektivkorrektur mit manueller Korrektur.
+- Rotation und lesbare Dokumentoptimierung.
+- mehrere Seiten je Dokument.
+- Preview, Wiederholen, Entfernen und Umordnen.
+- fruehe Hinweise bei Unschaerfe, Reflexion, abgeschnittenen Seiten und
+  wahrscheinlichen Duplikaten.
+- sichtbarer Fallback, falls native Scannerfaehigkeit fehlt.
 
-## Vorgangszuordnung
+Die konkrete Scannertechnologie benoetigt den freigegebenen Qualitaets-Spike.
+Ein schwacher Fallback darf keine gleichwertige Qualitaet behaupten.
 
-Direkte Zuordnung ist Komfortpfad. Die verbindliche M2-Erfassungsentscheidung steht in `docs/technical/DECISION_DOCUMENT_CAPTURE.md`. Die optionale Mobile-Kontextauswahl steht in `docs/technical/DECISION_MOBILE_CAPTURE_CONTEXT_SELECTION.md`.
+## Dokumentgrenzen und Sessions
 
-Regeln:
+- Eine abgeschlossene Scan-Einheit ist genau ein logisches Dokument.
+- Dieses Dokument darf mehrere Seiten besitzen.
+- Danach kann der Nutzer ein naechstes Dokument in derselben technischen
+  Session erfassen.
+- Mehrere Dateien/Scans werden pro Dokument verarbeitet und duerfen zu
+  verschiedenen Cases/Records gehoeren.
+- Compound Imports koennen nach Review gesplittet oder zusammengefuehrt werden.
 
-- Draft-Inbox bleibt Fallback.
-- Profil, Vorgang und Notiz sind optionale Kontextfelder.
-- Mobile darf nur offene/aktive Vorgänge aus einer einfachen Liste zeigen.
-- Mobile darf nur Vorgänge anzeigen, die zum aktiven Profil oder zur erlaubten Haushaltsansicht passen.
-- Wenn Liste fehlt, kann trotzdem gescannt werden.
-- Wenn `caseId` ungültig wird, landet Upload in Review.
+Die Dokumentgrenze ist beim Kamera-Scan explizit. Mappm darf auf eine
+wahrscheinlich fremde Seite hinweisen und eine Korrektur anbieten, soll aber
+nicht das absichtliche Vermischen eines Papierstapels zum Normalfall machen.
 
-## Home-Hub-Abhängigkeit
+Die Session ist weder Dokument noch Case. Pro Dokument werden Original,
+Seitenreihenfolge, Fortschritt, Ergebnis, Fehler und Retry separat erhalten.
+Ein Teilfehler verliert keine erfolgreichen Dokumente. Retry erzeugt keine
+Duplikate.
 
-Mobile Capture braucht für geräteübergreifenden Nutzen einen minimalen Home-Hub-Eingangskorb.
+## New-Case-Intent
 
-Kein vollständiger Sync nötig.
+`Neuen Vorgang starten`:
 
-Home Hub ist aber keine Voraussetzung fuer das Scannen. Wenn Home Hub oder
-Netzwerk nicht erreichbar sind, bleibt Capture moeglich und die Upload Queue
-wartet lokal.
+- speichert die bewusste Absicht durable.
+- oeffnet vor dem Scan kein leeres Titel-/Metadatenformular.
+- deaktiviert weder Duplicate-, Record- noch bestehendes Case-Matching.
+- zwingt weitere Dokumente derselben Session nicht in diesen Case.
+- verlangt von Backend/Core Assist einen editierbaren Case-Titel sowie
+  Vorschlaege fuer Managed Subject, Workflow und relevante Aktionen.
 
-## Definition of Done
+Bei verzoegerter Verarbeitung darf intern ein Placeholder existieren. Der
+Nutzer muss ihn vor der Analyse nicht benennen.
 
-F17 gilt als umgesetzt, wenn:
+## Offline- und Vault-Verhalten
 
-- Mobile offline in Dokumentenscanner-Qualitaet scannen kann.
-- Upload Queue sicher persistiert.
-- Home-Hub-Upload möglich ist.
-- Home-Hub-Ausfall Capture nicht blockiert.
-- Desktop mobile Uploads in Draft-Inbox sieht.
-- optionale Vorgangszuordnung nicht zum Sync-Monster wird.
+Capture bleibt bei fehlendem Netzwerk oder Assist moeglich. Persistiert werden:
 
-## Offene Folgefragen
+- Originalseiten/-artefakte und Dokumentgrenzen.
+- Capture-/New-Case-Intent.
+- Queue-, Checkpoint-, Retry- und letzter vertrauenswuerdiger Status.
+- User-Loesch-/Abbruchabsicht gemaess Lifecycle-Policy.
 
-- Bild, PDF oder beides im M2?
-- Wie funktioniert Pairing praktisch?
-- Welche Flutter-/Native-Bridge kapselt Google ML Kit Document Scanner und VisionKit sauber? Vorentscheidung: native Plattform-Scanner, finale Bridge nach Spike.
-- Ob Mobile im M2 nur zuletzt verwendete Vorgänge oder eine einfache Vorgangsliste zeigt.
+Ein Local Vault bleibt lokal autoritativ. Cloud-Vault-Arbeit bleibt pending,
+bis Mappm Cloud sie bestaetigt. Core Assist ist von Vault-Autoritaet getrennt
+und aktiviert fuer Local Vault weder Backup noch dauerhafte Cloud-Speicherung.
 
-## Upload-Limits und Retry
+## Asynchrone Verarbeitung
 
-R4-D14 ist entschieden in
-`docs/technical/DECISION_UPLOAD_LIMITS_RETRY_RESUME_CLEANUP.md`.
+OCR, Extraktion, Indexierung und Matching koennen Sekunden bis Minuten dauern.
+Der Client:
 
-Für den M2 gilt:
+- bestaetigt die dauerhafte Annahme schnell.
+- erlaubt Navigation und App-Schliessen.
+- stellt Status nach Neustart wieder her.
+- benoetigt keinen blockierenden Fullscreen-Spinner.
+- unterscheidet Verbindung, Transfer, Verarbeitung, Review und Fehler.
+- bietet Retry, Rescan oder manuellen Fallback ohne Verlust des Originals.
 
-- Uploads werden als ganze Uploads wiederholt, nicht resumable/chunked.
-- Startlimit: 25 Seiten und 50 MB pro Upload-Paket.
-- Soft-Warnung ab 15 Seiten oder 30 MB.
-- SHA-256 prueft die Integritaet vor dem finalen Confirm.
-- Idempotency verhindert doppelte Draft-Inbox-Eintraege.
-- erfolgreiche Rohartefakte duerfen lokal nach 7 Tagen aufgeraeumt werden.
+Ein bis zwei Minuten muessen in der UX selbstverstaendlich funktionieren;
+konkrete SLOs folgen produktionsnahen Benchmarks.
+
+## Assist-Ausgabe und Review
+
+Backend/Core Assist liefert pro Dokument:
+
+- Dokumenttitel und bei neuem Case einen Case-Titel.
+- Grundart, semantische Variante und relevante Fakten.
+- Managed Subject und External Party.
+- primaeren und weitere Case-/Record-/Claim-Kandidaten.
+- Workflow-, Rollen-, Aufgaben- und Fristvorschlaege.
+- Qualitaets-, Grenz- und Outlier-Hinweise.
+- Confidence und Provenance in einer fuer Korrektur nutzbaren Form.
+
+Aktuell bestaetigt der Nutzer Case-/Record-Zuordnung und andere sichtbare
+materielle Folgen. Die Standardreview zeigt nur entscheidungsrelevante Punkte;
+implizite unveraenderte Fakten bleiben im Detail. Bei geringer Confidence
+werden weiterhin die besten Ergebnisse gezeigt; bei sehr geringer Evidenz steht
+der neue leichte Custom Case zuerst und eine manuelle Case-Auswahl bleibt
+erreichbar.
+
+Eine spaetere Automation wird nur pro nachweislich reifer Klasse freigegeben,
+bleibt nachvollziehbar und reversibel. Exakte Geste und Komposition bleiben der
+UI-Konzeption vorbehalten; jede Geste braucht eine sichtbare und zugaengliche
+Alternative.
+
+## Zustands- und Fehlerabdeckung
+
+Mindestens erforderlich sind:
+
+```text
+lokal erfasst
+wartet auf Verbindung
+wird uebertragen
+wird verarbeitet
+Vorschlag bereit
+Pruefung erforderlich
+Qualitaets-/Grenzpruefung
+wiederholbarer Fehler
+manueller Fallback erforderlich
+bestaetigt
+```
+
+Fehler umfassen lokalen Speicher, Berechtigung, Scanner-Fallback, ungueltige
+Seite/Datei, Session/Auth, Quota, Upload-Ablauf, Checksum, Provider-Timeout,
+Teilfehler, stale Proposal und ungueltigen Intent.
+
+## Privacy, Accessibility und Localization
+
+- Keine Dokumenttexte, sensiblen Titel, OCR-/Modellinhalte, Tokens oder
+  Kandidatenlabels in Logs/Telemetry.
+- Notifications bleiben generisch, sofern keine ausdrueckliche Freigabe gilt.
+- Status, Confidence und Fehler werden nicht nur farblich kommuniziert.
+- Semantics unterscheiden Seite, Dokument, Session und Processing Job.
+- Lange lokalisierte Titel und Textscale verdecken keine Capture-/Review-Aktion.
+- Reduced Motion besitzt statische gleichwertige Rueckmeldung.
+- Fokus kehrt nach Korrektur zum betroffenen Dokument zurueck.
+
+## Tests und Verifikation
+
+- Scannererfolg, Fallback und Permission Denial.
+- schlechter Scan, Korrektur und Rescan.
+- Mehrseitenreihenfolge und expliziter Dokumentabschluss.
+- mehrere zusammenhaengende und nicht zusammenhaengende Dokumente.
+- Outlier, Split/Merge, Teilfehler und Idempotenz.
+- New-Case-Intent mit automatischem Titelvorschlag und weiterem Matching.
+- App-Neustart, Offline und Retry in jeder Stufe.
+- niedrige Confidence, manuelle Auswahl und schnelle Korrektur.
+- aktuelle Bestaetigung versus spaetere Automation mit Provenance.
+- Semantics, Textscale und privacy-sichere Notifications.
+
+## Stop Rules
+
+Stop, wenn:
+
+- globaler Scan vorab Kontext-/Metadatenfelder verlangt.
+- Matching als normale Option deaktivierbar ist.
+- Voraboptionen ueber den minimalen akzeptierten Intent hinausgehen.
+- New-Case-Intent manuelle Titeleingabe verlangt.
+- Verarbeitung die geoeffnete App voraussetzt.
+- eine Session als ein Dokument oder Case behandelt wird.
+- Outlier still zugeordnet werden.
+- Offline/Restart Original, Intent oder bestaetigte Werte verliert.
+- konkrete Layouts/Gesten ohne UI-Phase festgelegt werden.
+
+## Handoff
+
+Mobile UI geht an `ui-architect`; Jobs/Vertraege an `contract-api`;
+Persistenz/Queue an `data-architect`; Nachweise an `quality-readiness`.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Bei Widerspruechen gilt
+die strengere Regel und die betroffene Phase stoppt.

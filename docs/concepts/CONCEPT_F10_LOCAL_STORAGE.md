@@ -1,426 +1,215 @@
 ---
 title: "Konzept F10 - Client Storage, Vault Authority and Cache"
-description: "Mappm-Client-Storage fuer Local authority, Cloud cache, pending operations, Draft Inbox and provider migration"
-tags: [concept, foundation, local-storage, vault, cloud-cache, persistence, migration]
-lastUpdated: "2026-07-12"
-version: "4.0"
-status: "accepted-rebaseline"
+description: "Verbindliches Client-Storage-Modell fuer Local Vault, Cloud Cache, Pending Operations, Capture und Provider-Migration"
+tags: [concept, foundation, local-storage, vault, cloud-cache, persistence, migration, drift]
+lastUpdated: "2026-07-15"
+version: "5.0"
+status: "accepted"
+owner: "data-architect"
 ---
 
 # Konzept F10 - Client Storage, Vault Authority and Cache
 
-## Status
+## Status und Source of Truth
 
-Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
-
-## 2026 Normative Vault Storage Model
-
-This section supersedes conflicting local-first/Home-Hub statements later in
-this file.
-
-| Concern | Local Vault | Cloud Vault |
-|---|---|---|
-| authority | local metadata/file stores | Mappm Cloud |
-| client structured store | complete working data | policy-limited cache/index/pending state |
-| client files | complete authoritative payloads | selected cache plus pending uploads/downloads |
-| offline writes | authoritative | durable pending operations until Cloud confirms |
-| backup/exit | encrypted export/restore | managed restore plus export and verified Local migration |
-
-Drift remains the target client structured store; files remain behind a file
-store; secrets remain in Secure Storage. Provider migration uses durable
-inventory/checkpoint/checksum reconciliation and never deletes source data
-before verified target activation. Cache cleanup is not Vault deletion.
-
-Dieses Konzept ersetzt den importierten F10-Inhalt aus dem alten Projekt. Der alte Inhalt ist nicht mehr Source of Truth für DocMan.
-
-## Legacy Detail Baseline (non-normative)
-
-The remaining imported detail is retained only for migration context and useful
-feature-specific examples. It must not authorize Home Hub, Tailscale, customer
-self-hosting, universal local-first authority, old milestone scope or QR server
-pairing. Where it differs, the rebaseline above,
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
-`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
-concept is used for implementation, its affected detail must be rewritten into
-the phase's approved implementation contract.
+Akzeptiert. F10 konkretisiert
+`docs/technical/DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md` und
+`docs/technical/DECISION_LOCAL_DATABASE.md` fuer die Flutter-App. Es ersetzt
+fruehere universelle Local-first-, Home-Hub-, MinIO- und Self-Hosting-Annahmen.
 
 ## Zweck
 
-F10 definiert, welche lokalen Daten DocMan speichern muss, welche Verantwortungen die lokale Persistenz hat und welche Grenzen sie einhalten muss.
+F10 definiert, welche Daten der Client speichert, wann sie autoritativ oder nur
+lokal verfuegbar sind und wie Dateien, strukturierte Daten, Secrets, Caches und
+ausstehende Operationen getrennt werden.
 
-DocMan ist local-first. Lokale Persistenz ist deshalb nicht nur ein Cache für UI-Zustände, sondern das Arbeitsfundament der App.
+## Normatives Vault-Modell
 
-## Verbindliche Entscheidungen
-
-Dieses Konzept baut auf diesen Entscheidungen auf:
-
-- Produktmodell: `Case` / Vorgang, `Event` / Ereignis.
-- State Management und DI: Riverpod.
-- Datenfluss: local-first mit generischem self-hosted Sync Backend.
-- Backend-Rolle: eigener self-hosted Docker-/Compose-Stack als Draft-Zielbild; PocketBase nicht Zielarchitektur.
-- Lokale Datenbank: SQLite + Drift.
-- Dateiablage: austauschbarer Storage-Port; App-local File Store zuerst, MinIO/S3-kompatibler Storage fuer Home Hub vorbereitet.
-- M2: Desktop-Verwaltung plus Mobile Capture mit minimalem Home-Hub-Eingangskorb.
-- Mobile im M2: capture-only, lokale Upload-Queue, optionale Vorgangszuordnung.
-
-## Grundsatz
-
-Die lokale Datenbank ist die primäre Arbeitsbasis der App.
-
-Das bedeutet:
-
-- Core-Workflows funktionieren ohne Netzwerk.
-- Vorgänge, Dokument-Metadaten, Drafts und lokale Status werden lokal gespeichert.
-- Mobile Capture darf Dokumente offline erfassen und später hochladen.
-- Sync ist eine spätere Replikations- und Backup-Funktion, nicht Voraussetzung für Nutzung.
-- Lokale Daten müssen strukturiert genug sein, um später sauber synchronisiert werden zu können.
-
-## Datenkategorien
-
-DocMan unterscheidet lokale Daten nach Zweck, Lebensdauer und Schutzbedarf.
-
-| Kategorie | Zweck | Beispiele | M2 |
-|---|---|---|---|
-| Domain-Daten | Fachliche Arbeitsdaten | Cases, Documents, Profiles, Tasks, Events | Ja |
-| Draft-Daten | Ungeprüfte Eingänge | Desktop-Drafts, mobile Uploads, Import-Zwischenstände | Ja |
-| Queue-Daten | Noch nicht synchronisierte Arbeit | Mobile Upload Queue, Retry-Status, lokale Fehler | Ja |
-| Datei-Referenzen | Verbindung zwischen Metadaten und Dateien | lokaler Pfad, Hash, MIME-Type, Größe | Ja |
-| Datei-Cache | lokale Kopien oder Originale | gescannte Bilder, PDFs, Vorschaudateien | Ja |
-| UI-State | App-Komfort | aktive Filter, zuletzt gewähltes Profil, Fensterzustand | Teilweise |
-| Settings | App-Konfiguration | Home-Hub-Adresse, lokale Präferenzen | Ja |
-| Secure Secrets | Sicherheitskritische Geheimnisse | Pairing Secret, Session Token, lokale Schlüssel | Über F12 |
-| Sync-Metadaten | Replikation vorbereiten | entityId, version, updatedAt, tombstone, dirty flag | Vorbereiten |
-| Intelligence-Ergebnisse | spätere Vorschläge | OCR-Text, Klassifikation, Feldvorschläge | Späterer Milestone |
-
-## M2-Speicheranforderungen
-
-Der M2 braucht lokale Persistenz für:
-
-- einen Haushalt
-- betroffene Person / Haushaltsprofil als Pflichtzuordnung je Dokument-Draft
-- Personen-/Profilzuordnung fuer Vorgänge, Dokumente, Drafts und spätere Records
-- Vorgänge
-- Dokument-Metadaten
-- Draft-Inbox
-- Aufgaben und einfache Reminder-Daten
-- Schnellzugriff-Markierungen fuer wichtige Dokumente/Records
-- lokale Desktop-Dateiimporte
-- mobile Capture-Uploads
-- lokale Mobile-Upload-Queue
-- optionale gecachte Liste offener Vorgänge auf Mobile
-- Home-Hub-Verbindungsstatus und nicht geheime Einstellungen
-- einfache Suche und Filter
-
-## Lokale Datenbank
-
-DocMan braucht eine strukturierte lokale Datenbank, nicht nur Key-Value Storage.
-
-Die konkrete Technologie ist entschieden: DocMan verwendet SQLite + Drift fuer strukturierte lokale Daten.
-
-Der aktuelle Spike verwendet noch Isar an einzelnen Stellen. Isar ist Legacy-/Spike-Code und wird nicht weiter als Zielarchitektur ausgebaut.
-
-### Anforderungen an die lokale DB
-
-Die lokale DB muss:
-
-- Desktop und Mobile unterstützen.
-- strukturierte Abfragen für Cases, Documents, Drafts und Suche ermöglichen.
-- Migrationen ohne Datenverlust unterstützen.
-- reaktive Datenflüsse für Riverpod ermöglichen.
-- Offline-Schreibvorgänge zuverlässig speichern.
-- Sync-Metadaten pro Entity tragen können.
-- Tests mit Fake- oder In-Memory-Implementierungen erlauben.
-- keine Backend-SDK-Typen in Domain oder Presentation leaken.
-
-### Nicht ausreichend
-
-Reiner Key-Value Storage reicht nicht für:
-
-- Vorgangslisten.
-- Dokumentzuordnung.
-- Draft-Inbox.
-- Upload-Queue.
-- lokale Suche.
-- Konflikt- und Sync-Metadaten.
-
-Key-Value Storage bleibt trotzdem sinnvoll für kleine, nicht fachliche Einstellungen.
-
-## Dateiablage
-
-DocMan speichert nicht nur Metadaten, sondern echte Dokumentdateien.
-
-Die lokale Dateiablage muss diese Fälle unterstützen:
-
-- Desktop importiert eine lokale Datei ueber Dateiauswahl oder Drag & Drop.
-- Mobile nimmt Foto/Scan auf.
-- Mobile hält Uploads lokal vor, bis der Home Hub erreichbar ist.
-- Desktop kann Dokumente lokal öffnen oder als Vorschau anzeigen.
-- Später kann der Home Hub Originale zentral speichern.
-
-Die Dateiablage liegt hinter einem austauschbaren Storage-Port. Domain und UI
-kennen keine konkrete Storage-Technologie wie Dateipfade, MinIO, S3-SDKs oder
-HTTP-Uploaddetails.
-
-```text
-Domain
-  -> DocumentFileStore / FileStorageRepository
-      -> LocalFileStore
-      -> HomeHubFileStore
-      -> S3CompatibleFileStore / MinioFileStore
-      -> FakeFileStore
-```
-
-Riverpod Provider verdrahten die aktive Implementierung. Die Austauschbarkeit
-kommt aber vom Domain-Interface, nicht vom Provider-Namen.
-
-### Datei-Prinzipien
-
-- Originaldateien werden nicht still verändert.
-- Metadaten und Dateiinhalt bleiben getrennt.
-- Jede Datei bekommt eine stabile lokale Referenz.
-- Hashes sollen Duplikatwarnungen, Integrität und späteren Sync unterstützen.
-- Dateityp und Größe werden als Metadaten gespeichert.
-- Vorschaudateien und Thumbnails sind abgeleitete Daten und dürfen neu erzeugt werden.
-- Draft Review braucht einen Preview-Status: verfügbar, pending oder failed.
-- MinIO/S3-kompatibler Storage gehoert zum Home-Hub-/Server-Stack, nicht als Pflicht in den App-local Kern.
-
-## Draft-Inbox
-
-Die Draft-Inbox ist ein zentrales lokales Konzept.
-
-Sie nimmt Dokumente auf, die noch nicht vollständig geprüft, beschrieben oder zugeordnet sind.
-
-Im M2 ist sie der gemeinsame Eingang fuer Desktop-Dateiimport und Mobile Document Scan.
-
-Quellen:
-
-- Desktop-Dateiimport.
-- Mobile Capture ohne Vorgangszuordnung.
-- Mobile Capture mit unsicherer oder später ungültiger Vorgangszuordnung.
-- spätere Scanner- oder Watch-Folder-Importe.
-- spätere OCR-/LLM-Pipeline-Ergebnisse, die Review brauchen.
-
-Drafts müssen lokal speicherbar sein, bevor ein Backend erreichbar ist.
-
-Erledigte Inbox-Einträge bleiben im M2 als die letzten 10 "zuletzt
-verarbeitet" sichtbar. Diese History speichert eine Referenz auf das Dokument
-und den Review-/Verarbeitungszeitpunkt, aber keine zweite Dateikopie.
-
-Hash-basierte Duplikatwarnungen sind M2-Teil. Gleiche Hashes duerfen mehrere
-Dokumente haben, wenn der Nutzer "Beide behalten" waehlt. Der Hash ist damit
-ein Warnsignal und Integritaetsmerkmal, kein Unique Constraint.
-
-Vorschau/Thumbnail ist M2-Teil fuer Draft Review, aber kein Original. Preview
-darf als abgeleitetes File-Artefakt gespeichert, geloescht und neu erzeugt
-werden. Wenn Preview-Erzeugung fehlschlaegt, bleibt der Draft sichtbar mit
-`previewFailed`.
-
-Die Preview-Erzeugung laeuft asynchron ueber einen `PreviewGenerationPort`.
-PDF-Preview verwendet vorlaeufig `pdfrx` als Adapter; Bilder nutzen eine
-einfache Image-Preview-Strategy. Der konkrete Adapter darf nicht in Domain oder
-Draft-Inbox leaken.
-
-## Mobile Upload Queue
-
-Mobile Capture braucht eine lokale Queue.
-
-Die Queue speichert:
-
-- Datei-Referenz.
-- Erfassungszeitpunkt.
-- optionales Profil.
-- optionale `caseId`.
-- lokale Notiz.
-- Upload-Status.
-- Retry-Zähler.
-- letzter Fehler.
-- Ziel-Home-Hub, soweit konfiguriert.
-
-Die Queue darf Uploads nicht verlieren, wenn:
-
-- das Gerät offline ist.
-- Tailscale/private Verbindung nicht erreichbar ist.
-- die App beendet wird.
-- der Home Hub temporär Fehler liefert.
-- die gewählte Vorgangszuordnung nicht mehr gültig ist.
-
-Wenn direkte Vorgangszuordnung scheitert, fällt der Upload in die Draft-Inbox zurück.
-
-## Sync-Fähigkeit
-
-Auch wenn vollständiger Sync nicht im M2 ist, müssen lokale Daten sync-fähig modelliert werden.
-
-Jede relevante Entity sollte später tragen können:
-
-- stabile lokale und globale ID.
-- Erstellungszeit.
-- Änderungszeit.
-- Version oder Revision.
-- Löschmarkierung statt hartem Sofort-Löschen, wo Sync relevant ist.
-- lokale Änderungsmarkierung.
-- Herkunft oder Gerät, soweit für Konfliktanalyse sinnvoll.
-
-Dieses Konzept entscheidet noch nicht die endgültige Sync-Strategie. Es verhindert aber, dass der M2 Daten so speichert, dass Sync später nur mit Bruch möglich ist.
-
-## Suchfähigkeit
-
-Die Suchtechnologie ist in `docs/technical/DECISION_SEARCH_TECHNOLOGY.md` entschieden.
-
-Für den M2 nutzt DocMan lokale Suche:
-
-- strukturierte SQLite/Drift-Abfragen für Filter.
-- SQLite FTS5 für gepflegte textuelle Metadaten.
-- ein Domain-Search-Interface, damit spätere Suchadapter austauschbar bleiben.
-
-Suchfelder:
-
-- Vorgangstitel.
-- Dokumenttitel.
-- Record-/Nachweistitel.
-- Tags.
-- Sender oder Quelle.
-- Datum.
-- Profil.
-- Draft-Status.
-- Lifecycle-/Dokument-/Record-Status.
-- einfache strukturierte Betrags- und Claim-Felder, sobald die Säule `PILLAR_SEARCH_FACTS_INSIGHTS.md` umgesetzt wird.
-
-Volltextsuche über OCR-Text gehört nicht in den M2, muss aber später ergänzbar bleiben.
-
-Der lokale Suchindex ist sensibel. Metadaten, Tags, Gegenparteien, OCR-Texte und Suchbegriffe dürfen nicht als harmlose technische Daten behandelt werden.
-
-Spätere Erweiterungen:
-
-- FTS5 für geprüften OCR-Text.
-- optional lokale Vektor-Suche, z. B. `sqlite-vec`, wenn semantische Suche wirklich gebraucht wird.
-- optional Home-Hub-Search über Meilisearch, Typesense oder einen anderen Adapter.
-
-## Records und strukturierte Fakten
-
-F10 speichert im M2 noch kein vollständiges Insights-Modell. Die lokale Datenhaltung darf Dokumente aber nicht so modellieren, als wären sie nur Anhänge an Vorgänge.
-
-Vorbereitet werden müssen:
-
-- optionale `caseId` für Dokumente.
-- Profil-/Household-IDs fuer spaetere Familien- und Haushaltszugriffsfaehigkeit.
-- `CaseLink` für `part_of`, `caused_by`, `follow_up_to` und `related_to`; kein
-  separater Subcase-Typ und kein `parentCaseId`-Zielmodell.
-- spätere Record-/Nachweis-Zuordnung.
-- Versionierungsfelder oder ein sauberer Migrationspfad dorthin.
-- strukturierte Felder für Betrag, Datum, Sender, Status und Quelle statt reinem Freitext.
-- spätere `DocumentFact`-, `FinancialEntry`- und `Claim`-Tabellen ohne Bruch des M2-Datenmodells.
-- spätere `DocumentCaseLink`-Tabelle fuer flexible Mehrfachverlinkung mit Rollen.
-
-## Tasks, Reminders und Schnellzugriff
-
-F10 muss einfache Aufgaben und Reminder-Daten speichern können.
-
-Schlanker M2-Slice:
-
-- `Task` mit Titel, Status, Profilbezug, optionalem `caseId`, `documentId`, `recordId`, `dueAt`, `remindAt`.
-- `Reminder` oder Reminder-Felder fuer einfache einmalige Erinnerungen.
-- Quick-Access-Markierung fuer wichtige Dokumente, Records oder Vorgänge.
-
-Nicht in F10:
-
-- OS-spezifische Notification-Zustellung.
-- Kalenderintegration.
-- komplexe Wiederholungsregeln.
-
-## Secure Storage Abgrenzung
-
-Sicherheitskritische Geheimnisse gehören nicht in die normale lokale Datenbank.
-
-Beispiele:
-
-- Session Tokens.
-- Pairing Secrets.
-- private Schlüssel.
-- langfristige Auth-Geheimnisse.
-
-Diese Daten gehören zu F12 Secure Storage. F10 darf nur nicht geheime Referenzen, Status und Konfiguration speichern.
-
-## Privacy und Export
-
-DocMan speichert potenziell sehr sensible Dokumente. Lokale Persistenz muss deshalb langfristig diese Anforderungen vorbereiten:
-
-- verständlicher Speicherort.
-- Exportierbarkeit von Metadaten und Dateien.
-- Löschbarkeit.
-- Backup-Fähigkeit.
-- keine unnötige Duplikation sensibler Dateien.
-- klare Trennung zwischen Originalen, Cache und abgeleiteten Daten.
-
-Verschlüsselung und Schlüsselmanagement werden nicht in F10 entschieden. Sie müssen in F12 und in der späteren Backend-/Storage-Planung konkretisiert werden.
-
-## Repository-Grenzen
-
-App-Code spricht nicht direkt mit der lokalen Datenbank.
-
-Zugriff läuft über DocMan-Domain-Repository-Verträge und Data-Implementierungen.
-
-```text
-Presentation / Riverpod
-  -> Application / Domain Repository Contracts
-      -> Data Repository Implementation
-          -> Local DB / File Storage
-```
-
-Regeln:
-
-- Domain kennt keine lokale DB.
-- Presentation kennt keine lokale DB.
-- Data übersetzt lokale Storage-Modelle in Domain-Typen.
-- Tests können lokale Repositories ersetzen.
-- Lokale Storage-Modelle dürfen sich von Domain-Entities unterscheiden, wenn Migration oder Sync das erfordern.
-
-## Offene Folgeentscheidungen
-
-F10 lässt bewusst mehrere technische Detailentscheidungen offen:
-
-| ID | Frage | Richtung |
+| Aspekt | Local Vault | Cloud Vault |
 |---|---|---|
-| F10-D1 | Bleibt Isar Zieltechnologie oder wechseln wir? | Entschieden: SQLite + Drift; Isar ist Legacy/Spike |
-| F10-D2 | Wie werden lokale Dateipfade und App-Verzeichnisse pro Plattform organisiert? | In Implementation-Plan konkretisieren |
-| F10-D3 | Wie sehen stabile IDs für lokale und spätere remote Entities aus? | Mit Sync-Konzept abstimmen |
-| F10-D4 | Welche Daten werden lokal verschlüsselt? | Mit F12 und Privacy-Konzept abstimmen |
-| F10-D5 | Wie lange hält Mobile lokale Uploads? | Mit `PILLAR_CAPTURE_INBOX.md` und F17 Client Standards abstimmen |
-| F10-D6 | Wie werden Löschungen vor vollständigem Sync modelliert? | Mit späterem Sync-Konzept abstimmen |
-| F10-D7 | Wie heißt der File-Storage-Port konkret? | In Data-Architecture-Plan entscheiden |
-| F10-D8 | Nutzt der erste echte Home Hub Upload presigned URLs oder API-proxied Uploads? | In Home-Hub/API-Plan entscheiden |
+| Autoritaet | lokale Metadaten- und Dateispeicher | Mappm Cloud |
+| strukturierter Client-Speicher | vollstaendiger Arbeitsbestand | policy-begrenzter Cache, Index und Pending State |
+| Dateien am Client | vollstaendige autoritative Payloads | ausgewaehlter Cache sowie ausstehende Uploads/Downloads |
+| Offline-Schreibvorgang | nach lokaler Transaktion autoritativ | durable Pending Operation bis Cloud-Bestaetigung |
+| Backup/Recovery | separater verschluesselter Export/Restore | Managed Restore plus Export und verifizierte Local-Migration |
 
-## Definition of Done für F10
+Cache-Praesenz macht den Client nicht autoritativ. Cache-Bereinigung ist keine
+Vault-Loeschung. Assist-Verarbeitung ist weder Cloud-Vault-Speicherung noch
+Backup.
 
-F10 gilt als umgesetzt, wenn:
+## Speicherbausteine
 
-- lokale Domain-Daten persistiert werden können.
-- Draft-Inbox lokal zuverlässig funktioniert.
-- Mobile Upload Queue offline sicher ist.
-- Datei-Metadaten und Dateiinhalt getrennt verwaltet werden.
-- Repository-Grenzen DB- und SDK-Leaks verhindern.
-- einfache lokale Suche möglich ist.
-- lokale Suche über Search-Boundary und SQLite/Drift/FTS5 vorbereitet ist.
-- Sync-Metadaten vorbereitet sind.
-- Secure Secrets nicht in der normalen lokalen DB liegen.
+```text
+Domain Ports
+  -> StructuredDataRepository
+      -> Drift / SQLite
+  -> DocumentFileStore
+      -> Local authoritative files oder Cloud cache/pending files
+  -> SecretStore
+      -> Platform Secure Storage
+  -> Cloud Repository Adapter
+      -> Mappm Cloud API
+```
 
-## Verwandte Konzepte
+- SQLite mit Drift ist der strukturierte Client-Speicher.
+- Originale, Scans, PDFs, Previews und andere grosse Binaerdaten liegen hinter
+  einem File-Store-Port, nicht als grosse SQLite-BLOBs.
+- Tokens, Schluessel und Recovery-Geheimnisse liegen ausschliesslich im Secure
+  Storage gemaess F12.
+- Domain und Presentation kennen keine Pfade, Drift-Tabellen, S3-/HTTP-SDKs oder
+  Cache-Implementierungen.
+- Previews, Thumbnails, OCR-Indizes und andere Ableitungen sind reproduzierbar
+  und separat von Originalen gekennzeichnet.
 
-- F1 Project Structure.
-- F2 State Management.
-- F5 Error Handling.
-- F11 API Integration.
-- F12 Secure Storage.
-- F17 Mobile Capture Client Standards.
-- Produkt-Säule: Capture and Inbox.
-- Decision: Local-first Data Flow and Self-hosted Sync Backend.
-- Decision: Local Database.
-- Decision: File Storage Strategy and Local Docker Stack.
-- Decision: M2 Scope.
+## Datenklassen
+
+| Klasse | Beispiele | Schutz/Retention |
+|---|---|---|
+| Domain-Daten | Cases, Records, Documents, Profiles, Tasks, Events, Claims, Links | Vault-Lifecycle |
+| Capture-Daten | Sessions, Seitenmanifeste, logische Dokumente, Originalstatus | bis sichere Uebernahme plus Policy |
+| Processing-Daten | Jobs, Stufenstatus, Vorschlaege, Confidence, Provenance | sensibel, versioniert |
+| Pending Operations | Upload, Aenderung, Loeschung, Konfliktbasis | bis bestaetigt/aufgeloest |
+| Cache/Index | Cloud-Metadaten, Payload-Cache, FTS/OCR-Index | policy-begrenzt, neu aufbaubar soweit abgeleitet |
+| Migration | Inventar, Checkpoints, Checksums, Verifikation | bis Abschluss und Recovery-Frist |
+| UI-Praeferenzen | Filter, Sortierung, Layout | nicht fachlich autoritativ |
+| Secrets | Session, Device Trust, lokale Schluessel | nur Secure Storage |
+| Diagnose | redigierte Codes, Operation IDs | kurze definierte Retention |
+
+OCR-Text, extrahierte Fakten, Titelvorschlaege, Suchindizes und
+Modellergebnisse gelten als sensible Produktdaten, nicht als harmlose
+technische Metadaten.
+
+## Strukturierte Persistenz
+
+Das konkrete Schema wird in einem Data-Architecture-Plan entschieden. Es muss
+mindestens folgende Faehigkeiten tragen:
+
+- stabile IDs, Zeitstempel und Revisionen.
+- Vault-/Profilzuordnung ohne stille Defaults.
+- Documents mit Seiten/Artefakten und primaerem Case- oder Record-Kontext nach
+  akzeptierter Review.
+- mehrere zusaetzliche Case-/Record-Links ohne Dokumentduplikation.
+- `CaseLink` mit `part_of`, `caused_by`, `follow_up_to` und `related_to`; kein
+  eigener Subcase-Typ und kein zwingender Baum.
+- Records, Claims, Tasks, Termine und Workflow-Fortschritt als getrennte
+  fachliche Konzepte.
+- Pending Operations, Konfliktbasis, Tombstones und Idempotency Keys.
+- versionierte Vorschlaege, Provenance sowie bestaetigte/korrigierte Werte.
+- Cache- und lokale Verfuegbarkeit unabhaengig von Cloud-Autoritaet.
+
+Flexible Provider-Rohdaten duerfen kontrolliert in JSON-Feldern liegen. Stabile
+Produktwahrheiten werden explizit modelliert und nicht in unversionierten
+Payloads versteckt.
+
+## Capture-Persistenz
+
+Ein Scan umfasst genau ein logisches Dokument mit einer oder mehreren Seiten.
+Mehrere Dokumente duerfen in einer technischen Session nacheinander erfasst
+werden; jedes Dokument besitzt eigenen Job-, Retry- und Review-State.
+
+Vor Verlassen des Capture-Flows muss das Original lokal durable sein oder eine
+vom Cloud-Vertrag bestaetigte durable Uebernahme besitzen. Persistiert werden:
+
+- Capture Session, Seiten-/Dateimanifest und Hash.
+- logische Dokumentgrenze und Artefaktstatus.
+- Upload-/Processing-Checkpoint pro Dokument.
+- vorgeschlagener Titel, Typ, Fakten und Kontexte mit Provenance.
+- optionaler New-Case-/Case-Intent als Matching-Signal.
+- User-Bestaetigungen, Korrekturen und erhaltene akzeptierte Historie.
+- Teilfehler und Wiederanlauf nach App-Neustart.
+
+Solange Capture oder Review pending ist, darf ein Dokument noch keinen
+akzeptierten Primaerkontext haben. Nach Abschluss besitzt jedes Dokument einen
+primaeren Case oder Record. Ein leichter Custom Case ist dabei ein normaler
+Case, kein separates Datenmodell und kein zweitklassiger Ablageort.
+
+## Datei- und Integritaetsregeln
+
+- Originale werden nie still veraendert oder durch Previews ersetzt.
+- Jede Payload hat eine stabile Referenz, Groesse, MIME-Erkennung und Hash.
+- Hashes unterstuetzen Integritaet und Duplikatwarnung, sind aber nicht pauschal
+  ein Unique Constraint.
+- Loeschen, Cache-Bereinigen, Exportieren und Vault-Migration sind getrennte
+  Operationen mit getrenntem Scope.
+- Eine lokale Originaldatei wird erst gemaess akzeptierter Policy entfernt,
+  nachdem Zieluebernahme und Verifikation bestaetigt sind.
+- Fehlende oder korrupte Dateien erzeugen einen sichtbaren Integrity-/Recovery-
+  Zustand; Metadaten duerfen keinen erfolgreichen Besitz vortaeuschen.
+
+## Cloud Cache und Pending Operations
+
+Cloud-Vault-Clients speichern nur die gemaess Policy noetigen Daten. Offline-
+Aenderungen enthalten Basisrevision, stabile Operation-ID und Idempotency Key.
+Sie bleiben bis zu Cloud-Accept, Conflict oder expliziter Aufloesung erhalten.
+
+Ein Cache Miss offline liefert einen eindeutigen Nicht-verfuegbar-Zustand. Die
+App erfindet keinen Inhalt und verwechselt Metadaten-Cache nicht mit lokal
+verfuegbarem Original.
+
+## Provider-Migration
+
+Local-to-Cloud und Cloud-to-Local verwenden:
+
+- reproduzierbares Quellinventar.
+- durable Checkpoints und resumable Transfer.
+- Counts, Bytes, Hashes und Revision-Reconciliation.
+- kurze explizite Finalisierungsphase ohne konkurrierende Writes.
+- atomaren Autoritaetswechsel erst nach vollstaendiger Verifikation.
+- inaktive Read-only-Quelle als Recovery-/Exit-Snapshot gemaess Policy.
+
+Ein Abbruch vor Aktivierung belaesst die Quelle autoritativ. Ein Crash darf nie
+zwei schreibende Autoritaeten erzeugen.
+
+## Suche
+
+Strukturierte Filter und lokaler Textindex liegen hinter einem
+Domain-Search-Port. FTS-/OCR-Indizes sind sensibel und pro Vault isoliert.
+Semantische oder Cloud-Suche darf spaeter als Adapter ergaenzt werden, ohne das
+Domain-Modell oder die Vault-Autoritaet zu aendern.
+
+## Sicherheit, Datenschutz und Plattform
+
+- Verschluesselung, Schluesselzugriff und Plattform-Backup-Ausschluesse folgen
+  F12 und der Security-Entscheidung.
+- Daten verschiedener Vaults und verwalteter Profile werden logisch und wo
+  erforderlich kryptographisch isoliert.
+- Betriebssystem-Backups duerfen keine unkontrollierte zweite Vault-Kopie
+  erzeugen.
+- Logs, Crash Reports und Tests enthalten keine privaten Pfade, Inhalte,
+  Dateinamen, OCR-Texte oder Secrets.
+- Desktop und Mobile verwenden dieselben Domain-Ports; Adapter duerfen
+  plattformspezifisch sein.
+
+## Tests und Verifikation
+
+- Drift-Migrations- und Repository-Tests inklusive Rollback/Fehlerpfad.
+- File-Store-Tests fuer Atomizitaet, Hash, fehlende Dateien und Quellenerhalt.
+- Local-/Cloud-Matrix fuer Autoritaet, Cache, Pending und Offline.
+- Restart-, Idempotenz-, Konflikt- und Tombstone-Tests.
+- Capture-/Processing-Tests mit Teilfehler und bestaetigten Werten.
+- Migrationsnachweis mit Inventar, Checksums und genau einer Autoritaet.
+- Privacy-Tests fuer Backup-Ausschluss, Logs und synthetische Fixtures.
+
+## Stop Rules
+
+Stop, wenn:
+
+- Cache und Autoritaet gleichgesetzt werden.
+- Secrets oder grosse Originale unkontrolliert in SQLite landen.
+- ein Dokument nach akzeptierter Review ohne primaeren Case/Record verbleibt.
+- ein separater Subcase- oder Custom-Case-Datentyp eingefuehrt wird.
+- Quellendaten vor verifizierter Zielaktivierung geloescht werden.
+- ein Schema API-DTOs oder Provider-SDK-Typen in Domain/Presentation leakt.
+- Retention, Verschluesselung oder Migration fuer sensible Daten ungeklaert ist.
+
+## Handoff
+
+Schema, Repositories und Migration gehen an `data-architect`; Umsetzung an
+`foundation-builder`; Cloud-Vertraege an `contract-api`; Tests und Gates an
+`quality-readiness`.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Bei Widerspruechen gilt
+die strengere Regel und die betroffene Phase stoppt.

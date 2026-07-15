@@ -2,7 +2,7 @@
 title: "Mappm COM-00 Commercial Umbrella"
 description: "Commercialization, packaging, procurement and support planning contract"
 tags: [commercial, pricing, billing, sla, sales, support, playbook]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 status: "draft"
 owner: "commercial/product"
 ---
@@ -26,6 +26,15 @@ visible without blocking early frontend foundation work.
 | Procurement/security docs | planned | before B2B sale |
 | Cloud cost model | planned | before OCR/LLM/sync commitments |
 | Trust page/privacy messaging | planned | before public launch |
+
+## Artefaktindex
+
+| Artefakt | Verantwortung |
+|---|---|
+| `COM-01_LICENSING_ENTITLEMENTS.md` | Free/Paid, Local/Cloud, Core/Advanced Assist, Limits und Downgrade |
+| `COM-02_BILLING_TRIALS_PLANS.md` | Pricing, Trial, Billing, Store/Direct Purchase und Subscription Lifecycle |
+| `COM-03_SUPPORT_SLA_PROCUREMENT.md` | Supportversprechen, SLA, Procurement und Security-Unterlagen |
+| `COM-04_ENTERPRISE_ADMIN_CONTRACTS.md` | Enterprise-Administration, Vertrage, Rollen und Organisationsevidenz |
 
 ## Rules
 

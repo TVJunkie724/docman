@@ -1,102 +1,133 @@
 ---
 title: "Konzept F14 - Form Field Catalog"
-description: "DocMan-spezifischer Formularfeld-Katalog für Vorgänge, Dokumente, Profile, Draft Review, Upload Queue und spätere KI-Vorschläge"
-tags: [concept, forms, ui, fields, review, documents, cases]
-lastUpdated: "2026-07-12"
-version: "3.1"
+description: "Fachlicher Feldkatalog fuer schlanke Mappm-Formulare, Capture Review, Vault Lifecycle und korrigierbare Assist-Vorschlaege"
+tags: [concept, forms, ui, fields, review, documents, cases, assist]
+lastUpdated: "2026-07-15"
+version: "4.0"
 status: "accepted"
+owner: "ui-concept"
 ---
 
 # Konzept F14 - Form Field Catalog
 
-## Status
+## Status und Zweck
 
-Accepted.
+Akzeptiert. F14 definiert, welche fachlichen Feldfamilien Mappm benoetigt. Es
+autorisiert weder ein grosses Metadatenformular noch konkrete Widgets. F24 und
+F27-F30 besitzen Anatomie, Controls und Interaktionsdetails.
 
-Dieses Konzept ersetzt den importierten F14-Inhalt aus dem alten Projekt.
+## Produktprinzip
 
-## Zweck
+Formulare sind Korrektur-, Entscheidungs- und Ausnahmeflaechen. Beim normalen
+Dokumenteingang schlagen Backend/Core Assist Titel, Dokumenttaxonomie, Fakten,
+Managed Subject sowie Case-/Record-Kontext vor. Die UI zeigt nur Informationen,
+die fuer die aktuelle Entscheidung notwendig, unsicher oder folgenreich sind.
 
-F14 definiert die fachlichen Formulartypen, die DocMan braucht. Exakte visuelle Spezifikation folgt später im Design-System.
+- Implizit unveraenderte Fakten bleiben verborgen oder progressiv erreichbar.
+- Ein Case besitzt keinen verpflichtenden sichtbaren `caseType`.
+- Der vollstaendige Dokumentkatalog erscheint nicht als Pflicht-Picker.
+- Vorschlaege werden bis zur freigegebenen Automationsreife bestaetigt oder
+  schnell korrigiert.
+- Ein Custom Case ist ein normaler Case und darf nahezu leer beginnen; sein
+  Titel wird vorgeschlagen.
 
 ## Feldfamilien
 
-| Feld | Verwendung |
-|---|---|
-| Text | Titel, Sender, Notiz |
-| Mehrzeilig | Beschreibung, Review-Kommentar |
-| Datum | Dokumentdatum, Frist, Ereignisdatum |
-| Betrag | Rechnungen, Erstattungen |
-| Prozent | Erstattungsquote, Selbstbehalt, Deckung |
-| Auswahl | Dokumenttyp, Vorgangstyp, Status |
-| Nachweis-/Record-Auswahl | aktuelle Version, alte Version, ersetzt durch |
-| Profilauswahl | Zuordnung zu Person/Haushalt |
-| Tags | Suche, freie Struktur |
-| Datei-Auswahl | Desktop-Import |
-| Scan-Quelle | Mobile Capture |
-| Review-Feld | KI/OCR-Vorschlag akzeptieren/korrigieren |
-| Claim-Feld | eingereicht, bewilligt, teilweise bewilligt, abgelehnt, bezahlt |
+| Familie | Beispiele | Regel |
+|---|---|---|
+| Text | vorgeschlagener Titel, kurze Notiz | Freitext nur bei echtem Bedarf |
+| Mehrzeilig | Beschreibung, bewusster Kommentar | nie fuer strukturierbare Kerndaten |
+| Datum/Zeit | Dokumentdatum, Frist, Termin | typisiert und lokalisierbar |
+| Betrag/Waehrung | Rechnung, Erstattung | getrennte strukturierte Werte |
+| Zahl/Einheit | Quote, Menge, Kilometer | nur fachlich erlaubte Einheiten |
+| Auswahl | kleine kontextrelevante Alternativen | kein grosser Katalog im Standardflow |
+| Managed Subject | Person, Haushalt, eigene Organisation | kein External-Party-Freitext-Ersatz |
+| External Party | Arzt, Anbieter, Behoerde | auffindbares Kontakt-/Absenderprofil |
+| Relation | Case, Record, Claim, Dokument, Polizze | typisierte Beziehung statt Dateikopie |
+| Datei/Scan | Desktop-Import, Mobile Capture | Original und logische Dokumentgrenze |
+| Review | Vorschlag bestaetigen/korrigieren/verwerfen | sichtbare Konsequenz begrenzen |
+| Workflow/Claim | Einreichung, Antwort, Erstattung | aus Vorlage/Verlauf, nicht als globale Liste |
+| Task/Reminder | Frist, Termin, erwartete Antwort | getrennt von Dokumentmetadaten |
+| Vault/Account | Modus, Migration, Entitlement, Recovery | nur im passenden Lifecycle-Flow |
 
-## M2-Formulare
+## Form- und Review-Flaechen
 
-- Vorgang erstellen/bearbeiten.
-- Dokument-Draft prüfen.
-- Dokument einem Vorgang zuordnen.
-- Dokument optional einem Record/Nachweis zuordnen.
-- Dokumenttyp aus dem M2-Katalog wählen.
-- Profil wählen.
-- Mappm Account/Gerät/Entitlement verwalten, Assist-Policy anzeigen oder
-  Vault-Migration/Detached Recovery starten; keine Serveradresse im Produkt.
-- Mobile Upload optional kommentieren.
+Mappm benoetigt unter anderem:
 
-Der M2-Dokumenttyp-Katalog ist in
-`docs/technical/DECISION_DOCUMENT_TYPE_CATALOG.md` entschieden. Typen
-steuern im M2 Auswahl, Filter und optionale Vorschlaege, aber keine
-dokumenttypspezifischen Pflichtfelder.
+- kompakte Capture-/Processing-Review.
+- Case-/Record-Erstellung und gezielte Bearbeitung.
+- Korrektur von Titel, Taxonomie, Managed Subject, External Party, Fakten und
+  Beziehungen.
+- Task-, Termin- und Reminder-Pflege.
+- Profil-/Organisation-/Kontaktpflege.
+- Search-/Filter-Eingaben.
+- Account, Device, Vault, Assist, Migration, Export und Detached Recovery.
 
-## Review-Felder
+Ein Feld ist nur sichtbar, wenn es:
 
-Spätere OCR-/LLM-Vorschläge brauchen besondere Felder:
+1. eine aktuelle User-Entscheidung erfordert;
+2. eine relevante Unsicherheit oder Inkonsistenz aufloest;
+3. eine folgenreiche Aktion erklaert oder bestaetigt; oder
+4. vom Nutzer bewusst zur Detailbearbeitung geoeffnet wurde.
 
-- vorgeschlagener Wert.
-- Quelle/Hinweis.
-- Confidence, falls verfügbar.
-- akzeptieren.
-- korrigieren.
-- ablehnen.
+## Dokumenttaxonomie
 
-Keine automatische Übernahme ohne Review, wenn es fachlich relevant ist.
+Grundart, semantische Variante, Rolle und Workflow-Slot sind getrennte Achsen
+gemaess `docs/technical/DECISION_DOCUMENT_TYPE_CATALOG.md`. Rollen/Slots werden
+nur erhoben, wenn sie Suche, Workflow, Aufgabe, Claim oder Matching verbessern.
+Sie muessen zum jeweiligen Workflow passen und duerfen nicht als universelle
+Pflichtliste erscheinen.
 
 ## Validierung
 
 Validierung unterscheidet:
 
-- Pflichtfeld.
-- Format.
-- Plausibilität.
-- Konflikt.
-- Review erforderlich.
+- technisch fehlendes/ungueltiges Artefakt.
+- fachlich notwendige sichtbare Bestaetigung.
+- Plausibilitaetswarnung.
+- Konflikt mit bestaetigten Daten.
+- optionalen Verbesserungsvorschlag.
 
-F5 definiert Fehlerklassen, F14 beschreibt Feldverhalten.
+Ein optionales Fact wird nicht allein deshalb zum Gate, weil es fuer eine
+spaetere Auswertung nuetzlich waere. F5 definiert Failure-Kategorien; F27
+definiert Feld- und Gate-Verhalten.
 
-## Definition of Done
+## Sicherheit, Accessibility und Localization
 
-F14 gilt als umgesetzt, wenn:
+- Sensible IDs und Gesundheits-/Finanzwerte werden kontextgerecht maskiert.
+- Feldinhalte erscheinen nicht in globalen Meldungen, Logs oder Screenshots.
+- Labels bleiben sichtbar, deutsch und lokalisierbar.
+- Fehler, Review und Pflicht werden semantisch und nicht nur farblich markiert.
+- Lange Texte und Textscale `2.0` duerfen Controls oder Aktionen nicht
+  verdecken.
 
-- M2-Formulare abgedeckt sind.
-- Dokument-/Vorgangszuordnung klar ist.
-- Review-Felder für spätere Intelligence vorbereitet sind.
-- Feldfehler zu F5 passen.
+## Tests und Verifikation
 
-## Offene Folgefragen
+- Jede Formphase beweist minimale Standardinteraktion und progressives Detail.
+- Vorschlag, Bestaetigung, Korrektur, Verwerfen und spaetere Ruecknahme werden
+  fuer relevante Felder getestet.
+- Niedrige Confidence zeigt weiterhin beste Kandidaten und eine einfache neue
+  Case-Option.
+- Sensible Werte leaken nicht in Feedback oder Diagnose.
+- Keyboard, Semantics, Fokus, Textscale und Mobile/ Desktop werden geprueft.
 
-- Welche Vorgangstypen brauchen eigene Formularfelder?
-- Wann wird ein visuelles Form-Design-System konkretisiert?
+## Stop Rules
+
+Stop, wenn:
+
+- Capture vor dem Scan Profil, Typ, Titel oder Case zwingend abfragt.
+- ein grosser Case- oder Dokumenttypkatalog Standardinteraktion wird.
+- implizite Fakten ohne Entscheidungswert die Review ueberladen.
+- UI eine neue Backend-, Taxonomie-, Workflow- oder Legal-Policy erfindet.
+- ein Folgenvorschlag ohne sichtbare Bestaetigung final wird.
+
+## Handoff
+
+Konkrete Formphasen gehen nach Konzeptreview an `ui-architect`; Fehlerverhalten
+an `frontend-error-handling`; Tests an `frontend-test-coverage`.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Bei Widerspruechen gilt
+die strengere Regel und die betroffene Phase stoppt.

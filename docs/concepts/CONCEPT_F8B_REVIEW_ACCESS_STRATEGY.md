@@ -2,11 +2,11 @@
 title: "Konzept F8b - Review Access Strategy"
 description: "Mappm-Strategie für Demo-/Review-Zugänge, synthetische Daten und getrennte Local-/Cloud-Testumgebungen"
 tags: [concept, review, demo, distribution, synthetic-data]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 version: "3.0"
 status: "accepted"
+owner: "ui-concept/security"
 ---
-
 # Konzept F8b - Review Access Strategy
 
 ## Status
@@ -59,8 +59,10 @@ F8b gilt als umgesetzt, wenn:
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Eigener Scope und
+Status bleiben massgeblich. Der gemeinsame Vertrag liefert die verbindlichen
+Defaults fuer Ownership, Security/Privacy, Accessibility/Lokalisierung,
+Verifikation, Stop Rules und Handoff, soweit dieses Dokument keine strengere
+Regel definiert. Ein Widerspruch stoppt die betroffene Phase und wird in diesem
+Konzept aufgeloest.

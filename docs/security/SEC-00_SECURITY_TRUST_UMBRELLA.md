@@ -1,54 +1,68 @@
 ---
 title: "Mappm SEC-00 Security And Trust Umbrella"
-description: "Security, trust and encryption planning contract for sensitive document handling"
+description: "Security-, Trust- und Verschluesselungsvertrag fuer sensible Dokumentverarbeitung"
 tags: [security, privacy, encryption, trust, vault, cloud, playbook]
-lastUpdated: "2026-07-12"
-status: "draft"
+lastUpdated: "2026-07-15"
+status: "accepted-direction"
 owner: "security/product-concept"
 ---
 
 # Mappm SEC-00 Security And Trust Umbrella
 
-Local and Cloud Vaults have different authority and trust boundaries. Managed
-Cloud storage, backup, processing, account/device recovery, subscription exit
-and provider migration are blocked from implementation until their SEC-02/03
-rows and applicable VC-02/VC-07/VC-08 decisions are accepted. Local Development Cloud is a separate synthetic
-environment, never a customer self-hosted mode.
+Local und Cloud Vault besitzen unterschiedliche Authority- und Trust-Grenzen.
+Managed Cloud Storage, Backup, Verarbeitung, Account-/Device-Recovery,
+Subscription Exit und Provider-Migration sind blockiert, bis ihre SEC-02/03-
+Regeln und die anwendbaren VC-02/VC-07/VC-08-Entscheidungen akzeptiert sind.
+Local Development Cloud ist eine isolierte synthetische Engineering-Umgebung,
+kein Self-hosting-Modus fuer Kunden.
 
-Customer self-hosting is not active product scope.
+## Zweck
 
-## Purpose
-
-Mappm is private-first and offline-capable, but future sync, sharing, backups
-and intelligence services require explicit trust boundaries. Security is not a
-later add-on; it is part of every data, backend and UI decision.
+Mappm ist privacy-first und offline-faehig. Account, Local/Cloud Vault, Core
+Assist, Sync, Sharing, Backup und Recovery benoetigen jeweils explizite
+Trust-Grenzen. Security ist Bestandteil jeder Daten-, Backend-, Contract- und
+UI-Entscheidung.
 
 ## Trust Model Direction
 
-| Area | Direction | Status |
+| Bereich | Richtung | Status |
 |---|---|---|
-| Local data | encrypted local storage and secure key handling are required before production use | planned |
-| Cloud transfer | only through explicit provider contracts and documented consent/user intent | planned |
-| Backups | encrypted, restorable and auditable; provider boundary must be documented | planned |
-| Sharing | account/recipient identity, access expiry and revocation must be designed before implementation | planned |
-| Intelligence services | sensitive content transfer requires purpose, minimization, retention and provider review | planned |
-| Identity | eIDAS/EUDI/ID Austria may become a trusted provider boundary | planned |
+| Lokale Daten | verschluesselter Store, sichere Keys und Recovery-/Verlustverhalten vor Produktion | planned |
+| Cloud Vault | Transfer folgt gewaehltem Vault-Modus, Contract, Rechtsgrundlage, Zweck und transparenter Policy; kein per-Dokument-Consent wird pauschal erfunden | planned |
+| Core Assist | sensible Verarbeitung braucht Zweck, Minimierung, Provider/Region, Retention, Training-Policy und sichtbare Folgen | planned |
+| Backups | verschluesselt, restore-getestet, auditierbar und vom Sync unterschieden | planned |
+| Sharing | Account-/Recipient-Identitaet, Scope, Ablauf, Widerruf und Audit vor Umsetzung | planned |
+| Identity | EUDI Wallet/ID Austria sind optionale Provider-/Assurance-Boundaries, nicht automatisch Mappm-Account oder alleinige Authentifizierung | planned |
 
-## Required Security Concepts
+## Erforderliche Security-Konzepte
 
-- key management and secure storage.
-- encryption at rest and in transit.
-- account/device trust and session lifecycle.
-- audit-relevant document access events.
-- provider exchangeability.
-- deletion, export and restore guarantees.
-- offline/demo mode isolation from live services.
-- incident/support diagnostic boundaries.
+- Key Management und Secure Storage;
+- Encryption at Rest und in Transit;
+- Account-/Device-Trust und Session Lifecycle;
+- Authorization/Tenant Isolation und auditrelevante Zugriffe;
+- Provider-Austauschbarkeit;
+- Loesch-, Export-, Migrations- und Restore-Garantien;
+- Isolation von Local Development Cloud, Development, Staging und Production;
+- Incident-, Telemetry- und Support-Diagnostic-Boundaries.
+
+## Artefaktindex
+
+| Artefakt | Verantwortung |
+|---|---|
+| `SEC-01_THREAT_MODEL.md` | Assets, Threat Actors, Abuse Cases, Controls und Residual Risks |
+| `SEC-02_TRUST_BOUNDARIES.md` | Device-, Vault-, Cloud-, Provider-, Sharing- und Support-Grenzen |
+| `SEC-03_ENCRYPTION_KEY_MANAGEMENT.md` | Key Ownership, Rotation, Recovery, Verlust und Crypto Agility |
+| `SEC-04_VULNERABILITY_MANAGEMENT.md` | Intake, Triage, Remediation, Disclosure und Reporting |
+| `SEC-05_SECURE_UPDATE_SUPPLY_CHAIN.md` | Dependencies, SBOM, Signing, Provenance und sichere Updates |
 
 ## Stop Rules
 
-- Stop if a phase moves document bytes or extracted facts to a service without
-  documented trust boundary and user-visible purpose.
-- Stop if fake/demo data can be confused with live sensitive data.
-- Stop if sharing, backup or sync is implemented before access, revocation and
-  recovery expectations are specified.
+- Stop, wenn eine Phase Dokumentbytes, OCR-Text, Facts, Profile oder Model
+  Output ohne dokumentierte Trust Boundary, Zweck und Lifecycle an einen
+  Service uebertraegt.
+- Stop, wenn Fake-/Demo-Daten mit echten sensiblen Daten verwechselt werden
+  koennen.
+- Stop, wenn Sharing, Backup oder Sync vor Access-, Revocation-, Conflict- und
+  Recovery-Verhalten umgesetzt wird.
+- Stop, wenn offene VC-02/VC-07/VC-08-Fragen implizit in Code oder Contract
+  beantwortet werden.

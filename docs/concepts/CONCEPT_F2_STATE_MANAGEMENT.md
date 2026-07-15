@@ -1,226 +1,171 @@
 ---
 title: "Konzept F2 - State Management"
-description: "Mappm-Riverpod-Konzept fuer Local/Cloud Vault authority, cache, pending operations, entitlement, migration and testability"
-tags: [concept, foundation, riverpod, state-management, dependency-injection, local-first]
-lastUpdated: "2026-07-12"
-version: "4.0"
-status: "accepted-rebaseline"
+description: "Verbindliches Riverpod-State-Modell fuer Vault-Autoritaet, Capture, Assist, Migration und testbare Abhaengigkeiten"
+tags: [concept, foundation, riverpod, state-management, dependency-injection, vault, capture, assist]
+lastUpdated: "2026-07-15"
+version: "5.0"
+status: "accepted"
+owner: "foundation/product"
 ---
 
 # Konzept F2 - State Management
 
-## Status
+## Status und Source of Truth
 
-Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
-
-## 2026 Vault/Cloud Rebaseline
-
-State must model Vault authority, local availability, Cloud confirmation,
-pending operations, entitlement/grace/quota and migration as separate
-dimensions. Local Vault repositories are authoritative; Cloud Vault repository
-state is server-authoritative with durable local cache/queue. A generic
-`connected` or `syncStatus` flag is insufficient.
-
-Dieses Konzept ersetzt den importierten F2-Inhalt aus dem alten Projekt.
-
-## Legacy Detail Baseline (non-normative)
-
-The remaining imported detail is retained only for migration context and useful
-feature-specific examples. It must not authorize Home Hub, Tailscale, customer
-self-hosting, universal local-first authority, old milestone scope or QR server
-pairing. Where it differs, the rebaseline above,
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
-`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
-concept is used for implementation, its affected detail must be rewritten into
-the phase's approved implementation contract.
+Akzeptiert. Dieses Konzept ersetzt alle frueheren BLoC-, GetIt-, Home-Hub- und
+universellen Local-first-Annahmen. Das Produktmodell wird in
+`docs/technical/DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md`,
+`docs/technical/DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md` und
+`docs/concepts/CONCEPT_F36_VAULT_MODES_CLOUD_LIFECYCLE.md` festgelegt.
 
 ## Zweck
 
-F2 definiert, wie DocMan Riverpod als State Management und Dependency Injection nutzt.
+F2 definiert Riverpod als State-Management- und Dependency-Injection-Grenze der
+Mappm-App. Der State muss fachliche Dimensionen explizit halten, anstatt sie in
+einem allgemeinen `connected`, `loading` oder `syncStatus` zu vermischen.
 
-DocMan ist local-first. State Management muss deshalb lokale Datenströme, Offline-Queues, Draft-Zustände, Home-Hub-Erreichbarkeit und spätere Sync-Zustände sauber abbilden.
-
-## Verbindliche Entscheidungen
-
-- Riverpod ist Zielarchitektur für State Management und DI.
-- BLoC und GetIt sind Spike-/Legacy-Pfade und werden nicht weiter ausgebaut.
-- Presentation darf nicht direkt Data oder SDKs ansprechen.
-- Lokale Datenbank und Home-Hub-Zugriff laufen über Repository-Verträge.
-- Core-Workflows müssen ohne Netzwerkzustand nutzbar bleiben.
-
-## Zielmodell
+## Verbindliche Architektur
 
 ```text
 Widget
-  -> watches Feature Provider
-      -> Notifier / AsyncNotifier / StreamProvider
-          -> Application Service / Repository Contract
-              -> Data Implementation
-                  -> Local DB / File Store / Home Hub
+  -> Riverpod Provider / Notifier
+      -> Use Case oder Domain-Repository-Vertrag
+          -> Data-Implementierung
+              -> Drift / File Store / Secure Storage / Mappm Cloud API
 ```
 
-Riverpod ist dabei:
+- Neue Produktpfade verwenden Riverpod; BLoC und GetIt werden nicht erweitert.
+- Presentation importiert weder Drift noch HTTP-, Storage- oder Backend-SDKs.
+- Provider verdrahten Implementierungen, schaffen aber nicht selbst die
+  Austauschbarkeit. Diese entsteht durch Domain-Ports.
+- Remote DTOs, Persistenzmodelle und API-Clients bleiben im Data Layer.
+- Riverpod selbst wird in Tests nicht gemockt; Abhaengigkeiten werden per
+  Provider Override ersetzt.
 
-- State Container.
-- Dependency Injection.
-- Test-Override-System.
-- Brücke von lokalen Streams zur UI.
+Provider liegen gemaess F1 unter `lib/app/providers` fuer appweite Composition
+und unter `lib/presentation/providers` fuer Screen- und Flow-State. Eine Phase
+darf die genaue Unterstruktur festlegen, aber keine konkurrierende
+Feature-first-Rootarchitektur einfuehren.
+
+## State-Dimensionen
+
+### Vault und Konto
+
+Mindestens getrennt zu modellieren sind:
+
+- Vault-Autoritaet: `local` oder `cloud`.
+- lokale Verfuegbarkeit: vollstaendig, teilweise, nur Metadaten oder nicht
+  verfuegbar.
+- Account-/Device-Session einschliesslich begrenzter Offline-Berechtigung.
+- Cloud-Schreibfaehigkeit und bestaetigte Cloud-Revision.
+- ausstehende lokale Operationen und Konflikt-/Review-Bedarf.
+- Entitlement, Assist-Kontingent, Quota, Grace und Read-only.
+- Migration und Quellstatus nach einer Migration.
+- Detached Recovery als eigener eingeschraenkter Betriebszustand.
+
+Ein Local Vault bleibt lokal autoritativ. Ein Cloud Vault bleibt
+serverautoritativ; lokale Aenderungen sind bis zur Cloud-Bestaetigung durable
+Pending Operations. Assist-Verarbeitung ist weder Sync noch Backup.
+
+### Capture und Verarbeitung
+
+Capture-State ist orthogonal zum Vault-State und umfasst:
+
+- technische Capture Session und einzelne logische Dokumente.
+- lokale Haltbarkeit des Originals.
+- Upload-, OCR-, Extraktions-, Indexierungs- und Matching-Fortschritt.
+- pro Dokument einen Processing Job mit Wiederanlauf und Idempotenz.
+- vorgeschlagenen Titel, Dokumenttyp, Fakten und Case-/Record-Kontext samt
+  Confidence und Provenance.
+- verpflichtende User-Bestaetigung der sichtbaren Konsequenzen, solange keine
+  spaetere Automationsklasse ausdruecklich freigegeben ist.
+- Teilfehler bei mehreren Dokumenten ohne Verlust erfolgreicher Ergebnisse.
+
+`Neuen Vorgang starten` oder ein vorhandener Case-Kontext ist nur ein
+Matching-Signal. Die Verarbeitung bleibt aktiv und erzeugt weiterhin
+Vorschlaege. Ein Dokument darf erst nach akzeptierter Review ohne Pending-State
+verlassen werden; dann besitzt es einen primaeren Case- oder Record-Kontext.
 
 ## Provider-Kategorien
 
-| Kategorie | Zweck | Beispiele |
+| Kategorie | Verantwortung | Beispiele |
 |---|---|---|
-| Repository Provider | Data-Implementierungen bereitstellen | caseRepositoryProvider, draftRepositoryProvider |
-| Stream Provider | lokale reaktive Daten lesen | openCasesProvider, draftInboxProvider |
-| Notifier | UI-/Feature-State und Aktionen steuern | caseEditorProvider, uploadQueueProvider |
-| AsyncNotifier | Laden/Speichern mit async Status | homeHubStatusProvider |
-| Derived Provider | abgeleitete Sichten | filteredCasesProvider, activeProfileCasesProvider |
-| App Provider | App-weite Konfiguration | appConfigProvider, activeProfileProvider |
+| Composition Provider | konkrete Implementierung verdrahten | Repository, Clock, ID Generator |
+| Query Provider | reaktive, abgeleitete Daten lesen | Cases, Records, Review Queue, Search |
+| Flow Notifier | Aktion und Zustandsautomat koordinieren | Capture, Review, Migration, Export |
+| Session Provider | Account, Device und Offline-Berechtigung | Session, Active Profile |
+| Derived Provider | reine Sicht auf bestehenden State | Filter, Badges, erlaubte Aktionen |
 
-## Feature-State-Regeln
+Provider duerfen keine fachlichen Wahrheiten als lose UI-Booleans duplizieren.
+Abgeleiteter State wird aus einer eindeutigen Quelle berechnet.
 
-Jedes Feature besitzt eigene Provider unter:
+## UI-State
 
-```text
-features/<feature>/presentation/providers/
-```
+Jeder asynchrone Produktflow unterscheidet nur die fuer ihn relevanten, aber
+fachlich eindeutigen Zustaende, zum Beispiel:
 
-Provider dürfen:
+- initial, loading, data und empty.
+- queued, processing und review ready.
+- offline mit lokal verfuegbaren Daten.
+- retryable failure, user action required und final failure.
+- conflict oder confirmation required.
+- read-only, quota limited oder reauthentication required.
 
-- Domain-Repository-Verträge lesen.
-- Application-Services orchestrieren.
-- Loading/Data/Error/Empty-Zustände modellieren.
-- User-Aktionen als Methoden anbieten.
+Widgets duerfen rein visuellen State wie Fokus, Scrollposition und Animation
+lokal halten. Persistente Auswahl, Workflow-Fortschritt, Routing, Retry und
+fachliche Transitionen gehoeren in Provider/Use Cases.
 
-Provider dürfen nicht:
+## Sicherheit und Datenschutz
 
-- lokale DB-SDKs direkt importieren.
-- HTTP-/Backend-SDKs direkt importieren.
-- fachliche Regeln in Widgets auslagern.
-- andere Features willkürlich intern importieren.
+- Provider-State, Debug-Ausgaben und DevTools duerfen keine Dokumentinhalte,
+  OCR-Texte, Tokens oder Schluessel offenlegen.
+- Appweiter State speichert nur die fuer Navigation und Interaktion noetigen
+  Referenzen; sensible Payloads bleiben hinter Repository-/File-Store-Grenzen.
+- Profil- oder Vault-Kontext darf nicht still auf einen anderen Nutzerkontext
+  zurueckfallen.
+- Ein Fehler oder Logout darf weder Vault-Autoritaet aendern noch lokale Daten
+  loeschen.
 
-## Local-first State
+## Tests und Verifikation
 
-Lokale Daten sind primär.
+Jede betroffene Phase prueft:
 
-Beispiele:
+- Notifier-Zustandsautomaten und ungueltige Transitionen.
+- Provider Overrides fuer Local- und Cloud-Repositories, Clock, IDs, Secure
+  Storage und Assist.
+- App-Neustart, Offline-Fortsetzung, Idempotenz und partielle Fehler.
+- getrennte Assertions fuer Vault-Autoritaet, lokale Verfuegbarkeit, Pending
+  Operations und Assist.
+- Capture mit hoher, mittlerer und niedriger Confidence sowie Korrektur.
+- Semantics und lokalisierte UI-Texte fuer relevante State-Wechsel.
 
-- Case-Liste beobachtet lokale Datenbank.
-- Draft-Inbox beobachtet lokale Drafts und mobile Uploads.
-- Suche filtert lokale Daten.
-- Home-Hub-Status ergänzt UI, blockiert aber lokale Kernflows nicht.
+## Migration des Legacy-Codes
 
-Remote-Zustand darf lokale Nutzbarkeit nicht überschreiben. Wenn Home Hub offline ist, bleibt die App bedienbar und zeigt Queue-/Sync-Zustände.
+1. `ProviderScope` und appweite Composition bereitstellen.
+2. Domain-Ports und Fake-Implementierungen definieren.
+3. Neue Zielpfade ausschliesslich ueber Riverpod anbinden.
+4. BLoC/GetIt nur beim Migrieren des betroffenen Pfads entfernen.
+5. Kein Legacy-State wird als zweite Source of Truth parallel weitergefuehrt.
 
-## M2 Provider-Bereiche
+## Stop Rules
 
-| Bereich | Provider-Verantwortung |
-|---|---|
-| Cases | offene Vorgänge, Detailansicht, Editor-State, Statusänderung |
-| Documents | Dokument-Metadaten, Datei-Referenzen, Zuordnung |
-| Draft Inbox | ungeprüfte Dokumente, Review-State, Zuordnung zu Vorgängen |
-| Mobile Capture | lokale Capture-Queue, Upload-Status, Retry |
-| Profiles | betroffene Person / Haushaltsprofil, einfache Profilliste |
-| Home Hub | Health, Verbindung, Upload-Fähigkeit |
-| Search | lokale Filter und Suchabfragen |
-| Settings | Home-Hub-URL, nicht geheime Präferenzen |
+Stop, wenn:
 
-## Async- und Error-State
+- ein generischer Connectivity-/Sync-Status mehrere Produktdimensionen ersetzt.
+- Presentation konkrete Storage- oder API-Technologie kennt.
+- Capture-Intent als endgueltige Zuordnung behandelt wird.
+- ein Fehler Vault-Autoritaet, Backup-Status oder Datenbesitz implizit aendert.
+- Provider-State sensible Inhalte oder Secrets unkontrolliert exponiert.
+- ein Flow nicht mit Overrides und deterministischen Fakes testbar ist.
 
-Provider müssen explizit zwischen diesen Zuständen unterscheiden:
+## Handoff
 
-- loading
-- data
-- empty
-- offline
-- queued
-- uploading
-- failed retryable
-- failed needs user action
-- conflict / needs review
-
-F5 definiert das konkrete Failure-Modell. F2 legt nur fest, dass diese Zustände nicht als freie Strings oder verstreute Booleans wachsen dürfen.
-
-## Upload Queue State
-
-Mobile Upload Queue ist ein eigener State-Bereich.
-
-Er muss zeigen können:
-
-- wie viele Uploads warten.
-- welcher Upload gerade läuft.
-- ob der Home Hub erreichbar ist.
-- welcher Upload fehlgeschlagen ist.
-- ob ein Upload direkt einem Vorgang zugeordnet wurde.
-- ob ein Upload in die Draft-Inbox zurückgefallen ist.
-
-Queue-Operationen müssen idempotent gedacht werden. Retry darf keine Duplikate erzeugen.
-
-## Smart/Dumb Widgets
-
-Screens sind Smart Widgets und lesen Provider.
-
-Kind-Widgets sind Dumb Widgets und bekommen Daten/Funktionen per Konstruktor.
-
-Erlaubter lokaler Widget-State:
-
-- TextController.
-- FocusNode.
-- ScrollController.
-- AnimationController.
-- visuelle Auswahlzustände ohne fachliche Bedeutung.
-
-Nicht in Widgets:
-
-- Datenbankzugriff.
-- Upload-Logik.
-- Status-Transitions.
-- Parsing oder Mapping.
-
-## Provider Overrides und Tests
-
-Jeder externe Zugriff muss überschreibbar sein:
-
-- lokale Repositories.
-- Home-Hub-Client.
-- Secure-Storage-Repository.
-- Clock/Time Provider.
-- ID Generator.
-
-Tests verwenden Provider Overrides und echte Notifier-Logik. Riverpod selbst wird nicht gemockt.
-
-## Migration vom Spike
-
-Die Migration erfolgt geplant:
-
-1. `ProviderScope` als App-Root vorbereiten.
-2. Repository Provider für neue Zielstruktur definieren.
-3. Auth-/Home-Hub-/Local-Storage-Zugriffe über Provider kapseln.
-4. BLoC-Screens nur ersetzen, wenn ein Feature in Zielstruktur migriert wird.
-5. GetIt erst entfernen, wenn kein Zielpfad mehr davon abhängt.
-
-## Definition of Done für F2
-
-F2 gilt als umgesetzt, wenn:
-
-- neue Feature-States in Riverpod modelliert werden.
-- keine neuen BLoCs oder GetIt-Registrierungen entstehen.
-- lokale Streams über Provider in UI fließen.
-- Draft-Inbox und Upload-Queue eigene Provider-Grenzen haben.
-- Home-Hub-Status sichtbar, aber nicht blockierend ist.
-- Tests Provider Overrides verwenden können.
-
-## Offene Folgefragen
-
-- Nutzen wir Riverpod Codegen direkt oder starten wir manuell und migrieren später?
-- Welche Provider werden `keepAlive`?
-- Wie genau wird Person-/Profilkontext appweit gehalten, ohne stille Default-Zuordnung zu erzwingen?
-- Welche gemeinsamen Test-Helpers brauchen ProviderScope und Overrides?
+Foundation-Umsetzung geht an `foundation-builder`; Repository- und
+Persistenzdetails an `data-architect`; API-Verhalten an `contract-api`.
+UI-spezifische Flows benoetigen danach einen geprueften `ui-architect`-Plan.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Bei Widerspruechen gilt
+die strengere, produktspezifische Regel; die betroffene Phase muss stoppen.

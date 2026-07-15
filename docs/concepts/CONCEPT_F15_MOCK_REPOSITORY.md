@@ -1,180 +1,185 @@
 ---
 title: "Konzept F15 - Mock Repository Blueprint"
-description: "Mappm Fakes for Local/Cloud Vaults, entitlements, migrations, capture, cache and contract consumers"
-tags: [concept, foundation, mocks, fakes, testing, riverpod, mobile-capture]
-lastUpdated: "2026-07-12"
-version: "4.0"
-status: "accepted-rebaseline"
+description: "Deterministische Fake-, Fixture-, UI-Mock- und Contract-Mock-Strategie fuer Mappm"
+tags: [concept, foundation, fake-repository, mock, fixtures, microcks, ui-mock, testing]
+lastUpdated: "2026-07-15"
+version: "5.0"
+status: "accepted"
+owner: "quality-readiness/ui-concept"
 ---
 
 # Konzept F15 - Mock Repository Blueprint
 
-## Status
+## Status und Zweck
 
-Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
+Akzeptiert. F15 definiert, wie Mappm ohne fertiges Backend, ohne private Daten
+und ohne instabile Umgebung entwickelt, getestet und visuell validiert wird.
+Es ersetzt Fake-Home-Hub-, QR-Pairing- und Draft-Inbox-Fallback-Szenarien.
 
-## 2026 Vault/Cloud Fake Matrix
+## Vier getrennte Ebenen
 
-Required deterministic fakes cover Local Vault, Cloud Vault, local cache,
-pending queue, account/device session, entitlement/grace/quota, migration,
-Core-Assist jobs, offline entitlement and Detached Recovery,
-export/delete and Cloud failures. A Fake Cloud client tests app behavior;
-Microcks tests contracts; Local Development Cloud tests real integration. No
-fake silently calls a managed environment and all data/assets are synthetic.
+| Ebene | Zweck | Darf nicht |
+|---|---|---|
+| Fake Repository/Port | Domain-, Provider- und Widget-Verhalten deterministisch testen | Netzwerk oder echte Persistenz verwenden |
+| UI-Konzeptmock | Form, Dichte und Interaktion eines noch nicht produktiven Flows pruefen | Produktnavigation oder reale Adapter verwenden |
+| Microcks Contract Mock | OpenAPI-Verbraucherverhalten und Responses pruefen | Domain- oder UI-Logik ersetzen |
+| Local Development Cloud | reale Client-/Server-Integration mit synthetischen Daten pruefen | als Fake oder Production-Ersatz gelten |
 
-Dieses Konzept ersetzt den importierten F15-Inhalt aus dem alten Projekt.
+Ein Fake Cloud Repository testet App-Verhalten. Microcks testet den Vertrag.
+Local Development Cloud testet die echte Integration. Staging prueft den
+managed Betriebsweg. Die Ebenen werden in Reports und Testnamen klar benannt.
 
-## Legacy Detail Baseline (non-normative)
+## Fake-Regeln
 
-The remaining imported detail is retained only for migration context and useful
-feature-specific examples. It must not authorize Home Hub, Tailscale, customer
-self-hosting, universal local-first authority, old milestone scope or QR server
-pairing. Where it differs, the rebaseline above,
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
-`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
-concept is used for implementation, its affected detail must be rewritten into
-the phase's approved implementation contract.
+- Fakes implementieren dieselben Domain-Ports wie produktive Adapter.
+- Fakes enthalten keine alternative Produktlogik; sie liefern Daten, Zeit,
+  Fehler und bestaetigte Transaktionen kontrollierbar aus.
+- Jeder Fake ist deterministisch und erhaelt Clock, ID Generator und
+  Szenariokonfiguration explizit.
+- Ein Fake darf niemals still eine echte Cloud, lokale private Dateien, Drift,
+  Secure Storage oder externe APIs aufrufen.
+- Production Composition darf nicht auf Fakes zurueckfallen. Fehlende
+  Konfiguration fuehrt zu einem klaren Startfehler.
+- Fakes simulieren auch Fehler, Restart, Konflikte, Latenz und Teilresultate;
+  sie sind nicht nur Happy-Path-Listen.
 
-## Zweck
+## Verbindliche Fake-Matrix
 
-F15 definiert, wie DocMan ohne fertigen Server, ohne echte private Dokumente und ohne instabile Testdaten entwickelt, getestet und visuell validiert werden kann.
+### Foundation
 
-Dieses Konzept ist die App-seitige Hälfte der R3-Teststrategie und der praktische Rahmen fuer UI-Konzeptmocks. Es beschreibt Fake-Repositories, Fake-Clients und isolierte Mock-UI. API-Verträge gegen einen mockbaren Server gehören ergänzend zu F4/F16 und ersetzen diese Fakes nicht.
+- Fake Clock und kontrollierbarer Scheduler.
+- Fake ID Generator.
+- Fake Secure Storage ohne produktionsaehnliche Secrets.
+- In-Memory Structured Store und Fake File Store.
+- Fake Account-/Device-Session und Offline-Berechtigung.
+- Fake Entitlement, Quota, Grace und Retention Clock.
 
-## Ebenen
+### Vaults und Lifecycle
 
-| Ebene | Zweck |
-|---|---|
-| Fake Repository | schnelle UI/Provider-Tests mit deterministischen Daten |
-| UI-Konzeptmock | isolierte Screen-/Flow-Validierung mit synthetischen Daten |
-| Fake Home Hub Client | Mobile Upload, Health, Pairing simulieren |
-| In-Memory Storage | lokale Persistenz ohne echte DB-Dateien |
-| Fixture Files | harmlose Test-PDFs/Bilder |
-| Contract Mock Backend | API-Verträge über Microcks prüfen |
-| Real Integration | später gegen echten Compose/Home-Hub-Stack |
+- Local Vault Repository als lokale Autoritaet.
+- Cloud Vault Repository als Cloud-Autoritaet.
+- lokaler Cache und Pending-Operation-Store.
+- Konflikte, Tombstones, Cache Miss offline und Reauth.
+- Local-to-Cloud/Cloud-to-Local mit Checkpoints, Verifikation und Fehlern.
+- Export, Delete, Restore und Detached Recovery.
 
-## Regeln
+### Produktdomain
 
-- Fakes implementieren dieselben Repository-Verträge wie echte Data-Implementierungen.
-- Fakes dürfen keine Produktlogik ersetzen.
-- Testdaten sind synthetisch und nie privat.
-- App-Testfixtures liegen unter `test/fixtures/`; API-/Microcks-Beispiele liegen unter `contracts/`.
-- Anonymisierte private Dokumente sind nicht erlaubt; Fixtures muessen frei erfunden sein.
-- Fake-Modus muss in UI/Dev klar erkennbar sein.
-- Production darf nicht still auf Fake-Daten laufen.
-- Fake-Repositories laufen im Prozess der Flutter-Tests und benötigen kein Netzwerk.
-- Contract-Mocks laufen außerhalb der App und prüfen API-Verträge, nicht Domain-Logik.
-- UI-Konzeptmocks sind kein Produktpfad und duerfen keine echte Datenbank, kein Dateisystem, keinen Home Hub und keine externen APIs ansprechen.
-- Die Legacy-App bleibt nur Design- und Fachreferenz. Neue Mocks duerfen keine BLoC-, GetIt-, Isar- oder PocketBase-Flaeche erweitern.
+- Cases und CaseLinks.
+- Records, Documents, Claims, Tasks, Termine und Profile.
+- Search/Facts mit kleinen synthetischen Indizes.
+- Custom Case als normaler, minimal befuellter Case.
+
+### Capture und Assist
+
+- technische Session mit einem oder mehreren logischen Dokumenten.
+- ein Dokument mit mehreren Seiten; keine Vermischung zweier Dokumente in
+  einer Scan-Einheit.
+- dauerhafte Originalannahme und 1-2 Minuten simulierbare Verarbeitung.
+- Upload-, OCR-, Extraction-, Index- und Matching-Stufen.
+- hoher, mittlerer, niedriger und unzureichender Confidence-Bereich.
+- immer gerankte beste Kandidaten und bei sehr niedriger Confidence ein neuer
+  leichter Custom Case zuerst.
+- verpflichtender Titelvorschlag fuer neue Cases sowie Typ-, Fakten- und
+  Case-/Record-Vorschlaege mit Provenance.
+- optionaler New-Case-/Case-Intent als Signal, niemals als finale Zuordnung.
+- Teilfehler, Outlier, Cancel, Retry, Restart und Reprocessing.
+- erhaltene bestaetigte Titel/Fakten und reversible Korrektur.
+
+## Synthetische Fixtures
+
+Die geplante Zielablage fuer App-Fixtures ist `test/fixtures/`, fuer Contract
+Examples `contracts/examples/`. Diese Pfade werden erst in ihrer freigegebenen
+Implementation-Phase angelegt. Jede Fixture ist frei erfunden und enthaelt:
+
+- stabilen Zweck/Scenario-Key.
+- erwartete Klassifikation, Fakten und Beziehungen.
+- erlaubte Testebenen.
+- keine echten Namen, Adressen, Kontonummern, Versicherungsdaten, Dokumente,
+  Screenshots oder Metadaten.
+
+Auch anonymisierte private Haushaltsdokumente sind verboten. PDF-/Bild-Fixtures
+werden synthetisch erzeugt und visuell als Testdaten kenntlich gemacht.
 
 ## UI-Konzeptmocks
 
-UI-Konzeptmocks dienen dazu, Form, Interaktion und fachliche Begriffe schnell zu pruefen, bevor ein Feature verbindlich geplant wird.
+UI-Mocks liegen gemaess `ui-mocker` unter
+`lib/presentation/screens/mocks` und laufen ueber einen eigenen Entry Point. Die
+Produktnavigation kennt sie nicht. Ein Mock darf keine echten Repositories,
+Drift, Secure Storage, Microcks, Mappm Cloud oder externen APIs aufrufen.
 
-Geeignete Mock-Kandidaten:
+Geeignete Mocks sind unter anderem:
 
-- Vorgangsliste und Vorgangsdetail.
-- Dokumentdetail mit Status, Datei, Ereignissen und Review-Hinweisen.
-- Draft-Inbox fuer mobile Uploads.
-- Mobile Capture Flow mit Upload-Queue.
-- QR-Pairing Flow.
-- OCR-/AI-Vorschlag fuer Formularfelder als spaeterer spaeterer-Spike.
+- globales Capture und asynchrone Verarbeitung.
+- kompakte Review fuer Titel, Typ, Fakten und Case-/Record-Matching.
+- mehrere zusammenhaengende oder nicht zusammenhaengende Dokumente.
+- Case-/Record-Detail, Search, Tasks und Vault-Lifecycle.
+- Fehler-, Offline-, Quota-, Migration- und Accessibility-Zustaende.
 
-Mock-UI soll nah genug an der spaeteren Architektur liegen, damit die Erkenntnisse wiederverwendbar sind, aber nicht so tun, als waere sie bereits produktiv. Wenn ein Mock weitergebaut wird, braucht er einen Feature-Plan mit Domain-Vertrag, Riverpod-Provider, Teststrategie und klarer Definition of Done.
+Der konkrete UI-Aufbau wird spaeter mit der Nutzerin konzipiert. F15 legt keine
+Karten, Buttons, Swipe-Gesten oder Screen-Komposition vorweg. Der Mock muss aber
+die fachlichen Zustaende vollstaendig simulieren und darf nicht nur eine
+statische Happy-Path-Ansicht sein.
 
-Mock-UI wird ueber einen eigenen Entry Point gestartet:
+## Szenariosteuerung
 
-```bash
-flutter run -d macos -t lib/main_mock_catalog.dart
-```
+Tests konfigurieren Szenarien per typisierten Buildern oder Fixtures, nicht ueber
+globale versteckte Flags. UI-Mocks duerfen eine Dev-only Szenarioauswahl
+besitzen, wenn sie:
 
-Ein Script wie `scripts/run_mocks.sh` darf diesen Befehl kapseln. Die normale Produktnavigation darf Mock-Screens nicht kennen.
+- eindeutig als Mock markiert ist.
+- keine Produktionskonfiguration veraendert.
+- deterministisch reproduzierbare Szenario-IDs ausgibt.
+- auf kleinen und grossen Viewports bedienbar ist.
 
-Der erste Mock-Flow ist Mobile Capture zu Draft-Inbox zu optionaler Vorgangszuordnung. Er soll als interaktiver Flutter-only Mock starten, also ohne Repositories, Drift, Home Hub, Microcks oder echte Dateien.
+## Microcks-Abgrenzung
 
-Mock-Daten muessen realistisch genug fuer Produktentscheidungen, aber vollstaendig synthetisch sein. Erlaubt sind frei erfundene Haushalts-, Vorgangs-, Upload- und Dokumentbeispiele. Nicht erlaubt sind echte Namen, echte Adressen, echte Dokumentinhalte, Screenshots privater Dokumente oder echte Secrets.
+Microcks-Szenarien werden aus akzeptierter OpenAPI und synthetischen Examples
+abgeleitet. Sie pruefen unter anderem Identity, Entitlement, Capture,
+Processing, Sync, Migration, Export und Delete. Ein App-Test darf einen
+Microcks-Response nicht als Beweis fuer Domain-Invarianten verwenden.
 
-## M2-Fakes
+## Sicherheit, Accessibility und Localization
 
-Benötigt:
+- Keine privaten Daten oder echten Secrets in Fixtures, Goldens, Screenshots
+  oder Reports.
+- Mock-Modus ist visuell und semantisch eindeutig, aber kein produktiver Banner.
+- Relevante UI-Mocks enthalten Tastatur-, Fokus-, Semantics-, Textscale- und
+  Kontrastzustaende.
+- Nutzernahe Mock-Texte sind Deutsch und lokalisierbar angelegt.
+- Dev-Szenarionamen duerfen technisch sein, erscheinen aber nie im Produktpfad.
 
-- Cases Fake.
-- Documents Fake.
-- Draft-Inbox Fake.
-- Upload-Queue Fake.
-- Home-Hub Fake mit reachable/unreachable/error.
-- Secure-Storage Fake.
-- Clock/ID Generator Fake.
+## Tests und Verifikation
 
-## Mobile Capture Szenarien
+- Contract-Tests stellen sicher, dass Fakes ihre Domain-Ports vollstaendig
+  implementieren.
+- Determinismustests laufen mit gleicher Clock/ID zweimal identisch.
+- Negative Tests beweisen, dass Fakes kein Netzwerk oder echte Dateipfade
+  verwenden.
+- Jede kritische Matrixzeile besitzt Happy-, Failure- und Restart-Szenario.
+- Mock Entry Point wird separat gebaut und ist aus Production unerreichbar.
+- Fixture-Scan prueft verbotene Secrets/PII und dokumentiert synthetische Quelle.
 
-Fakes müssen abbilden:
+## Stop Rules
 
-- Upload erfolgreich.
-- Home Hub offline.
-- Auth/Pairing ungültig.
-- Datei fehlt.
-- `caseId` ungültig, Fallback Draft-Inbox.
-- Retry erzeugt kein Duplikat.
+Stop, wenn:
 
-## Abgrenzung zu Microcks
+- ein Fake echte Infrastruktur oder private Daten verwendet.
+- Fake-Logik eine fehlende Domain-Regel verdeckt.
+- ein UI-Mock als fertige Produktentscheidung behandelt wird.
+- Microcks, Fake und Local Development Cloud nicht eindeutig unterschieden sind.
+- Production bei Konfigurationsfehler still auf Fake-Daten startet.
+- Capture-Szenarien Titelvorschlag, niedrige Confidence, Teilfehler oder
+  User-Korrektur auslassen.
 
-Fake-Repositories sind für schnelle App-Tests gedacht:
+## Handoff
 
-- Domain- und Use-Case-Tests.
-- Riverpod Provider/Notifier mit Overrides.
-- Widget Tests mit stabilen Zuständen.
-- Offline-Verhalten und lokale Queue-Logik.
-
-Microcks ist für Schnittstellen gedacht:
-
-- Home-Hub Health.
-- Pairing und Token-Fehler.
-- Capture Upload.
-- Draft-Inbox Übergabe.
-- spätere Sync- und Konfliktantworten.
-
-Beide Ebenen verwenden synthetische Daten. Keine Ebene darf private Dokumente oder echte Secrets benötigen.
-
-## Test-Helper Zielbild
-
-R3 sollte zentrale Test-Helper definieren:
-
-- Fake Clock.
-- Fake ID Generator.
-- Fake Secure Storage.
-- Fake Case Repository.
-- Fake Document Repository.
-- Fake Draft Inbox Repository.
-- Fake Upload Queue Repository.
-- Fake Home Hub Client.
-- synthetische Fixture-Dateien.
-
-Diese Helper sollen Provider Overrides einfach machen, ohne dass Tests konkrete Data-Implementierungen kennen.
-
-## Definition of Done
-
-F15 gilt als umgesetzt, wenn:
-
-- jedes M2-Repository eine Fake-Strategie hat.
-- Riverpod Tests Provider Overrides nutzen.
-- UI-Mocks ohne echten Home Hub laufen.
-- UI-Mocks getrennt vom Produktpfad liegen und keine Legacy-Architektur erweitern.
-- der Mock-Katalog ueber einen eigenen Entry Point startbar ist.
-- der erste Mobile-Capture/Draft-Inbox-Mock als interaktiver Stufe-2-Mock pruefbar ist.
-- API-nahe Flows klar zwischen Fake-Client und Contract-Mock unterscheiden.
-- Fake-Daten keine privaten Dokumente enthalten.
-- Real-Integration später ergänzbar bleibt.
-
-## Offene Folgefragen
-
-- Gibt es einen globalen Dev-Fake-Modus?
-- Welche Fake-Szenarien werden im UI auswählbar?
+Fake-/Fixture-Umsetzung geht an `quality-readiness` und
+`frontend-test-coverage`; UI-Mocks an `ui-mocker`; API-Szenarien an
+`contract-api`.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Bei Widerspruechen gilt
+die strengere Regel und die betroffene Phase stoppt.

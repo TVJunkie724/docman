@@ -2,7 +2,7 @@
 title: "Mappm OPS-00 Operations Umbrella"
 description: "Operations, local development, CI/CD, release and support governance for Mappm"
 tags: [ops, cicd, release, support, frontend, playbook]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 status: "draft"
 owner: "quality-readiness"
 ---
@@ -28,6 +28,19 @@ contracts and are activated phase by phase.
 | Support diagnostics | planned | support/ops | support pillar, logging/error concepts |
 | Incident/change governance | planned | release/ops | OPS-03 and OPS-06 |
 | Managed Cloud operations | planned | backend/ops/security | OPS-01..07, SEC/DATA/REG concepts |
+
+## Artefaktindex
+
+| Artefakt | Verantwortung |
+|---|---|
+| `OPS-01_ENVIRONMENTS_DEPLOYMENT.md` | Local Development Cloud, Development, Staging, Production und Deployments |
+| `OPS-02_MONITORING_OBSERVABILITY.md` | Metrics, Logs, Traces, Alerts, Redaction und SLO-Evidenz |
+| `OPS-03_INCIDENT_RESPONSE.md` | Incident-Rollen, Severity, Kommunikation, Recovery und Postmortem |
+| `OPS-04_DISASTER_RECOVERY_BCP.md` | RPO/RTO, Backups, Restore, Failover und Business Continuity |
+| `OPS-05_SUPPORT_DIAGNOSTICS.md` | Support-Bundles, Preview, Redaction, Consent und privilegierter Zugriff |
+| `OPS-06_RELEASE_ROLLBACK_VERSIONING.md` | Versionierung, Rollout, Migration, Rollback und Change Evidence |
+| `OPS-07_CI_CD_PIPELINE.md` | CI/CD-Stufen, Gates, Secrets, Artefakte und Promotion |
+| `OPS-08_PROJECT_ENTRYPOINTS.md` | Instanzen, Env/Config/Icon-Grenzen und einheitliche Projektbefehle |
 
 ## Rules
 

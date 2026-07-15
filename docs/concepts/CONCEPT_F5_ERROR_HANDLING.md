@@ -1,199 +1,153 @@
 ---
 title: "Konzept F5 - Error Handling"
-description: "Mappm-Fehlerkonzept fuer Account, Local/Cloud Vaults, Assist, offline/cache, migration, entitlement, upload and Detached Recovery"
-tags: [concept, foundation, error-handling, failure, account, assist, offline, upload-queue, recovery]
-lastUpdated: "2026-07-12"
-version: "4.0"
-status: "accepted-rebaseline"
+description: "Typed-Failure- und Recovery-Konzept fuer Vaults, Capture, Assist, Migration, Entitlements und sensible Dokumentdaten"
+tags: [concept, foundation, error-handling, failure, vault, capture, assist, recovery]
+lastUpdated: "2026-07-15"
+version: "5.0"
+status: "accepted"
+owner: "foundation/quality"
 ---
 
 # Konzept F5 - Error Handling
 
-## Status
+## Status und Abgrenzung
 
-Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
+Akzeptiert. F5 definiert Failure-Kategorien und fachliches Recovery-Verhalten.
+F18 definiert deren sichere Nutzerkommunikation, Telemetry, Audit und
+Correlation. Dieses Konzept ersetzt Home-Hub-, Pairing- und stille
+Draft-Inbox-Fallback-Regeln.
 
-## 2026 Vault/Cloud Rebaseline
+## Grundsaetze
 
-Failure categories must distinguish local-storage, Cloud-unavailable,
-authentication, authorization, entitlement/payment, quota, read-only grace,
-migration preflight/transfer/verification, cache-miss-offline, bounded offline
-session, Assist queue/provider/review, Detached Recovery and retention states.
-Failure handling never changes Vault authority, implies backup, deletes source
-data or blocks export/Cloud-to-Local migration without an accepted policy.
+- Erwartbare Fehler werden typisiert, nicht als freie Strings oder rohe
+  Exceptions transportiert.
+- Fehler duerfen nie Originale verlieren, Autoritaet wechseln, Backup
+  behaupten oder Quellendaten vor verifizierter Migration loeschen.
+- Offline ist ein Betriebszustand. Ob eine Aktion moeglich ist, haengt von Vault,
+  lokalem Datenstand, Berechtigung und Pending Operations ab.
+- Presentation zeigt sichere, lokalisierbare Texte und niemals Stacktraces,
+  Providerantworten oder private Daten.
+- Retry ist nur bei idempotenter oder eindeutig geschuetzter Operation erlaubt.
 
-Dieses Konzept ersetzt den importierten F5-Inhalt aus dem alten Projekt.
+## Failure-Modell
 
-## Legacy Detail Baseline (non-normative)
+Ein `Failure` traegt mindestens:
 
-The remaining imported detail is retained only for migration context and useful
-feature-specific examples. It must not authorize Home Hub, Tailscale, customer
-self-hosting, universal local-first authority, old milestone scope or QR server
-pairing. Where it differs, the rebaseline above,
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
-`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
-concept is used for implementation, its affected detail must be rewritten into
-the phase's approved implementation contract.
+- stabile Kategorie und sicheren Referenzcode.
+- Retryability: automatisch, manuell oder nicht retrybar.
+- erforderliche Recovery-Art: keine, Nutzeraktion, Review oder Support.
+- optionale harmlose Operation-/Correlation-ID.
+- redaktionierte technische Metadaten.
 
-## Zweck
+Planbare Ergebnisse verwenden eine `Result<T>`-/`Failure`-Grenze. Technische
+Exceptions werden im Data Layer gefangen und gemappt. Unerwartete Exceptions
+werden redaktioniert als `UnexpectedFailure` weitergegeben.
 
-F5 definiert, wie DocMan Fehler fachlich, technisch und in der UI behandelt.
+## Kategorien
 
-DocMan verwaltet private Dokumente. Fehler dürfen deshalb nicht zu Datenverlust, stillen Überschreibungen oder unklaren Zuständen führen.
-
-F18 ergänzt F5 um UserNotifications, Telemetry Events, Audit Events, Correlation IDs und das Observability-Zielbild. F5 bleibt die Quelle für Failure-Kategorien und fachliches Fehlerverhalten.
-
-## Grundsatz
-
-Fehler werden klassifiziert, nicht nur angezeigt.
-
-DocMan unterscheidet:
-
-- Fehler, die Nutzerinnen sofort beheben können.
-- Fehler, die automatisch wiederholt werden dürfen.
-- Fehler, die nur Review brauchen.
-- Fehler, die lokale Nutzung nicht blockieren.
-- Fehler, die Datenintegrität gefährden.
-
-## Failure-Kategorien
-
-| Failure | Bedeutung | Beispiele |
+| Kategorie | Bedeutung | Typische Recovery |
 |---|---|---|
-| ValidationFailure | Eingabe oder Zustand fachlich ungültig | fehlender Titel, ungültiges Datum |
-| LocalStorageFailure | lokale DB oder Dateiablage fehlgeschlagen | Datei nicht lesbar, DB-Migration kaputt |
-| SecureStorageFailure | Geheimnis nicht lesbar/schreibbar | Keychain nicht verfügbar |
-| NetworkFailure | Backend nicht erreichbar | Home Hub offline, Timeout |
-| AuthFailure | Pairing/Login/Session ungültig | Gerät nicht freigegeben |
-| UploadFailure | Mobile/Datei-Upload fehlgeschlagen | Retry möglich, Datei zu groß |
-| ConflictFailure | Änderung braucht Nutzerentscheidung | caseId ungültig, Sync-Konflikt |
-| PermissionFailure | Aktion nicht erlaubt | später Familienrechte |
-| ParseFailure | Datei/Antwort nicht verarbeitbar | kaputtes PDF, ungültiges JSON |
-| UnexpectedFailure | nicht klassifizierter Fehler | Programmierfehler, unbekannte Exception |
+| `ValidationFailure` | Eingabe oder Transition ist fachlich ungueltig | inline korrigieren |
+| `LocalStorageFailure` | Drift, Datei oder lokaler Index ist nicht nutzbar | Retry, Reparatur oder Recovery |
+| `SecureStorageFailure` | Schluessel oder Session-Geheimnis fehlt | Reauth/Recovery, nie still neu erzeugen |
+| `NetworkFailure` | Dienst derzeit nicht erreichbar | Queue oder manueller Retry |
+| `AuthenticationFailure` | Session oder Device Trust ungueltig | Reauth |
+| `AuthorizationFailure` | Aktion fuer diesen Kontext nicht erlaubt | erklaeren, keine Wiederholung |
+| `EntitlementFailure` | Plan, Quota, Grace oder Zahlung begrenzt Aktion | erlaubte Alternative/Exit zeigen |
+| `UploadFailure` | Artefakttransfer nicht bestaetigt | checkpoint-basierter Retry |
+| `ProcessingFailure` | OCR, Extraktion, Index oder Matching scheitert | Stufe wiederholen oder manuell reviewen |
+| `ConflictFailure` | konkurrierende Revision oder Entscheidung | sichtbare Review |
+| `MigrationFailure` | Preflight, Transfer oder Verifikation scheitert | Quelle autoritativ halten, fortsetzen |
+| `IntegrityFailure` | Hash, Datei, Inventar oder Revision stimmt nicht | blockieren und untersuchen |
+| `CacheMissOfflineFailure` | Cloud-Daten lokal nicht verfuegbar | online laden; keinen Inhalt erfinden |
+| `DetachedRecoveryFailure` | eingeschraenkter lokaler Recovery-Pfad scheitert | Export/Reparatur/Support |
+| `UnexpectedFailure` | nicht klassifizierter technischer Fehler | sicher abbrechen und Referenz anbieten |
 
-## Result statt rohe Exceptions
+## Vault- und Account-Regeln
 
-Domain und Application sollten planbare Fehler als Result/Failure modellieren.
+- Local Vault: lokale Schreibfehler blockieren nur die betroffene Operation;
+  Cloud- oder Assist-Fehler aendern die lokale Autoritaet nicht.
+- Cloud Vault: lokale Pending Operations bleiben erhalten, bis die Cloud eine
+  Revision bestaetigt oder ein Konflikt sichtbar aufgeloest wurde.
+- Reauth, Quota, Kuendigung und Grace blockieren niemals gesetzlich oder
+  vertraglich erforderliche Export-, Loesch- oder Cloud-to-Local-Pfade.
+- Cache-Bereinigung ist keine Cloud-Loeschung; Cloud-Loeschung ist keine lokale
+  Cache-Bereinigung.
+- Migration bleibt auf der Ausgangsautoritaet, bis Inventar, Anzahl und
+  Checksums geprueft und der Zielwechsel atomar bestaetigt sind.
 
-Exceptions bleiben für:
+## Capture- und Assist-Regeln
 
-- unerwartete technische Fehler.
-- SDK-/IO-Grenzen innerhalb Data.
-- Bugs.
+Fehler werden pro logischem Dokument und Verarbeitungsstufe gefuehrt:
 
-Data fängt SDK-Exceptions und wandelt sie in DocMan-Failures oder App-Exceptions. Presentation zeigt keine rohen Exception-Texte.
+- Capture-/Seitenvalidierung.
+- lokale Haltbarkeit des Originals.
+- Upload und Bestaetigung.
+- OCR und Dokumentgrenzen.
+- Fakten-/Typ-Extraktion und Indexierung.
+- Case-/Record-Matching und Vorschlagsbildung.
+- Persistenz der User-Bestaetigung.
 
-## Offline-Regeln
+Bei Teilfehlern bleiben erfolgreiche Dokumente und Ergebnisse erhalten. Ein
+veralteter Case-/Profil-Intent loest eine sichtbare neue Vorschlagspruefung aus;
+er ordnet nicht still zu und verwirft das Original nicht. Niedrige Confidence
+ist kein technischer Fehler: Mappm zeigt weiterhin die besten Vorschlaege und
+stellt bei sehr schwacher Evidenz den neuen leichten Custom Case zuerst.
 
-Offline ist in DocMan kein Fehlerzustand an sich.
+Ein Assist-Ausfall bietet, soweit fachlich moeglich, manuelle Benennung,
+Zuordnung und spaetere Wiederverarbeitung. Bereits bestaetigte Titel oder Fakten
+werden durch Retry nicht still ueberschrieben.
 
-Offline bedeutet:
+## UI- und Recovery-Mapping
 
-- lokale Kernflows bleiben nutzbar.
-- Uploads werden queued.
-- Home-Hub-Status wird sichtbar.
-- Sync-/Upload-Aktionen können retryable scheitern.
-
-UI-Text soll nicht dramatisieren. Ein fehlender Home Hub ist für lokale Arbeit ein Status, kein Absturz.
-
-## Upload-Fehler
-
-Mobile Uploads müssen robust sein.
-
-Fehlerfälle:
-
-- Home Hub nicht erreichbar.
-- Auth/Pairing ungültig.
-- Datei nicht mehr lokal verfügbar.
-- Upload abgebrochen.
-- Server nimmt Datei nicht an.
-- gewählte `caseId` ist nicht gültig.
-
-Regeln:
-
-- Retrybare Fehler bleiben in der Queue.
-- Nicht retrybare Fehler brauchen Nutzeraktion.
-- Ungültige Vorgangszuordnung fällt in Draft-Inbox zurück.
-- Erfolgreicher Upload darf bei Retry nicht dupliziert werden.
-- Lokale Originaldatei wird nicht gelöscht, bevor der Upload sicher bestätigt ist.
-
-## Draft-Inbox-Fehler
-
-Drafts dürfen nicht verloren gehen.
-
-Wenn Zuordnung, Metadaten oder Home-Hub-Verarbeitung scheitern, bleibt das Dokument als Draft sichtbar.
-
-Draft-Fehler sollen erklärbar sein:
-
-- "Vorgang nicht mehr verfügbar"
-- "Datei kann nicht gelesen werden"
-- "Upload wartet auf Verbindung"
-- "Prüfung erforderlich"
-
-## UI-Feedback
-
-UI-Feedback folgt Schwere und Handlungsbedarf.
-
-| Situation | UI |
+| Situation | Verhalten |
 |---|---|
-| lokale Liste leer | Empty State |
-| lokale Daten laden | Loading State |
-| Home Hub offline | dezenter Status / Banner |
-| Upload wartet | Queue-Indikator |
-| Upload fehlgeschlagen, retrybar | Retry-Aktion |
-| Nutzer muss entscheiden | Review State |
-| Datenintegrität gefährdet | blockierender Dialog oder klare Fehlerseite |
+| lokal nutzbar, Dienst offline | dezenter Status; Queue arbeitet spaeter weiter |
+| retrybarer Einzeljob | Ergebnis erhalten; Retry fuer genau diesen Job |
+| Nutzerentscheidung erforderlich | kompakte Review mit relevanter Konsequenz |
+| Reauth erforderlich | Kontext erhalten; sichere Anmeldeaktion anbieten |
+| Quota/Plan begrenzt | Ursache und erlaubte manuelle/Exit-Aktion zeigen |
+| Integritaet gefaehrdet | blockierender Zustand; keine destruktive Fortsetzung |
+| unerwarteter Fehler | sichere Standardmeldung plus Referenzcode |
 
-Keine UI zeigt technische Stacktraces im Produktpfad.
+Nicht jedes Failure erzeugt eine Notification. Dauer und Kanal bestimmt F18
+anhand von Schwere, Sichtbarkeit und Handlungsbedarf.
 
-Details zum Mapping von Failure zu `UserNotification`, Notification-Kanälen, Retry-Aktionen und persistenten Hinweisen stehen in `CONCEPT_F18_NOTIFICATIONS_FAILURES_OBSERVABILITY.md`.
+## Sicherheit und Datenschutz
 
-## Logging- und Observability-Grenze
+Failures enthalten keine Dokumentinhalte, OCR-Texte, vollstaendigen Dateinamen,
+privaten Pfade, Tokens, Schluessel oder unredigierte Providerantworten.
+Diagnoseexporte benoetigen expliziten Scope, Redaction und User-Freigabe.
 
-F5 definiert die Fehlerklassifikation. F7 definiert Logging im Detail. F18 definiert Telemetry, Audit, Correlation IDs und Observability.
+## Tests und Verifikation
 
-Schon jetzt gilt:
+- Unit Tests fuer Mapping, Retryability und ungueltige Transitionen.
+- Repository-/Notifier-Tests fuer Offline, Restart, Retry und Idempotenz.
+- Local-/Cloud-/Migrationstests fuer Quellenerhalt und genau eine Autoritaet.
+- Capture-Tests fuer jede Stufe, Teilfehler und bestaetigte Werte.
+- Widget-/Semantics-Tests fuer Recovery-Aktionen und Fokus.
+- Privacy-Tests, die sensible Daten in Failure, Log und Nutzertext ausschliessen.
+- Contract Tests fuer stabile Fehlercodes und relevante HTTP-Mappings.
 
-- keine sensiblen Dokumentinhalte in Logs.
-- keine Tokens oder Pairing Secrets in Logs.
-- Dateinamen können sensibel sein und werden bewusst behandelt.
-- technische Details dürfen in Diagnose-Logs, aber nicht in normale Nutzertexte.
-- Audit Events sind kein normales Logging und werden in F18 separat behandelt.
+## Stop Rules
 
-## Riverpod-Integration
+Stop, wenn:
 
-Provider-State muss Failure klar transportieren.
+- rohe Exceptions oder Servertexte die UI erreichen.
+- ein Retry Duplikate oder verlorene Bestaetigungen erzeugen kann.
+- ein Fehler Autoritaet, Backup oder Loeschstatus implizit aendert.
+- ein veralteter Intent still auf einen anderen Case faellt.
+- Export oder Cloud-to-Local wegen Plan-/Zahlungsstatus unzugaenglich wird.
+- sensible Inhalte in Fehlerobjekten oder Diagnosemetadaten landen.
 
-AsyncValue reicht für simple Loads. Für Workflows wie Upload Queue, Draft Review oder Sync reicht ein einzelnes AsyncValue oft nicht. Diese Features brauchen eigene State-Objekte mit:
+## Handoff
 
-- aktuellem Datenstand.
-- laufender Aktion.
-- letztem Failure.
-- Retry-Information.
-- Review-/Conflict-Status.
-
-## Definition of Done für F5
-
-F5 gilt als umgesetzt, wenn:
-
-- Failure-Kategorien existieren.
-- Data SDK-Fehler nicht ungefiltert in UI leaken.
-- Offline und Home-Hub-unreachable als Status modelliert sind.
-- Upload Queue Fehler und Retry kennt.
-- Drafts bei Fehlern erhalten bleiben.
-- UI zwischen retry, review und fatal unterscheidet.
-
-## Offene Folgefragen
-
-- Welches konkrete Result-/Failure-Package oder eigener Typ wird genutzt?
-- Wie werden Failures serialisiert, falls Queue-Fehler persistent bleiben?
-- Welche Fehlertexte brauchen Lokalisierung?
-- Welche Failures werden später an Home-Hub-Diagnose gemeldet?
-- Welche Failures erzeugen UserNotifications, TelemetryEvents oder AuditEvents nach F18?
+Konkrete Frontend-Mappings gehen an `frontend-error-handling`; State-Grenzen an
+`foundation-builder`; Persistenz-Recovery an `data-architect`; API-Codes und
+Vertragsszenarien an `contract-api`.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Bei Widerspruechen gilt
+die strengere Regel und die betroffene Phase stoppt.

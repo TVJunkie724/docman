@@ -1,247 +1,196 @@
 ---
 title: "Konzept F11 - API Integration"
-description: "Mappm-API-Konzept fuer Account, Core Assist, Managed Cloud, capture, Vault migration, identity, entitlements and backend-agnostic client boundaries"
+description: "Contract-first API-Konzept fuer Account, Devices, Core Assist, Managed Cloud, Capture, Vault-Migration und Sync"
 tags: [concept, foundation, api, account, assist, cloud, capture, migration, identity, entitlements]
-lastUpdated: "2026-07-12"
-version: "4.0"
-status: "accepted-rebaseline"
+lastUpdated: "2026-07-15"
+version: "5.0"
+status: "accepted"
+owner: "contract-api"
 ---
 
 # Konzept F11 - API Integration
 
-## Status
+## Status und Source of Truth
 
-Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
+Akzeptiert. OpenAPI ist die Source of Truth fuer Mappm-Cloud-HTTP-Vertraege;
+Microcks fuehrt versionierte Contract-Szenarien aus. Local Development Cloud,
+Shared Development, Staging und Production implementieren dieselben akzeptierten
+Vertragsversionen. Dieses Konzept ersetzt Home-Hub-, QR-Pairing-, Tailscale-
+und kundenverwaltete Self-Hosting-Vertraege.
 
-## 2026 Normative Cloud Contract Model
+## Zweck und Ownership
 
-This section supersedes customer Home-Hub/self-hosted assumptions later in this
-file. OpenAPI is the source of truth for Mappm Cloud HTTP contracts; Microcks
-owns contract scenarios; the Local Development Cloud and managed environments
-must conform to the same accepted contract versions.
+F11 definiert App-seitige Vertragsgrenzen und erforderliche fachliche
+Faehigkeiten. Frontend darf benoetigte Zustaende, Aktionen und Fehler
+beschreiben. Contract-/Backend-Owner entscheiden jedoch DTOs, Endpunkte,
+Mapping, Persistenz, Autorisierungs- und Policy-Architektur.
 
-Contract families include identity/device/offline entitlement for every normal
-mode, Core Assist job submission/status/cancel/delete, Vault/entitlement, capture,
-metadata/payload transfer, migration inventory/checkpoint/verification,
-export/delete, sync/conflict and later Advanced-Assist processing. Local Vault
-Assist contracts never imply durable Cloud document storage. Frontend describes required
-client states but Contract/Backend owners decide DTOs, endpoints, mapping,
-persistence and policy architecture.
-
-Dieses Konzept ersetzt den importierten F11-Inhalt aus dem alten Projekt.
-
-## Legacy Detail Baseline (non-normative)
-
-The remaining imported detail is retained only for migration context and useful
-feature-specific examples. It must not authorize Home Hub, Tailscale, customer
-self-hosting, universal local-first authority, old milestone scope or QR server
-pairing. Where it differs, the rebaseline above,
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
-`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
-concept is used for implementation, its affected detail must be rewritten into
-the phase's approved implementation contract.
-
-## Zweck
-
-F11 definiert, wie die DocMan App mit dem self-hosted Home Hub und späterem Sync Backend spricht.
-
-Die Home-Hub-Zieltechnologie ist inzwischen separat entschieden:
-ASP.NET Core + PostgreSQL + MinIO/S3-kompatibler Storage + Microcks. F11
-definiert weiterhin die App-Grenzen, damit PocketBase, Tailscale,
-ASP.NET-spezifische Typen, Datenbank-SDKs oder Storage-SDKs nicht in Domain oder
-UI leaken.
-
-API-Vertraege fuer Home Hub, Capture und spaeter Sync werden als OpenAPI-Spezifikationen gefuehrt. Microcks ist der geplante Contract-Mock- und Verification-Runner. Details stehen in `docs/technical/DECISION_API_CONTRACT_MOCKS.md`.
-
-## Grundsatz
-
-Die App spricht fachlich mit einem DocMan Backend, nicht mit Tailscale, PocketBase oder einem bestimmten SDK.
-
-```text
-DocMan App
-  -> HomeHubClient / SyncClient
-      -> HTTP/API Transport
-          -> self-hosted DocMan Server Stack
-```
-
-## M2 API-Scope
-
-Der M2 braucht nur einen kleinen API-Schnitt:
-
-- Home-Hub Health Check.
-- Geräte-Pairing oder Login-Grundlage.
-- Mobile Capture Upload.
-- Upload-Status.
-- Draft-Inbox-Anlage auf dem Home Hub.
-- optionale Übermittlung einer `caseId`.
-- einfache Liste offener Vorgänge für Mobile, wenn verfügbar.
-
-Nicht im M2:
-
-- vollständiger Multi-Geräte-Sync.
-- vollständige mobile Vorgangsverwaltung.
-- OCR-/LLM-Pipeline-API.
-- komplexes Rollenmodell.
-- öffentliche Sharing-API oder externe App-Freigabe.
-
-## API-Grenzen
-
-| Client | Rolle |
-|---|---|
-| HomeHubClient | Health, Capabilities, Pairing, Capture Upload |
-| CaptureGatewayClient | Upload-spezifische Operationen, falls getrennt |
-| SyncClient | späterer vollständiger Sync |
-| IntelligenceClient | spätere OCR-/LLM-Job-Schnittstelle |
-
-Diese Clients sind Data-/Infrastructure-Details. Domain spricht über Repository-Verträge.
-
-## Repository-Regel
-
-Presentation und Domain dürfen keine API-Clients kennen.
+## Architekturgrenze
 
 ```text
 Presentation / Riverpod
-  -> Repository Contract
+  -> Domain Repository oder Use Case
       -> Data Repository
-          -> API Client
+          -> generierter oder handgeschriebener API Client
+              -> Mappm Cloud HTTP Contract
 ```
 
-Remote DTOs werden in Data gemappt. DTOs sind keine Domain-Entities.
+- Presentation und Domain kennen keine HTTP-Clients oder Remote DTOs.
+- API-/SDK-Exceptions werden im Data Layer auf F5-Failures gemappt.
+- DTOs sind keine Domain Entities.
+- Client-Codegen ist eine Implementierungsentscheidung; OpenAPI bleibt in
+  beiden Faellen normativ.
+- Stable IDs, Revisionen und Idempotency Keys duerfen nicht durch UI-generierte
+  Zufallslogik ersetzt werden.
 
-## Backend-Agnostik
+## Vertragsfamilien
 
-F11 verbietet harte Abhängigkeiten auf:
+### Identity, Device und Entitlement
 
-- PocketBase RecordModel oder SDK-Typen.
-- Tailscale-Begriffe.
-- konkrete Server-Frameworks.
-- Cloud-SaaS-Annahmen.
+- Account-Erstellung, Login, Session-Erneuerung und Logout.
+- Device Authorization/Trust, Widerruf und begrenzte Offline-Berechtigung.
+- Profil-/Vault-Zugriff ohne stille Default-Zuordnung.
+- Plan, Core-Assist-Kontingent, Quota, Grace, Read-only und Zahlungspruefung.
+- Account-/Datenexport, Loeschanforderung und Status.
 
-OpenAPI ist Contract Source of Truth fuer HTTP-APIs. Das bedeutet nicht automatisch, dass Client-Code generiert werden muss. Ob der M2-Client handgeschrieben oder generiert wird, bleibt eine Implementierungsentscheidung.
+Normale Local- und Cloud-Nutzung benoetigt einen Account. Detached Recovery ist
+der eigenstaendige Exit fuer vorhandene lokale Daten, nicht ein anonymer
+Onboardingmodus.
 
-## Capture Upload
+### Vault und Sync
 
-Ein Capture Upload braucht fachlich:
+- Vault-Inventar, Autoritaets-/Zugriffsmetadaten und Cloud-Revisionen.
+- Payload-/Metadatentransfer und durable Pending Operations.
+- Delta-/Sync-Abfragen, Konfliktbasis und Tombstones.
+- Local-to-Cloud und Cloud-to-Local mit Inventar, Checkpoint, Resume,
+  Finalisierung und Verifikation.
+- Export, Restore, Retention und Loeschung als getrennte Operationen.
 
-- lokale Upload-ID.
-- Datei oder Artefakt-Manifest.
-- MIME-Type.
-- Größe.
-- Hash, sobald verfügbar.
-- Idempotency Key.
-- Erfassungszeitpunkt.
-- optionales Profil.
-- optionale `caseId`.
-- optionale Notiz.
+Der Vertrag darf Cache-Praesenz nie als Vault-Autoritaet interpretieren.
 
-Antwort des Home Hub sollte mindestens liefern:
+### Capture und Core Assist
 
-- remote Upload-ID oder Draft-ID.
-- Status.
-- ob die Zuordnung akzeptiert wurde.
-- ob Review erforderlich ist.
-- Fehlerklassifikation nach F5.
+Upload-Bestaetigung, asynchrone Verarbeitung und Proposal Review sind getrennte
+fachliche Schritte. Der Vertrag muss tragen koennen:
 
-Die Upload-Transport-Implementierung ist austauschbar. Der M2 darf
-API-proxied Upload nutzen. Das Enterprise-Ziel ist presigned/resumable Upload
-ueber den Home Hub als Kontrollinstanz. Details stehen in
-`docs/technical/DECISION_MOBILE_CAPTURE_UPLOAD_STRATEGY.md`.
+- stabile Capture-, Artifact-, Document- und Processing-Job-IDs.
+- ein logisches Dokument mit mehreren Seiten pro abgeschlossener Scan-Einheit.
+- mehrere Dokumente in einer technischen Session.
+- Groesse, MIME, Hash, Idempotenz und resumable Transfer gemaess Policy.
+- Stufenstatus fuer OCR, Extraktion, Indexierung und Matching.
+- pro Dokument Teilfehler, Retry, Cancel und Delete.
+- vorgeschlagenen Titel, Typ, Fakten und gerankte Case-/Record-Kandidaten.
+- Confidence, Provenance, Modell-/Regelversion und Vorschlagsversion.
+- User-Bestaetigung/Korrektur sowie erhaltene akzeptierte Werte.
 
-Der fachliche Home-Hub-Capture-Vertrag ist separat entschieden in
-`docs/technical/DECISION_HOME_HUB_CAPTURE_CONTRACT.md`. Fuer den R4-M2 gilt
-ein OpenAPI/Microcks-faehiger 3-Schritt-Flow:
-`initiateCaptureUpload -> uploadCaptureBytes -> confirmCaptureUpload`.
+Ein New-Case-, Profil- oder Case-scoped Intent ist nur ein Signal. Er ist keine
+endgueltige Zuordnung. Auch bei niedriger Confidence liefert der Vertrag die
+besten verfuegbaren Kandidaten; die App kann einen neuen leichten Custom Case
+zuerst stellen. Ein Titelvorschlag fuer einen neuen Case ist verpflichtender
+Bestandteil der Assist-Ausgabe.
 
-## Capabilities
+Local-Vault-Assist darf temporaere Verarbeitung ueber die Cloud verwenden,
+ohne daraus dauerhafte Cloud-Vault-Speicherung, Backup oder Modelltraining
+abzuleiten. Retention und Loeschbestaetigung muessen explizit vertraglich
+definiert sein.
 
-Die App sollte den Home Hub nach Fähigkeiten fragen können.
+### Advanced Assist
 
-Beispiele:
+Spaetere Anbieter oder Modelle liegen hinter derselben fachlichen Grenze.
+Provider-spezifische Payloads, Prompt-Details und Modellantworten leaken nicht
+in Domain oder Presentation. Neue Faehigkeiten benoetigen Datenschutz-, Kosten-
+und Qualitaetsfreigabe.
 
-- captureUploadSupported.
-- pairingSupported.
-- caseLookupSupported.
-- syncSupported.
-- ocrPipelineSupported.
-- maxUploadSize.
-- uploadTransport.
-- resumableUploadSupported.
+## Versionierung und Kompatibilitaet
 
-So kann der M2 klein starten und später wachsen, ohne UI und Domain umzubauen.
+- OpenAPI und Examples werden versioniert und reviewt.
+- Breaking Changes benoetigen explizite Version/Migration und Client-Rollout-
+  Plan.
+- Clients behandeln unbekannte optionale Felder tolerant, unbekannte
+  sicherheitsrelevante Zustaende jedoch nicht still.
+- Capability-/Versionsabfragen duerfen Rollout-Kompatibilitaet unterstuetzen,
+  aber keine Produkt- oder Berechtigungsregeln ersetzen.
+- Idempotenz- und Retention-Dauern werden vom Contract-/Policy-Owner festgelegt,
+  nicht im Frontend erfunden.
 
-## Auth und Security
+## Fehlervertrag
 
-F11 definiert nicht die sichere Speicherung. Das gehört zu F12.
+Vertraege liefern stabile maschinenlesbare Fehlercodes und harmlose
+Referenz-IDs. Relevante Klassen umfassen:
 
-F11 erwartet aber:
+- Authentifizierung und Autorisierung.
+- Entitlement, Quota, Grace und Read-only.
+- Validation, Payload-Limit und Unsupported Media.
+- Conflict/Revision und Idempotency Replay.
+- Retryable Service/Network/Processing Failure.
+- Integrity, Retention, Migration und Deletion State.
 
-- keine Tokens in Logs.
-- Auth-/Pairing-Header nur in API-Infrastruktur.
-- Session-/Gerätefehler werden als F5-Failures gemappt.
-- API-Clients können mit und ohne Auth/Pairing initialisiert werden, soweit für Setup nötig.
+HTTP-Status allein ist keine ausreichende Produktsemantik. Nutzertexte bleiben
+im lokalisierten Frontend; rohe Servertexte werden nicht angezeigt.
 
-## Error Mapping
+## Security und Privacy
 
-API-Fehler werden nach F5 gemappt:
+- TLS, sichere Tokenbehandlung und plattformgerechter Device Trust sind Pflicht.
+- Tokens, Presigned URLs, Dokumentinhalte, OCR-Text und PII landen nicht in
+  Logs, Analytics oder Contract Examples.
+- Upload- und Download-Berechtigungen sind kurzlebig, eng gescoped und an
+  Account, Device, Vault und Operation gebunden.
+- Loeschung, Export, Sharing und Migration benoetigen explizite Autorisierung
+  und Auditierbarkeit.
+- Environments und Tenants sind isoliert; nur synthetische Daten sind in Local
+  Development Cloud und Microcks erlaubt.
 
-- Timeout/Unreachable -> NetworkFailure.
-- 401/403 -> AuthFailure oder PermissionFailure.
-- 409 -> ConflictFailure.
-- 413 -> UploadFailure Datei zu groß.
-- 422 -> ValidationFailure.
-- 5xx -> retryable UploadFailure oder NetworkFailure.
-- ungültige Antwort -> ParseFailure.
+## Microcks und Integrationsumgebungen
 
-## Transport
+Microcks prueft mindestens:
 
-Der frühe Zieltransport ist normales HTTP(S) im privaten Netz.
+- akzeptierte Happy Paths und relevante Fehler pro Vertragsfamilie.
+- Idempotency Replay, Konflikt und Teilfehler.
+- Auth-/Entitlement-/Quota-/Grace-Zustaende.
+- Capture Upload, Verarbeitung, Poll/Push-Status und Review-Payloads.
+- Migration, Export und Delete-Lifecycle.
 
-Tailscale kann die Erreichbarkeit herstellen, ist aber unterhalb der App-Grenze.
+Fake-Repositories bleiben fuer App-Logik zustaendig. Local Development Cloud
+prueft reale Adapter und Persistenz. Staging prueft managed Deployment,
+Security-Konfiguration und End-to-End-Integration.
 
-Die App konfiguriert:
+## Accessibility und Localization
 
-- Backend URL.
-- Pairing/Auth-Zustand.
-- Capabilities.
-- Timeouts.
+Nicht direkt auf Transportebene anwendbar. Vertraege muessen jedoch stabile
+Codes und strukturierte Parameter liefern, damit das Frontend sichere,
+lokalisierte und semantisch eindeutige Meldungen erzeugen kann. Servertexte sind
+kein Ersatz fuer lokalisierte UI-Texte.
 
-## Spätere Sync API
+## Tests und Verifikation
 
-Vollständiger Sync wird nicht in F11 final entschieden.
+- OpenAPI-Lint und Schema-/Example-Validierung.
+- Microcks-Szenarien fuer jede akzeptierte relevante Antwortklasse.
+- Consumer-Tests fuer Mapping in Domain und F5-Failures.
+- Restart-, Idempotenz-, Resume- und Conflict-Tests.
+- Security-Tests fuer Zugriffsscope, Token-/URL-Leakage und Tenant-Isolation.
+- Integration gegen Local Development Cloud und Staging Smoke Tests.
+- Kompatibilitaetsnachweis fuer unterstuetzte Client-Versionen.
 
-F11 hält nur fest, dass spätere Sync-Schnittstellen brauchen:
+## Stop Rules
 
-- Änderungsjournal.
-- seit-Version/seit-Zeitpunkt-Abfrage.
-- Tombstones.
-- Konfliktinformationen.
-- Dateireferenz oder Dateiübertragung.
-- Geräte-ID.
+Stop, wenn:
 
-## Definition of Done für F11
+- Frontend DTOs, Endpunkte, Persistenz oder Policy-Architektur allein festlegt.
+- ein Mock oder Fake zum normativen Vertrag wird.
+- Capture-Intent als endgueltiges Matching gilt.
+- Assist implizit Cloud-Backup oder unbefristete Retention aktiviert.
+- ein Breaking Change ohne Versionierungs-/Rolloutplan erscheint.
+- Contract Examples echte oder anonymisierte private Daten enthalten.
+- Fehler nur durch freie Servertexte oder HTTP-Status beschrieben werden.
 
-F11 gilt als umgesetzt, wenn:
+## Handoff
 
-- App-API-Zugriffe hinter Data-Repositories liegen.
-- Home-Hub-Health und Capture Upload konzeptionell klar sind.
-- API-Vertraege fuer Home Hub/Capture als OpenAPI-Spezifikationen geplant sind.
-- Microcks-Szenarien fuer Erfolg, Auth, Validation, Retry und Serverfehler vorgesehen sind.
-- Remote DTOs nicht in Domain leaken.
-- API-Fehler in F5-Failures gemappt werden.
-- Tailscale/PocketBase nicht in Produktlogik erscheinen.
-- spätere Sync-/Intelligence-Clients strukturell anschließbar sind.
-
-## Offene Folgefragen
-
-- Wird der M2-API-Client handgeschrieben oder aus OpenAPI generiert?
-- Wie sieht Pairing konkret aus?
-- Welche Upload-Größen sind realistisch?
-- Brauchen Uploads Chunking schon im M2?
+Konkrete OpenAPI-/Microcks-Arbeit geht an `contract-api`; App-Adapter an
+`data-architect`/`foundation-builder`; UI-Verhalten an `ui-architect` nach
+geprueftem Konzept und Plan.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Bei Widerspruechen gilt
+die strengere Regel und die betroffene Phase stoppt.

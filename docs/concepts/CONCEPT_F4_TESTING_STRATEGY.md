@@ -1,257 +1,177 @@
 ---
 title: "Konzept F4 - Testing Strategy"
-description: "Mappm-Teststrategie fuer Local/Cloud Vaults, migration, entitlement, capture, contracts and production readiness"
-tags: [concept, foundation, testing, flutter, riverpod, local-first, mobile-capture]
-lastUpdated: "2026-07-12"
-version: "4.0"
-status: "accepted-rebaseline"
+description: "Production-ready Teststrategie fuer Domain, Riverpod, Vaults, Capture, Assist, Contracts und Release Gates"
+tags: [concept, foundation, testing, flutter, riverpod, vault, capture, contracts]
+lastUpdated: "2026-07-15"
+version: "5.0"
+status: "accepted"
+owner: "quality-readiness"
 ---
 
 # Konzept F4 - Testing Strategy
 
-## Status
+## Status und Source of Truth
 
-Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
+Akzeptiert. F4 operationalisiert die Produktqualitaet gemeinsam mit
+`docs/technical/DECISION_MILESTONE_QUALITY_GATES.md`, F15 und F16. Es ersetzt
+fruehere Home-Hub-, Pairing- und M2-Testplaene.
 
-## 2026 Vault/Cloud Rebaseline
+## Ziel
 
-Every storage-affecting slice tests Local and Cloud providers separately plus
-account/device/offline entitlement, Core Assist queue/review/quota/opt-out,
-Detached Recovery, Local-to-Cloud, Cloud-to-Local, cancellation/grace,
-app-restart, idempotency and source-preservation paths. Fakes verify app behavior, Microcks
-verifies consumers, Local Development Cloud verifies real integration and
-Staging verifies managed-environment behavior. Only synthetic data is valid.
+Tests muessen die zentralen Versprechen von Mappm beweisen:
 
-Dieses Konzept ersetzt den importierten F4-Inhalt aus dem alten Projekt.
+- kein Verlust oder stilles Ueberschreiben sensibler Dokumente.
+- exakt eine schreibende Vault-Autoritaet.
+- belastbare Offline-, Queue-, Restart-, Retry- und Migrationspfade.
+- nachvollziehbare, korrigierbare Assist-Vorschlaege.
+- stabile Domain-, Repository- und API-Grenzen.
+- zugaengliche, lokalisierte und responsive Kernflows.
 
-## Legacy Detail Baseline (non-normative)
+Testabdeckung richtet sich nach Risiko und Blast Radius. Eine hohe Prozentzahl
+ohne Schutz kritischer Transitionen ist kein Qualitaetsnachweis.
 
-The remaining imported detail is retained only for migration context and useful
-feature-specific examples. It must not authorize Home Hub, Tailscale, customer
-self-hosting, universal local-first authority, old milestone scope or QR server
-pairing. Where it differs, the rebaseline above,
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
-`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
-concept is used for implementation, its affected detail must be rewritten into
-the phase's approved implementation contract.
+## Testebenen
 
-## Zweck
+| Ebene | Verbindlicher Fokus |
+|---|---|
+| Domain Unit Tests | Invarianten, Value Objects, Case-/Record-Links, Workflow- und Vault-Transitionen |
+| Use-Case-/Notifier-Tests | Riverpod-State, Berechtigungen, Retry, Review und Orchestrierung |
+| Repository-Tests | Mapper, Drift, File Store, Cache, Pending Operations und Migrationen |
+| Widget-/Semantics-Tests | sichtbare Zustaende, Aktionen, Fokus, Textskalierung und Fehler |
+| Golden-/Responsive-Tests | stabile Kernkomponenten und definierte Viewports nach Designfreigabe |
+| Contract Tests | OpenAPI-Verbraucherverhalten und Microcks-Szenarien |
+| Integration Tests | echte Adapter gegen Local Development Cloud und lokale Persistenz |
+| Staging Smoke/E2E | freigegebene managed Flows mit ausschliesslich erlaubten Testdaten |
 
-F4 definiert, wie DocMan getestet wird.
+Fake-Repositories pruefen App- und Domain-Verhalten. Microcks prueft den
+akzeptierten API-Vertrag. Local Development Cloud prueft reale Integration.
+Keine Ebene ersetzt eine andere.
 
-Tests sollen nicht eine perfekte Enterprise-Fassade erzeugen, sondern die wichtigsten Produktversprechen schützen:
+## Verbindliche Testmatrix
 
-- lokale Arbeit ohne Netzwerk.
-- Dokumente gehen nicht verloren.
-- Mobile Upload Queue ist robust.
-- Draft-Inbox bleibt nachvollziehbar.
-- Provider und Repository-Grenzen bleiben sauber.
+### Local und Cloud Vault
 
-R3 `Quality & Production Readiness` operationalisiert dieses Konzept. Ab R3 darf Testabdeckung nicht mehr nur "neuer Code hat Tests" bedeuten; der Zielpfad muss belastbar werden und der alte Spike-Bestand muss aus Produkt-, Build- und Analyze-Pfaden herauswandern.
+Jeder speicherrelevante Slice prueft mindestens:
 
-## Testpyramide
+- Local Vault als lokale Autoritaet.
+- Cloud Vault als Cloud-Autoritaet mit lokalem Cache und Pending Operations.
+- Account-/Device-Session, begrenzte Offline-Berechtigung und Reauth.
+- Entitlement, Quota, Grace, Read-only, Export und Detached Recovery.
+- Neustart, Idempotenz, Konflikt, Tombstone und Quellenerhalt.
+- Local-to-Cloud und Cloud-to-Local inklusive Checkpoint, Verifikation und
+  genau einer schreibenden Autoritaet.
+- Kuendigung, Reaktivierung und Loeschung ohne Verlust des Exit-Pfads.
 
-| Ebene | Fokus | Priorität |
-|---|---|---|
-| Domain Unit Tests | Cases, Documents, Drafts, Statusregeln, Value Objects | Hoch |
-| Application/Notifier Tests | Riverpod Notifier, Upload Queue, Draft Review | Hoch |
-| Repository Tests | lokale DB Fakes/In-Memory, Mapper, File Store | Hoch |
-| Widget Tests | wichtige Screens und Zustände | Mittel |
-| Integration/Smoke Tests | M2-Flows Desktop + Mobile Capture | Mittel |
-| Golden Tests | zentrale UI-Komponenten, wenn Design stabil ist | Später |
-| Backend Contract Tests | Home-Hub/Capture/Sync Gateway, Microcks-gestützte API-Verträge | Sobald API existiert |
+### Capture und Assist
 
-## Zweistufige Testgrenze
+Der globale Intake prueft:
 
-DocMan braucht zwei verschiedene Testebenen, die nicht vermischt werden dürfen:
+- ein logisches Dokument pro abgeschlossener Scan-Einheit mit mehreren Seiten.
+- mehrere zusammenhaengende oder nicht zusammenhaengende Dokumente in einer
+  technischen Session.
+- haltbares Original vor asynchroner Verarbeitung.
+- 1-2 Minuten Verarbeitung, App-Schliessen und Fortsetzung nach Neustart.
+- Upload, OCR, Extraktion, Indexierung und Matching als getrennte Fehlerstufen.
+- Titelvorschlag fuer jeden neuen Case sowie Typ-, Fakten- und
+  Case-/Record-Vorschlaege.
+- beste Kandidaten auch bei niedriger Confidence; bei sehr niedriger Confidence
+  steht der neue leichte Custom Case zuerst.
+- immer verfuegbare manuelle Case-Auswahl in der Review.
+- Teilfehler, Outlier, Retry, Reprocessing und erhaltene bestaetigte Werte.
+- User-Bestaetigung aller sichtbaren Konsequenzen bis zur spaeteren,
+  klassenweise freigegebenen Automation.
 
-| Ebene | Ziel | Typische Tests |
-|---|---|---|
-| Fake Repositories | App- und Domain-Verhalten schnell und deterministisch prüfen | Domain, Riverpod Notifier, Widget Tests, Offline-Flows |
-| Contract Mock Backend | API-Verträge unabhängig vom echten Backend stabilisieren | Home-Hub Health, Pairing, Capture Upload, Sync-Fehler, Client-Integration |
+### Sicherheit und Datenschutz
 
-Fake-Repositories ersetzen keine API-Verträge. Microcks ersetzt keine App-Unit-Tests. Die Kombination verhindert, dass die Flutter-App an ein zufälliges Backend klebt oder dass Backend-Verträge erst beim echten Server auffallen.
+- ausschliesslich vollsynthetische Fixtures, Screenshots und Contract Examples.
+- keine echten oder nur anonymisierten privaten Dokumente.
+- keine Inhalte, OCR-Texte, Dateinamen, Tokens oder PII in Logs und Telemetry.
+- Redaction, Berechtigung, Export, Loeschung und Audit-Grenzen.
+- Sperrbildschirm- und Notification-Datenschutz.
 
-## M2-kritische Flows
-
-Diese Flows brauchen Tests:
-
-- Vorgang anlegen und lokal wieder laden.
-- Dokument als Draft erfassen.
-- Draft einem Vorgang zuordnen.
-- Mobile Scan lokal in Queue legen.
-- Upload wartet, wenn Home Hub nicht erreichbar ist.
-- Upload Retry verliert Datei nicht.
-- direkte mobile Vorgangszuordnung fällt bei ungültiger `caseId` in Draft-Inbox zurück.
-- Home-Hub-Status blockiert lokale Desktop-Arbeit nicht.
-
-## Riverpod Tests
-
-Riverpod wird nicht gemockt.
-
-Tests verwenden:
-
-- ProviderContainer.
-- ProviderScope Overrides.
-- Fake Repositories.
-- Fake Clock/ID Generator.
-- Fake HomeHubClient.
-- Fake SecureStorageRepository.
-
-Jeder produktive Notifier mit fachlicher Logik braucht Unit Tests.
-
-## Local Storage Tests
-
-F10-Anforderungen müssen beweisbar sein:
-
-- persistierte Cases/Documents/Drafts.
-- Queue über App-Neustart konzeptionell haltbar.
-- Mapping zwischen Storage-Modell und Domain-Typ.
-- Fehlerfälle bei fehlenden Dateien.
-- keine Secrets in normaler lokaler DB.
-
-Wenn echte lokale DB-Tests zu schwer sind, starten wir mit Repository-Fakes plus wenigen Integrationstests gegen echte Storage-Implementierung.
-
-## API/Home-Hub Tests
-
-F11-Anforderungen werden später mit Contract-/Integrationstests geprüft:
-
-- Health Check.
-- Capture Upload.
-- Auth/Pairing-Fehler.
-- Upload zu Draft-Inbox.
-- Fehler-Mapping nach F5.
-
-Solange kein Backend existiert, werden zwei Wege genutzt:
-
-- Fake-Clients für App-Logik und Provider-/Widget-Tests.
-- Microcks für API-Spezifikationen und Client-Integrationsgrenzen.
-
-Die Contract-Quelle ist OpenAPI. Der echte Home-Hub-Server muss später denselben Vertrag erfüllen.
-
-## Bestehender Code
-
-R3 macht nicht den alten Spike production-ready. R3 definiert und schützt den Zielpfad:
-
-- harte Analyzer-Fehler im Zielpfad blockieren Abschluss.
-- Legacy-Warnungen im eingefrorenen Altbestand sind kein Produktqualitaetsziel.
-- wenn Legacy den Zielpfad, Build oder Analyze blockiert, wird es isoliert, migriert oder gelöscht.
-- alte Template-Tests werden entfernt.
-- Spike-Screens bekommen nicht nachträglich Produkt-Tests; sie werden Referenz, Mock-Ausgangspunkt oder verlassen den Produktpfad.
-- BLoC/GetIt/Isar/PocketBase-Reste werden nicht erweitert und nicht modernisiert, sondern aus Zielpfaden entfernt.
-
-## Widget Tests
-
-Wichtige UI-Zustände:
-
-- Loading.
-- Empty.
-- Data.
-- Offline/Home Hub unreachable.
-- Upload queued.
-- Upload failed retryable.
-- Review needed.
-
-Widget Tests prüfen Verhalten und Sichtbarkeit, nicht Pixelperfektion.
-
-## Testdaten
-
-DocMan-Testdaten sollen realistisch, aber nicht sensibel sein:
-
-- fiktive Rechnungen.
-- fiktive Schulzettel.
-- fiktive Versicherungsfälle.
-- keine echten personenbezogenen Daten.
-- keine echten Dokumente aus dem Haushalt.
-
-Zentrale App-Testfixtures liegen unter `test/fixtures/`.
+## Testdaten und Verzeichnisstruktur
 
 ```text
-test/fixtures/
-  domain/
-  files/
-  ui/
-```
-
-API-/Microcks-Beispiele liegen bei den API-Vertraegen unter `contracts/`.
-
-```text
+test/
+  fixtures/
+    domain/
+    files/
+    ui/
+  helpers/
+  unit/
+  widget/
+integration_test/
 contracts/
   openapi/
   examples/
 ```
 
-Fixtures duerfen keine anonymisierten privaten Daten verwenden. Auch anonymisierte echte Dokumente bleiben verboten, weil Rueckschluesse, Metadaten und versehentliche Reste zu riskant sind.
+Fixtures sind frei erfunden, klein, deterministisch und versioniert. Eine
+Fixture benennt Zweck, erwartete Fakten und erlaubte Verwendung. Secrets werden
+nur durch offenkundig synthetische Testwerte ersetzt.
 
-## Regression Gate
+## Accessibility und visuelle Qualitaet
 
-Vor Implementationsabschluss einer Phase:
+UI-Phasen testen die jeweils betroffenen Punkte:
 
-- Flutter Analyze.
-- relevante Unit Tests.
-- relevante Widget Tests.
-- Smoke Test für den betroffenen Flow.
-- Contract-Mock-Checks, sobald API-Slices betroffen sind.
+- Semantics-Namen, Rollen, Status und Fokusreihenfolge.
+- Tastaturbedienung und sichtbaren Fokus auf Desktop.
+- Textskalierung bis mindestens `2.0` ohne Ueberlagerung oder Abschneiden.
+- Kontrast und Nicht-Farb-Codierung von Status.
+- reduzierte Bewegung.
+- definierte Mobile-, Tablet- und Desktop-Viewports.
 
-Exakte Commands gehören in Implementation-Pläne, nicht in dieses Konzept.
+Goldens sind fuer stabile visuelle Verträge gedacht, nicht als Ersatz fuer
+Verhaltens- oder Semantics-Tests.
 
-DocMan nutzt die Gate-Stufen aus `docs/technical/DECISION_MILESTONE_QUALITY_GATES.md`:
+## Quality Gates
 
-- Local Change Gate fuer konkrete Aenderungen.
-- R3 Foundation Gate fuer Foundation-/Quality-Abschluss.
-- M2 Readiness Gate fuer M2-Abschluss.
+Jeder Implementation Contract nennt exakte Commands und relevante Tests. Das
+lokale Gate umfasst mindestens Formatierung, Analyzer und betroffene Tests.
+Breitere Foundation-, Contract-, Integration- und Release-Gates folgen
+`docs/technical/DECISION_MILESTONE_QUALITY_GATES.md`.
 
-Tests duerfen Legacy-Schuld nicht verstecken. Wenn ein Legacy-Problem den Zielpfad oder ein Gate blockiert, braucht es Isolation, Entfernung oder ein GitHub Issue mit Acceptance Criteria und Verification. Einzelne alte Warnungen ohne Einfluss auf den Zielpfad werden nicht als Production-Readiness-Arbeit behandelt.
+Ein frischer Checkout muss Dependencies, Codegen und Verify ueber die
+projektlokalen Scripts reproduzierbar ausfuehren koennen. Generierte
+Dart-Artefakte werden gemaess Projektkonvention erzeugt und nicht als
+handgeschriebene Quelle behandelt.
 
-## Setup und Codegen
+Legacy-Warnungen duerfen klar als Baseline isoliert sein, aber nie neue
+Regressionen, einen gebrochenen Produktpfad oder ein Release Gate verdecken.
 
-Ein frischer Checkout muss reproduzierbar arbeitsfähig werden:
+## Definition of Done
 
-- Bootstrap-Script für Dependencies und Codegen, mit optionalem strengen Verify-Lauf.
-- Codegen-Script für Freezed, JSON, Drift und spätere Riverpod-Generatoren.
-- Verify-Script als lokales Quality Gate vor Commit/PR.
+Eine Phase ist nur abgeschlossen, wenn:
 
-Generierte Dart-Artefakte werden nicht committed. Ein frischer Checkout muss sie per Script erzeugen können; sonst ist das Setup nicht production-ready.
+- jede Acceptance Condition mindestens einen falsifizierbaren Nachweis hat.
+- Happy Path, relevante Fehler, Grenzen und Neustart abgedeckt sind.
+- neue Provider und Repositories deterministisch testbar sind.
+- API-Slices passende Microcks-/Contract-Nachweise besitzen.
+- Accessibility-, Privacy- und Regression-Risiken geprueft sind.
+- keine ausgelassenen Tests als stilles `TODO` verbleiben; Deferred Work besitzt
+  Owner, Roadmap-Ziel und GitHub Issue.
 
-Nicht committed werden:
+## Stop Rules
 
-- `*.freezed.dart`
-- `*.g.dart`
-- Drift-generierter Dart-Code
-- Riverpod-generator Output
+Stop, wenn:
 
-Committed bleiben Quellen und Verträge: `pubspec.lock`, Generator-Konfiguration, OpenAPI-Spezifikationen, synthetische Examples und handgeschriebene Migrationen.
+- Fakes gegen echte Cloud- oder private Daten sprechen.
+- nur der Happy Path oder nur eine Vault-Variante getestet wird.
+- Microcks als Ersatz fuer Domain-/Widget-Tests verwendet wird.
+- Prozentabdeckung ohne kritische Assertions als Freigabe dient.
+- instabile Sleeps, reale Zeit oder zufaellige IDs Tests nicht deterministisch
+  machen.
+- ein Release trotz fehlendem Restore-, Export-, Migrations- oder
+  Datenschutz-Nachweis freigegeben werden soll.
 
-## Definition of Done für F4
+## Handoff
 
-F4 gilt als umgesetzt, wenn:
-
-- Teststruktur zur F1-Zielstruktur passt.
-- Riverpod-Provider testbar sind.
-- Storage und Queue mit Fakes testbar sind.
-- API-Grenzen für Home Hub, Capture und Sync contract-testbar geplant sind.
-- Bootstrap-, Codegen- und Verify-Scripts existieren.
-- generierte Dart-Artefakte ignoriert und reproduzierbar erzeugt werden.
-- M2-kritische Flows abgedeckt werden.
-- alte Flutter-Counter-Template-Tests entfernt oder ersetzt sind.
-- Tests keine echten Secrets oder privaten Dokumente verwenden.
-- zentrale synthetische Fixtures unter `test/fixtures/` liegen.
-- API-/Microcks-Beispiele unter `contracts/` liegen.
-- R3/M2-Gates aus `DECISION_MILESTONE_QUALITY_GATES.md` operationalisiert sind.
-
-## Offene Folgefragen
-
-- Welche Test-Helper werden zentral gebaut?
-- Welche echte lokale DB-Implementierung bekommt Integrationstests?
-- Wann führen wir Golden Tests ein?
-- Wie testen wir Mobile Capture ohne echte Kamera im M2?
-- Wann wird Microcks konkret in Docker/Compose eingebunden?
-- Welche OpenAPI-Spec wird zuerst umgesetzt?
+Konkrete Testplanung und Gate-Nachweise gehen an `quality-readiness` und
+`frontend-test-coverage`; Contract-Szenarien an `contract-api`; UI-Nachweise an
+`ui-architect`, `ui-builder` und anschliessend `ui-auditor`.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Bei Widerspruechen gilt
+die strengere Regel und die betroffene Phase stoppt.

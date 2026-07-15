@@ -1,128 +1,105 @@
 ---
 title: "Konzept F7 - Logging"
-description: "Mappm-Logging fuer Local/Cloud Vaults, migration, entitlement, capture and privacy-safe managed operations"
-tags: [concept, foundation, logging, diagnostics, privacy, home-hub]
-lastUpdated: "2026-07-12"
-version: "4.0"
-status: "accepted-rebaseline"
+description: "Privacy-sicheres strukturiertes Logging fuer Client, Managed Cloud, Capture, Migration und Support"
+tags: [concept, foundation, logging, diagnostics, privacy, cloud]
+lastUpdated: "2026-07-15"
+version: "5.0"
+status: "accepted"
+owner: "quality-readiness/security"
 ---
 
 # Konzept F7 - Logging
 
-## Status
+## Zweck und Abgrenzung
 
-Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
+F7 definiert technische Logkategorien und Redaction. F18 besitzt Telemetry,
+Audit, Notifications, Correlation und Observability. Logs sind weder Audit Trail
+noch Produktanalytics.
 
-## 2026 Vault/Cloud Rebaseline
+## Grundsaetze
 
-Logs may record provider kind, environment, safe operation/reference code and
-coarse migration/entitlement state. They never record Vault names, document
-names/content, OCR text, account identifiers, tokens, signed URLs, local private
-paths or payment details. Local Development Cloud and production telemetry are
-separate sinks and production data is never copied into development.
+- Privacy gewinnt gegen Diagnosebequemlichkeit.
+- Strukturiert loggen: Eventcode, Severity, Environment, Component,
+  Correlation-ID und redigierte technische Attribute.
+- Nutzertexte, Exceptiontexte und Providerpayloads werden nicht blind geloggt.
+- Production ist standardmaessig sparsam; Debug-Level ist zeitlich/gezielt und
+  darf Redaction nie deaktivieren.
+- Local Development Cloud, Development, Staging und Production verwenden
+  getrennte Sinks/Zugriffe. Productiondaten werden nie in Dev kopiert.
 
-Dieses Konzept ersetzt den importierten F7-Inhalt aus dem alten Projekt.
+## Erlaubt
 
-## Legacy Detail Baseline (non-normative)
+- App-/Service-Version und sicherer Environment-Key.
+- Start/Shutdown und Komponenteninitialisierung.
+- redigierte Storage-/Schema-/Migrationsresultate.
+- Capture-/Upload-/Processing-Stufe ohne Inhalt oder fachliche Labels.
+- Retryzahl, grobe Dauer, Failure-/Referenzcode.
+- Vault-Modus ohne Name, Titel oder direkte Account-ID.
+- Cache/Pending/Quota/Entitlement als grobe technische Klasse.
 
-The remaining imported detail is retained only for migration context and useful
-feature-specific examples. It must not authorize Home Hub, Tailscale, customer
-self-hosting, universal local-first authority, old milestone scope or QR server
-pairing. Where it differs, the rebaseline above,
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
-`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
-concept is used for implementation, its affected detail must be rewritten into
-the phase's approved implementation contract.
+## Verboten
 
-## Zweck
+- Dokumentinhalt, OCR-Text, Prompt, Modellantwort oder Suchquery.
+- Dokument-, Case-, Record-, Personen- oder Organisationsname.
+- Betrag, Diagnose, Versicherungs-/Ausweis-/Kontaktdaten.
+- Tokens, Keys, Recovery Secrets, Cookies oder Presigned URLs.
+- private Dateipfade/Dateinamen und rohe HTTP-/SDK-Payloads.
+- direkte Account-, Tenant- oder Device-Identifier ohne akzeptierte
+  Pseudonymisierung.
 
-F7 definiert, welche Ereignisse DocMan protokolliert und welche Daten niemals in Logs landen dürfen.
+Derived Content erbt mindestens die Schutzklasse seiner Quelle.
 
-F18 ergänzt F7 um das größere Runtime-Readiness-Modell: UserNotifications, Telemetry Events, Audit Events, Correlation IDs und spätere Observability. F7 bleibt die Quelle für Log-Kategorien und Log-Privacy.
-
-## Grundsatz
-
-Logs helfen bei Diagnose, aber DocMan verwaltet sensible Dokumente. Privacy gewinnt gegen Bequemlichkeit.
-
-## Was geloggt werden darf
-
-- App-Start und Version.
-- Feature-Initialisierung.
-- Home-Hub-Reachability-Status.
-- Upload-Queue-Status ohne Dateiinhalte.
-- Retry-/Failure-Kategorien nach F5.
-- Storage-Migrationsergebnisse.
-- Performance grober Operationen.
-
-## Was nicht geloggt werden darf
-
-- Dokumentinhalte.
-- OCR-Texte.
-- Formularinhalte.
-- Tokens, Pairing Secrets, Schlüssel.
-- vollständige private Dateipfade, wenn vermeidbar.
-- personenbezogene Daten ohne bewusste Redaction.
-
-## Log-Kategorien
+## Kategorien
 
 | Kategorie | Beispiele |
 |---|---|
-| app | Start, Shutdown, Konfiguration |
-| storage | DB geöffnet, Migration, Dateioperation |
-| capture | Scan erfasst, Queue aktualisiert |
-| upload | Upload gestartet, retry, abgeschlossen |
-| home_hub | Health, Capability, Pairing-Status |
-| security | Secret fehlt, unpair, auth failure |
-| ui | schwer reproduzierbare UI-Fehler |
+| `app` | Lifecycle, Version, Configuration Validation |
+| `storage` | DB/Schema, File Store, Integrity |
+| `capture` | Artifact durable, Boundary Stage, Queue |
+| `processing` | OCR/Extract/Index/Match Stage |
+| `cloud` | Contract/Transport/Revision ohne Payload |
+| `identity` | Session/Device/Entitlement Code |
+| `migration` | Inventory/Checkpoint/Verify |
+| `security` | redigiertes Policy-/Integrity-Ereignis |
+| `ui` | unerwarteter Render-/Navigationfehler ohne Inhalt |
 
-## Lokale Logs
+## Lokale Logs und Diagnoseexport
 
-Desktop darf lokale Diagnose-Logs führen. Mobile nur zurückhaltend.
+Lokale Logs sind begrenzt, rotierend und pro Environment/Vault-Kontext
+geschuetzt. Ein Diagnoseexport benoetigt Preview, Redaction, explizite
+User-Freigabe, definierte Retention und einen sichtbaren Scope. Dokumente/OCR
+werden nie automatisch beigefuegt.
 
-Logs sollen rotieren oder begrenzt werden. Export von Diagnose-Logs muss später bewusst über UI erfolgen.
+## Fehlerbehandlung
 
-## Home-Hub-Korrelation
+F5-Failures liefern stabile sichere Codes. Logging darf technische Ursache und
+Correlation aufnehmen, aber keine rohe Exception an UI oder Support geben.
+Wiederholte identische Fehler werden rate-limited/aggregiert, ohne einen
+Incident zu verschleiern.
 
-Später sollten App und Home Hub eine harmlose Korrelations-ID nutzen können.
+## Tests und Verifikation
 
-Keine Korrelation über personenbezogene Daten, Dateinamen oder Tokens.
+- Redaction-Tests mit synthetischen PII-/Secret-Markern.
+- Snapshot-/Schema-Tests fuer strukturierte Events.
+- Negative Tests fuer Exception-, HTTP-, Dateipfad- und Providerpayload-Leaks.
+- Environment-/Sink-Isolation.
+- Rotation/Retention und Diagnoseexport-Scope.
+- Correlation ueber Retry/Restart ohne fachliche Identifier.
 
-F18 definiert Correlation IDs / Operation IDs als Querschnitt für Upload, Import, Sync, Failure, Telemetry und Audit.
+## Stop Rules
 
-## Observability-Grenze
+Stop, wenn private Inhalte/Labels oder Secrets logbar sind, Debug Redaction
+umgeht, Productiondaten in Dev-Sinks gelangen oder Support ohne Preview einen
+ungeprueften Logexport erzeugt.
 
-Logging ist nur ein Teil von Observability.
+## Handoff
 
-F7 beschreibt lokale Logs. F18 beschreibt zusätzlich:
-
-- Telemetry Events.
-- Audit Events.
-- Metrics-Zielbild.
-- lokale Diagnoseansicht.
-- spätere Home-Hub-/OpenTelemetry-kompatible Exportgrenze.
-
-## Definition of Done
-
-F7 gilt als umgesetzt, wenn:
-
-- Logging-Kategorien definiert sind.
-- sensible Daten redacted bleiben.
-- F5-Failure-Kategorien logbar sind.
-- Upload-Queue diagnostizierbar ist.
-- Diagnose-Export keine Secrets enthält.
-- F18-Redaction-Regeln bei Telemetry und Audit eingehalten werden.
-
-## Offene Folgefragen
-
-- Welches Logging-Package verwenden wir?
-- Wie lange werden lokale Logs aufbewahrt?
-- Gibt es im M2 bereits einen Diagnose-Export?
-- Welche Logs werden später zu Telemetry Events oder Audit Events nach F18?
+Implementierung/Gates an `quality-readiness`, Failure-Mapping an
+`frontend-error-handling`, Backendinstrumentierung in ein separates
+Operations-/Backend-Issue.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Bei Widerspruechen gilt
+die strengere Regel und die Phase stoppt.

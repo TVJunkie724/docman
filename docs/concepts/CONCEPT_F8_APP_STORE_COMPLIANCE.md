@@ -1,104 +1,101 @@
 ---
-title: "Konzept F8 - Distribution Readiness"
-description: "Mappm-Distribution fuer verkaufbare Local/Cloud-Pläne, signierte Builds, Stores, entitlements and review access"
+title: "Konzept F8 - Distribution and Store Readiness"
+description: "Distribution, Signing, Store, Entitlement, Review Access und Update-Readiness fuer verkaufte Mappm-Modi"
 tags: [concept, distribution, app-store, mobile, desktop, cloud, entitlements]
-lastUpdated: "2026-07-12"
-version: "4.0"
-status: "accepted-rebaseline"
+lastUpdated: "2026-07-15"
+version: "5.0"
+status: "accepted"
+owner: "release/legal/product"
 ---
 
-# Konzept F8 - Distribution Readiness
-
-## Status
-
-Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
-
-## 2026 Commercial Distribution Rebaseline
-
-Private/self-hosted is not an early release exception. Every sold Local or Cloud
-build needs selected-channel signing, update, privacy/legal, licensing,
-entitlement, cancellation/export and support readiness. Store review uses
-synthetic accounts/Vaults. Cloud subscriptions must obey current platform rules
-and preserve Local migration/export when entitlement ends.
-
-Dieses Konzept ersetzt den importierten F8-Inhalt aus dem alten Projekt.
-
-## Legacy Detail Baseline (non-normative)
-
-The remaining imported detail is retained only for migration context and useful
-feature-specific examples. It must not authorize Home Hub, Tailscale, customer
-self-hosting, universal local-first authority, old milestone scope or QR server
-pairing. Where it differs, the rebaseline above,
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
-`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
-concept is used for implementation, its affected detail must be rewritten into
-the phase's approved implementation contract.
+# Konzept F8 - Distribution and Store Readiness
 
 ## Zweck
 
-F8 hält fest, wie DocMan später verteilt werden kann. Distribution ist nicht M2-führend, darf aber Architektur nicht überraschen.
+F8 definiert Release- und Store-Gates fuer alle verkauften Local-/Cloud-Modi.
+Direktdownload, private Beta oder Local Vault sind keine Ausnahme von
+Security-, Privacy-, Consumer-, Lizenz-, Update- und Support-Readiness.
 
-## M2-Richtung
+## Distributionskanaele
 
-Die erste produktive Richtung ist privat/self-hosted. R10-D1 bestaetigt diese
-Linie in `docs/technical/DECISION_DISTRIBUTION_STRATEGY.md`.
-R10-D2 bestaetigt zusaetzlich, dass Privacy/Legal bei der Implementierung
-mitgedacht werden, aber erst vor Store/Public Release als eigenes Gate blocken.
+Jeder aktivierte Kanal besitzt einen eigenen, datierten Plan fuer:
 
-Primär:
+- Apple App Store/TestFlight.
+- Google Play/Internal Testing.
+- Microsoft Store, falls aktiviert.
+- signierte/notarisierte Desktop-Direktdownloads.
+- interne Development-/Staging-Builds.
 
-- lokale Desktop-Builds.
-- Mobile Testbuilds.
-- Home Hub im privaten Setup.
+Der Kanalplan nennt Plattform, App-Instanz, Bundle/Package-ID, Signing,
+Entitlements/Permissions, Updatepfad, Billing/Subscription, Review Access,
+Support, Rollback und Owner.
 
-Nicht primär:
+## Verbindliche Gates
 
-- öffentliche App Stores.
-- Cloud-SaaS-Vertrieb.
-- Enterprise-Mandantenprodukt.
+- reproduzierbarer Build aus versionierter Quelle.
+- Signing, Notarization und sichere Secretverwaltung.
+- korrekte App-ID, Icons, Privacy-/Permission-Texte und Store-Metadaten pro
+  Instanz.
+- aktueller Store-Policy- und regulatorischer Quellencheck.
+- Lizenz-/Third-party-Notices und SBOM/Supply-Chain-Nachweis.
+- Upgrade-/Migration-/Rollback-/Minimum-Version-Strategie.
+- synthetischer Review-Account/Vault und reproduzierbares Review-Szenario.
+- Entitlement, Trial, Kauf, Restore Purchase, Kuendigung, Grace, Export,
+  Cloud-to-Local und Loeschung gemaess aktivem Geschaeftsmodell.
+- Support-, Incident-, Datenschutz- und Deletion-Kontakt.
 
-## Spätere Distribution
+## Store und Subscription
 
-Mögliche Pfade:
+Ob In-App Purchase, externer Kauf oder Direktlizenzierung zulaessig ist, wird
+vor jedem Release anhand der **aktuellen** Regeln des konkreten Stores und
+Markts geprueft. F8 legt keinen Zahlungsanbieter und keine Preisstruktur fest.
 
-- signierte Desktop-Builds.
-- TestFlight/Android interne Tests.
-- private Familien-/Haushaltsinstallation.
-- später öffentliche Store-Prüfung, falls gewünscht.
+Ein abgelaufenes Entitlement darf Datenportabilitaet, erforderlichen Zugriff,
+Export, Cloud-to-Local oder Loeschung nicht unzulaessig blockieren. Kaufstatus,
+Mappm-Subscription und verwaltete Nutzervertraege bleiben getrennte Modelle.
 
-## Store-Relevanz
+## Review Access
 
-Mobile Capture kann Stores später relevant machen. Deshalb sollte DocMan:
+- ausschliesslich synthetische Personen, Dokumente, Vaults und Cases.
+- keine anonymisierten echten Haushaltsdokumente.
+- aktivierte Features, Regionen und Entitlements sind reproduzierbar.
+- Review kann kritische Offline-, Capture-, Assist-, Export- und
+  Kuendigungsflows pruefen.
+- Review-Credentials sind zeitlich/umgebungsbezogen, sicher verteilt und nach
+  Abschluss widerrufbar.
 
-- Privacy-Texte sauber halten.
-- keine versteckten externen Dienste nutzen.
-- Review ohne echte private Daten ermöglichen.
-- App-Berechtigungen minimal halten.
-- Store-Regeln fuer Apple, Google und Microsoft vorbereiten, ohne M2/private
-  Nutzung davon abhaengig zu machen.
-- Legal-/Privacy-Readiness als Gate vor Store/Public Release fuehren.
+## Datierte Compliance-Regel
 
-## Definition of Done
+Store-, Betriebssystem-, Signing-, Privacy- und Billing-Regeln sind volatil.
+Jeder Release-Check dokumentiert Datum, Version/Region, Primaerquelle,
+Applicability, Ergebnis, Owner und naechstes Reviewdatum. Die verbindliche
+Regulatory-Struktur liegt unter `docs/regulatory/`, insbesondere REG-08 und dem
+Source Register.
 
-F8 gilt als umgesetzt, wenn:
+## Tests und Verifikation
 
-- M2 nicht von Store-Distribution abhängt.
-- spätere Mobile-Distribution nicht blockiert wird.
-- Privacy-/Permission-Anforderungen sichtbar sind.
-- Review-/Demo-Modus ohne echte private Daten geplant ist.
-- public/store Distribution nicht ohne Legal-/Privacy-Gate erfolgt.
+- Clean Build/Install/Upgrade/Uninstall auf jeder aktivierten Plattform.
+- Signing-/Notarization-/Store-Paketpruefung.
+- Permission denied, offline, trial/paid/grace/cancel/reactivate und Restore
+  Purchase.
+- Review-Account und synthetischer Demo-Vault.
+- Export/Migration/Delete nach Entitlement-Ende.
+- Update/Rollback mit Datenmigration und Quellenerhalt.
+- Store-/Privacy-Metadaten gegen tatsaechliches Verhalten.
 
-## Offene Folgefragen
+## Stop Rules
 
-- Wann brauchen wir TestFlight/Android Internal Testing?
-- Wird Desktop signiert verteilt?
-- Wann wird die Store-Policy-Matrix konkret ausgearbeitet?
-- Wer fuehrt die rechtliche/praktische Privacy-Review vor Public Release durch?
+Stop, wenn der Policy-Check nicht aktuell/datiert ist, eine Instanz falsche
+IDs/Icons/Permissions nutzt, Review echte Daten benoetigt, Signing-/Update-
+Secrets unsicher sind oder Kuendigung/Entitlement den Exit-Pfad blockiert.
+
+## Handoff
+
+Release-/CI-Evidence an `quality-readiness`; Store/Legal an die zustaendigen
+Legal-/Release-Owner; UI-Flows an `ui-architect` nach akzeptiertem Phaseplan.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Bei Widerspruechen gilt
+die strengere Regel und die Phase stoppt.

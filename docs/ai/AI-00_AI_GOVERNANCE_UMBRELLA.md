@@ -2,7 +2,7 @@
 title: "Mappm AI-00 AI Governance Umbrella"
 description: "Planning contract for OCR, LLM, document intelligence and assisted review"
 tags: [ai, ocr, llm, assisted-review, eu-ai-act, privacy, playbook]
-lastUpdated: "2026-07-08"
+lastUpdated: "2026-07-15"
 status: "accepted-direction"
 owner: "ai/compliance"
 ---
@@ -39,6 +39,17 @@ and regulatory gates; Advanced Assist remains later.
 - AI error handling and human override.
 - EU AI Act review against current rules at implementation date.
 - security review for sensitive document transfer.
+
+## Artefaktindex
+
+| Artefakt | Verantwortung |
+|---|---|
+| `AI-01_PROVIDER_MODEL_POLICY.md` | Provider, Modell, Region, Version und Training-/Retention-Policy |
+| `AI-02_DATA_REDACTION_PROMPT_BOUNDARY.md` | Minimierung, Redaction, Prompt-/Context- und Output-Grenzen |
+| `AI-03_HUMAN_REVIEW_EVIDENCE.md` | Nutzerbestaetigung, Korrektur, Provenance und Audit-Evidenz |
+| `AI-04_CONFIDENCE_EXPLAINABILITY.md` | Confidence, Evidence, Alternativen und erklaerbare sichtbare Folgen |
+| `AI-05_EVALS_MONITORING.md` | Evals, Qualitaetsschwellen, Drift und Produktionsmonitoring |
+| `AI-06_AI_INCIDENT_FALLBACK.md` | Incident, Kill Switch, Degraded/Manual Fallback und Recovery |
 
 ## Stop Rules
 

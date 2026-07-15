@@ -1,126 +1,115 @@
 ---
-title: "Konzept F6 - Environment Configuration"
-description: "Mappm-Konfiguration fuer Local, Local Development Cloud, Development, Staging and Production with safe instance defaults"
-tags: [concept, foundation, configuration, environments, cloud, instances]
-lastUpdated: "2026-07-12"
-version: "4.0"
-status: "accepted-rebaseline"
+title: "Konzept F6 - Environment and Instance Configuration"
+description: "Sichere Konfiguration fuer Mappm-Instanzen, Local Development Cloud, Development, Staging und Production"
+tags: [concept, foundation, configuration, environments, cloud, instances, flavors]
+lastUpdated: "2026-07-15"
+version: "5.0"
+status: "accepted"
+owner: "foundation/release"
 ---
 
-# Konzept F6 - Environment Configuration
-
-## Status
-
-Accepted rebaseline. The legacy detail appendix is not implementation-authorizing.
-
-## 2026 Environment Model
-
-Supported profiles are `local`, `local-development-cloud`, `development`,
-`staging` and `production`. Local Vault use has no backend endpoint. Local
-Development Cloud uses synthetic data and local service URLs. Managed
-Development/Staging/Production use separate identity, API, storage, keys,
-telemetry and app identity. Customer-entered server URLs, Tailscale and Home Hub
-configuration are not product settings.
-
-Dieses Konzept ersetzt den importierten F6-Inhalt aus dem alten Projekt.
-
-## Legacy Detail Baseline (non-normative)
-
-The remaining imported detail is retained only for migration context and useful
-feature-specific examples. It must not authorize Home Hub, Tailscale, customer
-self-hosting, universal local-first authority, old milestone scope or QR server
-pairing. Where it differs, the rebaseline above,
-`DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`,
-`DECISION_COMMERCIAL_CORE_SCOPE.md` and F36 are authoritative. Before this
-concept is used for implementation, its affected detail must be rewritten into
-the phase's approved implementation contract.
+# Konzept F6 - Environment and Instance Configuration
 
 ## Zweck
 
-F6 definiert, wie DocMan konfiguriert wird, ohne private Serveradressen, Secrets oder alte Cloud-Annahmen in Code oder Repo einzubauen.
+F6 trennt Produktinstanz, Umgebung, Vault-Modus, Laufzeiteinstellung und Secret.
+Keine Umgebung wird durch harte URLs, private IPs oder versteckte Defaults im
+Produktcode definiert.
 
-## Grundsatz
+## Umgebungsmodell
 
-DocMan ist local-first und self-hosted-orientiert.
-
-Konfiguration muss deshalb:
-
-- lokale Nutzung ohne Backend erlauben.
-- optionalen Home Hub konfigurieren.
-- private Serveradressen unterstützen.
-- Tailscale/LAN/VPN nicht als Produktlogik behandeln.
-- Secrets aus normaler Konfiguration heraushalten.
-
-## Konfigurationsarten
-
-| Art | Beispiele | Speicherort |
+| Umgebung | Zweck | Datenregel |
 |---|---|---|
-| Build-Konfiguration | App-Name, Feature-Flags, Flavor | Build/Dart define |
-| Laufzeit-Settings | Home-Hub-URL, Sprache, Theme | F10 Local Storage |
-| Secrets | Pairing Secret, Session Token | F12 Secure Storage |
-| Dev-Konfiguration | Fake-Repositories, lokale Testdaten | Dev-only Config |
-| Server-Konfiguration | Compose-Variablen, Storage-Pfade | Späterer Server-Stack |
+| `local` | Flutter-App mit Fakes/lokaler Persistenz | nur synthetisch |
+| `local-development-cloud` | realer lokaler Backend-/Contract-Stack | nur synthetisch |
+| `development` | geteilte Managed-Integration | freigegebene synthetische Testdaten |
+| `staging` | release-nahe Managed-Validierung | freigegebene synthetische/rechtlich erlaubte Testdaten |
+| `production` | verkaufter Dienst | echte Kundendaten gemaess Policy |
 
-## App-Modi
+Local Vault bedeutet nicht automatisch `local` Environment. Eine Production-
+App mit Local Vault verwendet Account/Entitlement und gegebenenfalls Core
+Assist gegen Production, waehrend ihre Vault-Daten lokal autoritativ bleiben.
 
-| Modus | Zweck |
-|---|---|
-| Local Only | Desktop-App ohne Home Hub, lokale Arbeit |
-| Home Hub Connected | M2 mit Mobile Capture Upload |
-| Dev Fake | UI-/Provider-Entwicklung ohne echten Server |
-| Integration | Tests gegen lokalen Home-Hub/Compose-Stack |
+## Produktinstanzen
 
-Cloud-SaaS ist kein Zielmodus.
+Jede auslieferbare App-Instanz besitzt explizit versionierte, getrennte
+Artefakte fuer:
 
-## Home-Hub-Konfiguration
+- App-/Bundle-/Package-Identifier und Anzeigename.
+- Environment-/Flavor-Konfiguration ohne Secrets.
+- API-/Identity-/Telemetry-Ziele je Umgebung.
+- erlaubte Features und Plattformfaehigkeiten.
+- App Icons, Splash-/Brand-Assets und Store-Metadaten.
+- Signing-/Entitlement-/Permission-Konfiguration je Plattform.
 
-Die App speichert nicht geheim:
+Instanzspezifische Env-Dateien folgen einem dokumentierten Schema. Sichere
+Templates/Examples duerfen committed sein; echte Secrets, private Zertifikate
+und Production-Credentials nicht. Fehlende Productionwerte fuehren zu einem
+Build-/Startfehler, nie zu einem Fallback auf Development oder Fakes.
 
-- Home-Hub-URL.
-- zuletzt geprüfter Health-Status.
-- Capabilities.
-- Anzeigename des Hubs.
+## Konfigurationsklassen
 
-Die App speichert geheim über F12:
+| Klasse | Beispiele | Ort |
+|---|---|---|
+| Build/Instance | App-ID, Name, Flavor, Icon-Set | versionierte Buildkonfiguration |
+| Environment | API-/Identity-Basis, Telemetry-Ziel | validierte nicht geheime Config |
+| Runtime Preference | Sprache, Theme, UI-Praeferenz | lokaler Settings Store |
+| Product State | Vault-Modus, Entitlement, Cache, Migration | Repositories/Backend, nicht Config Flag |
+| Secret | Tokens, Keys, Signing, Recovery | Secret Store/CI/OS Secure Storage |
+| Dev Scenario | Fake-/Fixture-Auswahl | Dev-/Test-only Composition |
 
-- Pairing Secret.
-- Session Token.
-- Device Secret.
+Vault-Autoritaet, Subscription und Assist sind keine frei manipulierbaren
+Feature Flags.
+
+## Operations Entrypoint
+
+Das projektlokale `frontend.sh` ist der dokumentierte Entrypoint fuer Setup,
+Start, Codegen, Verify und instanz-/umgebungsspezifische Befehle. Es validiert
+Instanz und Umgebung, bevor Tools gestartet werden, und gibt keine Secrets aus.
+CI verwendet dieselben transparenten Unterbefehle oder deren direkt
+nachvollziehbare Scripts.
 
 ## Feature Flags
 
-Feature Flags dürfen frühe Entwicklung erleichtern, aber nicht Produktlogik verstecken.
+- Flags haben Owner, Default, Environment-Scope und Entferndatum/-bedingung.
+- Security-, Legal-, Billing- oder Datenmigration darf nicht nur clientseitig
+  per Flag kontrolliert werden.
+- Production-Default ist fail closed.
+- Dev-Fakes und Local Development Cloud sind in Production nicht erreichbar.
 
-Mögliche Flags:
+## Security und Privacy
 
-- mobileCaptureEnabled.
-- homeHubUploadEnabled.
-- fakeRepositoriesEnabled.
-- intelligencePreviewEnabled.
+- Keine Customer-Server-URL oder Self-Hosting-Einstellung im Produkt.
+- Keine Secrets in Dart Defines, committed Env-Dateien, Logs oder UI.
+- Environment- und Tenant-Isolation gilt fuer Identity, API, Storage, Keys,
+  Telemetry, Push und Store-Konfiguration.
+- Diagnose zeigt sichere Environment-/Version-IDs, keine Tokens oder internen
+  URLs ohne Supportbedarf.
 
-Production-Defaults müssen konservativ sein.
+## Tests und Verifikation
 
-## Definition of Done
+- Schema-/Required-Field-Validierung fuer jede Instanz/Umgebung.
+- Build Smoke fuer aktivierte Plattform-/Environment-Kombinationen.
+- Production-Fail-closed bei fehlender/falscher Config.
+- Nachweis, dass Production nie Fake, Local Development Cloud oder Dev-
+  Telemetry verwendet.
+- Icon/App-ID/Signing-/Permission-Konsistenz pro Instanz.
+- Secret-Scan und keine Geheimnisse in Buildartefakten/Logs.
 
-F6 gilt als umgesetzt, wenn:
+## Stop Rules
 
-- keine harten IPs oder Platzhalter-URLs im Produktpfad stehen.
-- Home-Hub-URL konfigurierbar ist.
-- Secrets nur über F12 laufen.
-- Dev Fake klar von Produktmodus getrennt ist.
-- App ohne Home Hub sinnvoll startet.
+Stop, wenn Environment, Vault-Modus und Produktinstanz vermischt werden, eine
+Production-App auf Dev/Fake zurueckfallen kann, Secrets in Buildconfig landen
+oder eine neue Instanz ohne eigenes validiertes Config-/Icon-/Signing-Set
+ausgeliefert werden soll.
 
-## Offene Folgefragen
+## Handoff
 
-- Welche konkrete Config-Datei-/Dart-define-Strategie verwenden wir?
-- Wie wird Mobile erstmalig mit der Home-Hub-Adresse versorgt?
-- Welche Dev-Fakes sind im M2 erlaubt?
-
+Bootstrap/Entrypoint an `foundation-builder`, CI/Signing an
+`quality-readiness`, Backend-/Environment-Vertraege an `contract-api`.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Bei Widerspruechen gilt
+die strengere Regel und die Phase stoppt.
