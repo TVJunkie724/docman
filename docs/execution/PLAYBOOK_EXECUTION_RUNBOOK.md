@@ -2,7 +2,7 @@
 title: "DocMan/Mappm - Playbook Reconciliation Runbook"
 description: "Sequenzielles Runbook fuer den Abgleich des bestehenden DocMan/Mappm-Projekts gegen das Flutter Project Setup Playbook"
 tags: [execution, playbook, reconciliation, agent, setup]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 status: "active-baseline"
 owner: "project-bootstrap-runner"
 ---
@@ -30,8 +30,8 @@ hardening pass:
 | T0 Bootstrap Reconciliation | done | repo/docs/app/skills scaffold, embedded playbook, scripts | `.codex/skills/*`, `docs/flutter-project-playbook/`, `lib/`, `scripts/`, `frontend.sh`, `docs/ops/OPS-08_PROJECT_ENTRYPOINTS.md` | none |
 | T1 Applicability | done | REG-00, source register, Applicability Matrix, Always-Plan Checklist | discovery and roadmap-standard matrices, `docs/regulatory/REGULATORY_SOURCE_REGISTER.md`, REG/SEC/DATA/OPS/AI/COM families | dated owner/legal review remains phase-specific |
 | T2 Discovery Interview | done | Decision Summary, Open Questions Register, Traceability Matrix | accepted owning decisions plus recorded user Q/A; remediation instructions are not phase approvals | open commercial/cloud/identity questions block only affected phases |
-| T3 Foundation Decisions | done | decision traceability, key decision updates | `docs/execution/DECISION_TRACEABILITY_MATRIX.md`, `docs/technical/DECISION_*.md` | draft-safe backend contract decision needs final acceptance before backend build |
-| T4 Concept Seeding | done | per-file quality matrix and required concept drafts | quality contracts/matrix, MP-DS-00..07, REG-01..08, SEC-01..05, DATA-01..06, AI-01..06, OPS-01..08, COM-01..04 | draft families still require affected-phase review |
+| T3 Foundation Decisions | done | decision traceability, key decision updates | `docs/execution/DECISION_TRACEABILITY_MATRIX.md`, `docs/technical/DECISION_*.md` | contract-first architecture is provisionally accepted; concrete API/backend slices still require separate approval |
+| T4 Concept Seeding | done | per-file quality matrix and required concept artifacts | quality contracts/matrix, MP-DS-00..07, REG-01..08, SEC-01..05, DATA-01..06, AI-01..06, OPS-01..08, COM-01..04 | REG governance is accepted with dated sources; draft technical/commercial families still require affected-phase review |
 | T5 Standard Roadmap | done | Pillar/Phase indexes, conditional matrix, aligned GitHub tracker | roadmap docs; Mappm milestones; owner-prefixed issues; epic labels | future issues refine when their phase approaches |
 | T6 Implementation Readiness | ready-for-user-approval | fully specified first phase, approval-gated specialist handoff, conforming issue | `docs/roadmap/phases/R3_5_TARGET_PATH_QUALITY_BASELINE.md`, `docs/execution/handoffs/R3_5_QUALITY_READINESS_HANDOFF.md`, issue #25 | explicit user/product-owner approval must be recorded before implementation |
 | T7 Verification | verified-pending-closeout | verify status, CI/CD readiness, completion reports | `frontend.sh`, `scripts/*`, `docs/execution/PLAYBOOK_AGENT_TRACK_CLOSEOUT.md` | closes only after T6 approval; full CI/CD and legacy analyzer cleanup remain R3/R10 work |

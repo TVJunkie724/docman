@@ -3,7 +3,7 @@ name: ui-architect
 description: Use when designing a DocMan/Mappm Flutter UI implementation plan from an approved UI concept, phase, or requirement. Produces a precise visual and code-level presentation blueprint with Riverpod state/provider design, repository integration through Domain interfaces, responsive behavior, accessibility, tests, and Definition of Done. No code is written in this role.
 ---
 
-# DocMan UI Architect
+# Mappm UI Architect
 
 Use this skill to create implementation plans. Do not write production code in
 this role.

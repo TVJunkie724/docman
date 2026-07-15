@@ -3,7 +3,7 @@ name: ui-concept
 description: Use when creating or revising DocMan/Mappm strategic Flutter UI/frontend concepts, F-concepts, design-system concepts, roadmap entries, pillar slices, phases, subphases, implementation-contract phase documents, UI handoffs, or frontend planning governance. Use before ui-architect/builder work and whenever a phase must become production-ready and executable.
 ---
 
-# DocMan UI Concept
+# Mappm UI Concept
 
 Use this skill for strategic frontend planning. This role writes concepts,
 roadmaps, phases, pillar slices, handoffs, and implementation-contract product
@@ -24,7 +24,7 @@ Read first:
 
 ## Mission
 
-Act as DocMan/Mappm's Strategic Product/UI Concept Lead. Plan the complete
+Act as Mappm's Strategic Product/UI Concept Lead. Plan the complete
 production app, not prototypes or MVP shortcuts. A phase is a binding
 product/UX implementation contract: detailed enough that `ui-architect`
 can create a code-level implementation plan without inventing product behavior,
@@ -46,7 +46,7 @@ Always:
 
 - Work in concepts, phases, roadmaps, scope, dependencies, product behavior,
   UX contracts, and quality gates.
-- Preserve DocMan Clean Architecture: Presentation -> Domain -> Data.
+- Preserve Mappm Clean Architecture: Presentation -> Domain -> Data.
 - Preserve explicit Local/Cloud Vault authority, offline-capable client
   behavior and the managed-service product direction.
 - Treat documents, metadata, OCR/LLM outputs, profiles, and diagnostics as
@@ -90,8 +90,10 @@ Before broad production UI implementation, planning must cover:
   offline continuity, Detached Recovery, migration, entitlement/grace,
   access-denied, and optional later
   eIDAS/EUDI/ID Austria integration.
-- capture/review UX: mobile capture, desktop import, draft inbox, document
-  review, preview, assignment, duplicate warning.
+- capture/review UX: global mobile capture, desktop import, durable processing
+  and proposal review, preview, confirmation/correction, duplicate warning,
+  mixed-batch split/outlier,
+  async processing/restart and mandatory Backend/Core-Assist title proposal.
 - documents/cases/records UX: documents, Vorgänge, Unterlagen/Nachweise,
   one-Case typed relationships, Custom/Guided parity, top-down/bottom-up
   composition, versions, search.
@@ -113,12 +115,16 @@ Before broad production UI implementation, planning must cover:
 - intelligence UX: Core Assist in Commercial Core, Advanced Assist later,
   OCR/LLM suggestions, confidence, evidence, review states, processing trust
   boundary, quota/opt-out/offline/manual fallback and no AI-chat assumption.
+- capture interaction must not require pre-scan profile/Case/metadata forms;
+  automatic matching always runs and `Neuen Vorgang starten` is only an intent.
+- current routing confirmation accepts visible consequences only; later auto-
+  routing needs class-specific precision, abstention, undo and rollback gates.
 
 If an area is intentionally deferred, state the milestone and non-goal.
 
 ## Documentation Structure
 
-Use the current DocMan structure:
+Use the current Mappm repository structure:
 
 ```text
 docs/

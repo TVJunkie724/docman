@@ -3,7 +3,7 @@ name: data-architect
 description: Use when designing or planning Mappm data architecture, including Local/Cloud Vault authority, SQLite + Drift schemas, local file/cache boundaries, secure storage, provider migration, repository interfaces, stable IDs, fake/in-memory repositories, and retirement of legacy Isar/PocketBase persistence.
 ---
 
-# DocMan Data Architect
+# Mappm Data Architect
 
 Use this skill for data/storage architecture and implementation planning. Use `foundation-builder` for concrete foundation implementation and `quality-readiness` for tests/coverage.
 
@@ -19,7 +19,8 @@ Read:
 
 - SQLite + Drift for structured local metadata.
 - Files/documents outside structured DB, referenced by stable file records.
-- Secure Storage for secrets, tokens, pairing credentials, and encryption material.
+- Secure Storage for secrets, tokens, device/session credentials, recovery
+  material and encryption keys.
 - Repository interfaces in Domain; implementations in Data.
 - Sync-ready stable IDs and timestamps.
 - No new Isar/PocketBase expansion.
@@ -40,6 +41,19 @@ Read:
   allow documents and Records to participate in multiple Cases without copies.
 - Support manual, Assist-suggested and guided Case origins without changing
   the Case capability model.
+- Do not add a required `caseType` enum. A Case may remain a lightweight named
+  document/context collection; domain template and pinned workflow definition
+  are optional references, and reusable workflow patterns need not be stored as
+  an exclusive Case classification.
+- Persist capture/session/document-unit/page/file manifests, explicit mobile
+  document boundaries,
+  processing/proposal versions, generated-title provenance, user corrections,
+  partial batch status and explicit new-Case intent across restart/idempotency.
+- Allow zero Case/Record links only while capture/review is pending. Accepted
+  review has a primary Case or Record; lightweight Custom Cases may begin with
+  title, subject and one document without fake tasks/workflow/outcome.
+- Keep document base type, semantic variant, domain, Record kind, source/format
+  and link role separate; relationship role is not one global Document field.
 - Treat PersonProfile and OrganizationProfile as ManagedSubject variants while
   keeping account identity, ManagementGrant and ExternalParty separate.
 - Model recurring contracts/subscriptions as durable Records with versions,
@@ -62,10 +76,15 @@ Read:
 - Are secrets separated from normal DB tables?
 - Can fake repositories implement the same contract?
 - Can Drift tests run in memory or isolated temp storage?
-- Are migrations explicit and reversible enough for M2 safety?
+- Are migrations explicit and reversible enough for C0/C1 data-safety gates?
 - Does UI access data only through providers/domain repositories?
 - Can Case links be added, changed and removed without moving, copying or
   deleting linked documents, Records, tasks or other Cases?
+- Can `follow_up_to` form chains/branches without parent ownership or cascade?
+- Can explicitly separated mobile documents and imported mixed batches
+  split/merge/reassign while preserving original pages and accepted siblings
+  after partial failure?
+- Can reprocessing suggest a better title without overwriting a confirmed one?
 - Can a custom umbrella Case be created from a selection of existing objects
   and later dissolved without data loss?
 - Are recurring invoice matching, subject context, tax context and confirmed

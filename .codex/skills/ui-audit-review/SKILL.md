@@ -3,7 +3,7 @@ name: ui-audit-review
 description: Use when reviewing a DocMan/Mappm UI audit report, re-checking an implementation after audit findings, or validating evidence quality after remediation. Reviews from architect, builder, and auditor perspectives for plan fidelity, Clean Architecture, tests, DoD, changed files, and evidence sufficiency.
 ---
 
-# DocMan UI Audit Review
+# Mappm UI Audit Review
 
 Use this skill to independently review an audit report or re-check an
 implementation after remediation.

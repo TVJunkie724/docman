@@ -3,7 +3,7 @@ name: ui-plan-review
 description: Use when reviewing a DocMan/Mappm UI implementation plan before approval. Checks the plan from architect and builder perspectives for concept fidelity, unambiguity, Clean Architecture, Riverpod/provider design, fake repository and contract boundaries, exact tests, accessibility, privacy, stop rules, and absence of placeholders.
 ---
 
-# DocMan UI Plan Review
+# Mappm UI Plan Review
 
 Use this skill before a UI implementation plan is approved for build.
 

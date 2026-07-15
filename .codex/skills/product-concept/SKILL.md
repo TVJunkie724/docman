@@ -3,9 +3,9 @@ name: product-concept
 description: Use when creating or revising Mappm whole-product strategy, roadmap, milestone, phase, decision, or handoff documentation that is broader than UI, including Commercial Core scope, Local/Cloud Vault modes, privacy, backend role, capture, sync, subscriptions, AI/OCR direction, or phase sequencing.
 ---
 
-# DocMan Product Concept
+# Mappm Product Concept
 
-Use this skill for strategic DocMan planning that is broader than UI.
+Use this skill for strategic Mappm planning that is broader than UI.
 
 Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. Use `github-issue` when the result creates actionable follow-up work.
 
@@ -23,12 +23,17 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
 - Read `docs/technical/DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`.
 - Read `docs/concepts/CONCEPT_F36_VAULT_MODES_CLOUD_LIFECYCLE.md`.
 - Read `docs/technical/DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`.
+- Read `docs/technical/DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md`.
+- Read `docs/discovery/MEDICAL_CASE_MODEL_DISCOVERY.md` only when medical Case
+  discovery is in scope. It is draft input, not an accepted decision.
 - Read `docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`.
 - Read `docs/technical/DECISION_RECURRING_CONTRACT_SUBSCRIPTION_MODEL.md`.
 - Read `docs/technical/DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md`.
 - Read `docs/technical/DECISION_JURISDICTIONAL_TAX_DOCUMENT_COLLECTION.md`.
 - Read `docs/technical/DECISION_CONTEXTUAL_REVIEW_ACTIONS_FINANCIAL_ROLLUPS.md`.
 - Read `docs/concepts/CONCEPT_F37_CASE_RECORD_CONTEXTUAL_EXPERIENCE.md`.
+- Read `docs/discovery/OPEN_QUESTIONS_REGISTER.md`; OQ-011/OQ-012 block
+  taxonomy and medical-scope invention.
 - Treat Local and Cloud as explicit Vault modes, not environment flags.
 - Every normal Free/Paid Local and Cloud mode requires a Mappm Account; Local
   remains local-authoritative and Detached Recovery is the account-independent
@@ -46,11 +51,28 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
 - Mappm has one `Case` entity. A Subvorgang is only the UI role of a normal
   Case connected with `CaseLink(relationType=part_of)`; there is no separate
   Subcase type or strict `parentCaseId` target tree.
+- A `Case` is deliberately generic and may remain a lightweight named document
+  collection/context. Custom/guided behavior, domain template and workflow are
+  optional enrichments, not visible Case subtypes; never invent a large Case
+  type picker.
 - Split workflow stages, tasks, events, branches and Claims from Cases by
   independent goal/lifecycle/outcome, not by sender, institution, document or
   local status. Composition is reversible and supports top-down and bottom-up
   creation without copying content.
 - Guided, Assist-suggested and manual/Custom Cases have equal capabilities.
+- Global capture always runs asynchronous Backend/Core Assist analysis and
+  matching. The service must propose editable titles for every logical Document
+  and proposed Case/Record, including explicit new-Case intent.
+- Current release routing is user-confirmed through relevant visible results;
+  later reversible automation is class-specific, measured, abstaining and
+  undoable. Mobile scan uses one explicit logical document per completed scan
+  unit, with multiple pages before **Naechstes Dokument scannen**. Batch/session
+  proximity never proves a shared Case.
+- Completed review requires a primary Case or Record. A lightweight Custom Case
+  may begin with generated title, Managed Subject and one document only.
+- `follow_up_to` forms Case chains/branches without parent ownership. Medical
+  Case types, care-course boundaries and reimbursement composition remain open
+  in `MEDICAL_CASE_MODEL_DISCOVERY.md` until an explicit user decision.
 - Vorgänge and Unterlagen/Records are equal product areas with distinct
   semantics. Durable identity records, contracts and policies are Records;
   files/documents remain evidence or versions.
@@ -77,6 +99,9 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
 - Core Assist/OCR/classification is part of C2/C3 Commercial Core; Advanced
   Assist remains later. No real-document processing starts before accepted
   trust/provider/retention/AI gates.
+- Document taxonomy keeps base type, semantic variant, domain, Record kind,
+  source/format and relationship role separate. The full taxonomy/workflow mapping remains an
+  explicit product review and must not be invented from the historical M2 list.
 
 ## Documentation Targets
 

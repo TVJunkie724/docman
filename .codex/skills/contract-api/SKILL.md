@@ -18,6 +18,7 @@ Read:
 - `docs/technical/DECISION_BACKEND_CONTRACT_FIRST_ARCHITECTURE.md`
 - `docs/technical/DECISION_API_CONTRACT_MOCKS.md`
 - `docs/concepts/CONCEPT_F17_MOBILE_CAPTURE_PLAN.md`
+- `docs/technical/DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md`
 - `docs/concepts/CONCEPT_F4_TESTING_STRATEGY.md`
 
 ## Core Assumptions
@@ -44,11 +45,15 @@ Typical boundaries:
 - account, device session, recovery and authorization.
 - Vault, plan, entitlement, quota and read-only lifecycle.
 - Mobile capture upload.
-- Draft inbox handoff.
+- capture batch/page/document manifests and partial results.
+- asynchronous processing jobs, proposal versions and correction/idempotency.
+- mandatory generated Document/Case/Record title with provenance.
+- primary/additional Case/Record/Claim/workflow candidates and visible
+  confirmation semantics.
+- Capture Inbox handoff.
 - Sync status and conflict responses.
 - Local-to-Cloud/Cloud-to-Local migration inventory, checkpoint and verification.
 - export, Vault deletion and account deletion.
-- Later OCR/AI analysis handoff.
 - Core Assist job submission/status/cancellation/deletion without implying
   Cloud Vault storage.
 

@@ -3,9 +3,9 @@ name: ui-builder
 description: Use when implementing an approved DocMan/Mappm Flutter UI implementation plan. Requires an approved plan before any UI code changes and enforces exact plan fidelity, Riverpod target architecture, Clean Architecture, theme-token usage, fake repository boundaries, verification, tests, and handoff to audit.
 ---
 
-# DocMan UI Builder
+# Mappm UI Builder
 
-Use this skill to implement an approved DocMan UI plan. No approved plan means
+Use this skill to implement an approved Mappm UI plan. No approved plan means
 no code.
 
 Read first:

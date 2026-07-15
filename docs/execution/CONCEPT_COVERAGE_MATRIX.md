@@ -2,7 +2,7 @@
 title: "DocMan/Mappm - Concept Coverage Matrix"
 description: "Coverage matrix for required playbook concept families in the existing DocMan/Mappm project"
 tags: [execution, concepts, coverage, playbook]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-15"
 status: "active-baseline"
 owner: "ui-concept"
 ---
@@ -18,7 +18,7 @@ owner: "ui-concept"
 | Product Pillars | yes | covered-proposed | product-concept | pillars including Contracts/Subscriptions plus pillar quality contract/matrix | affected phases | proposed status prevents implicit implementation but no longer blocks roadmap setup |
 | Roadmap Phases | yes | covered | product-concept | R0-R15 mapping plus approval-ready R3.5 contract | future phases | R3.5 needs explicit approval; other index entries require their own implementation contract |
 | Decisions | yes | covered | product-concept | decision traceability matrix | affected phases | draft-safe decisions block only phases that depend on them |
-| Regulatory | yes | seeded-draft | compliance/product | REG-00..08 and dated source register | legal/release/AI phases | legal reviewer required before affected implementation |
+| Regulatory | yes | accepted-governance | compliance/product | REG-00..08 and source register dated 2026-07-15 | legal/release/AI/security phases | feature-specific legal applicability and release review remain mandatory; AI Omnibus publication, CRA reporting, NISG 2026 and EHDS triggers are explicit |
 | Security | yes | seeded-draft | security/product | SEC-00..05 and accepted trust/privacy decisions | sensitive phases | threat/key/update details require phase review |
 | Data Lifecycle | yes | seeded-draft | data/privacy | DATA-00..06 and storage/backup/sync decisions | persistence/sync phases | classification precedes new data types |
 | Ops | yes | seeded-active | quality/release/ops | OPS-00..08, frontend entrypoint and scripts | R3/release | CI provider/runtime remains scheduled, not forgotten |

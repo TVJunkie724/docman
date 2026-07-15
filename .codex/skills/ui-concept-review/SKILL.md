@@ -3,7 +3,7 @@ name: ui-concept-review
 description: Use when reviewing DocMan/Mappm UI concepts, F-concepts, design-system concepts, roadmap entries, pillar slices, phase documents, or handoffs for production readiness, executability, completeness, over-engineering, contradictions, missing stop rules, and phase-as-implementation-contract quality.
 ---
 
-# DocMan UI Concept Review
+# Mappm UI Concept Review
 
 Use this skill before UI concepts or phases are approved or handed to
 `ui-architect`.

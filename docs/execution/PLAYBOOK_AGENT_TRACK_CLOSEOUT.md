@@ -1,8 +1,8 @@
 ---
 title: "Mappm - Playbook Agent Track Closeout"
-description: "Closeout readiness report for the T0-T7 playbook reconciliation track"
+description: "Closeout-Readiness-Bericht fuer den T0-T7-Playbook-Reconciliation-Track"
 tags: [execution, playbook, closeout, agent-track]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 status: "pending-r3-5-approval"
 owner: "project-bootstrap-runner"
 ---
@@ -23,15 +23,19 @@ claim that every future feature is implemented.
 | T0 Bootstrap Reconciliation | done | submodule, project-local skills, `frontend.sh`, OPS-08 | future package/repo rename decision |
 | T1 Applicability | done | Applicability, source register, always-plan and conditional matrices | dated legal/source refresh before affected implementation |
 | T2 Discovery Interview | done-rebaselined | Decision summary, Vault/Commercial-Core decisions and VC-01..08 | owner Q/A before affected Local/Cloud/commercial implementation |
-| T3 Foundation Decisions | done | Decision traceability matrix | close draft-safe backend contract decision before backend build |
-| T4 Concept Seeding | done | per-file contracts/matrix, MP-DS-00..07 and all seeded governance subfamilies | review drafts at affected phase |
+| T3 Foundation Decisions | done | Decision Traceability Matrix und accepted-provisional Backend-/Contract-Ownership | konkrete Contracts, DTOs, Endpoints, Mapping, Persistence und Policies nur in eigenen API-/Backend-Phasen festlegen |
+| T4 Concept Seeding | done | per-file contracts/matrix, MP-DS-00..07, alle Governance-Subfamilien und Quality Audit 2026-07-15 | Drafts in der jeweils betroffenen Phase pruefen |
 | T5 Standard Roadmap | done-rebaselined | C0-C7 over R0-R15, simplified pillars, matrices and aligned live tracker | refine future child issues only from approved implementation contracts |
 | T6 Implementation Readiness | ready-for-user-approval | fully specified R3.5 phase, approval-gated quality handoff and issue #25 | implementation remains blocked until explicit approval |
 | T7 Verification | verified-pending-closeout | `frontend.sh doctor`, narrow widget/analyze checks, known analyzer debt documented | close after T6 approval; CI/CD and full verify remain R3/R10 work |
 
 ## Baseline Verification
 
-Current narrow evidence:
+Die folgende Runtime-Evidenz stammt aus dem ersten Playbook-Lauf am
+10./11.07.2026. Der Dokumentationsreview vom 15.07.2026 hat sie nicht als neuen
+Runtime-Check ausgegeben; R3.5 muss alle Befehle vor einer Umsetzung wiederholen.
+
+Aufgezeichnete enge Baseline:
 
 - `frontend.sh doctor` succeeds.
 - `flutter test test/widget_test.dart` succeeds.
@@ -40,12 +44,12 @@ Current narrow evidence:
 - the exact R3.5 target format check currently fails only for
   `lib/presentation/theme/app_theme.dart`; this is owned by approval-gated R3.5.
 
-Known full-project verification debt:
+Aufgezeichnete Full-Project-Schulden:
 
 - `scripts/verify.sh` currently stops at the formatting gate because 35 legacy
   files are not format-clean.
-- `flutter analyze` fails on existing legacy/generated Isar, PocketBase and old
-  UI deprecation issues (84 findings on 2026-07-10).
+- `flutter analyze` scheiterte am 10.07.2026 an bestehenden
+  Legacy-/Generated-Isar-/PocketBase- und UI-Deprecation-Funden (84 Findings).
 - This is R3 target-path/legacy-isolation work, not new playbook regression.
 
 ## Next Allowed Work

@@ -3,7 +3,7 @@ name: ui-auditor
 description: Use when auditing a completed DocMan/Mappm Flutter UI implementation against an approved implementation plan. Performs evidence-based final quality gate checks across plan fidelity, changed files, Clean Architecture, widget tree, Riverpod state/providers, visual layout, responsiveness, interactions, accessibility, privacy/error handling, tests, verification, and Definition of Done.
 ---
 
-# DocMan UI Auditor
+# Mappm UI Auditor
 
 Use this skill as the final quality gate after implementation.
 

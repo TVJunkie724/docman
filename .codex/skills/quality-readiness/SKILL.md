@@ -3,7 +3,7 @@ name: quality-readiness
 description: "Use for Mappm R3/C1 quality and production-readiness work: test coverage, fake repositories, fixtures, analyzer/format debt, verify gates, CI readiness, Vault migration/lifecycle quality, and separating legacy baseline debt from new regressions."
 ---
 
-# DocMan Quality Readiness
+# Mappm Quality Readiness
 
 Use this skill for R3 work and quality hardening.
 
@@ -17,7 +17,7 @@ Read:
 
 ## Core Model
 
-DocMan uses two separate test layers:
+Mappm uses two separate test layers:
 
 - Fake repositories: fast Flutter/domain/Riverpod/widget tests without network.
 - Contract mocks: Microcks for Mappm account/device, Core Assist, Cloud Vault,
@@ -34,9 +34,14 @@ Do not use one layer as a substitute for the other.
 4. Core Assist queue/review/quota/opt-out/provider-failure behavior without
    authority changes or data loss.
 5. Mobile capture queue and retry reliability.
-6. Drift/local storage correctness and migrations.
-7. Provider/domain logic with deterministic fakes.
-8. Analyzer, format, and CI gates.
+6. Multi-page/mixed-batch split, outlier, partial success and original traceability.
+7. Mandatory generated-title proposals, review provenance and no overwrite of
+   confirmed titles/links.
+8. High/medium/low-confidence routing, visible-only confirmation and future
+   auto-routing abstention/undo/rollback gates.
+9. Drift/local storage correctness and migrations.
+10. Provider/domain logic with deterministic fakes.
+11. Analyzer, format, and CI gates.
 
 ## Workflow
 

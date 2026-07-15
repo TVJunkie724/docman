@@ -2,11 +2,11 @@
 title: "Mappm - Roadmap Execution Plan"
 description: "Konkrete Umsetzung der Rebuild-Roadmap in GitHub Milestones, Epics und Issues pro Phase und Säule"
 tags: [roadmap, execution, milestones, epics, issues, github]
-lastUpdated: "2026-07-12"
-version: "0.6"
+lastUpdated: "2026-07-15"
+version: "0.7"
 status: "accepted-rebaseline"
+owner: "product-concept/github-issue"
 ---
-
 # Mappm - Roadmap Execution Plan
 
 ## Zweck
@@ -20,6 +20,24 @@ Es ergänzt:
 - `docs/technical/DECISION_*.md`
 
 Die Roadmap beschreibt Phasen. Die Säulen beschreiben Verantwortungsbereiche. GitHub Milestones, Epics und Issues steuern die konkrete Arbeit.
+
+## Capture/Assist Tracker Rebaseline
+
+Existing GitHub issue titles containing `Draft Inbox`, `subcase` or a later
+`OCR` milestone are historical tracker labels, not current product semantics.
+Before any affected issue becomes implementation-authorizing, its body and, if
+needed, title must be reconciled with
+`DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md`, the single-`Case` graph and C2/C3:
+
+- global capture and automatic analysis/matching are always active;
+- upload confirm creates a durable Capture Session/Processing Job, not a final
+  Case assignment;
+- mixed batches, mandatory generated titles, primary Case/Record review and
+  lightweight Custom Case fallback are Commercial-Core scope;
+- current routing is user-confirmed; later selective automation is quality-
+  gated;
+- Core Assist cannot be deferred wholesale to M3;
+- frontend, Contract and backend implementation remain separate linked issues.
 
 ## GitHub-Regeln
 
@@ -64,7 +82,7 @@ containers explicitly or replace them without losing issue history.
 | C-gate mapping | Existing GitHub backlog container | Bemerkung |
 |---|---|---|
 | C0/C1 prerequisites | `Mappm M1 Foundation and Quality` | Entscheidungen, Foundation und Quality; no release readiness by milestone alone |
-| C2/C3 | `Mappm M2 Capture and Review Core` | Capture, Core Assist, Draft-Inbox, Review, Dokumente, Vorgänge, Suche, Tasks |
+| C2/C3 | `Mappm M2 Capture and Review Core` | Capture, Core Assist, Processing/Proposals/Review, Dokumente, Vorgänge, Unterlagen, Suche, Tasks |
 | C2/C3 plus later Advanced Assist | `Mappm M3 Assisted Review` | Core Assist issues must map to C2/C3; remaining container holds Advanced Assist and later expansion |
 | C1/C4 plus later household | `Mappm M4 Household and Sync` | account/device foundation for every normal mode, Cloud migration/sync and profile backlog |
 | later product expansion | `Mappm M5 Facts, Workflows and Insights` | Deferred beyond Commercial Core unless activated |
@@ -112,13 +130,13 @@ Diese Issues existieren bereits und werden nicht dupliziert:
 | Issue | Titel | Rolle |
 |---|---|---|
 | #1 | Docs: Finalize R2 local database decision | R2 Decision, erledigt |
-| #2 | Docs: Finalize R2 Home Hub auth and pairing decision | R2 Decision, erledigt |
+| #2 | Docs: Finalize R2 Home Hub auth and pairing decision | historischer, erledigter Decision-Tracker; keine Zielentscheidung |
 | #3 | Docs: Finalize R2 security and privacy baseline | R2 Decision, erledigt |
 | #4 | Docs: Write R2 technical foundation implementation plan | R2 Plan, erledigt |
 | #5 | Foundation: Plan migration to F1 target project structure | R2/R3 Foundation |
 | #6 | Foundation: Introduce Riverpod foundation and stop expanding BLoC/GetIt | R2 Foundation |
 | #7 | Foundation: Define Mappm Failure and Result model | R2 Foundation |
-| #8 | Foundation: Establish Vault storage and Draft Inbox persistence foundation | C1/R2/R4 Foundation |
+| #8 | Foundation: Establish Vault storage and Draft Inbox persistence foundation | historical title; scope must cover CaptureSession/Processing/Proposal persistence before implementation |
 | #9 | Foundation: Isolate mock UI and establish fake repositories | R3 QA/Foundation |
 | #10 | Quality: Replace template tests with Mappm foundation tests | R3 QA/Foundation |
 | #11 | Docs: Prepare Mobile Capture Commercial-Core handoff | C2/R4 Capture |
@@ -133,12 +151,12 @@ Diese Epics wurden in GitHub angelegt:
 | Issue | Titel | Phase | Milestone |
 |---|---|---|---|
 | #15 | Epic: R4 Capture and Review Core | R4 | `Mappm M2 Capture and Review Core` |
-| #16 | Epic: R4/C2 Capture and Draft Inbox | R4/C2 | `Mappm M2 Capture and Review Core` |
+| #16 | Epic: R4/C2 Capture and Draft Inbox | historischer Titel; aktueller Scope ist Capture, Processing und Review | `Mappm M2 Capture and Review Core` |
 | #17 | Epic: R5 Household Profiles and Access | R5 | `Mappm M4 Household and Sync` |
 | #18 | Epic: R6 Cloud, Identity, Sync and Migration | R6/C1/C4 | `Mappm M4 Household and Sync` |
 | #19 | Epic: R7 Extended Mobile Capture and Review | R7 | `Mappm M4 Household and Sync` |
 | #20 | Epic: R8 Structured Facts, Claims and Insights | R8 | `Mappm M5 Facts, Workflows and Insights` |
-| #21 | Epic: R9 OCR, Fact Suggestions and Managed Intelligence | R9/conditional | `Mappm M3 Assisted Review` |
+| #21 | Epic: R9 OCR, Fact Suggestions and Managed Intelligence | historical container; required Core Assist belongs C2/C3, only Advanced expansion remains R9/conditional | `Mappm M3 Assisted Review` |
 | #22 | Epic: R10 Compliance, Legal and Distribution Readiness | R10 | `Mappm M6 Automation, Resilience and Distribution` |
 | #23 | Epic: R11 Backup, Restore, Retention and Storage Health | R11 | `Mappm M6 Automation, Resilience and Distribution` |
 | #24 | Epic: R12 Support, Diagnostics and Architecture Governance | R12 | `Mappm M6 Automation, Resilience and Distribution` |
@@ -169,22 +187,33 @@ Issue-Kandidaten dupliziert werden:
 | SEC/DATA/AI/OPS/COM subfamilies | R3-R15 | specialist owners | Seeded project-local drafts; each affected phase must complete and approve only the rows it activates. |
 | First implementation-contract phase | R3.5 | product/quality | R3.5 contract and handoff are ready for explicit user approval, not yet authorized. |
 | Technical identity and branding migration | R0/R10 | product/foundation | Issue #38 owns the deliberate DocMan-to-Mappm technical migration plan; product-facing text uses Mappm now. |
-| #30 | Frontend: Implement M2 case and subcase management | #15 | `Mappm M2 Capture and Review Core` |
-| #31 | Frontend: Implement document and draft inbox review flow | #15 | `Mappm M2 Capture and Review Core` |
-| #32 | Foundation: Implement record-aware document metadata model | #15 | `Mappm M2 Capture and Review Core` |
-| #33 | Frontend: Implement mobile scan pending-upload queue | #16 | `Mappm M2 Capture and Review Core` |
-| #34 | Frontend: Implement Mappm Cloud capture contract consumer | #16 | `Mappm M2 Capture and Review Core` |
-| #39 | Backend: Implement Mappm Cloud capture provider | #16 | `Mappm M2 Capture and Review Core`; blocked by #27 |
-| #35 | Frontend: Implement M2 tasks, due dates and quick access | #15 | `Mappm M2 Capture and Review Core` |
-| #36 | Frontend: Implement M2 structured search and filters | #15 | `Mappm M2 Capture and Review Core`; follows `DECISION_SEARCH_TECHNOLOGY.md` |
-| #37 | Frontend: Implement M2 external action links | #15 | `Mappm M2 Capture and Review Core` |
+
+## R4/C2/C3-Issue-Reconciliation
+
+Diese bestehenden Issues bleiben erhalten, muessen aber vor einer
+Implementierungsfreigabe auf aktuelle Entscheidungen, Owner-Grenzen und
+Phase-Contracts abgeglichen werden. Der Ziel-Titel ist keine Behauptung, dass
+das Live-Issue bereits umbenannt wurde.
+
+| Issue | Bestehender Tracker-Titel | Ziel-Titel / erforderliche Korrektur | Parent |
+|---|---|---|---|
+| #30 | Frontend: Implement M2 case and subcase management | **Frontend: Implement Case graph and Case/Record context management**; separaten Subcase-Typ vollständig entfernen | #15 |
+| #31 | Frontend: Implement document and draft inbox review flow | **Frontend: Implement capture processing and review flow**; Processing/Proposal/Review statt losem Draft-Inbox-Modell | #15 |
+| #32 | Foundation: Implement record-aware document metadata model | Case-/Record-Primärkontext, Taxonomieachsen und Linkobjekte gegen aktuelle Decisions prüfen | #15 |
+| #33 | Frontend: Implement mobile scan pending-upload queue | explizite logische Dokumentgrenzen, Restart, Outlier und Partial Failure ergänzen | #16 |
+| #34 | Frontend: Implement Mappm Cloud capture contract consumer | Frontend-Consumer bleibt getrennt von Contract- und Backend-Ownership | #16 |
+| #39 | Backend: Implement Mappm Cloud capture provider | Backend-Provider bleibt getrennt und durch #27/akzeptierte Contracts blockiert | #16 |
+| #35 | Frontend: Implement M2 tasks, due dates and quick access | Agenda-/Reminder-Privacy und Case-/Record-Kontext ergänzen | #15 |
+| #36 | Frontend: Implement M2 structured search and filters | Search-first, Case/Record/Document/Facts und `DECISION_SEARCH_TECHNOLOGY.md` abdecken | #15 |
+| #37 | Frontend: Implement M2 external action links | Credential-/Privacy-Grenze und bewusst ausgelöste Aktion beibehalten | #15 |
 
 ## Phase Epics
 
-The detailed candidate lists below preserve the pre-rebaseline issue plan.
-They are non-authorizing planning input. Before creating or implementing any
-listed child, re-slice it under C0-C7, apply VC-01..VC-08 and current
-F/SEC/DATA/OPS/REG/COM gates, then create/update the live owner-prefixed issue.
+Die detaillierten Kandidatenlisten unten sind aktuelle, nicht autorisierende
+Planungseingaben. Vor Erstellung oder Implementierung wird jeder Eintrag unter
+C0-C7 geschnitten, gegen VC-01..VC-08 sowie aktuelle
+F/SEC/DATA/OPS/REG/COM-Gates geprüft und als owner-spezifisches Live-Issue
+erstellt oder aktualisiert.
 
 ### R2 - Technical Foundation
 
@@ -195,7 +224,8 @@ Existing anchor issues:
 - #5 Foundation: Plan migration to F1 target project structure.
 - #6 Foundation: Introduce Riverpod foundation and stop expanding BLoC/GetIt.
 - #7 Foundation: Define Mappm Failure and Result model.
-- #8 Foundation: Establish local storage and draft inbox persistence foundation.
+- #8 historischer Titel: Foundation für Local Storage und Draft Inbox; aktueller
+  Scope ist Vault Storage plus CaptureSession-/Processing-/Proposal-Persistenz.
 
 Additional child issues:
 
@@ -240,14 +270,14 @@ Recommended epics:
 | Epic | Milestone | Primary pillars |
 |---|---|---|
 | #15 Epic: R4 Capture and Review Core | `Mappm M2 Capture and Review Core` | Cases/Records, Documents, Tasks, Search, External Actions |
-| #16 Epic: R4/C2 Capture and Draft Inbox | `Mappm M2 Capture and Review Core` | Capture & Inbox, Cloud/Identity/Sync |
+| #16 Epic: R4/C2 Capture and Draft Inbox (historischer Titel) | `Mappm M2 Capture and Review Core` | Capture/Processing/Review, Cloud/Identity/Sync |
 
 Child issues:
 
 | Proposed title | Milestone | Labels |
 |---|---|---|
-| #30 Frontend: Implement M2 case and subcase management | `Mappm M2 Capture and Review Core` | `area:cases`, `layer:frontend`, `layer:domain`, `priority:high` |
-| #31 Frontend: Implement document and draft inbox review flow | `Mappm M2 Capture and Review Core` | `area:documents`, `layer:frontend`, `layer:domain`, `layer:data`, `priority:high` |
+| #30 Frontend: Implement Case graph and Case/Record context management | `Mappm M2 Capture and Review Core` | `area:cases`, `layer:frontend`, `layer:domain`, `priority:high` |
+| #31 Frontend: Implement document and draft inbox review flow (historischer Titel; Scope recontracten) | `Mappm M2 Capture and Review Core` | Capture Processing und Assisted Review; `area:documents`, `layer:frontend`, `layer:domain`, `layer:data`, `priority:high` |
 | #32 Foundation: Implement record-aware document metadata model | `Mappm M2 Capture and Review Core` | DMS-Zielarchitektur: DocumentRecord, FileRecord, Versionen, Profilbezug und spätere Link-Objekte vorbereiten; `area:documents`, `area:data-storage`, `layer:domain`, `layer:data`, `priority:high`, `scope:cross-cutting` |
 | #33 Frontend: Implement mobile scan pending-upload queue | `Mappm M2 Capture and Review Core` | `area:capture`, `area:sync`, `layer:frontend`, `layer:sync`, `priority:high`, `scope:cross-cutting` |
 | #34 Frontend: Implement Mappm Cloud capture contract consumer | `Mappm M2 Capture and Review Core` | `area:capture`, `area:api-contracts`, `layer:api`, `layer:sync`, `priority:high`, `scope:cross-cutting` |
@@ -297,7 +327,7 @@ Child issues:
 
 | Proposed title | Labels |
 |---|---|
-| Frontend: Implement paired device management | `area:auth`, `area:sync`, `layer:frontend`, `layer:security`, `priority:high`, `scope:cross-cutting` |
+| Frontend: Implement account and trusted-device management | `area:auth`, `area:sync`, `layer:frontend`, `layer:security`, `priority:high`, `scope:cross-cutting` |
 | Foundation: Define Sync Journal and conflict domain model | `area:sync`, `area:data-storage`, `layer:domain`, `layer:data`, `priority:high`, `scope:cross-cutting` |
 | Contract: Define Cloud sync/migration OpenAPI baseline | Zielstack: ASP.NET Core + PostgreSQL + S3, Vertrag zuerst ueber OpenAPI/Microcks; `area:api-contracts`, `area:sync`, `layer:api`, `layer:docs`, `priority:high`, `scope:cross-cutting` |
 | Docs: Add conflict review UX concept and handoff | `area:sync`, `area:frontend`, `layer:docs`, `priority:medium`, `scope:cross-cutting` |
@@ -346,7 +376,8 @@ GitHub milestones:
 
 - `Mappm M3 Assisted Review` only as a temporary container; any remaining Core
   Assist issue still maps to C2/C3.
-- `Mappm M6 Automation, Resilience and Distribution` for local LLMs, reprocessing and job operations.
+- `Mappm M6 Automation, Resilience and Distribution` fuer freigegebene
+  Advanced-Assist-Provider, Reprocessing und Job Operations.
 
 Recommended epic:
 
@@ -361,7 +392,7 @@ Child issues:
 | Foundation: Implement OCR job model and review queue | `area:ai-analysis`, `area:documents`, `layer:domain`, `layer:data`, `priority:high`, `scope:cross-cutting` |
 | Frontend: Add suggested metadata review UI | `area:ai-analysis`, `area:frontend`, `layer:frontend`, `priority:medium`, `scope:cross-cutting` |
 | Contract: Define workflow matching suggestion contract | `area:ai-analysis`, `area:cases`, `area:api-contracts`, `layer:api`, `priority:medium`, `scope:cross-cutting` |
-| Backend: Define local LLM inference service boundary | `area:ai-analysis`, `area:api-contracts`, `layer:api`, `layer:backend`, `priority:medium`, `scope:cross-cutting` |
+| Backend: Evaluate approved Advanced Assist provider boundary | `area:ai-analysis`, `area:api-contracts`, `layer:api`, `layer:backend`, `priority:medium`, `scope:cross-cutting` |
 
 ### R10 - Compliance & Distribution Readiness
 

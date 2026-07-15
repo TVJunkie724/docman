@@ -3,7 +3,7 @@ name: foundation-builder
 description: Use when implementing approved Mappm C1/R2/R3 technical foundation work that is not primarily UI, including bootstrap, Riverpod providers, scripts, codegen, legacy cleanup, Local/Cloud Vault boundaries, secure storage, repository/provider wiring, and verification.
 ---
 
-# DocMan Foundation Builder
+# Mappm Foundation Builder
 
 Use this skill for technical foundation implementation. For UI screens use `ui-builder`; for data schema design use `data-architect`; for R3 quality strategy use `quality-readiness`.
 

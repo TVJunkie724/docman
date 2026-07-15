@@ -150,8 +150,8 @@ Use all that apply:
 |---|---|
 | `area:foundation` | Technical foundation, architecture decisions, project cleanup, R2/R3 |
 | `area:cases` | Cases/Vorgaenge, workflows, status, tasks |
-| `area:documents` | Documents, metadata, upload, versioning, viewer, draft inbox |
-| `area:capture` | Mobile capture, scan flow, batch scan, draft intake |
+| `area:documents` | Documents, generated metadata/title review, versioning, viewer, Case/Record links |
+| `area:capture` | Global mobile/desktop capture, durable sessions, mixed batch, processing/proposal review |
 | `area:profiles` | Family profiles, household model, permissions |
 | `area:auth` | Login, identity providers, pairing, sessions, secure token storage |
 | `area:sync` | Local/private/cloud sync, conflicts, replication, remote storage |
@@ -221,8 +221,8 @@ Use one milestone:
 | Milestone | Use for |
 |---|---|
 | `Mappm M1 Foundation and Quality` | R0-R3 decisions, documentation cleanup, technical foundation, quality readiness |
-| `Mappm M2 Capture and Review Core` | Capture, draft inbox, review, documents, cases, search, tasks |
-| `Mappm M3 Assisted Review` | OCR/text extraction, metadata suggestions, review of suggestions |
+| `Mappm M2 Capture and Review Core` | Capture, Core Assist OCR/title/index/matching, processing/proposal review, documents, cases, search, tasks |
+| `Mappm M3 Assisted Review` | Advanced Assist and expansion beyond the required Commercial-Core processing/review slice |
 | `Mappm M4 Household and Sync` | Household profiles, Cloud identity/device trust, sync/migration, extended mobile |
 | `Mappm M5 Facts, Workflows and Insights` | Facts, claims, workflows, insights, external actions |
 | `Mappm M6 Automation, Resilience and Distribution` | Backup, restore, compliance, release, sharing, local LLMs, operations |

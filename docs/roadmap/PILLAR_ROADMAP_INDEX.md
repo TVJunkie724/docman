@@ -2,9 +2,10 @@
 title: "Mappm - Pillar Roadmap Index"
 description: "Commercial-Core-Slices pro Produkt-/Plattform-Säule und Assurance Track"
 tags: [roadmap, pillars, milestones, enterprise, planning]
-lastUpdated: "2026-07-14"
-version: "1.1"
+lastUpdated: "2026-07-15"
+version: "1.2"
 status: "accepted-rebaseline"
+owner: "product-concept"
 ---
 
 # Mappm - Pillar Roadmap Index
@@ -22,7 +23,7 @@ fruehen Milestones, spaetere Milestones und Enterprise/Operations gehoeren.
 
 | Saeule/Track | C1-C3 Core | C4-C5 Lifecycle/Release | Spätere Erweiterung |
 |---|---|---|---|
-| Capture & Inbox | Desktop Import, Mobile Scan, Draft-Inbox, Cloud Upload Queue | Upload-Integrität, Cleanup, Support-Evidence | Batch Scan, weitere Importpfade |
+| Capture & Inbox | globaler Desktop/Mobile-Eingang, Cloud Upload Queue, dauerhafte Processing-/Proposal-Einheiten, Mixed Batch, verpflichtender Titel, kompakter Review | Upload-Integrität, Cleanup, Support-/Quality-Evidence | weitere Importpfade und qualitaetsgegatete selektive Auto-Finalisierung |
 | Cases/Documents/Records | eigenständige Vorgänge, CaseLinks, Custom Cases, Unterlagen, Dokumente und Bottom-up-Komposition | Retention, Export/Restore, Beziehungsintegrität | Workflow-Zweig-Promotion, weitere Rollen |
 | Contracts/Subscriptions | Vertrags-/Abo-Unterlagen, wiederkehrende Rechnungszuordnung und relevante Fristen vorbereiten | Reminder-/Notification- und Länder-Gates | schlanker Rechnungsverlauf, weitere Kategorien |
 | Tasks/Reminders/Quick Access | Aufgaben, Fälligkeiten, fokussierte Agenda, Schnellzugriff | Release-/Notification-Gates | optionale Kalenderanbindung, geteilte Aufgaben |
@@ -31,7 +32,7 @@ fruehen Milestones, spaetere Milestones und Enterprise/Operations gehoeren.
 | Managed Profiles/Access | betroffene Person/Organisation und Profilzuordnung; Account ist kein Managed Subject | Account-/Access-/DSAR-/Privat-Business-Konsistenz | Partnerzugriff, Organisationsmanager, Rechte |
 | Templates/Workflows | Step/Branch/Claim/CaseLink- und Custom-Case-Grenzen vorbereiten; keine Länder-Claims | Workflow-Pack-Scope, Quellen-/Review-/Update-Governance nur falls aktiviert | versionierter Katalog, Golden Country/Tax Packs, erwartete Dokumente, geführte Vorgänge |
 | Account/Cloud/Identity/Sync | Account/Device/Offline Entitlement für alle Normalmodi; Cloud Provider/Contracts/Cache/Pending | Detached Recovery, Grace, Migration, Backup/Restore, Ops | Sharing, Organisationsmodelle |
-| Intelligence/Automation | Core-Assist-Provider-/Trust-/Review-/Evidence-Modell | C2/C3 AI-/Legal-/Ops-Gates; Free/Paid quota/manual fallback | Advanced Assist, semantische Antworten, Reprocessing, Automatisierung |
+| Intelligence/Automation | Core-Assist-Provider-/Trust-/Review-/Evidence-Modell plus OCR, Dokumentgrenzen, Titel, Index und Matching | C2/C3 AI-/Legal-/Ops-Gates; Free/Paid quota/manual fallback | Advanced Assist, semantische Antworten und breitere Automatisierung |
 | Client Platform/Settings/Health | Vault-, Account-, Cache- und Storage-Zustand | Export, Migration, Kündigung, Diagnose | erweiterte Administration |
 | QA | Local/Cloud Fakes, Fixtures, Contracts, Gates | Migration/Restore/Release Drills | AI Evaluation, Governance Audits |
 | Observability/Runtime | Failure/Notification/Audit Basis | Cloud Metrics, redigierte Diagnose, SLO/Incident | erweiterte Tracing-/Analytics-Slices |
@@ -40,23 +41,24 @@ fruehen Milestones, spaetere Milestones und Enterprise/Operations gehoeren.
 | Release/Distribution | Bootstrap, Verify, CI | Signing, Notarization, Rollback, Upgrade, Store | weitere Plattformen/Kanäle |
 | Data Lifecycle/Resilience | Authority, Cache, Pending Queue, keine Datenverluste | Backup, Restore, Migration, Retention, Integrity | Legal Hold/Enterprise |
 | DX/Architecture Governance | Struktur, Skills, Decisions, Issues | Handoffs, architecture audits | deprecation, governance, platform rules |
-| Design System/UX | M2 UI, A11y/empty/error states | profiles/sync/mobile/insights UX | design audits, distribution UX |
+| Design System/UX | C2/C3 Capture-/Review-/Case-/Record-UI, A11y/Empty/Error | Lifecycle-, Profil-, Sync- und Release-UX | Design Audits und spaetere Distribution UX |
 | Support/Diagnostics | redigierte Local-/Cloud-Fehlerzustände | Cloud/AI/Restore-/Migration-Diagnose | Support mode, diagnostic bundles |
 | Compatibility/Platform | macOS + mobile capture priorisiert | iOS/Android parity, scanner evidence | Windows/Linux optional, support matrix |
 | Integration Governance | manuelle Links | Mail, Kalender, Portale, Importpfade | credential boundaries, plugin/API governance |
 
-## M2-relevante Saeulen
+## C2/C3-relevante Saeulen
 
-Diese Saeulen brauchen vor R4-Implementation eigene Handoffs:
+Diese Saeulen brauchen vor dem jeweiligen C2/C3-Implementation-Contract eigene
+Handoffs. R4 bleibt dabei nur die stabile Traceability-Gruppe:
 
 | Handoff | Primaere Saeule | Muss klaeren |
 |---|---|---|
-| Capture & Inbox R4 Handoff | Capture & Inbox | Draft-Inbox, Desktop Import, Mobile Scan, Upload Queue, R4.5 Limits/Retry/Cleanup |
-| Cases/Documents/Records R4 Handoff | Cases/Documents/Records | ein `Case`-Typ, typisierte `CaseLink`-Beziehungen, Document, FileRecord, Unterlagen/Records und kontextuelle Metadaten |
-| Tasks/Reminders/Quick Access R4 Handoff | Tasks/Reminders | Aufgaben, Fälligkeiten, Schnellzugriff |
+| Capture & Inbox C2 Handoff | Capture & Inbox | globaler Eingang, Desktop/Mobile/Mixed Batch, Upload Queue, Processing/Proposals/Review, Titelvorschlag, Limits/Retry/Cleanup |
+| Cases/Documents/Records C3 Handoff | Cases/Documents/Records | ein generischer `Case`, typisierte `CaseLink`-Beziehungen, Document, FileRecord, Unterlagen/Records und kontextuelle Metadaten |
+| Tasks/Reminders/Quick Access C3 Handoff | Tasks/Reminders | Aufgaben, Fälligkeiten, Schnellzugriff |
 | Search Core Handoff | Search/Facts | SQLite/Drift/FTS5 Queries, Filter, Indizes |
 | Cloud Capture Contract Handoff | Cloud/Identity/Sync | OpenAPI, Microcks, API-proxied Upload, Account/Device/Entitlement |
-| Security/Privacy M2 Gate | Security/Privacy | Secure Storage, Redaction, Tokens, sensible Daten |
+| Security/Privacy C2/C3 Gate | Security/Privacy | Secure Storage, Redaction, Tokens, sensible Daten |
 | QA/Microcks/Fake Repo Gate | QA | Fakes, Fixtures, Contract Tests, analyzer gates |
 
 ## R4.5 Upload-Limits/Retry Säulenschnitt

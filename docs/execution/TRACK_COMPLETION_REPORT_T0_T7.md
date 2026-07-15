@@ -1,8 +1,8 @@
 ---
 title: "Mappm - T0-T7 Track Readiness Report"
-description: "Evidence report for the playbook reconciliation tracks and pending approval gate"
+description: "Evidenzbericht fuer den Playbook-Reconciliation-Track und das ausstehende Freigabe-Gate"
 tags: [execution, playbook, tracks, evidence]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 status: "reviewed-pending-approval"
 owner: "project-bootstrap-runner"
 ---
@@ -12,7 +12,9 @@ owner: "project-bootstrap-runner"
 ## Review Status
 
 - Required reviewer: user/product owner plus owning specialist per future phase.
-- Baseline review status: evidence reviewed on 2026-07-11.
+- Documentation review status: reconciled again on 2026-07-15.
+- Runtime baseline: the command evidence below was recorded during the initial
+  playbook run and must be rerun by the approved implementation phase.
 - Acceptance source: pending explicit user/product-owner approval for R3.5.
 - Meaning: T0-T5 reconciliation is complete; T6 is fully specified but not
   authorized, and T7 cannot close before T6 approval. Product features and
@@ -24,9 +26,9 @@ owner: "project-bootstrap-runner"
 |---|---|---|---|
 | T0 | done | embedded playbook, project-local skills, `frontend.sh`, OPS-08, accepted root-layout decision | package/repo rename remains OQ-001 before distribution |
 | T1 | done | Applicability Matrix, always-plan/conditional matrices, REG source register | refresh dated law/store sources at each trigger |
-| T2 | done | Decision Interview Summary, Open Questions Register, user baseline acceptance | VC-01..08 plus OQ-003..007 remain owner decisions for affected phases |
-| T3 | done | accepted/draft-safe Decision Traceability Matrix and repository-layout decision | backend contract-first draft must be accepted before backend architecture beyond approved contracts |
-| T4 | done | per-file F/pillar matrix; MP-DS-00..07; REG/SEC/DATA/AI/OPS/COM subfamilies; quality audit | draft concepts require phase-specific review, not mass approval |
+| T2 | done | Decision Interview Summary, Open Questions Register, accepted product direction | VC-01..08, WF-01/02 and OQ-003..012 remain owner decisions for their affected scopes |
+| T3 | done | Decision Traceability Matrix, repository-layout decision and accepted-provisional backend/contract ownership | every concrete DTO, endpoint, mapping, persistence or policy still needs its own API/backend contract phase |
+| T4 | done | per-file F/pillar matrix; MP-DS-00..07; REG/SEC/DATA/AI/OPS/COM subfamilies; quality audit 2026-07-15 | draft concepts require phase-specific review, not mass approval |
 | T5 | done-rebaselined | C0-C7 release train over R0-R15 traceability, simplified pillars, standard matrices and aligned live tracker | VC gates decide Cloud timing; later child issues are created/refined from approved phase contracts |
 | T6 | ready-for-user-approval | fully specified R3.5 phase, approval-gated quality-readiness handoff, conforming issue #25 | record explicit approval before implementation; other phases need their own contract/handoff |
 | T7 | verified-pending-closeout | `frontend.sh doctor`, narrow analyzer/widget test evidence, full legacy failure classified, release/CI gates scheduled | close after T6 approval; then implement R3.5 and later CI provider/workflow in R3/R10 |
@@ -44,11 +46,14 @@ owner: "project-bootstrap-runner"
 
 ## Verification Evidence
 
-- Skill validation: all three newly added skills pass `quick_validate.py`.
-- Tracker query: zero missing owner prefixes, zero Ordna milestones, zero epic
-  type errors and zero mixed frontend/backend layer issues.
-- Native dependencies: #34 and #39 blocked by #27; #31 blocked by #32.
-- Local source checks and Flutter command results are recorded in the closeout.
+- Dokumente und 20 projektlokale Skill-Frontmatter sind parsebar; Skill-Namen
+  sind eindeutig.
+- Markdown- und HTML-Referenzen, Markdown-Tabellen und HTML-Parsing wurden am
+  15.07.2026 ohne Fehler geprueft.
+- Der urspruengliche Tracker- und Native-Dependency-Nachweis bleibt historische
+  Evidenz des ersten Runs; vor Umsetzung werden Live-Issues erneut abgefragt.
+- Runtime-/Flutter-Ergebnisse sind im Closeout mit ihrem Baseline-Charakter
+  dokumentiert und werden in R3.5 wiederholt.
 
 ## Stop Rules Triggered
 

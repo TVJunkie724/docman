@@ -3,7 +3,7 @@ name: ui-mocker
 description: Use when creating isolated visual or interactive Flutter UI mocks for Mappm concepts inside the workspace. Mocks live under lib/presentation/screens/mocks, must be synthetic, and must not call real repositories, Drift, Isar, PocketBase, file storage, secure storage, Microcks, Mappm Cloud, or external APIs.
 ---
 
-# DocMan UI Mocker
+# Mappm UI Mocker
 
 Use this skill for concept-validation mocks only. Mocks are not production UI
 and must not leak into normal app navigation.

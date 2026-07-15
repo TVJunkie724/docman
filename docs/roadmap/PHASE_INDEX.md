@@ -1,35 +1,35 @@
 ---
-title: "DocMan - Phase Index"
+title: "Mappm - Phase Index"
 description: "Detaillierter Phasen- und Subphasen-Index fuer planbare Milestone-Implementation-Slices"
 tags: [roadmap, phases, subphases, implementation-plan, planning]
-lastUpdated: "2026-07-12"
-version: "1.0"
-status: "accepted-rebaseline"
+lastUpdated: "2026-07-15"
+version: "1.1"
+status: "accepted"
+owner: "product-concept"
 ---
+# Mappm - Phase Index
 
-# DocMan - Phase Index
-
-## Commercial-Core-Rebaseline
+## Commercial-Core-Zuordnung
 
 Die Reihenfolge wird durch C0-C7 in `docs/ROADMAP_REBUILD.md` gesteuert. R0-R15
 bleiben stabile Traceability-IDs und fachliche Slice-Kandidaten. Kein Eintrag
 in diesem Index ist ohne detaillierten, geprüften Implementation Contract
 freigegeben.
 
-| Historischer Slice | Neuer Slice/Gate |
+| Commercial-Core-Gate | Relevante R-Slices |
 |---|---|
-| R0.5/R5 accountfreie Local- und spätere Assisted-Review-Annahme | C0 Account/Vault/Assist Contract; C1 account/device/entitlement; C2/C3 Core Assist |
-| R0.3 Local-first/Home-Hub-Richtung | C0 Vault authority, Cloud timing und Trust Contract |
-| R3.4 Home-Hub Contract Baseline | C1 Mappm Cloud OpenAPI/Microcks Foundation |
-| R4.6 Home Hub Capture Contract | C2 Cloud Capture Contract |
-| R4.7 Upload zum Home Hub | C2 Cloud Capture Provider Slice |
-| R6 Home Hub, Sync and Auth | C1/C4 Cloud, Identity, Entitlements, Sync and Migration |
-| R11 lokale/Home-Hub Backups | C4 Local Export/Restore plus Managed Cloud Backup/Restore |
-| R15 Hosted/Self-hosted Option | C5 Managed Cloud Productization; customer self-hosting not in scope |
+| C0 Product and Trust Contract | R0, R1 und die offenen Taxonomie-/Pack-Entscheidungen aus R8 |
+| C1 Vault, Account and Provider Foundation | R2, R3 und Foundation-Slices aus R6 |
+| C2 Capture, Core Assist and Review | R4 sowie Pflicht-Slices aus R5 und R9 |
+| C3 Document Core, Cases, Records, Search and Tasks | R4, R5 und aktivierte R8-Slices |
+| C4 Lifecycle and Commercial Safety | R6 und R11 |
+| C5 Compliance, Operations and Release | R3 sowie R10-R12 und anwendbare R15-Slices |
+| C6 Closed Beta | freigegebene Beta-, Support-, Recovery- und Rollback-Contracts |
+| C7 Commercial 1.0 | ausschließlich nach dokumentiertem Go/No-Go |
 
-Local Development Cloud ist ein C1/C2 Engineering-Deliverable, kein
-Kundenfeature. Alle späteren historischen Texte sind unter dieser Rebaseline zu
-lesen.
+Local Development Cloud ist ein C1/C2 Engineering-Deliverable mit
+synthetischen Daten, kein Kundenfeature. Customer Self-hosting und Home Hub
+sind nicht Teil dieses Index.
 
 ## Zweck
 
@@ -114,6 +114,7 @@ Ziel: Grundsatzentscheidungen treffen, bevor Code weiterwächst.
 | R0.3 Architecture Direction | Local/Cloud Vault authority, Managed Backend, State und Storage entscheiden | Vault/Cloud Product Model, State Management, Backend Role, File Storage |
 | R0.4 Security and Privacy Baseline | sensible Daten, Sync-Grenzen und Trust Boundaries definieren | Privacy Sync Scope, Security Privacy Model |
 | R0.5 Intelligence and Workflow Boundaries | Core Assist im Commercial Core von Advanced Assist und kuratierten Workflows trennen | Account/Vault/Assist Model, Intelligence Scope, Workflow Rules |
+| R0.6 Document, Case and Pack Taxonomy Decision | den einen generischen Case, optionale Workflow-Muster/Fachvorlagen, Dokumentgrundarten/Varianten/Rollen, Record-Arten, Grenzen und dynamische Country-/Provider-Pack-Schichten gemeinsam mit dem User entscheiden | accepted lean taxonomy/catalog and pack-boundary decision, rejected alternatives, no large Case-type picker, Medical Discovery resolution, AT-draft disposition, versioning/migration and synthetic ambiguity fixtures |
 
 ## R1 - Documentation Source of Truth
 
@@ -122,7 +123,7 @@ Ziel: Dokumentation als aktive Steuerung herstellen.
 | Subphase | Ziel | Hauptdeliverables |
 |---|---|---|
 | R1.1 Legacy Documentation Cleanup | alte Roadmaps/Refactoring-Pläne entfernen oder entwerten | bereinigte Docs |
-| R1.2 Foundation Concept Rewrite | F-Konzepte DocMan-spezifisch neu schreiben | F1-F18 Konzepte |
+| R1.2 Foundation Concept Rewrite | F-Konzepte Mappm-spezifisch neu schreiben | F1-F18 Konzepte |
 | R1.3 Pillar Model | Produkt-, Plattform- und Governance-Saeulen definieren | `docs/pillars/` |
 | R1.4 Roadmap Structure | Hauptroadmap, Phase Index und Pillar Roadmap trennen | Roadmap-Dokumenthierarchie |
 | R1.5 GitHub Planning Baseline | Issues/Milestones/Epics als Umsetzungsstruktur vorbereiten | Execution Plan |
@@ -163,21 +164,21 @@ gebaut.
 
 | Subphase | Ziel | Hauptdeliverables |
 |---|---|---|
-| R4.1 Capture & Inbox Foundation | gemeinsame Draft-/Inbox-/Upload-Begriffe festlegen | Capture ports, Draft model |
-| R4.2 Desktop Import + Draft Inbox | D35 Review-Workflow und D36 Desktop Import umsetzen | file picker, drag/drop, draft review |
+| R4.1 Capture, Batch and Processing Foundation | CaptureSession/Page/Document/Processing/Proposal/Review-Begriffe und Restart-/Partial-Semantik festlegen | Domain ports, fakes, async state, artifact/page manifest |
+| R4.2 Desktop Import + Capture Inbox | Multi-File-Import, gemischte Batch-Trennung und Processing-/Review-Inbox umsetzen | file picker, drag/drop, batch/outlier review, correction |
 | R4.3 Mobile Scanner Spike | native Scanner-Qualitaet beweisen | Android/iOS Scanner evidence |
-| R4.4 Mobile Scan Client | Mobile Scan, optionale Kontextauswahl und lokale Queue bauen | scan session, context selection, local queue |
-| R4.5 Upload Limits and Retry | D32 umsetzen | `docs/roadmap/phases/R4_5_UPLOAD_LIMITS_RETRY_PLAN.md` |
+| R4.4 Mobile Scan Client | globales Capture, `Neuen Vorgang starten`, Multi-Page je Dokument, `Naechstes Dokument scannen` und lokale Queue bauen | scan session, minimal intent, explicit document units/page boundaries, local queue |
+| R4.5 Upload Policy, Retry, Resume and Cleanup | versionierte Policy und robuste Upload-Basis umsetzen | `docs/roadmap/phases/R4_5_UPLOAD_LIMITS_RETRY_PLAN.md` |
 | R4.6 Cloud Capture Contract | Capture als OpenAPI/Microcks-Spec modellieren | mobile-capture-upload.openapi.yaml |
 | R4.7 Cloud Upload Slice | erster echter Capture Upload zur Local Development Cloud/Staging | CaptureUploadPort strategy |
-| R4.8 Cases/Relations/Custom Core | eigenständige Vorgänge, typisierte Beziehungen, Custom Cases sowie Top-down-/Bottom-up-Komposition nutzbar machen | Case, CaseLink, DocumentCaseLink, multi-select composition UI/domain |
-| R4.9 Document/Record Metadata Core | D38/D39/D41 Dokument-Metadaten, betroffene Person, Validierung und Preview umsetzen | metadata, review validation, preview, pdfrx adapter |
+| R4.8 Cases/Relations/Custom Core | primaeren Case-/Record-Kontext, leichte Custom Cases, typisierte Beziehungen/Folgeketten sowie Top-down-/Bottom-up-Komposition nutzbar machen | Case, CaseLink, DocumentCaseLink, lightweight Custom, composition domain/UI |
+| R4.9 Document/Record Metadata Core | Assist-Titel, Taxonomie-Achsen, betroffene Person, Validierung und Preview umsetzen | generated title/provenance, metadata, review validation, preview |
 | R4.10 Tasks/Quick Access Core | Aufgaben, Fälligkeiten, Schnellzugriff | task overview, quick access |
 | R4.11 Search Core | lokale strukturierte Suche | SQLite/Drift/FTS5 adapter |
 | R4.12 External Actions Core | manuelle externe Links | task/case action links |
-| R4.13 Security/Privacy M2 Gate | sensible Logs/Tokens/Storage pruefen | privacy gate |
-| R4.14 QA/Regression M2 Gate | M2-Regression gruen bekommen | tests, smoke checks |
-| R4.15 UX/A11y M2 Gate | Bedienbarkeit, leere/fehlerhafte Zustände, A11y | UX review |
+| R4.13 Security/Privacy Capture Gate | Dateien/OCR/Titel/Model-Output/Logs/Notifications pruefen | privacy gate |
+| R4.14 QA/Regression Capture Gate | restart/offline/mixed-batch/idempotency/partial-failure gruen bekommen | tests, smoke checks |
+| R4.15 UX/A11y Capture Gate | schlanker Review, leere/fehlerhafte Zustaende, Gestenalternativen und A11y | UX review |
 
 ## R5 - Assisted Review and Household Profiles
 
@@ -190,8 +191,8 @@ Ziel: Mappm reduziert manuelle Review-Arbeit und wird von einer Einzelperson-App
 | Subphase | Ziel | Hauptdeliverables |
 |---|---|---|
 | R5.1 Assisted Review Text Extraction | C2 Core Assist: OCR/Text-Extraktion fuer Draft Review production-ready liefern | provider/contract/client boundary, offline queue, deletion |
-| R5.2 Metadata Suggestions | C2/C3: Titel, Typ, Datum, Akteure, Betrag, Fälligkeit, Vorgang/Workflow und Tags vorschlagen | evidence/confidence suggestion model |
-| R5.3 Suggestion Review UX | C2/C3: Vorschlaege annehmen, korrigieren oder ablehnen | review, quota, opt-out/manual fallback interaction |
+| R5.2 Title, Metadata and Routing Suggestions | C2/C3: verpflichtende Titel fuer Document/Case/Record sowie Typ, Facts, Akteure, Case/Record/Claim/Workflow vorschlagen | evidence/confidence/provenance suggestion model |
+| R5.3 Compact Suggestion Review UX | C2/C3: sichtbare Folgen mit einer schnellen bewussten Aktion bestaetigen/korrigieren; keine Hidden Acceptance | review, alternatives, quota, manual fallback interaction |
 | R5.4 Profile Data Classification | sensible Profildaten klassifizieren | profile data policy |
 | R5.5 Managed Subject Domain Model | Personen, Kinder und vorbereitete Organisationsprofile modellieren | ManagedSubject, PersonProfile, OrganizationProfile |
 | R5.6 Subject-aware Objects | Cases, Docs, Tasks, Drafts personen-/organisationsbewusst machen | managed-subject links and private/business separation |
@@ -221,8 +222,8 @@ Ziel: Mobile wird vom Capture-Kanal zur Begleit-App.
 
 | Subphase | Ziel | Hauptdeliverables |
 |---|---|---|
-| R7.1 Batch Scan | mehrere Dokumente/Seiten besser erfassen | batch scan |
-| R7.2 Mobile Draft Review | Drafts mobil korrigieren | review-light |
+| R7.1 Extended Batch Ergonomics | C2-Kern fuer mixed batches um groessere Stapel, schnellere Korrektur und weitere Quellen erweitern | advanced batch ergonomics; no first support deferral |
+| R7.2 Mobile Assisted Review | Vorschläge und Ausnahmen mobil kompakt korrigieren | review-light |
 | R7.3 Mobile Case Preview | Vorgänge/Dokumente mobil ansehen | mobile preview |
 | R7.4 Mobile Search | einfache mobile Suche/Filter | mobile search |
 | R7.5 Offline Mobile Sync | robustere Offline-/Sync-Zustaende | mobile sync states |
@@ -245,8 +246,13 @@ Ziel: Dokumente werden strukturiert auswertbar.
 | R8.9 Contracts and Subscriptions | Verträge/Abos, beliebige Abrechnungsintervalle, Invoice Matching, Kündigungsfristen und Reminder modellieren | contract/subscription Record, recurring invoice roles, workflow facts |
 | R8.10 Contextual Financial Summaries | bestätigte Financial Entries dedupliziert und schlank pro Case/Record darstellen | part_of roll-up, one-value row, accessible mini chart |
 | R8.11 Tax and Business Collection Foundation | länder- und subject-gebundene Unterlagensammlung ohne Buchhaltungs-/Steuerclaim vorbereiten | tax collection Case, period/jurisdiction model, business handoff/export boundary |
+| R8.12 Conditional Medical Workflow Foundation | nur nach R0.6-Akzeptanz einen ausgewaehlten medizinischen Workflow-/Record-/Claim-Slice implementierungsfaehig planen | accepted medical Case boundary as input, generic runtime mapping, fixtures; no country/provider claim before WF-01/WF-02 and professional review |
 
 ## R9 - Intelligence, OCR and Automation
+
+Rebaseline: R9.1-R9.5 und der Matching-Kern sind C2/C3-Pflicht und keine spaete
+Option. R9 traegt erweitertes Reprocessing, neue Klassen/Provider und die
+qualitaetsgegatete selektive Automatisierung.
 
 Ziel: Mappm unterstützt beim Erkennen, Sortieren und Vorschlagen.
 
@@ -280,7 +286,7 @@ Ziel: echte Haushaltsdaten bleiben langfristig sicher und wiederherstellbar.
 
 | Subphase | Ziel | Hauptdeliverables |
 |---|---|---|
-| R11.1 Backup | lokale und Home-Hub Backups | backup |
+| R11.1 Backup | Local-Vault-Backup/Export sowie Managed-Cloud-Backup je aktiviertem Modus | backup |
 | R11.2 Restore Test | Restore wirklich pruefen | restore runbook |
 | R11.3 Retention and Delete | Retention, Tombstones, Loeschung | lifecycle rules |
 | R11.4 Storage Integrity | Hash/Checksum/Repair | integrity checks |
@@ -330,7 +336,7 @@ Ziel: optional groessere Betriebsformen und Productization.
 
 | Subphase | Ziel | Hauptdeliverables |
 |---|---|---|
-| R15.1 Hosted/Self-hosted Cloud Option | groessere Betriebsformen pruefen | deployment model |
+| R15.1 Managed Cloud Scaling | Skalierung und regionale Betriebsformen der verwalteten Mappm Cloud pruefen | deployment model |
 | R15.2 Multi-household Model | mehrere Haushalte/Mandanten optional | tenant model |
 | R15.3 Advanced Admin/Ops | staerkere Admin-/Ops-Oberflaeche | admin console |
 | R15.4 Advanced Observability | Betriebsmetriken erweitern | observability stack |

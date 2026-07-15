@@ -2,11 +2,11 @@
 title: "DocMan - Phase x Pillar Roadmap Matrix"
 description: "Wegweiser zur aufgeteilten Roadmap-Struktur fuer Phasen, Subphasen und Saeulen"
 tags: [roadmap, phases, pillars, index]
-lastUpdated: "2026-05-12"
+lastUpdated: "2026-07-15"
 version: "0.4"
 status: "superseded-by-split-docs"
+owner: "product-concept"
 ---
-
 # DocMan - Phase x Pillar Roadmap Matrix
 
 ## Status
