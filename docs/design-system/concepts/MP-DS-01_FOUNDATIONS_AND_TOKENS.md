@@ -2,7 +2,7 @@
 title: "MP-DS-01 Foundations And Tokens"
 description: "Visual foundations, tokens, typography, color, spacing and icon contract"
 tags: [design-system, foundations, tokens, typography, color, icons]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 status: draft
 owner: "ui-concept"
 source_logo:
@@ -167,7 +167,7 @@ Regeln:
   Text, Label oder Statusobjekt sichtbar ist.
 - Icon-only Buttons sind nur fuer sehr bekannte Toolbar-Aktionen erlaubt und
   brauchen Tooltip sowie Accessibility Label.
-- Capture, Export, Delete, Pairing, Backup und sicherheitsrelevante Aktionen
+- Capture, Export, Delete, Recovery, Backup und sicherheitsrelevante Aktionen
   nutzen Icon plus Text.
 - Keine Emojis, keine gefuellten Fremdsets und keine dekorativen Einzelicons in
   der Produktoberflaeche.

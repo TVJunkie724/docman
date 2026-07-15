@@ -2,11 +2,11 @@
 title: "Konzept F20 - Corporate Design and Brand Application"
 description: "Mappm Corporate Design, Logo-System, Brand-Farben, Voice, Standards und produktnahe Brand-Anwendung"
 tags: [concept, frontend, design-system, corporate-design, brand, colors, logo, voice]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 version: "1.1"
 status: "accepted"
+owner: "ui-concept"
 ---
-
 # Konzept F20 - Corporate Design and Brand Application
 
 ## Status
@@ -120,7 +120,7 @@ Beispiele:
 | Situation | Gute Richtung |
 |---|---|
 | Draft gespeichert | "Dokument wurde gesichert." |
-| Pflichtfeld fehlt | "Betroffene Person fehlt." |
+| Erforderliche Angabe fehlt | "Bitte ergänzen Sie die markierte Angabe." |
 | Cloud upload offline | "Upload wartet auf Verbindung zur Mappm Cloud." |
 | Exportfehler | "Export nicht erstellt. Keine Datei wurde geteilt oder versendet." |
 
@@ -149,8 +149,10 @@ F20 ist umgesetzt, wenn:
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Eigener Scope und
+Status bleiben massgeblich. Der gemeinsame Vertrag liefert die verbindlichen
+Defaults fuer Ownership, Security/Privacy, Accessibility/Lokalisierung,
+Verifikation, Stop Rules und Handoff, soweit dieses Dokument keine strengere
+Regel definiert. Ein Widerspruch stoppt die betroffene Phase und wird in diesem
+Konzept aufgeloest.

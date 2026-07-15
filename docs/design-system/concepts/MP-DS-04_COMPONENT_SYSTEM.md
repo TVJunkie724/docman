@@ -1,8 +1,8 @@
 ---
 title: "MP-DS-04 Component System"
-description: "Normative component and form-family governance for Mappm"
+description: "Normative Governance fuer Mappm Komponenten- und Formularfamilien"
 tags: [design-system, components, forms, actions, feedback, data-display]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 status: "active-draft"
 owner: "ui-concept"
 ---
@@ -11,79 +11,80 @@ owner: "ui-concept"
 
 ## Status
 
-Active draft. It is the normative umbrella for component families. A component
-slice is implementation-ready only when its mapped accepted F-concept, mock
-evidence and phase contract are all named and reviewed.
+Aktiver Entwurf und normatives Umbrella fuer Komponentenfamilien. Ein Slice
+ist erst implementationsbereit, wenn akzeptiertes F-Konzept, Mock-Evidenz und
+Phase Contract exakt benannt und geprueft sind.
 
 ## Scope
 
-Buttons, fields, selection, pickers, files/scans, status, navigation controls,
-overlays, feedback, data display and form lifecycle/review patterns.
+Buttons, Felder, Auswahl, Picker, Dateien/Scans, Status, Navigation Controls,
+Overlays, Feedback, Data Display sowie Formular-Lifecycle-/Review-Muster.
 
-Non-goals: Flutter widget APIs, provider wiring, backend contracts and product-
-specific screen composition. Those belong to `ui-architect`, contract owners
-and MP-DS-05.
+Nichtziele sind Flutter-Widget-APIs, Provider Wiring, Backend Contracts und
+produktspezifische Screen-Komposition. Diese gehoeren zu `ui-architect`, den
+Contract-Ownern und MP-DS-05.
 
-## Family Ownership
+## Familien-Ownership
 
-| DS family | Mappm normative source | Mock evidence |
+| DS-Familie | Normative Mappm-Quelle | Mock-Evidenz |
 |---|---|---|
-| DS-04-01 Form family overview | F24 | forms, form interactions, form governance |
-| DS-04-02 Form fundamentals | F27 | forms, form governance |
-| DS-04-03 Text input family | F27 | forms |
-| DS-04-04 Selection/toggle family | F28 | forms, form interactions |
-| DS-04-05 Pickers/viewers | F28/F29 | form interactions, product shell |
-| DS-04-06 Numeric/range controls | F30 | forms |
-| DS-04-07 File/upload visuals | F29 | forms, form governance |
-| DS-04-08 Tags/readonly/status | F34 | tags, status, forms |
-| DS-04-09 Compound field atoms | F27/F30 | forms |
-| DS-04-10 Layout primitives | F24/F30 | forms, patterns |
-| DS-04-11 Form/list entry | F30/F34 | forms, data display |
-| DS-04-12 Dependent field groups | F27/F30 | forms, form governance |
-| DS-04-13 Button/action visuals | F26 | buttons |
-| DS-04-14 Navigation controls | F22/F33 | navigation, product shell |
-| DS-04-15 Overlays/dialogs | F28/F33/F35 | form interactions, patterns |
+| DS-04-01 Form Family Overview | F24 | forms, form interactions, form governance |
+| DS-04-02 Form Fundamentals | F27 | forms, form governance |
+| DS-04-03 Text Input Family | F27 | forms |
+| DS-04-04 Selection/Toggle Family | F28 | forms, form interactions |
+| DS-04-05 Pickers/Viewers | F28/F29 | form interactions, product shell |
+| DS-04-06 Numeric/Range Controls | F30 | forms |
+| DS-04-07 File/Upload Visuals | F29 | forms, form governance |
+| DS-04-08 Tags/Readonly/Status | F34 | tags, status, forms |
+| DS-04-09 Compound Field Atoms | F27/F30 | forms |
+| DS-04-10 Layout Primitives | F24/F30 | forms, patterns |
+| DS-04-11 Form/List Entry | F30/F34 | forms, data display |
+| DS-04-12 Dependent Field Groups | F27/F30 | forms, form governance |
+| DS-04-13 Button/Action Visuals | F26 | buttons |
+| DS-04-14 Navigation Controls | F22/F33 | navigation, product shell |
+| DS-04-15 Overlays/Dialogs | F28/F33/F35 | form interactions, patterns |
 | DS-04-16 Icons | F32 | icon set |
-| DS-04-17 Feedback/progress | F18/F34 | feedback, status |
-| DS-04-18 Data display | F34 | data display |
-| DS-04-19 Inline edit/dirty states | F27/F30 | form governance |
-| DS-04-20 Form lifecycle | F27/F30 | form governance |
-| DS-04-21 Form layout patterns | F24/F30 | forms, form governance |
-| DS-04-22 Date/time/locale | F29 | forms, form interactions, form governance |
-| DS-04-23 Money/units/locale | F30 | forms, form governance |
-| DS-04-24 Contact/identity/address | F27/F28/F30 | forms, form governance |
-| DS-04-25 Sensitive/secret fields | F12/F27 | forms, form interactions, form governance |
-| DS-04-26 Async remote validation | F11/F18/F27 | form governance |
-| DS-04-27 Permissioned fields | F12/F27/F30 | form governance |
-| DS-04-28 Review summary/diff | F30/F34 | form governance |
-| DS-04-29 Bulk edit/import validation | F24/F29/F30 | form governance |
+| DS-04-17 Feedback/Progress | F18/F34 | feedback, status |
+| DS-04-18 Data Display | F34 | data display |
+| DS-04-19 Inline Edit/Dirty States | F27/F30 | form governance |
+| DS-04-20 Form Lifecycle | F27/F30 | form governance |
+| DS-04-21 Form Layout Patterns | F24/F30 | forms, form governance |
+| DS-04-22 Date/Time/Locale | F29 | forms, form interactions, form governance |
+| DS-04-23 Money/Units/Locale | F30 | forms, form governance |
+| DS-04-24 Contact/Identity/Address | F27/F28/F30 | forms, form governance |
+| DS-04-25 Sensitive/Secret Fields | F12/F27 | forms, form interactions, form governance |
+| DS-04-26 Async Remote Validation | F11/F18/F27 | form governance |
+| DS-04-27 Permissioned Fields | F12/F27/F30 | form governance |
+| DS-04-28 Review Summary/Diff | F30/F34 | form governance |
+| DS-04-29 Bulk Edit/Import Validation | F24/F29/F30 | form governance |
 
-## Required States
+## Pflichtzustaende
 
-Every applicable control must define default, hover, focus, disabled, readonly,
-loading/validating, error, warning, success and permission-denied behavior.
-Editable flows additionally define pristine, touched, dirty, submitting, saved,
-stale and conflict states. Destructive actions require confirmation and a
-recoverability statement. Remote validation must ignore stale responses.
+Jedes anwendbare Control definiert Default, Hover, Focus, Disabled, Readonly,
+Loading/Validating, Error, Warning, Success und Permission Denied. Editierbare
+Flows definieren zusaetzlich Pristine, Touched, Dirty, Submitting, Saved, Stale
+und Conflict. Destruktive Aktionen brauchen Bestaetigung und eine Aussage zur
+Wiederherstellbarkeit. Remote Validation ignoriert veraltete Responses.
 
-## Security, Accessibility And Localization
+## Security, Accessibility und Lokalisierung
 
-- Sensitive values are masked by default and never appear in global feedback,
-  logs or synthetic screenshots as realistic identifiers.
-- Permissioned fields distinguish readonly, hidden, denied and request-access;
-  UI state never substitutes backend/domain authorization.
-- Controls have programmatic labels, keyboard operation, visible focus and
-  text-scale behavior. Color is never the sole status carrier.
-- User-facing copy is German and must survive long labels and error text.
+- Sensible Werte sind standardmaessig maskiert und erscheinen weder in
+  globalem Feedback/Logs noch als realistisch wirkende Mock-Identifiers.
+- Permissioned Fields unterscheiden Readonly, Hidden, Denied und Request
+  Access; UI-State ersetzt nie Domain-/Backend-Autorisierung.
+- Controls besitzen programmatische Labels, Tastaturbedienung, sichtbaren
+  Fokus und definiertes Textscale-Verhalten. Farbe traegt Status nie allein.
+- Nutzertexte sind Deutsch und halten langen Labels/Fehlertexten stand.
 
-## Verification
+## Verifikation
 
-Each implementation plan names exact widget, semantics, golden/responsive and
-interaction tests. Async/permission/sensitive controls require negative paths.
-Mock evidence is reviewed at desktop and mobile widths before architecture.
+Jeder Implementation Plan nennt exakte Widget-, Semantics-, Golden-/Responsive-
+und Interaction-Tests. Async-, Permission- und Sensitive Controls brauchen
+Negativpfade. Mock-Evidenz wird vor Architektur auf Desktop- und Mobile-Breite
+geprueft.
 
-## Stop Rules And Handoff
+## Stop Rules und Handoff
 
-Stop if a family lacks an exact row above, required state, accepted source or
-mock evidence. Handoff to `ui-architect` only through an approved phase; then
-review the implementation plan with `ui-plan-review`.
+Stop, wenn eine Familie keine exakte Zeile, keinen Pflichtzustand, keine
+akzeptierte Quelle oder keine Mock-Evidenz besitzt. Handoff an `ui-architect`
+nur ueber eine genehmigte Phase; danach prueft `ui-plan-review` den Plan.

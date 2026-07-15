@@ -2,11 +2,11 @@
 title: "Design System Coverage Review"
 description: "Abgleich aller Mappm Design-System-Mock-Seiten gegen F-Konzepte und Detailkonzepte"
 tags: [concept, frontend, design-system, coverage, review, ssot]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-15"
 version: "1.3"
 status: "accepted"
+owner: "ui-concept-review"
 ---
-
 # Design System Coverage Review
 
 ## Status

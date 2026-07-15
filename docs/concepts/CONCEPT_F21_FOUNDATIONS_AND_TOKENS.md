@@ -2,11 +2,11 @@
 title: "Konzept F21 - Foundations, Tokens and Visual Primitives"
 description: "Mappm Foundations fuer Farben, Typografie, Icons, Spacing, Radius, Elevation und Token-Promotion in Flutter"
 tags: [concept, frontend, design-system, tokens, typography, icons, spacing, colors]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 version: "1.1"
 status: "accepted"
+owner: "ui-concept"
 ---
-
 # Konzept F21 - Foundations, Tokens and Visual Primitives
 
 ## Status
@@ -83,7 +83,7 @@ Entscheidung:
 Regeln:
 
 - Icons sind Funktionssprache, nicht Dekoration.
-- Sicherheits-, Export-, Delete-, Pairing- und Capture-Aktionen brauchen Icon
+- Sicherheits-, Export-, Delete-, Recovery- und Capture-Aktionen brauchen Icon
   plus Text.
 - Icon-only Buttons nur fuer sehr bekannte Toolbar-Aktionen und mit Tooltip
   sowie Accessibility Label.
@@ -94,7 +94,7 @@ Core-Icon-Rollen:
 | Rolle | Beispiel |
 |---|---|
 | Scan/Capture | Mobile Scan, Desktop Import. |
-| Inbox | Draft Inbox, Queue. |
+| Inbox | Verarbeitung, Review, Queue und Ausnahmen. |
 | Document | Datei, PDF, Nachweis. |
 | Folder/Case | Vorgang, Sammlung, Ablage. |
 | User/Profile | Person, Haushalt. |
@@ -155,8 +155,10 @@ F21 ist umgesetzt, wenn:
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Eigener Scope und
+Status bleiben massgeblich. Der gemeinsame Vertrag liefert die verbindlichen
+Defaults fuer Ownership, Security/Privacy, Accessibility/Lokalisierung,
+Verifikation, Stop Rules und Handoff, soweit dieses Dokument keine strengere
+Regel definiert. Ein Widerspruch stoppt die betroffene Phase und wird in diesem
+Konzept aufgeloest.

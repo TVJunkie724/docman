@@ -2,9 +2,10 @@
 title: "Konzept F30 - Form Facts, Layouts and Assisted Review"
 description: "Mappm Detailkonzept fuer numerische Facts, Betragsfelder, Slider, Stepper, Color Picker, Readonly-Werte, Assisted Review Suggestions, Layouts und Edge States"
 tags: [concept, frontend, design-system, forms, facts, assisted-review, layout, validation, flutter]
-lastUpdated: "2026-07-12"
-version: "1.0"
+lastUpdated: "2026-07-15"
+version: "1.1"
 status: "accepted"
+owner: "ui-concept"
 ---
 
 # Konzept F30 - Form Facts, Layouts and Assisted Review
@@ -37,11 +38,12 @@ Formulare eine saubere Fact-Sprache.
 ## Fact Field Principles
 
 - Facts sind typisiert, nicht nur Text.
-- Fact-Felder koennen manuell gesetzt, spaeter automatisch vorgeschlagen und
-  danach vom Nutzer bestaetigt werden.
+- Backend/Core Assist schlaegt Facts im Commercial Core automatisch vor; die
+  manuelle Eingabe ist Korrektur/Fallback, nicht der normale Erfassungsweg.
 - Optional heisst nicht beliebig: Felder koennen fuer Auswertungen wichtig
   sein, aber Review nicht blockieren.
-- Automatische Vorschlaege bleiben Entscheidungen.
+- Automatische Vorschlaege bleiben bis zur aktiven Review-/Automatisierungsreife
+  von bestaetigten Werten getrennt.
 
 ## Amount / Currency
 
@@ -93,7 +95,7 @@ Regeln:
 Verwendung:
 
 - spaetere nutzerdefinierte Labels/Listen, falls wirklich benoetigt.
-- keine Status- oder Dokumenttyp-Farben ohne Design-System-Freigabe.
+- keine Status- oder Dokumentgrundart-Farben ohne Design-System-Freigabe.
 
 Regeln:
 
@@ -148,13 +150,15 @@ Regeln:
 
 Vorschlagstypen:
 
-- Dokumenttyp.
+- Dokument-, Case- und Record-Titel (verpflichtender Backend-/Assist-Vorschlag).
+- Dokumentgrundart/semantische Variante.
 - betroffene Person.
 - Betrag.
 - Datum.
 - Anbieter.
 - Tags/Kategorien.
 - Relation zu Vorgang/Polizze.
+- primaerer Case/Record, weitere Cases/Claims, Workflow/Slot und naechste Aktion.
 
 Regeln:
 
@@ -162,26 +166,36 @@ Regeln:
 - Nutzer hat mindestens Accept und Edit/Korrigieren oder Pruefen.
 - Ablehnen ist verfuegbar, wenn der Vorschlag aus Datenmodell entfernt werden
   muss.
-- Vorschlaege duerden keine Pflichtentscheidung still ersetzen.
+- Vorschlaege duerfen keine Pflichtentscheidung still ersetzen.
 - OCR-/AI-Rohdaten bleiben im Detailkontext, nicht in globalen Meldungen.
+- Eine Bestaetigung akzeptiert nur sichtbare Folgen, keine versteckten Facts.
+- Bereits bestaetigte implizite Fakten werden nicht wiederholt, ausser sie
+  widersprechen dem neuen Dokument oder aendern Folgen.
+- Niedrige Confidence zeigt weiterhin beste Kandidaten; fuer Case-Routing steht
+  der neue Case zuerst und bestehende Auswahl bleibt erreichbar.
 
 ## Form Layouts
 
-### Draft Review
+### Assisted Capture Review
 
 Zweck:
 
-- Eingangsdokument pruefen.
-- Pflichtfelder setzen.
+- vorbereiteten Backend-/Assist-Vorschlag pruefen.
+- primaeren Case-/Record-Kontext und relevante Folgen bestaetigen/korrigieren.
 - Review abschliessen oder spaeter korrigieren.
 
 Muss enthalten:
 
-- Dokument/Scan-Referenz.
-- betroffene Person.
-- Dokumenttyp.
-- optional Vorgang/Relation.
+- Dokument/Scan-Referenz und vorgeschlagener Titel.
+- vorgeschlagener primaerer Case oder Record.
+- betroffene Person nur, wenn neu, mehrdeutig oder folgenreich.
+- wesentliche Unsicherheit, Folgeaktion oder weitere Beziehung.
 - klare Hauptaktion nach F26.
+
+Nicht standardmaessig enthalten sind alle extrahierten Facts, technische Rollen,
+Workflow-Keys oder ein generisches Metadatenformular. Batch-Review darf sichtbar
+gruppierte Ergebnisse gemeinsam bestaetigen, ohne verdeckte Zuordnungen zu
+uebernehmen. Konkrete Layouts/Gesten bleiben offen.
 
 ### Profile
 
@@ -214,8 +228,8 @@ Regeln:
 Zweck:
 
 - Managed-Cloud-/Intelligence-Verarbeitung innerhalb des akzeptierten Trust-Modells.
-- Pairing.
-- Storage.
+- Account und autorisierte Geraete.
+- Vault-Autoritaet, lokale Verfuegbarkeit, Migration und Recovery.
 - Diagnose.
 
 Regeln:
@@ -229,11 +243,9 @@ Zweck:
 
 - Sync-/Review-Konflikt aufloesen.
 
-Optionen:
-
-- lokal behalten.
-- andere Version.
-- manuell mergen.
+Die erlaubten Optionen kommen aus dem akzeptierten Konfliktvertrag. Die UI darf
+nicht pauschal `lokal behalten`, `andere Version` oder `mergen` anbieten, wenn
+eine dieser Aktionen fuer den konkreten Vault-/Revisionstyp ungueltig ist.
 
 Regeln:
 
@@ -250,7 +262,8 @@ Zweck:
 
 Regeln:
 
-- Kein externes Sharing im geplanten Flow.
+- Account-zu-Account-Sharing ist ein spaeterer eigener, sicherheitsgepruefter
+  Produktflow und wird nicht durch den einfachen Export impliziert.
 - Einzeldokument ist kein ZIP.
 - Export zeigt, ob mehrere Profile betroffen sind.
 
@@ -264,12 +277,15 @@ Regeln:
 | Offline Draft | lokal gespeichert, Sync wartet. |
 | Permission Blocked | naechste Aktion sichtbar. |
 | Autosave | ruhig bestaetigen, keine Snackbar-Flut. |
+| Processing | darf Sekunden/Minuten dauern; App bleibt navigierbar und Zustand ueberlebt Neustart. |
+| Partial Batch | erfolgreiche Dokumente bleiben nutzbar, fehlerhafte/outlier bleiben gezielt offen. |
 
 ## Flutter Handoff
 
 Implementation soll:
 
-- Facts als typisierte Value Objects/DTOs behandeln.
+- Facts als typisierte Value Objects und Presentation-Modelle behandeln; Remote
+  DTOs bleiben im Data Layer.
 - Form-State von Persistenz trennen.
 - Suggestions als eigene Modelle mit Status fuehren.
 - Edge States im Component-Level testbar machen.
@@ -282,7 +298,9 @@ Mindestens:
 - Amount Parsing/Formatting.
 - Calculated Readonly aus Quellwerten.
 - Suggestion Accept/Edit/Reject.
-- Draft Review Gate mit fehlender Person.
+- verpflichtender Backend-/Assist-Titelvorschlag und Schutz bestaetigter Titel.
+- Review Gate mit fehlendem primaerem Case-/Record-Kontext oder hartem Konflikt.
+- sichtbare-only Bestaetigung und gemischter Batch.
 - Export Layout mit mehreren Profilen.
 - Edge States: loading, empty, stale, offline, permission, autosave.
 
@@ -291,14 +309,19 @@ Mindestens:
 - [ ] Betrag, Waehrung, Prozent, Unit und berechnete Werte sind getrennt
       geregelt.
 - [ ] Assisted Review ist als Nutzerentscheidung dokumentiert.
-- [ ] Draft, Profile, Aufgabe, Settings, Konflikt und Export haben Layoutregeln.
+- [ ] Titel werden fuer Dokument/Case/Record automatisch vorgeschlagen und nicht
+      durch leere Pflichtfelder ersetzt.
+- [ ] Review, Profile, Aufgabe, Settings, Konflikt und Export haben
+      Layoutregeln.
 - [ ] Aufgaben/Facts koennen ohne Dokument existieren, aber Relationen nutzen.
 - [ ] Edge States sind fuer Flutter pruefbar.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Eigener Scope und
+Status bleiben massgeblich. Der gemeinsame Vertrag liefert die verbindlichen
+Defaults fuer Ownership, Security/Privacy, Accessibility/Lokalisierung,
+Verifikation, Stop Rules und Handoff, soweit dieses Dokument keine strengere
+Regel definiert. Ein Widerspruch stoppt die betroffene Phase und wird in diesem
+Konzept aufgeloest.

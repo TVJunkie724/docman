@@ -1,8 +1,8 @@
 ---
 title: "MP-DS-05 Product Patterns"
-description: "Normative composition patterns for Mappm product workflows"
+description: "Normative Kompositionsmuster fuer Mappm-Produktworkflows"
 tags: [design-system, product-patterns, workflows, responsive]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-15"
 status: "active-draft"
 owner: "ui-concept"
 ---
@@ -11,45 +11,55 @@ owner: "ui-concept"
 
 ## Scope
 
-Defines how approved components compose into capture, Draft Inbox, document,
-Vorgang, profile, search, settings, sync/backup, export and support surfaces.
-It does not define domain policy, repository contracts or Flutter widget trees.
+MP-DS-05 definiert, wie freigegebene Komponenten Capture, Processing/Review,
+Dokument, Vorgang, Unterlage, Profile, Suche, Einstellungen, Vault-Lifecycle,
+Export und Support zusammensetzen. Domain-Policy, Repository-Vertraege und
+Flutter-Widgetbaeume sind nicht Teil dieses Design-System-Konzepts.
 
 ## Pattern Contract
 
-Every product pattern must name:
+Jedes Product Pattern benennt:
 
-- entry point, first visible state and successful outcome.
-- empty, loading, partial, offline, error, retry, blocked and permission states.
-- desktop and mobile structure, focus order and keyboard behavior.
-- source of truth, fake repository scenarios and contract/Microcks boundary.
-- sensitive-data exposure, logging/diagnostic limits and screenshot policy.
-- exact F, MP-DS and pillar owners.
+- Einstieg, ersten sichtbaren Zustand und erfolgreiches Ergebnis.
+- Empty, Loading, Partial, Offline, Error, Retry, Blocked und Permission State.
+- Desktop-/Mobile-Struktur, Fokusfolge und Tastaturverhalten.
+- Source of Truth, Fake-Szenarien und Contract-/Microcks-Grenze.
+- sensible Daten, Logging-/Diagnosegrenzen und Screenshot-Policy.
+- genaue F-, MP-DS- und Pillar-Owner.
 
-## Initial Pattern Families
+## Pattern-Familien
 
-| Pattern | Primary sources | Status |
+| Pattern | Primaere Quellen | Status |
 |---|---|---|
-| Desktop shell/workbench | F22/F33, MP-DS-02 | active-draft |
-| Mobile capture companion | F17/F29/F33, Capture pillar | planned |
-| Draft Inbox review | F24/F27-F30/F34, Capture/Cases pillars | planned |
-| Vorgang/Unterlage detail and Case composition | F33-F35/F37, Cases/Records pillar | accepted-direction; phase detail planned |
-| Contract/subscription detail and mini chart | F34/F37, Contracts/Subscriptions pillar | accepted-direction; phase detail planned |
-| Contextual review actions | F30/F34/F37, Capture/Intelligence pillars | accepted-direction; phase detail planned |
-| Managed person/organization context | F28/F33/F37, Profiles pillar | accepted-direction; business activation conditional |
-| Tasks/agenda/reminders | F18/F29/F34/F37, Tasks pillar | accepted-direction; calendar adapter later |
-| Search/list/filter | F33-F35, Search pillar | planned |
-| Settings/configuration | F13/F24/F35, Admin pillar | planned |
-| Account/Vault/Assist/backup/sync/conflict/migration/recovery | F18/F34-F36, Account/Cloud/Identity, Intelligence and Data pillars | active-baseline for Account/Vault/Assist lifecycle; remaining patterns planned |
-| Export/sharing/support | F5/F18/F34/F35, Export/Support pillars | planned |
+| Desktop Shell/Workbench | F22/F33, MP-DS-02 | active-draft |
+| Globales Mobile Capture | F17/F29/F33, Capture-Saeule | planned |
+| Processing und Proposal Review | F17/F24/F27-F30/F34, Capture/Cases/Intelligence | planned |
+| Vorgang/Unterlage und Case-Komposition | F33-F35/F37, Cases/Records | accepted-direction; phase detail planned |
+| Vertrag/Abo und Mini-Chart | F34/F37, Contracts/Subscriptions | accepted-direction; phase detail planned |
+| Kontextuelle Review-Aktionen | F30/F34/F37, Capture/Intelligence | accepted-direction; phase detail planned |
+| Verwaltete Person/Organisation | F28/F33/F37, Profiles | accepted-direction; business activation conditional |
+| Aufgaben/Agenda/Reminder | F18/F29/F34/F37, Tasks | accepted-direction; calendar adapter later |
+| Suche/Liste/Filter | F33-F35, Search | planned |
+| Einstellungen/Konfiguration | F13/F24/F35 | planned |
+| Account/Vault/Assist/Migration/Recovery | F18/F34-F36, Cloud/Identity/Data | active baseline; phase detail planned |
+| Export/Sharing/Support | F5/F18/F34/F35 | planned |
 
-## Accessibility, Verification And Stop Rules
+## Progressive Disclosure
 
-Patterns require German copy, semantics, visible focus, text scaling, reduced
-motion and responsive evidence. Stop if a pattern is built from a mock alone,
-if mobile/desktop behavior is missing, or if backend/data policy is invented by
-the UI. Handoff to `ui-architect` only from an approved phase contract.
+Fachliche Vielfalt rechtfertigt keine Informationswand. Pattern zeigen nur
+vorhandene und entscheidungsrelevante Inhalte. Verboten sind insbesondere:
 
-Mappm patterns follow progressive disclosure: domain richness does not justify
-dashboard density. Empty financial sections, single-point charts, universal
-action walls and accounting-style subscription screens are prohibited.
+- ein grosser Case-/Dokumenttyp-Picker im Standardflow.
+- alle Review-Aktionen gleichzeitig.
+- leere Finanzsektionen oder ein Chart mit nur einem Wert.
+- buchhaltungsartige Abo-Dashboards.
+- Assist-Details ohne aktuelle Entscheidungsrelevanz.
+
+## Accessibility, Verifikation und Stop Rules
+
+Patterns brauchen deutsche lokalisierbare Copy, Semantics, sichtbaren Fokus,
+Textscale, Reduced Motion sowie Responsive Evidence. Stop, wenn ein Pattern nur
+aus einem Mock abgeleitet wird, Mobile/Desktop fehlt, ein Mock konkrete
+Produktpolitik autorisiert oder UI Backend-/Datenpolicy erfindet. Handoff an
+`ui-architect` erfolgt nur aus einem geprueften Phase-as-Implementation-
+Contract.

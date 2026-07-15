@@ -1,3 +1,12 @@
+---
+title: "Mappm Design System Mock"
+description: "Statische HTML-Review-Flaeche und Evidenzindex fuer das Mappm Design System"
+tags: [design-system, mock, html, visual-review]
+lastUpdated: "2026-07-15"
+status: "active-review-surface"
+owner: "ui-mocker/ui-concept"
+---
+
 # Mappm Design System Mock
 
 ## Purpose
@@ -37,7 +46,7 @@ docs/design-system/Mock/index.html
 | `pages/component-tags.html` | Tag chips, tag rules, filtering and edit behavior. |
 | `pages/component-feedback.html` | Banners, empty states, failures, progress and retry. |
 | `pages/data-display.html` | Lists, document rows, facts and timelines. |
-| `pages/patterns.html` | Capture, Draft Inbox, document detail and export patterns. |
+| `pages/patterns.html` | Capture, Processing/Review, document detail and export patterns. |
 | `pages/vault-cloud-lifecycle.html` | Mappm Account, Local/Cloud authority, Core Assist, migration, Detached Recovery, cancellation, grace/read-only, exit and deletion separation. |
 | `pages/component-accessibility.html` | Contrast, keyboard, text scale and QA gates. |
 

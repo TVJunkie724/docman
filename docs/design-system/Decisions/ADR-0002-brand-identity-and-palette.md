@@ -1,3 +1,12 @@
+---
+title: "ADR-0002 - Brand Identity And Palette"
+description: "Entscheidung zur Mappm Brand-Identitaet, Palettenrichtung und Produktfarbregel"
+tags: [design-system, adr, brand, color]
+lastUpdated: "2026-07-15"
+status: "accepted-draft"
+owner: "ui-concept/product"
+---
+
 # ADR-0002 - Brand Identity And Palette
 
 ## Status

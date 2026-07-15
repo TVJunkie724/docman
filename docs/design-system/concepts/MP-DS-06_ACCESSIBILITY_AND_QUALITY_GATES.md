@@ -1,41 +1,44 @@
 ---
-title: "MP-DS-06 Accessibility And Quality Gates"
-description: "Accessibility, responsive and visual verification contract for Mappm"
+title: "MP-DS-06 Accessibility und Quality Gates"
+description: "Accessibility-, Responsive- und visuelle Verifikationsregeln fuer Mappm"
 tags: [design-system, accessibility, quality, visual-qa]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 status: "active-baseline"
 owner: "ui-concept/quality-readiness"
 ---
 
-# MP-DS-06 Accessibility And Quality Gates
+# MP-DS-06 Accessibility und Quality Gates
 
 ## Baseline
 
-Accessibility is a product requirement from the first UI slice, independent of
-the final legal applicability assessment. Applicable phases additionally check
-the European Accessibility Act and selected store/platform rules against the
-dated regulatory register.
+Accessibility ist ab dem ersten UI-Slice Produktanforderung, unabhaengig von
+der finalen rechtlichen Applicability. Betroffene Phasen pruefen zusaetzlich
+European Accessibility Act sowie Store-/Plattformregeln gegen das datierte
+Regulatory Source Register.
 
-## Required Gates
+## Pflicht-Gates
 
-- semantics and accessible names for controls, fields, status and document
-  preview actions.
-- deterministic keyboard traversal, visible focus and escape/cancel behavior.
-- no meaning through color, position, animation or icon alone.
-- text scaling and long German copy without clipping or overlap.
-- reduced-motion behavior and interruption-safe progress.
-- contrast evidence for text, controls, focus and status roles.
-- desktop and mobile screenshots/goldens for approved reference sizes.
-- synthetic content only; screenshots and diagnostics contain no private data.
+- Semantics und barrierefreie Namen fuer Controls, Felder, Status und
+  Dokumentvorschau-Aktionen.
+- deterministische Tastaturreihenfolge, sichtbarer Fokus sowie
+  Escape-/Cancel-Verhalten.
+- keine Bedeutung nur durch Farbe, Position, Animation oder Icon.
+- Text Scaling und lange deutsche Texte ohne Clipping oder Overlap.
+- Reduced Motion und unterbrechungssicherer Fortschritt.
+- Kontrast-Evidenz fuer Text, Controls, Fokus und Statusrollen.
+- Desktop-/Mobile-Screenshots oder Goldens fuer akzeptierte Referenzgroessen.
+- ausschliesslich synthetische Inhalte in Screenshots und Diagnostik.
 
-## Evidence
+## Evidenz
 
-Each UI plan names exact semantics/widget/golden/manual checks and pass/fail
-criteria. Visual evidence must use stable fonts/assets and record viewport,
-platform and state. A review note without reproducible evidence is not a gate.
+Jeder UI-Plan nennt exakte Semantics-/Widget-/Golden-/manuelle Checks mit
+Pass-/Fail-Kriterien. Visuelle Evidenz verwendet stabile Fonts/Assets und
+dokumentiert Viewport, Plattform und Zustand. Eine Review-Notiz ohne
+reproduzierbare Evidenz ist kein Gate.
 
-## Stop Rules And Handoff
+## Stop Rules und Handoff
 
-Stop if keyboard, semantics, text scale, contrast, responsive layout or reduced
-motion is unspecified. `ui-plan-review` verifies the plan; `ui-auditor` verifies
-the implementation evidence; `quality-readiness` owns shared test tooling.
+Stop, wenn Tastatur, Semantics, Textscale, Kontrast, Responsive Layout oder
+Reduced Motion unspezifiziert sind. `ui-plan-review` prueft den Plan,
+`ui-auditor` die Implementierungsevidenz und `quality-readiness` gemeinsames
+Testtooling.

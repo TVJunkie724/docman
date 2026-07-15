@@ -2,11 +2,11 @@
 title: "Konzept F33 - Shell, Navigation and Workspace Layout"
 description: "Mappm Detailkonzept fuer Product Shell, Desktop/Mobile Layout, Hauptbereiche, Navigation Controls, Tabs, Segments, Breadcrumbs und Command Rows"
 tags: [concept, frontend, design-system, shell, navigation, workspace, responsive, flutter]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-15"
 version: "1.0"
 status: "accepted"
+owner: "ui-concept"
 ---
-
 # Konzept F33 - Shell, Navigation and Workspace Layout
 
 ## Status
@@ -41,7 +41,7 @@ Die Shell soll:
 
 | Bereich | Zweck | Typische Counts |
 |---|---|---|
-| Eingang | Draft Inbox, Upload Queue, letzte Korrekturen | Entwuerfe, Konflikte |
+| Eingang | Capture-/Processing-Queue, Review, Ausnahmen und letzte Korrekturen | ausstehend, Review, Fehler |
 | Vorgaenge | eigenständige Cases, typisierte Beziehungen, Custom/Guided Workflows | offene Aufgaben, Fristen |
 | Unterlagen | Records/Nachweise, aktuelle/historische Dokumentversionen | Filterergebnisse, ablaufende Unterlagen |
 | Aufgaben | Todos, Fristen, Reminder | faellig/offen |
@@ -78,7 +78,9 @@ Regeln:
 
 - Mobile ist kein reduzierter Desktop-Klon.
 - lange Metadatenarbeit kann spaeter am Desktop stattfinden.
-- Pflichtfeld Person/Profil bleibt fachlich sichtbar.
+- Person/Organisation wird aus dem bestätigten Case-/Record-Kontext abgeleitet
+  oder nur bei Unsicherheit beziehungsweise materieller Abweichung kompakt
+  bestätigt; kein permanentes Pflichtfeld im normalen Review.
 - Navigation darf Content nicht ueberdecken; bei schmalen Viewports klarer
   Stack oder Mobile-Navigation.
 
@@ -193,8 +195,10 @@ Mindestens:
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Eigener Scope und
+Status bleiben massgeblich. Der gemeinsame Vertrag liefert die verbindlichen
+Defaults fuer Ownership, Security/Privacy, Accessibility/Lokalisierung,
+Verifikation, Stop Rules und Handoff, soweit dieses Dokument keine strengere
+Regel definiert. Ein Widerspruch stoppt die betroffene Phase und wird in diesem
+Konzept aufgeloest.

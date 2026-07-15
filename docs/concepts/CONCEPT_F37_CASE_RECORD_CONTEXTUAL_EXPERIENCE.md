@@ -2,8 +2,8 @@
 title: "Konzept F37 - Case, Record and Contextual Experience"
 description: "Mappm UX-Vertrag fuer Vorgaenge, Unterlagen, Custom Cases, Case-Komposition, kontextuelle Review-Aktionen, Abos, Agenda und schlanke Finanzdarstellung"
 tags: [concept, frontend, cases, records, custom-cases, review, subscriptions, agenda, insights, accessibility]
-lastUpdated: "2026-07-14"
-version: "1.0"
+lastUpdated: "2026-07-15"
+version: "1.1"
 status: "accepted-direction"
 owner: "ui-concept"
 ---
@@ -45,6 +45,10 @@ Phase aktiviert. F37 darf nicht als implizite Freigabe dafür gelesen werden.
 - `docs/technical/DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md`
 - `docs/technical/DECISION_JURISDICTIONAL_TAX_DOCUMENT_COLLECTION.md`
 - `docs/technical/DECISION_CONTEXTUAL_REVIEW_ACTIONS_FINANCIAL_ROLLUPS.md`
+- `docs/technical/DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md`
+
+Medical Case composition is explicitly excluded from F37's accepted sources.
+`docs/discovery/MEDICAL_CASE_MODEL_DISCOVERY.md` is discussion input only.
 
 ## Informationsarchitektur
 
@@ -72,6 +76,23 @@ Einstellungen
 Mobile darf Hauptbereiche verdichten, aber nicht Vorgang und Unterlage
 semantisch zusammenwerfen.
 
+## Capture-first Context Creation
+
+Der normale Dokumenteingang beginnt global beim Scan/Import, nicht beim
+manuellen Suchen eines Vorgangs. Backend/Core Assist schlaegt immer Titel,
+primaeren Case/Record, zusaetzliche Beziehungen, Workflow und relevante
+Folgeaktionen vor. **Neuen Vorgang starten** ist die einzige primaere optionale
+Vorab-Absicht; automatisches Matching bleibt immer aktiv.
+
+Nach Review besitzt jedes akzeptierte Dokument einen primaeren Case- oder
+Record-Kontext. Wenn nichts passt, kann ein leichter Custom Case nur aus
+vorgeschlagenem Titel, Managed Subject und einem Dokument bestehen. Weitere
+Dokumente koennen spaeter matchen; Aufgaben, Termine, Workflow und Outcome sind
+Faehigkeiten, keine Pflichtfelder.
+
+Die UX darf dafuer weder einen losen Dokument-Endzustand noch ein grosses
+Metadatenformular als Standardweg einfuehren.
+
 ## Search-first, nicht Chat-first
 
 Ein jederzeit erreichbares globales Suchfeld ist der niederschwellige Einstieg
@@ -98,8 +119,10 @@ Das Vorgangsdetail zeigt nur vorhandene/relevante Sektionen:
 - kontextuelle bestätigte Finanzzusammenfassung.
 
 Custom und Guided Cases verwenden dieselbe Grundstruktur. Guided Cases dürfen
-Quelle, Gültigkeit und Workflow-Version dezent ergänzen. Custom Cases dürfen
-nicht visuell oder funktional als minderwertig erscheinen.
+Quelle, Gültigkeit und Workflow-Version dezent ergänzen. Ein leichter Custom
+Case darf nahezu leer beginnen und trotzdem spaeter alle normalen Funktionen
+nutzen. Custom Cases dürfen nicht visuell oder funktional als minderwertig
+erscheinen.
 
 ## Unterlagendetail
 
@@ -117,19 +140,12 @@ aktuelle Evidenz/Version.
 
 ## Kontextuelle Review-Aktionen
 
-Review zeigt zwei oder drei wahrscheinliche Aktionen, beispielsweise:
-
-- `Mit Vorgang verbinden`;
-- `Als Unterlage uebernehmen`;
-- `Vertrag/Abo zuordnen`;
-- `Fuer Steuerpruefung vormerken`;
-- `Claim/Erstattung zuordnen`;
-- `Aufgabe erstellen`.
-
-Weitere Aktionen liegen in einem sekundären Menü. Jede Assist-Aktion zeigt
+Review zeigt nur die wenigen im konkreten Dokument relevanten Zuordnungen und
+Folgeaktionen. Weitere Aktionen bleiben progressiv erreichbar. Jede Assist-Aktion zeigt
 Vorschlagsstatus/Evidenz passend zur Sensitivität und kann bestätigt,
 korrigiert, abgelehnt oder rückgängig gemacht werden. Keine fachlich relevante
 Zuordnung wird durch visuelle Vorbelegung als bereits final dargestellt.
+Konkrete Controls, Gesten und Layouts bleiben einer spaeteren UI-Phase vorbehalten.
 
 ## Case-Komposition
 
@@ -150,6 +166,10 @@ Vor Abschluss zeigt eine ruhige Zusammenfassung:
 Die UI verwendet nutzerverständliche Formulierungen wie `Teil von`,
 `Ausgeloest durch`, `Folgt auf` oder `Verwandt mit`. Interne Relation-Keys
 werden nicht als Primärsprache gezeigt.
+
+`Folgt auf` bildet eine Kette oder Verzweigung eigenstaendiger Cases, keine
+Parent-Struktur. Welche medizinischen Situationen als Etappe, Claim, eigener
+Case oder Folge-Case modelliert werden, bleibt im Medical-Case-Discovery offen.
 
 ## Contract/Subscription Detail
 
@@ -260,7 +280,7 @@ Spätere Phasen benötigen:
 
 ## Stop Rules
 
-Stop UI planning or implementation if:
+UI-Planung oder Implementierung wird gestoppt, wenn:
 
 - `Subcase` als separater Screen-/Domain-Typ vorausgesetzt wird;
 - Unterlagen hinter einer generischen Dateiliste verschwinden;
@@ -281,7 +301,9 @@ geprüften Phase-as-Implementation-Contract konkretisieren.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its product and UX decisions remain authoritative; the shared contract supplies
-mandatory production-readiness, security/privacy, accessibility/localization,
-testing, verification, stop-rule and handoff defaults where F37 is silent.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Seine Produkt- und
+UX-Entscheidungen bleiben massgeblich. Der gemeinsame Vertrag liefert die
+verbindlichen Defaults fuer Production Readiness, Security/Privacy,
+Accessibility/Lokalisierung, Tests, Verifikation, Stop Rules und Handoff,
+soweit F37 dazu keine strengere Regel definiert.

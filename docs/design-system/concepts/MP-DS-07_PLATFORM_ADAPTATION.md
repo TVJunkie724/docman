@@ -1,8 +1,8 @@
 ---
 title: "MP-DS-07 Platform Adaptation"
-description: "Platform adaptation contract for Mappm desktop and mobile UI"
+description: "Plattformanpassungsvertrag fuer Mappm Desktop- und Mobile-UI"
 tags: [design-system, platform, desktop, mobile, flutter]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 status: "active-draft"
 owner: "ui-concept/platform"
 ---
@@ -11,33 +11,35 @@ owner: "ui-concept/platform"
 
 ## Scope
 
-Defines product-level adaptation for macOS and mobile capture first, with iOS,
-Android and later Windows/Linux gates. It does not authorize native plugins,
-permissions or packaging choices without foundation/platform planning.
+Definiert die produktseitige Anpassung fuer macOS und Mobile Capture zuerst,
+mit Gates fuer iOS, Android und spaeter Windows/Linux. Das Konzept autorisiert
+keine Native Plugins, Permissions oder Packaging-Entscheidungen ohne
+Foundation-/Platform-Planung.
 
-## Required Adaptation
+## Erforderliche Anpassung
 
-| Area | Desktop | Mobile |
+| Bereich | Desktop | Mobile |
 |---|---|---|
-| Navigation | persistent shell/sidebar where space permits | compact navigation, sheets/fullscreen selection |
-| Input | keyboard, pointer, drag/drop and file picker | touch targets, camera/scan and permission recovery |
-| Workbench | list/detail/preview compositions | single-task capture/review progression |
-| Feedback | inline/panel feedback without sensitive shell leakage | interruption-safe queue/offline feedback |
-| Lifecycle | window resize, resume and multi-window decision | background/resume, permission changes, interrupted upload |
+| Navigation | persistente Shell/Sidebar, wenn Platz reicht | kompakte Navigation, Sheets/Fullscreen Selection |
+| Eingabe | Tastatur, Pointer, Drag/drop und File Picker | Touch Targets, Kamera/Scan und Permission Recovery |
+| Workbench | List/Detail/Preview-Kompositionen | fokussierter Capture-/Review-Fortschritt |
+| Feedback | Inline-/Panel-Feedback ohne sensible Shell-Leaks | unterbrechungssicheres Queue-/Offline-Feedback |
+| Lifecycle | Window Resize, Resume und Multi-window-Entscheid | Background/Resume, Permission Changes, unterbrochener Upload |
 
-## Platform Gates
+## Plattform-Gates
 
-- Every phase names supported platforms and explicit non-goals.
-- Permission denial and later settings recovery are specified.
-- Platform-native behavior may vary, but domain result, privacy and terminology
-  remain consistent.
-- Store, signing, entitlements and native dependency review belong to release,
-  compliance and foundation owners.
+- Jede Phase nennt unterstuetzte Plattformen und explizite Nichtziele.
+- Permission Denial und spaetere Recovery ueber Settings sind spezifiziert.
+- Native Verhalten darf variieren; Domain-Ergebnis, Privacy und Terminologie
+  bleiben konsistent.
+- Store, Signing, Entitlements und Native-Dependency-Review gehoeren den
+  Release-, Compliance- und Foundation-Ownern.
 
-## Verification And Stop Rules
+## Verifikation und Stop Rules
 
-Plans require responsive/widget evidence plus real target-platform smoke checks
-where native behavior is involved. Stop if a phase says "responsive" without
-reference sizes/states, assumes one platform's permission model for another, or
-adds a native dependency without owner and release impact. Handoff to
-`ui-architect` for UI and `foundation-builder` for native/platform work.
+Plaene brauchen Responsive-/Widget-Evidenz und bei nativen Pfaden echte
+Target-Platform-Smoke-Checks. Stop, wenn `responsive` ohne Referenzgroessen und
+Zustaende behauptet, ein Permission-Modell auf andere Plattformen uebertragen
+oder eine Native Dependency ohne Owner/Releasewirkung eingefuehrt wird.
+Handoff an `ui-architect` fuer UI und `foundation-builder` fuer Native/
+Platform-Arbeit.

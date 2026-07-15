@@ -1,3 +1,12 @@
+---
+title: "Mappm Brand Direction"
+description: "Brand-Idee, Produktversprechen, Identitaetsrichtung und Sicherheitsregeln fuer Mappm"
+tags: [design-system, brand, corporate-design]
+lastUpdated: "2026-07-15"
+status: "draft"
+owner: "ui-concept/product"
+---
+
 # Mappm Brand Direction
 
 ## Status

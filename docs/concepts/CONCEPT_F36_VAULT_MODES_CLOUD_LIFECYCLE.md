@@ -1,251 +1,259 @@
 ---
-title: "Konzept F36 - Vault Modes and Cloud Lifecycle"
-description: "Mappm-spezifischer Produkt- und UX-Vertrag fuer Account, Local/Cloud Vaults, Assist, Migration, Entitlements, Kündigung, Recovery und Datenportabilität"
+title: "Konzept F36 - Vault-Modi und Cloud-Lifecycle"
+description: "Mappm Produkt- und UX-Vertrag fuer Account, Local/Cloud Vaults, Assist, Migration, Entitlements, Kuendigung, Recovery und Datenportabilitaet"
 tags: [concept, account, vault, cloud, local, assist, migration, subscription, portability, recovery, ux]
-lastUpdated: "2026-07-12"
-version: "1.0"
+lastUpdated: "2026-07-15"
+version: "1.1"
 status: "accepted"
 owner: "product-concept/ui-concept"
 ---
 
-# Konzept F36 - Vault Modes and Cloud Lifecycle
+# Konzept F36 - Vault-Modi und Cloud-Lifecycle
 
-## Status And Source Of Truth
+## Status und Source of Truth
 
-Accepted. The owning product decision is
-`docs/technical/DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md` together with
-`docs/technical/DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md`. F36 governs
-cross-cutting frontend/product behavior; it does not decide backend DTOs,
-endpoints, persistence or authorization policy architecture.
+Angenommen. Massgebliche Produktentscheidungen sind
+`docs/technical/DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md` und
+`docs/technical/DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md`. F36 regelt
+querschnittliches Frontend-/Produktverhalten, aber keine Backend-DTOs,
+Endpunkte, Persistenz oder Authorization-Policy-Architektur.
 
 ## Scope
 
-- Vault creation and storage-mode explanation.
-- account/device onboarding, offline continuity and detached recovery.
-- visible Assist entitlement, processing and opt-out/manual degradation.
-- visible Local versus Cloud authority and local-availability status.
-- Local-to-Cloud and Cloud-to-Local migration UX.
-- subscription cancellation, grace/read-only, reactivation and deletion UX.
-- entitlement/quota/payment failure states.
-- export, portability and safe destructive confirmation.
+- Vault-Erstellung und Erklaerung des Speichermodus.
+- Account-/Device-Onboarding, Offline-Kontinuitaet und Detached Recovery.
+- sichtbares Assist-Entitlement, Processing und Opt-out/manuelle Degradation.
+- sichtbare Local-/Cloud-Autoritaet und lokale Verfuegbarkeit.
+- Local-to-Cloud- und Cloud-to-Local-Migration.
+- Kuendigung, Grace/Read-only, Reaktivierung und Loeschung.
+- Entitlement-, Quota- und Zahlungsfehler.
+- Export, Portabilitaet und sichere destruktive Bestaetigung.
 
-## Non-Goals
+## Nichtziele
 
-- pricing amounts, payment provider or store purchase implementation.
-- Cloud API shapes or server storage mapping.
-- final cryptographic trust model.
-- cross-account sharing and organization administration.
+- konkrete Preise, Zahlungsprovider oder Store-Purchase-Implementierung.
+- Cloud-API-Shape oder serverseitiges Storage-Mapping.
+- finales kryptografisches Trust-Modell.
+- accountuebergreifendes Sharing und Organisationsadministration.
 
-## Required User Flows
+## Erforderliche User Flows
 
-### Create Vault
+### Vault erstellen
 
 ```text
-sign in / create account and authorize device
-  -> choose plan or Free
-  -> Name and purpose
-  -> choose "Auf diesem Gerät" or "Mappm Cloud"
-  -> show plan/storage/Assist consequences
-  -> security and recovery explanation
-  -> confirm
-  -> created / actionable failure
+anmelden / Account anlegen und Geraet autorisieren
+  -> Plan oder Free waehlen
+  -> Name und Zweck
+  -> "Auf diesem Geraet" oder "Mappm Cloud" waehlen
+  -> Folgen fuer Plan, Speicher und Assist zeigen
+  -> Security und Recovery erklaeren
+  -> bestaetigen
+  -> erstellt oder handlungsfaehiger Fehler
 ```
 
-The default may not be selected solely to maximize paid conversion. Product and
-legal review must approve default, comparison copy and trial behavior.
+Der Default darf nicht allein zur Maximierung bezahlter Conversion gewaehlt
+werden. Product und Legal genehmigen Default, Vergleichstext und Trial-
+Verhalten. Normales Onboarding bietet keinen anonymen Local Vault. `Detached
+Recovery` gilt nur fuer bestehende lokale Daten oder einen verifizierten
+Cloud-to-Local-Exit.
 
-Normal onboarding never offers an anonymous Local Vault. `Detached Recovery`
-is entered only for existing local data or a verified Cloud-to-Local exit.
+### Local Vault mit Assist
 
-### Local Vault With Assist
+Erforderliche Zustaende:
 
-Required states:
+- Local Vault sowie Device-/Account-Vertrauen sind bereit.
+- Core-Assist-Anspruch und verbleibende Quota sind ohne Druck-Copy sichtbar.
+- Das Dokument bleibt klar als `lokal gespeichert` gekennzeichnet.
+- Processing-Zweck/Policy ist vor der ersten Uebertragung erreichbar.
+- `Analyse ausstehend`, Uploading, Processing, Review-ready, retrybarer und
+  finaler Fehler sind getrennt.
+- Queued Processing kann gemaess Policy abgebrochen und ein Dokument
+  ausgeschlossen werden.
+- Bei Offline, Opt-out oder Quota-Limit bleibt manuelles Review moeglich.
+- Keine UI suggeriert Cloud-Backup, Sync oder dauerhafte Cloud-Speicherung.
 
-- Local Vault and device/account are ready.
-- Core Assist allowance and remaining quota are visible without pressure copy.
-- document remains clearly `lokal gespeichert`.
-- processing consent/policy is available before first transmission.
-- `Analyse ausstehend`, uploading, processing, review-ready, retryable and final
-  failure are distinct.
-- user can cancel queued processing or exclude a document according to policy.
-- manual review remains possible if offline, opted out or quota-limited.
-- no UI implies Cloud backup, sync or durable Cloud storage.
+### Offline-Kontinuitaet und Detached Recovery
 
-### Offline Continuity And Detached Recovery
+- Ein gesunder Local Vault oeffnet offline mit begrenztem gecachtem
+  Account-/Device-Trust.
+- Ein abgelaufener Cache verlangt Reauthentication, ohne Daten zu loeschen oder
+  zu beschaedigen.
+- Paid-Local-Kuendigung fuehrt normalerweise zu Free Local mit reduziertem
+  Assist-Entitlement.
+- Account-Loeschung oder Verlust normaler Nutzungsberechtigung inventarisiert
+  Local Vaults und bietet Detach, Export oder explizite lokale Loeschung.
+- Detached Recovery erlaubt bestehende Dokumente, lokale Suche, Export und
+  manuelle Pflege, aber kein Assist, Sync, Sharing oder Managed Backup.
+- Reattachment ist explizit und laedt lokale Daten niemals automatisch hoch.
 
-- A healthy Local Vault opens offline under bounded cached account/device state.
-- Expired cache requests reauthentication without deleting or corrupting data.
-- Paid Local cancellation normally returns to Free Local with reduced Assist
-  entitlement. Account deletion, or loss of eligibility for normal use,
-  inventories Local Vaults and offers detach, export or explicit device-local
-  deletion.
-- Detached Recovery exposes existing documents, local search, export and manual
-  maintenance but no Assist, sync, sharing or managed backup.
-- Reattachment is explicit and never uploads Local data automatically.
+### Local zu Cloud upgraden
 
-### Upgrade Local To Cloud
+Erforderliche Zustaende:
 
-Required states:
+- Preflight fuer Account, Entitlement, Netzwerk und Speicher.
+- Inventarisierung.
+- Upload-Fortschritt nach Anzahl und Bytes, ohne private Dateinamen in globaler
+  UI.
+- Paused/Offline/retrybarer/finaler Fehler.
+- Reconciliation und Checksum-Verifikation.
+- kurzer, angekuendigter finaler Write Freeze.
+- Abschluss mit eindeutiger Cloud-Autoritaets-Erklaerung.
+- fruehere Local-Quelle als inaktiver Read-only-Recovery-Snapshot.
+- Snapshot-/Cache-Cleanup als separate Aktionen mit eigenem Scope.
 
-- preflight account/entitlement/network/storage.
-- inventorying.
-- upload progress by count and bytes without private filenames in global UI.
-- paused/offline/retryable/final failure.
-- reconciliation and checksum verification.
-- short, announced final write-freeze.
-- complete with explicit Cloud-authority explanation.
-- former Local source shown as inactive read-only recovery snapshot.
-- optional snapshot/cache cleanup as separate, differently scoped actions.
+Abbruch vor Abschluss laesst Local autoritativ. Schliessen oder Neustart der
+App setzt sicher fort.
 
-Cancel before completion keeps Local authoritative. Closing/restarting the app
-resumes safely.
+### Cloud kuendigen oder downgraden
 
-### Cancel Or Downgrade Cloud
+Erforderliche Auswahl:
 
-Required choices:
-
-- `Auf diesem Gerät weiternutzen` when the current platform is supported.
-- `Auf unterstütztem Gerät weitermachen` plus complete export when it is not.
-- `Cloud-Archiv vorerst nur lesen` when policy allows.
+- `Auf diesem Geraet weiternutzen`, wenn die Plattform unterstuetzt ist.
+- `Auf unterstuetztem Geraet weitermachen` plus vollstaendiger Export, wenn
+  nicht.
+- `Cloud-Archiv vorerst nur lesen`, falls die Policy dies erlaubt.
 - `Daten exportieren`.
-- `Abo fortsetzen` or reactivate where allowed.
-- `Cloud-Daten löschen` as a separate destructive flow.
+- `Abo fortsetzen` oder Reaktivierung, falls erlaubt.
+- `Cloud-Daten loeschen` als separater destruktiver Flow.
 
-The UI shows paid-through date, grace/read-only date, planned deletion date,
-required local free space and unavailable-platform reason.
+Die UI zeigt Paid-through-, Grace/Read-only- und geplantes Loeschdatum,
+erforderlichen freien Speicher und den Grund einer nicht unterstuetzten
+Plattform.
 
-When one subscription affects multiple Vaults, the flow lists each affected
-Vault, owner/access role, storage size, pending work and chosen exit action.
-Completion is per Vault; an aggregate success screen may not conceal an
-incomplete or blocked Vault.
+Wirkt eine Subscription auf mehrere Vaults, zeigt der Flow je Vault Owner/
+Access Role, Speichergroesse, Pending Work und gewaehlte Exit-Aktion. Abschluss
+wird je Vault berichtet; ein aggregierter Erfolg darf keinen unvollstaendigen
+oder blockierten Vault verbergen.
 
-### Cloud To Local Migration
+### Cloud zu Local migrieren
 
-Required states:
+Erforderliche Zustaende:
 
-- calculating required storage.
-- insufficient local storage with remediation.
-- downloading/resuming.
-- reconciling pending Cloud operations and announcing final write-freeze.
-- verifying counts/checksums.
-- missing/corrupt item list.
-- Local activated.
-- Cloud source frozen as an inactive read-only exit snapshot pending separate
-  lifecycle decision; other Cloud clients can no longer write to it.
+- benoetigten Speicher berechnen.
+- unzureichenden lokalen Speicher mit Abhilfe zeigen.
+- Download/Resume.
+- Pending-Cloud-Operationen reconciliieren und finalen Write Freeze
+  ankuendigen.
+- Counts/Checksums verifizieren.
+- fehlende/beschaedigte Eintraege auflisten.
+- Local aktivieren.
+- Cloud-Quelle als inaktiven Read-only-Exit-Snapshot bis zur separaten
+  Lifecycle-Entscheidung einfrieren; andere Cloud-Clients koennen nicht mehr
+  schreiben.
 
-The primary action cannot activate Local while any required item is unverified.
+Die Hauptaktion darf Local nicht aktivieren, solange ein erforderlicher Eintrag
+unverifiziert ist.
 
-## State Model
+## Zustandsmodell
 
-| Dimension | Values |
+| Dimension | Werte |
 |---|---|
-| Vault authority | `local`, `cloud` |
-| account/session | `active`, `offlineCached`, `reauthRequired`, `suspended`, `deletionPending`, `deleted`, `detachedRecovery` |
-| entitlement | `freeActive`, `paidActive`, `quotaLimited`, `expired`, `graceReadOnly`, `none` |
-| Assist processing | `notRequested`, `queued`, `uploading`, `processing`, `reviewReady`, `failedRetryable`, `failedFinal`, `cancelled`, `deleted` |
-| local availability | `complete`, `partial`, `metadataOnly`, `notAvailable` |
-| Cloud write capability | `writable`, `offlineQueued`, `readOnly`, `quotaGrowthBlocked`, `paymentReview`, `noAccess` |
-| migration | `none`, `preflight`, `transferring`, `paused`, `finalizingReadOnly`, `verifying`, `failedRetryable`, `failedFinal`, `completed` |
-| source after migration | `activeAuthority`, `inactiveRecoverySnapshot`, `inactiveExitSnapshot`, `deleted` |
-| subscription lifecycle | `active`, `cancelScheduled`, `graceReadOnly`, `retentionPendingDeletion`, `deleted` |
+| Vault-Autoritaet | `local`, `cloud` |
+| Account/Session | `active`, `offlineCached`, `reauthRequired`, `suspended`, `deletionPending`, `deleted`, `detachedRecovery` |
+| Entitlement | `freeActive`, `paidActive`, `quotaLimited`, `expired`, `graceReadOnly`, `none` |
+| Assist Processing | `notRequested`, `queued`, `uploading`, `processing`, `reviewReady`, `failedRetryable`, `failedFinal`, `cancelled`, `deleted` |
+| lokale Verfuegbarkeit | `complete`, `partial`, `metadataOnly`, `notAvailable` |
+| Cloud-Write-Faehigkeit | `writable`, `offlineQueued`, `readOnly`, `quotaGrowthBlocked`, `paymentReview`, `noAccess` |
+| Migration | `none`, `preflight`, `transferring`, `paused`, `finalizingReadOnly`, `verifying`, `failedRetryable`, `failedFinal`, `completed` |
+| Quelle nach Migration | `activeAuthority`, `inactiveRecoverySnapshot`, `inactiveExitSnapshot`, `deleted` |
+| Subscription-Lifecycle | `active`, `cancelScheduled`, `graceReadOnly`, `retentionPendingDeletion`, `deleted` |
 
-`reactivate` is an action/transition back to `active`, not a lifecycle state.
-Quota and payment evaluation may reduce write capability but never silently
-rewrite the subscription lifecycle or Vault authority.
+`reactivate` ist eine Aktion/Transition zu `active`, kein Lifecycle-Zustand.
+Quota und Payment duerfen Write-Faehigkeit reduzieren, aber weder
+Subscription-Lifecycle noch Vault-Autoritaet still umschreiben. Die Dimensionen
+werden nicht in einem generischen `syncStatus` zusammengefasst.
 
-These dimensions may not be collapsed into one generic `syncStatus`.
+## Fehler- und Recovery-Matrix
 
-## Error And Recovery Matrix
-
-| Situation | Required behavior |
+| Situation | Erforderliches Verhalten |
 |---|---|
-| offline during upload/download | preserve queue/checkpoint; show retry automatically when connectivity returns |
-| insufficient local storage | keep Cloud access; block activation; offer cleanup/location guidance |
-| quota exceeded | preserve existing reads/export; block new growth; show plan/cleanup actions |
-| payment failure | follow entitlement state; never erase cache or Cloud data immediately |
-| Paid Local cancellation | retain account and Local authority; downgrade to Free Local/its Assist limits where eligible; do not force recovery mode |
-| Local device temporarily offline | open from bounded cached account/device state; queue Assist; keep manual work available |
-| Assist quota exhausted | preserve Local/Cloud data and manual work; show reset/plan facts without blocking export or correction |
-| Assist provider failure | keep source document and accepted data intact; retry or manual fallback; never change Vault authority |
-| account deletion with Local Vault | require retain-as-recovery, export or explicit local deletion choice; never remote-wipe silently |
-| checksum/count mismatch | remain on original authority; list safe reference IDs; retry or support path |
-| app killed during migration | resume from durable checkpoint without duplicate records |
-| account/session revoked | preserve safe local pending work; require re-auth; no raw token errors |
-| deletion requested during migration | stop and require explicit resolution; never race transfer and deletion |
-| concurrent write during migration | journal until finalization; block during announced final freeze; never create two writable authorities |
-| another Cloud device after Cloud-to-Local | show authority-changed state; disable writes; offer refresh/export/account actions |
-| grace starts with unconfirmed local work | keep it visibly pending; do not claim Cloud storage; include it in exit reconciliation or require explicit conflict resolution |
-| crash during final authority switch | resume from durable transaction state to one authority; never infer from cache presence |
-| inactive snapshot opened | show read-only recovery/exit status; require explicit rollback or clone flow before any write |
+| offline waehrend Upload/Download | Queue/Checkpoint erhalten; nach Connectivity automatisch erneut versuchen |
+| zu wenig lokaler Speicher | Cloud-Zugriff erhalten; Aktivierung blockieren; Cleanup-/Speicherort-Hilfe anbieten |
+| Quota ueberschritten | Reads/Export erhalten; Wachstum blockieren; Plan-/Cleanup-Aktionen zeigen |
+| Zahlungsfehler | Entitlement folgen; Cache/Cloud-Daten nie sofort loeschen |
+| Paid Local gekuendigt | Account/Local-Autoritaet behalten; falls moeglich auf Free Local downgraden; keinen Recovery-Modus erzwingen |
+| Local Device offline | mit begrenztem gecachtem Trust oeffnen; Assist queuen; manuelle Arbeit erlauben |
+| Assist-Quota verbraucht | Daten/manuelle Arbeit erhalten; Reset-/Plan-Fakten zeigen; Export/Korrektur nicht blockieren |
+| Assist-Providerfehler | Quelle/akzeptierte Daten erhalten; Retry oder manueller Fallback; Autoritaet unveraendert |
+| Account-Loeschung mit Local Vault | Recovery, Export oder explizite lokale Loeschung verlangen; kein stiller Remote Wipe |
+| Checksum-/Count-Mismatch | auf Originalautoritaet bleiben; sichere Referenz-IDs zeigen; Retry/Support anbieten |
+| App-Ende waehrend Migration | von durable Checkpoint ohne Duplikate fortsetzen |
+| Account/Session widerrufen | sichere lokale Pending Work erhalten; Reauth; keine Raw-Token-Fehler |
+| Loeschung waehrend Migration | stoppen und explizite Aufloesung verlangen; kein Race |
+| Concurrent Write waehrend Migration | bis Finalisierung journalen; im angekuendigten Freeze blockieren; nie zwei schreibbare Autoritaeten |
+| anderes Cloud-Device nach Cloud-to-Local | Authority-changed anzeigen; Writes deaktivieren; Refresh/Export/Account-Aktionen |
+| Grace mit unbestaetigter lokaler Arbeit | sichtbar pending halten; nicht als Cloud gespeichert behaupten; im Exit reconciliieren oder Konflikt klaeren |
+| Crash beim Authority Switch | aus durable Transaction State auf genau eine Autoritaet fortsetzen; nie aus Cache-Praesenz ableiten |
+| inaktiver Snapshot geoeffnet | Read-only-Recovery/Exit zeigen; vor Writes expliziten Rollback-/Clone-Flow verlangen |
 
-## Security And Privacy
+## Security und Privacy
 
-- Do not show document names/content in lock-screen notifications, analytics or
-  global migration telemetry.
-- Storage authority, entitlement and migration events use synthetic/reference
-  IDs in logs.
-- Screenshots, tests and support evidence use synthetic Vaults and documents.
-- Destructive actions require clear scope, consequence and re-authentication
-  according to the accepted security policy.
-- Cache cleanup never implies Cloud deletion; Cloud deletion never implies
-  account deletion.
-- Assist transmission never implies Cloud Vault storage, backup or consent to
-  model training.
+- Keine Dokumentnamen/-inhalte in Lockscreen-Notifications, Analytics oder
+  globaler Migrationstelemetrie.
+- Autoritaets-, Entitlement- und Migrationsereignisse loggen nur
+  synthetische/Referenz-IDs.
+- Screenshots, Tests und Support-Evidenz verwenden synthetische Daten.
+- Destruktive Aktionen brauchen klaren Scope, Folge und Reauthentication gemaess
+  akzeptierter Security Policy.
+- Cache-Cleanup ist keine Cloud-Loeschung; Cloud-Loeschung keine
+  Account-Loeschung.
+- Assist-Uebertragung ist weder Cloud-Vault-Speicherung noch Backup oder
+  Zustimmung zu Modelltraining.
 
-## Accessibility And Localization
+## Accessibility und Lokalisierung
 
-- German product copy distinguishes `lokal verfügbar`, `in Mappm Cloud
-  gespeichert`, `nur lesen`, `Export` and `Löschung`.
-- Progress and errors are announced semantically without repeated noisy updates.
-- Keyboard/focus order reaches migration blockers and primary recovery action.
-- Color is never the only carrier for Cloud/grace/quota/deletion status.
-- Long dates, storage sizes and translated plan names must not clip at text
-  scale `2.0`.
+- Deutsche Produkttexte unterscheiden `lokal verfuegbar`, `in Mappm Cloud
+  gespeichert`, `nur lesen`, `Export` und `Loeschung`.
+- Fortschritt/Fehler werden semantisch ohne laermende Wiederholung angekuendigt.
+- Fokus-/Tastaturreihenfolge erreicht Blocker und primaere Recovery-Aktion.
+- Farbe ist nie alleiniger Traeger fuer Cloud-/Grace-/Quota-/Loeschstatus.
+- Lange Daten, Speichergroessen und lokalisierte Plannamen clippen bei Textscale
+  `2.0` nicht.
 
-## Testing And Verification
+## Tests und Verifikation
 
-Every affected phase must include:
+Jede betroffene Phase umfasst:
 
-- state-machine tests for every transition and invalid transition.
-- repository/provider tests with Local and Cloud fakes.
-- resumability/idempotency tests across app restart.
-- widget/semantics tests for all required flows and failure states.
-- privacy tests for logs, notifications and fixtures.
-- contract/Microcks tests for Cloud consumer behavior.
-- integration evidence proving source data remains intact until verified target
-  activation.
-- split-brain tests proving exactly one writable authority before, during and
-  after activation, including another-device and app-restart cases.
-- cancellation-boundary tests with offline pending work and grace transition.
-- multi-Vault subscription tests proving scope, per-Vault completion and no
-  hidden stranded Vault.
-- Free/Paid Local and Cloud entitlement tests with online/offline Assist states.
-- account deletion and detached-recovery tests proving local data access and no
-  implicit upload or remote wipe.
+- State-Machine-Tests fuer gueltige und ungueltige Transitionen.
+- Repository-/Provider-Tests mit Local-/Cloud-Fakes.
+- Resume-/Idempotenztests ueber App-Neustart.
+- Widget-/Semantics-Tests fuer alle Flows und Fehlerzustaende.
+- Privacy-Tests fuer Logs, Notifications und Fixtures.
+- Contract-/Microcks-Tests fuer Cloud-Consumer-Verhalten.
+- Integrationsevidenz, dass Quelldaten bis zur verifizierten Zielaktivierung
+  intakt bleiben.
+- Split-Brain-Tests fuer genau eine schreibbare Autoritaet, inklusive anderem
+  Device und App-Neustart.
+- Kuendigungsgrenzen mit Offline-Pending-Work und Grace-Transition.
+- Multi-Vault-Subscription mit Scope, Abschluss je Vault und keinem
+  versteckten gestrandeten Vault.
+- Free/Paid Local/Cloud mit Online-/Offline-Assist.
+- Account-Loeschung/Detached-Recovery ohne impliziten Upload oder Remote Wipe.
 
 ## Stop Rules
 
-Stop if:
+Stop, wenn:
 
-- UI offers a simple toggle without migration.
-- cancellation or quota failure blocks export/Local migration.
-- read-only, deletion and account deletion are visually conflated.
-- source authority changes before checksum/count verification.
-- migration completion leaves both provider sources writable.
-- a frontend artifact invents server contract or retention behavior.
-- any applicable VC-01..VC-08 decision required by the phase is still open.
-- Local onboarding bypasses the account contract or every Local launch requires
-  a live network call.
-- Assist state is presented as Vault sync/storage state.
+- die UI einen Toggle statt einer Migration anbietet.
+- Kuendigung oder Quota Export/Local-Migration blockiert.
+- Read-only, Vault-Loeschung und Account-Loeschung visuell vermischt sind.
+- die Autoritaet vor Checksum-/Count-Verifikation wechselt.
+- nach Migration beide Providerquellen schreibbar bleiben.
+- Frontend Serververtrag oder Retention erfindet.
+- ein fuer die Phase relevantes VC-01..VC-08 offen ist.
+- Local-Onboarding den Accountvertrag umgeht oder jeder Local-Start Live-Netz
+  verlangt.
+- Assist-Zustand als Vault-Sync-/Storage-Zustand dargestellt wird.
 
 ## Handoff
 
-Product flow first goes through `ui-concept-review`. Approved UI phases go to
-`ui-architect`; data migration to `data-architect`; API behavior to
-`contract-api`; commercial/legal durations to their specialist owners.
+Der Produktflow geht zuerst durch `ui-concept-review`. Akzeptierte UI-Phasen
+gehen an `ui-architect`, Datenmigration an `data-architect`, API-Verhalten an
+`contract-api` und kommerzielle/rechtliche Dauern an ihre Fachowner.
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies
-stricter defaults where F36 is silent.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Eigener Scope und
+Status bleiben massgeblich; der gemeinsame Vertrag liefert strengere Defaults,
+wo F36 schweigt.

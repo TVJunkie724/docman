@@ -1,12 +1,12 @@
 ---
 title: "Konzept F24 - Form Family"
-description: "Draft-Konzept fuer die noch auszuarbeitende Mappm Form Family, inklusive Feldfamilien, Validierung, Review, Suggestions und Accessibility"
+description: "Reviewpflichtiger Umbrella-Entwurf fuer die vollstaendig spezifizierte Mappm Form Family mit Feldfamilien, Validierung, Review, Suggestions und Accessibility"
 tags: [concept, frontend, design-system, forms, validation, review, accessibility, draft]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 version: "0.6"
 status: "draft"
+owner: "ui-concept"
 ---
-
 # Konzept F24 - Form Family
 
 ## Status
@@ -156,7 +156,7 @@ Die Form Family muss mindestens folgende Grundkontrollen besitzen:
 | Unit Input | MB, Tage, Stunden, Prozent, Seitenzahl. |
 | Email/URL | Account- oder externe App-/Portal-Links. |
 | Search/Typeahead | Anbieter, Versicherungen, bestehende Unterlagen. |
-| Secret/Sensitive | Pairing Code, Versicherungsnummern, geschuetzte Werte. |
+| Secret/Sensitive | Recovery Code, Versicherungsnummern, geschuetzte Werte. |
 
 Regel:
 
@@ -173,8 +173,9 @@ Pflicht-Picker:
 - Combobox fuer Freitext plus Vorschlaege.
 - Multi Select fuer sichtbare Mehrfachwerte.
 - Multi Select Dropdown fuer viele Mehrfachwerte.
-- Person/Profile Picker als Pflichtfeld im Review.
-- Relation Picker fuer Dokumente, Vorgange, Untervorgaenge, Profile und
+- Person/Organisation Picker als Korrektur- und Unsicherheitscontrol; nicht als
+  standardmäßig sichtbares Pflichtfeld nach jedem Capture.
+- Relation Picker fuer Dokumente, Vorgaenge, verknuepfte Vorgaenge, Profile und
   Policen.
 
 Picker brauchen:
@@ -387,8 +388,10 @@ F24 wird erst auf `accepted` gesetzt, wenn:
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Eigener Scope und
+Status bleiben massgeblich. Der gemeinsame Vertrag liefert die verbindlichen
+Defaults fuer Ownership, Security/Privacy, Accessibility/Lokalisierung,
+Verifikation, Stop Rules und Handoff, soweit dieses Dokument keine strengere
+Regel definiert. Ein Widerspruch stoppt die betroffene Phase und wird in diesem
+Konzept aufgeloest.

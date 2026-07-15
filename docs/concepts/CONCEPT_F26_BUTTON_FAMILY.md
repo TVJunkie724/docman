@@ -2,33 +2,33 @@
 title: "Konzept F26 - Button Family"
 description: "Detaillierte Mappm Design-System-Spezifikation fuer Buttons, Commands, Button-Zustaende, Groessen, Icon-Nutzung, Dark/Inverse Varianten, Accessibility und Flutter-Handoff"
 tags: [concept, frontend, design-system, buttons, commands, accessibility, flutter, production-readiness]
-lastUpdated: "2026-07-12"
-version: "1.0"
+lastUpdated: "2026-07-15"
+version: "1.1"
 status: "accepted"
+owner: "ui-concept"
 ---
-
 # Konzept F26 - Button Family
 
 ## Status
 
-Accepted.
+Angenommen.
 
 Dieses Konzept ist die build-relevante Source of Truth fuer Buttons und
 Command-Hierarchien in Mappm. Der HTML-Mock bleibt visuelle Evidenz, aber ein
 Flutter- oder UI-Agent muss die Button Family aus diesem Konzept verstehen und
 umsetzen koennen, ohne die Mock-Seite zwingend zu oeffnen.
 
-## Roadmap Anchor
+## Roadmap-Verankerung
 
-| Ebene | Anchor |
+| Ebene | Verankerung |
 |---|---|
 | Roadmap | R4 Capture and Review Core |
-| Phase/Subphase | R4.15 UX/A11y M2 Gate, R4.2 Desktop Import + Draft Inbox, R4.9 Document/Record Metadata Core |
+| Phase/Subphase | C2/C3 UX-/A11y-Gate, Desktop Import + Capture Inbox, Document/Record Metadata Core |
 | Pillars | Design System/UX, Capture & Inbox, Cases/Documents/Records, Export/External Actions, Security/Privacy, QA |
-| Parent Concepts | F19 Design System Governance, F21 Foundations and Tokens, F23 Component System, F25 Accessibility Patterns and Visual QA |
-| Mock Evidence | `docs/design-system/Mock/pages/component-buttons.html` |
+| Uebergeordnete Konzepte | F19 Design System Governance, F21 Foundations and Tokens, F23 Component System, F25 Accessibility Patterns and Visual QA |
+| Mock-Evidenz | `docs/design-system/Mock/pages/component-buttons.html` |
 
-## Purpose
+## Zweck
 
 Mappm verarbeitet private Dokumente. Buttons sind deshalb keine Dekoration,
 sondern sichere Handlungsoberflaeche:
@@ -40,7 +40,7 @@ sondern sichere Handlungsoberflaeche:
   konsistent.
 - Sie sind tastaturbedienbar und screenreader-verstaendlich.
 
-## Design Principles
+## Designprinzipien
 
 1. Eine klare Hauptaktion pro Arbeitskontext.
 2. Button-Bedeutung entsteht aus Rolle, Text, Position, Icon, Zustand und
@@ -52,21 +52,21 @@ sondern sichere Handlungsoberflaeche:
 7. Mobile Buttons duerfen groesser und block-level sein, aber nicht neue
    semantische Rollen erfinden.
 
-## Anatomy
+## Anatomie
 
 Ein Mappm Button besteht aus:
 
 | Teil | Pflicht | Regel |
 |---|---|---|
-| Role | ja | `primary`, `secondary`, `light`, `textOnly`, `iconOnly`, `danger`, `inverse` |
-| Visual Variant | falls noetig | `strongBorder`, `dangerLight`, `inverseSecondary`, `inverseText` |
+| Rolle | ja | `primary`, `secondary`, `light`, `textOnly`, `iconOnly`, `danger`, `inverse` |
+| Visuelle Variante | falls noetig | `strongBorder`, `dangerLight`, `inverseSecondary`, `inverseText` |
 | Label | ja, ausser Icon-only | Verb + Objekt, z. B. "Dokument scannen" |
 | Icon | optional | Lucide/Produkt-Icon, erbt Textfarbe |
-| Accessible Label | ja | Bei Icon-only immer explizit, sonst Label als Name |
-| State | ja | default, hover, focus, pressed, loading, disabled |
-| Size | ja | small, default, large, block |
-| Context | ja | Arbeitskontext bestimmt Rolle und Prioritaet |
-| Risk Boundary | falls noetig | destructive, sensitive export, privacy-relevant |
+| Barrierefreier Name | ja | Bei Icon-only immer explizit, sonst Label als Name |
+| Zustand | ja | default, hover, focus, pressed, loading, disabled |
+| Groesse | ja | small, default, large, block |
+| Kontext | ja | Arbeitskontext bestimmt Rolle und Prioritaet |
+| Risikogrenze | falls noetig | destruktiv, sensibler Export, privacy-relevant |
 
 ASCII-Anatomie:
 
@@ -84,36 +84,36 @@ Icon-only-Anatomie:
  not allowed for destructive or critical actions
 ```
 
-## Role Catalogue
+## Rollenkatalog
 
 ### Primary
 
-Purpose:
+Zweck:
 
 Die eindeutige Hauptaktion im aktuellen Arbeitskontext.
 
-Use for:
+Verwenden fuer:
 
 - Dokument scannen.
 - Pruefung abschliessen.
 - Scan verwenden.
 - Speichern.
-- Pairing bestaetigen.
+- Anmeldung oder Gerätevertrauen bestaetigen.
 
-Visual rule:
+Visuelle Regel:
 
 - Coral / Capture-Familie.
 - hoher Kontrast.
 - nur eine sichtbare Primary-Aktion je Kontext.
 
-Do not use for:
+Nicht verwenden fuer:
 
 - mehrere gleichwertige Alternativen.
 - Loeschen.
 - stille Navigation.
 - Status-Badges.
 
-Acceptance:
+Abnahmeregel:
 
 - Ein Dialog, Screen, Sheet oder Card-Flow darf maximal eine Primary-Aktion
   sichtbar zeigen.
@@ -122,11 +122,11 @@ Acceptance:
 
 ### Secondary
 
-Purpose:
+Zweck:
 
 Wichtige Alternative ohne Hauptfluss-Dominanz.
 
-Use for:
+Verwenden fuer:
 
 - Datei importieren.
 - Zurueck in Entwuerfe.
@@ -134,13 +134,13 @@ Use for:
 - Vorgang als ZIP.
 - Neu scannen.
 
-Visual rule:
+Visuelle Regel:
 
 - neutrale Outline.
 - weisse oder helle Surface.
 - keine starke Flaeche.
 
-Do not use for:
+Nicht verwenden fuer:
 
 - Loeschen.
 - primaere Capture-/Review-Aktionen.
@@ -148,12 +148,12 @@ Do not use for:
 
 ### Light State
 
-Purpose:
+Zweck:
 
 Aktive, empfohlene, kontextuell wichtige oder ausgewaehlte Handlung, die
 weniger dominant ist als Primary.
 
-Use for:
+Verwenden fuer:
 
 - In Eingang behalten.
 - Als erledigt markieren.
@@ -161,13 +161,13 @@ Use for:
 - Tag setzen in Toolbar.
 - empfohlene aber nicht finale Aktion.
 
-Visual rule:
+Visuelle Regel:
 
 - Petrol Mist Background.
 - Petrol Border.
 - Petrol Deep Text.
 
-Do not use for:
+Nicht verwenden fuer:
 
 - Status-Badges.
 - Validierungserfolg.
@@ -175,18 +175,18 @@ Do not use for:
 
 ### Text Only
 
-Purpose:
+Zweck:
 
 Leise Navigation oder Dismiss-Aktion.
 
-Use for:
+Verwenden fuer:
 
 - Abbrechen.
 - Spaeter.
 - Zurueck.
 - Als Foto behalten, wenn es bewusst untergeordnet ist.
 
-Visual rule:
+Visuelle Regel:
 
 - transparente Flaeche.
 - keine Border.
@@ -194,7 +194,7 @@ Visual rule:
 - `ghost` ist ein kompatibler Alias fuer dieselbe visuelle Rolle und darf nicht
   als neue semantische Rolle eingefuehrt werden.
 
-Do not use for:
+Nicht verwenden fuer:
 
 - Hauptaktionen.
 - Gefahrenaktionen.
@@ -202,47 +202,47 @@ Do not use for:
 
 ### Icon Only
 
-Purpose:
+Zweck:
 
 Kompakte, bekannte Toolbar-Aktion, wenn Platz knapp ist und Wiedererkennung
 hoch ist.
 
-Allowed examples:
+Erlaubte Beispiele:
 
 - Bearbeiten.
 - Suchen.
 - Tag setzen.
 - Weitere Aktionen.
 
-Hard rules:
+Verbindliche Regeln:
 
 - Immer mit Accessibility Label.
 - Immer mit Tooltip oder gleichwertigem Hover-/Long-press-Hint im spaeteren
   Produkt.
-- Nicht fuer Loeschen, Export, Pairing, Backup, Sync-Retry mit Risiko oder
+- Nicht fuer Loeschen, Export, Recovery, Backup, Sync-Retry mit Risiko oder
   sicherheitsrelevante Aktionen.
 - Nicht fuer Aktionen, deren Bedeutung ohne Text zweifelhaft ist.
 
 ### Danger
 
-Purpose:
+Zweck:
 
 Destruktive oder irreversible Aktionen.
 
-Use for:
+Verwenden fuer:
 
 - Entwurf loeschen.
 - Datei entfernen.
 - Token widerrufen.
 - Upload abbrechen, wenn Daten verloren gehen koennen.
 
-Visual rule:
+Visuelle Regel:
 
 - Danger Brick fuer volle Danger-Aktion.
 - Danger Light fuer mildere oder bestaetigte Entfernen-Aktion auf warmer
   Surface.
 
-Hard rules:
+Verbindliche Regeln:
 
 - Nie icon-only.
 - Nie nur durch Farbe erklaeren.
@@ -252,33 +252,33 @@ Hard rules:
 
 ### Inverse / Dark
 
-Purpose:
+Zweck:
 
 Buttons auf dunklen Shell-, Diagnose- oder technischen Flaechen.
 
-Use for:
+Verwenden fuer:
 
 - Sync pruefen.
 - Details in dunkler Diagnoseflaeche.
 - Schliessen in dunklem Panel.
 
-Visual rule:
+Visuelle Regel:
 
 - Inverse Primary: helle Flaeche auf dunkler Surface.
 - Inverse Secondary: transparente/dunkle Flaeche mit heller Border.
 - Inverse Text: heller Text ohne Flaeche.
 
-Do not use:
+Nicht verwenden:
 
 - Normale Primary-Buttons blind auf dunkle Flaechen kopieren.
 - Coral auf dunklen Flaechen ohne Kontrastpruefung verwenden.
 
-## Visual Variant and Alias Map
+## Varianten- und Alias-Zuordnung
 
 Diese Varianten duerfen in Implementierungen als eigene visuelle Parameter
 existieren, aber sie sind keine neuen fachlichen Rollen.
 
-| Variant / Alias | Base Role | Meaning | Rule |
+| Variante / Alias | Basisrolle | Bedeutung | Regel |
 |---|---|---|---|
 | `ghost` | Text Only | Legacy/Mock-Alias fuer leise transparente Aktion | nicht als separate Rolle modellieren |
 | `strongBorder` | Secondary | Secondary auf warmer oder heller Flaeche mit staerkerer Petrol-Border | nur zur Kontrast-/Surface-Anpassung |
@@ -291,16 +291,16 @@ Agents duerfen diese Varianten nicht frei erfinden. Neue Varianten brauchen eine
 Ergaenzung in diesem Konzept oder einem spaeter akzeptierten Design-System-
 Konzept.
 
-## Size and Density Catalogue
+## Groessen- und Dichtekatalog
 
-| Size | Target Min Height | Use |
+| Groesse | Mindesthoehe | Verwendung |
 |---|---:|---|
 | small | 32 px | Tabellenzeilen, kompakte Toolbars, Inline-Aktionen |
 | default | 40 px | normale Dialoge, Karten, Detailseiten, Formulare |
 | large | 52 px | Capture, mobile Hauptaktion, Wizard-Abschluss |
 | block | container width | mobile Sheets, Bottom Areas, fokussierte One-Step-Flows |
 
-Rules:
+Regeln:
 
 - Small darf nur fuer sekundaere oder Toolbar-nahe Aktionen verwendet werden.
 - Primary darf default oder large sein; auf Mobile bevorzugt large/block.
@@ -308,9 +308,9 @@ Rules:
 - Text muss in Button-Bounds bleiben; bei block darf Text umbrechen, bei
   kompakten Buttons muss der Labeltext kurz genug sein.
 
-## State Catalogue
+## Zustandskatalog
 
-| State | Meaning | Visual/Behavior Rule |
+| Zustand | Bedeutung | Visuelle-/Verhaltensregel |
 |---|---|---|
 | default | normale Aktionsbereitschaft | stabile Flaeche, kein Layoutshift |
 | hover | Pointer ueber Aktion | leichte Elevation oder Kontrast, keine Groessenaenderung |
@@ -319,66 +319,66 @@ Rules:
 | loading | Aktion laeuft | Busy-Indikator, Wiederholung blockiert |
 | disabled | Aktion aktuell nicht moeglich | sichtbar inaktiv, Grund im Kontext erklaert |
 
-Loading rules:
+Loading-Regeln:
 
 - Loading blockiert erneutes Ausloesen.
 - Loading darf nicht sensible Daten im Buttontext anzeigen.
 - Loading-Label sagt technische Handlung, z. B. "Wird gespeichert", nicht
   private Dokumentdetails.
 
-Disabled rules:
+Disabled-Regeln:
 
 - Disabled ist erlaubt, wenn eine Aktion objektiv nicht ausfuehrbar ist.
 - Der Grund muss in der Naehe sichtbar sein, z. B. "1 Pflichtfeld fehlt".
 - Disabled darf nicht als Ersatz fuer Validierungsfeedback missbraucht werden.
 
-Focus rules:
+Fokusregeln:
 
 - Focus muss per Tastatur sichtbar sein.
 - Focus darf nicht nur Farbe sein, sondern braucht Ring/Outline.
 - Focus darf keine Layoutverschiebung erzeugen.
 
-## Icon Rules
+## Icon-Regeln
 
-Icon source:
+Icon-Quelle:
 
 - Produkt-Icons folgen F21 Icon System.
 - Standard ist ein ruhiges Outline-Icon mit einheitlicher Stroke-Staerke.
 - Icons erben die Button-Textfarbe.
 
-Icon + text required for:
+Icon und Text sind erforderlich fuer:
 
 - Capture.
 - Export.
 - Delete.
-- Pairing.
+- Anmeldung, Recovery oder Gerätevertrauen.
 - Backup.
 - sicherheits- oder privacy-relevante Aktionen.
 
-Icon optional for:
+Icon ist optional fuer:
 
 - Secondary Navigation.
 - Retry.
 - View/Open.
 - Tags.
 
-Icon-only allowed only when:
+Icon-only ist nur erlaubt, wenn:
 
 - Aktion wiederholt in einer Toolbar erscheint.
 - Bedeutung durch Umgebung klar ist.
 - Accessibility Label vorhanden ist.
 - Tooltip/Hint vorgesehen ist.
 
-## Context Patterns
+## Kontextmuster
 
-### Draft Review
+### Review eines Entwurfs
 
-Goal:
+Ziel:
 
 Nutzer prueft einen Entwurf und schliesst Review erst ab, wenn harte Gates
 erfuellt sind.
 
-Recommended action hierarchy:
+Empfohlene Aktionshierarchie:
 
 ```text
 Primary:    Pruefung abschliessen
@@ -387,19 +387,19 @@ Text only:  Spaeter / Abbrechen
 Danger:     Entwurf loeschen, getrennt und bestaetigt
 ```
 
-If required fields are missing:
+Wenn Pflichtangaben fehlen:
 
-- Primary is disabled.
-- Inline/Form feedback explains the missing requirement.
-- No fake completion button.
+- Primary ist disabled.
+- Inline-/Formularfeedback erklaert die fehlende Anforderung.
+- Es gibt keinen scheinbar erfolgreichen Abschlussbutton.
 
 ### Document Row Toolbar
 
-Goal:
+Ziel:
 
 Dichte Dokumentlisten bleiben scanbar.
 
-Recommended hierarchy:
+Empfohlene Hierarchie:
 
 ```text
 Secondary small: Oeffnen
@@ -407,19 +407,20 @@ Light small:     Vorgang
 Icon-only small: Bearbeiten, Weitere Aktionen
 ```
 
-Rules:
+Regeln:
 
-- No full-size Primary in dense rows.
-- No destructive action directly visible unless explicitly in edit context.
-- Sensitive details stay out of toolbar labels.
+- Keine vollbreite Primary-Aktion in dichten Zeilen.
+- Keine destruktive Aktion direkt sichtbar, ausser im expliziten
+  Bearbeitungskontext.
+- Sensible Details bleiben aus Toolbar-Labels entfernt.
 
 ### Export
 
-Goal:
+Ziel:
 
 Nutzer entscheidet lokal, was heruntergeladen wird.
 
-Recommended hierarchy:
+Empfohlene Hierarchie:
 
 ```text
 Secondary: Einzeldokument laden
@@ -427,19 +428,21 @@ Secondary: Vorgang als ZIP
 Text only: Abbrechen
 ```
 
-Rules:
+Regeln:
 
-- No external sharing-link button.
-- Export context may show privacy badge, but action text remains neutral.
-- Multi-document export as ZIP, single document without ZIP.
+- Kein Button fuer einen externen Sharing-Link.
+- Der Exportkontext darf einen Privacy-Hinweis zeigen; der Aktionstext bleibt
+  neutral.
+- Mehrere Dokumente werden als Paket/ZIP exportiert, ein einzelnes Dokument
+  ohne unnoetige Verpackung.
 
 ### Mobile Capture
 
-Goal:
+Ziel:
 
 Capture-first UI mit einer eindeutigen Hauptaktion.
 
-Recommended hierarchy:
+Empfohlene Hierarchie:
 
 ```text
 Primary block large: Scan verwenden
@@ -447,20 +450,20 @@ Secondary block:     Neu scannen
 Text only block:     Als Foto behalten
 ```
 
-Rules:
+Regeln:
 
-- Main action is large/block.
-- Secondary correction remains available.
-- If scanner quality is insufficient, user can keep image/photo path.
+- Die Hauptaktion ist large/block.
+- Eine sekundaere Korrekturaktion bleibt erreichbar.
+- Bei unzureichender Scanqualitaet bleibt der Bild-/Fotopfad erhalten.
 
 ### Dark Diagnostics / Shell Surface
 
-Goal:
+Ziel:
 
-Actions on dark surfaces remain readable without importing the normal Coral
-primary blindly.
+Aktionen auf dunklen Flaechen bleiben lesbar, ohne die normale Coral-Primary-
+Darstellung ungeprueft zu uebernehmen.
 
-Recommended hierarchy:
+Empfohlene Hierarchie:
 
 ```text
 Inverse:           Sync pruefen
@@ -468,22 +471,22 @@ Inverse secondary: Details
 Inverse text:      Schliessen
 ```
 
-Rules:
+Regeln:
 
-- Dark surface variants are first-class.
-- Contrast must be checked against the dark background.
+- Varianten fuer dunkle Flaechen sind vollwertige Zustaende.
+- Kontrast wird gegen den konkreten dunklen Hintergrund geprueft.
 
-## Copy Rules
+## Textregeln
 
-Button labels should:
+Button-Labels sollen:
 
-- use verbs.
-- name the action object.
-- be short enough for German labels.
-- avoid technical implementation terms.
-- avoid sensitive document details.
+- Verben verwenden.
+- das Aktionsobjekt nennen.
+- fuer deutsche Labels kurz genug bleiben.
+- technische Implementierungsbegriffe vermeiden.
+- sensible Dokumentdetails vermeiden.
 
-Good:
+Gut:
 
 - Dokument scannen
 - Datei importieren
@@ -492,7 +495,7 @@ Good:
 - Neu scannen
 - Entwurf loeschen
 
-Avoid:
+Vermeiden:
 
 - OK
 - Submit
@@ -501,139 +504,137 @@ Avoid:
 - Upload private invoice 2026
 - Share access
 
-## Privacy and Security Rules
+## Privacy- und Security-Regeln
 
-Buttons must not:
+Buttons duerfen nicht:
 
-- include private document titles in global/shared button labels.
-- include OCR text, insurance numbers, health details, or child names in generic
-  command labels.
-- imply external access where none exists.
-- trigger export/share without local confirmation where sensitive documents may
-  leave the app boundary.
+- private Dokumenttitel in globalen/geteilten Button-Labels enthalten.
+- OCR-Text, Versicherungsnummern, Gesundheitsdetails oder Kindernamen in
+  generischen Command-Labels enthalten.
+- externen Zugriff suggerieren, wenn keiner besteht.
+- Export/Sharing ohne lokale Bestaetigung ausloesen, wenn sensible Dokumente
+  die App-Grenze verlassen koennen.
 
-Danger and export actions must:
+Danger- und Exportaktionen muessen:
 
-- state the action plainly.
-- show consequence in surrounding copy/dialog.
-- use confirmation for destructive or privacy-relevant work.
+- die Aktion klar benennen.
+- die Folge im umgebenden Text/Dialog zeigen.
+- bei destruktiver oder privacy-relevanter Wirkung eine Bestaetigung nutzen.
 
-## Accessibility Rules
+## Accessibility-Regeln
 
-Every button must have:
+Jeder Button braucht:
 
-- accessible name.
-- visible focus state.
-- sufficient contrast.
-- semantic enabled/disabled state.
-- keyboard activation.
-- stable hit target.
+- barrierefreien Namen.
+- sichtbaren Fokuszustand.
+- ausreichenden Kontrast.
+- semantischen Enabled-/Disabled-Zustand.
+- Tastaturaktivierung.
+- stabile Touch-/Klickflaeche.
 
-Icon-only buttons additionally need:
+Icon-only-Buttons brauchen zusaetzlich:
 
-- explicit accessibility label.
-- tooltip or equivalent hint.
-- no hidden-only meaning.
+- explizites Accessibility Label.
+- Tooltip oder gleichwertigen Hinweis.
+- keine nur versteckt erschliessbare Bedeutung.
 
-Loading buttons need:
+Loading-Buttons brauchen:
 
-- busy state.
-- blocked repeated activation.
-- label that remains understandable.
+- Busy-Semantik.
+- blockierte Wiederholung.
+- ein weiterhin verstaendliches Label.
 
-Disabled buttons need:
+Disabled-Buttons brauchen:
 
-- disabled semantics.
-- visible reason nearby.
+- Disabled-Semantik.
+- sichtbaren Grund in der Naehe.
 
-## Responsive Rules
+## Responsive-Regeln
 
 Desktop:
 
-- Button groups may wrap.
-- Dense toolbars use small/default.
-- Cards and dialogs keep Primary/Secondary/Text order predictable.
+- Button-Gruppen duerfen umbrechen.
+- Dichte Toolbars verwenden small/default.
+- Karten und Dialoge behalten eine vorhersehbare
+  Primary-/Secondary-/Text-Reihenfolge.
 
 Tablet / narrow desktop:
 
-- Sidebar may remain beside content.
-- Button groups wrap instead of overflowing.
-- Large labels must stay inside their button.
+- Die Sidebar darf neben dem Inhalt bleiben.
+- Button-Gruppen umbrechen statt ueberzulaufen.
+- Lange Labels bleiben innerhalb ihres Buttons.
 
 Mobile:
 
-- Primary actions often become large/block.
-- Secondary and text-only may stack below.
-- Icon-only remains limited to compact toolbar rows.
-- No horizontal overflow.
+- Primary-Aktionen werden haeufig large/block.
+- Secondary und Text-only duerfen darunter gestapelt werden.
+- Icon-only bleibt auf kompakte Toolbar-Zeilen begrenzt.
+- Kein horizontaler Overflow.
 
-## Implementation Handoff Guidance
+## Implementierungs-Handoff
 
-This concept intentionally does not prescribe a concrete Flutter widget class
-name. The implementation plan should define one shared design-system button
-surface that can express:
+Dieses Konzept schreibt bewusst keinen konkreten Flutter-Widget-Klassennamen
+vor. Der Implementation Plan definiert eine gemeinsame Design-System-Button-
+Flaeche, die Folgendes ausdruecken kann:
 
-- role.
-- size.
-- state.
-- optional leading icon.
-- icon-only mode.
-- block/full-width layout.
-- danger/sensitive/export context.
-- loading and disabled semantics.
-- tooltip/accessibility label for icon-only.
+- Rolle.
+- Groesse.
+- Zustand.
+- optionales fuehrendes Icon.
+- Icon-only-Modus.
+- Block-/Full-width-Layout.
+- Danger-/Sensitive-/Export-Kontext.
+- Loading- und Disabled-Semantik.
+- Tooltip/Accessibility Label fuer Icon-only.
 
-The Flutter implementation must not create separate ad-hoc button widgets for
-each feature. Feature screens should consume the shared Button Family API and
-only decide role, label, icon, state and callback from their own presentation
-state.
+Die Flutter-Implementierung erstellt keine eigenen Ad-hoc-Button-Widgets pro
+Feature. Screens verwenden die gemeinsame Button-Family-API und entscheiden
+nur Rolle, Label, Icon, Zustand und Callback aus ihrem Presentation State.
 
-Clean Architecture boundary:
+Clean-Architecture-Grenze:
 
-- Button components belong to Presentation / Design System.
-- Buttons may receive labels, roles, states and callbacks.
-- Buttons must not import Data, repositories, Drift, HTTP, file storage, or
+- Button-Komponenten gehoeren zu Presentation/Design System.
+- Buttons duerfen Labels, Rollen, Zustaende und Callbacks erhalten.
+- Buttons importieren weder Data, Repositories, Drift, HTTP, File Storage noch
   Secure Storage.
-- Button callbacks are supplied by screens/controllers/providers, not by the
-  button component.
+- Screens, Controller oder Provider liefern Callbacks; nicht die
+  Button-Komponente selbst.
 
-## Test and Verification Requirements
+## Test- und Verifikationsanforderungen
 
-Any implementation plan or Flutter build must include:
+Jeder Implementation Plan und Flutter-Build muss abdecken:
 
-- golden or visual evidence for all roles.
-- focus-state verification.
-- disabled-state verification.
-- loading-state verification.
-- icon-only accessibility-label test.
-- mobile/narrow-width overflow check.
-- dark/inverse contrast check.
-- destructive action not icon-only.
-- no multiple visible Primary actions in one context unless explicitly justified
-  by a future accepted concept.
+- Golden-/visuelle Evidenz fuer alle Rollen.
+- Verifikation von Focus, Disabled und Loading.
+- Accessibility-Label-Test fuer Icon-only.
+- Overflow-Test fuer Mobile/schmale Breiten.
+- Kontrastpruefung fuer Dark/Inverse.
+- keine destruktive Aktion als Icon-only.
+- keine mehreren sichtbaren Primary-Aktionen in einem Kontext, ausser ein
+  spaeter akzeptiertes Konzept begruendet dies explizit.
 
-## Acceptance Criteria
+## Abnahmekriterien
 
-The Button Family is ready for implementation when:
+Die Button Family ist implementationsbereit, wenn:
 
-- all roles from this concept exist in the design-system layer.
-- all states are visually and semantically represented.
-- all sizes are supported.
-- icon-only has enforced accessibility labeling.
-- dangerous actions cannot be represented as unlabeled icon-only controls.
-- Primary is restricted by review/audit to one main visible action per context.
-- mobile block buttons and dense desktop toolbar buttons are both covered.
-- tests and visual review catch overflow, missing focus and missing labels.
+- alle Rollen dieses Konzepts im Design-System-Layer existieren.
+- alle Zustaende visuell und semantisch abgebildet sind.
+- alle Groessen unterstuetzt sind.
+- Icon-only ein erzwungenes Accessibility Label besitzt.
+- Gefahraktionen nicht als unbeschriftete Icon-only-Controls darstellbar sind.
+- Review/Audit Primary auf eine sichtbare Hauptaktion pro Kontext begrenzt.
+- Mobile-Block-Buttons und dichte Desktop-Toolbar-Buttons abgedeckt sind.
+- Tests/Visual Review Overflow, fehlenden Fokus und fehlende Labels finden.
 
-## Non-Goals
+## Nichtziele
 
-- This concept does not define status badges.
-- This concept does not define tag chips.
-- This concept does not define form field controls.
-- This concept does not define navigation tabs or segmented controls.
-- This concept does not define backend actions or repository behavior.
+- Dieses Konzept definiert keine Status-Badges.
+- Dieses Konzept definiert keine Tag-Chips.
+- Dieses Konzept definiert keine Formular-Controls.
+- Dieses Konzept definiert keine Navigation Tabs oder Segmented Controls.
+- Dieses Konzept definiert keine Backend-Aktionen oder Repository-Logik.
 
-## Related Concepts
+## Verwandte Konzepte
 
 - F19 Design System Governance and SSOT.
 - F21 Foundations and Tokens.
@@ -644,8 +645,10 @@ The Button Family is ready for implementation when:
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Sein eigener Scope und
+Status bleiben massgeblich. Der gemeinsame Vertrag liefert verbindliche
+Defaults fuer Ownership, Security/Privacy, Accessibility/Lokalisierung,
+Verifikation, Stop Rules und Handoff, soweit dieses Dokument keine strengere
+Regel definiert. Ein Widerspruch stoppt die betroffene Phase und wird in diesem
+Konzept aufgeloest.

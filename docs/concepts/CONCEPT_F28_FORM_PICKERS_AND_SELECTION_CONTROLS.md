@@ -2,9 +2,10 @@
 title: "Konzept F28 - Form Pickers and Selection Controls"
 description: "Mappm Detailkonzept fuer Dropdowns, Comboboxes, Multi-Select, Person-/Relation-Picker, Radio-/Checkbox-Buttons, Switches, Segments, Command Rows und Disclosure"
 tags: [concept, frontend, design-system, forms, picker, selection, controls, flutter]
-lastUpdated: "2026-07-12"
-version: "1.0"
+lastUpdated: "2026-07-15"
+version: "1.1"
 status: "accepted"
+owner: "ui-concept"
 ---
 
 # Konzept F28 - Form Pickers and Selection Controls
@@ -30,7 +31,7 @@ konkret, dass ein Flutter-Agent sie ohne neue Designentscheidung bauen kann.
 ## Zweck
 
 Mappm-Formulare muessen Review, Korrektur und sichere Entscheidungen fuehren.
-Auswahlfelder sind besonders kritisch, weil sie Dokumenttyp, betroffene Person,
+Auswahlfelder sind besonders kritisch, weil sie Dokumentgrundart, betroffene Person,
 Vorgang, Relation, Kategorie und sensible Folgeprozesse bestimmen.
 
 F28 definiert:
@@ -82,7 +83,7 @@ initialenfreie Typmarken, wenn Buchstaben keinen echten Mehrwert liefern.
 
 Verwendung:
 
-- Dokumenttyp.
+- wenige fuer die aktuelle Korrektur relevante Dokumentgrundarten/Varianten.
 - Quelle.
 - Scan-Modus, wenn keine direkte Kamera-UI aktiv ist.
 - kleine taxonomische Felder.
@@ -93,6 +94,9 @@ Regeln:
 - Optionen sind nicht frei editierbar.
 - Eine Option darf Untertitel haben, wenn Konsequenz oder Typ erklaert werden.
 - Bei mehr als circa zehn Optionen in Combobox wechseln.
+- Der vollstaendige Taxonomiekatalog ist keine normale Dropdown-Liste. Assisted
+  Review zeigt die beste Zuordnung und nur wenige relevante Alternativen; eine
+  suchbare Gesamtauswahl liegt hinter bewusster Korrektur/Disclosure.
 - Desktop: Popover neben/unter dem Feld.
 - Mobile: Bottom Sheet mit gleichem Optionsmodell.
 
@@ -147,15 +151,19 @@ Regeln:
 
 ## Person Picker
 
-Person/Profil ist fuer Dokument-Review ein Pflichtfeld.
+Der Person-/Profil-Picker dient zur Korrektur oder bewussten Auswahl eines
+Managed Subject. Er ist nicht pauschal bei jedem Dokument als eigenes
+Pflichtfeld sichtbar.
 
 Regeln:
 
-- Es gibt kein "meistens aktives Profil" als fachliche Annahme.
-- Nutzer waehlt bewusst Person, verwaltetes Profil oder Haushalt.
+- Es gibt kein stilles "meistens aktives Profil" als fachliche Annahme.
+- Backend/Core Assist schlaegt Person, verwaltetes Profil, Haushalt oder eigene
+  Organisation vor. Die UI fragt nur bei Unsicherheit, Widerspruch oder
+  materieller Folge explizit nach.
 - Mehrfach-Personen sind erlaubt, wenn ein Dokument mehrere Personen betrifft.
 - Personenauswahl wird in Listen als eigene zweite Meta-Zeile/Chip gezeigt,
-  nicht gleichgewichtet mit Dokumenttyp/Kategorie.
+  nicht gleichgewichtet mit Dokumentgrundart/Kategorie.
 - Sensitive Details aus Profilen erscheinen nicht in globalen Listen.
 
 ## Relation Picker
@@ -183,7 +191,6 @@ Regeln:
 Verwendung:
 
 - genau eine Option mit fachlicher Konsequenz.
-- Scan-Modus: PDF-Dokument, Bild/Foto, nach Review entscheiden.
 - Export-Option: Einzeldokument, Vorgang als ZIP, manuelle Auswahl.
 
 Regeln:
@@ -213,19 +220,19 @@ Verwendung:
 
 - Einstellungen mit sofort verstehbarem On/Off.
 - Erinnerungen aktivieren.
-- Diagnose-/Sync-Optionen aktivieren.
+- optionale, klar erklaerte Datenschutz- oder Anzeigeeinstellungen.
 
 Nicht verwenden fuer:
 
 - irreversible Aktionen.
 - komplexe Berechtigungen.
 - Review-Abschluss.
+- Vault-Autoritaet, Sync, Backup oder Migration.
 
 ## Segmented Control
 
 Verwendung:
 
-- Scan/Fotos/Datei als Modus.
 - Entwurf/Zuletzt/Konflikte nur, wenn es ein Listenmodus ist; sonst FilterTabs
   aus F22 verwenden.
 - Zeitbezogene Ansichten wie Monat/Jahr.
@@ -278,7 +285,7 @@ Mobile:
 - Grosse Touch Targets.
 - Capture-Flow zeigt nur minimale Pflichtauswahl.
 - Vollstaendige Korrektur kann spaeter am Desktop erfolgen, aber Pflichtfelder
-  fuer Upload/Review bleiben sichtbar.
+  oder Gates des konkreten Reviews bleiben sichtbar.
 
 ## Flutter Handoff
 
@@ -307,7 +314,8 @@ Mindestens:
 
 - Widget-Test fuer Auswahl, Deselect, Disabled, Empty.
 - Keyboard-Test fuer Dropdown/Combobox auf Desktop.
-- Mobile-Sheet-Screenshot fuer Person Picker und Scan Mode.
+- Mobile-Sheet-Screenshot fuer Person Picker und eine tatsaechlich relevante
+  Quellenauswahl.
 - Text-Scale-Test mit langen deutschen Labels.
 - Privacy-Test: keine sensiblen Rohdaten in globalen Picker-Meldungen.
 
@@ -315,7 +323,8 @@ Mindestens:
 
 - [ ] Dropdown, Combobox, Multi-Select und Multi-Select Dropdown sind eindeutig
       voneinander abgegrenzt.
-- [ ] Person Picker ist Pflichtfeld-faehig und nicht als Freitext gebaut.
+- [ ] Person Picker kann notwendige Managed-Subject-Korrekturen abbilden und ist
+      nicht als Freitext gebaut.
 - [ ] Relation Picker kann Dokumente, Vorgaenge, Profile und Polizzen verlinken.
 - [ ] Radio-/Checkbox-/Switch-/Segment-Regeln sind dokumentiert.
 - [ ] Desktop Popover und Mobile Sheet folgen demselben Optionsmodell.
@@ -323,8 +332,10 @@ Mindestens:
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Eigener Scope und
+Status bleiben massgeblich. Der gemeinsame Vertrag liefert die verbindlichen
+Defaults fuer Ownership, Security/Privacy, Accessibility/Lokalisierung,
+Verifikation, Stop Rules und Handoff, soweit dieses Dokument keine strengere
+Regel definiert. Ein Widerspruch stoppt die betroffene Phase und wird in diesem
+Konzept aufgeloest.

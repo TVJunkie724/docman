@@ -2,7 +2,7 @@
 title: "MP-DS-02 Layout And Shell"
 description: "Responsive layout, navigation and workspace-shell contract"
 tags: [design-system, layout, shell, navigation, responsive]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 status: draft
 owner: "ui-concept"
 source_mock:
@@ -34,8 +34,8 @@ Dokumente, Aufgaben, Suche, Profile, Backup/Sync-Status.
 
 | Bereich | Regel |
 |---|---|
-| App Header | Produktname, Suche, Backup/Sync-Status, Profil/Haushalt, Settings. |
-| Sidebar | Hauptbereiche: Eingang, Vorgänge, Dokumente, Aufgaben, Suche, Profile, Einstellungen. |
+| App Header | Produktname, Suche, nur relevanter Vault/Processing-Handlungsbedarf, Managed Subject, Einstellungen. |
+| Sidebar | Hauptbereiche: Eingang, Vorgänge, Unterlagen, Aufgaben/Agenda, Suche, Profile, Einstellungen. |
 | Content | Dichte, aber luftige Arbeitsflaeche mit klaren Listen und Detailpanels. |
 | Right Panel | Optional fuer Preview, Metadaten, Tasks oder Konflikte. |
 
@@ -44,8 +44,8 @@ Dokumente, Aufgaben, Suche, Profile, Backup/Sync-Status.
 Mobile ist zuerst Capture- und Review-Companion:
 
 - Scan / Foto aufnehmen.
-- betroffene Person optional waehlen, wenn sicher.
-- Vorgang optional waehlen, wenn Liste verfuegbar.
+- automatisches Backend/Core-Assist-Matching immer ausfuehren.
+- optional bewusst `Neuen Vorgang starten`, ohne Titel-/Metadatenformular.
 - Upload-Queue und Offline-Status sehen.
 - Vollverwaltung kommt spaeter.
 

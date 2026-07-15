@@ -1,8 +1,8 @@
 ---
 title: "MP-DS-00 Design System Umbrella"
-description: "Governance and source-of-truth contract for the Mappm design system"
+description: "Governance- und Source-of-Truth-Vertrag fuer das Mappm Design System"
 tags: [design-system, governance, umbrella, ui]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-15"
 status: draft
 owner: "ui-concept"
 provenance:
@@ -60,7 +60,7 @@ ein Steuerportal oder ein dekoratives Familienalbum wirken.
 | `MP-DS-02 Layout And Shell` | Desktop-/Mobile-Shell, Navigation, Arbeitsflaechen, responsive Verhalten. | draft |
 | `MP-DS-03 Corporate Design` | Brand-Idee, Logo-System, Corporate Colors, Voice, Usage Standards. | draft |
 | `MP-DS-04 Component System` | Buttons, Formulare, Selection, Navigation, Feedback, Status, Tags, Data Display. | active-draft |
-| `MP-DS-05 Product Patterns` | Capture, Draft Inbox, Vorgang, Unterlage/Record, Case-Komposition, Vertrag/Abo, Agenda, kontextuelle Aktionen, Export, Settings, Backup/Sync. | active-draft |
+| `MP-DS-05 Product Patterns` | Capture, Processing/Review, Vorgang, Unterlage/Record, Case-Komposition, Vertrag/Abo, Agenda, kontextuelle Aktionen, Export, Settings, Backup/Sync. | active-draft |
 | `MP-DS-06 Accessibility And Quality Gates` | Contrast, Keyboard, Text Scale, Visual QA, responsive gates. | active-baseline |
 | `MP-DS-07 Platform Adaptation` | macOS, iOS, Android, spaeter Windows/Linux. | active-draft |
 
@@ -95,8 +95,9 @@ docs/design-system/Mock/index.html
 
 ## Stop Rules And Handoff
 
-- Stop if a UI phase cannot name exact MP-DS and F-concept owners.
-- Stop if mock evidence is treated as a Flutter implementation plan.
-- Stop if a visible mock pattern has no normative concept owner.
-- Handoff to `ui-architect` only from an approved phase and review the resulting
-  plan with `ui-plan-review`.
+- Stop, wenn eine UI-Phase ihre exakten `MP-DS-*`- und F-Konzept-Owner nicht
+  benennen kann.
+- Stop, wenn Mock-Evidenz als Flutter-Implementierungsplan behandelt wird.
+- Stop, wenn ein sichtbares Mock-Pattern keinen normativen Konzept-Owner hat.
+- Der Handoff an `ui-architect` erfolgt nur aus einer freigegebenen Phase; der
+  daraus entstehende Plan wird mit `ui-plan-review` geprueft.

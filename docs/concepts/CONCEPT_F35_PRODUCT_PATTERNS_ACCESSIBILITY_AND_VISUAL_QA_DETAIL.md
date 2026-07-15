@@ -2,9 +2,10 @@
 title: "Konzept F35 - Product Patterns, Accessibility and Visual QA Detail"
 description: "Mappm Detailkonzept fuer zentrale Produktmuster, Accessibility-Gates, Privacy UI Gates und visuelle QA"
 tags: [concept, frontend, design-system, patterns, accessibility, privacy, visual-qa, production-readiness]
-lastUpdated: "2026-07-14"
-version: "1.0"
+lastUpdated: "2026-07-15"
+version: "1.1"
 status: "accepted"
+owner: "ui-concept"
 ---
 
 # Konzept F35 - Product Patterns, Accessibility and Visual QA Detail
@@ -43,24 +44,26 @@ Zweck:
 Pflicht:
 
 - Quelle und Dateityp sichtbar.
-- Person/Profil fachlich planbar.
+- Managed Subject wird vorgeschlagen und nur bei Relevanz kompakt korrigiert.
 - Upload/Queue-Zustand privacy-sicher.
 - schlechte Scans korrigierbar.
 
-### Draft Inbox
+### Processing and Proposal Review
 
 Zweck:
 
-- neue Dokumente pruefen.
-- Pflichtfelder setzen.
+- neue Dokumentgrenzen, Titel und Zuordnungen kompakt pruefen.
+- nur sichtbare relevante Konsequenzen bestaetigen oder korrigieren.
 - zuletzt verarbeitete Dokumente schnell korrigieren.
 
 Pflicht:
 
-- Entwuerfe.
+- verarbeitende und pruefbereite Capture-Einheiten.
 - zuletzt verarbeitet.
 - Konflikte/Fehler, wenn vorhanden.
-- Link zum Vorgang/Detail.
+- bester Case-/Record-Vorschlag plus neuer leichter Custom Case bei Bedarf.
+- generierter editierbarer Titel; kein leeres Titel-/Metadatenformular.
+- Mixed-Batch-Outlier und Partial Failure ohne Verlust der restlichen Session.
 
 ### Document Detail
 
@@ -100,9 +103,10 @@ Zweck:
 
 Nicht-Ziel:
 
-- kein externes Sharing.
-- kein externer Zugriff auf die App.
-- kein automatisches Einreichen im aktuellen Zielbild.
+- kein Account-zu-Account-Sharing als Nebenwirkung des Exports.
+- kein externer Zugriff ohne eigenen Security-/Contract-Flow.
+- keine automatische Einreichung ohne spaetere explizite Produkt-, Legal- und
+  Integrationsfreigabe.
 
 ### Settings
 
@@ -110,8 +114,8 @@ Zweck:
 
 - Mappm Account/Gerät, Vault-Autorität, Assist-Entitlement, Migration und
   Detached Recovery.
-- Pairing.
-- Storage.
+- autorisierte Geraete und Sessions.
+- lokale Verfuegbarkeit, Cache und Speicherbedarf.
 - Diagnose.
 - sichere lokale Konfiguration.
 
@@ -210,8 +214,10 @@ Auditor prueft:
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Eigener Scope und
+Status bleiben massgeblich. Der gemeinsame Vertrag liefert die verbindlichen
+Defaults fuer Ownership, Security/Privacy, Accessibility/Lokalisierung,
+Verifikation, Stop Rules und Handoff, soweit dieses Dokument keine strengere
+Regel definiert. Ein Widerspruch stoppt die betroffene Phase und wird in diesem
+Konzept aufgeloest.

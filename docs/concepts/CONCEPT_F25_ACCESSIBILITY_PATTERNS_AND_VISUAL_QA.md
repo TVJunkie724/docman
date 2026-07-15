@@ -2,11 +2,11 @@
 title: "Konzept F25 - Accessibility, Product Patterns and Visual QA"
 description: "Mappm Accessibility-, Privacy-, Product-Pattern- und visuelle QA-Gates fuer enterprise-grade UI-Umsetzung"
 tags: [concept, frontend, design-system, accessibility, patterns, visual-qa, privacy, production-readiness]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-15"
 version: "1.1"
 status: "accepted"
+owner: "ui-concept"
 ---
-
 # Konzept F25 - Accessibility, Product Patterns and Visual QA
 
 ## Status
@@ -42,7 +42,7 @@ Pattern-Familien:
 | Pattern | Zweck |
 |---|---|
 | Capture | Scan, Foto, Dateiimport, Drag & Drop. |
-| Draft Inbox | Pruefen, zuordnen, korrigieren, zuletzt verarbeitet. |
+| Assisted Review | Verarbeiten, relevante Folgen prüfen/korrigieren und zuletzt verarbeitete Ergebnisse wieder öffnen. |
 | Document Detail | Preview, Metadaten, Facts, Beziehungen, Aktionen. |
 | Export | Einzeldokument, Vorgang als ZIP, manuelle Weitergabe. |
 | Settings | Mappm Account, Vault-Modus, Assist, Speicher/Cache, Export/Recovery, Diagnose. |
@@ -117,8 +117,10 @@ F25 ist umgesetzt, wenn:
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Eigener Scope und
+Status bleiben massgeblich. Der gemeinsame Vertrag liefert die verbindlichen
+Defaults fuer Ownership, Security/Privacy, Accessibility/Lokalisierung,
+Verifikation, Stop Rules und Handoff, soweit dieses Dokument keine strengere
+Regel definiert. Ein Widerspruch stoppt die betroffene Phase und wird in diesem
+Konzept aufgeloest.

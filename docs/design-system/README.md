@@ -1,3 +1,12 @@
+---
+title: "Mappm Design System"
+description: "Einstieg, Struktur und Source-of-Truth-Hierarchie des Mappm Design Systems"
+tags: [design-system, documentation, governance]
+lastUpdated: "2026-07-15"
+status: "active"
+owner: "ui-concept"
+---
+
 # Mappm Design System
 
 ## Purpose
@@ -9,7 +18,7 @@ design-system concepts.
 The design system must support a private household document-management
 workbench:
 
-- local-first trust and privacy.
+- klar erkennbare Local-/Cloud-Vault-Autoritaet, Vertrauen und Privatsphaere.
 - fast document capture, review, search, and correction.
 - calm repeated use on desktop and mobile.
 - multi-person household context without visual clutter.

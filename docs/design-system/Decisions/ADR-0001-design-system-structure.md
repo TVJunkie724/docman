@@ -1,3 +1,12 @@
+---
+title: "ADR-0001 - Design System Structure"
+description: "Entscheidung zur Struktur und Rollenverteilung des Mappm Design Systems"
+tags: [design-system, adr, governance]
+lastUpdated: "2026-07-15"
+status: "accepted-draft"
+owner: "ui-concept"
+---
+
 # ADR-0001 - Design System Structure
 
 ## Status

@@ -2,9 +2,10 @@
 title: "Konzept F34 - Status, Tags, Feedback and Data Display"
 description: "Mappm Detailkonzept fuer Statussignale, Tags, Callouts, Empty/Error Feedback, Dokumentzeilen, Typfarben, Fact-Gruppen und Timelines"
 tags: [concept, frontend, design-system, components, status, tags, feedback, data-display, flutter]
-lastUpdated: "2026-07-14"
-version: "1.0"
+lastUpdated: "2026-07-15"
+version: "1.1"
 status: "accepted"
+owner: "ui-concept"
 ---
 
 # Konzept F34 - Status, Tags, Feedback and Data Display
@@ -51,8 +52,8 @@ Statusfamilien:
 | Status | Token | Verwendung |
 |---|---|---|
 | Entwurf/Review | Warning Amber | Review noetig, einzureichen, Frist |
-| Erledigt/Aktuell | Success Sage | abgelegt, aktuell, gesichert |
-| Sync/Queue | Info Petrol | Upload wartet, Sync aktiv |
+| Erledigt/Aktuell | Success Sage | bestaetigt, aktuell, abgeschlossen |
+| Transfer/Queue | Info Petrol | Upload wartet, Cloud-Bestaetigung ausstehend |
 | Sensibel/Privacy | Privacy Plum | sensible Daten, Exportwarnung |
 | Konflikt/Fehler | Danger Brick | Konflikt, fehlgeschlagen, blockierend |
 | Neutral | Neutral Surface | ruhige Labels wie Entwurf/Aktuell in Listen |
@@ -70,7 +71,7 @@ Verwendung:
 
 - Dokument-/Vorgangsstatus.
 - Claim-/Einreichungsstatus.
-- Queue-/Sync-Zustand.
+- Queue-, Processing- und Cloud-Bestaetigungszustand.
 
 Regeln:
 
@@ -135,9 +136,9 @@ Regeln:
 
 | Feedback | Verwendung |
 |---|---|
-| Snackbar/Toast | kurze bestaetigte Aktion, z. B. Draft saved |
+| Snackbar/Toast | kurze bestaetigte Aktion, z. B. lokal gespeichert |
 | Inline Error | Feldfehler direkt am Control |
-| Queue Row | Upload/Sync eines konkreten lokalen Items |
+| Queue Row | Upload/Processing einer konkreten lokalen Capture-Einheit |
 | Empty State | leerer Bereich mit naechster Aktion |
 | Callout | laengere seitenspezifische Systemmeldung |
 | Dialog | irreversible, kritische oder blockierende Entscheidung |
@@ -163,7 +164,7 @@ Anatomy:
 
 Regeln:
 
-- Person nicht gleichgewichten wie Dokumenttyp/Kategorie.
+- Person nicht gleichgewichten wie Dokumentgrundart/Kategorie.
 - Status rechts bleibt farbsparsam, ausser bei Konflikt/blockierend.
 - Typmarken nutzen CD-konforme Palette, nicht zufaellige Farben.
 - Bedeutung bleibt ueber Titel und Typtext, nicht nur ueber Farbe/Buchstabe.
@@ -253,8 +254,10 @@ Mindestens:
 
 ## Enterprise Quality Contract
 
-This concept adopts `docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`.
-Its own scope and status remain authoritative; the shared contract supplies the
-mandatory ownership, security/privacy, accessibility/localization, verification,
-stop-rule and handoff defaults wherever this file does not define a stricter
-rule. Any conflict must stop the affected phase and be resolved in this concept.
+Dieses Konzept uebernimmt
+`docs/execution/CONCEPT_ENTERPRISE_QUALITY_CONTRACT.md`. Eigener Scope und
+Status bleiben massgeblich. Der gemeinsame Vertrag liefert die verbindlichen
+Defaults fuer Ownership, Security/Privacy, Accessibility/Lokalisierung,
+Verifikation, Stop Rules und Handoff, soweit dieses Dokument keine strengere
+Regel definiert. Ein Widerspruch stoppt die betroffene Phase und wird in diesem
+Konzept aufgeloest.
