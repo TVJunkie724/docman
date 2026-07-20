@@ -2,7 +2,7 @@
 title: "Produkt-Säule - Export and External Actions"
 description: "Produktbereich fuer Export, lokale Übergabe, externe App-/Website-Links, Einreichportale und manuelle Ausgabe von Dokumenten"
 tags: [pillar, export, external-links, integrations, privacy]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 version: "0.4"
 status: "proposed"
 owner: "product-concept/security"
@@ -89,6 +89,8 @@ Mobile:
 Spaetere Slices koennen Exportpakete modellieren:
 
 - ein einzelnes Dokument als Originaldatei.
+- ein im medizinischen Care-Case kontextuell importiertes Medienpaket als
+  bytegleiches gespeichertes Original-ZIP;
 - ausgewählte Dokumente als ZIP.
 - ganzen Vorgang als ZIP.
 - optionales Deckblatt/Manifest.
@@ -98,6 +100,11 @@ Spaetere Slices koennen Exportpakete modellieren:
 - Audit-Eintrag.
 
 Das hilft bei Anwalt, Versicherung, Schule, Behörde, Arzt oder Familienorganisation.
+
+Ein Medienpaket darf fremde Viewer-/Hilfssoftware enthalten. Diese bleibt beim
+Export erhalten, wird von Mappm aber nie ausgefuehrt. Der Export weist auf
+sensible Inhalte, moegliche Executables und fehlende
+Plattformkompatibilitaetsgarantie hin.
 
 Langfristig kann daraus eine echte Outbox entstehen:
 

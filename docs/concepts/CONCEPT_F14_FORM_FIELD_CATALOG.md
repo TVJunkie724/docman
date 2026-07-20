@@ -2,8 +2,8 @@
 title: "Konzept F14 - Form Field Catalog"
 description: "Fachlicher Feldkatalog fuer schlanke Mappm-Formulare, Capture Review, Vault Lifecycle und korrigierbare Assist-Vorschlaege"
 tags: [concept, forms, ui, fields, review, documents, cases, assist]
-lastUpdated: "2026-07-15"
-version: "4.0"
+lastUpdated: "2026-07-20"
+version: "4.1"
 status: "accepted"
 owner: "ui-concept"
 ---
@@ -37,18 +37,23 @@ die fuer die aktuelle Entscheidung notwendig, unsicher oder folgenreich sind.
 |---|---|---|
 | Text | vorgeschlagener Titel, kurze Notiz | Freitext nur bei echtem Bedarf |
 | Mehrzeilig | Beschreibung, bewusster Kommentar | nie fuer strukturierbare Kerndaten |
-| Datum/Zeit | Dokumentdatum, Frist, Termin | typisiert und lokalisierbar |
+| Datum/Zeit | Ausstellung, Leistung, Frist, Gueltigkeit, Termin | konkrete Semantik, Genauigkeit und Zeitzone statt universellem Dokumentdatum |
 | Betrag/Waehrung | Rechnung, Erstattung | getrennte strukturierte Werte |
 | Zahl/Einheit | Quote, Menge, Kilometer | nur fachlich erlaubte Einheiten |
 | Auswahl | kleine kontextrelevante Alternativen | kein grosser Katalog im Standardflow |
 | Managed Subject | Person, Haushalt, eigene Organisation | kein External-Party-Freitext-Ersatz |
 | External Party | Arzt, Anbieter, Behoerde | auffindbares Kontakt-/Absenderprofil |
 | Relation | Case, Record, Claim, Dokument, Polizze | typisierte Beziehung statt Dateikopie |
-| Datei/Scan | Desktop-Import, Mobile Capture | Original und logische Dokumentgrenze |
+| Datei/Scan | Desktop Picker/Drag-and-drop; Mobile Scan/Foto/Galerie/Datei | Original und logische Dokumentgrenze; keine Desktop-Webcam-Scans |
 | Review | Vorschlag bestaetigen/korrigieren/verwerfen | sichtbare Konsequenz begrenzen |
 | Workflow/Claim | Einreichung, Antwort, Erstattung | aus Vorlage/Verlauf, nicht als globale Liste |
-| Task/Reminder | Frist, Termin, erwartete Antwort | getrennt von Dokumentmetadaten |
+| Task/Agenda | Aufgabe, Frist, Termin, erwartete Antwort, Reminder | getrennte Semantik und Lebenszyklen statt eines gemeinsamen Datumsfelds |
 | Vault/Account | Modus, Migration, Entitlement, Recovery | nur im passenden Lifecycle-Flow |
+
+Zeitfelder folgen
+`docs/technical/DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`. Controls zeigen
+die konkrete Bedeutung; sie duerfen mehrere Zeit-Facts eines Dokuments nicht
+in ein einzelnes Hauptdatum flatten.
 
 ## Form- und Review-Flaechen
 

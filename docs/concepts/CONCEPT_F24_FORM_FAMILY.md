@@ -2,8 +2,8 @@
 title: "Konzept F24 - Form Family"
 description: "Reviewpflichtiger Umbrella-Entwurf fuer die vollstaendig spezifizierte Mappm Form Family mit Feldfamilien, Validierung, Review, Suggestions und Accessibility"
 tags: [concept, frontend, design-system, forms, validation, review, accessibility, draft]
-lastUpdated: "2026-07-15"
-version: "0.6"
+lastUpdated: "2026-07-20"
+version: "0.7"
 status: "draft"
 owner: "ui-concept"
 ---
@@ -207,13 +207,19 @@ Diese Entscheidung ist im Interaktionsmock visuell pruefbar.
 
 Zeitbezogene Felder sind fuer Mappm zentral:
 
-- Dokumentdatum.
+- Ausstellungs-, Empfangs-, Leistungs- und andere fachliche Zeit-Facts.
 - Faelligkeit.
 - Vertragslaufzeit.
 - Gueltigkeit offizieller Nachweise.
 - Erinnerungen.
 - Termine.
 - wiederkehrende Kosten und Aufgaben.
+
+Die fachliche Bedeutung besitzt
+`docs/technical/DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`. Die Form Family
+stellt passende Controls bereit, definiert aber kein universelles
+Dokumentdatum und erzeugt aus einem Datum nicht selbst Ereignis, Aufgabe,
+Frist, Reminder oder Kalenderaktion.
 
 Die Form Family braucht:
 
@@ -242,18 +248,39 @@ Die Form Family braucht:
 
 - File Picker.
 - Dropzone fuer Desktop Import.
-- Mobile Scan Mode Auswahl.
+- konkrete Mobile-Capture-Quellen fuer nativen Dokumentenscan,
+  Foto-/Bildnachweis, Galerie und PDF-/Dateiimport ohne abstrakten
+  Scan-Modus-Zwang.
 - Datei-/Medienliste mit Ersetzen/Entfernen.
 - Bilddatei vs PDF Entscheidung.
 - Mehrseitiger Scan Zustand.
 - Upload Queue Zustand.
 - Berechtigungs- und Retry-Zustand.
 
+Die Form Family plant zusaetzlich einen seltenen, desktop-only
+Medienpaket-Input mit Quelle, Dateianzahl, Gesamtgroesse, Fortschritt,
+Ausschluss-/Lesefehlerzustand und Abbruch. Dieser Control darf ausschliesslich
+als Kontextaktion innerhalb eines bestehenden bestaetigten
+`medical_care`-Case instanziiert werden. Er ist kein globaler File-/Scan-Input
+und auf Mobile nicht verfuegbar. M1 verlangt darin nur einen manuell
+vergebenen Titel; `Untersuchungsdatum` ist optional und darf leer bleiben.
+Technische Paketmetadaten werden automatisch erfasst und nicht als
+Eingabefelder gezeigt.
+
 Regel:
 
 Dokumente sind sensible Daten. Datei- und Scan-Controls duerfen Dateinamen,
 Preview, OCR-Text oder Dokumentdetails nicht in globale Meldungen, technische
 Logs oder Shell-Chrome tragen.
+
+Desktop-Webcam-Dokumentenscans sind verboten. Smartphone-zu-Desktop und macOS
+Continuity Camera bleiben bis OQ-013 Draft und duerfen nicht als verfuegbare
+Control-Familie vorausgesetzt werden. Normaler Desktop-Dateiimport bleibt ohne
+Smartphone vollstaendig nutzbar.
+
+Der Medienarchiv-Input ist Desktop-only in M1. Er darf enthaltene Programme
+weder starten noch als Vorschau laden. Mobile besitzt keinen Eingang in diesen
+Spezialflow, auch nicht ueber ein bereits vorhandenes ZIP.
 
 ## Subkonzept F24.1e - Selection and Boolean Controls
 

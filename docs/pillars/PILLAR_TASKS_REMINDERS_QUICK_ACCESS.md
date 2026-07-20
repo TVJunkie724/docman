@@ -2,8 +2,8 @@
 title: "Produkt-Säule - Tasks, Reminders and Quick Access"
 description: "Produktbereich fuer Aufgaben, To-dos, Fristen, Erinnerungen, Benachrichtigungsquellen und Schnellzugriff"
 tags: [pillar, tasks, reminders, quick-access, deadlines, notifications]
-lastUpdated: "2026-07-15"
-version: "0.3"
+lastUpdated: "2026-07-20"
+version: "0.4"
 status: "accepted-direction"
 owner: "product-concept"
 ---
@@ -20,7 +20,8 @@ Beispiele:
 - Rechnung bis nächste Woche zahlen.
 - Versicherung einen Monat vor Ablauf prüfen.
 - Rechnung bei Sozialversicherung einreichen.
-- Zusatzversicherung nach SV-Erstattung einreichen.
+- Zusatzversicherung nach bestaetigter SV-Abrechnung/Erstattung oder Ablehnung
+  einreichen; Eingangsbestätigung, Rueckfrage oder Nachforderung genuegen nicht.
 - Anruf bei Versicherung erledigen.
 - Arzttermin fuer ein Kind machen.
 - wichtiges Dokument schnell finden.
@@ -31,6 +32,12 @@ Beispiele:
 Task
   Nutzeraufgabe oder empfohlener nächster Schritt
 
+Deadline
+  fachlich belegte Frist oder Faelligkeit
+
+Appointment / ExpectedResponse
+  geplanter Termin oder erwartetes externes Ergebnis
+
 Reminder
   zeitbasierter Hinweis auf Task, Record, Claim, Deadline oder Case
 
@@ -38,10 +45,18 @@ QuickAccessItem
   bewusst angepinnter schneller Zugriff auf wichtige Dokumente, Records oder Vorgänge
 ```
 
-Tasks und Reminders sind fachliche Objekte. Notifications sind nur ein Ausgabekanal.
+Tasks, Deadlines, Termine, erwartete Antworten und Reminders sind
+unterscheidbare fachliche Objekte beziehungsweise Projektionen. Notifications
+sind nur ein Ausgabekanal.
 
 Mappm bietet eine fokussierte Agenda über Aufgaben, Fristen, Termine, erwartete
 Antworten, Gültigkeiten und Reminder. Es ist kein allgemeiner Kalender.
+
+Die gemeinsame Semantik fuer Zeit-Facts, Ereignisse, Termine, Fristen,
+Aufgaben, erwartete Antworten, Reminder, Genauigkeit und Provenienz besitzt
+`docs/technical/DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`. Diese Saeule
+entscheidet nicht durch ein einzelnes `documentDate`, was in der Agenda
+erscheint.
 
 ## Task
 
@@ -60,14 +75,16 @@ Mindestfelder:
 - Quelle: manuell, Workflow, später OCR/LLM-Vorschlag.
 - optionale externe Aktionslinks.
 
+Faelligkeitsdatum und Erinnerungszeitpunkt bleiben getrennte typisierte Werte.
+Ein reines Datum erhaelt keine erfundene Uhrzeit oder UTC-Mitternacht.
+
 ## Reminder
 
 Ein Reminder beschreibt, wann Mappm erinnern soll.
 
 ```text
 Reminder
-  dueAt
-  remindAt
+  remindAt oder offset zum bestaetigten Zielzeitwert
   channelPreference
   targetType: task / record / case / claim / document
   targetId
@@ -123,6 +140,11 @@ Späterer Milestone:
 - automatische Aufgabenerzeugung ohne Review; bestaetigte Vorschlaege gehoeren
   bereits zum Core.
 - externe Freigabe als Notfallzugriff.
+
+Externe Kalenderintegration exportiert spaeter nur bewusst ausgewaehlte,
+bestaetigte Agenda-Objekte. Sie benoetigt einen eigenen Consent-, Privacy-,
+Security-, Zeitzonen-, Idempotenz-, Konflikt- und Disconnect-Contract; reine
+Dokumentdaten werden nicht automatisch exportiert.
 
 ## Abgrenzung
 

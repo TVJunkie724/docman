@@ -2,7 +2,7 @@
 title: "Produkt-Säule - Vorgänge, Unterlagen and Documents"
 description: "Produktbereich fuer eigenstaendige Vorgaenge, typisierte Beziehungen, Unterlagen/Records, Dokumente, Versionierung und verwaltete Profile"
 tags: [pillar, cases, case-links, documents, records, versioning, managed-subjects]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 version: "0.5"
 status: "accepted-direction"
 owner: "product-concept"
@@ -68,19 +68,16 @@ Abläufe. Im einfachsten Fall ist ein Vorgang nur eine benannte, durchsuchbare
 Dokumentensammlung. Workflow, Tasks, Claims und Abschlussziel sind optionale
 Anreicherungen; Nutzer erhalten keinen Katalog mit dutzenden Case-Typen.
 
-Moegliche sichtbare Fachvorlagen und Discovery-Bereiche, keine Case-Entitaeten
-oder verpflichtende Typauswahl:
+Jeder persistierte Case ist gueltig. Null, ein oder mehrere Dokumente sind
+zulaessig; kein Dokumenttyp und keine Dokumentkombination ist eine allgemeine
+Gueltigkeitsvoraussetzung. Fehlende Evidenz, unbekannte Facts und Review-Bedarf
+sind gueltige Zustaende, kein `invalid`-Case.
 
-- medizinische Abklaerung, Behandlung, Nachsorge und Erstattung; die genaue
-  Template-/Workflow-Komposition ist noch nicht entschieden.
-- Unfall.
-- Versicherungsschaden.
-- Behördenantrag.
-- Umzug.
-- Namensänderung.
-- Garantie/Reklamation.
-- Schulangelegenheit.
-- Reise.
+Die vollstaendige Liste und der jeweilige Status moeglicher Fachvorlagen stehen
+ausschliesslich in
+`docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`. Diese Saeule
+definiert keine parallelen Case-Arten oder Kandidaten. Sie beschreibt nur die
+gemeinsamen Case-/Record-Faehigkeiten und Implementierungsgrenzen.
 
 ## Vorgangsbeziehungen und Ablaufzweige
 
@@ -95,9 +92,20 @@ Behandlung kann bei eigenständigem Ziel als normaler verknüpfter Vorgang
 entstehen. Normative Regeln stehen in
 `docs/technical/DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`.
 
-`follow_up_to` bildet Folgeketten/-verzweigungen ohne Parent-Ownership. Wie
-medizinische Verlaeufe diese generischen Relationen verwenden, bleibt in
-`docs/discovery/MEDICAL_CASE_MODEL_DISCOVERY.md` offen.
+`follow_up_to` bildet Folgeketten/-verzweigungen ohne Parent-Ownership. Fuer
+Medizin sind Care-Anker, `part_of`-Kostenabrechnung je wirtschaftlicher
+Verpflichtung und Payer-Claims in
+`docs/technical/DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` akzeptiert.
+Behandlungsbewilligungen bleiben Dokumente/Facts/Schritte im Care-Case. Der
+seltene Desktop-Medienarchiv-Import ist nur innerhalb eines bestehenden
+bestaetigten Care-Case verfuegbar; sein Ergebnis bleibt ein
+Document-/File-Artefakt und kein eigener Case. Reha, Nachsorge und spaetere
+Evidenz werden dokumentweise gegen bestehende und neue Care-Kandidaten gerankt.
+Ein neuer verknuepfter Medical Case entsteht bestaetigt aus einem
+Ankerdokument oder ausdruecklicher Absicht; M1 bietet keine freie
+Mehrfachabspaltung. Wiederkehr ist optionale Planung statt Case-Typ. Besondere
+vertragliche Leistungen werden im Medical Core fuer M1 nicht spezialisiert und
+Mappm berechnet keine Deckung oder erwartete Leistung. OQ-012 ist geschlossen.
 
 ## Geführte Vorgänge
 
@@ -112,8 +120,8 @@ Definitionen vorschlagen. Sie darf keine fachlich verbindlichen Abläufe,
 Fristen oder Ansprüche erfinden. Normative Details stehen in
 `docs/technical/DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md`.
 
-Custom Cases duerfen mit vorgeschlagenem Titel, Managed Subject und einem
-Dokument nahezu leer beginnen. Aufgaben, Termine, Workflow und Outcome sind
+Custom Cases duerfen mit vorgeschlagenem Titel, Managed Subject und optional
+einem Dokument nahezu leer beginnen. Aufgaben, Termine, Workflow und Outcome sind
 keine Pflichtattribute. Backend/Core Assist schlaegt Titel, Metadaten,
 Workflow-Uebernahme, weitere Dokumente und Beziehungen automatisch vor; die
 aktive Review-/Automatisierungsreife bestimmt die Finalisierung.
@@ -155,11 +163,16 @@ Zielrichtung, deren konkreter Katalog durch R0.6 freigegeben werden muss:
 ## Commercial-Core-Scope
 
 - Vorgang anlegen, bearbeiten, schließen.
+- abgeschlossenen oder archivierten Vorgang bei spaeterer Evidenz
+  nachvollziehbar wiedereroeffnen oder bewusst geschlossen lassen.
 - jedes akzeptierte Dokument einem primaeren Case oder Record zuordnen.
 - leere manuelle oder geführte Vorgänge erstellen.
 - aus ausgewählten Dokumenten einen verbundenen Vorgang bilden.
 - aus ausgewählten Dokumenten und Vorgängen einen neuen übergeordneten Vorgang
   bilden.
+- Fuer medizinische Subvorgaenge in M1 gilt enger: ein neuer Case beginnt aus
+  genau einem Ankerdokument oder ausdruecklicher Absicht; weitere Dokumente
+  werden einzeln vorgeschlagen und zugeordnet.
 - Managed-Subject-Bezug vorbereiten; aus bestätigtem Case/Record ableiten und
   nur bei Unsicherheit oder materieller Abweichung separat bestätigen.
 - leichte Custom Cases als Capture-Fallback und Records/Nachweise produktiv
@@ -183,8 +196,10 @@ Zielrichtung, deren konkreter Katalog durch R0.6 freigegeben werden muss:
   sichtbar?
 - Welche globalen Dokumentgrundarten/Varianten und Rollen brauchen die acht
   vorgeschlagenen Workflow-Muster und sichtbaren Fachvorlagen?
-- WF-01/WF-02: Welche Startmärkte/Golden Workflows und welche fachlichen
+- WF-01/WF-02: Welche Austria-first Golden Workflows und welche fachlichen
   Review-/Haftungsowner werden freigegeben?
+- WF-03: Welche Rechtsraeume und Reihenfolge umfasst die geplante
+  deutschsprachige Expansion nach Oesterreich?
 
 ## Enterprise Quality Contract
 

@@ -2,8 +2,8 @@
 title: "Produkt-Säule - Managed Profiles and Access"
 description: "Produktbereich fuer Haushaltsprofile, Kinderprofile, verwaltete Organisationen, Partnerzugriff und spätere Rechte"
 tags: [pillar, profiles, managed-subjects, organizations, household, access, family, permissions]
-lastUpdated: "2026-07-15"
-version: "0.3"
+lastUpdated: "2026-07-20"
+version: "0.4"
 status: "proposed"
 owner: "product-concept"
 ---
@@ -69,18 +69,25 @@ länderspezifische Compliance.
 
 ## Beispiel: Behandlung und Arztrechnung Kind
 
-Ein dokumentgestuetzter Behandlungs-/Abrechnungsvorgang fuer ein Kind kann so
-organisiert werden:
+Ein dokumentgestuetzter medizinischer Kontext fuer ein Kind kann so organisiert
+werden:
 
-- Vorgang `Behandlung und Arztrechnung abrechnen`.
-- Profil: Kind.
-- Dokumente: Rechnung, Arztbrief, Rezept, Apothekenrechnung.
-- Claims: SV, Zusatzversicherung.
-- Record-Link: Versicherungspolizze des Kindes.
-- Tasks: einreichen, warten, Zusatzversicherung einreichen.
-- externe Aktionslinks: SV-Portal, Zusatzversicherung.
+- neutraler Care-Case `Behandlung bei Dr. Mayer, Juni 2026` mit Profil Kind;
+- je unabhaengiger wirtschaftlicher Verpflichtung ein gueltiger
+  `part_of`-Kostenabrechnungs-Case, auch wenn Rechnung oder Zahlungsbeleg fehlt;
+- Dokumente wie Bericht, Rechnung oder Zahlungsnachweis werden dokumentweise
+  vorgeschlagen und bestaetigt;
+- SV und Zusatzversicherung sind getrennte Claims des Kosten-Case, keine
+  Subvorgaenge;
+- die Versicherungspolizze des Kindes bleibt ein verknuepfter Record;
+- Zahlung, Payer-Claims und Case-Lifecycle bleiben getrennte Zustaende;
+- im Normalablauf wird Zusatzversicherung erst nach bestaetigtem abschliessendem
+  SV-Ergebnis vorgeschlagen; ein bewusster direkter Weg bleibt moeglich;
+- externe Aktionslinks oeffnen nur das bestaetigt gewaehlte Portal.
 
 Dokumente werden nicht kopiert. Zusammenhänge entstehen über Links und Profile.
+Payer-Defaults sortieren nur; Mappm prueft keine Deckung und berechnet keine
+Versicherungsleistung.
 
 ## Abgrenzung
 

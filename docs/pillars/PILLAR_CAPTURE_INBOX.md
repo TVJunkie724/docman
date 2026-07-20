@@ -2,7 +2,7 @@
 title: "Produkt-Saeule - Capture and Inbox"
 description: "Produktbereich fuer globales Mobile/Desktop Capture, Scannerqualitaet, Offline-/Upload-Queue, asynchrone Assist-Verarbeitung, Batch-Trennung, Review und Korrektur"
 tags: [pillar, capture, inbox, mobile, desktop, processing, intelligence, batch, review]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 version: "0.4"
 status: "accepted-direction"
 owner: "product-concept/ui-concept"
@@ -19,6 +19,8 @@ vor dem Scan Profile, Cases, Rollen und Metadaten konfigurieren muessen.
 Normative Entscheidungen:
 
 - `DECISION_DOCUMENT_CAPTURE.md`;
+- `DECISION_CROSS_DEVICE_CAPTURE_HANDOFF.md` nur als nicht
+  implementierungsautorisierender Draft;
 - `DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md`;
 - `DECISION_MOBILE_CAPTURE_CONTEXT_SELECTION.md`;
 - `DECISION_DRAFT_INBOX_REVIEW_WORKFLOW.md`;
@@ -44,7 +46,8 @@ Dokumentbesitzstruktur.
 
 ## In Scope
 
-- globaler Mobile Document Scan und Photo/Image Evidence;
+- globaler Mobile Document Scan, Photo/Image Evidence, Galerie- und
+  PDF-/Dateiimport;
 - Desktop-Dateiauswahl, Drag & Drop und Multi-File-Import;
 - scannernahe Qualitaet, Multi-Page, Retake, Reorder und Rescan;
 - persistente Offline-/Upload-/Processing-Zustaende;
@@ -86,6 +89,23 @@ Eine Session ist kein Case. Die Saeule garantiert:
 - Outlier statt Zwangszuordnung;
 - Partial Success;
 - Idempotency/Retry ohne Duplikate.
+
+Abgeschlossene und archivierte Cases bleiben Matching-Kandidaten. Spaete
+Evidenz darf dort ohne Wiedereroeffnung verknuepft werden; neue Arbeit fuehrt
+nur zu einer sichtbaren, bestaetigbaren Wiedereroeffnung oder zu einem neuen
+verknuepften Case.
+
+Die spaetere case-lokale medizinische Desktop-Aktion ist ausserhalb des
+globalen Capture-/Inbox-Scope die einzige akzeptierte M1-Ausnahme zur
+per-Dokument-Trennung: Sie bewahrt einen gewaehlten Dateibaum absichtlich als
+ein Paket. Mappm fuehrt enthaltene Programme niemals aus, zeigt
+Ausschluesse/Lesefehler und bestaetigt kein unvollstaendiges Archiv als
+vollstaendig.
+
+Desktop-Webcams sind kein Dokumentenscanner und als Capture-Fallback
+ausdruecklich verboten. Smartphone-zu-Desktop-Uebergabe und macOS Continuity
+Camera bleiben bis OQ-013 separate Draft-Optionen; normaler Desktop-Capture
+setzt kein Smartphone voraus.
 
 ## Review Maturity
 
@@ -145,10 +165,15 @@ Stop, wenn:
 - automatisches Matching optional/abschaltbar als Normalmodus wird;
 - Core-Assist-Titelvorschlag oder Batch aus Commercial Core verschoben wird;
 - eine Session als eine fachliche Gruppe behandelt wird;
+- ein normaler Batch still zum Medienarchiv wird;
 - Review alle extrahierten Fakten standardmaessig zeigt;
 - aktuelles Routing ohne Nutzerbestaetigung finalisiert;
 - spaetere Automation ohne Quality Gate aktiviert wird;
 - Inbox zum Archiv wird.
+- ein spaeteres Dokument einen Case still wiedereroeffnet;
+- eine Desktop-Webcam als Dokumentenscanner angeboten wird;
+- ein Cross-Device-Capture-Draft ohne OQ-013- und Trust-/Contract-Freigabe
+  umgesetzt wird.
 
 ## Enterprise Quality Contract
 
@@ -158,3 +183,8 @@ und Domaenengrenzen bleiben massgeblich. Der gemeinsame Vertrag liefert
 verbindliche Anforderungen fuer getrennte Ownership, Phase Slicing,
 Security/Privacy, Accessibility/Lokalisierung, Verifikation, Stop Rules und
 Handoff. Die Saeule allein autorisiert niemals eine Implementierung.
+
+Der seltene medizinische Speichermedium-Archivimport gehoert nicht zum globalen
+Capture-/Inbox-Scope. Er ist eine spaetere Desktop-Kontextaktion des
+Cases-/Medical-Slice und darf nur aus einem bestehenden bestaetigten
+`medical_care`-Case aufgerufen werden.

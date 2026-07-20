@@ -2,7 +2,7 @@
 title: "Konzept F17 - Mobile Capture Client Standards"
 description: "Querschnittliche Regeln fuer globales Mobile Capture, Scannerqualitaet, Offline-Queue, asynchrone Verarbeitung und minimale Vorabinteraktion"
 tags: [concept, mobile, capture, commercial-core, offline, processing, intelligence, accessibility]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 version: "4.0"
 status: "accepted"
 owner: "ui-concept"
@@ -29,7 +29,8 @@ Dokumenttyp, Rolle noch Workflow kennen.
 
 ```text
 global erfassen
-  -> ein Dokument mit einer oder mehreren Seiten scannen/importieren
+  -> Dokument scannen, Foto aufnehmen, Galerie/Bild oder Datei importieren
+  -> ein logisches Dokument mit einer oder mehreren Seiten abschliessen
   -> Original dauerhaft sichern
   -> App darf verlassen werden
   -> OCR, Extraktion, Indexierung und Matching
@@ -41,6 +42,17 @@ Automatische Analyse und Matching laufen immer. Sie sind kein Modus-Schalter.
 `Neuen Vorgang starten` ist die einzige primaere optionale Vorab-Absicht. Eine
 bestehende Case-Auswahl ist hoechstens ein sekundaerer Shortcut. Capture aus
 einem bereits geoeffneten Case bleibt als bewusster seltener Pfad moeglich.
+
+Mobile Capture umfasst konzeptionell:
+
+- nativen Dokumentenscan innerhalb der Mappm-Capture-Sitzung;
+- normale Fotoaufnahme fuer Bildnachweise;
+- Bildimport aus der Galerie;
+- PDF-/Dateiimport ueber Systempicker beziehungsweise Share-Sheet.
+
+Diese Eingaenge verwenden dieselbe Durability-, Queue-, Assist- und
+Review-Pipeline. Foto-/Dateiimport darf nicht als gleichwertige
+Scannerqualitaet bezeichnet werden.
 
 ## Scannerqualitaet
 
@@ -201,6 +213,8 @@ Stop, wenn:
 - Outlier still zugeordnet werden.
 - Offline/Restart Original, Intent oder bestaetigte Werte verliert.
 - konkrete Layouts/Gesten ohne UI-Phase festgelegt werden.
+- ein Cross-Device-Capture-Draft ohne seine eigene Trust-/Contract-Freigabe
+  als Mobile-Core vorausgesetzt wird.
 
 ## Handoff
 

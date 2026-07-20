@@ -2,7 +2,7 @@
 title: "Produkt-Säule - Templates and Workflows"
 description: "Produktbereich fuer Vorgangsvorlagen, Checklisten, empfohlene nächste Schritte und workflowbasierte Assistenz"
 tags: [pillar, templates, workflows, checklists, tasks]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 version: "0.4"
 status: "accepted-direction"
 owner: "product-concept"
@@ -15,27 +15,23 @@ owner: "product-concept"
 Mappm soll wiederkehrende Lebenssituationen nicht jedes Mal bei null starten
 lassen.
 
-Universelle Workflow-Muster:
+Die vollstaendige und einzige Liste der Workflow-Muster, Fachvorlagen-IDs,
+deutschen Titel, Reifegrade und Dispositionen steht in
+`docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`. Diese Saeule
+definiert bewusst keine zweite Kurz- oder Bereichsliste. Sie beschreibt
+Ownership, Qualitaet und Auslieferung der dort registrierten Eintraege.
 
-- einreichen, warten, entscheiden und abrechnen;
-- Schadenereignis dokumentieren und regulieren;
-- Vertrag/Abo aktivieren, ändern und beenden;
-- Kauf, Lieferung, Rückgabe, Garantie und Reklamation;
-- Lebensereignis über mehrere Stellen koordinieren;
-- Nachweis beantragen, erneuern oder ersetzen;
-- Unterlagen für einen Zeitraum sammeln, prüfen und übergeben;
-- Einspruch, Streit oder Rückforderung verfolgen.
-
-Konkrete Domänenfamilien umfassen Gesundheit/Erstattung, Unfall/Versicherung,
-Verträge/Abos, Kauf/Garantie, Behörden, Wohnen/Umzug, persönliche/familiäre
-Ereignisse, Identität/Nachweise, Steuer-Unterlagensammlung, Bildung/Betreuung,
-Arbeit/Einkommen, Fahrzeug/Mobilität und konkrete Reise-/Auslandsabläufe.
-
-Fuer Gesundheit ist als Discovery-Richtung ein ortsunabhaengiger Verlauf fuer
-Abklaerung, Behandlung und Nachsorge vorgesehen, ergaenzt um Erstattung und
-eigenstaendige Versicherungsleistungen. Die genaue Grenze zwischen Etappe,
-Claim, Workflow-Zweig und verbundenem Folge-Case ist noch nicht akzeptiert und
-bleibt in `docs/discovery/MEDICAL_CASE_MODEL_DISCOVERY.md` offen.
+Fuer Gesundheit sind ein ortsunabhaengiger `medical_care`-Anker, ein
+`part_of`-`medical_cost_settlement` je eigenstaendiger wirtschaftlicher
+Verpflichtung und Payer-Einreichungen als Claims akzeptiert.
+Behandlungsbewilligungen sind generische Dokumente/Facts/Schritte im Care-Case
+und keine eigene Vorlage. Reha, Nachsorge und spaetere Evidenz werden
+dokumentweise gematcht; ein neuer verknuepfter Medical Case beginnt in M1 aus
+einem Ankerdokument oder ausdruecklicher Absicht, nicht aus freier
+Mehrfachabspaltung. Wiederkehr ist optionale Planung, kein Template/Case-Typ.
+Besondere vertragliche Leistungen werden im Medical Core fuer M1 nicht
+spezialisiert oder berechnet. OQ-012 ist geschlossen; konkrete optionale
+AT-Provider-Hinweise bleiben WF-01/WF-02.
 
 ## Zielbild
 
@@ -63,7 +59,7 @@ Lebenszyklus. `Subvorgang` ist nur die UI-Rolle eines `part_of`-Links.
 Dokumente können mehreren Vorgängen zugeordnet sein, ohne Dateien zu duplizieren.
 
 Manuelle/Custom Cases sind ein gleichwertiger Produktpfad. Sie duerfen mit
-automatisch vorgeschlagenem Titel, Managed Subject und einem Dokument nahezu
+automatisch vorgeschlagenem Titel, Managed Subject und optional einem Dokument nahezu
 leer beginnen, frei angelegt, aus ausgewaehlten Dokumenten gebildet oder aus
 bestehenden Cases/Dokumenten nachtraeglich uebergeordnet werden. Ein kompatibles
 Template kann spaeter bewusst uebernommen werden; Backend/Core Assist schlaegt
@@ -114,6 +110,10 @@ Normative Entscheidung:
 Der vollständige Stand der konkret definierten Cases, Record-Kontexte,
 Custom-Beispiele und nur benannten Kandidatenfamilien steht in
 `docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`.
+
+Neue oder umbenannte Muster/Fachvorlagen werden zuerst oder im selben Change in
+dieser SSOT dispositioniert. Pillar-, Phase-, UI-, Medical- und Country-Dokumente
+duerfen nur registrierte IDs referenzieren.
 
 ## Enterprise Quality Contract
 

@@ -2,8 +2,8 @@
 title: "Konzept F29 - Form Date, Time, File and Scan Controls"
 description: "Mappm Detailkonzept fuer Date Picker, Date Range, Time, Recurrence, Reminder, File Picker, Capture Source, Upload Queue und Permissions"
 tags: [concept, frontend, design-system, forms, date-picker, file-picker, scan, mobile-capture, flutter]
-lastUpdated: "2026-07-15"
-version: "1.1"
+lastUpdated: "2026-07-20"
+version: "1.2"
 status: "accepted"
 owner: "ui-concept"
 ---
@@ -28,6 +28,9 @@ scanbezogenen Formelemente aus dem Design-System-Mock ab.
 | F24 | Form Family Umbrella. |
 | F27 | Field Anatomy and Validation. |
 | F28 | Picker/Selection-Regeln. |
+| `DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md` | Fachliche Zeitsemantik, Genauigkeit, Provenienz und Agenda-/Kalendergrenzen. |
+| `DECISION_DOCUMENT_CAPTURE.md` | Akzeptierte Mobile-/Desktop-Eingangsarten und Webcam-Verbot. |
+| `DECISION_CROSS_DEVICE_CAPTURE_HANDOFF.md` | Nicht implementierungsautorisierender Cross-Device-Draft; OQ-013. |
 
 ## Zweck
 
@@ -39,8 +42,9 @@ Notification- sowie Core-Assist-Grenzen korrekt abbilden.
 
 Verwendung:
 
-- Dokumentdatum.
-- Rechnungsdatum.
+- Ausstellungs-, Empfangs-, Leistungs- oder Ereignisdatum mit explizitem
+  Feldlabel.
+- Ausstellungsdatum einer Rechnung.
 - Faelligkeit.
 - Gueltig-ab/gueltig-bis als Einzeldatum.
 - Termin-/Aufgabendatum.
@@ -56,6 +60,11 @@ Regeln:
 
 - Eingabeformat fuer deutschsprachige UI: `DD.MM.YYYY`.
 - Intern nie stringbasiert speichern; Domain nutzt typisierte Datumwerte.
+- Die UI erfindet kein universelles `documentDate`. Feldlabel und Binding
+  benennen die konkrete Bedeutung, etwa Ausgestellt, Leistung, Faelligkeit,
+  Gueltig bis oder Termin.
+- Reine Datumswerte, zonierte Zeitpunkte, Intervalle und Teilgenauigkeit folgen
+  `DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`.
 - "Heute" ist Mini-Command.
 - Faelligkeit darf Review-Hinweis erzeugen, aber nicht automatisch Alarm, wenn
   keine Reminder-Entscheidung getroffen wurde.
@@ -88,7 +97,8 @@ Regeln:
 
 - 24-Stunden-Format.
 - Uhrzeit ist optional, wenn das fachliche Objekt nur ein Datum braucht.
-- Keine Uhrzeit erzwingen fuer Dokumentdatum oder Rechnungsdatum.
+- Keine Uhrzeit erzwingen fuer reine Ausstellungs-, Leistungs- oder
+  Rechnungsdaten.
 
 ## Time Range Picker
 
@@ -144,16 +154,31 @@ Regeln:
 Verwendung:
 
 - Desktop-Dateiimport.
+- Mobile PDF-/Dateiimport ueber nativen Picker beziehungsweise Share-Sheet.
 - Einzeldokument importieren.
 - PDF/JPG/PNG/HEIC als Eingangsdateien.
 
 Regeln:
 
 - Dropzone ist nur Desktop-primaer; Mobile nutzt nativen Picker/Camera.
+- Desktop unterstuetzt Picker, Multi-File und Drag-and-drop; normaler
+  Desktop-Import setzt kein Smartphone voraus.
 - Datei-Typ und Dateiname werden sichtbar.
 - Entfernen/Ersetzen sind Mini-Commands.
 - Mehrere Dateien werden nicht automatisch zu ZIP oder Vorgang; Zuordnung folgt
   dem Review.
+- Nur eine ausdrueckliche Desktop-Kontextaktion in einem bestehenden,
+  bestaetigten und geoeffneten `medical_care`-Case erzeugt bewusst ein
+  ZIP-Medienpaket aus einem Dateibaum. Sie zeigt Dateianzahl, Gesamtgroesse,
+  Ausschluesse/Lesefehler und Fortschritt. Der Nutzer vergibt den Titel
+  manuell; `Untersuchungsdatum` ist optional und darf leer bleiben.
+- Globaler Desktop-Capture, nichtmedizinische Cases und Mobile M1 zeigen
+  diesen Medienpaket-Import nicht. Auch ein bereits vorhandenes ZIP ist auf
+  Mobile kein Eingang in diesen Spezialflow.
+- Ein Desktop-Webcam-Dokumentenscan ist verboten. Durch externe
+  Scanner-Anwendungen erzeugte PDF-/Bilddateien bleiben normale Importe.
+- Smartphone-zu-Desktop und macOS Continuity Camera bleiben Draft-Optionen und
+  duerfen vor OQ-013 nicht als Form-Control vorausgesetzt werden.
 - Dateityp ist fachlich relevant: PDF fuer Dokumente, Bild fuer Passfoto,
   Beweisfoto oder Objektfoto.
 
@@ -161,9 +186,9 @@ Regeln:
 
 Der Standardflow verlangt keine abstrakte Scan-Modus-Auswahl. Der Nutzer
 waehlt eine konkrete Quelle/Aktion, zum Beispiel Dokument scannen, vorhandene
-Datei importieren oder ein Beweis-/Objektfoto aufnehmen. Mappm leitet das
-geeignete Ausgabeformat ab und zeigt eine Korrektur nur, wenn die Wahl
-fachliche Folgen hat.
+Datei importieren, ein Beweis-/Objektfoto aufnehmen oder ein Bild aus der
+Galerie waehlen. Mappm leitet das geeignete Ausgabeformat ab und zeigt eine
+Korrektur nur, wenn die Wahl fachliche Folgen hat.
 
 Regeln:
 
@@ -226,7 +251,8 @@ Regeln:
 
 Der globale Capture-Einstieg enthaelt nur:
 
-- Scan/Datei als primaere Aktion.
+- die wenigen konkreten Erfassungswege fuer Scan, Foto, Galerie und Datei,
+  deren exakte Komposition erst die UI-Phase bestimmt.
 - optional `Neuen Vorgang starten` als bewusste Vorab-Absicht.
 
 Regeln:
@@ -243,6 +269,8 @@ Regeln:
 Implementation soll:
 
 - Date/Time-Werte typisiert halten.
+- Provenienz, Vorschlags-/Bestaetigungsstatus, Teilgenauigkeit und Zeitzone aus
+  dem Domain-State erhalten statt im Control zu flatten.
 - File/Scan-Controls hinter Interfaces kapseln.
 - native Scanner/Picker hinter Strategy/Provider abstrahieren.
 - Queue-Status aus Domain-State beziehen.
@@ -274,6 +302,9 @@ Mindestens:
 - [ ] File Picker unterscheidet PDF/Dokument und Bild/Foto.
 - [ ] Capture-Quellen decken Dokument-Scan, Datei und Bild ab, ohne einen
       unnoetigen Modus-Picker zu erzwingen.
+- [ ] Mobile deckt Scan, Foto, Galerie und Datei/Share ab; Desktop deckt
+      Picker, Multi-File und Drag-and-drop ab.
+- [ ] Desktop-Webcam-Scanning ist als verbotener Pfad negativ getestet.
 - [ ] Upload Queue ist privacy-sicher und offline-faehig geplant.
 - [ ] Native Scanner/Picker bleiben austauschbar.
 
@@ -281,7 +312,9 @@ Mindestens:
 
 Stop, wenn Capture vor dem Scan Typ, Profil, Titel oder Case verlangt, wenn
 mehrere Dokumente in eine logische Scan-Einheit gemischt werden oder wenn
-Queue/Restart Originale verliert. Konkrete Controls gehen an `ui-architect`,
+Queue/Restart Originale verliert. Stop auch, wenn eine Desktop-Webcam als
+Dokumentenscanner oder ein OQ-013-Draftpfad als akzeptierter Core-Control
+geplant wird. Konkrete Controls gehen an `ui-architect`,
 Scanner-/Queue-Adapter an `data-architect` und Nachweise an
 `frontend-test-coverage`.
 

@@ -2,7 +2,7 @@
 title: "Konzept F37 - Case, Record and Contextual Experience"
 description: "Mappm UX-Vertrag fuer Vorgaenge, Unterlagen, Custom Cases, Case-Komposition, kontextuelle Review-Aktionen, Abos, Agenda und schlanke Finanzdarstellung"
 tags: [concept, frontend, cases, records, custom-cases, review, subscriptions, agenda, insights, accessibility]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 version: "1.1"
 status: "accepted-direction"
 owner: "ui-concept"
@@ -45,10 +45,17 @@ Phase aktiviert. F37 darf nicht als implizite Freigabe dafür gelesen werden.
 - `docs/technical/DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md`
 - `docs/technical/DECISION_JURISDICTIONAL_TAX_DOCUMENT_COLLECTION.md`
 - `docs/technical/DECISION_CONTEXTUAL_REVIEW_ACTIONS_FINANCIAL_ROLLUPS.md`
+- `docs/technical/DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md`
 - `docs/technical/DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md`
 
-Medical Case composition is explicitly excluded from F37's accepted sources.
-`docs/discovery/MEDICAL_CASE_MODEL_DISCOVERY.md` is discussion input only.
+F37 uses the accepted Medical Care-/Cost-/Claim composition and keeps treatment
+authorization documents inside Care. Reha, Nachsorge and later evidence are
+matched per document against existing and possible new Care Cases. A new linked
+Medical Case starts from one confirmed anchor document or explicit intent; M1
+does not expose a free multi-document split. Recurrence is optional planning,
+not a Case type. Special contractual benefits are not specialized in Medical
+M1 and no coverage or expected benefit is calculated. Exact optional AT-
+provider guidance remains outside F37 until WF-01/WF-02 is resolved.
 
 ## Informationsarchitektur
 
@@ -168,8 +175,13 @@ Die UI verwendet nutzerverständliche Formulierungen wie `Teil von`,
 werden nicht als Primärsprache gezeigt.
 
 `Folgt auf` bildet eine Kette oder Verzweigung eigenstaendiger Cases, keine
-Parent-Struktur. Welche medizinischen Situationen als Etappe, Claim, eigener
-Case oder Folge-Case modelliert werden, bleibt im Medical-Case-Discovery offen.
+Parent-Struktur. Der medizinische Care-/Cost-/Claim-Kern folgt seiner
+akzeptierten Decision. Behandlungsbewilligungen bleiben darin
+Dokumente/Facts/Schritte. Spaetere medizinische Evidenz wird dokumentweise
+gematcht. Einen neuen verknuepften Case bestaetigt die Nutzerin beim
+Capture/Review aus einem Ankerdokument oder ausdruecklicher Absicht; eine freie
+Medical-Mehrfachabspaltung und eine technische Medical-Subcase-Art entstehen
+nicht.
 
 ## Contract/Subscription Detail
 
@@ -209,6 +221,12 @@ still vermischen.
 Die Agenda ist eine fokussierte Sicht auf Tasks, Deadlines, Termine, erwartete
 Antworten, Ablaufdaten und Reminder. Sie ist kein allgemeiner Kalender.
 
+Zeitwerte und Agenda-Eignung folgen
+`docs/technical/DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`. Ausstellungs-,
+Scan- und andere nicht handlungsrelevante Zeitangaben erscheinen nicht allein
+wegen ihrer Existenz in der Agenda. Zeit-Fact, Ereignis, Termin, Frist,
+Aufgabe, erwartete Antwort und Reminder bleiben unterscheidbar.
+
 Reminder können ruhig in der App oder benachrichtigend ausgegeben werden.
 Sensible Titel werden außerhalb des aktiven Kontexts redigiert. Externe
 Kalendersynchronisierung ist optional, später und consent-pflichtig.
@@ -237,6 +255,13 @@ Jedes betroffene Pattern plant mindestens:
 - Chart nicht verfügbar wegen fehlender/ungeprüfter Werte;
 - Reminder blockiert oder Notification-Berechtigung fehlt;
 - Relation erstellt, geändert, gelöst und Undo nicht mehr möglich.
+- Case abgeschlossen, spaeteres Dokument ohne Wiedereroeffnung verknuepft,
+  Wiedereroeffnung vorgeschlagen/bestaetigt/verworfen und alternativ neuer
+  verknuepfter Case.
+- Case mit null/einem/mehreren Dokumenten gueltig; fehlende Evidenz `unknown`
+  oder erwartet, aber niemals `invalid`.
+- Zahlung, SV-Claim, Zusatzversicherungs-Claim und Case-Lifecycle als getrennte
+  bestaetigte Zustandsdimensionen.
 
 ## Security, Privacy, Support und Diagnostics
 
@@ -290,6 +315,8 @@ UI-Planung oder Implementierung wird gestoppt, wenn:
 - Privat-/Business-Kontext oder Person/Organisation visuell unklar bleibt;
 - mobile oder keyboard/focus behavior nicht spezifiziert ist;
 - UI fachliche Länder-, Steuer-, Kündigungs- oder Roll-up-Policy erfindet.
+- UI einen Payer-Default als Deckung/Zustaendigkeit oder berechnete
+  Versicherungsleistung darstellt.
 - OQ-009/OQ-010/WF-01/WF-02 oder eine Daten-/Contract-Grenze für den konkreten
   Phase-Scope offen ist.
 
