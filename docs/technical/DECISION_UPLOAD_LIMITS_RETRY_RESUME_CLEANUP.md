@@ -2,7 +2,7 @@
 title: "Decision - Upload Limits, Retry, Resume and Cleanup"
 description: "Verbindliche Prinzipien und Entscheidungsgrenze fuer Capture-Limits, Idempotenz, Resume, Quota und Cleanup"
 tags: [decision, mobile-capture, upload, retry, idempotency, cleanup, cloud]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted-principles-policy-required"
 owner: "contract-api/operations"
 ---
@@ -35,11 +35,14 @@ vertraglich festgelegt und getestet werden.
 
 ## Erforderliche Policy
 
-Der C2 Contract-/Operations-Slice legt datiert fest:
+Der C2 Contract-/Operations-Slice legt die globale Basis datiert fest. Wird der
+case-lokale medizinische Desktop-Medienpaket-Import in R8.12 aktiviert, muss
+dieselbe versionierte Policy vor Freigabe um die hier genannten
+Archivgrenzen erweitert werden:
 
 | Bereich | Erforderliche Entscheidung |
 |---|---|
-| Payload | erlaubte MIME-Typen, Datei-/Sessiongroesse, Seiten-/Artefaktzahl |
+| Payload | erlaubte MIME-Typen, Datei-/Sessiongroesse, Seiten-/Artefaktzahl sowie fuer Medienarchive Dateianzahl, Baumtiefe, Pfadlaenge und ZIP-/ZIP64-Grenzen |
 | Transport | API-proxied, streaming, presigned oder multipart je Schwelle |
 | Zeit | Session-Expiry, Timeout, Retry-Backoff und maximale automatische Versuche |
 | Quota | Plan-/Vault-/Accountgrenzen und Reset-/Grace-Verhalten |
@@ -110,7 +113,12 @@ sensiblen Dateinamen in globalen Flaechen.
 - Teilartefakt-/Part-Checksum- und Manifestfehler.
 - Quota/Entitlement/Rate Limit und Reauth.
 - Cleanup-Race mit Retry, Confirm, Processing und User-Loeschung.
-- Mobile-Netz- und Speicherbenchmark mit synthetischen Worst-Case-Artefakten.
+- Mobile-Netz- und Speicherbenchmark mit synthetischen Worst-Case-Artefakten
+  fuer den globalen Capture-Scope.
+- Streaming-Archiv/Upload mit synthetischem grossen Medienpaket, vielen kleinen
+  Dateien, tiefem Baum und enthaltenen inerten Executables auf Desktop sowie
+  im betroffenen Local-/Cloud-Vault-Pfad, falls R8.12 diesen Randfall
+  aktiviert.
 - Logs/Telemetry/Supportpakete ohne Inhalte, URLs oder sensitive Dateinamen.
 
 ## Stop Rules

@@ -2,7 +2,7 @@
 title: "Decision - Capture-First Assisted Document Routing"
 description: "Verbindliches Mappm-Zielmodell fuer globales Capture, asynchrone Backend-/Assist-Verarbeitung, automatische Titelvorschlaege, Batch-Trennung, Case-/Record-Matching, menschliche Bestaetigung und spaetere selektive Automatisierung"
 tags: [decision, product, capture, intelligence, ocr, routing, review, cases, records, batch, titles]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted-direction"
 owner: "product-concept"
 ---
@@ -312,6 +312,22 @@ Session proximity alone is never a strong enough reason to merge documents.
 The matcher may propose multiple Case/Record links because one document can be
 evidence in several contexts without file duplication.
 
+Abgeschlossene und archivierte Cases bleiben zulaessige Kandidaten. Ein
+spaeteres Dokument darf als weitere Evidenz verknuepft werden, ohne den Case
+automatisch wieder zu oeffnen. Wenn das Dokument neue Arbeit ausloest oder ein
+bestaetigtes Ergebnis materiell aendert, bereitet Mappm eine bestaetigbare
+Wiedereroeffnung oder einen neuen verknuepften Case vor. Die Lifecycle-Regeln
+aus `DECISION_CASE_DOCUMENT_RECORD_MODEL.md` bleiben massgeblich.
+
+Fuer Medical M1 gilt die engere Kompositionsregel aus
+`DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md`: Ein neuer verknuepfter
+Care-/Cost-Case entsteht aus genau einem bestaetigten Ankerdokument oder einer
+ausdruecklichen Nutzerabsicht. Jedes weitere Dokument wird eigenstaendig gegen
+bestehende und neue Kontexte gerankt und bestaetigt. Eine sichtbare gemeinsame
+Review-Aktion darf mehrere vorbereitete Einzelzuordnungen bestaetigen, ersetzt
+aber keine freie Mehrfachdokument-Auswahl zur nachtraeglichen Bildung eines
+medizinischen Subvorgangs.
+
 Ranked results are always useful input, even when confidence is low:
 
 - high confidence: show the strongest result with a fast correction path;
@@ -336,6 +352,8 @@ In the first maturity:
 - every primary Case/Record assignment is confirmed by the user;
 - additional Case/Claim/Record relations are confirmed when proposed;
 - important generated tasks, deadlines and workflow consequences are confirmed;
+- Wiedereroeffnung, bewusstes Geschlossenlassen oder ein neuer verknuepfter
+  Case werden als unterschiedliche bestaetigbare Folgen behandelt;
 - the user can correct through the smallest relevant choice surface;
 - a full title/metadata form is never the default path;
 - already confirmed context and irrelevant implicit facts are not repeated;
@@ -468,6 +486,10 @@ Before implementation approval, phase/test plans cover at least:
 - offline capture, retry, idempotency and duplicate confirm;
 - partial batch failure;
 - user correction of primary and additional links;
+- Medical: ein Ankerdokument oder ausdrueckliche Absicht fuer einen neuen
+  verknuepften Case, danach dokumentweise Zuordnung und kein freier M1-Bulk-Split;
+- spaete Evidenz fuer einen abgeschlossenen/archivierten Case ohne automatische
+  Wiedereroeffnung sowie bestaetigte Wiedereroeffnung bei neuer Arbeit;
 - visible-only confirmation semantics;
 - future auto-routing abstention, undo and rollback gates.
 
@@ -488,6 +510,10 @@ Stop implementation if:
 - unrelated outliers are silently forced into the selected/new Case;
 - processing blocks the app or loses state on restart;
 - current-release Case/Record assignments become final without confirmation;
+- mehrere vorhandene Medical-Dokumente als frei zusammengestelltes Paket einen
+  neuen Subvorgang erzeugen, statt einzeln bestaetigter Dokumentlinks;
+- ein spaeteres Dokument einen abgeschlossenen oder archivierten Case still
+  wiedereroeffnet;
 - a confirmation accepts hidden consequences;
 - accepted documents end in an unexplained loose-document UX state;
 - lightweight Custom Cases require fake tasks, dates or outcomes;

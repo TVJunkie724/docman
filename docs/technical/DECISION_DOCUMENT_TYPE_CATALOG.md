@@ -2,7 +2,7 @@
 title: "Decision - Document Taxonomy and Role Model"
 description: "Mappm-Taxonomie fuer getrennte Dokumentgrundarten, semantische Varianten, Domaenen, Record-Arten, Quellen und beziehungsbezogene Rollen; der vollstaendige Produktkatalog bleibt offen"
 tags: [decision, document-types, subtypes, roles, metadata, records, workflows, intelligence]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted-direction"
 owner: "product-concept"
 ---
@@ -18,6 +18,11 @@ review.
 `docs/discovery/CASE_DOCUMENT_TAXONOMY_CANDIDATES.md` currently proposes a
 reduced set of global base types and retains roughly 300 terms only as
 normalization, alias, OCR and fixture vocabulary.
+
+Workflow-Muster, Fachvorlagen-IDs, deutsche Case-Titel, Katalogstatus und
+Disposition werden nicht in der Dokumenttaxonomie gepflegt. Deren alleinige
+SSOT ist `DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`; dieses Dokument und der
+Discovery-Entwurf referenzieren sie nur fuer Mapping und Kompatibilitaet.
 
 The former mixed M2 catalog (`invoice`, `contract`, `health`, `authority`,
 `evidence_photo`, `note_other`, etc.) is a historical seed only. It must not be
@@ -39,6 +44,26 @@ Mappm classifies a document across separate axes:
 | jurisdiction/provider context | Welche gepruefte Variante ist anwendbar? | AT, konkrete SV/Versicherung/Behoerde |
 
 These axes are not flattened into one global enum or user form.
+
+Ein technischer Container wie ein ZIP-Medienpaket ist keine fachliche
+Dokumentgrundart. Der kontextuelle medizinische Desktop-Archivimport verwendet
+eine Quelle/Containerart wie `media_archive`; der bereits geoeffnete Care-Case,
+Domain, Titel und Facts beschreiben die fachliche Bedeutung. DICOM, Roentgen,
+CT, MRT,
+mitgelieferter Viewer oder USB/CD werden dadurch nicht automatisch zu globalen
+Dokumenttypen oder semantischen Varianten.
+
+Der case-lokale Archivimport darf einen allgemeinen beziehungsweise breiten medizinischen
+Dokumentkontext verwenden. Eine spaetere technische Vorschauunterstuetzung
+aendert nicht die fachliche Taxonomie.
+
+Zeitangaben sind strukturierte, provenienzgebundene Facts nach
+`DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`, keine Dokumentgrundart und
+normalerweise kein Grund fuer eine semantische Variante. `Laborbefund` oder
+`Radiologiebefund` wird beispielsweise nur dann ein eigener globaler
+Varianten-Key, wenn die Unterscheidung den unten definierten Produktwerttest
+erfuellt; erkennbare Details duerfen sonst im Titel, in Facts und im Suchindex
+bleiben.
 
 ## Base Type and Semantic Variant
 
@@ -142,6 +167,13 @@ domain, medium or product support.
 
 Unknown classification is reviewable and reprocessable. It does not justify
 invented specificity or a large mandatory form.
+
+Named forms for Reha, Psychotherapy, authorization, travel costs or comparable
+special cases remain `unknown`/generic or broad medical/general documents when
+no accepted base type/variant adds durable product value. A concrete generated
+title, extracted Facts and a sparse relationship/workflow role may preserve the
+meaning without introducing one global type per form. Missing fine
+classification never affects Case validity.
 
 ## Relationship to Cases and Workflows
 

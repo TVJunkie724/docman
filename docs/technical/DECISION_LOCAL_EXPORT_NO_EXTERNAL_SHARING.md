@@ -2,7 +2,7 @@
 title: "Decision - Export Baseline and Deferred Secure Sharing"
 description: "Bewusster Export als Commercial-Core-Baseline; sicheres Sharing bleibt eigener spaeterer Trust-Slice"
 tags: [decision, export, sharing, privacy, portability, external-access]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted"
 owner: "product-concept/security"
 ---
@@ -19,6 +19,9 @@ in R14 nach eigenem Trust-/Rights-/Contract-/Revocation-/Audit-Gate aktiviert.
 ## Exportformen
 
 - einzelnes Dokument als Originaldatei.
+- im medizinischen Care-Case kontextuell importiertes Medienpaket als
+  bytegleiches gespeichertes Original-ZIP,
+  einschliesslich darin inaktiv aufbewahrter Viewer-/Hilfsdateien.
 - mehrere ausgewaehlte Dokumente als Paket.
 - Case-/Record-Export mit optionalem Manifest und bestaetigten Metadaten.
 - vollstaendiger Vault-/Account-Datenexport gemaess Policy/Betroffenenrecht.
@@ -48,6 +51,9 @@ kein zulaessiger Shortcut.
 - Vor Export zeigt die UI Umfang, Profile/Vaults, Dateizahl und sensible
   Konsequenz.
 - Archive/Manifeste enthalten nur bewusst gewaehlte Daten.
+- Beim Medienpaket-Export wird sichtbar, dass das ZIP sensible medizinische
+  Daten und ausfuehrbare Dateien enthalten kann. Mappm fuehrt diese Dateien
+  nicht aus und garantiert nicht deren Plattformkompatibilitaet.
 - Temporare Exportartefakte besitzen sichere Ablage und Cleanup.
 - Keine Dokumenttitel/-inhalte in globalen Notifications, Logs oder Audit.
 - Kuendigung/Quota blockiert erforderlichen Export/Cloud-to-Local nicht.

@@ -2,7 +2,7 @@
 title: "Decision - Preview Generation Strategy"
 description: "Austauschbare, sichere Preview-Generierung für Bilder und PDFs"
 tags: [decision, preview, pdf, thumbnails, processing-review, flutter]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted"
 owner: "product-concept/data-architect"
 ---
@@ -37,6 +37,11 @@ besitzen keine eigene Dokumentidentität und ersetzen nie das Original.
 - Ein Preview-Fehler macht das Original nicht unbrauchbar und löscht nichts.
 - Mehrseitige Navigation, Thumbnail-Leiste, Rotation, OCR-Overlay, Annotation
   und PDF-Bearbeitung werden nur in ausdrücklich freigegebenen Slices gebaut.
+- ZIP-Medienpakete, DICOM-Dateibaeume und darin enthaltene Programme besitzen
+  in M1 den Preview-Zustand `Unsupported`. Das Original kann nur ueber die
+  akzeptierte case-lokale medizinische Desktop-Aktion importiert werden und
+  bleibt exportierbar; es wird fuer eine Vorschau nicht automatisch extrahiert
+  oder ausgefuehrt.
 - Local Vault erzeugt/cacht lokal; Cloud Vault darf serverseitige Ableitungen
   verwenden, wenn Trust-, Authorization-, Retention- und Offline-Contracts
   dies erlauben.

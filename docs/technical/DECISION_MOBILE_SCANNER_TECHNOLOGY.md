@@ -2,7 +2,7 @@
 title: "Decision - Mobile Scanner Technology and Capture Artifacts"
 description: "Vorläufige Entscheidung für native Plattformscanner, Capture-Intent, Qualitätsgate und primäre Artefakte"
 tags: [decision, mobile, capture, scanner, android, ios, ml-kit, visionkit, spike]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "provisional-accepted"
 owner: "product-concept/ui-architect"
 ---
@@ -27,6 +27,11 @@ Flutter -> eigener Port und austauschbare Bridge
 
 Normale Kamera- oder Dateiimporte dürfen als sichtbarer Fallback existieren,
 sind aber nicht automatisch gleichwertig mit dem Dokumentenscan.
+
+Zum mobilen Capture gehoeren neben dem Scanner auch Fotoaufnahme als
+Bildnachweis, Galerieimport sowie PDF-/Dateiimport ueber Systempicker oder
+Share-Sheet. Diese Pfade verwenden dieselbe Mappm-Capture-Sitzung und
+Review-Pipeline, behaupten aber keine Scannerqualitaet.
 
 ## Qualitätsgate
 

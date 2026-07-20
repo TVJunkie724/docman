@@ -1,20 +1,27 @@
 ---
-title: "Discovery Draft - Global Case and Document Taxonomy Normalization"
-description: "Normalisierungsentwurf fuer den einen generischen Case, optionale Workflow-Muster, sichtbare Fachvorlagen, Record-Kontexte, Dokumentgrundarten, Varianten, Domains und Rollen"
+title: "Discovery Draft - Globale Dokumenttaxonomie"
+description: "Normalisierungsentwurf fuer Dokumentgrundarten, semantische Varianten, Domains, Record-Kontexte, Rollen, Quellen und Matching-Vokabular"
 tags: [discovery, draft, taxonomy, cases, records, documents, workflows, matching, internationalization]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "draft"
 owner: "product-concept"
 ---
 
-# Discovery Draft - Global Case and Document Taxonomy Normalization
+# Discovery Draft - Globale Dokumenttaxonomie
 
 ## Status
 
-Dieses Dokument beschreibt den aktuellen Normalisierungsentwurf fuer Cases,
-Workflows, Records und Dokumente. Es bleibt ein **Discovery-Entwurf, kein
-akzeptierter Katalog**. R0.6/OQ-011 muss das vorgeschlagene Zielmodell
-gemeinsam mit dem User akzeptieren, aendern oder verwerfen.
+Dieses Dokument beschreibt ausschliesslich den aktuellen
+Normalisierungsentwurf fuer Dokumente, Rollen, Records und Matching-Vokabular.
+Es bleibt ein **Discovery-Entwurf, kein akzeptierter Katalog**. R0.6/OQ-011 muss
+das vorgeschlagene Dokumentmodell gemeinsam mit dem User akzeptieren, aendern
+oder verwerfen.
+
+Die alleinige Source of Truth fuer Workflow-Muster, Fachvorlagen-IDs, deutsche
+Case-Titel, Katalogstatus und Disposition ist
+`docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`. Dieses Dokument
+definiert oder zaehlt keine Case-/Workflow-Katalogeintraege. Verwendete IDs
+sind nur Verweise auf jene SSOT.
 
 Insbesondere sind der eine generische Case, optionale Workflow-Muster,
 sichtbare Fachvorlage, Workflowmodul, Record-Kontext, Dokumentgrundart,
@@ -47,7 +54,7 @@ Nicht normative Kompositionsbeispiele:
 
 ```text
 generic Case + submission workflow pattern
-  + benefit_application
+  + entitlement_or_benefit_claim
   + at.social.pflegegeld@2026
   = "Pflegegeld fuer Maria beantragen"
 
@@ -57,7 +64,7 @@ generic Case + episode workflow pattern
   = "Kniebehandlung 2026"
 
 generic Case + settlement workflow pattern
-  + medical_expense
+  + medical_cost_settlement
   + at.health.oegk-and-private@2026
   = "Arztrechnung Dr. Beispiel vom 14.07.2026"
 ```
@@ -92,60 +99,14 @@ hardcodierter Dokumenttyp. Es ist eine Rechnung mit Medizin-Domain,
 Kostenbelegrolle, oesterreichischem Payer-Kontext und Links zu medizinischem
 Behandlungs- und Kostenabrechnungs-Case.
 
-## Ein generischer Case und acht optionale Workflow-Muster
+## Case-/Workflow-Grenze
 
-Der Case selbst ist der stabile Grundbaustein: eine benannte, durchsuchbare und
-verknuepfbare Sammlung von Dokumenten und Kontext. Er kann zusaetzlich Facts,
-Tasks, Termine, erwartete Dokumente, Claims, finanzielle Eintraege, Records und
-Case-Links tragen. Nichts davon ist Voraussetzung fuer seine Existenz.
-
-`Custom Case`, Umbrella und offene Dokumentensammlung sind deshalb keine
-Case-Typen. Sie sind der normale generische Case ohne verpflichtenden
-Workflow. Ein spaeter erkannter Zusammenhang darf eine Fachvorlage uebernehmen
-oder wechseln, ohne den Case zu kopieren oder seine Identitaet zu aendern.
-
-Der Entwurf beschreibt die prozessualen Gemeinsamkeiten vorlaeufig durch acht
-**interne optionale Workflow-Muster**. Auch diese acht sind
-R0.6-Entscheidungsinput, keine sichtbare Nutzerauswahl und keine unabhaengigen
-Domainentitaeten.
-
-Die Muster muessen nicht als exklusives Feld auf `Case` persistiert werden.
-Eine Workflowdefinition kann mehrere Muster/Module komponieren, und ein Case
-kann ganz ohne Definition bestehen. Die Liste ist zuerst eine Autoren-,
-Governance-, Test- und Wiederverwendungshilfe fuer den Katalog.
-
-| Workflow-Muster | Optional gefuehrtes Ziel | Typische Module | Kein eigenes Muster fuer |
-|---|---|---|---|
-| `submission` | bei einer externen Stelle etwas beantragen, melden, registrieren, erneuern oder als Claim geltend machen und den Output erhalten | vorbereiten, Evidenz, Formular, Einreichung, Eingang, Nachreichung, Entscheidung/Bestaetigung, Ausgabe | Pflegegeld, Visum, Studienplatz, Kredit, Pass oder Datenschutz-Auskunft als eigene Kernfamilie |
-| `transaction` | einen Kauf, Verkauf, Auftrag, Service oder eine Uebergabe bis zum akzeptierten Ergebnis abschliessen | Angebot, Vereinbarung, Lieferung/Leistung, Abnahme, Rechnung, Zahlung, Rueckabwicklung | Immobilie, Reparatur, Miete oder Produktkauf als technische Spezialentitaet |
-| `episode` | einen fachlich zusammenhaengenden Verlauf mit mehreren Begegnungen, Ergebnissen oder Abschnitten organisieren | Ereignisse/Begegnungen, Anordnungen, Befunde, Plaene, Verlauf, Abschluss | einzelne Termine, Beteiligte oder Dokumente als Cases; erster Kandidat ist `medical_care` |
-| `incident` | ein unerwartetes Ereignis dokumentieren, Folgen begrenzen und regulieren | Ereignis, Evidenz, Meldung, Sofortmassnahmen, Schaden, Claims, Recovery | Polizei, Werkstatt, Fluglinie oder Versicherer als Case-Typ |
-| `settlement` | eine abgegrenzte wirtschaftliche Verpflichtung und zugehoerige Zahlungen/Erstattungen abstimmen | Rechnung, Zahlung, Einreichungen/Claims, Antworten, Gutschriften, Restbetrag, Abschluss | jede normale oder wiederkehrende Rechnung als Case; erster Kandidat ist medizinische Kostenabrechnung |
-| `resolution` | eine konkrete Abweichung, Ablehnung, Forderung oder Entscheidung klaeren, anfechten oder rueckfordern | Reklamation, Nachweise, Gegenantwort, Eskalation, Vergleich/Entscheidung, Recovery | Warranty, Chargeback, Payroll Issue oder Appeal als eigene Kernfamilie |
-| `proceeding` | ein formal eroeffnetes, extern geregeltes Verfahren beantworten oder bis zum formellen Ergebnis verfolgen | Aktenzeichen, Parteien, Anordnungen, Termine, Evidenz, Stellungnahmen, Entscheidung | jedes Schreiben eines Gerichts oder einer Behoerde als neuer Case |
-| `collection` | Unterlagen fuer einen definierten Zweck, Subject, Rechtsraum und Zeitraum vollstaendig sammeln, pruefen und uebergeben | Kandidaten, Vollstaendigkeit, fehlende Evidenz, Review, Export/Handoff | beliebige Ordner; erster Kandidat ist die Steuer-Unterlagensammlung |
-
-Das Workflow-Muster `submission` besitzt keine universelle Annahme, dass immer ein Formular oder
-eine Ermessensentscheidung existiert. Eine Variante beschreibt mindestens den
-Intent `request`, `claim`, `authorization`, `acquisition`, `renewal`,
-`registration`, `notification` oder `cancellation` sowie den erwarteten Output
-`decision`, `acknowledgement`, `payment`, `service`, `placement`, `Record` oder
-`no_formal_output`. So kann derselbe Kern Antraege in verschiedenen Laendern
-abbilden, ohne fachliche Unterschiede zu verschweigen.
-
-## Record-led Kontexte, die nicht zu Case-Familien werden sollen
-
-- Identitaets- und Personenstandsnachweise;
-- Vertraege und Abonnements;
-- Versicherungspolizzen;
-- Bankkonten, Depots, Kredite und Finanzierungsvertraege;
-- Immobilie, Mietverhaeltnis, Fahrzeug und sonstige Assets;
-- Garantie-/Gewaehrleistungsnachweis als Teil eines Asset-/Purchase-Records;
-- Arbeitsverhaeltnis;
-- Bildungsabschluss, Berechtigung und Zertifikat;
-- steuerliche/behoerdliche Identifikatoren;
-- wiederkehrende Pflege-, Vorsorge- oder Serviceplaene, sofern sie keinen
-  offenen Case-Outcome besitzen.
+Dieses Dokument verwendet die generische Case-Struktur nur, um
+Dokumentklassifikation und Linkrollen zu erklaeren. Der Case selbst,
+Workflow-Muster, Fachvorlagen, Custom-/Umbrella-Dispositionen und die Grenze zu
+Records werden ausschliesslich im zentralen Case-/Workflow-Katalog gepflegt.
+Medizinische oder oesterreichische Vertiefungen duerfen daran nur ueber dort
+registrierte IDs anknuepfen.
 
 ## Dokumentmodell - reduzierter Kandidatensatz
 
@@ -168,30 +129,30 @@ Document
 
 ### Kandidaten fuer globale Dokumentgrundarten
 
-| Grundart | Globale Bedeutung | Beispiele fuer Varianten oder lokale Aliase |
-|---|---|---|
-| `application_or_filing` | nach aussen gerichteter Antrag, Claim, Meldung, Beschwerde, Kuendigung oder sonstige Einreichung | Antrag, Leistungsantrag, Steuererklaerung, Einspruch, Datenschutz-Auskunftsantrag |
-| `form` | auszufuellender oder ausgefuellter strukturierter Frage-/Erhebungsbogen | Antragsformular, Anamnese-/Untersuchungsbogen, Formularerklaerung |
-| `declaration_or_consent` | rechtserhebliche Erklaerung, Einwilligung, Vollmacht, Mandat oder Abtretung | Einwilligung, Vollmacht, Lastschriftmandat, Abfindungserklaerung |
-| `correspondence` | freies oder halbstrukturiertes Anschreiben bzw. Nachrichtendokument | allgemeines Anschreiben, Stellungnahme, Rechtsanwaltsschreiben |
-| `notice_or_request` | Information, Aufforderung, Nachforderung, Mahnung, Ladung oder Fristsetzung | Ergaenzungsersuchen, Versicherungsrueckfrage, Zahlungsaufforderung |
-| `acknowledgement` | Eingang, Empfang, Zustellung, Abschluss oder sonstigen Vorgang bestaetigen | Einreichbestaetigung, Zustellnachweis, Kuendigungsbestaetigung |
-| `decision_or_order` | formelle oder vertragliche Entscheidung, Anordnung, Bewilligung oder Ablehnung | Bescheid, Claim-Entscheidung, Urteil, Genehmigung, Auflage |
-| `credential_or_certificate` | Identitaet, Status, Qualifikation, Berechtigung oder Tatsache nachweisen | Reisepass, Geburtsurkunde, Diplom, Versicherungsnachweis |
-| `registry_extract` | Daten aus einem Register oder gefuehrten Bestand wiedergeben | Grundbuchauszug, Firmenbuchauszug, Strafregisterbescheinigung |
-| `contract_or_policy` | Rechte und Pflichten zwischen Parteien oder Deckung/Terms festlegen | Kauf-, Miet-, Arbeits-, Versicherungs- oder Kreditvertrag, AGB-Version |
-| `offer_or_quote` | vorgeschlagene Leistung, Ware, Finanzierung oder Kosten vor Bindung beschreiben | Angebot, Kostenvoranschlag, Schadenschaetzung |
-| `order_or_booking` | Bestellung, Beauftragung, Reservierung oder Termin verbindlich/operativ festhalten | Auftrag, Bestellbestaetigung, Reparaturauftrag, Buchungsbestaetigung |
-| `delivery_or_handover` | Lieferung, Uebergabe, Rueckgabe, Abnahme oder Zustand beim Transfer dokumentieren | Lieferschein, Uebergabeprotokoll, Abnahmeprotokoll, Ruecksendenachweis |
-| `invoice_or_charge` | Zahlungspflicht oder abgerechnete Leistung ausweisen | Rechnung, Honorarnote, Gebuehrenvorschreibung, Praemienvorschreibung |
-| `credit_or_adjustment` | eine Forderung oder Abrechnung berichtigen/mindern | Gutschrift, Rabatt-/Bonusabrechnung, Korrekturabrechnung |
-| `payment_record` | eine konkrete Zahlung, Belastung oder Zahlungsanweisung dokumentieren | Kassenbeleg, Ueberweisungsbestaetigung, Kautionsnachweis |
-| `financial_statement` | finanzielle Aktivitaeten, Salden oder eine Periode zusammenfassen | Kontoauszug, Gehaltsabrechnung, Betriebskosten-/Jahresabrechnung, Steuerreporting |
-| `report_or_assessment` | Untersuchung, Leistung, Zustand, Ergebnis oder fachliche Bewertung dokumentieren | Befund, Entlassungsbrief, Gutachten, Service-/Pruefbericht |
-| `plan_or_instruction` | beabsichtigte Schritte, Behandlung, Nutzung oder Vorbereitung festlegen | Therapie-, Pflege-, Reha-, Medikations-, Reise- oder Bauplan |
-| `referral_or_prescription` | eine Leistung, Untersuchung, Behandlung, Ware oder Medikation fachlich anordnen/empfehlen | Ueberweisung, Einweisung, Rezept, Hilfsmittelverordnung |
-| `record_or_log` | Ereignisse, Messungen, Sitzungen oder einen Verlauf protokollieren | Unfallbericht, Ereignisprotokoll, Fahrtenbuchauszug, Sitzungsprotokoll |
-| `ticket_or_entitlement` | zeitlich oder sachlich begrenzte Nutzung, Teilnahme, Reise oder Zutritt belegen | Ticket, Boardingpass, Parkberechtigung, Vignette |
+| Grundart | Deutscher Titel | Globale Bedeutung | Beispiele fuer Varianten oder lokale Aliase |
+|---|---|---|---|
+| `application_or_filing` | Antrag oder Einreichung | nach aussen gerichteter Antrag, Claim, Meldung, Beschwerde, Kuendigung oder sonstige Einreichung | Antrag, Leistungsantrag, Steuererklaerung, Einspruch, Datenschutz-Auskunftsantrag |
+| `form` | Formular | auszufuellender oder ausgefuellter strukturierter Frage-/Erhebungsbogen | Antragsformular, Anamnese-/Untersuchungsbogen, Formularerklaerung |
+| `declaration_or_consent` | Erklaerung oder Einwilligung | rechtserhebliche Erklaerung, Einwilligung, Vollmacht, Mandat oder Abtretung | Einwilligung, Vollmacht, Lastschriftmandat, Abfindungserklaerung |
+| `correspondence` | Korrespondenz | freies oder halbstrukturiertes Anschreiben bzw. Nachrichtendokument | allgemeines Anschreiben, Stellungnahme, Rechtsanwaltsschreiben |
+| `notice_or_request` | Mitteilung oder Aufforderung | Information, Aufforderung, Nachforderung, Mahnung, Ladung oder Fristsetzung | Ergaenzungsersuchen, Versicherungsrueckfrage, Zahlungsaufforderung |
+| `acknowledgement` | Bestaetigung | Eingang, Empfang, Zustellung, Abschluss oder sonstigen Vorgang bestaetigen | Einreichbestaetigung, Zustellnachweis, Kuendigungsbestaetigung |
+| `decision_or_order` | Entscheidung oder Anordnung | formelle oder vertragliche Entscheidung, Anordnung, Bewilligung oder Ablehnung | Bescheid, Claim-Entscheidung, Urteil, Genehmigung, Auflage |
+| `credential_or_certificate` | Ausweis, Nachweis oder Urkunde | Identitaet, Status, Qualifikation, Berechtigung oder Tatsache nachweisen | Reisepass, Geburtsurkunde, Diplom, Versicherungsnachweis |
+| `registry_extract` | Registerauszug | Daten aus einem Register oder gefuehrten Bestand wiedergeben | Grundbuchauszug, Firmenbuchauszug, Strafregisterbescheinigung |
+| `contract_or_policy` | Vertrag oder Polizze | Rechte und Pflichten zwischen Parteien oder Deckung/Terms festlegen | Kauf-, Miet-, Arbeits-, Versicherungs- oder Kreditvertrag, AGB-Version |
+| `offer_or_quote` | Angebot oder Kostenvoranschlag | vorgeschlagene Leistung, Ware, Finanzierung oder Kosten vor Bindung beschreiben | Angebot, Kostenvoranschlag, Schadenschaetzung |
+| `order_or_booking` | Auftrag, Bestellung oder Buchung | Bestellung, Beauftragung, Reservierung oder Termin verbindlich/operativ festhalten | Auftrag, Bestellbestaetigung, Reparaturauftrag, Buchungsbestaetigung |
+| `delivery_or_handover` | Lieferung oder Uebergabe | Lieferung, Uebergabe, Rueckgabe, Abnahme oder Zustand beim Transfer dokumentieren | Lieferschein, Uebergabeprotokoll, Abnahmeprotokoll, Ruecksendenachweis |
+| `invoice_or_charge` | Rechnung oder Vorschreibung | Zahlungspflicht oder abgerechnete Leistung ausweisen | Rechnung, Honorarnote, Gebuehrenvorschreibung, Praemienvorschreibung |
+| `credit_or_adjustment` | Gutschrift oder Korrektur | eine Forderung oder Abrechnung berichtigen/mindern | Gutschrift, Rabatt-/Bonusabrechnung, Korrekturabrechnung |
+| `payment_record` | Zahlungsnachweis | eine konkrete Zahlung, Belastung oder Zahlungsanweisung dokumentieren | Kassenbeleg, Ueberweisungsbestaetigung, Kautionsnachweis |
+| `financial_statement` | Finanzuebersicht oder Abrechnung | finanzielle Aktivitaeten, Salden oder eine Periode zusammenfassen | Kontoauszug, Gehaltsabrechnung, Betriebskosten-/Jahresabrechnung, Steuerreporting |
+| `report_or_assessment` | Bericht oder Gutachten | Untersuchung, Leistung, Zustand, Ergebnis oder fachliche Bewertung dokumentieren | Befund, Entlassungsbrief, Gutachten, Service-/Pruefbericht |
+| `plan_or_instruction` | Plan oder Anweisung | beabsichtigte Schritte, Behandlung, Nutzung oder Vorbereitung festlegen | Therapie-, Pflege-, Reha-, Medikations-, Reise- oder Bauplan |
+| `referral_or_prescription` | Ueberweisung oder Verordnung | eine Leistung, Untersuchung, Behandlung, Ware oder Medikation fachlich anordnen/empfehlen | Ueberweisung, Einweisung, Rezept, Hilfsmittelverordnung |
+| `record_or_log` | Protokoll oder Aufzeichnung | Ereignisse, Messungen, Sitzungen oder einen Verlauf protokollieren | Unfallbericht, Ereignisprotokoll, Fahrtenbuchauszug, Sitzungsprotokoll |
+| `ticket_or_entitlement` | Ticket oder Berechtigung | zeitlich oder sachlich begrenzte Nutzung, Teilnahme, Reise oder Zutritt belegen | Ticket, Boardingpass, Parkberechtigung, Vignette |
 
 Diese Grundarten sind absichtlich semantisch und laenderneutral. R0.6 muss
 noch pruefen, ob etwa `registry_extract`, `delivery_or_handover` oder
@@ -297,6 +258,15 @@ Assist-Matching und spaetere synthetische Fixtures geprueft werden.
   medizinische Leistungsabrechnung, Kostenuebernahmeantrag,
   Bewilligung/Ablehnung einer Gesundheitsleistung und Erstattungsabrechnung.
 
+Diese Begriffe sind Such-, Alias-, Titel-, Fakten- und Fixture-Vokabular, keine
+Liste von M1-Dokumenttypen. Fuer M1 muss ein allgemeiner beziehungsweise
+medizinischer Dokument-Fallback genuegen. Rechnung ist wegen des
+Kostenabrechnungsverhaltens relevant. Ueberweisung oder Befund/Bericht duerfen
+nur nach OQ-011 und bestandenem Produktwerttest als genauere Typen/Varianten
+aktiviert werden.
+Bewilligung, Ablehnung, Reha-Antrag, Entlassungsbrief, Labor- oder
+Radiologiedetail sind nicht allein wegen ihres Namens eigene M1-Typen.
+
 ### Versicherung, Unfall und Schaden
 
 - Polizzenblatt, Deckungsuebersicht, Versicherungsbestaetigung,
@@ -395,6 +365,10 @@ Assist-Matching und spaetere synthetische Fixtures geprueft werden.
 
 - PDF, JPEG, Papier, Scan, E-Mail, Portaldownload und Screenshot sind
   Quelle/Format, keine fachlichen Subtypen;
+- ein im bestehenden medizinischen Care-Case auf Desktop kontextuell
+  importiertes ZIP-Medienpaket aus CD, DVD, USB oder Ordner ist
+  Quelle/Containerart und kein medizinischer Bildgebungs-Subtyp; DICOM-Dateien,
+  `DICOMDIR` und mitgelieferter Viewer bleiben fuer M1 im inerten Paket;
 - OeGK, Gemeinde, Bank, Arzt oder Anbieter sind ExternalParty/Provider;
 - `submission`, `response`, `decision`, `payment_proof`, `supporting_evidence`
   sind Linkrollen/Workflow-Slots;
@@ -440,11 +414,6 @@ etablierten internationalen Mustern vereinbar:
 
 ## Reviewfragen fuer R0.6
 
-- Sind die acht optionalen internen Workflow-Muster die richtige minimale
-  Prozessgrammatik oder koennen/muessen einzelne noch kombiniert oder getrennt
-  werden?
-- Welche sichtbaren Fachvorlagen brauchen eine stabile globale ID, obwohl sie
-  kein Case-Typ sind?
 - Welche Begriffe sind nur oesterreichische Aliase?
 - Welche Eintraege sind Record-Arten statt semantische Dokumentvarianten?
 - Welche Eintraege sind Rollen/Slots statt Subtypen?
@@ -458,8 +427,8 @@ etablierten internationalen Mustern vereinbar:
 Stop if:
 
 - dieses Inventar ungeprueft als Enum-/Datenbankschema implementiert wird;
-- sichtbare Fachvorlagen oder Workflow-Muster als unterschiedliche
-  Case-Entitaeten oder sichtbarer Pflicht-Typ-Picker implementiert werden;
+- dieses Dokument Case-/Workflow-IDs, Titel oder Status abweichend von
+  `docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md` definiert;
 - jede Kombination einen neuen Subtyp oder Case-Key erzeugt;
 - Domain, Rolle, Provider, Format oder Status in einem Subtyp versteckt werden;
 - Record-led Kontexte als Cases dupliziert werden;

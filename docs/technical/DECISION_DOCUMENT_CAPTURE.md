@@ -2,7 +2,7 @@
 title: "Decision - Document Capture"
 description: "Verbindliche Erfassung für Mobile Scan und Desktop Import mit dauerhaftem Eingang, asynchronem Assist und bestätigtem Routing"
 tags: [decision, document-capture, mobile-capture, desktop, intelligence, review, batch, commercial-core]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted"
 owner: "product-concept"
 ---
@@ -18,10 +18,19 @@ Automatisierungsregeln stehen in
 
 ## Entscheidung
 
-Der Commercial Core besitzt zwei nutzergesteuerte Eingänge:
+Der Commercial Core besitzt eine gemeinsame Capture-Pipeline mit
+plattformgerechten Eingangsarten:
 
-1. mobilen Dokumentenscan beziehungsweise Foto-/Bildnachweis;
-2. Desktop-Dateiauswahl und Drag-and-drop-Import.
+1. Mobile:
+   - Dokumentenscan ueber eine gepruefte native Scanner-Komponente;
+   - Fotoaufnahme als Bildnachweis;
+   - Bildauswahl aus der Galerie;
+   - PDF-/Dateiimport ueber Systempicker beziehungsweise Share-Sheet.
+2. Desktop:
+   - einzelne oder mehrere Dateien ueber Systempicker;
+   - Drag-and-drop;
+   - PDF- und Bilddateien, auch wenn sie zuvor durch einen externen Scanner
+     oder ein Smartphone erzeugt wurden.
 
 Beide sichern zuerst Original und Manifest dauerhaft und verwenden danach
 denselben asynchronen Verarbeitungs- und Review-Pfad:
@@ -79,6 +88,12 @@ Entfernen und Sortieren vor. Ein normaler Kamera-/Datei-Fallback bleibt
 sichtbar als niedrigere Qualitätsstufe und wird nicht als gleichwertiger Scan
 bezeichnet.
 
+Mappm baut keine eigene Kamera-/OpenCV-Scan-Engine. Die Mappm-App besitzt
+Capture-Sitzung, Dokumentgrenzen, Vault-/Queue-Übergabe und Review, ruft fuer
+die eigentliche Dokumentaufnahme aber eine gepruefte native Scanner-Komponente
+hinter einem austauschbaren Port auf. Die vorlaeufige Technologierichtung steht
+in `DECISION_MOBILE_SCANNER_TECHNOLOGY.md`.
+
 Mappm unterscheidet:
 
 - `DocumentScan`: papierartiges Dokument; nutzbares Dokument/PDF ist das
@@ -94,6 +109,19 @@ Desktop unterstützt Dateiauswahl, Drag-and-drop und mehrere Dateien pro
 Importsitzung. Unterstützte Formate folgen der Release- und Sicherheits-Policy.
 Die App kopiert Eingaben vor weiterer Verarbeitung in kontrollierten Storage
 und hängt nicht dauerhaft vom ursprünglichen Dateipfad ab.
+
+Ein Foto wird am Desktop als Bilddatei importiert. Eine vorhandene externe
+Scanner-Anwendung darf PDF-/Bilddateien erzeugen, die Mappm anschliessend
+importiert. **Mappm bietet keinen Dokumentenscan ueber eine Desktop-Webcam an.**
+Dieser Weg ist wegen ungeeigneter Ergonomie und unzuverlaessiger
+Dokumentqualitaet ausdruecklich ausgeschlossen und darf weder als Fallback noch
+als versteckte Plattformoption implementiert werden.
+
+Eine optionale Verbindung zur Mappm-Mobile-App sowie Apples Continuity Camera
+sind noch keine akzeptierten Core-Pfade. Ihr konzeptioneller Stand und ihre
+unterschiedlichen Local-/Cloud-Vault-Grenzen stehen als Draft in
+`DECISION_CROSS_DEVICE_CAPTURE_HANDOFF.md`. Der normale Desktop-Import bleibt
+davon unabhaengig und setzt kein Smartphone voraus.
 
 ## Vault und Offline
 
@@ -129,4 +157,7 @@ Split-/Merge-Unsicherheit sowie erneutes Öffnen und Korrigieren ab.
 Stop, wenn Originale verloren gehen, Capture eine Vorabklassifikation
 erzwingt, Batch-Nähe als Beziehung gilt, Local Assist als Cloud Backup
 erscheint, versteckte Vorschläge bestätigt werden oder Echtdokumente ohne
-akzeptierte Security-/Privacy-/Provider-Gates verarbeitet werden.
+akzeptierte Security-/Privacy-/Provider-Gates verarbeitet werden. Stop auch,
+wenn ein Dokumentenscan ueber eine Desktop-Webcam angeboten oder eine
+Draft-Cross-Device-Variante ohne eigene Freigabe als Core-Pfad implementiert
+wird.

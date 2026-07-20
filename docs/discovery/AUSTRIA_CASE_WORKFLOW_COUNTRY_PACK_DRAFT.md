@@ -1,27 +1,33 @@
 ---
-title: "Discovery Draft - Austria Case and Workflow Country Pack"
-description: "Vorlaeufige Oesterreich-Abstimmung des gesamten Mappm-Case-, Record-, Dokument- und Workflow-Kandidatenkatalogs"
+title: "Discovery Draft - Oesterreich-Mapping fuer Case- und Workflow-Katalog"
+description: "Abgeleitete AT-Variantenmatrix fuer zentral registrierte Case-/Workflow-Kandidaten, Records und Dokumentbegriffe"
 tags: [discovery, draft, austria, country-pack, cases, records, documents, workflows, compliance]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "draft"
 owner: "product-concept"
 ---
 
-# Discovery Draft - Austria Case and Workflow Country Pack
+# Discovery Draft - Oesterreich-Mapping fuer Case- und Workflow-Katalog
 
 ## Status und Ziel
 
+Oesterreich ist seit 2026-07-19 als erster Commercial-1.0-Markt akzeptiert.
 Dieser Entwurf stimmt den aktuellen Mappm-Zielkatalog vorlaeufig auf
 Oesterreich ab. Er umfasst nicht nur Steuern, sondern derzeit relevante
 Fachvorlagen, Record-Kontexte, wichtige Dokumentbegriffe und moegliche
-Workflowvarianten. Alle Vorlagen verwenden den generischen Case, optionale
-Workflow-Muster, Branches und Records aus
-`CASE_DOCUMENT_TAXONOMY_CANDIDATES.md`.
+Workflowvarianten. Alle Varianten referenzieren den generischen Case und die
+kanonischen Workflow-/Fachvorlagen-IDs aus
+`docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`.
 
 Der Entwurf ist **kein freigegebenes AT-Produktpaket**. Rechts-, Gesundheits-,
 Versicherungs-, Steuer-, Arbeits-, Familien- und Behoerdenregeln muessen vor
 jeder Aktivierung mit aktuellen amtlichen Quellen, benanntem fachlichem Owner,
 Fixtures und WF-01/WF-02-Freigabe geprueft werden.
+
+Austria-first priorisiert die Disposition dieses Entwurfs, akzeptiert aber
+keine einzelne Tabellenzeile automatisch fuer Commercial 1.0. Der
+deutschsprachige Raum ist die geplante naechste Expansion; gemeinsame Sprache
+ersetzt niemals separate Rechtsraum- und Provider-Packs.
 
 Discovery- und Quellenstand: **2026-07-15**. Ein spaeteres Pack muss `effective`
 und `sourceCheckedAt` getrennt versionieren und beim Jahres-/Rechtswechsel neu
@@ -33,6 +39,14 @@ Normative Produktgrenzen bleiben
 `docs/technical/DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`. Der
 dynamische technische Vertiefungsentwurf liegt in
 `docs/discovery/DYNAMIC_DOMAIN_COUNTRY_PACK_MODEL_DRAFT.md`.
+
+Dieses Dokument ist ausschliesslich eine abgeleitete AT-Coverage- und
+Variantenmatrix. Es darf keine neue globale Case-/Workflow-ID, keinen deutschen
+Katalogtitel und keinen abweichenden Katalogstatus definieren. Fehlt eine
+benoetigte ID in der zentralen SSOT, muss zuerst oder im selben Change dort
+eine katalogisierte Discovery-Disposition erfolgen. Die Tabellen unten mappen
+nur bestehende IDs auf oesterreichische Terminologie, Aktivierungsstufen und
+Pack-Bedarf.
 
 ## Pack-Schnitt
 
@@ -72,20 +86,19 @@ freigegeben, aktualisiert oder zurueckgezogen werden.
 
 Der globale Kern kennt genau eine `Case`-Entitaet. Ein Case ist bereits ohne
 Workflow eine vollwertige benannte Dokumentensammlung beziehungsweise ein
-Kontext. Die vorlaeufigen optionalen Workflow-Muster sind `submission`,
-`transaction`, `episode`, `incident`, `settlement`, `resolution`, `proceeding`
-und `collection`. Das AT-Pack erzeugt keine neuen Kernentitaeten. Es publiziert
-sichtbare, gepruefte Fachvorlagen mit diesen Mustern, beispielsweise:
+Kontext. Das AT-Pack erzeugt keine neuen Kernentitaeten oder Grundmuster. Die
+folgende Tabelle zeigt nur abgeleitete AT-Beispiele fuer zentral registrierte
+Muster und Fachvorlagen:
 
-| Sichtbare AT-Vorlage | Optionales Workflow-Muster | AT-/Provider-Spezialisierung |
-|---|---|---|
-| Pflegegeld beantragen | `submission` | Leistung, Stelle, Evidenz, Begutachtung, Entscheidung und Fristen |
-| Reisepass erneuern | `submission` | Record-Anker, Termin/Gebuehr, Identitaetsnachweise und Ausgabe |
-| Kindergartenplatz beantragen | `submission` | Bundesland/Gemeinde/Institution, Platz-Outcome |
-| Wahlarztrechnung abwickeln | `settlement` | medizinische Rechnung, bestaetigte Payer, Claims und Erstattungen |
-| Medizinischer Behandlungsfall | `episode` | AT-Terminologie und optionale Provider-/Payer-Links, aber keine AT-only Case-Klasse |
-| Verkehrsunfall regulieren | `incident` | AT-Melde-/Versicherungsvarianten und bedingte Polizei-Schritte |
-| Arbeitnehmerveranlagung sammeln | `collection` | Subject, Steuerjahr, Regime und gepruefte Evidenzrollen |
+| Sichtbare AT-Variante | Kanonische Katalog-ID | Optionales Workflow-Muster | AT-/Provider-Spezialisierung |
+|---|---|---|---|
+| Pflegegeld beantragen | `entitlement_or_benefit_claim` | `submission` | Leistung, Stelle, Evidenz, Begutachtung, Entscheidung und Fristen |
+| Reisepass erneuern | `record_acquisition_renewal_or_replacement` | `submission` | Record-Anker, Termin/Gebuehr, Identitaetsnachweise und Ausgabe |
+| Kindergartenplatz beantragen | `childcare_placement_or_support` | `submission` | Bundesland/Gemeinde/Institution, Platz-Outcome |
+| Wahlarztrechnung abwickeln | `medical_cost_settlement` | `settlement` | medizinische Rechnung, bestaetigte Payer, Claims und Erstattungen |
+| Medizinischer Behandlungsfall | `medical_care` | `episode` | AT-Terminologie und optionale Provider-/Payer-Links, aber keine AT-only Case-Klasse |
+| Verkehrsunfall regulieren | `accident_or_damage_settlement` | `incident` | AT-Melde-/Versicherungsvarianten und bedingte Polizei-Schritte |
+| Arbeitnehmerveranlagung sammeln | `tax_document_collection` | `collection` | Subject, Steuerjahr, Regime und gepruefte Evidenzrollen |
 
 Jeder **konkrete** Antrag mit eigenem Ziel und Ergebnis ist weiterhin ein
 eigener Case. Pflegegeld, Behindertenpass und erhoehte Familienbeihilfe werden
@@ -110,14 +123,12 @@ Keine Stufe bedeutet bereits freigegebenen Release-Scope.
 
 | Vorlagen-Arbeitsname | AT-Variante/Terminologie | Draft-Komposition | Stufe |
 |---|---|---|---|
-| `custom_context_or_project` | frei benannter Vorgang, z.B. Umzug, Renovierung, Hochzeit | keine AT-Regel; Nutzer oder bestaetigte Auswahl bildet Kontext | `C` |
+| Custom Case (keine Katalog-ID) | frei benannter Vorgang, z.B. Umzug, Renovierung, Hochzeit | keine AT-Regel; Nutzer oder bestaetigte Auswahl bildet Kontext | `C` |
 | `authority_application_or_submission` | Antrag, Ansuchen, Anzeige, Meldung, Einreichung | Antrag -> Bestaetigung -> Ergaenzung -> Bescheid/Erledigung; konkrete Stelle/Frist nur im Fachpack | `A/P` |
 | `entitlement_or_benefit_claim` | Beihilfe, Foerderung, Leistung, Zuschuss, Kostenuebernahme | generisches Claim-/Authority-Modul; Anspruch nie aus Dokument allein behaupten | `A/P` |
-| `record_acquisition_or_issuance` | Erstausstellung von Reisepass, Urkunde, Nachweis, Berechtigung | Prozess-Case erzeugt/aktualisiert langlebigen Record | `A/P` |
-| `record_renewal_or_replacement` | Verlaengerung, Duplikat, Ersatz, Wiedererteilung | bestehender Record ist Anker; Verlust/Missbrauch ggf. verknuepfter Security Case | `A/P` |
+| `record_acquisition_renewal_or_replacement` | Erstausstellung, Verlaengerung, Duplikat oder Ersatz von Reisepass, Urkunde, Nachweis oder Berechtigung | Prozess-Case erzeugt oder aktualisiert langlebigen Record; Verlust/Missbrauch ggf. verknuepfter Security Case | `A/P` |
 | `registration_change_or_notification` | Anmeldung, Abmeldung, Ummeldung, Aenderungsanzeige | je Register eigener Workflow; Melde-, Kfz-, Unternehmens- und andere Register nicht vermischen | `A/P` |
-| `objection_or_appeal` | Beschwerde, Einspruch, Berufung oder Rechtsmittel nach Materie | Ausgangsbescheid/-entscheidung verknuepfen; Rechtsmittelart und Frist nur aus Fachpack | `A` |
-| `dispute_or_recovery` | Reklamation, Rueckforderung, Leistungs-/Zahlungsstreit | zuerst informelle Klaerung, optional formelle Eskalation | `G/A` |
+| `objection_dispute_or_recovery` | Beschwerde, Einspruch, Berufung, Reklamation, Rueckforderung oder Leistungs-/Zahlungsstreit | Ausgangsentscheidung verknuepfen; informelle Klaerung und formelle Eskalation als Varianten; Rechtsmittelart und Frist nur aus Fachpack | `G/A` |
 | `formal_proceeding` | gerichtliches oder behoerdliches Verfahren mit Aktenzeichen | eigener Case; keine Rechtsberatung, Schriftsatzgenerierung oder Fristbehauptung ohne Spezialpack | `A/S` |
 | `audit_or_compliance_response` | Pruefung, Nachschau, Kontroll-/Auskunftsverfahren | Auftrag, Scope, Evidenz, Handoff, Bericht, Folgemassnahmen | `A/S` |
 | `payment_relief_or_debt_resolution` | Stundung, Ratenzahlung, Zahlungsvereinbarung | mit Forderungs-/Bescheidkontext verknuepfen; keine Bonitaets-/Rechtsberatung | `A/P` |
@@ -127,9 +138,9 @@ Keine Stufe bedeutet bereits freigegebenen Release-Scope.
 
 | Vorlagen-Arbeitsname | AT-Variante/Terminologie | Draft-Komposition | Stufe |
 |---|---|---|---|
-| `medical_care` | medizinischer Behandlungsfall; Dokumente u.a. Ueberweisung/Zuweisung, Befund, Labor-/Radiologiebefund, Arzt-/Entlassungsbrief | erstes medizinisches Dokument findet/erzeugt neutralen Behandlungsfall; Arztbesuch, Diagnostik, Krankenhaus und Nachsorge sind Abschnitte, nicht automatisch Case-Typen | `G/A` |
+| `medical_care` | medizinischer Behandlungsfall; Dokumente u.a. Ueberweisung/Zuweisung, medizinischer Befund/Bericht und Arzt-/Entlassungsbrief; Labor/Radiologie kann im Titel/Index bleiben | erstes medizinisches Dokument findet/erzeugt neutralen Behandlungsfall; Arztbesuch, Diagnostik, Krankenhaus und Nachsorge sind Abschnitte, nicht automatisch Case-Typen | `G/A` |
 | `medical_cost_settlement` | Wahl-/Privatarztrechnung, Zahlung, Einreichung, Kostenerstattung, Zusatzversicherung | bei neuem Behandlungsfall `part_of` Medical Care; je wirtschaftlicher Verpflichtung ein Kosten-Case, Korrektur/Gutschrift/Beleg bleiben darin; Payer als Claims | `A/P` |
-| `medical_authorization_or_benefit` | Bewilligung/Kostenuebernahme fuer Behandlung, Medikament, Heilbehelf, Reha oder Polizzenleistung | eigener Benefit Case nur bei eigenem Antrag/Entscheidung/Outcome; sonst Branch im Care Case | `A/P` |
+| keine eigene Vorlage: medizinische Bewilligung | Bewilligung/Kostenuebernahme fuer Behandlung, Medikament, Heilbehelf oder Reha | Anfrage, Nachreichung, Bewilligung, Ablehnung und Auflagen bleiben generische Dokumente/Facts/Schritte im `medical_care`; besondere vertragliche Leistungen werden fuer M1 nicht als Medical-Sondertypen oder Spezialworkflows ausmodelliert | `A/P` |
 
 Pflegebedarf, Entlassungsmanagement, Pflegeorganisation und langfristige
 Unterstuetzung bilden keine gemeinsame Fachvorlage. Begutachtungen sind
@@ -139,9 +150,27 @@ Leistungen erhalten nur bei eigenem Ziel und Ergebnis einen eigenen
 und langlebige Records verbinden.
 
 AT-Matching muss mehrere bestaetigte Sozialversicherungs-/Krankenfuersorge- und
-Zusatzversicherungs-Kontexte eines Managed Subject unterstuetzen. Es darf weder
-einen Standardpayer vorauswaehlen noch eine Einreichreihenfolge ohne Evidenz
-erzwingen. Provider-Overlays werden separat geprueft.
+Zusatzversicherungs-Kontexte eines Managed Subject unterstuetzen. Ein vom
+Nutzer gesetzter Default fuer Sozialversicherung/Krankenfuersorge, ambulante
+oder stationaere Zusatzversicherung darf zuerst sortiert werden. Er ist keine
+Deckungs-, Zustaendigkeits- oder Anspruchspruefung, erzeugt keinen Claim und
+loest keine Einreichung aus.
+
+Der am 2026-07-20 gepruefte normale digitale Wahlarztpfad benoetigt keine
+provider-spezifische Case- oder Formulartaxonomie: bezahlte Rechnung und
+vorhandener Zahlungsnachweis werden bei Sozialversicherung/Krankenfuersorge
+eingereicht oder vom Wahlarzt uebermittelt; Abrechnung/Erstattung oder Ablehnung
+bildet das abschliessende Ergebnis. Erst dieses bestaetigte Ergebnis schlaegt
+im Normalablauf die Einreichung bei einer vorhandenen Zusatzversicherung vor.
+Eingangsbestätigung, Rueckfrage und Nachforderung halten den ersten Claim offen.
+Ein bewusster direkter oder frueherer Zusatzversicherungsweg bleibt moeglich,
+wird aber nicht vorab konfiguriert oder aus Polizzendaten abgeleitet.
+
+Spezielle Reha-, Psychotherapie-, Bewilligungs-, Fahrtkosten- oder andere
+Formulare bleiben generische Dokumente mit konkretem Titel, Facts und sparsamer
+Workflow-Rolle. Provider-Overlays fuer Links oder Sonderhinweise sind spaeter
+optional und werden nur bei nachgewiesenem Produktwert separat fachlich
+geprueft.
 
 ## Versicherung, Unfall und Schaden in AT
 
@@ -180,7 +209,7 @@ neue Cases; nur unabhaengige Streit-/Recovery-Arbeit wird verknuepft.
 | `property_purchase_or_sale` | Liegenschaft/Eigentumswohnung kaufen oder verkaufen | Vertrag, Finanzierung, Treuhand, Grundbuch, Uebergabe; Steuer-/Finanz-Cases zusaetzlich verknuepfen | `A/P/S` |
 | `construction_or_renovation` | Bau-, Sanierungs- oder Renovierungsprojekt | Custom/Guided Umbrella; Auftraege, Abnahmen, Rechnungen, Bewilligungen und Disputes verknuepfen | `G/A/P` |
 | `utility_connection_switch_or_issue` | Strom/Gas/Wasser/Internet anschliessen, wechseln oder klaeren | Vertrag bleibt Record; Anschluss/Wechsel/Dispute als Case | `G/A/P` |
-| `relocation_umbrella` | Umzug als bewusst angelegter Sammelvorgang | Nutzer waehlt Records/Cases/Dokumente; keine einzelne Kuendigung beweist Umzug | `C` |
+| Custom-Umbrella (keine Katalog-ID) | Umzug als bewusst angelegter Sammelvorgang | Nutzer waehlt Records/Cases/Dokumente; keine einzelne Kuendigung beweist Umzug | `C` |
 
 Miet-, Bau- und Foerderregeln koennen von Bundesland, Gemeinde und konkreter
 Vertrags-/Objektart abhaengen. Ein AT-Basispack reicht fuer diese Varianten
@@ -279,7 +308,7 @@ werden:
 
 ## Quellenregister fuer Discovery
 
-Alle Links zuletzt geprueft am **2026-07-15**. Ein aktives Pack braucht je
+Alle Links zuletzt geprueft am **2026-07-20**. Ein aktives Pack braucht je
 konkreter Variante tiefere Quellen und professionelle Freigabe.
 
 - [oesterreich.gv.at](https://www.oesterreich.gv.at/) - zentrale Lebenslagen,
@@ -288,6 +317,16 @@ konkreter Variante tiefere Quellen und professionelle Freigabe.
 - [Gesundheitsportal: Entlassung aus dem Krankenhaus](https://www.gesundheit.gv.at/gesundheitsleistungen/krankenhausaufenthalt/entlassungstag-krankenhaus.html)
 - [Gesundheitsportal: ELGA eBefund](https://www.gesundheit.gv.at/gesundheitsleistungen/elga/e-befund.html)
 - [oesterreich.gv.at: Leistungen der Krankenversicherungstraeger](https://www.oesterreich.gv.at/de/themen/gesundheit/patientenrechte/Seite.3700100)
+- [OeGK: Wahlaerztinnen und Wahlaerzte](https://www.oegk.at/cdscontent/?contentid=10007.870516)
+  - digitaler Normalpfad, Honorarnote, Zahlungsnachweis und Ergebnis;
+- [SVS: Kostenerstattung nach Wahlarztbesuch](https://www.svs.at/cdscontent/?contentid=10007.899418&portal=svsportal)
+  - svsGO-Upload oder Uebermittlung durch den Wahlarzt;
+- [BVAEB: Kostenerstattung - Rechnung einreichen](https://www.bvaeb.at/cdscontent/?contentid=10007.840464&portal=bvaebbportal&viewmode=content)
+  - App/Web, Rechnung, Zahlungsnachweis und gegebenenfalls Verordnung;
+- [UNIQA: Arzt- und Medikamentenrechnungen einreichen](https://www.uniqa.at/versicherung/gesundheit/wie-rechnungen-einreichen)
+  - SV-Ergebnis und Rechnung fuer den normalen Zusatzversicherungspfad;
+- [Merkur: Leistungseinreichung](https://portal.merkur.at/leistungseinreichung)
+  - SV-Erstattungsnachweis oder Ablehnung und leistungsbezogene Zusatzunterlagen;
 - [oesterreich.gv.at: Verhalten bei einem Verkehrsunfall](https://www.oesterreich.gv.at/de/themen/notfaelle_unfaelle_und_kriminalitaet/unfall/4/Seite.2892001)
 - [Konsumentenfragen: Gewaehrleistung und Garantie](https://www.konsumentenfragen.at/konsumentenfragen/Rund_um_den_Vertrag/Nach_dem_Kauf/Gewaehrleistung_und_Garantie.html)
 - [oesterreich.gv.at: Familienbeihilfe](https://www.oesterreich.gv.at/de/themen/familie_und_partnerschaft/familienbeihilfe/Seite.450233)
@@ -313,9 +352,8 @@ konkreter Variante tiefere Quellen und professionelle Freigabe.
   weiten Produktclaim erforderlich?
 - Welche AT-Begriffe sind nur Anzeige-Aliase und welche brauchen eine stabile
   globale semantische Dokumentvariante?
-- Werden der generische Case, die acht optionalen Workflow-Muster und die
-  sichtbaren Fachvorlagen akzeptiert oder muessen Muster kombiniert/getrennt
-  werden?
+- Welche zentral registrierten Workflow-Muster und Fachvorlagen werden nach
+  R0.6 fuer ein AT-Pack aktiviert, kombiniert oder bewusst nicht angeboten?
 - Welche sensiblen Facts duerfen zur Pack-Anwendbarkeit gespeichert werden?
 
 ## Stop Rules

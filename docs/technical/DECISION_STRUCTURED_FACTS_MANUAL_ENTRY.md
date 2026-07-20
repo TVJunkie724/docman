@@ -2,7 +2,7 @@
 title: "Decision - Structured Facts Manual Entry"
 description: "Entscheidung zu ersten manuell erfassbaren Facts und Fact-Gruppen aus Dokumentgrundart, Domain, Record-Kontext und Workflow"
 tags: [decision, facts, claims, insights, records, document-types, finance]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted-rebaseline"
 owner: "product-concept/domain"
 ---
@@ -19,6 +19,13 @@ semantischer Variante, Domain, Record-Kontext und Workflow angeboten.
 ## Entscheidung
 
 Mappm startet mit Fact-Gruppen statt Pflichtfeld-Maschine.
+
+Alle Zeitwerte innerhalb dieser Fact-Gruppen folgen
+`DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`. Die kurzen Feldbezeichnungen in
+den folgenden Tabellen sind keine Erlaubnis fuer ein universelles
+`documentDate`: Ausstellungs-, Leistungs-, Einreichungs-, Entscheidungs-,
+Faelligkeits-, Gueltigkeits- und Systemzeit bleiben semantisch getrennt und
+provenienzgebunden.
 
 Keine einzelne Dokumentklassifikation steuert Facts allein. Backend/Core Assist
 verwendet Grundart, Variante, Domain, Facts, Record-/Case-Kontext und die
@@ -42,7 +49,7 @@ Grundregel:
 | `deadline` | Fristen und Faelligkeiten | Datum, Grund, Status, Reminder-Quelle |
 | `claim` | Erstattungen, Einreichungen, Reklamationen, Garantieansprueche | Claim-Typ, Status, eingereicht am, Entscheidung, Erstattungsbetrag, Erstattungsquote |
 | `contract_term` | Vertrage, Abos, Laufzeiten, Abrechnung und Kuendigungen | Start, Ende, Status, Vertragspartner, Abrechnungsperiode monatlich/quartalsweise/jaehrlich/custom, Mindestlaufzeit, Verlaengerung, Kuendigungsfrist, naechster Kuendigungstermin, bestaetigter wiederkehrender Betrag |
-| `coverage` | Versicherungsdeckung und Polizzenbezug | Versicherer, Polizze, versicherte Person, Gueltigkeit, Deckungshinweis |
+| `coverage` | dokumentierte Versicherungsangabe und Polizzenbezug | Versicherer, Polizze, versicherte Person, Gueltigkeit, wortgetreuer/bestaetigter Hinweis; keine Deckungs-, Anspruchs- oder Leistungsberechnung |
 | `identity_validity` | Ausweis-/Nachweis-Gueltigkeit | Nummer/Identifier, ausgestellt am, gueltig bis, ausstellende Stelle |
 | `profile_fact` | Personenbezogene Fakten mit optionalem Nachweis | Label, Werttyp, Wert, Schutzklasse, Quelle/Nachweis |
 | `asset_or_warranty` | Kaufbeleg, Garantie, Seriennummern | Kaufdatum, Haendler, Betrag, Garantieende, Seriennummer |
@@ -148,3 +155,7 @@ einem Claim verknuepft werden.
 - ob Nutzerinnen eigene Fact-Gruppen definieren duerfen.
 - genaue Datenbanktabellen fuer Facts, Claims und Financial Entries.
 - welche Facts spaeter automatisch aus OCR/AI vorgeschlagen werden.
+
+Die grundlegende Zeitsemantik, Genauigkeit, Provenienz und Trennung von
+Zeit-Fact, Ereignis, Termin, Frist, Aufgabe und Reminder ist dagegen in
+`DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md` entschieden.

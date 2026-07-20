@@ -2,7 +2,7 @@
 title: "Decision - First Insights Verticals"
 description: "Entscheidung zu ersten Haushalts-Finanz- und Claim-Auswertungen auf Basis von Facts, Claims, Unterlagen, Vorgängen und manuellen Eintraegen"
 tags: [decision, insights, facts, claims, finance, household, health, insurance]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted"
 owner: "product-concept/domain"
 ---
@@ -96,6 +96,13 @@ Typische Felder:
 - betroffene Person.
 - Versicherung/Polizze.
 - verknuepfte Dokumente, Unterlagen und Vorgänge.
+
+Diese Felder speichern ausschliesslich bestaetigte Angaben oder aus Dokumenten
+uebernommene tatsaechliche Betraege mit Provenienz. Mappm berechnet oder
+prognostiziert keine Deckung, erwartete Erstattung oder Versicherungsleistung.
+Im normalen medizinischen Ablauf erscheint die Zusatzversicherungs-Einreichung
+erst nach bestaetigter abschliessender SV-Abrechnung/Erstattung oder Ablehnung;
+ein bewusst direkter Nutzerweg bleibt davon unberuehrt.
 
 Apothekenrechnungen gehoeren hier ausdrücklich dazu, wenn sie bei SV oder
 Zusatzversicherung eingereicht werden koennen.

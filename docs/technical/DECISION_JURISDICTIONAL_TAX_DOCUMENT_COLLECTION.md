@@ -2,7 +2,7 @@
 title: "Decision - Jurisdictional Tax Document Collection"
 description: "Produktgrenze fuer private und geschaeftliche Steuer-Unterlagensammlung ohne Buchhaltungs- oder Steuerberatungsclaim"
 tags: [decision, product, tax, jurisdiction, business, documents, workflows, compliance]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-16"
 status: "accepted-direction"
 owner: "product-concept"
 ---
@@ -26,7 +26,8 @@ separate domain subtype:
 
 ```text
 Case
-  workflowFamily: tax_collection
+  domainTemplateId: tax_document_collection
+  workflowPatternId: collection
   managedSubjectId
   country / jurisdiction
   taxRegime or collectionPurpose

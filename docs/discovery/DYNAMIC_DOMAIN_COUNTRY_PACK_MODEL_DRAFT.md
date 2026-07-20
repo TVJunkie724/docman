@@ -2,7 +2,7 @@
 title: "Discovery Draft - Dynamic Domain and Country-Pack Model"
 description: "Entwurf fuer eine deklarative, versionierte und auditierbare Abbildung wachsender Case-, Dokument-, Workflow-, Laender- und Providerkombinationen"
 tags: [discovery, draft, architecture, domain, workflows, taxonomy, country-packs, rules, versioning]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-16"
 status: "draft"
 owner: "product-concept"
 ---
@@ -31,6 +31,12 @@ Kombinationen abbilden koennen:
 Diese Kombinationen duerfen weder als tausende Flutter-Enums noch als
 serverseitige Sonderfaelle pro Anbieter wachsen. Das Ziel ist eine
 kompositorische, gepruefte und rueckverfolgbare Definitionsebene.
+
+Die einzige Source of Truth fuer kanonische Workflow-Muster und
+Fachvorlagen-IDs ist
+`docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`. Dieses Dokument
+untersucht nur Schema, Registry, Versionierung und Runtime-Komposition. Es darf
+keine eigene ID-Liste, Umbenennung oder Katalogreife definieren.
 
 ## Draft-Richtung
 
@@ -77,12 +83,13 @@ Eine kontrollierte, versionierte Taxonomie definiert stabile semantische IDs.
 Sie trennt die eine generische `Case`-Entitaet und ihre optionalen
 Workflowbindungen von den vorlaeufig acht wiederverwendbaren Prozessgrammatiken
 und den zahlreicheren sichtbaren Fachvorlagen aus
-`CASE_DOCUMENT_TAXONOMY_CANDIDATES.md`:
+`docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`:
 
 - optionale Workflow-Muster wie `submission`, `episode`, `incident` oder
   `resolution`;
-- domainbezogene Fachvorlagen wie `benefit_application`, `medical_care`,
-  `medical_expense`, `purchase` oder `tax_collection`;
+- domainbezogene Fachvorlagen wie `entitlement_or_benefit_claim`,
+  `medical_care`, `medical_cost_settlement`,
+  `purchase_fulfilment_and_remedy` oder `tax_document_collection`;
 - Dokumentgrundarten und nur nach Zulassungstest stabile semantische Varianten;
 - Domains und Record-Arten;
 - Dokumentrollen/Slots je Workflow;
@@ -91,9 +98,10 @@ und den zahlreicheren sichtbaren Fachvorlagen aus
 
 Anzeigenamen sind lokalisiert und austauschbar. IDs duerfen nicht aus
 deutschen Labels oder Laenderbegriffen gebildet werden. Ein Country-Pack darf
-neue Vorlagen oder Varianten publizieren, aber weder eine neue Case-Entitaet
-noch ein neues Workflow-Grundmuster einfuehren, ohne eine eigene
-rueckwaertskompatible Produkt-/Schemaentscheidung.
+nur Varianten zentral registrierter Vorlagen publizieren. Ein neuer globaler
+Vorlagenkandidat oder ein neues Workflow-Grundmuster braucht zuerst eine
+Disposition in der Katalog-SSOT und gegebenenfalls eine rueckwaertskompatible
+Produkt-/Schemaentscheidung.
 
 ```text
 Case = generische Dokumentensammlung und Koordinationskontext
@@ -239,13 +247,13 @@ dependencies:
   taxonomy: core-taxonomy@1
   modules: workflow-modules@1
 definitions:
-  - templateId: benefit_application
+  - templateId: entitlement_or_benefit_claim
     workflowPatternId: submission
     variants: []
   - templateId: medical_care
     workflowPatternId: episode
     variants: []
-  - templateId: medical_expense
+  - templateId: medical_cost_settlement
     workflowPatternId: settlement
     variants: []
 documentMappings: []

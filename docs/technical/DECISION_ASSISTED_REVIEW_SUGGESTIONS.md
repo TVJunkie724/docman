@@ -2,7 +2,7 @@
 title: "Decision - Assisted Review Suggestions"
 description: "Entscheidung zu Backend-/Core-Assist-Vorschlaegen fuer Titel, Dokumentfakten, Case-/Record-Routing, Workflows und sichtbare Human-in-the-loop-Bestaetigung"
 tags: [decision, assisted-review, ocr, ai, title, routing, suggestions, privacy]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted-rebaseline"
 owner: "product-concept"
 ---
@@ -52,6 +52,14 @@ cannot silently replace the confirmed title.
 | Workflow | domain template/definition version, pattern/modules, branch, document role/slot, next step | material consequences confirmed; internal keys hidden by default |
 | Work | task, reminder, appointment, expected document | visible if created/activated; external actions never implicit |
 | Relationships | `part_of`, `caused_by`, `follow_up_to`, `related_to` | user-confirmed; causality requires strong evidence |
+| Lifecycle | late evidence without reopen, confirmed reopen, new linked Case | material lifecycle consequence is visible and user-confirmed |
+| Domain state | payment, submission, waiting, information request, settlement/rejection | provenance-bearing material change is visible and user-confirmed; missing documents never invalidate a Case |
+
+Datums-/Zeitvorschlaege folgen
+`DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`. Ein Dokument kann mehrere
+unterschiedlich typisierte Zeit-Facts besitzen. Ein extrahiertes Datum wird
+nicht allein durch seine Erkennung zu einem Ereignis, Termin, einer Frist,
+Aufgabe, Notification oder Kalenderaktion.
 
 ## Suggestion and Bundle Model
 
@@ -140,13 +148,15 @@ Backend/Core Assist must not:
 - treat user corrections as training consent;
 - use capture-session proximity as proof that documents belong together;
 - hide additional accepted assignments inside a bulk confirmation.
+- mark a Case invalid because evidence is missing or use a non-final payer
+  response to silently activate a later Claim step.
 
 ## Verification
 
 Tests/fixtures cover title proposal, edit, rejection, reprocessing, high/medium/
 low confidence, subject conflict, mixed batch, multiple Case links, visible-only
-confirmation, sensitive notification redaction and provider failure. Fixtures
-remain synthetic.
+confirmation, late evidence without silent reopen, confirmed reopen, sensitive
+notification redaction and provider failure. Fixtures remain synthetic.
 
 ## Intentionally Open
 

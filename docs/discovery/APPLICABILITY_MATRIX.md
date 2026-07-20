@@ -2,7 +2,7 @@
 title: "DocMan/Mappm - Applicability Matrix"
 description: "Playbook applicability matrix for the existing DocMan/Mappm project"
 tags: [discovery, applicability, governance, playbook]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted-baseline"
 owner: "product-concept"
 ---
@@ -45,7 +45,7 @@ Traceability rules:
 | AI/OCR/LLM | applicable | Core Assist is required in C2/C3; Advanced Assist remains later; real-document processing is blocked by VC-02/OQ-003 and AI/REG gates | ai/compliance | `docs/technical/DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md`, `docs/ai/AI-00_AI_GOVERNANCE_UMBRELLA.md`, REG-02, AI-* | before C2 approval |
 | Commercial/Billing | applicable | account-based Free/Paid Local and Cloud modes are accepted; Assist quotas, pricing and policy values remain open | commercial/product | `docs/commercial/*`, F36 | C0/C1/C4 |
 | eIDAS/EUDI/ID Austria | planned | trusted identity is strategically relevant for Austria/EU, later provider boundary | identity/compliance | REG-04, identity decision | 2026-08-15 |
-| EHDS/Health Interoperability | needs-review | Mappm handles health documents but is not currently an EHR and makes no health-interoperability claim; scope changes if such capabilities or marketing are added | legal/privacy/product | Source Register, REG-01, medical discovery | before health-provider/EHR integration, otherwise 2027-03-26 |
+| EHDS/Health Interoperability | needs-review | Mappm handles health documents but is not currently an EHR and makes no health-interoperability claim; scope changes if such capabilities or marketing are added | legal/privacy/product | Source Register, REG-01, accepted Medical core plus extension supplement | before health-provider/EHR integration, otherwise 2027-03-26 |
 | NIS2/NISG 2026 | needs-review | Austrian NISG 2026 takes material effect on 2026-10-01; entity, size, service and supply-chain scope remain a legal decision | legal/security/ops | REG-05, SEC-*, OPS-* | before Managed Cloud/Enterprise launch and no later than 2026-09-01 |
 | Standard Roadmap Guardrails | always-plan | playbook phases map to C0-C7 while R0-R15 remains traceability | product-concept | `docs/roadmap-standard/STANDARD_PHASES.md`, `ALWAYS_PLAN_CHECKLIST.md`, `CONDITIONAL_IMPLEMENTATION_MATRIX.md` | 2026-07-15 |
 

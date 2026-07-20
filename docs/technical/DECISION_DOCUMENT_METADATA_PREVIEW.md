@@ -2,7 +2,7 @@
 title: "Decision - Document Metadata, Generated Titles and Preview"
 description: "Entscheidung zu Backend-/Assist-vorgeschlagenen Dokumentmetadaten, bestaetigten Werten, primaerem Kontext und asynchroner Vorschau"
 tags: [decision, documents, metadata, title, preview, intelligence, review]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted-rebaseline"
 owner: "product-concept"
 ---
@@ -54,13 +54,18 @@ retains source/provenance and sensitivity appropriate to its use.
 
 ## Preview Rules
 
-Preview is required review evidence, but preview generation remains
-asynchronous and recoverable:
+Preview is required review evidence where the format is supported. Unsupported
+content uses safe package metadata and original-access/export affordance
+instead. Preview generation remains asynchronous and recoverable:
 
 - PDF: representative page/thumbnail and later multi-page navigation according
   to phase scope;
 - images: safe image preview;
 - mobile scan: page/document preview;
+- case-lokales medizinisches ZIP-Medienpaket: M1 zeigt den manuell vergebenen
+  Titel, ein optional manuell erfasstes Datum und automatisch erzeugte
+  technische Paketmetadaten sowie `Unsupported` statt automatischer
+  Extraktion, DICOM-Darstellung oder Programmausfuehrung;
 - pending/failed: stable placeholder and access to safe original fallback where
   supported;
 - split/merge: preview preserves mapping to original source pages/files.
@@ -89,13 +94,17 @@ unstructured map.
 
 Cover generated title accept/edit/reprocess protection, preview pending/failure/
 rebuild, poor scan, multi-page/source traceability, visible-only confirmation,
-optional facts and primary Case/Record completion using synthetic fixtures.
+optional facts, Medienpaket mit manuellem Titel/optionalem Datum ohne
+Preview/Ausfuehrung und primary Case/Record completion using synthetic
+fixtures.
 
 ## Stop Rules
 
 Stop if:
 
-- title is a blank mandatory field instead of Backend/Core Assist proposal;
+- title is a blank mandatory field instead of Backend/Core Assist proposal,
+  except for the explicitly manual title of the case-local medical M1 media
+  package;
 - preview failure deletes/invalidates the original;
 - confirmed values are silently replaced by reprocessing;
 - every extracted fact becomes a blocking form field;

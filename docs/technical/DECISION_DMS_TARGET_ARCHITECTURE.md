@@ -2,7 +2,7 @@
 title: "Decision - DMS Target Architecture"
 description: "Langfristiges Zielbild fuer Mappm als vollwertiges Dokumentenmanagementsystem statt nur Dokumentanhaenge an Vorgängen"
 tags: [decision, dms, documents, records, cases, capture, inbox, outbox, intelligence, sync]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted"
 owner: "product-concept/data-architect"
 ---
@@ -76,7 +76,9 @@ Mappm trennt langfristig folgende Objekte:
 | `DocumentCaseLink` | Beziehung zwischen Dokument und Vorgang mit Rolle, z. B. `primary`, `context`, `evidence`, `source` |
 | `DocumentProfileLink` | Personen-/Profilbezug fuer Dokumente, Records, Facts und Vorgänge |
 | `DocumentFact` | Strukturierte, such- und auswertbare Aussage aus Dokumenten oder manueller Erfassung |
-| `Task` / `Reminder` | Handlungsbedarf, Frist, Zahlung, Einreichung, Termin oder Wiedervorlage |
+| `TemporalFact` | Typisierte Zeitangabe mit Bedeutung, Genauigkeit, Quelle und Bestaetigungsstatus |
+| `Event` / `Appointment` / `ExpectedResponse` | bestaetigter Verlaufspunkt, geplanter Termin oder erwartetes externes Ergebnis |
+| `Task` / `Deadline` / `Reminder` | Nutzerhandlung, fachliche Frist und bewusst konfigurierte Erinnerung mit getrennten Lebenszyklen |
 | `CaptureSession` / `DocumentUnit` / `PageManifest` | Erfassungseinheit, logisch getrenntes Dokument und unveraenderliche Seiten-/Originalzuordnung |
 | `ReviewProposal` | Versionierter, korrigierbarer Vorschlag fuer Titel, primaeren Kontext, Subject, Facts und materielle Folgen |
 | `ExportJob` / `OutboxItem` | Vorbereitete Ausgabe, Download, Druck, Mail, lokales ZIP oder Einreichpaket |
@@ -110,6 +112,17 @@ neue Version existiert. Der Vorgang besitzt das Dokument aber nicht exklusiv.
 ### Dateien werden nicht dupliziert
 
 Mehrfachzuordnung darf nicht zu Datei-Duplikaten führen.
+
+Ein M1-Medienpaket wird nur durch die case-lokale medizinische Desktop-Aktion
+bewusst erzeugt und ist danach ein unveraendertes ZIP-Originalartefakt. Ein am
+`FileRecord` gefuehrtes unveraenderliches
+Manifest beschreibt mindestens relative Pfade, Dateianzahl, Groessen,
+Ausschluesse/Lesefehler und Integritaetswerte. Das Manifest ist ein Value
+Object ohne eigene fachliche Identitaet, keine neue Top-Level-Entitaet. Der
+case-lokale medizinische Desktop-Archivimport bildet damit eine
+ausdrueckliche Ausnahme zur normalen Regel, dass mehrere ausgewaehlte Dateien
+getrennte logische Dokumente sind. Enthaltene Programme bleiben inerte
+Nutzdaten und werden von Mappm nicht ausgefuehrt.
 
 Ein Scan kann sichtbar sein:
 
@@ -214,6 +227,13 @@ Beispiele:
 Backend/Core Assist schlaegt OCR-basierte Facts, Titel und Beziehungen im
 Commercial Core vor. Fachlich relevante Facts bleiben reviewbar,
 provenance-markiert und nachvollziehbar.
+
+Zeitbezogene Facts und ihre moeglichen Folgen richten sich nach
+`DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`. Ausstellungs-, Empfangs-,
+Leistungs-, Ereignis-, Faelligkeits-, Gueltigkeits- und Systemzeit werden
+nicht in ein einziges Dokumentdatum zusammengefuehrt. Ein Zeit-Fact wird nicht
+allein durch seine Extraktion zu Ereignis, Termin, Aufgabe, Frist oder
+Reminder.
 
 ## Zielarchitektur nach Verantwortungen
 

@@ -2,7 +2,7 @@
 title: "Decision - Local Database"
 description: "Entscheidung zu SQLite und Drift für Local Authority sowie Cloud Cache und Pending State"
 tags: [decision, local-storage, database, mobile, desktop, drift, sqlite, vault]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted"
 owner: "data-architect"
 ---
@@ -61,6 +61,12 @@ wählen die konkrete Strategie.
   Versions- und Löschinformationen, soweit ihr Contract dies erfordert.
 - Flexible, providernahe Rohdaten dürfen gezielt in versionierten JSON-Spalten
   liegen; stabile fachliche Felder werden explizit modelliert.
+- Zeitwerte folgen `DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`: technische
+  Zeitstempel bleiben von fachlichen Zeit-Facts, Ereignissen, Terminen,
+  Fristen, Aufgaben, erwarteten Antworten und Remindern getrennt.
+  Date-only-/Teilgenauigkeits-/Intervall-/Zeitzonenwerte, Provenienz,
+  Vorschlagsstatus und Korrekturhistorie duerfen durch Persistenz oder Sync
+  nicht verloren gehen.
 - Migrationen sind vorwärts und rückwärts gegen unterstützte Upgrade-Pfade zu
   testen; fehlgeschlagene Migrationen dürfen Originaldaten nicht zerstören.
 - Isar- und PocketBase-Spike-Modelle sind keine Zielarchitektur. Ihre Ablösung

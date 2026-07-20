@@ -2,7 +2,7 @@
 title: "Decision - Case Relationships and Workflow Composition"
 description: "Verbindliches Mappm-Modell fuer eigenstaendige Vorgaenge, typisierte Beziehungen, Workflow-Schritte, Ablaufzweige, Custom-Vorgaenge und Bottom-up-Komposition"
 tags: [decision, product, cases, workflows, relationships, custom-cases, tasks, agenda]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted"
 owner: "product-concept"
 ---
@@ -123,22 +123,22 @@ parallel/sequential branches and explicit escalation points. A branch is not a
 Case by default. It can later be promoted to a linked Case without copying
 files, facts or history.
 
-## Illustrative Medical Cost-Settlement Claim Semantics (non-normative)
+## Medical Cost-Settlement Claim Semantics
 
-The following example demonstrates generic Claim/branch semantics only. The
-medical family, Case boundary and workflow are still open in
-`docs/discovery/MEDICAL_CASE_MODEL_DISCOVERY.md`. Its current draft proposes
-that each such cost-settlement Case is `part_of` a medical care anchor; that
-proposal remains non-normative until R0.6/OQ-012 acceptance.
+The medical-specific authority is
+`DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md`. Its accepted core uses one
+neutral medical care anchor and one `part_of` cost-settlement Case per
+independent economic obligation. Payer submissions remain Claims inside that
+cost Case.
 
 ```text
 Case: Arztrechnung vollstaendig abrechnen
   review invoice
   pay invoice where applicable
-  identify/rank applicable payer when submission is invoked
+  show an explicit user default first when submission is invoked
   submit to the confirmed payer
   wait for response/payment and reconcile outcome
-  activate another applicable payer Claim only when evidence/context supports it
+  activate another user-confirmed payer Claim only when requested/evidenced
   reconcile total reimbursement and own share
   close with explicit outcome
 
@@ -150,9 +150,16 @@ The two payer Claims are not Subcases. Documents from different insurers are
 linked to the same Case and to the relevant Claim using roles such as
 `submission`, `response`, `decision` or `payment_proof`.
 
-Whether hospital, outpatient care, therapy, rehabilitation or benefit work are
-stages, separate Cases or another composition is deliberately not decided by
-this example.
+Hospital, outpatient care and provider changes do not split the Care Case by
+themselves. Reha, Nachsorge and later evidence are matched per document against
+existing and possible new linked Care Cases. Continuity prefers the existing
+Case; an independently understandable course may rank a new linked Case first.
+The user confirms either outcome. In M1, a new medical related/Subcase starts
+from one anchor document or explicit intent; the product does not require a
+manual multi-document split. Later documents are matched and linked
+individually. Recurrence is optional planning on a finite Care Case, not a Case
+type. Special contractual insurance benefits are not specialized by the
+medical core. Mappm performs no coverage or benefit calculation.
 
 ## Motor Accident Example
 
@@ -172,10 +179,11 @@ Case: Autounfall vom 12.07.2026 regulieren
 - Police involvement is normally a conditional step, event and document source.
 - Repair is normally a branch with estimate, work and invoice.
 - Insurer interactions are normally Claims within the accident Case.
-- Initial medical examination and legal correspondence may remain in the Case
-  or become linked work; the medical discovery must decide the boundary.
-- Long-running treatment is only an illustration of work that could satisfy the
-  generic independent-goal test; no medical Case type is accepted here.
+- A confirmed independent medical treatment course may become a
+  `medical_care` Case linked through `caused_by`; temporal proximity alone is
+  insufficient.
+- Rehabilitation and later evidence remain in that Medical Care Case by
+  default; a separate successor is explicit and user-confirmed.
 - A formal proceeding with its own case number, deadlines and outcome may become
   a linked Case.
 

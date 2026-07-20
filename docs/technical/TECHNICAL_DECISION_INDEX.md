@@ -2,7 +2,7 @@
 title: "Mappm Technical Decision Index"
 description: "Vollstaendiges Inventar technischer Decisions und historischer Implementation-Plan-Tombstones"
 tags: [technical, decisions, index, governance, traceability]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "active"
 owner: "product-concept/data-architect/contract-api"
 ---
@@ -40,6 +40,7 @@ ist immer ein gepruefter Phase-as-Implementation-Contract erforderlich.
 | `DECISION_CODEGEN_ARTIFACT_POLICY.md` | `accepted` | foundation-builder |
 | `DECISION_COMMERCIAL_CORE_SCOPE.md` | `accepted` | product-concept |
 | `DECISION_CONTEXTUAL_REVIEW_ACTIONS_FINANCIAL_ROLLUPS.md` | `accepted` | product-concept |
+| `DECISION_CROSS_DEVICE_CAPTURE_HANDOFF.md` | `draft` | product-concept/security/data-architect/contract-api/platform |
 | `DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md` | `accepted` | product-concept |
 | `DECISION_DATA_FLOW.md` | `superseded` | data-architect/product |
 | `DECISION_DESKTOP_IMPORT_SCOPE.md` | `accepted` | product-concept/ui-concept |
@@ -68,6 +69,7 @@ ist immer ein gepruefter Phase-as-Implementation-Contract erforderlich.
 | `DECISION_LOCAL_EXPORT_NO_EXTERNAL_SHARING.md` | `accepted` | product-concept/security |
 | `DECISION_LOCAL_LOGIN.md` | `superseded` | product-concept/security |
 | `DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md` | `accepted-direction` | product-concept |
+| `DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` | `accepted-core` | product-concept |
 | `DECISION_MILESTONE_QUALITY_GATES.md` | `accepted` | quality-readiness |
 | `DECISION_MOBILE_CAPTURE_CONTEXT_SELECTION.md` | `accepted-rebaseline` | product-concept |
 | `DECISION_MOBILE_CAPTURE_UPLOAD_STRATEGY.md` | `accepted` | data-architect/contract-api |
@@ -90,6 +92,7 @@ ist immer ein gepruefter Phase-as-Implementation-Contract erforderlich.
 | `DECISION_STATE_MANAGEMENT.md` | `accepted` | foundation-builder/ui-architect |
 | `DECISION_STRUCTURED_FACTS_MANUAL_ENTRY.md` | `accepted-rebaseline` | product-concept/domain |
 | `DECISION_SYNC_CONFLICT_RESOLUTION.md` | `superseded` | data-architect/product-concept |
+| `DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md` | `accepted-direction` | product-concept/data-architect |
 | `DECISION_TEST_FIXTURES.md` | `accepted` | quality-readiness |
 | `DECISION_TRUST_ENCRYPTION_DEPLOYMENT_MODEL.md` | `superseded` | security/product |
 | `DECISION_UPLOAD_LIMITS_RETRY_RESUME_CLEANUP.md` | `accepted-principles-policy-required` | contract-api/operations |

@@ -2,7 +2,7 @@
 title: "Decision - File Storage Strategy and Local Development Cloud Stack"
 description: "Austauschbare Dateiablage fuer Local/Cloud Vault und containerisierter Local-Development-Stack"
 tags: [decision, storage, files, docker, compose, s3, cloud, local-development]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted"
 owner: "data-architect/backend"
 ---
@@ -52,6 +52,10 @@ Self-Hosting-/NAS-Loesung.
 
 - Originale werden nie still veraendert.
 - Hash/Checksum, Groesse, MIME und Manifest werden bei Transfer verifiziert.
+- Der case-lokale medizinische Desktop-Medienarchiv-Import speichert das
+  erzeugte ZIP unveraendert; sein separates Manifest prueft relative Struktur,
+  Dateianzahl, Groessen, Ausschluesse und Integritaet. Re-Export liefert exakt
+  dieses gespeicherte ZIP.
 - Cache Cleanup, User Delete, Vault Delete, Upload Cancel und Retention Cleanup
   sind getrennte Operationen.
 - Quellendaten werden vor verifizierter Migration/Zielaktivierung nicht
@@ -80,6 +84,8 @@ nur Session, Fortschritt, Bestaetigung und Fehler.
 ## Security und Tests
 
 - Keine Pfade, Storage Keys, URLs, Inhalte oder Secrets in Logs/Telemetry.
+- Ausfuehrbare Dateien innerhalb eines Medienarchivs bleiben inerte Bytes und
+  werden weder vom Client noch von Preview-/Processing-Workern gestartet.
 - Uploadziele sind kurzlebig und eng autorisiert.
 - File-Store-Verzeichnisse und Caches sind pro Vault isoliert.
 - Tests pruefen Atomizitaet, Crash/Restart, Hash, fehlende Datei, Cleanup-Race,

@@ -2,7 +2,7 @@
 title: "Decision - Profile Sensitive Data"
 description: "Schutzklassen und Datenmodell für verwaltete Personen, Organisationen, Versicherungen, Adressen und Identity-Anbindung"
 tags: [decision, profiles, managed-subjects, sensitive-data, insurance, identity, privacy, id-austria]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted"
 owner: "security/product-concept"
 ---
@@ -66,9 +66,23 @@ gleichzeitig oder historisch besitzen. Daher werden Mitgliedschaften
 strukturiert mit Art, Provider, optionalem Identifikator, Gültigkeit und
 verknüpftem Record modelliert.
 
-Die Polizze bleibt ein Record. Medizinische oder Erstattungs-Workflows dürfen
-passende aktive Versicherungen vorschlagen, ohne Polizzen in Cases zu kopieren
-oder vorab einen festen Erstattungsweg abzufragen.
+Die Polizze bleibt ein Record. Pro Managed Subject darf hoechstens eine
+ausdruecklich gewaehlte Praeferenz fuer Sozialversicherung/Krankenfuersorge,
+ambulante Zusatzversicherung und stationaere Zusatzversicherung bestehen.
+Weitere Versicherungen bleiben sichtbar und auswaehlbar; historische
+Beziehungen bleiben nachvollziehbar.
+
+Eine solche Praeferenz sortiert Vorschlaege, beweist aber weder Deckung,
+Zustaendigkeit noch Anspruch. Medizinische oder Erstattungs-Workflows duerfen
+den bestaetigten Default zuerst anbieten, ohne Polizzen in Cases zu kopieren,
+vorab einen festen Erstattungsweg abzufragen, automatisch einen Claim
+anzulegen oder eine Einreichung auszufuehren.
+
+Mappm loest keine Versicherungsbedingungen oder Polizzenformeln auf und
+berechnet keine erwartete Erstattung, Deckung oder sonstige
+Versicherungsleistung. Nur bestaetigte Werte aus Dokumenten duerfen gespeichert
+und kontextuell zusammengefasst werden. Besondere vertragliche Leistungen
+werden fuer M1 nicht als Medical-Sonderfaelle ausmodelliert.
 
 ## Identity und eID
 
@@ -100,9 +114,10 @@ die Schutzklassen ausdrücklich. Kinder-, Gesundheits-, Ausweis-, Steuer- und
 Geschäftsdaten benötigen besonders zurückhaltende Defaults.
 
 Tests decken Maskierung, Berechtigungswechsel, falsches Managed Subject,
-mehrere Versicherungen, historische Gültigkeit, Export-/Löschumfang,
-Suchindex-/Log-Redaction und Tenant-Isolation ausschließlich mit synthetischen
-Daten ab.
+mehrere Versicherungen, je Kategorie keinen/einen Default, historische
+Gültigkeit, Default-Aenderung ohne automatische Claim-/Einreichungsfolge,
+Export-/Löschumfang, Suchindex-/Log-Redaction und Tenant-Isolation
+ausschließlich mit synthetischen Daten ab.
 
 ## Offene Implementierungsentscheidungen
 

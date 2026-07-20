@@ -2,7 +2,7 @@
 title: "Decision - Review Completion Validation"
 description: "Entscheidung fuer den Abschluss assistierter Dokumentpruefung: intakte Datei, bestaetigter Titel/Grundart/Managed Subject, primaerer Case-/Record-Kontext und keine harten Konflikte"
 tags: [decision, capture, review, validation, metadata, profiles, cases, records, intelligence]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted-rebaseline"
 owner: "product-concept"
 ---
@@ -18,6 +18,12 @@ Accepted and rebaselined on 2026-07-15 for capture-first Assisted Review.
 A captured logical document becomes accepted only when the minimum fachliche
 meaning is confirmed. Backend/Core Assist prepares these values; the user is not
 expected to fill a blank form.
+
+This completion gate belongs to the document review, not to Case validity. A
+persisted Case is always valid and may contain zero, one or many documents. A
+missing document, workflow slot, task, Claim or outcome may leave a review,
+state transition or external action pending, but never turns the Case into an
+invalid object.
 
 ## Blocking Completion Conditions
 
@@ -63,6 +69,12 @@ them for a visible next action:
 
 Missing optional data does not justify a large manual form.
 
+A workflow may describe expected evidence for a later action. That expectation
+does not make the Case invalid and does not make a particular document type a
+general Case requirement. Where a provider actually requires evidence for an
+external submission, only that prepared action remains unavailable until the
+requirement is met or an explicit manual fallback is chosen.
+
 ## Confirmation Semantics
 
 - The best result is prepared as a review bundle.
@@ -76,7 +88,11 @@ Missing optional data does not justify a large manual form.
 ## New-Case Intent
 
 When the user selected **Neuen Vorgang starten**, creation intent is explicit
-and may produce a draft Case before processing completes. Review still requires:
+and first creates a proposal or reservation rather than an invalid partial
+Case. The Case may be persisted before document processing completes only after
+its minimum Case invariants are confirmed; it is then a valid, possibly empty
+or lightweight Case while the document review remains pending. Review still
+requires:
 
 - Backend/Core Assist title proposal;
 - confirmed Managed Subject;
@@ -111,5 +127,7 @@ Stop if:
 - one confirmation accepts hidden facts/relations;
 - a batch succeeds/fails only as one indivisible unit;
 - missing optional metadata blocks completion without workflow justification;
+- a failed or pending document review marks an already persisted Case invalid;
+- a workflow expectation is treated as a general Case document requirement;
 - a confirmed result can be overwritten by reprocessing;
 - future automation bypasses the accepted quality gate.

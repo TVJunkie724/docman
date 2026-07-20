@@ -2,7 +2,7 @@
 title: "Discovery Draft - Austria Tax Case and Evidence Catalog"
 description: "Nicht freigegebener Entwurf fuer oesterreichische Steuer-Sammelvorgaenge, Verfahrens-Cases, Dokumentrollen und Laenderpaket-Governance"
 tags: [discovery, draft, tax, austria, cases, workflows, documents, jurisdiction, compliance]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-19"
 status: "draft"
 owner: "product-concept"
 ---
@@ -17,6 +17,11 @@ Rechts- oder Steuerberatung und keine Zusage fuer Commercial 1.0. Er darf weder
 Fristen noch Anwendbarkeit, Absetzbarkeit, Vollstaendigkeit, Berechnung oder
 Einreichung im Produkt aktivieren.
 
+Oesterreich ist der akzeptierte erste Commercial-1.0-Markt. Diese
+Marktentscheidung priorisiert den Review dieses Entwurfs, aktiviert
+Steuer-Unterlagensammlung aber nicht automatisch fuer Commercial 1.0. OQ-010
+sowie WF-01/WF-02 bleiben fuer jeden konkreten Steuer-Scope verbindlich.
+
 Rechts- und Quellenstand dieses Discovery-Dokuments: **2026-07-15**. Vor jeder
 Freigabe muessen alle Quellen und Regeln erneut gegen den dann aktuellen Stand
 geprueft und durch einen benannten oesterreichischen Tax-/Legal-Owner
@@ -27,6 +32,13 @@ Die normative Produktgrenze bleibt
 Entwurf darf sie weder erweitern noch umgehen. Die Einordnung in den gesamten
 AT-Katalog steht in
 `docs/discovery/AUSTRIA_CASE_WORKFLOW_COUNTRY_PACK_DRAFT.md`.
+
+Die globale Case-/Workflow-Katalog-SSOT ist
+`docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`. Alle hier
+verwendeten `at_*`-Bezeichner sind ausschliesslich nicht freigegebene lokale
+Varianten-/Discovery-Keys. Sie definieren keine weitere globale
+Fachvorlagenliste und muessen vor Aktivierung auf `tax_document_collection`
+oder eine andere bereits zentral registrierte Katalog-ID gemappt werden.
 
 Mappm bleibt innerhalb der akzeptierten Produktgrenze:
 
@@ -78,12 +90,12 @@ Periode wirklich eigenstaendig verwaltet werden.
 
 ## Kandidaten fuer Personen und Haushalte
 
-| Draft key | Kandidat | Grenze und moegliche interne Tracks | Relation/Anmerkung |
-|---|---|---|---|
-| `at_employee_assessment_collection` | Arbeitnehmerveranlagung fuer eine Person und ein Kalenderjahr | freiwillig, verpflichtend und antragslos sind Modi desselben Jahreskontexts; Werbungskosten, Sonderausgaben, aussergewoehnliche Belastungen, Kinder-/Familienthemen und internationale Beilagen sind Tracks, keine Cases | Ein erster bestaetigter Beleg kann die Erstellung des Jahres-Cases vorschlagen; keine automatische Aussage ueber Vorteil oder Pflicht |
-| `at_personal_income_tax_collection` | Einkommensteuer-Unterlagensammlung fuer eine natuerliche Person und ein Steuerjahr | betriebliche Einkuenfte, Vermietung/Verpachtung, bestimmte Kapital-/Auslandseinkuenfte und sonstige Einkuenfte koennen Tracks oder getrennte Quellensammlungen sein | Darf nicht parallel als Arbeitnehmerveranlagung fuer dasselbe Subjekt/Jahr angelegt werden, wenn das freigegebene Pack einen E1-Kontext verlangt; Applicability muss reviewed sein |
-| `at_property_sale_tax_file` | Ereignisbezogene Unterlagensammlung fuer eine private Grundstuecksveraeusserung | Kauf-/Herstellungsunterlagen, Verbesserungen, Verkaufsunterlagen, Vertretungs-/Abwicklungsdokumente und Behoerdenkorrespondenz | Mit dem Immobilienverkaufs-Case verknuepft; nur dann eigener Tax Case, wenn ein eigenstaendiger Steuer-/Handoff-Verlauf besteht |
-| `at_cross_border_income_evidence` | Zusaetzliche Sammlung fuer einen bestaetigten grenzueberschreitenden Sachverhalt | Auslandslohn, auslaendische Pension, nicht endbesteuerte Kapitalertraege und weitere Beilagen sind keine pauschal gleichartigen Regeln | Vorzugsweise Track/Subcollection des passenden Jahres-Cases; nur bei eigenstaendigem professionellem Handoff eigener `part_of` Case |
+| Lokaler Draft-Key | Kanonisches Mapping | Kandidat | Grenze und moegliche interne Tracks | Relation/Anmerkung |
+|---|---|---|---|---|
+| `at_employee_assessment_collection` | `tax_document_collection` | Arbeitnehmerveranlagung fuer eine Person und ein Kalenderjahr | freiwillig, verpflichtend und antragslos sind Modi desselben Jahreskontexts; Werbungskosten, Sonderausgaben, aussergewoehnliche Belastungen, Kinder-/Familienthemen und internationale Beilagen sind Tracks, keine Cases | Ein erster bestaetigter Beleg kann die Erstellung des Jahres-Cases vorschlagen; keine automatische Aussage ueber Vorteil oder Pflicht |
+| `at_personal_income_tax_collection` | `tax_document_collection` | Einkommensteuer-Unterlagensammlung fuer eine natuerliche Person und ein Steuerjahr | betriebliche Einkuenfte, Vermietung/Verpachtung, bestimmte Kapital-/Auslandseinkuenfte und sonstige Einkuenfte koennen Tracks oder getrennte Quellensammlungen sein | Darf nicht parallel als Arbeitnehmerveranlagung fuer dasselbe Subjekt/Jahr angelegt werden, wenn das freigegebene Pack einen E1-Kontext verlangt; Applicability muss reviewed sein |
+| `at_property_sale_tax_file` | `tax_document_collection` | Ereignisbezogene Unterlagensammlung fuer eine private Grundstuecksveraeusserung | Kauf-/Herstellungsunterlagen, Verbesserungen, Verkaufsunterlagen, Vertretungs-/Abwicklungsdokumente und Behoerdenkorrespondenz | Mit dem Immobilienverkaufs-Case verknuepft; nur dann eigener Tax Case, wenn ein eigenstaendiger Steuer-/Handoff-Verlauf besteht |
+| `at_cross_border_income_evidence` | `tax_document_collection` | Zusaetzliche Sammlung fuer einen bestaetigten grenzueberschreitenden Sachverhalt | Auslandslohn, auslaendische Pension, nicht endbesteuerte Kapitalertraege und weitere Beilagen sind keine pauschal gleichartigen Regeln | Vorzugsweise Track/Subcollection des passenden Jahres-Cases; nur bei eigenstaendigem professionellem Handoff eigener `part_of` Case |
 
 Die Arbeitnehmerveranlagung und die Einkommensteuererklaerung sind nicht zwei
 beliebig parallel waehlbare Produkte. Das Pack muss aus bestaetigtem Subject-
@@ -92,17 +104,17 @@ die Entscheidung nicht aus einem einzelnen Rechnungsbeleg erfinden.
 
 ## Kandidaten fuer Selbststaendige und verwaltete Organisationen
 
-| Draft key | Kandidat | Periode | Produktgrenze |
-|---|---|---|---|
-| `at_business_evidence_handoff` | Konfigurierte Belegsammlung fuer Steuerberatung/Handoff | monatlich, quartalsweise, jaehrlich oder custom | Sammlung und Review; keine Buchungssaetze, Kontierung, Vorsteuer- oder Gewinnberechnung |
-| `at_vat_period_collection` | Umsatzsteuervoranmeldungs-Unterlagen | monatlich oder quartalsweise nur nach freigegebener Anwendbarkeitsregel | Eigener Case nur bei eigenem Deadline-/Handoff-/Abschlusszyklus; sonst Branch im Jahreskontext |
-| `at_vat_annual_collection` | Umsatzsteuerjahres-Unterlagensammlung | Kalenderjahr oder freigegebenes abweichendes Wirtschaftsjahr | Kann bestaetigte Perioden-Cases zusammenfassen; keine Berechnung oder Einreichung |
-| `at_income_tax_collection` | Einkommensteuer-Unterlagensammlung fuer Einzelunternehmen/freie oder neue Selbststaendigkeit | Veranlagungsjahr | Identisch mit dem persoenlichen E1-Jahreskontext, nicht als doppelter Unternehmens-Case erzeugen; Business-Kontext bleibt als Managed-Subject-/Rollenbezug erhalten |
-| `at_corporate_income_tax_collection` | Koerperschaftsteuer-Unterlagensammlung | Kalender- oder freigegebenes Wirtschaftsjahr | Nur fuer anwendbare OrganizationProfiles; Jahresabschluss/Bilanz bleiben importierte Evidenz, Mappm erstellt sie nicht |
-| `at_partnership_assessment_collection` | Feststellungs-/Beteiligungs-Unterlagensammlung | Veranlagungsjahr | Kandidat fuer Personengesellschaft/Gemeinschaft und Beteiligte; Subject- und Rollenmodell fachlich pruefen |
-| `at_recapitulative_statement_collection` | Zusammenfassende Meldung fuer bestaetigte EU-Sachverhalte | nach freigegebener Meldeperiode | Spezialpaket; nicht aus einer auslaendischen Rechnung allein aktivieren |
-| `at_tax_prepayment_schedule` | Vorauszahlungsbescheide und Zahlungstermine fuer Einkommen-/Koerperschaftsteuer | ein Bescheid-/Kalenderkontext mit periodischen Tasks | Ein Jahres- oder Bescheidkontext, nicht vier neue Cases fuer vier Zahlungen |
-| `at_rental_income_subcollection` | Unterlagensammlung je bestaetigtem Vermietungs-/Verpachtungskontext | Veranlagungsjahr | Optionaler `part_of` Case des Einkommensteuer-Jahresfalls, wenn Objekt, Dokumentmenge und Handoff eigenstaendig sind; sonst Track |
+| Lokaler Draft-Key | Kanonisches Mapping | Kandidat | Periode | Produktgrenze |
+|---|---|---|---|---|
+| `at_business_evidence_handoff` | `tax_document_collection` | Konfigurierte Belegsammlung fuer Steuerberatung/Handoff | monatlich, quartalsweise, jaehrlich oder custom | Sammlung und Review; keine Buchungssaetze, Kontierung, Vorsteuer- oder Gewinnberechnung |
+| `at_vat_period_collection` | `tax_document_collection` | Umsatzsteuervoranmeldungs-Unterlagen | monatlich oder quartalsweise nur nach freigegebener Anwendbarkeitsregel | Eigener Case nur bei eigenem Deadline-/Handoff-/Abschlusszyklus; sonst Branch im Jahreskontext |
+| `at_vat_annual_collection` | `tax_document_collection` | Umsatzsteuerjahres-Unterlagensammlung | Kalenderjahr oder freigegebenes abweichendes Wirtschaftsjahr | Kann bestaetigte Perioden-Cases zusammenfassen; keine Berechnung oder Einreichung |
+| `at_income_tax_collection` | `tax_document_collection` | Einkommensteuer-Unterlagensammlung fuer Einzelunternehmen/freie oder neue Selbststaendigkeit | Veranlagungsjahr | Identisch mit dem persoenlichen E1-Jahreskontext, nicht als doppelter Unternehmens-Case erzeugen; Business-Kontext bleibt als Managed-Subject-/Rollenbezug erhalten |
+| `at_corporate_income_tax_collection` | `tax_document_collection` | Koerperschaftsteuer-Unterlagensammlung | Kalender- oder freigegebenes Wirtschaftsjahr | Nur fuer anwendbare OrganizationProfiles; Jahresabschluss/Bilanz bleiben importierte Evidenz, Mappm erstellt sie nicht |
+| `at_partnership_assessment_collection` | `tax_document_collection` | Feststellungs-/Beteiligungs-Unterlagensammlung | Veranlagungsjahr | Kandidat fuer Personengesellschaft/Gemeinschaft und Beteiligte; Subject- und Rollenmodell fachlich pruefen |
+| `at_recapitulative_statement_collection` | `tax_document_collection` | Zusammenfassende Meldung fuer bestaetigte EU-Sachverhalte | nach freigegebener Meldeperiode | Spezialpaket; nicht aus einer auslaendischen Rechnung allein aktivieren |
+| `at_tax_prepayment_schedule` | `tax_document_collection` | Vorauszahlungsbescheide und Zahlungstermine fuer Einkommen-/Koerperschaftsteuer | ein Bescheid-/Kalenderkontext mit periodischen Tasks | Ein Jahres- oder Bescheidkontext, nicht vier neue Cases fuer vier Zahlungen |
+| `at_rental_income_subcollection` | `tax_document_collection` | Unterlagensammlung je bestaetigtem Vermietungs-/Verpachtungskontext | Veranlagungsjahr | Optionaler `part_of` Case des Einkommensteuer-Jahresfalls, wenn Objekt, Dokumentmenge und Handoff eigenstaendig sind; sonst Track |
 
 Arbeitgeber-Lohnabgaben, Kommunalsteuer, GPLB, OSS/IOSS, Intrastat, Zoll,
 Registrierkassen- und branchenspezifische Spezialpflichten sind fuer einen
@@ -114,15 +126,15 @@ das Haushaltsprodukt und duerfen nicht durch diesen Entwurf aktiviert werden.
 Diese Kandidaten sind keine Belegkategorien, sondern koennen ein eigenes Ziel,
 eine eigene Frist und einen eigenen Abschluss besitzen:
 
-| Draft key | Kandidat | Beziehung zum Ausgangskontext |
-|---|---|---|
-| `at_tax_registration_or_identifier_request` | steuerliche Erfassung, Steuernummer-/UID-bezogener Antrag oder relevante Aenderungsmeldung | mit Unternehmensgruendung/OrganizationProfile und spaeteren Tax Cases verknuepft; keine dauerhafte Steuer-ID als Case modellieren |
-| `at_tax_information_request_response` | Ergaenzungsersuchen oder anderes konkretes Nachforderungsverfahren beantworten | normalerweise Branch im betroffenen Jahres-/Perioden-Case; eigener `part_of` Case nur bei umfangreichem unabhaengigem Handoff |
-| `at_tax_assessment_review` | Steuerbescheid empfangen, pruefen, Zahlung/Erstattung abstimmen und abschliessen | normalerweise Abschlussphase des zugrunde liegenden Tax Case, kein neuer Case nur wegen eines Bescheids |
-| `at_tax_complaint` | Bescheidbeschwerde mit Begruendung, Nachweisen, Frist und Entscheidung | eigener `follow_up_to` oder `related_to` Case zum betroffenen Tax Case; kein `part_of`, wenn das Rechtsmittel nach dessen Abschluss unabhaengig weiterlaeuft |
-| `at_tax_payment_relief_request` | Stundung/Ratenzahlung oder anderes Zahlungserleichterungsansuchen | eigener Authority-Request-Case, verknuepft mit Bescheid/Tax Case und bestaetigten Forderungen |
-| `at_tax_audit_or_review` | Aussenpruefung/Nachschau mit Auftrag, Perioden, Anforderungen, Uebergaben, Bericht und Folgemassnahmen | eigener Case mit Links zu allen betroffenen Jahres-/Perioden-Cases; niemals Dokumente kopieren |
-| `at_tax_procedure_change_request` | begruendeter Antrag auf Fristverlaengerung, Bescheidaenderung oder anderes Verfahren | zunaechst Branch/Task des betroffenen Case; nur bei eigenstaendigem Verlauf als Case hochstufen |
+| Lokaler Draft-Key | Kanonisches Mapping | Kandidat | Beziehung zum Ausgangskontext |
+|---|---|---|---|
+| `at_tax_registration_or_identifier_request` | `registration_change_or_notification` | steuerliche Erfassung, Steuernummer-/UID-bezogener Antrag oder relevante Aenderungsmeldung | mit Unternehmensgruendung/OrganizationProfile und spaeteren Tax Cases verknuepft; keine dauerhafte Steuer-ID als Case modellieren |
+| `at_tax_information_request_response` | Branch von `tax_document_collection` | Ergaenzungsersuchen oder anderes konkretes Nachforderungsverfahren beantworten | normalerweise Branch im betroffenen Jahres-/Perioden-Case; eigener `part_of` Case nur bei umfangreichem unabhaengigem Handoff und erneuter Katalogpruefung |
+| `at_tax_assessment_review` | Branch von `tax_document_collection` | Steuerbescheid empfangen, pruefen, Zahlung/Erstattung abstimmen und abschliessen | normalerweise Abschlussphase des zugrunde liegenden Tax Case, kein neuer Case nur wegen eines Bescheids |
+| `at_tax_complaint` | `objection_dispute_or_recovery` | Bescheidbeschwerde mit Begruendung, Nachweisen, Frist und Entscheidung | eigener `follow_up_to` oder `related_to` Case zum betroffenen Tax Case; kein `part_of`, wenn das Rechtsmittel nach dessen Abschluss unabhaengig weiterlaeuft |
+| `at_tax_payment_relief_request` | `payment_relief_or_debt_resolution` | Stundung/Ratenzahlung oder anderes Zahlungserleichterungsansuchen | eigener Authority-Request-Case, verknuepft mit Bescheid/Tax Case und bestaetigten Forderungen |
+| `at_tax_audit_or_review` | `audit_or_compliance_response` | Aussenpruefung/Nachschau mit Auftrag, Perioden, Anforderungen, Uebergaben, Bericht und Folgemassnahmen | eigener Case mit Links zu allen betroffenen Jahres-/Perioden-Cases; niemals Dokumente kopieren |
+| keine eigene Variante | Branch von `tax_document_collection`; bei eigenstaendigem Outcome neue lokale Variante von `authority_application_or_submission` pruefen | begruendeter Antrag auf Fristverlaengerung, Bescheidaenderung oder anderes Verfahren | Branch, solange kein eigenstaendiges Ziel/Outcome besteht; sonst erst nach Katalog-/Pack-Review eine namespaced Submission-Variante vergeben |
 
 ## Kategorien und Dokumentrollen, die keine Cases sind
 

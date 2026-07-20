@@ -1,19 +1,27 @@
 ---
-title: "Decision - Curated Jurisdictional Workflow Catalog"
-description: "Verbindliches Zielmodell fuer kuratierte, versionierte und laenderspezifische Mappm-Vorgangsvorlagen"
+title: "Entscheidung - Governance fuer kuratierte laenderspezifische Workflows"
+description: "Verbindliches Publikations-, Versions-, Review- und Withdrawal-Modell fuer laenderspezifische Mappm-Workflowdefinitionen"
 tags: [decision, product, workflows, cases, internationalization, intelligence, compliance]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted"
 owner: "product-concept"
 ---
 
-# Decision - Curated Jurisdictional Workflow Catalog
+# Entscheidung - Governance fuer kuratierte laenderspezifische Workflows
 
 ## Status
 
-Accepted as product and architecture direction on 2026-07-12. The first
-supported countries, workflow families and professional review owners remain
-explicit release-scope decisions in WF-01 and WF-02.
+Accepted as product and architecture direction on 2026-07-12. Austria was
+selected as the first commercial market on 2026-07-19. The exact Austrian
+workflow families and professional review owners remain explicit release-scope
+decisions in WF-01 and WF-02. Later German-speaking jurisdictions remain
+planned through WF-03.
+
+This decision owns catalog publication, versioning and review governance. The
+sole SSOT for the current workflow-pattern IDs, domain-template candidates,
+German titles and catalog status is
+`DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`. Country/provider packs only
+reference entries registered there.
 
 ## Decision
 
@@ -67,27 +75,37 @@ Example:
 
 ```text
 generic Case + settlement workflow pattern
-  -> medical-expense domain template
-  -> capture invoice
+  -> medical_cost_settlement domain template
+  -> confirm an economic obligation from invoice, payment proof, payer response
+     or explicit user intent
   -> identify affected person and provider
-  -> determine possible payer
-  -> prepare submission
-  -> wait for response/payment
-  -> reconcile amounts
-  -> evaluate secondary payer or review path
+  -> when submission is requested, show explicit payer default first
+  -> user confirms payer and prepare submission
+  -> wait for a final result
+  -> record confirmed settlement/reimbursement or rejection
+  -> offer supplementary insurance in the normal path only after that final
+     social-insurance result, or earlier on explicit user intent
   -> close with an explicit outcome
 
 Austria variant
-  -> applicable social-insurance path
+  -> user-confirmed social-insurance/Krankenfuersorge path
   -> optional supplementary-insurance Claim/branch in the same Case
 
 Other jurisdiction
   -> its own payer, evidence, sequence and terminology
 ```
 
-The universal pattern may be shared. Institutions, eligibility, evidence,
-deadlines, submission channels and user-facing claims are defined only by an
-applicable reviewed variant.
+The universal pattern may be shared. Institutions, official forms, evidence
+requirements, deadlines, submission channels and user-facing terminology are
+defined only by an applicable reviewed variant. Mappm does not evaluate an
+individual policy's coverage or calculate eligibility/expected benefits; an
+explicit payer default only orders choices.
+
+For Medical M1, provider-specific forms are not global document types or a
+precondition for Case validity. Ordinary Austrian reimbursement is modeled as
+the generic evidence-driven path above. Special forms remain generic documents
+unless a later reviewed workflow proves that specialization creates product
+value.
 
 ## Required Definition Metadata
 
@@ -114,6 +132,10 @@ Language never determines jurisdiction by itself. Applicability may depend on
 the affected profile, residence, insurance or contract jurisdiction, document
 issuer, service location, institution and event date. Ambiguous cases require
 review.
+
+Expected or action-required evidence in a definition can block only the
+affected workflow action. It never makes the Case invalid and never creates a
+global mandatory-document rule.
 
 ## Case Composition and Document Relations
 
@@ -196,9 +218,12 @@ Each country pack requires:
 - update, withdrawal, incident and support ownership;
 - release evidence for each supported platform.
 
-Austria is a candidate reference pack because the initial medical-reimbursement
-example is Austrian. It is not silently declared the only or first commercial
-market by this decision.
+Austria is the first commercial market and reference country-pack family.
+Selection of the market does not approve any particular workflow definition.
+Every advertised Austrian workflow still needs explicit WF-01 scope, WF-02
+ownership and dated review evidence. The planned German-speaking expansion
+reuses localization and generic modules where valid, but each jurisdiction
+receives its own applicability, source, provider and release evidence.
 
 ## Commercial and Safety Consequences
 
@@ -214,7 +239,8 @@ market by this decision.
 
 ## Out of Scope for This Decision
 
-- selection of the first commercial countries and exact workflow families;
+- selection of exact Austrian Golden Workflows and post-Austria jurisdiction
+  order;
 - final workflow-definition serialization format;
 - catalog distribution protocol and signing technology;
 - pricing and packaging of country or workflow packs;

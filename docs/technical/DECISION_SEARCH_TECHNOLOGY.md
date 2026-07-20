@@ -2,7 +2,7 @@
 title: "Decision - Search Technology and Search Boundary"
 description: "Search-Boundary für Local und Cloud Vault, strukturierte Filter, FTS5 und spätere semantische Adapter"
 tags: [decision, search, sqlite, drift, fts5, local-vault, cloud-vault]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted"
 owner: "data-architect/product"
 ---
@@ -53,7 +53,7 @@ Der strukturierte und textuelle Scope kann umfassen:
 
 - Titel von Cases, Records und Dokumenten;
 - typisierte Case-Beziehungen;
-- Dokumenttyp, Datum, Status und Tags;
+- Dokumenttyp, typisierte Zeit-Facts/Zeitraeume, Status und Tags;
 - Managed Subjects, externe Akteure und Rollen;
 - Aufgabenstatus und Fälligkeit;
 - bestätigte Facts sowie lokal verfügbare OCR-Texte.
@@ -61,6 +61,11 @@ Der strukturierte und textuelle Scope kann umfassen:
 Core Assist erzeugt in C2/C3 die notwendigen Titel, Metadaten und OCR-
 Grundlagen. Unbestätigte Vorschläge müssen im Suchmodell als solche erkennbar
 bleiben und dürfen nicht wie verifizierte Fakten gerankt werden.
+
+Zeitfilter unterscheiden mindestens die fachlich benoetigte Zeitart und den
+Zeitraum nach `DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`. Die Suche darf
+nicht ein beliebiges universelles Dokumentdatum verwenden, wenn die Anfrage
+Leistungs-, Faelligkeits-, Gueltigkeits- oder Ereigniszeit meint.
 
 ## Technische Regeln
 

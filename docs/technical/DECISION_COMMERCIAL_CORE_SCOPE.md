@@ -2,7 +2,7 @@
 title: "Decision - Commercial Core Product Scope"
 description: "Verbindliches Ziel fuer eine production-ready, verkaufbare erste Mappm-Version mit bewusst begrenztem Funktionsumfang"
 tags: [decision, commercial-core, release, product, account, assist, local-vault, cloud-vault]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted"
 owner: "product-concept"
 ---
@@ -11,9 +11,10 @@ owner: "product-concept"
 
 ## Status
 
-Accepted as product direction on 2026-07-12. Account, entitlement and Core
-Assist services are required for every normal release. Whether the Cloud Vault
-storage product must also ship in the first commercial release remains VC-01.
+Accepted as product direction on 2026-07-12 and extended on 2026-07-19:
+Commercial 1.0 is Austria-first. Account, entitlement and Core Assist services
+are required for every normal release. Whether the Cloud Vault storage product
+must also ship in the first commercial release remains VC-01.
 
 ## Decision
 
@@ -26,6 +27,27 @@ Product promise:
 > Private Dokumente erfassen, sicher ablegen, automatisch verstehen, in
 > Vorgänge einordnen, prüfen, finden, erledigen, exportieren und
 > wiederherstellen.
+
+## Market Sequence
+
+Commercial 1.0 targets **Austria as the first supported commercial market**.
+This decision prioritizes Austrian terminology, synthetic fixtures,
+country/provider discovery, legal and store review, support readiness and the
+first approved workflow pack. It does not activate every candidate in the
+Austria discovery drafts. The exact Golden Workflows included in Commercial
+1.0 remain the narrowed WF-01 decision and require WF-02 ownership plus current
+domain/legal review.
+
+The next planned expansion direction is the **German-speaking market area**.
+Its exact jurisdictions and order remain open. Germany, Switzerland,
+Liechtenstein and any further German-speaking region are separate legal and
+provider contexts even when they share German localization, design-system
+assets and parts of the workflow vocabulary. Language must never select a
+jurisdiction or imply common legal coverage.
+
+Austria-first is a release-prioritization decision, not an architectural
+restriction. The generic Case, document taxonomy, workflow patterns, pack
+contracts and backend remain internationalizable.
 
 ## Required Commercial-Core Capabilities
 
@@ -97,6 +119,14 @@ storage. It does not decide whether Mappm has a backend at all.
   passed the dated product, domain, legal, localization and release gates.
 
 Deferred means planned with owner/trigger, not partially exposed in production.
+
+The desktop-only medical media-package import is a documented edge capability,
+not a required global Commercial-Core capture channel. If activated for M1, it
+is delivered only as a contextual action in an existing confirmed
+`medical_care` Case after the Case core and its storage, export, security and
+quality gates are available. M1 uses a manually entered title and at most an
+optional examination date; it does not require OCR/Assist for the package.
+Mobile M1 does not import such packages.
 
 ## Release Gates
 

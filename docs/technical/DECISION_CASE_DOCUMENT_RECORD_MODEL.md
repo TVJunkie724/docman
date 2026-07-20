@@ -2,7 +2,7 @@
 title: "Decision - Case, Document, Record and Facts Model"
 description: "Entscheidung zu Vorgängen, Dokumenten, Records/Nachweisen, Versionierung, Workflow-Instanzen und strukturierten Fakten als Mappm-Kernmodell"
 tags: [decision, domain-model, cases, documents, records, facts, versioning, workflows, insights]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "accepted"
 owner: "product-concept/data-architect"
 ---
@@ -31,6 +31,11 @@ Mappm trennt vier fachliche Kernkonzepte:
 Zusätzlich gilt: Diese Objekte leben in einem Vault und tragen Beziehungen zu
 verwalteten Personen oder Organisationen gemäß
 `DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md`.
+
+Zeitbezogene DocumentFacts und daraus entstehende Ereignisse, Termine,
+Fristen, Aufgaben, erwartete Antworten oder Reminder folgen
+`DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`. Ein Dokument besitzt kein
+universelles fachliches Hauptdatum; technische Zeitstempel bleiben getrennt.
 
 Der UI-Begriff **Vorgang** bleibt erhalten. Er wird nicht durch **Sammlung** ersetzt. Sammlung klingt zu passiv und beschreibt weder Status, Aufgaben, Timeline noch Prozesskontext gut genug.
 
@@ -82,11 +87,39 @@ der Nutzer vor dem Anlegen waehlen muessen. Ein optionaler Domain-Template-Key
 und eine optionale Workflowdefinition beschreiben Fuehrung und Matching, nicht
 eine andere Case-Entitaet.
 
+#### Case-Gueltigkeit und minimale Invarianten
+
+Ein persistierter `Case` ist immer gueltig. Das Domainmodell kennt keinen
+Case-Lifecycle-Status `invalid` und keine Dokument-Vollstaendigkeitsbedingung.
+Ein Case darf bewusst leer beginnen oder dauerhaft null, ein oder mehrere
+Dokumente enthalten.
+
+Minimale Invarianten sind nur stabile Identitaet, Vault-/Ownership-Kontext,
+bestaetigter oder im selben Create-Command angenommener Titel, Managed Subject,
+Lifecycle-Status sowie Erstellungs-/Aenderungsprovenienz. Workflow, Template,
+Dokumente, Tasks, Termine, Claims, Ergebnis und erwartete Unterlagen sind
+optionale Anreicherungen.
+
+Backend/Core-Assist-Vorschlaege sind vor der bestaetigten Anlage keine Cases.
+Ein Create-/Transition-Command, der die minimalen Invarianten verletzt, wird
+abgelehnt und erzeugt keinen teilweise oder ungueltig persistierten Case. Ein
+spaeterer Konflikt, unbekannter Fakt, fehlendes Dokument oder Review-Bedarf ist
+ein gueltiger fachlicher Zustand beziehungsweise eine separate Attention-
+Information, kein ungueltiger Case.
+
 ### Document / Dokument
 
 Ein Dokument ist die konkrete Datei oder der konkrete Scan.
 
 Jedes Dokument kann versioniert werden, unabhängig vom Dokumenttyp.
+
+Ein innerhalb eines bestehenden bestaetigten `medical_care`-Case
+ausdruecklich auf Desktop importierter Dateibaum darf in M1 als ein logisches
+Medienpaket-Dokument mit einem dauerhaft gespeicherten ZIP-`FileRecord`
+erscheinen. Das fuehrt weder eine neue Top-Level-Entitaet noch einen
+medizinischen Dokumenttypenkatalog ein. Relative Dateistruktur und
+Paketmanifest gehoeren zur Integritaet dieses Artefakts; einzelne enthaltene
+Dateien werden fuer M1 nicht automatisch zu Documents.
 
 Der C2/C3-Slice konkretisiert Dokument-Metadaten und Vorschau in
 `DECISION_DOCUMENT_METADATA_PREVIEW.md`. Vorschau ist ein abgeleitetes
@@ -160,9 +193,9 @@ Es gibt keinen separaten dauerhaften UI-Zustand "eigenstaendiges Dokument".
 
 Wenn weder ein vorhandener/geführter Case noch ein langlebiger Record passt,
 schlaegt Backend/Core Assist einen leichten Custom Case vor. Dieser darf anfangs
-nur Titel, Managed Subject und ein Dokument enthalten. Titel, Metadaten,
-Workflow, Aufgaben und Beziehungen werden automatisch vorgeschlagen und nur
-entsprechend der Review-/Automatisierungsreife finalisiert.
+nur Titel und Managed Subject sowie optional ein Dokument enthalten. Titel,
+Metadaten, Workflow, Aufgaben und Beziehungen werden automatisch vorgeschlagen
+und nur entsprechend der Review-/Automatisierungsreife finalisiert.
 
 Ein Dokument darf mit mehreren Kontexten verbunden sein, ohne dass die Datei
 dupliziert wird. Dauerhaft soll dies ueber explizite Link-Objekte wie
@@ -337,6 +370,11 @@ keine Summen oder Abschlusszustände automatisch.
 
 Mappm vermeidet ein globales, riesiges Status- oder Typ-Enum fuer Vorgaenge.
 
+Alle aufgefuehrten Case-Zustaende sind gueltig. `unknown`, fehlende optionale
+Evidenz, `review` oder ein Konflikthinweis sind keine Invaliditaet. Unzulaessige
+Transitions werden nicht persistiert; der letzte gueltige Zustand und seine
+Historie bleiben bestehen.
+
 Stattdessen:
 
 - `lifecycleStatus` beschreibt generisch den Zustand: `draft`, `active`,
@@ -354,6 +392,40 @@ Dokumente und Records bekommen eigene Status:
 - Dokument: `draft`, `review`, `accepted`, `replaced`, `archived`.
 - Record-Version: `current`, `superseded`, `expired`, `revoked`, `invalid`, `archived`.
 
+### Abschluss, Archivierung und Wiedereroeffnung
+
+`done` bedeutet, dass der Case nach aktuellem Kenntnisstand mit einem
+nachvollziehbaren Ergebnis abgeschlossen wurde. Der Status ist kein
+unveraenderlicher Endzustand. Abschlusszeitpunkt, bestaetigtes Ergebnis und
+Statushistorie bleiben erhalten.
+
+`archived` ist eine bewusste Ordnungs-/Sichtbarkeitsentscheidung. Archivierte
+Cases bleiben suchbar, exportierbar und fuer berechtigtes Matching
+grundsaetzlich erreichbar. Archivierung ist weder Loeschung noch eine
+fachliche Aussage, dass nie wieder Dokumente eintreffen koennen.
+
+Ein spaeter eintreffendes Dokument wird deshalb auch gegen `done`- und
+`archived`-Cases gerankt:
+
+- Bestaetigt es nur den bereits abgeschlossenen Verlauf, darf es nach Review
+  verknuepft werden, ohne den Case automatisch wieder zu oeffnen.
+- Erzeugt es neue Arbeit, widerspricht es dem Ergebnis oder macht es eine
+  weitere Entscheidung erforderlich, schlaegt Mappm eine Wiedereroeffnung vor.
+- Ist der neue Verlauf bewusst eigenstaendig, kann die Nutzerin stattdessen
+  einen neuen verknuepften Case bestaetigen.
+
+Eine Wiedereroeffnung ist eine protokollierte Lifecycle-Transition zurueck zu
+`active`, `waiting` oder `review`; die exakte Zielauswahl folgt der belegten
+Arbeit. Sie loescht weder frueheres Abschlussdatum noch Abschlussgrund oder
+Historie. In der aktuellen Reifestufe bestaetigt die Nutzerin jede materielle
+Wiedereroeffnung. Spaetere Automation benoetigt dasselbe klassenbezogene
+Quality-, Abstention-, Undo- und Rollback-Gate wie automatisches Routing.
+
+Schliessen, Archivieren oder Wiedereroeffnen eines Case kaskadiert niemals auf
+verknuepfte Cases, Documents, Records, Claims oder Tasks. Ein spaeter
+eingetroffenes Dokument wird nicht allein wegen seines Datums in einen neuen
+Case gezwungen.
+
 ## Konsequenzen
 
 - Legacy-Statusmodell wird nicht übernommen.
@@ -366,8 +438,17 @@ Dokumente und Records bekommen eigene Status:
   Produktfähigkeiten; ein leichter Custom Case muss diese Faehigkeiten nicht
   sofort verwenden oder ein ausformuliertes Outcome besitzen.
 - Custom/guided sind Verhaltens- und Herkunftszustaende, keine `caseType`-Werte.
+- Persistierte Cases sind immer gueltig; es gibt weder einen `invalid`-
+  Case-Status noch verpflichtende Dokumenttypen oder Dokumentmengen.
+- Dokumente liefern Evidenz fuer Facts und Workflow-Zustaende. Ein Zustand kann
+  auch aus ausdruecklicher Nutzerbestaetigung oder spaeter einer autorisierten
+  Integration stammen und traegt seine Provenienz.
+- Case-Abschluss und Archivierung sind reversibel; spaetere Evidenz bleibt
+  matchbar, ohne einen Statuswechsel still zu erzwingen.
 - Backend/Core Assist schlaegt fuer jedes neue Dokument, jeden neuen Case und
-  jeden neuen Record einen editierbaren Titel vor.
+  jeden neuen Record einen editierbaren Titel vor. Einzige akzeptierte
+  M1-Ausnahme ist das case-lokale medizinische Desktop-Medienpaket: Dort
+  vergibt der Nutzer den Titel bewusst manuell.
 - Kuratierte Länder-/Institutionsworkflows bleiben vom generischen Case-Modell
   getrennt; Sprache allein bestimmt keinen Rechtsraum.
 - Laufende geführte Vorgänge wechseln ihre Workflow-Version nie still.
@@ -385,6 +466,20 @@ Dokumente und Records bekommen eigene Status:
 - BusinessCompanion dient als Referenz fuer FileStorage, Databox, Ingestion und
   Document-Silo-Ideen, aber Mappm uebernimmt ein kleineres provider-faehiges
   Local-/Cloud-Vault-DMS-Kernmodell.
+
+## Stop Rules
+
+Stop, wenn:
+
+- ein Case wegen null, fehlender oder zusaetzlicher Dokumente als ungueltig
+  markiert wird;
+- ein Dokumenttyp, Workflow, Task, Termin, Claim oder Ergebnis zur allgemeinen
+  Case-Gueltigkeit vorausgesetzt wird;
+- ein Assist-Vorschlag vor Bestaetigung als teilweise angelegter Domain-Case
+  persistiert wird;
+- ein unzulaessiger Zustandswechsel den letzten gueltigen Zustand
+  ueberschreibt;
+- `invalid` als Case-Lifecycle-Status eingefuehrt wird.
 
 ## Nicht entschieden
 
