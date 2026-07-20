@@ -104,6 +104,9 @@ Presentation -> Domain -> Data
 - A Case can remain a lightweight named document collection/context. Guided
   workflow and domain template are optional enrichments; the UI must not ask
   users to navigate a large Case-type taxonomy.
+- Every persisted Case is valid with zero, one or many documents. Missing
+  evidence is unknown/expected/review state, never an `invalid` Case. Assist
+  proposals become Cases only after confirmed creation.
 - Workflow stage, step, task, event, branch and Claim remain inside a Case until
   work gains its own independently understandable goal, lifecycle and outcome.
 - `follow_up_to` links independent successor Cases as chains/branches without
@@ -112,8 +115,8 @@ Presentation -> Domain -> Data
   Users can compose a parent/linked Case from selected documents, Records,
   tasks and Cases without copying or deleting content.
 - A lightweight Custom Case may initially contain only a Backend/Core-Assist-
-  generated editable title, Managed Subject and one document. Tasks, workflow
-  and completion outcome are optional at that point.
+  generated editable title, Managed Subject and optionally one document. Tasks,
+  workflow and completion outcome are optional at that point.
 - Global mobile/desktop capture is the primary ingestion path. Automatic
   analysis/matching always runs; `Neuen Vorgang starten` is the only primary
   optional pre-capture intent and never opens a blank metadata/title form.
@@ -135,13 +138,44 @@ Presentation -> Domain -> Data
   must not claim deductibility, calculate tax, provide advice or file returns.
 - Agenda is a focused tasks/deadlines/appointments/expected-responses view,
   not a general calendar; external calendar sync remains opt-in and later.
-- Medical Case types, care-course boundaries, reimbursement composition and
-  relationship defaults are still open in
-  `docs/discovery/MEDICAL_CASE_MODEL_DISCOVERY.md`. Do not treat its candidate
-  families or examples as accepted decisions.
-- OQ-011 blocks final Document-/Case-taxonomy implementation; OQ-012 blocks
-  medical workflow/record/claim implementation, not generic capture or CaseLink
-  mechanics.
+- Date/time UI and implementation follow
+  `DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`: there is no universal
+  document date, date-only values never become UTC midnight, and extracted
+  dates do not silently become events, tasks, deadlines, notifications or
+  calendar entries.
+- Medical core composition is accepted in
+  `DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md`: one neutral Care anchor,
+  one `part_of` Cost Settlement per independent economic obligation and payer
+  submissions as Claims. Treatment authorization documents remain in Care;
+  they do not create Cases or M1 types. Reha, follow-up and later evidence are
+  matched per document. A new linked Medical Case starts from one confirmed
+  anchor document or explicit intent; M1 does not expose a free multi-document
+  split. Recurrence is optional planning, not a Case type. Special contractual
+  benefits are not specialized in Medical M1. Payer
+  category defaults only order choices; Mappm does not determine coverage or
+  calculate benefits. Payment, payer Claims and lifecycle are separate states;
+  only confirmed social-insurance settlement/rejection suggests the normal
+  supplementary step. Special forms stay generic documents. Only a rare
+  desktop action inside an
+  existing confirmed and open `medical_care` Case may preserve a selected
+  media/folder tree as one inert ZIP package with byte-identical re-export.
+  M1 uses a manual required title and at most an optional examination date; it
+  does not unpack the package for OCR/Assist. Global capture, nonmedical Cases
+  and Mobile do not offer this import. OQ-012 is resolved.
+- Mobile capture supports native scan, photo evidence, gallery and file/share
+  import. Desktop supports picker, multi-file and drag-and-drop. Document
+  scanning through a desktop webcam is prohibited. Mobile-to-desktop transfer,
+  Local-to-Local handoff and macOS Continuity Camera remain Draft-only under
+  OQ-013 and cannot be assumed in implementation.
+- Completed and archived Cases remain matchable. Later evidence may be linked
+  without reopening; material new work requires a user-confirmed reopen or a
+  new linked Case while completion history remains intact.
+- OQ-011 blocks final Document-/Case-taxonomy implementation. WF-01/WF-02 and
+  professional AT/provider review block concrete medical country-pack claims.
+- `docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md` is the only
+  Case/workflow catalog SSOT. UI concepts and phases reference its registered
+  IDs and titles; they never define a second template list or infer catalog
+  status from Medical/Country discovery documents.
 
 GitHub Issues are the source of truth for actionable follow-up work. Accepted decisions stay in `docs/technical/DECISION_*.md`.
 

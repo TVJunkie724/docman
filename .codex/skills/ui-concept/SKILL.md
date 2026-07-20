@@ -93,7 +93,10 @@ Before broad production UI implementation, planning must cover:
 - capture/review UX: global mobile capture, desktop import, durable processing
   and proposal review, preview, confirmation/correction, duplicate warning,
   mixed-batch split/outlier,
-  async processing/restart and mandatory Backend/Core-Assist title proposal.
+  async processing/restart and mandatory Backend/Core-Assist title proposal;
+  mobile scan/photo/gallery/file inputs and desktop picker/drop are core,
+  desktop-webcam scanning is prohibited, and Cross-Device-Capture remains
+  blocked by its Draft/OQ-013.
 - documents/cases/records UX: documents, Vorgänge, Unterlagen/Nachweise,
   one-Case typed relationships, Custom/Guided parity, top-down/bottom-up
   composition, versions, search.
@@ -103,6 +106,10 @@ Before broad production UI implementation, planning must cover:
 - tasks/facts/insights UX: focused Agenda, quiet/notifying reminders, claims,
   facts, deadlines, quick access, contextual financial sections and
   deduplicated eligible `part_of` roll-ups.
+- temporal UX: distinguish system timestamps, document/time facts, events,
+  appointments, deadlines, tasks, expected responses and reminders; preserve
+  date-only/partial/timezone semantics and never turn every extracted date into
+  an Agenda or calendar item.
 - managed-subject UX: people and conditionally organizations share management
   interactions, while account identity, grants and external parties remain
   distinguishable and private/business contexts never mix silently.

@@ -2,7 +2,7 @@
 title: "Mappm - Concept Quality Audit"
 description: "Strenger Playbook-Review von Produkt-, Frontend-, Design-System-, Roadmap- und Readiness-Dokumentation"
 tags: [execution, concept-review, quality, playbook]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 status: "reviewed-no-open-documentation-findings"
 owner: "ui-concept-review"
 ---
@@ -44,7 +44,7 @@ werden insbesondere:
 | CQA-011 | Repository Layout | Die reale Root-Flutter-Struktur wich ohne dokumentierte Anpassung vom generischen Playbook ab. | P2 | Behoben durch `DECISION_REPOSITORY_LAYOUT.md`. |
 | CQA-012 | Quality Contract | Konzepte und Saeulen hatten keine einheitliche Mindestqualitaet und Autorisierungsgrenze. | P1 | Behoben durch Enterprise-Quality-Contracts und explizite Adoption. |
 | CQA-013 | Produktmodell | Local-first/Home-Hub/Draft-Inbox-Annahmen widersprachen dem aktuellen Account-, Vault-, Assist- und Capture-Modell. | P0 | Behoben: Normalbetrieb ist accountbasiert; Local Vault bleibt lokal autoritativ, Cloud Vault cloud-autoritativ; Core Assist ist Pflicht; Detached Recovery bleibt Exit; Home Hub ist nur historische/abgelehnte Spur. |
-| CQA-014 | Case-/Dokumentmodell | Grosse Case-Typkataloge und historische Discovery-Keys konnten als Zielmodell gelesen werden. | P0 | Behoben: Ein generischer Case, optionale Muster/Vorlagen, getrennte Records/Claims und normalisierte Dokumentachsen. Discovery-Entwuerfe sind als nicht normativ markiert; OQ-011/OQ-012 bleiben echte Produktentscheidungen. |
+| CQA-014 | Case-/Dokumentmodell | Grosse Case-Typkataloge und historische Discovery-Keys konnten als Zielmodell gelesen werden. | P0 | Behoben: Ein generischer stets gueltiger Case ohne Dokumentpflicht, optionale Muster/Vorlagen, getrennte Records/Claims und normalisierte Dokumentachsen. Medical Care/Cost/Claim einschliesslich dokumentweisem Matching, Ankerdokument statt freier M1-Mehrfachabspaltung, getrennten Zustandsdimensionen, Wiederkehr und generischer Sonderdokumentgrenze ist seit 2026-07-20 akzeptiert; OQ-012 ist geschlossen, OQ-011 bleibt fuer den finalen Katalog offen. |
 | CQA-015 | Capture/DMS | `InboxItem` und kombinierte Dokumente konnten als Ziel-Domainmodell gelesen werden. | P0 | Behoben: `CaptureSession`, `DocumentUnit`, `PageManifest` und `ReviewProposal`; ein logisches Dokument pro abgeschlossener Scan-Einheit, mehrere Seiten erlaubt. |
 | CQA-016 | Sprache | Mehrere normative UI-/Design-System-/Pillar-Bloecke waren entgegen der Sprachregel englisch. | P2 | Behoben; stabile IDs, Artefaktnamen und technische Begriffe duerfen englisch bleiben. |
 | CQA-017 | Backend/Contract | Der vorlaeufig akzeptierte Backend-Rahmen konnte als Freigabe konkreter DTOs/Endpoints gelesen werden. | P0 | Behoben: Architektur und Ownership sind `accepted-provisional`; jeder konkrete Contract benoetigt weiterhin eigene API-/Backend-Planung und Verifikation. |
@@ -57,8 +57,11 @@ Im Dokumentationsbestand sind nach diesem Durchlauf keine offenen
 Konsistenzbefunde bekannt. Das bedeutet ausdruecklich nicht, dass alle
 Produktentscheidungen geschlossen oder Implementierungsphasen freigegeben sind.
 Das `docs/discovery/OPEN_QUESTIONS_REGISTER.md` bleibt die einzige Statusquelle
-fuer offene Fragen; insbesondere VC-01 bis VC-08, WF-01/WF-02 und OQ-009 bis
-OQ-012 muessen vor ihren jeweiligen Gates beantwortet werden.
+fuer offene Fragen; insbesondere VC-01 bis VC-08, der verbleibende
+Austria-first-Scope in WF-01/WF-02, die post-oesterreichische Expansion in
+WF-03 sowie OQ-009 bis OQ-011 muessen vor ihren jeweiligen Gates beantwortet
+werden. OQ-013 blockiert ausschliesslich noch nicht freigegebene
+Cross-Device-Capture-Komfortpfade.
 
 Jede spaetere Phase muss weiterhin konkret referenzieren:
 

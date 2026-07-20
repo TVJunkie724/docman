@@ -2,7 +2,7 @@
 title: "Mappm - Project Overview and Product Guide"
 description: "Aktueller Einstieg in Produktmodell, Commercial Core, Architektur, Governance und Source of Truth"
 tags: [overview, guide, product, strategy, planning]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 version: "4.0"
 status: "accepted"
 owner: "product-concept/ui-onboarding"
@@ -89,6 +89,17 @@ aktiver Produktmodus.
 Mappm verwendet einen generischen `Case` statt vieler sichtbarer Case-Typen.
 In der deutschen UI heißt er „Vorgang“.
 
+Commercial 1.0 ist Oesterreich-first. Danach ist der deutschsprachige Raum als
+Expansionsrichtung geplant, wobei Deutschland, Schweiz, Liechtenstein und
+weitere Regionen nicht als gemeinsamer Rechtsraum behandelt werden. Die exakte
+AT-Workflow-Liste bleibt WF-01; die post-oesterreichische Reihenfolge bleibt
+WF-03.
+
+Die alleinige Liste fuer Workflow-Muster, Fachvorlagen-IDs, deutsche Titel,
+Katalogstatus und Disposition ist
+`docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`. Vertiefende
+Dokumente referenzieren diese SSOT und fuehren keine zweite Case-Liste.
+
 - **Case/Vorgang:** leichtgewichtiger Kontext für Ziel, Verlauf oder bewusste
   Sammlung; geführt oder Custom ist Konfiguration, kein eigener Domain-Typ.
 - **CaseLink:** `part_of`, `caused_by`, `follow_up_to` oder `related_to`;
@@ -104,11 +115,50 @@ In der deutschen UI heißt er „Vorgang“.
 - **Fact, Claim, Task, Event:** strukturierte Aussage, Anspruch/Erstattung,
   nächster Schritt und Historieneintrag.
 
+Zeitangaben sind typisierte Facts mit Bedeutung, Genauigkeit, Quelle und
+Bestaetigungsstatus. Ein Dokument besitzt kein universelles Hauptdatum:
+Ausstellung, Empfang, Leistung/Ereignis, Termin, Frist, Gueltigkeit und
+Zeitraum bleiben unterscheidbar. Ereignisse, Aufgaben, Termine, Fristen,
+erwartete Antworten und Reminder besitzen eigene Semantik. Eine spaetere
+Kalenderintegration baut nur auf bestaetigten, gezielt freigegebenen
+Agenda-Objekten auf.
+
 Jedes akzeptierte Dokument besitzt einen primären Case oder Record und darf
 zusätzliche Beziehungen tragen. Passt kein bestehender/geführter Kontext,
 entsteht ein leichter Custom Case mit automatisch vorgeschlagenem Titel. Ein
 Custom Case darf fast leer beginnen; dieselbe Engine kann später Workflow,
 Aufgaben, Termine und Links ergänzen.
+
+Persistierte Cases sind stets gueltig. Kein Dokumenttyp und keine
+Dokumentmenge ist verpflichtend; Dokumente liefern Evidenz fuer Facts und
+Zustaende. Assist-Vorschlaege werden erst nach Bestaetigung zu Cases.
+
+Fuer Medizin ist der Kern akzeptiert: ein neutraler Behandlungsfall als
+Care-Anker, je eigenstaendiger wirtschaftlicher Verpflichtung ein
+`part_of`-Kostenabrechnungsvorgang und Payer-Einreichungen als Claims.
+Bewilligungsanfrage, Bewilligung und Ablehnung fuer die Behandlung bleiben
+Dokumente/Facts/Schritte im Care-Case. Medizinische Dokumenttypen bleiben
+schlank. Reha, Nachsorge und spaetere Evidenz werden dokumentweise gegen
+bestehenden und moeglichen neuen Care-Kontext gerankt. Bei belegter
+Kontinuitaet bleibt der Care-Case gleich; ein neuer verknuepfter Case entsteht
+bestaetigt aus einem Ankerdokument oder ausdruecklicher Absicht. Eine freie
+Medical-Mehrfachabspaltung ist nicht M1. Wiederkehr ist optionale Planung auf
+endlichen Care-Cases, kein Case-Typ. Managed Subjects
+duerfen mehrere Payer-Beziehungen und einfache Defaults fuer
+Sozial/Krankenfuersorge, ambulante und stationaere Zusatzversicherung besitzen;
+ein Default sortiert nur und behauptet keine Deckung. Besondere vertragliche
+Leistungen werden im Medical Core fuer M1 nicht spezialisiert. Mappm berechnet
+keine Versicherungsdeckung oder erwartete Leistung. Zahlung, SV-Claim,
+Zusatzversicherungs-Claim und Case-Lifecycle bleiben getrennte Zustaende; im
+Normalablauf schlaegt erst ein bestaetigtes SV-Ergebnis die Zusatzversicherung
+als naechsten Schritt vor.
+
+Nur in einem bereits bestehenden bestaetigten und geoeffneten Care-Case kann
+Desktop M1 als seltene Kontextaktion ein Speichermedium oder einen Ordner als
+unveraendertes ZIP-Medienpaket sichern und bytegleich exportieren. Der Nutzer
+vergibt dafuer den Titel manuell; ein Untersuchungsdatum ist optional.
+Globaler Capture, nichtmedizinische Cases und Mobile bieten diesen Import nicht
+an.
 
 ## Capture und Review
 
@@ -127,6 +177,14 @@ globalen Capture angeboten werden. Core Assist füllt trotzdem Titel,
 Metadaten, mögliche weitere Beziehungen und Workflow-Muster vor. Capture in
 einem bestehenden Case bleibt als sekundärer bewusster Weg verfügbar.
 
+Mobile Capture umfasst nativen Dokumentenscan, Foto-/Bildnachweis,
+Galerieauswahl und PDF-/Dateiimport. Desktop umfasst Datei-/Bildauswahl,
+Multi-File und Drag-and-drop; durch externe Scanner erzeugte Dateien werden
+normal importiert. Dokumentenscans ueber Desktop-Webcams sind verboten.
+Smartphone-zu-Desktop-Capture, Local-to-Local-Transfer und macOS Continuity
+Camera bleiben bis OQ-013 ein gesonderter Draft; normaler Desktop-Capture setzt
+kein Smartphone voraus.
+
 Eine Importsitzung darf zusammengehörige und fremde Dokumente enthalten.
 Session-Nähe ist kein Beweis. Split/Merge/Reorder und Neuzuordnung bleiben
 reversibel; Partial Failure verliert keine erfolgreichen Ergebnisse.
@@ -139,9 +197,10 @@ Länder-/Institutionsvarianten und eine gepinnte Definitionversion.
 
 Ein eigener verbundener Case entsteht nur bei eigenständigem Ziel und
 Lebenszyklus. Schritte verschiedener Beteiligter können im selben Case
-bleiben, wenn sie dasselbe Ergebnis verfolgen. Medizinische, Steuer- und
-österreichische Kataloge bleiben Discovery, bis ihre offenen Fragen und
-fachlich/rechtlichen Gates geschlossen sind.
+bleiben, wenn sie dasselbe Ergebnis verfolgen. Der medizinische
+Care-/Cost-/Claim-Kern ist akzeptiert; seine Erweiterungen sowie Steuer- und
+oesterreichische Country-/Provider-Packs bleiben bis zu ihren offenen
+fachlichen/rechtlichen Gates begrenzt.
 
 Nicht unterstützte Kombinationen bleiben als klar manuelle Custom Cases
 nutzbar. Länderpakete werden datiert, versioniert, migrierbar und mit
@@ -219,7 +278,12 @@ auszuführen.
   `DECISION_CASE_DOCUMENT_RECORD_MODEL.md`.
 - Capture/Assist: `DECISION_DOCUMENT_CAPTURE.md`,
   `DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md` und
-  `DECISION_INTELLIGENCE_SCOPE.md`.
+  `DECISION_INTELLIGENCE_SCOPE.md`; der nicht implementierungsautorisierende
+  Cross-Device-Entwurf steht in `DECISION_CROSS_DEVICE_CAPTURE_HANDOFF.md`.
+- Zeitangaben, Ereignisse, Fristen, Agenda und Kalenderfaehigkeit:
+  `DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`.
+- Medizinischer Care-/Kostenabrechnungs-/Claim-Kern:
+  `DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md`.
 - Security/Privacy: `DECISION_SECURITY_PRIVACY_MODEL.md`, SEC/REG/DATA-
   Konzepte und Regulatory Source Register.
 - UI: F-Konzepte, MP-DS-Konzepte, Mock-Evidenz und freigegebene

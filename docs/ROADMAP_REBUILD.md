@@ -2,7 +2,7 @@
 title: "Mappm - Commercial Core Roadmap"
 description: "Verbindliche Roadmap vom Spike zu einer verkaufbaren Local-/Cloud-Vault-Applikation"
 tags: [roadmap, commercial-core, vault, cloud, product, planning]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 version: "3.0"
 status: "accepted-rebaseline"
 owner: "product-concept"
@@ -134,6 +134,7 @@ Architektur-Governance. Die vollständige Landkarte steht in
 |---|---|---|---|
 | Produktname `Mappm`, technischer Workspace vorerst `docman` | accepted | `DECISION_PRODUCT_NAME.md` | Package-/Store-Migration vor Distribution |
 | Verkaufbarer Commercial Core statt Prototyp-MVP | accepted | `DECISION_COMMERCIAL_CORE_SCOPE.md` | C0-C7 |
+| Commercial 1.0 Oesterreich-first; deutschsprachiger Raum als naechste geplante Expansion | accepted/planned | `DECISION_COMMERCIAL_CORE_SCOPE.md` | WF-01 fuer exakten AT-Scope; WF-03 vor erstem post-oesterreichischen Marktclaim |
 | Local-/Cloud-Vault-Autorität, Migration und Kündigungsmodell | accepted/open-details | `DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md` | VC-01, VC-04 bis VC-07 |
 | Account, Device Trust und Entitlement in jedem normalen Modus | accepted/open-details | `DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md`, `DECISION_CLOUD_IDENTITY_DEVICE_TRUST.md` | VC-03, VC-08 |
 | Managed Mappm Cloud mit ASP.NET Core, PostgreSQL und S3-kompatiblem Storage | accepted-rebaseline | `DECISION_HOME_HUB_BACKEND_TECHNOLOGY.md` | C1 Contract-/Backend-Slices |
@@ -142,11 +143,14 @@ Architektur-Governance. Die vollständige Landkarte steht in
 | Ein generischer Case mit typisierten `CaseLink`-Beziehungen | accepted | `DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md` | C3 |
 | Dokumentgrundart, Variante, Domain, Record-Art, Quelle und Linkrolle getrennt | accepted-taxonomy/open-catalog | `DECISION_DOCUMENT_TYPE_CATALOG.md` | OQ-011/R0.6 |
 | Globales Capture, asynchrone Assist-Verarbeitung und verpflichtende Titelvorschläge | accepted-direction | `DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md` | C2 |
-| Kuratierte, versionierte Country-/Provider-Packs statt hardcodierter Länderlogik | accepted-direction/open-schema | `DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md` | WF-01/WF-02 und R0.6 |
-| Medizinische Case-/Claim-Grenzen | draft-discovery | `docs/discovery/MEDICAL_CASE_MODEL_DISCOVERY.md` | OQ-012/R0.6 |
+| Mobile Scan/Foto/Galerie/Datei sowie Desktop Picker/Drag-and-drop; keine Desktop-Webcam-Scans | accepted | `DECISION_DOCUMENT_CAPTURE.md`, `DECISION_DESKTOP_IMPORT_SCOPE.md` | C2 |
+| Smartphone-zu-Desktop-Capture, Local-to-Local-Handoff und macOS Continuity Camera | draft | `DECISION_CROSS_DEVICE_CAPTURE_HANDOFF.md` | OQ-013 vor jeder Implementierungsphase; blockiert Core-Capture nicht |
+| Kuratierte, versionierte Country-/Provider-Packs statt hardcodierter Länderlogik | accepted-direction/open-schema | `DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md` | WF-01/WF-02 fuer AT, WF-03 fuer Expansion und R0.6 |
+| Medizinischer Care-Anker, `part_of`-Kostenabrechnung je Verpflichtung, Payer-Claims, dokumentweises Matching mit einem Ankerdokument je neuem Medical-Subcase, stets gueltige dokumentunabhaengige Cases, getrennte Zahlungs-/Claim-Zustaende, Wiederkehr, Payer-Defaults ohne Deckungsberechnung, generische Sonderformulare und optionaler case-lokaler Desktop-Medienarchiv-Randfall | accepted-core | `DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md`, `DECISION_CASE_DOCUMENT_RECORD_MODEL.md`, `DECISION_DESKTOP_IMPORT_SCOPE.md` | OQ-012 geschlossen; keine freie Medical-Mehrfachabspaltung in M1; Medienarchiv nur bei M1-Aktivierung in R8.12; WF-01/WF-02 nur fuer konkrete AT-Provider-Claims |
 | Managed Persons und optionale Organizations | accepted-direction/open-release-scope | `DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md` | OQ-009 |
 | Verträge/Abos als langlebige Record-Kontexte | accepted-direction | `DECISION_RECURRING_CONTRACT_SUBSCRIPTION_MODEL.md` | R8.9-Scope-Review |
 | Steuer als ländergebundene Dokumentensammlung, nicht Buchhaltung/Beratung | accepted-direction/open-pack-scope | `DECISION_JURISDICTIONAL_TAX_DOCUMENT_COLLECTION.md` | OQ-010/WF-02 |
+| Typisierte Zeit-Facts, Ereignisse, Termine, Fristen, Aufgaben und Reminder statt eines universellen Dokumentdatums | accepted-direction | `DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md` | C2/C3 Domain-/Contract-Slices; externe Kalender erst R13.3 |
 | Erste implementierungsreife Phase R3.5 | proposed, nicht freigegeben | `docs/roadmap/phases/R3_5_TARGET_PATH_QUALITY_BASELINE.md` | ausdrückliche User-Freigabe |
 
 Vollständige Zeilen und Querverweise stehen in
@@ -159,12 +163,15 @@ Produktfragen. Besonders relevant sind:
 
 - VC-01 bis VC-08 für Cloud-Timing, Trust, Pläne, Grace, Cache, Keys, Recovery
   und Identity;
-- WF-01/WF-02 für beworbene Länder-/Workflow-Coverage und fachliche
+- WF-01/WF-02 fuer die exakte oesterreichische Workflow-Coverage und fachliche
   Betriebsverantwortung;
+- WF-03 fuer Rechtsraeume und Reihenfolge der geplanten deutschsprachigen
+  Expansion nach Oesterreich;
 - OQ-009 für Organization-/Business-Scope;
 - OQ-010 für Steuerpakete;
 - OQ-011 für Case-/Dokument-/Workflow-Taxonomie;
-- OQ-012 für medizinische Case-/Claim-Grenzen.
+- OQ-013 fuer noch nicht freigegebene Smartphone-/Continuity-/Local-to-Local-
+  Capture-Uebergabe.
 
 Eine offene Frage darf nur verschoben werden, wenn Owner, Grund, zulässiger
 Nicht-Scope, Zielphase, Re-Check-Trigger und Datum dokumentiert sind. Code,

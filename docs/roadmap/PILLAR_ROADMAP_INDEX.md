@@ -2,8 +2,8 @@
 title: "Mappm - Pillar Roadmap Index"
 description: "Commercial-Core-Slices pro Produkt-/Plattform-Säule und Assurance Track"
 tags: [roadmap, pillars, milestones, enterprise, planning]
-lastUpdated: "2026-07-15"
-version: "1.2"
+lastUpdated: "2026-07-20"
+version: "1.3"
 status: "accepted-rebaseline"
 owner: "product-concept"
 ---
@@ -23,11 +23,11 @@ fruehen Milestones, spaetere Milestones und Enterprise/Operations gehoeren.
 
 | Saeule/Track | C1-C3 Core | C4-C5 Lifecycle/Release | Spätere Erweiterung |
 |---|---|---|---|
-| Capture & Inbox | globaler Desktop/Mobile-Eingang, Cloud Upload Queue, dauerhafte Processing-/Proposal-Einheiten, Mixed Batch, verpflichtender Titel, kompakter Review | Upload-Integrität, Cleanup, Support-/Quality-Evidence | weitere Importpfade und qualitaetsgegatete selektive Auto-Finalisierung |
-| Cases/Documents/Records | eigenständige Vorgänge, CaseLinks, Custom Cases, Unterlagen, Dokumente und Bottom-up-Komposition | Retention, Export/Restore, Beziehungsintegrität | Workflow-Zweig-Promotion, weitere Rollen |
+| Capture & Inbox | Mobile Scan/Foto/Galerie/Datei, Desktop Picker/Drag-and-drop, Cloud Upload Queue, dauerhafte Processing-/Proposal-Einheiten, Mixed Batch, verpflichtender Titel, kompakter Review; keine Desktop-Webcam-Scans | Upload-Integrität, Cleanup, Support-/Quality-Evidence | Cross-Device-/Continuity-/Local-to-Local-Capture erst nach OQ-013; weitere Importpfade und qualitaetsgegatete selektive Auto-Finalisierung |
+| Cases/Documents/Records | eigenständige Vorgänge, CaseLinks, Custom Cases, Unterlagen, Dokumente und Bottom-up-Komposition | Retention, Export/Restore, Beziehungsintegrität; bei M1-Aktivierung seltener case-lokaler medizinischer Desktop-Medienpaket-Import | Workflow-Zweig-Promotion, weitere Rollen und gepruefter Medienviewer |
 | Contracts/Subscriptions | Vertrags-/Abo-Unterlagen, wiederkehrende Rechnungszuordnung und relevante Fristen vorbereiten | Reminder-/Notification- und Länder-Gates | schlanker Rechnungsverlauf, weitere Kategorien |
-| Tasks/Reminders/Quick Access | Aufgaben, Fälligkeiten, fokussierte Agenda, Schnellzugriff | Release-/Notification-Gates | optionale Kalenderanbindung, geteilte Aufgaben |
-| Search/Facts/Insights | strukturierte Local-/Cloud-Vault-Suche und kontextuelle bestätigte Fakten | Reindex/Repair, Exportkonsistenz | Claims, deduplizierte Roll-ups, semantische Suche |
+| Tasks/Reminders/Quick Access | Aufgaben, typisierte Fälligkeiten, fokussierte Agenda, Schnellzugriff | Release-/Notification-Gates | optionale consent-pflichtige Kalenderanbindung, geteilte Aufgaben |
+| Search/Facts/Insights | strukturierte Local-/Cloud-Vault-Suche, typisierte Zeit-Facts und kontextuelle bestätigte Fakten | Reindex/Repair, Exportkonsistenz | Claims, deduplizierte Roll-ups, semantische Suche |
 | Export/Sharing/External Actions | Export und manuelle Links | Portabilität, Cloud-to-Local, sichere Löschung | Sharing, Mail, Portale |
 | Managed Profiles/Access | betroffene Person/Organisation und Profilzuordnung; Account ist kein Managed Subject | Account-/Access-/DSAR-/Privat-Business-Konsistenz | Partnerzugriff, Organisationsmanager, Rechte |
 | Templates/Workflows | Step/Branch/Claim/CaseLink- und Custom-Case-Grenzen vorbereiten; keine Länder-Claims | Workflow-Pack-Scope, Quellen-/Review-/Update-Governance nur falls aktiviert | versionierter Katalog, Golden Country/Tax Packs, erwartete Dokumente, geführte Vorgänge |
@@ -53,10 +53,10 @@ Handoffs. R4 bleibt dabei nur die stabile Traceability-Gruppe:
 
 | Handoff | Primaere Saeule | Muss klaeren |
 |---|---|---|
-| Capture & Inbox C2 Handoff | Capture & Inbox | globaler Eingang, Desktop/Mobile/Mixed Batch, Upload Queue, Processing/Proposals/Review, Titelvorschlag, Limits/Retry/Cleanup |
+| Capture & Inbox C2 Handoff | Capture & Inbox | globaler Eingang, Desktop/Mobile/Mixed Batch, Upload Queue, Processing/Proposals/Review, Titelvorschlag, Limits/Retry/Cleanup; medizinisches Medienarchiv ausdruecklich ausgeschlossen |
 | Cases/Documents/Records C3 Handoff | Cases/Documents/Records | ein generischer `Case`, typisierte `CaseLink`-Beziehungen, Document, FileRecord, Unterlagen/Records und kontextuelle Metadaten |
-| Tasks/Reminders/Quick Access C3 Handoff | Tasks/Reminders | Aufgaben, Fälligkeiten, Schnellzugriff |
-| Search Core Handoff | Search/Facts | SQLite/Drift/FTS5 Queries, Filter, Indizes |
+| Tasks/Reminders/Quick Access C3 Handoff | Tasks/Reminders | Aufgaben, typisierte Fälligkeiten, Agenda-Eignung, Reminder-Trennung, Schnellzugriff |
+| Search Core Handoff | Search/Facts | SQLite/Drift/FTS5 Queries, Zeitart-/Zeitraumfilter, Indizes |
 | Cloud Capture Contract Handoff | Cloud/Identity/Sync | OpenAPI, Microcks, API-proxied Upload, Account/Device/Entitlement |
 | Security/Privacy C2/C3 Gate | Security/Privacy | Secure Storage, Redaction, Tokens, sensible Daten |
 | QA/Microcks/Fake Repo Gate | QA | Fakes, Fixtures, Contract Tests, analyzer gates |

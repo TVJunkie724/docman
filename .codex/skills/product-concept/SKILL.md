@@ -23,17 +23,29 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
 - Read `docs/technical/DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`.
 - Read `docs/concepts/CONCEPT_F36_VAULT_MODES_CLOUD_LIFECYCLE.md`.
 - Read `docs/technical/DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`.
+- Read `docs/technical/DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` for
+  accepted medical Care/Cost/Claim composition.
 - Read `docs/technical/DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md`.
+- Read `docs/technical/DECISION_DESKTOP_IMPORT_SCOPE.md` when desktop import,
+  removable media, folder archives, ZIP handling or platform scope is affected.
+- Read `docs/technical/DECISION_CROSS_DEVICE_CAPTURE_HANDOFF.md` when
+  smartphone-to-desktop capture, Local-to-Local transfer or Continuity Camera
+  is affected; it is a Draft and never authorizes implementation.
 - Read `docs/discovery/MEDICAL_CASE_MODEL_DISCOVERY.md` only when medical Case
-  discovery is in scope. It is draft input, not an accepted decision.
+  rationale is in scope. It is a resolved non-normative reference, not
+  authority for the accepted core.
 - Read `docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`.
 - Read `docs/technical/DECISION_RECURRING_CONTRACT_SUBSCRIPTION_MODEL.md`.
 - Read `docs/technical/DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md`.
 - Read `docs/technical/DECISION_JURISDICTIONAL_TAX_DOCUMENT_COLLECTION.md`.
 - Read `docs/technical/DECISION_CONTEXTUAL_REVIEW_ACTIONS_FINANCIAL_ROLLUPS.md`.
+- Read `docs/technical/DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md` whenever
+  dates, events, deadlines, tasks, Agenda, extraction or calendar capability
+  are affected.
 - Read `docs/concepts/CONCEPT_F37_CASE_RECORD_CONTEXTUAL_EXPERIENCE.md`.
-- Read `docs/discovery/OPEN_QUESTIONS_REGISTER.md`; OQ-011/OQ-012 block
-  taxonomy and medical-scope invention.
+- Read `docs/discovery/OPEN_QUESTIONS_REGISTER.md`; OQ-011 blocks final
+  taxonomy, OQ-012 is resolved and OQ-013 blocks only Cross-Device-Capture
+  convenience paths.
 - Treat Local and Cloud as explicit Vault modes, not environment flags.
 - Every normal Free/Paid Local and Cloud mode requires a Mappm Account; Local
   remains local-authoritative and Detached Recovery is the account-independent
@@ -48,6 +60,11 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
   developer infrastructure using the production contract family.
 - The first target is a production-ready, sellable Commercial Core. Deferred
   features are absent rather than incomplete.
+- Commercial 1.0 is Austria-first. The next planned expansion direction is the
+  German-speaking market area, but every jurisdiction keeps separate legal,
+  provider, source and release evidence; German language never selects
+  jurisdiction. WF-01 still decides the exact Austrian Golden Workflows, WF-02
+  their professional ownership and WF-03 the post-Austria jurisdiction order.
 - Mappm has one `Case` entity. A Subvorgang is only the UI role of a normal
   Case connected with `CaseLink(relationType=part_of)`; there is no separate
   Subcase type or strict `parentCaseId` target tree.
@@ -55,6 +72,10 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
   collection/context. Custom/guided behavior, domain template and workflow are
   optional enrichments, not visible Case subtypes; never invent a large Case
   type picker.
+- Every persisted Case is valid. Zero, one or many documents are allowed; no
+  document type/set, workflow, task, Claim or outcome is a general validity
+  requirement. Assist proposals are not Cases until confirmed creation, and
+  there is no `invalid` Case lifecycle state.
 - Split workflow stages, tasks, events, branches and Claims from Cases by
   independent goal/lifecycle/outcome, not by sender, institution, document or
   local status. Composition is reversible and supports top-down and bottom-up
@@ -62,17 +83,48 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
 - Guided, Assist-suggested and manual/Custom Cases have equal capabilities.
 - Global capture always runs asynchronous Backend/Core Assist analysis and
   matching. The service must propose editable titles for every logical Document
-  and proposed Case/Record, including explicit new-Case intent.
+  and proposed Case/Record, including explicit new-Case intent. The accepted
+  M1 exception is the contextual medical desktop media package: the user enters
+  its required title manually and may add an optional examination date; the
+  package is not unpacked for OCR/Assist.
 - Current release routing is user-confirmed through relevant visible results;
   later reversible automation is class-specific, measured, abstaining and
   undoable. Mobile scan uses one explicit logical document per completed scan
   unit, with multiple pages before **Naechstes Dokument scannen**. Batch/session
   proximity never proves a shared Case.
 - Completed review requires a primary Case or Record. A lightweight Custom Case
-  may begin with generated title, Managed Subject and one document only.
+  may begin with generated title, Managed Subject and optionally one document.
 - `follow_up_to` forms Case chains/branches without parent ownership. Medical
-  Case types, care-course boundaries and reimbursement composition remain open
-  in `MEDICAL_CASE_MODEL_DISCOVERY.md` until an explicit user decision.
+  core composition is accepted: one neutral `medical_care` anchor, one
+  `part_of` `medical_cost_settlement` per independent economic obligation and
+  payer submissions as Claims. Treatment authorization documents stay inside
+  Care and do not become Cases or M1 types. Reha, follow-up and later evidence
+  are matched per document against existing and possible new linked Care Cases.
+  A new Medical related/Subcase starts in M1 from one confirmed anchor document
+  or explicit intent; no free multi-document split is required. Recurrence is
+  optional planning on finite Care Cases, not a Case type. Special contractual
+  benefits are not specialized by Medical M1. Multiple payer
+  relationships and explicit category defaults are allowed, but defaults only
+  order choices and never prove coverage. Mappm performs no policy, coverage
+  or expected-benefit calculation. Payment, social-insurance Claim,
+  supplementary-insurance Claim and Case lifecycle are separate provenance-
+  bearing states. Only confirmed social-insurance settlement/rejection suggests
+  the normal supplementary-insurance step. Special forms remain generic
+  documents unless later product evidence justifies specialization. A rare
+  desktop-only action inside
+  an existing confirmed and open `medical_care` Case may archive a selected
+  media/folder tree as one inert ZIP with byte-identical original re-export.
+  It uses a manual required title and at most an optional examination date in
+  M1, with no OCR/Assist requirement. It is absent from global capture,
+  nonmedical Cases and Mobile. OQ-012 is resolved.
+- Mobile capture includes native scan, photo evidence, gallery and system
+  file/share import. Desktop includes picker, multi-file and drag-and-drop;
+  external scanner output is imported as a file. Desktop-webcam document
+  scanning is prohibited. Cross-device/mobile-to-desktop and Continuity Camera
+  remain Draft-only under OQ-013.
+- Case `done` and `archived` states are reversible. Later evidence is matched
+  to completed/archived Cases, may be linked without reopening and requires
+  user-confirmed reopening or a new linked Case when it creates new work.
 - Vorgänge and Unterlagen/Records are equal product areas with distinct
   semantics. Durable identity records, contracts and policies are Records;
   files/documents remain evidence or versions.
@@ -83,9 +135,23 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
   external doctors, providers, insurers and authorities remain ExternalParty.
 - Tax capability means dated, jurisdictional document collection and review,
   never implicit deductibility, bookkeeping, tax calculation, advice or filing.
+- Documents have typed temporal facts rather than one universal date. Keep
+  system timestamps, issue/receipt/service/validity/due dates, events,
+  appointments, deadlines, tasks, expected responses and reminders
+  semantically distinct and provenance-bearing. Calendar integration is later,
+  selective and consented.
 - Contextual actions use progressive disclosure. Financial sections appear
   only for confirmed data, stay context-specific and deduplicate `part_of`
   roll-ups; Mappm is not an accounting product.
+- `docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md` is the sole SSOT
+  for workflow-pattern IDs/titles and every discussed domain-template ID,
+  German title, catalog status and disposition. Discovery, medical,
+  country/provider and pillar documents may only reference and elaborate its
+  registered IDs. Namespaced country/provider variant keys are allowed only
+  with an explicit mapping to one registered canonical ID and never become a
+  second global catalog. Never create or maintain a parallel Case/workflow
+  list; add or change a canonical entry in the SSOT first or in the same
+  change.
 
 ## Core Product Assumptions
 

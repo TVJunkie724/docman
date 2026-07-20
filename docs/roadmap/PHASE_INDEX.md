@@ -2,7 +2,7 @@
 title: "Mappm - Phase Index"
 description: "Detaillierter Phasen- und Subphasen-Index fuer planbare Milestone-Implementation-Slices"
 tags: [roadmap, phases, subphases, implementation-plan, planning]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-20"
 version: "1.1"
 status: "accepted"
 owner: "product-concept"
@@ -114,7 +114,7 @@ Ziel: Grundsatzentscheidungen treffen, bevor Code weiterwächst.
 | R0.3 Architecture Direction | Local/Cloud Vault authority, Managed Backend, State und Storage entscheiden | Vault/Cloud Product Model, State Management, Backend Role, File Storage |
 | R0.4 Security and Privacy Baseline | sensible Daten, Sync-Grenzen und Trust Boundaries definieren | Privacy Sync Scope, Security Privacy Model |
 | R0.5 Intelligence and Workflow Boundaries | Core Assist im Commercial Core von Advanced Assist und kuratierten Workflows trennen | Account/Vault/Assist Model, Intelligence Scope, Workflow Rules |
-| R0.6 Document, Case and Pack Taxonomy Decision | den einen generischen Case, optionale Workflow-Muster/Fachvorlagen, Dokumentgrundarten/Varianten/Rollen, Record-Arten, Grenzen und dynamische Country-/Provider-Pack-Schichten gemeinsam mit dem User entscheiden | accepted lean taxonomy/catalog and pack-boundary decision, rejected alternatives, no large Case-type picker, Medical Discovery resolution, AT-draft disposition, versioning/migration and synthetic ambiguity fixtures |
+| R0.6 Document, Case and Pack Taxonomy Decision | den einen generischen Case, optionale Workflow-Muster/Fachvorlagen, Dokumentgrundarten/Varianten/Rollen, Record-Arten, Grenzen und dynamische Country-/Provider-Pack-Schichten gemeinsam mit dem User entscheiden | accepted lean taxonomy/catalog and pack-boundary decision, rejected alternatives, no large Case-type picker, accepted Medical composition including resolved OQ-012 defaults, finale Austria-first Katalog-Disposition, versioning/migration and synthetic ambiguity fixtures |
 
 ## R1 - Documentation Source of Truth
 
@@ -164,17 +164,17 @@ gebaut.
 
 | Subphase | Ziel | Hauptdeliverables |
 |---|---|---|
-| R4.1 Capture, Batch and Processing Foundation | CaptureSession/Page/Document/Processing/Proposal/Review-Begriffe und Restart-/Partial-Semantik festlegen | Domain ports, fakes, async state, artifact/page manifest |
-| R4.2 Desktop Import + Capture Inbox | Multi-File-Import, gemischte Batch-Trennung und Processing-/Review-Inbox umsetzen | file picker, drag/drop, batch/outlier review, correction |
+| R4.1 Capture, Batch and Processing Foundation | CaptureSession/Page/Document/Processing/Proposal/Review-Begriffe und Restart-/Partial-Semantik festlegen | Domain ports, fakes, async state, artifact/page manifest; Cross-Device-Handoff nicht ohne OQ-013 |
+| R4.2 Desktop Import + Capture Inbox | globalen Multi-File-Import, gemischte Batch-Trennung und Processing-/Review-Inbox umsetzen | file picker, image/file import, drag/drop, batch/outlier review, correction; keine Desktop-Webcam-Scans |
 | R4.3 Mobile Scanner Spike | native Scanner-Qualitaet beweisen | Android/iOS Scanner evidence |
-| R4.4 Mobile Scan Client | globales Capture, `Neuen Vorgang starten`, Multi-Page je Dokument, `Naechstes Dokument scannen` und lokale Queue bauen | scan session, minimal intent, explicit document units/page boundaries, local queue |
+| R4.4 Mobile Scan Client | globales Capture, `Neuen Vorgang starten`, nativen Scan, Foto, Galerie-/Dateiimport, Multi-Page je Dokument, `Naechstes Dokument scannen` und lokale Queue bauen | scan session, photo/image evidence, picker/share import, minimal intent, explicit document units/page boundaries, local queue |
 | R4.5 Upload Policy, Retry, Resume and Cleanup | versionierte Policy und robuste Upload-Basis umsetzen | `docs/roadmap/phases/R4_5_UPLOAD_LIMITS_RETRY_PLAN.md` |
 | R4.6 Cloud Capture Contract | Capture als OpenAPI/Microcks-Spec modellieren | mobile-capture-upload.openapi.yaml |
 | R4.7 Cloud Upload Slice | erster echter Capture Upload zur Local Development Cloud/Staging | CaptureUploadPort strategy |
-| R4.8 Cases/Relations/Custom Core | primaeren Case-/Record-Kontext, leichte Custom Cases, typisierte Beziehungen/Folgeketten sowie Top-down-/Bottom-up-Komposition nutzbar machen | Case, CaseLink, DocumentCaseLink, lightweight Custom, composition domain/UI |
-| R4.9 Document/Record Metadata Core | Assist-Titel, Taxonomie-Achsen, betroffene Person, Validierung und Preview umsetzen | generated title/provenance, metadata, review validation, preview |
-| R4.10 Tasks/Quick Access Core | Aufgaben, Fälligkeiten, Schnellzugriff | task overview, quick access |
-| R4.11 Search Core | lokale strukturierte Suche | SQLite/Drift/FTS5 adapter |
+| R4.8 Cases/Relations/Custom Core | primaeren Case-/Record-Kontext, leichte Custom Cases, typisierte Beziehungen/Folgeketten, reversiblen Abschluss/Wiedereroeffnung sowie Top-down-/Bottom-up-Komposition nutzbar machen | Case, CaseLink, DocumentCaseLink, lightweight Custom, late-evidence/reopen history, composition domain/UI |
+| R4.9 Document/Record Metadata Core | Assist-Titel, Taxonomie-Achsen, betroffene Person, typisierte Zeitvorschlaege, Validierung und Preview umsetzen | generated title/provenance, temporal proposal semantics, metadata, review validation, preview |
+| R4.10 Tasks/Quick Access Core | Aufgaben, typisierte Fälligkeiten, fokussierte Agenda und Schnellzugriff | task overview, temporal references, agenda, quick access |
+| R4.11 Search Core | lokale strukturierte Suche einschließlich Zeitart-/Zeitraumfiltern | SQLite/Drift/FTS5 adapter, temporal filters |
 | R4.12 External Actions Core | manuelle externe Links | task/case action links |
 | R4.13 Security/Privacy Capture Gate | Dateien/OCR/Titel/Model-Output/Logs/Notifications pruefen | privacy gate |
 | R4.14 QA/Regression Capture Gate | restart/offline/mixed-batch/idempotency/partial-failure gruen bekommen | tests, smoke checks |
@@ -238,15 +238,15 @@ Ziel: Dokumente werden strukturiert auswertbar.
 | R8.1 Fact Model | erste Facts manuell erfassen | facts model |
 | R8.2 Claims Model | Erstattungen/Reklamationen/Garantien modellieren | claims |
 | R8.3 Financial Entries | Ausgaben/Erstattungen/Prämien erfassen | financial entries |
-| R8.4 Validity and Deadlines | Gültigkeiten/Ablaufdaten/Fristen | validity facts |
+| R8.4 Validity and Deadlines | typisierte Gültigkeiten, Zeiträume, Ablaufdaten und Fristen mit Provenienz/Konfliktstatus | temporal/validity facts |
 | R8.5 First Insights | erste Auswertungen | insights views |
 | R8.6 Facts QA Gate | Korrekturen, Tests, Datenschutz | facts gate |
 | R8.7 Workflow Catalog Foundation | generische, versionierte Definitionen und gepinnte Vorgangsinstanzen modellieren | catalog schema, validators, step/branch/Claim/CaseLink runtime, fixtures |
-| R8.8 First Reviewed Country Pack | ausgewählte Golden Workflows für einen freigegebenen Rechtsraum publizieren | dated sources, applicability, localization, professional review, withdrawal/update ownership |
+| R8.8 First Reviewed Country Pack | ausgewaehlte Austria-first Golden Workflows publizieren | dated AT sources, applicability, German localization, professional review, withdrawal/update ownership; keine DACH-Gesamtbehauptung |
 | R8.9 Contracts and Subscriptions | Verträge/Abos, beliebige Abrechnungsintervalle, Invoice Matching, Kündigungsfristen und Reminder modellieren | contract/subscription Record, recurring invoice roles, workflow facts |
 | R8.10 Contextual Financial Summaries | bestätigte Financial Entries dedupliziert und schlank pro Case/Record darstellen | part_of roll-up, one-value row, accessible mini chart |
 | R8.11 Tax and Business Collection Foundation | länder- und subject-gebundene Unterlagensammlung ohne Buchhaltungs-/Steuerclaim vorbereiten | tax collection Case, period/jurisdiction model, business handoff/export boundary |
-| R8.12 Conditional Medical Workflow Foundation | nur nach R0.6-Akzeptanz einen ausgewaehlten medizinischen Workflow-/Record-/Claim-Slice implementierungsfaehig planen | accepted medical Case boundary as input, generic runtime mapping, fixtures; no country/provider claim before WF-01/WF-02 and professional review |
+| R8.12 Conditional Medical Workflow Foundation | auf der akzeptierten Care-/Cost-/Claim-, Ankerdokument-, Case-Gueltigkeits-, Zustands-, Wiederkehr- und Payer-Default-Komposition einen ausgewaehlten medizinischen Slice planen; den seltenen Desktop-Medienpaket-Import nur bei ausdruecklicher M1-Aktivierung und erst nach R4.8 einplanen | generic runtime mapping; per-document Care/Cost matching; one anchor document/intent per new linked Medical Case; no free M1 multi-document split; zero/one/many documents without invalid Case; separate payment/SV/supplementary/lifecycle states; normal supplementary suggestion only after confirmed SV settlement/rejection; generic special forms; no coverage/benefit calculation; optionaler case-lokaler Desktop-Medienpaket-Import mit manuellem Titel, optionalem Untersuchungsdatum, Manifest und bytegleichem Re-Export; no concrete country/provider claim before OQ-011, WF-01/WF-02 and professional review |
 
 ## R9 - Intelligence, OCR and Automation
 
@@ -313,7 +313,7 @@ Ziel: externe Apps, Websites und Importpfade kontrolliert ausbauen.
 |---|---|---|
 | R13.1 External Link Catalog | Links strukturieren | link catalog |
 | R13.2 Mail and Print Outbox | Mail/Druck/Download | outbox |
-| R13.3 Agenda and Calendar Integration | Mappm-Agenda konsolidieren und Reminder optional datenschutzsicher an externe Kalender anbinden | agenda model, consented calendar adapter, redacted titles |
+| R13.3 Agenda and Calendar Integration | Mappm-Agenda konsolidieren und nur bestaetigte ausgewaehlte Objekte optional datenschutzsicher an externe Kalender anbinden | temporal SSOT mapping, consented/idempotent calendar adapter, timezone/conflict/disconnect behavior, redacted titles |
 | R13.4 Portal Links | SV/Versicherung/Schule Links | portal actions |
 | R13.5 Import Channels | Mail/Watch Folder/API prüfen | import adapters |
 | R13.6 Credential Boundary Gate | keine unsicheren Fremd-Credentials | security review |

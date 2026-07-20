@@ -19,6 +19,9 @@ Read:
 - `docs/technical/DECISION_API_CONTRACT_MOCKS.md`
 - `docs/concepts/CONCEPT_F17_MOBILE_CAPTURE_PLAN.md`
 - `docs/technical/DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md`
+- `docs/technical/DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`
+- `docs/technical/DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` when a
+  medical Assist, Case, Claim or workflow contract is affected
 - `docs/concepts/CONCEPT_F4_TESTING_STRATEGY.md`
 
 ## Core Assumptions
@@ -47,7 +50,29 @@ Typical boundaries:
 - Mobile capture upload.
 - capture batch/page/document manifests and partial results.
 - asynchronous processing jobs, proposal versions and correction/idempotency.
-- mandatory generated Document/Case/Record title with provenance.
+- mandatory generated Document/Case/Record title with provenance. The accepted
+  M1 exception is the contextual medical desktop media package, whose required
+  title and optional examination date are user-entered.
+- typed temporal proposals with semantic kind, precision, timezone, evidence,
+  provenance and proposal/confirmation status; never one ambiguous document
+  date.
+- medical compound proposals preserve one Care anchor, one `part_of` Cost
+  Settlement per independent economic obligation and payer submissions as
+  Claims without exposing backend DTO ownership to Flutter. Later evidence is
+  matched per document; a new linked Medical Case is created from one confirmed
+  anchor document or explicit intent, not a free M1 multi-document split.
+  Reopen remains an explicit reversible command. Case contracts allow zero,
+  one or many documents without an `invalid` Case status. Contracts may carry user-selected payer
+  category defaults but must never return inferred coverage or calculated
+  expected benefits. Payment, payer Claims and Case lifecycle remain separate
+  provenance-bearing states; only confirmed social-insurance result suggests
+  the normal supplementary step. Special contractual benefits remain generic
+  Insurance content in Medical M1.
+- media-archive contracts preserve one immutable ZIP payload plus manifest,
+  integrity, progress/resume and byte-identical export semantics; contained
+  executables stay inert. Only the contextual desktop action inside an existing
+  confirmed `medical_care` Case creates the archive; global capture,
+  nonmedical Cases and Mobile M1 do not import it.
 - primary/additional Case/Record/Claim/workflow candidates and visible
   confirmation semantics.
 - Capture Inbox handoff.

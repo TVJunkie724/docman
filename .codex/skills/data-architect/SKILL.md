@@ -14,6 +14,9 @@ Read:
 - `docs/concepts/CONCEPT_F10_LOCAL_STORAGE.md`
 - `docs/concepts/CONCEPT_F12_SECURE_STORAGE.md`
 - `docs/technical/DECISION_SECURITY_PRIVACY_MODEL.md`
+- `docs/technical/DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`
+- `docs/technical/DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` when
+  medical Care/Cost/Claim persistence is affected
 
 ## Target Direction
 
@@ -51,7 +54,10 @@ Read:
   partial batch status and explicit new-Case intent across restart/idempotency.
 - Allow zero Case/Record links only while capture/review is pending. Accepted
   review has a primary Case or Record; lightweight Custom Cases may begin with
-  title, subject and one document without fake tasks/workflow/outcome.
+  title, subject and optionally one document without fake
+  tasks/workflow/outcome. A persisted Case itself is always valid with zero,
+  one or many documents; do not add an `invalid` Case state or document-set
+  invariant.
 - Keep document base type, semantic variant, domain, Record kind, source/format
   and link role separate; relationship role is not one global Document field.
 - Treat PersonProfile and OrganizationProfile as ManagedSubject variants while
@@ -61,6 +67,31 @@ Read:
 - Financial roll-up is derived, deduplicated by stable FinancialEntry identity
   and automatic only across eligible `part_of` links. Tax candidate/review
   status is not accounting truth or a deductibility fact.
+- Keep technical timestamps separate from typed temporal facts, events,
+  appointments, deadlines, tasks, expected responses and reminders. Preserve
+  date-only values, partial precision, intervals, IANA timezone, provenance,
+  proposal/confirmation state and correction history without one universal
+  `documentDate`.
+- Medical core uses normal Case/CaseLink/Claim/Document/Fact structures: one
+  neutral Care Case, one `part_of` Cost Settlement Case per independent
+  economic obligation and payer submissions as Claims. Do not create Medical
+  or Subcase storage silos. Later care evidence is matched per document. A new
+  linked Medical Case starts from one anchor document or explicit intent; do
+  not model a free M1 multi-document split command. Recurrence is optional
+  planning, not a Case type. Store multiple payer relationships and
+  at most one explicit default per accepted category without encoding coverage
+  or benefit calculations. Keep payment, each payer Claim and Case lifecycle as
+  separate provenance-bearing state dimensions. Special contractual benefits
+  remain generic Insurance content in Medical M1.
+- Preserve Case completion/reopen history. `done`/`archived` Cases remain
+  matchable; linking late evidence does not itself reopen them.
+- The M1 media/folder archive is created only by the rare desktop action inside
+  an existing confirmed `medical_care` Case. It is one immutable ZIP
+  `FileRecord` plus manifest behind normal Document/File ports, with a manual
+  title and optional examination date. Preserve contained executables as inert
+  bytes, never execute/extract them automatically, and return the stored ZIP
+  byte-identically. Do not expose global/nonmedical/mobile import or introduce
+  a DICOM entity silo.
 
 ## Design Checks
 
@@ -90,6 +121,9 @@ Read:
 - Are recurring invoice matching, subject context, tax context and confirmed
   financial entries represented without turning document types into hidden
   workflow or accounting state machines?
+- Can one document retain several differently typed dates without inventing a
+  primary event date, and can date-only/partial/zoned values round-trip without
+  precision or timezone loss?
 
 ## Planning Output
 

@@ -2,7 +2,7 @@
 title: "Mappm - T0-T7 Track Readiness Report"
 description: "Evidenzbericht fuer den Playbook-Reconciliation-Track und das ausstehende Freigabe-Gate"
 tags: [execution, playbook, tracks, evidence]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-19"
 status: "reviewed-pending-approval"
 owner: "project-bootstrap-runner"
 ---
@@ -12,7 +12,8 @@ owner: "project-bootstrap-runner"
 ## Review Status
 
 - Required reviewer: user/product owner plus owning specialist per future phase.
-- Documentation review status: reconciled again on 2026-07-15.
+- Documentation review status: reconciled through the Austria-first market
+  decision on 2026-07-19.
 - Runtime baseline: the command evidence below was recorded during the initial
   playbook run and must be rerun by the approved implementation phase.
 - Acceptance source: pending explicit user/product-owner approval for R3.5.
@@ -26,7 +27,7 @@ owner: "project-bootstrap-runner"
 |---|---|---|---|
 | T0 | done | embedded playbook, project-local skills, `frontend.sh`, OPS-08, accepted root-layout decision | package/repo rename remains OQ-001 before distribution |
 | T1 | done | Applicability Matrix, always-plan/conditional matrices, REG source register | refresh dated law/store sources at each trigger |
-| T2 | done | Decision Interview Summary, Open Questions Register, accepted product direction | VC-01..08, WF-01/02 and OQ-003..012 remain owner decisions for their affected scopes |
+| T2 | done | Decision Interview Summary, Open Questions Register, accepted product direction | Austria-first is accepted; VC-01..08, remaining WF-01/02, planned WF-03 and OQ-003..012 remain owner decisions for their affected scopes |
 | T3 | done | Decision Traceability Matrix, repository-layout decision and accepted-provisional backend/contract ownership | every concrete DTO, endpoint, mapping, persistence or policy still needs its own API/backend contract phase |
 | T4 | done | per-file F/pillar matrix; MP-DS-00..07; REG/SEC/DATA/AI/OPS/COM subfamilies; quality audit 2026-07-15 | draft concepts require phase-specific review, not mass approval |
 | T5 | done-rebaselined | C0-C7 release train over R0-R15 traceability, simplified pillars, standard matrices and aligned live tracker | VC gates decide Cloud timing; later child issues are created/refined from approved phase contracts |
@@ -40,6 +41,7 @@ owner: "project-bootstrap-runner"
 | Managed service and Cloud-Vault launch scope | Account/Core Assist backend required; Cloud Vault launch-blocked | product/commercial/security | close VC-02/03/08 and OQ-003 for base service; VC-01 decides Local+Assist versus Local+Cloud-Vault Commercial 1.0 | before C1/C2 and Cloud-Vault approval | VC-01..VC-08, OQ-003, C0-C5 |
 | Production Core Assist/OCR | active-required, implementation-blocked | AI/compliance/security | classify provider, transfer, region, retention, redaction, subprocessors, training and AI Act duties | before C2 real-document Assist | VC-02, VC-03, OQ-003, C1-C3/R5 traceability |
 | EUDI/ID Austria | planned | identity/compliance | select real relying-party use case | before identity design | OQ-004, VC-08, C1/later sharing |
+| Market workflow sequence | Austria-first accepted; exact AT workflows open; German-speaking expansion planned | product/domain/commercial/legal | close WF-01/WF-02 for AT; close WF-03 before first post-Austria market commitment | C0 for AT workflow claims; before post-Austria roadmap commitment | WF-01..WF-03, R0.6/R8.8 |
 | Store/distribution | planned | release/compliance | select channels and refresh policies | before external beta | OQ-005, C5/R10 |
 | Support/SLA | planned | commercial/support | decide paid-user support promise | before paid trial | OQ-006, C5/R12/R15 |
 | CI provider/branch protection | planned | quality/release | implement after R3.5 local gate | before shared delivery | OQ-007, issue #25 then OPS-07 |
