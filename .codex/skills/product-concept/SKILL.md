@@ -154,6 +154,16 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
   second global catalog. Never create or maintain a parallel Case/workflow
   list; add or change a canonical entry in the SSOT first or in the same
   change.
+- Every dedicated Case-family workshop requires exactly one living owning
+  subconcept and the complete Case-family contract in the catalog SSOT. New
+  family Decisions use `docs/technical/DECISION_<CASE_FAMILY>_MODEL.md`; an
+  unambiguous existing Decision may remain the registered owner and must be
+  expanded against the same contract instead of being duplicated. One subconcept may own
+  explicitly listed tightly coupled entries, but one catalog ID may have only
+  one owner. A catalog row or brief cross-family mention does not require an
+  empty stub. Create or update the family file when its dedicated workshop
+  begins, register its coverage in the catalog in the same change, and never
+  treat a family without reviewed coverage as accepted or implementation-ready.
 - Document classification follows minimum sufficient classification. Mappm
   optimizes household findability and actionability, not taxonomic
   completeness. A new Case/workflow document term defaults to title/alias,
@@ -196,13 +206,21 @@ Use current docs:
 
 1. Identify whether the work is product strategy, concept, phase, decision, or handoff.
 2. Read the affected roadmap/decision/concept docs.
-3. For every new Case/workflow, classify each document term as existing type,
+3. Before substantive Case-family work, identify its registered catalog ID and
+   owning subconcept. Create or continue the single family Decision and update
+   the catalog's coverage in the same change; do not start a parallel list or
+   loose workshop SSOT.
+4. Resolve or explicitly mark every required Case-family contract block from
+   `DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`, including goal, boundary,
+   composition, lifecycle, capture/matching, country boundary, examples,
+   verification and Stop Rules.
+5. For every new Case/workflow, classify each document term as existing type,
    broad/general document, title/alias, Fact/Party, relationship role/slot,
    Record kind or source/format before proposing any new type.
-4. Update only the authoritative document for the decision level.
-5. Mark open decisions explicitly.
-6. Create or update GitHub Issues only for actionable follow-up work.
-7. Summarize what changed and what remains undecided.
+6. Update only the authoritative document for the decision level.
+7. Mark open decisions explicitly.
+8. Create or update GitHub Issues only for actionable follow-up work.
+9. Summarize what changed and what remains undecided.
 
 ## Handoff Targets
 

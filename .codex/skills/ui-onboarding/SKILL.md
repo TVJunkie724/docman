@@ -182,6 +182,11 @@ Presentation -> Domain -> Data
   Case/workflow catalog SSOT. UI concepts and phases reference its registered
   IDs and titles; they never define a second template list or infer catalog
   status from Medical/Country discovery documents.
+- Every fachlich accepted Case family must also have exactly one owning family
+  Decision registered in that catalog's subconcept coverage. New family
+  Decisions use `DECISION_<CASE_FAMILY>_MODEL.md`; an unambiguous pre-existing
+  Decision may remain the owner. UI planning reads that Decision and must stop when
+  coverage is missing, ambiguous or only a Discovery/Country draft exists.
 
 GitHub Issues are the source of truth for actionable follow-up work. Accepted decisions stay in `docs/technical/DECISION_*.md`.
 

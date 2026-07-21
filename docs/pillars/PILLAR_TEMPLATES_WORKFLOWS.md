@@ -2,8 +2,8 @@
 title: "Produkt-Säule - Templates and Workflows"
 description: "Produktbereich fuer Vorgangsvorlagen, Checklisten, empfohlene nächste Schritte und workflowbasierte Assistenz"
 tags: [pillar, templates, workflows, checklists, tasks]
-lastUpdated: "2026-07-20"
-version: "0.4"
+lastUpdated: "2026-07-21"
+version: "0.5"
 status: "accepted-direction"
 owner: "product-concept"
 ---
@@ -20,6 +20,14 @@ deutschen Titel, Reifegrade und Dispositionen steht in
 `docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`. Diese Saeule
 definiert bewusst keine zweite Kurz- oder Bereichsliste. Sie beschreibt
 Ownership, Qualitaet und Auslieferung der dort registrierten Eintraege.
+
+Jede Case-Familie benoetigt ab Beginn ihres dedizierten fachlichen Workshops
+genau ein in der Katalog-SSOT registriertes Owning Subkonzept; eine blosse
+Katalogzeile erzeugt keine leere Datei. Das Subkonzept besitzt das fachliche
+Verhalten. Diese Saeule, Country Packs und Workflowdefinitionen duerfen ein
+fehlendes Subkonzept nicht ersetzen. Ein Template darf erst daraus abgeleitet
+werden, wenn Ziel, Grenze, Komposition, Lifecycle, Matching,
+Dokumentdisposition, Laendergrenze, Fixtures und Stop Rules reviewed sind.
 
 Fuer Gesundheit sind ein ortsunabhaengiger `medical_care`-Anker, ein
 `part_of`-`medical_cost_settlement` je eigenstaendiger wirtschaftlicher
@@ -103,6 +111,8 @@ liefern danach:
   nachvollziehbare Migration.
 - Länder-Support darf erst nach datierter fachlicher, rechtlicher und
   produktbezogener Prüfung beworben werden.
+- eine Familie ohne eindeutiges reviewed Owning Subkonzept darf weder als
+  Golden Workflow noch als Contract-/Schema-/Implementation-Scope dienen.
 
 Normative Entscheidung:
 `docs/technical/DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md`.

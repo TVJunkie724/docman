@@ -100,6 +100,17 @@ Katalogstatus und Disposition ist
 `docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`. Vertiefende
 Dokumente referenzieren diese SSOT und fuehren keine zweite Case-Liste.
 
+Jede Case-Familie besitzt ab Beginn ihres dedizierten fachlichen Workshops
+genau ein dort registriertes Owning Subkonzept. Neue Familien-Decisions folgen
+`DECISION_<CASE_FAMILY>_MODEL.md`; eine eindeutige bestehende Decision darf als
+Owner fortgeschrieben werden. Eine Katalogzeile allein erzeugt keine leere
+Datei. Der Katalog besitzt ID, Titel, Status, Disposition und Coverage; das
+Subkonzept besitzt Ziel, Case-Grenze, Komposition, Lifecycle, Matching,
+Dokumentdisposition, Laendergrenze, Beispiele und Verifikation. Ohne reviewed
+Subkonzept darf eine Familie weder fachlich akzeptiert noch fuer Contract,
+Schema, Phase oder Implementierung freigegeben werden. Medical ist abgedeckt;
+Unfall/Schaden ist das naechste zu erarbeitende Subkonzept.
+
 - **Case/Vorgang:** leichtgewichtiger Kontext für Ziel, Verlauf oder bewusste
   Sammlung; geführt oder Custom ist Konfiguration, kein eigener Domain-Typ.
 - **CaseLink:** `part_of`, `caused_by`, `follow_up_to` oder `related_to`;

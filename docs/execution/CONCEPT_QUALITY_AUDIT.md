@@ -2,7 +2,7 @@
 title: "Mappm - Concept Quality Audit"
 description: "Strenger Playbook-Review von Produkt-, Frontend-, Design-System-, Roadmap- und Readiness-Dokumentation"
 tags: [execution, concept-review, quality, playbook]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-21"
 status: "reviewed-no-open-documentation-findings"
 owner: "ui-concept-review"
 ---
@@ -50,6 +50,7 @@ werden insbesondere:
 | CQA-017 | Backend/Contract | Der vorlaeufig akzeptierte Backend-Rahmen konnte als Freigabe konkreter DTOs/Endpoints gelesen werden. | P0 | Behoben: Architektur und Ownership sind `accepted-provisional`; jeder konkrete Contract benoetigt weiterhin eigene API-/Backend-Planung und Verifikation. |
 | CQA-018 | Ownership | 49 bestehende Dokumente besassen keinen expliziten Frontmatter-Owner. | P1 | Behoben: Alle 227 Mappm-Dokumente besitzen `title`, `description`, `status`, `lastUpdated` und `owner`; alle 20 projektlokalen Skills besitzen eindeutiges `name`-/`description`-Frontmatter. |
 | CQA-019 | Inventar/Navigation | Technische Decisions, Discovery-Artefakte und mehrere Governance-Unterfamilien waren nicht vollstaendig ueber einen Owner-Index auffindbar. | P1 | Behoben durch Technical Decision Index, Discovery Index, Pillar-Tombstone-Indexierung und explizite REG-/SEC-/DATA-/AI-/OPS-/COM-Artefaktindizes. |
+| CQA-020 | Case-Familien-Ownership | Die Aussage „ein Subkonzept je Case-Familie“ war nicht als SSOT-, Coverage- und Promotion-Gate umgesetzt; dadurch haetten Katalogzeilen ohne vollstaendiges Fachmodell in Phasen oder Contracts gelangen koennen. | P0 | Behoben am 2026-07-21: Die zentrale Katalog-SSOT besitzt den verbindlichen Case-Familien-Subkonzeptvertrag, Pflichtinhalt, Reifegrad-Gate und aktuelle Coverage. Medical ist abgedeckt, Unfall/Schaden ist der naechste Workshop; weitere Familien bleiben bis zu ihrem eigenen reviewed Owning Subkonzept nicht fachlich akzeptiert oder implementierungsbereit. |
 
 ## Review-Ergebnis
 

@@ -1,8 +1,8 @@
 ---
 title: "Entscheidung - Case- und Workflow-Katalog (SSOT)"
-description: "Einzige Katalogquelle fuer Mappm-Workflow-Muster, Fachvorlagen-IDs, deutsche Titel, Reifegrad und Disposition"
+description: "Einzige Katalogquelle fuer Mappm-Workflow-Muster, Fachvorlagen-IDs, deutsche Titel, Reifegrad, Disposition und Case-Familien-Subkonzept-Ownership"
 tags: [decision, product, cases, workflows, catalog, records, claims, custom-cases]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-21"
 status: "accepted-direction"
 owner: "product-concept"
 ---
@@ -19,6 +19,8 @@ Workflow-Katalog**. Nur hier werden gepflegt:
   Fachvorlagen-Kandidaten;
 - die Disposition verworfener, kombinierter oder nur als Variante geeigneter
   aktuell besprochener Kandidaten;
+- die Coverage und das Owning Artifact der fachlichen Case-Familien-
+  Subkonzepte;
 - die Abgrenzung zu Custom Cases, Records, Claims, Steps und nationalen
   Varianten.
 
@@ -53,7 +55,112 @@ globalen Case-Datentypen und keine grosse sichtbare Nutzerauswahl.
 | Case-Entitaet | 1 | `DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`; stabiler generischer Vorgang |
 | Workflow-Muster | 8 | die folgende Tabelle; interne komponierbare Prozessgrammatiken, kein Nutzer-Picker |
 | Besprochene Registereintraege | 45 | 42 Fachvorlagen-/Variantenkandidaten und drei ausdrueckliche Kein-Template-Dispositionen in einer Liste |
+| Case-Familien-Subkonzepte | je in einem dedizierten Familienworkshop bearbeiteter Familie genau ein Owning Artifact | dieselbe SSOT pflegt unten Coverage und Owner; das Subkonzept besitzt Verhalten, nicht Katalog-ID/-Titel/-Status |
 | Country-/Provider-Varianten | offen und versioniert | referenzieren Katalog-IDs; definieren lokale Begriffe, Institutionen, Payer, Evidenz, Fristen und Regeln |
+
+## Case-Familien-Subkonzeptvertrag
+
+### Verbindliche Struktur
+
+Jede Case-Familie erhaelt mit Beginn ihres dedizierten fachlichen Workshops
+genau ein lebendes Subkonzept-Artefakt. Fuer neu angelegte Familien-Decisions
+gilt das Standard-Namensmuster:
+
+```text
+docs/technical/DECISION_<CASE_FAMILY>_MODEL.md
+```
+
+Eine bereits bestehende, semantisch eindeutige Decision darf als Owner
+registriert und gegen den Pflichtinhalt erweitert werden. Sie wird nicht nur
+fuer eine Dateiumbenennung dupliziert oder ersetzt. Entscheidend sind ein
+einziger Owner, vollstaendige Coverage und keine parallele aktuelle Wahrheit.
+
+Ein Subkonzept darf mehrere eng gekoppelte Katalogeintraege derselben
+Fachfamilie besitzen, wenn ihre Trennung und Beziehung gerade Gegenstand des
+gemeinsamen Modells sind. Das akzeptierte Medical-Subkonzept besitzt deshalb
+`medical_care` und `medical_cost_settlement`. Jeder Katalogeintrag darf aber
+hoechstens ein fachliches Owning Subkonzept besitzen.
+
+Das Subkonzept ist eine fachliche Decision, keine neue Case-Klasse und keine
+zweite Katalogliste:
+
+- dieses Dokument bleibt alleinige SSOT fuer ID, deutschen Titel,
+  Katalogstatus, Disposition und Subkonzept-Owner;
+- das Subkonzept besitzt Ziel, Grenzen, Verhalten, Komposition, Beispiele,
+  Verifikation und Stop Rules seiner Familie;
+- Country-/Provider-Packs besitzen nur lokale Terminologie, Institutionen,
+  belegte Regeln, Quellen und Varianten;
+- Dokumenttypen und Rollen folgen
+  `DECISION_DOCUMENT_TYPE_CATALOG.md` und werden im Subkonzept nur
+  dispositioniert, nicht neu katalogisiert;
+- technische Domain-/API-/Drift-Details bleiben spaeteren
+  Implementation-Contracts vorbehalten.
+
+Es werden keine leeren Dateien fuer alle Discovery-Kandidaten erzeugt. Eine
+Katalogzeile oder kurze bereichsuebergreifende Erwaehnung ist noch kein
+Familienworkshop. Sobald die Familie jedoch als eigener fachlicher Gegenstand
+Schritt fuer Schritt mit dem User bearbeitet wird, wird ihr Owning Subkonzept
+im selben Change angelegt oder fortgeschrieben und hier in der Coverage
+registriert. Workshop-Notizen duerfen nicht als parallele aktuelle Wahrheit
+bestehen bleiben.
+
+### Pflichtinhalt jedes Subkonzepts
+
+| Block | Verbindlich zu entscheiden oder explizit offen zu halten |
+|---|---|
+| Identitaet | referenzierte Katalog-IDs, deutscher Familienname, Status, Owner und Scope |
+| Nutzerziel | welches verstaendliche Ziel die Nutzerin verfolgt und welchen Produktwert Mappm liefert |
+| Case-Grenze | wann ein Case beginnt, was darin bleibt und wann ein normaler verknuepfter Case entsteht |
+| Komposition | Steps, Branches, Claims, Tasks, Events, Records und `CaseLink`-Beziehungen statt neuer Cases |
+| Lifecycle | aktive/wartende/abgeschlossene Zustaende, Abschluss, Archivierung, spaete Evidenz, Wiedereroeffnung und gegebenenfalls Wiederkehr |
+| Capture und Assist | globale Erfassung, Matching-Signale, Kandidatenranking, Titelvorschlag, Bestaetigung, Korrektur und Automatisierungsgrenze |
+| Dokumentdisposition | jedes Szenario-Dokument als bestehender/breiter Typ, Titel/Alias, Fact/Party, Rolle/Slot, Record oder Source/Format nach minimal ausreichender Klassifikation |
+| Fachliche Daten | relevante Facts, Parties, Records, Claims und getrennte Zustandsdimensionen ohne erfundene Pflichtfelder |
+| Aufgaben und Zeit | nur produktrelevante Aufgaben, Fristen, erwartete Antworten, Termine, Reminder und deren Provenienz |
+| Laendergrenze | universeller Kern versus Country-/Provider-Pack, aktuelle Quellenpflicht und nicht unterstuetzte Varianten |
+| Trust und Sicherheit | sensible Daten, Berechtigungen, externe Aktionen, Berechnungs-/Beratungsgrenzen und Auditbedarf |
+| Beispiele | normale, minimale, alternative, mehrdeutige und spaet eintreffende Evidenz sowie Korrekturpfade |
+| Delivery | Abhaengigkeiten, offene Entscheidungen, Roadmap-Gates, synthetische Fixtures, Verifikation, Stop Rules und Handoff |
+
+Konkrete Screenstruktur, Gesten und visuelle UI-Details gehoeren erst in ein
+darauf aufbauendes UI-Konzept beziehungsweise einen Phase-as-Implementation-
+Contract. Das Fachsubkonzept muss aber alle sichtbaren Folgen und
+Korrekturmoeglichkeiten benennen, die eine spaetere UI abbilden muss.
+
+### Reifegrad-Gate
+
+1. Ein Katalogkandidat darf ohne Subkonzept `Discovery` oder
+   `Variantenpruefung` bleiben.
+2. `normalisierter Kern` bedeutet nur eine plausible zusammengefuehrte
+   Familiengrenze; ohne Subkonzept ist das Verhalten nicht fachlich akzeptiert.
+3. Vor `fachlich akzeptierter Kern`, WF-01-Auswahl, Implementation Contract,
+   Contract-/Schema-Arbeit oder Produktclaim muss das Subkonzept vollstaendig
+   reviewed, in der Coverage verlinkt und widerspruchsfrei sein.
+4. Eine spaetere wesentliche Grenz- oder Verhaltensaenderung aktualisiert
+   Subkonzept, Katalog-Coverage, Traceability und betroffene Country Packs im
+   selben Change.
+
+### Aktuelle Subkonzept-Coverage
+
+Diese Tabelle ist innerhalb der Katalog-SSOT die einzige Owner-/Coverage-Liste.
+Nicht aufgefuehrte Discovery-/Variantenkandidaten besitzen noch kein
+Subkonzept und duerfen nicht als fachlich akzeptiert gelesen werden.
+
+| Case-Familie | Registrierte Eintraege | Owning Subkonzept | Coverage/naechster Gate |
+|---|---|---|---|
+| Generischer/Custom Case | keine Template-ID, Custom-/Umbrella-Dispositionen | `DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md` | akzeptierte generische Mechanik; kein fachlicher Guided Workflow |
+| Medizin | `medical_care`, `medical_cost_settlement`, Kein-Template-Disposition medizinische Bewilligung | `DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` | fachlich akzeptierter Kern seit 2026-07-20; OQ-012 geschlossen |
+| Steuer-Unterlagensammlung | `tax_document_collection` | `DECISION_JURISDICTIONAL_TAX_DOCUMENT_COLLECTION.md` | vorlaeufiger eindeutiger Owner; vor fachlicher Kernakzeptanz gegen den vollstaendigen Familienvertrag pruefen und erweitern; OQ-010/WF-01/WF-02 blockieren konkrete Packs/Claims |
+| Unfall und Schaden | `accident_or_damage_settlement` | ausstehend: `DECISION_ACCIDENT_DAMAGE_SETTLEMENT_MODEL.md` | naechster User-Workshop; keine Implementierung oder AT-Workflowfreigabe |
+| Kauf und Maengelbehebung | `purchase_fulfilment_and_remedy` | ausstehend | eigenes Subkonzept vor fachlicher Akzeptanz erforderlich |
+| Antrag und behoerdliche Einreichung | `authority_application_or_submission` | ausstehend | eigenes Subkonzept vor fachlicher Akzeptanz erforderlich |
+| Einspruch, Klaerung und Rueckforderung | `objection_dispute_or_recovery` | ausstehend | eigenes Subkonzept vor fachlicher Akzeptanz erforderlich |
+| Nachweis beantragen/erneuern/ersetzen | `record_acquisition_renewal_or_replacement` | ausstehend | eigenes Subkonzept vor fachlicher Akzeptanz erforderlich |
+
+`DECISION_RECURRING_CONTRACT_SUBSCRIPTION_MODEL.md` besitzt den separaten
+Record-basierten Vertrags-/Abo-Kontext. Er ist kein Ersatz fuer ein fehlendes
+Case-Familien-Subkonzept eines eigenstaendigen Vertragsstreits oder einer
+anderen Case-Familie.
 
 ## Workflow-Muster
 
@@ -102,8 +209,8 @@ ihrer bewussten Disposition und besitzt deshalb keine produktive Vorlagen-ID.
 | Recht/Compliance | `audit_or_compliance_response` | Pruefung oder Auskunftsverfahren beantworten | Discovery | specialist/later; Scope, Evidenz und Handoff muessen fachlich definiert werden |
 | Zahlung/Behoerde | `payment_relief_or_debt_resolution` | Stundung, Ratenzahlung oder Schuldenregelung | Discovery | eigener Request nur bei bestaetigter Forderung und eigenem Outcome |
 | Sicherheit | `fraud_identity_or_security_incident` | Betrug, Identitaetsmissbrauch oder Sicherheitsvorfall | Discovery | Incident-/Recovery-Kandidat; Bank, Polizei oder Provider nur nach bestaetigter Evidenz |
-| Medizin | `medical_care` | Medizinischer Behandlungsfall | normalisierter Kern | zusammenhaengender medizinischer Anlass/Kontrollzweck; erstes bestaetigtes medizinisches Dokument erzeugt neutralen Care-Anker; Provider, Setting, Dauer, Reha/Nachsorge oder spaeterer Beleg spalten nicht automatisch; Wiederkehr ist optionale Planung, kein Case-Typ |
-| Medizin | `medical_cost_settlement` | Medizinische Kostenabrechnung und Erstattung | normalisierter Kern | je eigenstaendiger wirtschaftlicher Verpflichtung ein `part_of`-Case unter Medical Care; Korrektur/Gutschrift/Beleg bleiben darin; Claims je bestaetigtem Payer |
+| Medizin | `medical_care` | Medizinischer Behandlungsfall | fachlich akzeptierter Kern | zusammenhaengender medizinischer Anlass/Kontrollzweck; erstes bestaetigtes medizinisches Dokument erzeugt neutralen Care-Anker; Provider, Setting, Dauer, Reha/Nachsorge oder spaeterer Beleg spalten nicht automatisch; Wiederkehr ist optionale Planung, kein Case-Typ |
+| Medizin | `medical_cost_settlement` | Medizinische Kostenabrechnung und Erstattung | fachlich akzeptierter Kern | je eigenstaendiger wirtschaftlicher Verpflichtung ein `part_of`-Case unter Medical Care; Korrektur/Gutschrift/Beleg bleiben darin; Claims je bestaetigtem Payer |
 | Medizin | keine ID: medizinische Bewilligung | Medizinische Bewilligung oder Kostenuebernahme | kein Template | Anfrage, Nachreichung, Bewilligung, Ablehnung und bestaetigte Auflagen bleiben Dokumente/Facts/Schritte im `medical_care`; allein daraus keinen Case oder M1-Dokumenttyp erzeugen |
 | Versicherung | `insurance_benefit_claim` | Versicherungsleistung beantragen | Discovery | Polizze bleibt Record; besondere vertragliche Leistungen werden fuer M1 nicht im Medical Core spezialisiert und nutzen bis zu einer eigenen Produktentscheidung generische Insurance-/Claim-Komposition; andere Domaenen und Provider-Pack vor Aktivierung pruefen |
 | Versicherung/Reise | `travel_insurance_claim` | Reiseversicherungsfall | Variantenpruefung | voraussichtlich Country-/Provider-/Domainvariante von `insurance_benefit_claim`, nicht automatisch globale eigene Vorlage |
@@ -173,7 +280,7 @@ loescht oder kopiert keine Inhalte.
 
 | Dokument | Einzige Verantwortung | Darf nicht |
 |---|---|---|
-| dieses Dokument | Workflow-Muster, Fachvorlagen-/Variantenkandidaten, deutsche Titel, Katalogstatus und Disposition | medizinische, rechtliche oder nationale Detailregeln behaupten |
+| dieses Dokument | Workflow-Muster, Fachvorlagen-/Variantenkandidaten, deutsche Titel, Katalogstatus, Disposition und Subkonzept-Ownership/Coverage | medizinische, rechtliche oder nationale Detailregeln behaupten |
 | `DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md` | generische Case-Entitaet, CaseLink-Semantik und Split-/Kompositionsregel | Fachvorlagen-IDs oder Country-Varianten inventarisieren |
 | `DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` | akzeptierte Care-/Cost-/Claim-Komposition, dokumentweises Matching und Ankerdokument-Regel, Wiederkehr, Payer-Praeferenzen, evidenzbasierte Zustaende, Bewilligungsgrenze, schlanke Medical-Dokumentregel und case-lokaler Desktop-Medienarchiv-Randfall nur fuer einen bestehenden `medical_care`-Case | AT-Provider-Regeln, Versicherungsberechnungen, Dokumentpflichten oder UI-Details implizit entscheiden |
 | `DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md` | Publikations-, Versions-, Review-, Withdrawal- und Country-Pack-Governance | eine zweite Muster-/Fachvorlagenliste fuehren |
@@ -240,6 +347,14 @@ oder rechtsraumspezifische Produktbehauptung erlaubt.
 Implementation und Freigabe stoppen, wenn:
 
 - eine nicht konkretisierte Familie als fertiger Workflow implementiert wird;
+- ein dedizierter Familienworkshop ohne eindeutig registriertes Owning
+  Subkonzept gefuehrt wird oder mehrere aktuelle Subkonzepte dieselbe ID
+  besitzen;
+- ein Katalogeintrag ohne vollstaendig reviewed Subkonzept als `fachlich
+  akzeptierter Kern`, WF-01-Workflow, Contract-/Schema-Scope oder
+  Implementation Contract behandelt wird;
+- ein Country-/Provider-Pack, Pillar, Phase oder Issue das fehlende fachliche
+  Subkonzept ersetzt oder eine parallele Case-Liste fuehrt;
 - eine sichtbare Fachvorlage oder nationale Formularvariante ungeprueft zu
   einem neuen globalen Case-Typ oder Workflow-Grundmuster wird;
 - Actor, Dokument, Claim, Branch oder Status als eigener Case-Typ modelliert wird;
