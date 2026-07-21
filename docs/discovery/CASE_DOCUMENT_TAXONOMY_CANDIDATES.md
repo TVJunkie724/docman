@@ -2,7 +2,7 @@
 title: "Discovery Draft - Globale Dokumenttaxonomie"
 description: "Normalisierungsentwurf fuer Dokumentgrundarten, semantische Varianten, Domains, Record-Kontexte, Rollen, Quellen und Matching-Vokabular"
 tags: [discovery, draft, taxonomy, cases, records, documents, workflows, matching, internationalization]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-21"
 status: "draft"
 owner: "product-concept"
 ---
@@ -22,6 +22,11 @@ Case-Titel, Katalogstatus und Disposition ist
 `docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`. Dieses Dokument
 definiert oder zaehlt keine Case-/Workflow-Katalogeintraege. Verwendete IDs
 sind nur Verweise auf jene SSOT.
+
+Das Prinzip der minimal ausreichenden Klassifikation aus
+`docs/technical/DECISION_DOCUMENT_TYPE_CATALOG.md` ist bereits akzeptiert.
+Die Tabellen in diesem Entwurf sind deshalb eine zu reduzierende
+Pruef-/Obermenge, keine angestrebte Anzahl von Typen oder Varianten.
 
 Insbesondere sind der eine generische Case, optionale Workflow-Muster,
 sichtbare Fachvorlage, Workflowmodul, Record-Kontext, Dokumentgrundart,
@@ -127,6 +132,12 @@ Document
   source/format
 ```
 
+Die folgende Grundartenliste ist selbst noch keine Zielmenge. R0.6 muss jeden
+Eintrag gegen den Produktwerttest pruefen und darf mehrere Kandidaten in einen
+allgemeinen Typ oder breiten Domain-Fallback zusammenfassen. Der lange
+fachsprachliche Katalog weiter unten bleibt auch dann als Titel-, Alias-, OCR-,
+Such- und Fixture-Vokabular erhalten.
+
 ### Kandidaten fuer globale Dokumentgrundarten
 
 | Grundart | Deutscher Titel | Globale Bedeutung | Beispiele fuer Varianten oder lokale Aliase |
@@ -169,19 +180,24 @@ Eigentumsnachweis ist je Inhalt `credential_or_certificate`,
 
 ### Zulassungstest fuer semantische Varianten
 
-Ein Begriff wird nur dann globale `semanticVariant`, wenn er:
+Ein Begriff wird nur dann globale `semanticVariant`, wenn er den vollstaendigen
+Produktwerttest der technischen Decision besteht. Insbesondere muss er:
 
 1. ueber mehrere Laender und Provider hinweg dieselbe fachliche Bedeutung hat;
-2. ein sichtbar anderes Dokument fuer normale Nutzer bezeichnet;
-3. ein anderes Extraktionsschema oder wesentliches Matching-Signal braucht;
-4. nicht bereits aus Domain, Rolle, Record-Art, Party, Facts oder Pack ableitbar ist;
-5. ohne landesspezifische Rechtsbehauptung stabil versioniert werden kann.
+2. gezielte spaetere Nutzung oder materiell anderes Produktverhalten tragen;
+3. nicht ausreichend durch Titel, Volltext, Domain, Rolle, Record-Art, Party,
+   Facts oder Pack abbildbar sein;
+4. stabil und mit belastbarem Fallback erkennbar sein;
+5. seinen Schema-, Migrations-, Lokalisierungs-, Trainings- und UI-Aufwand
+   rechtfertigen.
 
-Beispiele fuer plausible Varianten sind `credit_note`, `discharge_summary`,
-`laboratory_report`, `imaging_report`, `appeal_submission` oder
-`payment_reminder`. Dagegen sind `medical_invoice`, `recurring_invoice`,
-`OeGK_invoice`, `Austrian_invoice_2026` und `paid_invoice` Kombinationen aus
-Domain, Wiederholungsfakt, Provider, Pack und Status, keine Subtypen.
+Kein hier genannter Fachbegriff ist allein dadurch eine plausible Variante.
+Labor-, Radiologie-, Entlassungs-, Bewilligungs- oder andere Detailbegriffe
+bleiben beispielsweise Titel-/Alias-/Suchvokabular, solange eine breite
+Grundart, Facts und Case-Rolle denselben Produktnutzen liefern. Ebenso sind
+`medical_invoice`, `recurring_invoice`, `OeGK_invoice`,
+`Austrian_invoice_2026` und `paid_invoice` Kombinationen aus Domain,
+Wiederholungsfakt, Provider, Pack und Status, keine Subtypen.
 
 ### Review der gesamten Begriffskluster
 
@@ -190,7 +206,7 @@ Domain, Wiederholungsfakt, Provider, Pack und Status, keine Subtypen.
 | Identitaet und Personenstand | meist `credential_or_certificate` oder `registry_extract` plus spezifischer langlebiger Record-Kind | Land, ausstellende Behoerde, Gueltigkeit und Status |
 | Vertraege und Policen | `contract_or_policy`, `offer_or_quote`, `application_or_filing`, `acknowledgement` oder `declaration_or_consent`; Vertrag/Polizze selbst wird Record | Vertragsdomain, Anbieter, Tarif, Kuendigungsstatus |
 | Rechnung und Zahlung | finanzielle Grundarten; Teil-/Schluss-/Korrekturbezug als Variante/Facts, periodisch als Recurrence Fact | Medizin/Steuer/Vertrag, Payer, bezahlt/offen, Monat/Jahr |
-| Medizin und Pflege | allgemeine Grundarten plus wenige global sinnvolle Medical-Varianten wie Referral, Prescription, Finding/Report, Discharge Summary und Care Plan | Arzt/Klinik, Diagnose, SV, Land, Workflowstep |
+| Medizin und Pflege | breite Grundarten wie Rechnung/Zahlung, `report_or_assessment` oder `referral_or_prescription`; Details primaer in Titel, Facts, Rollen und Suchindex | Arzt/Klinik, Diagnose, SV, Land, Workflowstep sowie Labor-, Radiologie-, Entlassungs-, Bewilligungs- oder Reha-Detailbegriffe ohne belegten Zusatznutzen |
 | Versicherung, Unfall und Schaden | Policy als Record; Meldung/Claim als `application_or_filing`; Bericht/Evidenz/Entscheidung/Zahlung ueber Grundarten und Case-Rollen | Versicherungssparte, Schadennummer, Provider und Claim-Status |
 | Kauf, Lieferung, Rueckgabe und Service | Transaction-Dokumente ueber Angebot, Bestellung, Uebergabe, Rechnung, Report, Evidenz und Bestaetigung | Produktkategorie, Shop, Warranty-/Return-Workflowstate |
 | Wohnen, Immobilien, Energie und Assets | dieselben Grundarten plus Property/Utility Domain und Asset-/Contract-Record | Adresse, Zaehler, Gemeinde, Asset-Typ und Rechtsraum |

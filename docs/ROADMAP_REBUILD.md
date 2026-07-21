@@ -2,7 +2,7 @@
 title: "Mappm - Commercial Core Roadmap"
 description: "Verbindliche Roadmap vom Spike zu einer verkaufbaren Local-/Cloud-Vault-Applikation"
 tags: [roadmap, commercial-core, vault, cloud, product, planning]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-21"
 version: "3.0"
 status: "accepted-rebaseline"
 owner: "product-concept"
@@ -141,7 +141,7 @@ Architektur-Governance. Die vollständige Landkarte steht in
 | SQLite/Drift, separater File Store und Secure-Storage-Grenze | accepted/open-key-details | `DECISION_LOCAL_DATABASE.md`, F10, F12 | VC-07 vor Local-Datenimplementierung |
 | Riverpod und Domain-Ports statt neuer BLoC/GetIt-/SDK-Kopplung | accepted | F1, F2, State-/Repository-Decisions | C1 |
 | Ein generischer Case mit typisierten `CaseLink`-Beziehungen | accepted | `DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md` | C3 |
-| Dokumentgrundart, Variante, Domain, Record-Art, Quelle und Linkrolle getrennt | accepted-taxonomy/open-catalog | `DECISION_DOCUMENT_TYPE_CATALOG.md` | OQ-011/R0.6 |
+| Minimal ausreichende Dokumentklassifikation: Grundart, Variante, Domain, Record-Art, Quelle und Linkrolle getrennt; Details ohne dauerhaften oder verhaltensaendernden Produktwert bleiben Titel/Alias/Fact/Rolle oder generischer Typ | accepted-taxonomy/open-catalog | `DECISION_DOCUMENT_TYPE_CATALOG.md` | OQ-011/R0.6 mit Produktwerttest je Kandidat und Case-Familie |
 | Globales Capture, asynchrone Assist-Verarbeitung und verpflichtende Titelvorschläge | accepted-direction | `DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md` | C2 |
 | Mobile Scan/Foto/Galerie/Datei sowie Desktop Picker/Drag-and-drop; keine Desktop-Webcam-Scans | accepted | `DECISION_DOCUMENT_CAPTURE.md`, `DECISION_DESKTOP_IMPORT_SCOPE.md` | C2 |
 | Smartphone-zu-Desktop-Capture, Local-to-Local-Handoff und macOS Continuity Camera | draft | `DECISION_CROSS_DEVICE_CAPTURE_HANDOFF.md` | OQ-013 vor jeder Implementierungsphase; blockiert Core-Capture nicht |

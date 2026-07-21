@@ -2,7 +2,7 @@
 title: "Mappm - Phase Index"
 description: "Detaillierter Phasen- und Subphasen-Index fuer planbare Milestone-Implementation-Slices"
 tags: [roadmap, phases, subphases, implementation-plan, planning]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-21"
 version: "1.1"
 status: "accepted"
 owner: "product-concept"
@@ -114,7 +114,7 @@ Ziel: Grundsatzentscheidungen treffen, bevor Code weiterwächst.
 | R0.3 Architecture Direction | Local/Cloud Vault authority, Managed Backend, State und Storage entscheiden | Vault/Cloud Product Model, State Management, Backend Role, File Storage |
 | R0.4 Security and Privacy Baseline | sensible Daten, Sync-Grenzen und Trust Boundaries definieren | Privacy Sync Scope, Security Privacy Model |
 | R0.5 Intelligence and Workflow Boundaries | Core Assist im Commercial Core von Advanced Assist und kuratierten Workflows trennen | Account/Vault/Assist Model, Intelligence Scope, Workflow Rules |
-| R0.6 Document, Case and Pack Taxonomy Decision | den einen generischen Case, optionale Workflow-Muster/Fachvorlagen, Dokumentgrundarten/Varianten/Rollen, Record-Arten, Grenzen und dynamische Country-/Provider-Pack-Schichten gemeinsam mit dem User entscheiden | accepted lean taxonomy/catalog and pack-boundary decision, rejected alternatives, no large Case-type picker, accepted Medical composition including resolved OQ-012 defaults, finale Austria-first Katalog-Disposition, versioning/migration and synthetic ambiguity fixtures |
+| R0.6 Document, Case and Pack Taxonomy Decision | den einen generischen Case, optionale Workflow-Muster/Fachvorlagen, die minimal ausreichende Menge an Dokumentgrundarten/Varianten/Rollen, Record-Arten, Grenzen und dynamische Country-/Provider-Pack-Schichten gemeinsam mit dem User entscheiden | product-value disposition je Dokumentkandidat und Case-Familie als bestehender/breiter Typ, Titel/Alias, Fact/Party, Rolle/Slot, Record oder Source/Format; accepted lean taxonomy/catalog and pack boundary, rejected alternatives, no mass subtype or large Case-type picker, accepted Medical composition including resolved OQ-012 defaults, finale Austria-first Katalog-Disposition, versioning/migration and synthetic ambiguity fixtures |
 
 ## R1 - Documentation Source of Truth
 

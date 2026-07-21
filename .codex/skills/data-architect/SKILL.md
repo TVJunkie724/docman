@@ -15,6 +15,7 @@ Read:
 - `docs/concepts/CONCEPT_F12_SECURE_STORAGE.md`
 - `docs/technical/DECISION_SECURITY_PRIVACY_MODEL.md`
 - `docs/technical/DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`
+- `docs/technical/DECISION_DOCUMENT_TYPE_CATALOG.md`
 - `docs/technical/DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` when
   medical Care/Cost/Claim persistence is affected
 
@@ -60,6 +61,11 @@ Read:
   invariant.
 - Keep document base type, semantic variant, domain, Record kind, source/format
   and link role separate; relationship role is not one global Document field.
+- Preserve minimum sufficient classification in schemas and repositories. Do
+  not add an enum value/table/DTO subtype for every recognized document term or
+  Case scenario. Prefer broad/general type plus title/alias, Fact, Party,
+  relationship role, Record kind or source/format unless the accepted
+  product-value gate proves durable later use or materially different behavior.
 - Treat PersonProfile and OrganizationProfile as ManagedSubject variants while
   keeping account identity, ManagementGrant and ExternalParty separate.
 - Model recurring contracts/subscriptions as durable Records with versions,

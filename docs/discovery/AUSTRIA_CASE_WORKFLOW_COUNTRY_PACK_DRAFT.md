@@ -2,7 +2,7 @@
 title: "Discovery Draft - Oesterreich-Mapping fuer Case- und Workflow-Katalog"
 description: "Abgeleitete AT-Variantenmatrix fuer zentral registrierte Case-/Workflow-Kandidaten, Records und Dokumentbegriffe"
 tags: [discovery, draft, austria, country-pack, cases, records, documents, workflows, compliance]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-21"
 status: "draft"
 owner: "product-concept"
 ---
@@ -249,32 +249,38 @@ Ein bewusster Parent/Umbrella darf sie gruppieren, ohne Inhalte zu besitzen.
 
 ## Oesterreichische Dokumentbegriffe und kanonische Zuordnung
 
+Auch diese Tabelle folgt der akzeptierten minimal ausreichenden
+Klassifikation. AT-Begriffe bleiben vorrangig Titel-, Alias-, Such-, Fact-,
+Record- oder Workflowvokabular. Eine hier erkennbare fachliche Feinheit
+autorisiert weder einen globalen Subtyp noch eine Country-Pack-Variante. OQ-011
+muss jeden solchen Kandidaten zuerst gegen den Produktwerttest disponieren.
+
 | AT-Begriff | Normalisierte Dokumentabbildung | Wichtige Abgrenzung |
 |---|---|---|
 | Meldezettel | `form` oder `application_or_filing` + Residence Domain | vom ausgestellten Nachweis unterscheiden |
 | Meldebestaetigung | `credential_or_certificate` + Residence Record | nicht mit dem eingereichten Meldezettel vermischen |
-| Strafregisterbescheinigung | `registry_extract` + Criminal Record variant | langlebiger Nachweis/Record mit Ausstellungsdatum |
+| Strafregisterbescheinigung | `registry_extract` + langlebiger Criminal Record-Kontext | konkreter Titel/Alias und Ausstellungsdatum statt ungepruefter Dokumentvariante |
 | e-card | `credential_or_certificate` + Insurance Record | kein medizinischer Case |
-| Ueberweisung/Zuweisung | `referral_or_prescription` + Medical Referral variant | nicht mit Bankueberweisung verwechseln |
-| Einweisung | `referral_or_prescription` + Medical Admission variant | von normaler fachaerztlicher Ueberweisung unterscheiden |
-| Befund | `report_or_assessment` + Medical Finding variant | Labor-, Radiologie-, Pathologie- und allgemeine Befunde als Varianten/Facts pruefen |
-| Entlassungsbrief | `report_or_assessment` + Discharge Summary variant | aerztlich und pflegerisch unterscheidbar |
+| Ueberweisung/Zuweisung | `referral_or_prescription` + Medical Domain | Titel/Alias und Facts unterscheiden sie von einer Bankueberweisung; genauere Variante nur nach Produktwerttest |
+| Einweisung | `referral_or_prescription` + Medical Domain | konkrete Bedeutung primaer in Titel/Facts; keine automatische Medical-Admission-Variante |
+| Befund | `report_or_assessment` + Medical Domain | Labor-, Radiologie-, Pathologie- und allgemeine Details bleiben primaer Titel/Alias/Facts |
+| Entlassungsbrief | `report_or_assessment` + Medical Domain | aerztliche/pflegerische Feinheit bleibt Titel/Alias/Fact, solange kein materiell anderes Verhalten belegt ist |
 | Wahlarztrechnung/Privathonorarnote | `invoice_or_charge` + Medical Domain | Rechnungstyp nicht mit Payer-/Workflowrolle vermischen |
 | Kostenerstattungsentscheidung/-zahlung | `decision_or_order`, `financial_statement` oder `payment_record` | Claim-Ergebnis, Abrechnung und Zahlungsbeleg nicht als einen Dokumenttyp vermischen |
 | Polizze | `contract_or_policy` + Insurance Policy Record | Versionen/Nachtraege am Record |
 | Schadenmeldung | `application_or_filing` + Damage/Insurance Domain | Dokumentrolle `submission`; kein eigener Case-Typ |
-| Europaeischer Unfallbericht | `record_or_log` + Accident Report variant | Ereignisevidenz, Polizei nicht impliziert |
+| Europaeischer Unfallbericht | `record_or_log` + Accident Domain | Formularname als Titel/Alias; Ereignisevidenz, Polizei nicht impliziert |
 | Kostenvoranschlag | `offer_or_quote` | Medizin, Reparatur und Bau als Domains |
 | Gewaehrleistung | statutory remedy context | nicht mit Garantie gleichsetzen |
 | Garantieerklaerung | `contract_or_policy` oder `credential_or_certificate` + Guarantee Record | vertragliche Bedingungen/Provider |
 | Betriebskostenabrechnung | `financial_statement` + Housing Domain | Miet-/Immobilien-Record plus moeglicher Dispute |
 | Bescheid | `decision_or_order` + Authority Domain | konkrete Materie und Rechtsmittel-Pack erforderlich |
-| Beschwerde/Einspruch/Berufung | `application_or_filing` + Appeal variant | keine global austauschbaren Fristen oder Begriffe |
-| Strafverfuegung/Organstrafverfuegung | `decision_or_order` + Penalty variant | unterschiedliche Verfahrenskontexte |
+| Beschwerde/Einspruch/Berufung | `application_or_filing` + Submission/Appeal-Rolle im Verfahrenskontext | Begriffe und Fristen aus dem Pack, nicht als globaler Dokumentsubtyp |
+| Strafverfuegung/Organstrafverfuegung | `decision_or_order` + Authority-/Proceeding-Kontext | konkrete Bezeichnung als Titel/Alias; unterschiedliche Verfahren nicht in einem Subtyp vermischen |
 | Arbeitnehmerveranlagung | `application_or_filing` im AT Tax-Collection-Kontext | Steuerjahr/Subject/Regime zwingend |
 | UVA/Umsatzsteuerjahreserklaerung | `application_or_filing` im AT VAT-Collection-Kontext | periodische und jaehrliche Kontexte unterscheiden |
 | Zulassungsschein | `credential_or_certificate` + Vehicle Registration Record | Fahrzeug-Asset als Anker |
-| Paragraph-57a-Gutachten/Pickerlbericht | `report_or_assessment` + Vehicle Inspection variant | sichtbarer Alias darf kanonische ID nicht bestimmen |
+| Paragraph-57a-Gutachten/Pickerlbericht | `report_or_assessment` + Vehicle-/Asset-Kontext | sichtbarer Alias und Facts statt ungepruefter Dokumentvariante |
 | Familienbeihilfe-Bescheid/-Mitteilung | `decision_or_order` + Family Benefit Domain | antragslose und antragsbeduerftige Pfade unterscheiden |
 | Pflegegeldbescheid | `decision_or_order` + Care Benefit Domain | medizinische Evidenz und Benefit-Submission getrennt halten |
 

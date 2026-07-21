@@ -107,6 +107,12 @@ Presentation -> Domain -> Data
 - Every persisted Case is valid with zero, one or many documents. Missing
   evidence is unknown/expected/review state, never an `invalid` Case. Assist
   proposals become Cases only after confirmed creation.
+- Document classification is minimum sufficient: Mappm optimizes household
+  findability and actionability, not granular taxonomy. A Case scenario's
+  document list never becomes a type list. Detail stays in generated titles,
+  aliases/search, Facts, Parties, link roles, Record kinds or source/format
+  unless `DECISION_DOCUMENT_TYPE_CATALOG.md` proves durable later use or
+  materially different product behavior and justified complexity.
 - Workflow stage, step, task, event, branch and Claim remain inside a Case until
   work gains its own independently understandable goal, lifecycle and outcome.
 - `follow_up_to` links independent successor Cases as chains/branches without

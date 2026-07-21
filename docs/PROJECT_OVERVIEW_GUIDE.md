@@ -2,7 +2,7 @@
 title: "Mappm - Project Overview and Product Guide"
 description: "Aktueller Einstieg in Produktmodell, Commercial Core, Architektur, Governance und Source of Truth"
 tags: [overview, guide, product, strategy, planning]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-21"
 version: "4.0"
 status: "accepted"
 owner: "product-concept/ui-onboarding"
@@ -132,6 +132,15 @@ Aufgaben, Termine und Links ergänzen.
 Persistierte Cases sind stets gueltig. Kein Dokumenttyp und keine
 Dokumentmenge ist verpflichtend; Dokumente liefern Evidenz fuer Facts und
 Zustaende. Assist-Vorschlaege werden erst nach Bestaetigung zu Cases.
+
+Die Dokumenttaxonomie folgt minimal ausreichender Klassifikation. Mappm soll
+Haushaltsdokumente auffindbar und nutzbar machen sowie daraus Kontext,
+Aufgaben, Fristen und naechste Schritte ableiten, nicht jede fachliche Nuance
+als Subtyp persistieren. Nur spaeter gezielt benoetigte Unterlagen oder
+Unterscheidungen mit materiell anderem Produktverhalten rechtfertigen eigene
+Typen/Varianten. Alles Weitere bleibt allgemeines beziehungsweise breites
+Dokument mit gutem Titel, Facts, Rolle und Suchvokabular. Diese Regel gilt bei
+jeder kuenftigen Case-/Workflow-Konzeption.
 
 Fuer Medizin ist der Kern akzeptiert: ein neutraler Behandlungsfall als
 Care-Anker, je eigenstaendiger wirtschaftlicher Verpflichtung ein

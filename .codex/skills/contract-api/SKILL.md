@@ -56,6 +56,12 @@ Typical boundaries:
 - typed temporal proposals with semantic kind, precision, timezone, evidence,
   provenance and proposal/confirmation status; never one ambiguous document
   date.
+- minimum-sufficient document classification: contracts keep base type,
+  optional variant, Domain, Record kind, source/format and relationship role
+  separate, but do not expose one DTO enum value per recognized fachlicher
+  term. Preserve finer meaning through title, aliases/search, Facts, Parties,
+  links or pack context unless the accepted product-value gate explicitly
+  authorizes a stable type/variant.
 - medical compound proposals preserve one Care anchor, one `part_of` Cost
   Settlement per independent economic obligation and payer submissions as
   Claims without exposing backend DTO ownership to Flutter. Later evidence is

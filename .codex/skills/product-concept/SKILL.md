@@ -35,6 +35,8 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
   rationale is in scope. It is a resolved non-normative reference, not
   authority for the accepted core.
 - Read `docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`.
+- Read `docs/technical/DECISION_DOCUMENT_TYPE_CATALOG.md` whenever a Case,
+  workflow, document family, taxonomy or matching vocabulary is discussed.
 - Read `docs/technical/DECISION_RECURRING_CONTRACT_SUBSCRIPTION_MODEL.md`.
 - Read `docs/technical/DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md`.
 - Read `docs/technical/DECISION_JURISDICTIONAL_TAX_DOCUMENT_COLLECTION.md`.
@@ -152,6 +154,15 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
   second global catalog. Never create or maintain a parallel Case/workflow
   list; add or change a canonical entry in the SSOT first or in the same
   change.
+- Document classification follows minimum sufficient classification. Mappm
+  optimizes household findability and actionability, not taxonomic
+  completeness. A new Case/workflow document term defaults to title/alias,
+  Fact, relationship role, Record kind, source/format or a broad/general type.
+  Add a base type or semantic variant only after the product-value gate in
+  `DECISION_DOCUMENT_TYPE_CATALOG.md`: durable later use or materially
+  different behavior, no sufficient existing axis, stable/testable recognition
+  and complexity justified. Never derive a type list from a scenario's
+  document list.
 
 ## Core Product Assumptions
 
@@ -185,10 +196,13 @@ Use current docs:
 
 1. Identify whether the work is product strategy, concept, phase, decision, or handoff.
 2. Read the affected roadmap/decision/concept docs.
-3. Update only the authoritative document for the decision level.
-4. Mark open decisions explicitly.
-5. Create or update GitHub Issues only for actionable follow-up work.
-6. Summarize what changed and what remains undecided.
+3. For every new Case/workflow, classify each document term as existing type,
+   broad/general document, title/alias, Fact/Party, relationship role/slot,
+   Record kind or source/format before proposing any new type.
+4. Update only the authoritative document for the decision level.
+5. Mark open decisions explicitly.
+6. Create or update GitHub Issues only for actionable follow-up work.
+7. Summarize what changed and what remains undecided.
 
 ## Handoff Targets
 
