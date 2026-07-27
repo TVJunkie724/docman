@@ -46,14 +46,35 @@ UI or state behavior, the plan is not precise enough.
   document ownership.
 - Preserve Custom/Guided Case capability parity and reversible composition from
   selections without copying content.
-- Keep Vorgang, Unterlage/Record, Document/File, workflow branch, Claim, task,
+- Keep Vorgang, Unterlage/Record, Document/File, workflow branch, submission
+  event, task,
   Person/Organization ManagedSubject and ExternalParty visually and
   semantically distinguishable.
+- Do not plan Claim screens, Claim repositories or Claim routing. A concrete
+  insurance handling context is a normal Case; an individual submission is an
+  event/task inside the applicable Case.
 - Use progressive disclosure for contextual review actions. Financial sections
   are absent without confirmed values; charts require multiple comparable
   values and accessible tap/focus equivalents. Do not design accounting UI.
 - Country-specific workflow, cancellation and tax policy must come from an
   approved decision/pack; return missing policy to `ui-concept`.
+- For Assist/Capture/Review plans, apply
+  `docs/technical/DECISION_INTELLIGENCE_SCOPE.md`: plan for small/medium
+  general-purpose models, user-authoritative Managed Subject/Case context,
+  coarse candidates, type-dependent semantic field prefill and one
+  invoice-total proposal. For each relevant date field plan the top candidate,
+  detected alternatives, no-date/manual-entry fallback and progressive details
+  defined by the Product/Document contract.
+  Do not plan semantic wrong-profile/case/document errors, mixed-document
+  rejection/splitting, autonomous workflow/deadline/relationship truth or
+  dates in automatic titles. Technical scan-quality hints stay non-blocking.
+  Do not plan M1 document donation, human analysis-improvement review, online
+  learning or training consent.
+- For F38 work, use only Backend-contract-supported processing stages; plan
+  background continuation, restart, Review Queue, partial failure, Reduced
+  Motion and privacy-safe notifications. Do not invent percent progress,
+  countdowns, general feature advertising or latency claims. Stop if
+  BF-001/BF-013 are unresolved for the requested state model.
 
 ## Required Plan Template
 

@@ -2,7 +2,7 @@
 title: "Decision - Document Capture"
 description: "Verbindliche Erfassung für Mobile Scan und Desktop Import mit dauerhaftem Eingang, asynchronem Assist und bestätigtem Routing"
 tags: [decision, document-capture, mobile-capture, desktop, intelligence, review, batch, commercial-core]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-25"
 status: "accepted"
 owner: "product-concept"
 ---
@@ -40,31 +40,49 @@ Scan oder Import
   -> Original und Artefaktmanifest dauerhaft sichern
   -> Qualität, Sicherheit und Dublette prüfen
   -> je Vault lokal bereitstellen oder bestätigt hochladen
-  -> Preview, OCR, Klassifikation, Extraktion und Indexierung
-  -> Titel-, Case-/Record- und Workflow-Vorschläge erzeugen
+  -> Preview, OCR, grobe Klassifikation, einfache Kandidaten und Indexierung
+  -> Titel- und grobe Case-/Record-Vorschläge erzeugen
   -> relevante Folgen bestätigen oder korrigieren
   -> akzeptiertes Dokument mit primärem Case oder Record
 ```
 
 Die Nutzerin darf die App nach der dauerhaften Sicherung verlassen. Status,
 Ergebnis und Fehler überstehen Neustarts.
+Die sichtbare Warte-, Animation-, Background- und Review-Erfahrung besitzt
+`../concepts/CONCEPT_F38_ASYNC_PROCESSING_WAIT_EXPERIENCE.md`.
 
 ## Capture-first
 
-Globales Capture ist der alltägliche Hauptweg. Vor dem Scan sind weder Profil,
-Case, Dokumentrolle noch Metadatenformular erforderlich. Matching und
-Vorschläge laufen immer, sobald die notwendige Verarbeitung verfügbar ist.
+Globales Capture ist der alltägliche Hauptweg. Es beginnt in einem sichtbaren,
+gegebenenfalls vorausgewaehlten Managed-Subject-Kontext. Vor dem Scan sind
+weder ein allgemeines Profilformular noch Case, Dokumentrolle oder
+Metadatenformular erforderlich. Matching und Vorschläge laufen immer, sobald
+die notwendige Verarbeitung verfügbar ist.
 
-Als einzige frühe optionale Absicht darf globales Capture „Neuen Case starten“
-anbieten. Dadurch entfällt die Wartezeit auf das primäre Matching, nicht aber
-die Analyse: Core Assist schlägt weiterhin Titel, Metadaten, Workflow,
-Aufgaben und zusätzliche Beziehungen vor. Ein leerer Titel- oder
-Konfigurationsdialog ist unzulässig.
+Waehrend der Erfassung darf die Nutzerin optional bereits bekannte Angaben
+mitgeben: Dokumentgrundart und sinnvoller Subtyp, bestaetigte Facts wie
+`bezahlt` oder gewuenschte Steuerpruefung, Korrektur des Managed Subject,
+grober fachlicher Kontext, neuer Case oder bestehender Case. Keine dieser
+Angaben ausser dem sichtbaren Subject-Kontext ist Pflicht,
+ersetzt Analyse oder Matching oder wird zu einem grossen Taxonomie- und
+Metadatenformular. Userwerte behalten Provenienz und werden von Core Assist
+nicht still ueberschrieben.
+
+Eine ausdrueckliche neue-Case-Absicht erspart kein Matching: Core Assist
+schlaegt weiterhin einen konservativen Titel, grobe Metadaten und
+Case-/Record-Kandidaten vor. Optionale zusaetzliche Beziehungen bleiben
+best-effort, backend-geprueft und nutzerbestaetigt. Ein leerer Titel- oder
+Konfigurationsdialog ist unzulaessig.
 
 Capture innerhalb eines bestehenden Case oder Record bleibt als sekundärer,
 bewusster Weg verfügbar. Es ist kein Standardverhalten für den zufälligen
 Dokumenteingang. Konkrete Controls, Gesten und Layouts werden erst im
 UI-Implementation-Contract festgelegt.
+
+Ein Case-scoped Upload wird sofort mit bestaetigter Nutzerprovenienz im
+gewaehlten Case als `processing` sichtbar. Die Analyse laeuft dennoch weiter,
+darf zusaetzliche Beziehungen vorschlagen und ordnet das Dokument nie still um.
+Eine bewusste Case-Zuordnung wird nicht semantisch als falsch markiert.
 
 ## Dokumentgrenzen und Batch
 
@@ -74,10 +92,14 @@ UI-Implementation-Contract festgelegt.
 - Mehrere Dokumente dürfen in einer Sitzung nacheinander erfasst oder am
   Desktop gemeinsam ausgewählt werden.
 - Sitzungsnähe beweist keine fachliche Zusammengehörigkeit.
-- Core Assist validiert Grenzen und schlägt Split/Merge nur bei wahrscheinlichem
-  Fehler oder zusammengesetztem Import vor.
-- Originale bleiben erhalten; Split, Merge, Sortierung und Neuzuordnung sind
-  reversibel und idempotent.
+- Ein PDF mit Rechnung und Zahlungsnachweis desselben Sachverhalts darf nur
+  nach Backend-/Data-Freigabe fuer den Zielrelease als ein Dokument mit
+  mehreren Rollen/Facts angenommen werden.
+- Eine Datei mit unabhaengigen Dokumenten wird im aktuellen Zielrelease nicht
+  automatisch gesplittet. Sie bleibt ein logisches, gegebenenfalls generisch
+  behandeltes Dokument und wird deswegen weder abgelehnt noch `invalid`.
+- Originale bleiben erhalten; Sortierung und Neuzuordnung sind reversibel und
+  idempotent.
 - Ein Teilfehler verwirft keine erfolgreichen Dokumente.
 
 ## Mobile Qualität
@@ -87,6 +109,13 @@ Rotation, lesbare Optimierung, Mehrseitigkeit, Vorschau, Wiederholung,
 Entfernen und Sortieren vor. Ein normaler Kamera-/Datei-Fallback bleibt
 sichtbar als niedrigere Qualitätsstufe und wird nicht als gleichwertiger Scan
 bezeichnet.
+
+Diese Seitenbearbeitung erfolgt lokal innerhalb der Scan-Einheit vor
+`Dokument abschliessen` und vor der Queue-/Upload-Uebergabe. Erst der
+ausdrueckliche Abschluss autorisiert die weitere dauerhafte Verarbeitung. Nach
+dieser Grenze bleiben Metadaten korrigierbar; eine Aenderung der eigentlichen
+Seiten ist in M1 kein normaler Review-Schritt, sondern waere ein eigener
+Revisions-/Neuimportvertrag mit Originalerhalt.
 
 Mappm baut keine eigene Kamera-/OpenCV-Scan-Engine. Die Mappm-App besitzt
 Capture-Sitzung, Dokumentgrenzen, Vault-/Queue-Übergabe und Review, ruft fuer
@@ -135,14 +164,19 @@ davon unabhaengig und setzt kein Smartphone voraus.
 
 ## Kontext und Review
 
-Core Assist schlägt Managed Subject, primären Case oder Record, zusätzliche
-Beziehungen, Dokumenttyp/-variante, Rolle, Workflow-Slot, lokalisierten Titel
-und relevante nächste Schritte vor. Der Titelvorschlag ist verpflichtend und
-editierbar.
+Core Assist schlägt einen primären Case oder Record, grobe Dokumentart/Domain,
+einfache Metadatenkandidaten und einen lokalisierten konservativen Titel vor.
+Optionale zusätzliche Beziehungen duerfen nach Feasibility-Nachweis
+vorgeschlagen werden. Managed Subject bleibt Nutzerkontext; Empfaenger,
+Workflow-Slot, fachliche Datumsrolle und nächste Schritte sind keine
+verlaesslichen freien Modelloutputs. Der Titelvorschlag ist verpflichtend,
+editierbar und enthaelt standardmaessig kein Datum.
 
 Die aktuelle Reifestufe verlangt Nutzerbestätigung, bevor primäre Zuordnung
-oder materielle Folgen endgültig werden. Nach abgeschlossenem Review besitzt
-jedes Dokument einen bestätigten primären Case oder Record. Passt kein
+oder materielle Ausgangs-Facts endgültig werden. Harmlose, interne und
+reversible Aufgaben/Erwartungen aus bereits bestaetigten Facts benoetigen
+keine zweite Bestaetigung. Nach abgeschlossenem Review besitzt jedes Dokument
+einen bestätigten primären Case oder Record. Passt kein
 bestehender oder geführter Kontext, wird ein leichter Custom Case mit
 automatisch vorgeschlagenem Titel angelegt; ein dauerhafter loser
 Dokumentzustand ist kein Abschlussweg.
@@ -152,12 +186,15 @@ Dokumentzustand ist kein Abschlussweg.
 Pläne und Tests decken mindestens lokale Speicherfehler, Offline/Pending,
 Upload-Retry, Session/Entitlement/Quota, beschädigte oder nicht unterstützte
 Datei, unlesbaren Scan, Dublette, Partial Batch, Processing-Fehler,
-Split-/Merge-Unsicherheit sowie erneutes Öffnen und Korrigieren ab.
+optional freigegebenes Same-Context-Mehrrollen-PDF, gemischte Ein-Datei-Inhalte
+ohne Invalidierung/Ablehnung sowie erneutes Öffnen und Korrigieren ab.
 
 Stop, wenn Originale verloren gehen, Capture eine Vorabklassifikation
-erzwingt, Batch-Nähe als Beziehung gilt, Local Assist als Cloud Backup
-erscheint, versteckte Vorschläge bestätigt werden oder Echtdokumente ohne
+erzwingt, optionale bekannte Angaben die automatische Analyse abschalten oder
+Userwerte still ueberschrieben werden, Batch-Nähe als Beziehung gilt, Local
+Assist als Cloud Backup erscheint, versteckte Vorschläge bestätigt werden oder Echtdokumente ohne
 akzeptierte Security-/Privacy-/Provider-Gates verarbeitet werden. Stop auch,
 wenn ein Dokumentenscan ueber eine Desktop-Webcam angeboten oder eine
 Draft-Cross-Device-Variante ohne eigene Freigabe als Core-Pfad implementiert
-wird.
+wird. Stop ebenfalls, wenn unabhaengige Dokumente im aktuellen Zielrelease
+automatisch auf Dokumente oder Cases aufgeteilt werden.

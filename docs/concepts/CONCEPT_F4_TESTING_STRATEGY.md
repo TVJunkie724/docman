@@ -77,7 +77,8 @@ Der globale Intake prueft:
 - beste Kandidaten auch bei niedriger Confidence; bei sehr niedriger Confidence
   steht der neue leichte Custom Case zuerst.
 - immer verfuegbare manuelle Case-Auswahl in der Review.
-- Teilfehler, Outlier, Retry, Reprocessing und erhaltene bestaetigte Werte.
+- technische Teilfehler, Retry, Reprocessing und erhaltene bestaetigte Werte;
+  keine Fake-Faehigkeit fuer semantische Outlier-/Wrong-Case-Erkennung.
 - User-Bestaetigung aller sichtbaren Konsequenzen bis zur spaeteren,
   klassenweise freigegebenen Automation.
 

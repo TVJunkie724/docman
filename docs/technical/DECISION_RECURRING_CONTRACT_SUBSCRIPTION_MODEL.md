@@ -1,92 +1,164 @@
 ---
-title: "Decision - Recurring Contracts and Subscriptions"
-description: "Produktmodell fuer Vertraege, Abos, wiederkehrende Rechnungen, Kuendigungsfristen, Reminder und schlanke Rechnungsverlaeufe"
+title: "Entscheidung - Wiederkehrende Vertraege, Abos und Polizzenkontexte"
+description: "Produktmodell fuer Vertraege, Abos, Polizzen, Abschluss-Cases, Record-Versionen, wiederkehrende Rechnungen, Fristen und ruhige Vertragskontexte"
 tags: [decision, product, contracts, subscriptions, records, invoices, reminders, insights]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-24"
 status: "accepted"
 owner: "product-concept"
 ---
 
-# Decision - Recurring Contracts and Subscriptions
+# Entscheidung - Wiederkehrende Vertraege, Abos und Polizzenkontexte
 
 ## Status
 
-Accepted as product direction on 2026-07-14. Exact first-release contract
-categories and country-specific cancellation rules remain phase scope.
+Als Produktrichtung am 14. Juli 2026 akzeptiert und am 23. Juli 2026 um die
+explizite Beziehung zwischen Vertragsabschluss-Case, dauerhaftem Record und
+ruhigem Vertragskontext ergaenzt. Exakte Commercial-1.0-Kategorien sowie
+laender-, provider- und tarifabhaengige Fristregeln bleiben phasen- und
+packgebunden.
 
-## Decision
+## Entscheidung
 
-A recurring contract or subscription is a first-class `Record` with one calm
-product context that combines its current facts, versions, recurring invoices,
-timeline, tasks and workflow progress. Users do not receive a new Case for every
-invoice or every ordinary lifecycle action.
+Ein wiederkehrender Vertrag oder ein Abo ist ein erstklassiger `Record` mit
+einem ruhigen Produktkontext, der aktuelle Facts, Versionen, wiederkehrende
+Rechnungen, Verlauf, Aufgaben und Workflow-Fortschritt zusammenfuehrt.
+Nutzerinnen erhalten nicht fuer jede Rechnung oder gewoehnliche
+Lebenszyklusaktion einen neuen Case.
 
-The UI presents one contract/subscription detail even when the underlying model
-separates:
+Die UI zeigt ein gemeinsames Vertrags-/Abo-Detail, auch wenn das Modell
+darunter trennt:
 
-- the durable `Record` and its versions;
-- a long-running Case/workflow context where needed;
-- documents and recurring invoices;
-- tasks, reminders, events and financial facts;
-- independently meaningful disputes as linked Cases.
+- den langlebigen `Record` und seine Versionen;
+- bei Bedarf einen laenger laufenden Case-/Workflow-Kontext;
+- Dokumente und wiederkehrende Rechnungen;
+- Aufgaben, Reminder, Events und Finanz-Facts;
+- eigenstaendig bedeutende Streit-/Folgeverfahren als verknuepfte Cases.
 
-Conclusion, activation, ordinary changes, price-change review, cancellation and
-final invoice are stages or branches in the same contract context. A separate
-linked Case is created only when a dispute or other work gains an independent
-goal and lifecycle.
+Abschluss, Aktivierung, gewoehnliche Aenderungen, Preisaenderungspruefung,
+Kuendigung und Endabrechnung sind Phasen oder Zweige desselben
+Vertragskontexts. Ein separater verknuepfter Case entsteht erst, wenn ein
+Streit oder eine andere Arbeit ein eigenes Ziel und einen eigenen Lebenszyklus
+erhaelt.
 
-## Supported Categories
+## Vertragsabschluss, Record und ruhiger Kontext
 
-- streaming, media and software;
-- mobile, internet and telecommunications;
-- energy and household services;
-- insurance and memberships;
-- fitness, leisure, education and care;
-- rent, lease and other recurring services.
-
-Category-specific facts are optional and progressive. Mappm does not expose an
-accounting-style configuration surface.
-
-## Core Facts
-
-The model may hold:
-
-- provider and managed subject;
-- product/tariff and customer reference;
-- start, minimum term and status;
-- billing cadence: monthly, quarterly, yearly or custom;
-- renewal rule and next renewal;
-- cancellation notice and next eligible cancellation date;
-- expected billing period;
-- current confirmed recurring amount;
-- country/jurisdiction and source documents.
-
-Additional facts such as service address, phone number, connection, device or
-meter belong to category extensions. Facts are extracted as reviewable
-suggestions and do not become mandatory merely because the category supports
-them.
-
-## Invoice Routing
-
-The normal path begins with the first useful document:
+Record und Case schliessen einander nicht aus:
 
 ```text
-capture invoice
-  -> classify invoice
-  -> identify provider and managed subject
-  -> match existing contract/subscription context
-  -> propose role recurring_invoice and billing period
-  -> confirm or correct
+Case: Zusatzversicherung abschliessen
+  Angebot
+  Antrag
+  Gesundheitsfragen
+  Annahme
+  Polizze
+
+  Ergebnis -> Policy Record
+
+Ruhiger Versicherungs-/Vertragskontext
+  aktueller Policy Record
+  Polizzenversionen und Nachtraege
+  Praemien, Aufgaben, Fristen und Reminder
+  gewoehnliche Aenderungen
+  spaetere Kuendigung und Endabrechnung
 ```
 
-If no context exists, Mappm may propose `Create subscription/contract` from the
-first sufficiently informative invoice. Repetition over several periods is a
-fallback signal for previously unclassified documents, not a prerequisite.
+Der Abschluss-Case besitzt das endliche Ziel, den Vertrag abzuschliessen oder
+bewusst nicht abzuschliessen. Der daraus entstehende Record besitzt die
+dauerhafte fachliche Identitaet des Vertrags beziehungsweise der Polizze.
 
-After a user confirms a reliable matching rule, later invoices may be routed
-provisionally with a visible undo/review path. Unexpected provider, customer
-reference, amount, tariff, duplicate, post-termination invoice or other material
-change returns to review.
+Nach Abschluss:
+
+- bleibt der Record mit stabiler ID bestehen;
+- darf der abgeschlossene Abschluss-Case als Historie verknuepft bleiben;
+- landen normale Nachtraege, Deckblatt-/Tarifupdates, Praemieninformationen und
+  Adressaenderungen im selben ruhigen Vertragskontext;
+- erzeugt nicht jedes Update einen neuen Case;
+- entsteht ein neuer verknuepfter Case nur fuer eigenstaendig bedeutende
+  Arbeit wie Streit, formelles Verfahren oder eine getrennte
+  Versicherungsabwicklung.
+
+Wird ein bereits bestehender Vertrag erstmals in Mappm importiert, werden ein
+minimaler Record und ein ruhiger Vertragskontext angelegt. Mappm erfindet
+keinen historischen Abschluss-Case, der nie in der App stattgefunden hat.
+
+## Policy Record
+
+Eine Polizze folgt demselben Grundmodell wie andere Vertraege, erhaelt aber
+einen `Policy Record` als langlebige Versicherungsidentitaet. Er kann
+mindestens halten:
+
+- Provider/Versicherer und Managed Subject;
+- Polizzennummer beziehungsweise stabile Referenz;
+- Versicherungs-/Leistungsbereich;
+- bestaetigten Status und optionale Gueltigkeit;
+- aktuelle und historische Polizzen-/Nachtragsversionen;
+- Verknuepfung zum ruhigen Vertragskontext und zu relevanten Cases.
+
+Ein Polizzendokument ist optionale Evidenz, keine Gueltigkeitsvoraussetzung.
+Ohne Dokument darf ein minimaler, nutzerbestaetigter Policy Record bestehen.
+
+Ein medizinischer Kosten-Case, Unfall-/Schaden-Case oder eine allgemeine
+Versicherungsabwicklung referenziert den stabilen Policy Record. Er kopiert
+die Polizze nicht und aendert den Record nicht ohne einen bestaetigten
+Updatevorgang.
+
+## Unterstuetzte Kategorien
+
+- Streaming, Medien und Software;
+- Mobilfunk, Internet und Telekommunikation;
+- Energie und Haushaltsdienste;
+- Versicherungen und Mitgliedschaften;
+- Fitness, Freizeit, Bildung und Betreuung;
+- Miete, Leasing und andere wiederkehrende Leistungen.
+
+Kategoriespezifische Facts sind optional und werden progressiv offengelegt.
+Mappm zeigt keine buchhaltungsartige Konfigurationsoberflaeche.
+
+## Kern-Facts
+
+Das Modell darf halten:
+
+- Provider und Managed Subject;
+- Produkt/Tarif und Kundenreferenz;
+- Beginn, Mindestlaufzeit und Status;
+- Abrechnungsrhythmus: monatlich, quartalsweise, jaehrlich oder frei;
+- Verlaengerungsregel und naechste Verlaengerung;
+- Kuendigungsfrist und naechstmoeglicher Kuendigungstermin;
+- erwarteter Abrechnungszeitraum;
+- aktuell bestaetigter wiederkehrender Betrag;
+- Land/Jurisdiktion und Quelldokumente.
+
+Zusaetzliche Facts wie Leistungsadresse, Telefonnummer, Anschluss, Geraet oder
+Zaehler gehoeren in Kategorie-Erweiterungen. Sie werden manuell gepflegt oder
+nur nach einem fuer die konkrete Dokumentklasse belegten Parser als pruefbare
+Kandidaten angeboten. Ein allgemeines kleines/mittleres Modell muss sie nicht
+verlaesslich verstehen, und sie werden nicht allein deshalb verpflichtend,
+weil eine Kategorie sie unterstuetzt.
+
+## Rechnungs-Routing
+
+Der normale Pfad beginnt mit dem ersten nuetzlichen Dokument:
+
+```text
+Rechnung erfassen
+  -> usergewaehlten Managed Subject beibehalten
+  -> Rechnung und grobe Domain klassifizieren
+  -> Providerkandidat und bestehende Vertrags-/Abo-Kontexte ranken
+  -> nach Review Rolle recurring_invoice und Abrechnungszeitraum zuordnen
+  -> bestaetigen oder korrigieren
+```
+
+Existiert kein Kontext, darf Mappm ab der ersten ausreichend informativen
+Rechnung `Vertrag/Abo anlegen` vorschlagen. Wiederholung ueber mehrere
+Perioden ist ein Fallback-Signal fuer zuvor unklassifizierte Dokumente, keine
+Voraussetzung.
+
+Erst in einer spaeter qualitaetsgegateten Automationsstufe duerfen nach einer
+von der Nutzerin bestaetigten stabilen Matching-Regel spaetere Rechnungen
+vorlaeufig mit sichtbarem Review-/Undo-Pfad zugeordnet werden. Fehlende oder
+abweichende bestaetigte Referenzsignale und technische Dubletten fuehren
+zurueck in den Review. Freie Modellinterpretation behauptet weder einen
+unerwarteten Vertrag noch eine semantische Falschzuordnung.
 
 ## Tasks and Reminders
 
@@ -111,34 +183,51 @@ Mappm does not generate a noisy monthly cancellation reminder by default. A
 review reminder is activated by user choice, a published workflow rule or a
 material detected event such as a confirmed price change.
 
-## Slim Invoice Chart
+Regelbasierte Fristen und Reminder folgen
+`DECISION_RULE_DERIVED_DEADLINES_REMINDERS.md`. Ein Providername oder eine
+Polizzennummer allein darf keine Vertrags-, Kuendigungs- oder
+Einreichungsfrist aktivieren. Country-/Provider-/Tarifregeln muessen exakt
+passen, versioniert und geprueft sein.
 
-The contract detail may show one small line chart when at least two confirmed
-periodic invoice amounts exist.
+## Schlankes Rechnungsdiagramm
 
-- X-axis: billing period.
-- Y-axis: confirmed invoice amount.
-- Desktop hover, mobile tap and keyboard focus reveal period and amount.
-- A confirmed material change may receive one restrained marker.
-- An accessible textual alternative is available to assistive technology.
+Das Vertragsdetail darf ein kleines Liniendiagramm zeigen, wenn mindestens
+zwei bestaetigte periodische Rechnungsbetraege vorliegen.
+
+- X-Achse: Abrechnungszeitraum.
+- Y-Achse: bestaetigter Rechnungsbetrag.
+- Desktop-Hover, Mobile-Tap und Tastaturfokus zeigen Zeitraum und Betrag.
+- Eine bestaetigte materielle Aenderung darf eine zurueckhaltende Markierung
+  erhalten.
+- Assistive Technologien erhalten eine zugaengliche textuelle Alternative.
 
 Use **Preisentwicklung** only for a truly fixed recurring price. Use
 **Rechnungsverlauf** for variable services such as energy or usage-dependent
 telecom bills. Mappm does not infer that a higher total is a tariff increase.
 
-The visible product does not add accounting dashboards, annual forecasts,
-complex averages, discount analytics, consumption accounting or configurable
-chart panels. The detail keeps only the calm chart and the next relevant action,
-for example `Kuendbar bis 29. Juli - Erinnerung aktiv`.
+Das sichtbare Produkt ergaenzt keine Buchhaltungsdashboards, Jahresprognosen,
+komplexen Durchschnitte, Rabattanalyse, Verbrauchsabrechnung oder
+konfigurierbaren Diagramm-Panels. Das Detail behaelt nur das ruhige Diagramm
+und die naechste relevante Aktion, beispielsweise
+`Kuendbar bis 29. Juli - Erinnerung aktiv`.
 
 ## Stop Rules
 
-Stop if:
+Stop, wenn:
 
-- each recurring invoice creates a new Case;
-- ordinary cancellation or plan change fragments the contract into unrelated UI;
-- recurrence is assumed to be monthly;
-- invoice total and fixed tariff price are presented as equivalent without evidence;
-- a chart appears for a single amount or an empty financial state;
-- Mappm becomes an accounting, forecasting or consumption-analysis product;
-- an inferred subscription or cancellation rule is finalized without review.
+- jede wiederkehrende Rechnung einen neuen Case erzeugt;
+- jeder Polizzennachtrag oder jedes Vertragsupdate einen neuen Case erzeugt;
+- Record und Abschluss-Case zu einer Entitaet verschmolzen werden;
+- ein importierter Bestandsvertrag einen erfundenen historischen
+  Abschluss-Case erfordert;
+- ein Policy Record ohne Polizzendokument ungueltig ist;
+- gewoehnliche Kuendigung oder Tarifwechsel den Vertrag in unverbundene UI
+  zerteilt;
+- Wiederholung pauschal als monatlich angenommen wird;
+- Rechnungssumme und fixer Tarifpreis ohne Evidenz gleichgesetzt werden;
+- ein Diagramm fuer einen einzelnen Betrag oder einen leeren Finanzzustand
+  erscheint;
+- Mappm zu Buchhaltungs-, Prognose- oder Verbrauchsanalyse-Software wird;
+- eine erkannte Abo- oder Kuendigungsregel ohne Review finalisiert wird;
+- Providername oder Polizzennummer allein eine materielle Frist oder
+  Deckungsbehauptung aktiviert.

@@ -2,7 +2,7 @@
 title: "Decision - Commercial Core Product Scope"
 description: "Verbindliches Ziel fuer eine production-ready, verkaufbare erste Mappm-Version mit bewusst begrenztem Funktionsumfang"
 tags: [decision, commercial-core, release, product, account, assist, local-vault, cloud-vault]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-24"
 status: "accepted"
 owner: "product-concept"
 ---
@@ -60,13 +60,14 @@ contracts and backend remain internationalizable.
 - documents, files, first-class Unterlagen/versions, one Case type with typed
   CaseLinks, Custom Cases and managed person profiles.
 - structured search, filters, simple tasks/deadlines and quick access.
-- Core Assist sufficient for OCR/text extraction, validation of explicit mobile
-  document boundaries and reviewed compound-import correction,
-  mandatory editable Document/Case/Record title proposals, taxonomy,
-  actor/key-field suggestions, ranked Case/Record/workflow matching and
+- Core Assist sufficient for OCR/text extraction, technical scan/file quality,
+  coarse type/domain, simple value candidates, mandatory conservative editable
+  Document/Case/Record title proposals, coarse Case/Record ranking and
   current-release human confirmation.
-- mixed related/unrelated session/import handling with preserved originals,
-  reversible split/merge/reorder and outlier review.
+- mixed session/import handling with preserved originals and explicit
+  per-document review. Mobile completion and one Desktop file define logical
+  boundaries; mixed semantic content is neither rejected nor invalidated and
+  automatic page-/Case-splitting is not a current-release capability.
 - a confirmed primary Case or Record for each accepted document, with a
   lightweight Custom Case fallback when no durable Record or guided/existing
   Case fits.

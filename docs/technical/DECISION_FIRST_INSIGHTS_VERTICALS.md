@@ -1,8 +1,8 @@
 ---
 title: "Decision - First Insights Verticals"
-description: "Entscheidung zu ersten Haushalts-Finanz- und Claim-Auswertungen auf Basis von Facts, Claims, Unterlagen, Vorgängen und manuellen Eintraegen"
-tags: [decision, insights, facts, claims, finance, household, health, insurance]
-lastUpdated: "2026-07-20"
+description: "Entscheidung zu ersten Haushalts-Finanz- und Erstattungsauswertungen auf Basis von Facts, Einreichungsereignissen, Unterlagen, Vorgängen und manuellen Eintraegen"
+tags: [decision, insights, facts, submissions, finance, household, health, insurance]
+lastUpdated: "2026-07-24"
 status: "accepted"
 owner: "product-concept/domain"
 ---
@@ -13,13 +13,13 @@ owner: "product-concept/domain"
 Accepted.
 
 R8-D3 ist entschieden. Die ersten Auswertungen sind Haushalts-Finanz- und
-Claim-Insights, keine Buchhaltung.
+Einreichungs-/Erstattungs-Insights, keine Buchhaltung.
 
 ## Entscheidung
 
 Mappm startet mit drei Auswertungsarten:
 
-1. Claims & Erstattungen.
+1. Einreichungen & Erstattungen.
 2. Ausgaben nach Anbieter/Kategorie.
 3. Laufende Kosten & Fristen.
 
@@ -42,7 +42,7 @@ Ein Fact oder Financial Entry kann optional verknuepft sein mit:
 - Unterlage / Record.
 - Vorgang.
 - Dokument.
-- Claim.
+- Versicherungsabwicklungs- oder anderer passender Case.
 
 Beispiel:
 
@@ -67,7 +67,7 @@ noch fehlen. Die Nachweisqualitaet wird sichtbar:
 - bestaetigt.
 - veraltet / zu pruefen.
 
-## Auswertung 1: Claims & Erstattungen
+## Auswertung 1: Einreichungen & Erstattungen
 
 Ziel:
 
@@ -134,9 +134,9 @@ Beispiele:
 - Auto.
 - Haushalt.
 
-Ein Eintrag kann gleichzeitig in Claims & Erstattungen und in Anbieter-
+Ein Eintrag kann gleichzeitig in Einreichungen & Erstattungen und in Anbieter-
 Ausgaben sichtbar sein. Eine Apothekenrechnung ist z. B. Ausgabe bei einer
-Apotheke und gleichzeitig potenzieller Claim.
+Apotheke und gleichzeitig Kandidat fuer eine bestaetigte Einreichung.
 
 ## Auswertung 3: Laufende Kosten & Fristen
 
@@ -164,8 +164,8 @@ Versicherungen zaehlen hier zur Vertrags-/Praemienseite:
 Unterlage: Zusatzversicherung Kind A
   -> laufende Kosten: 42 EUR / Monat
   -> Frist: Kuendigung bis 30.09.
-  -> Claims:
-       - Arztrechnung Mai
+  -> verknuepfte medizinische Kosten- und Einreichungsverlaeufe:
+       - Arztrechnung
        - Apothekenrechnung Juni
 ```
 
@@ -174,7 +174,7 @@ Unterlage: Zusatzversicherung Kind A
 R8 baut:
 
 - Haushalts-Finanzuebersicht.
-- Claim-/Erstattungsuebersicht.
+- Einreichungs-/Erstattungsuebersicht.
 - laufende Kosten und Fristen.
 - nachweisbare Facts mit Dokument-/Record-Links.
 
@@ -189,7 +189,7 @@ R8 baut nicht:
 
 ## Konsequenzen
 
-- R8-D3 ist entschieden: erste Insights sind Claims & Erstattungen, Anbieter-/
+- R8-D3 ist entschieden: erste Insights sind Einreichungen & Erstattungen, Anbieter-/
   Kategorie-Ausgaben und laufende Kosten & Fristen.
 - Gesundheit & Versicherung ist der erste konkrete Vertical.
 - Facts/Financial Entries sind auswertbar, auch wenn sie nur manuell erfasst

@@ -2,7 +2,7 @@
 title: "Mappm Regulatory Source Register"
 description: "Datiertes Register offizieller Rechts-, Regulierungs- und Store-Quellen"
 tags: [regulatory, eu, austria, stores, sources, review]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-23"
 status: "active-baseline"
 owner: "compliance/product"
 regulatoryAsOf: "2026-07-15"
@@ -46,6 +46,31 @@ Pruefausloeser.
 | Digitale Inhalte/Dienste | [Richtlinie (EU) 2019/770](https://eur-lex.europa.eu/eli/dir/2019/770/oj/eng) | regelt Verbraucher-Vertraege ueber digitale Inhalte und Dienste, auch Cloud-Dienste; nationale Umsetzung ist massgeblich | `expected-applicable` fuer B2C-App/Cloud/Subscription | vor Pricing, Trial, AGB, Leistungsversprechen und Kuendigung |
 | Verbraucherrechte/Fernabsatz | [Richtlinie 2011/83/EU](https://eur-lex.europa.eu/eli/dir/2011/83/oj/eng) | Informations-, Widerrufs- und Fernabsatzpflichten; nationale Umsetzung und Store-Rollen pruefen | `expected-applicable` fuer Direktverkauf und gegebenenfalls Store-Angebote | vor Checkout, Trial, Subscription und Marktstart |
 | E-Commerce | [Richtlinie 2000/31/EG](https://eur-lex.europa.eu/eli/dir/2000/31/oj/eng) | Informationspflichten fuer Dienste der Informationsgesellschaft; nationale Umsetzung ist relevant | `expected-applicable` fuer Website, Direktverkauf und Online-Dienst | vor Website, Checkout und kommerziellem Launch |
+
+## Oesterreichische medizinische Payer-/Fristquellen
+
+Diese Quellen wurden am **23.07.2026** fuer die Produktkonzeption geprueft.
+Sie ergaenzen den allgemeinen Rechtsstand dieses Registers und werden
+fachlich in
+`docs/technical/DECISION_AUSTRIA_MEDICAL_PAYER_RULE_PACK.md` ausgewertet.
+Eine Tabellenzeile ersetzt weder professionelle Einzelfallpruefung noch den
+Pack-Release-Gate.
+
+| Bereich | Offizielle/Providerquelle | Geprueftes Signal am 23.07.2026 | Produktstatus | Naechster Pflichtcheck |
+|---|---|---|---|---|
+| OeGK Wahlarztrechnung | [OeGK - Wahlaerztinnen und Wahlaerzte](https://www.oegk.at/cdscontent/?contentid=10007.870516) | 42 Monate ab Leistungsdatum; bei Mehrfachversicherung nur ein Antrag pro Wahlarztrechnung | `accepted-for-pack-review`; keine Erstattungsprognose | spaetestens 23.01.2027, bei Quellenaenderung und vor Pack-Release |
+| SVS Wahlarztrechnung | [SVS - Arztwahl](https://www.svs.at/cdscontent/?contentid=10007.816748&switchContrastMode=true) | Anspruch verfaellt nach 42 Monaten ab Inanspruchnahme der Leistung | `accepted-for-pack-review` | spaetestens 23.01.2027, bei Quellenaenderung und vor Pack-Release |
+| BVAEB Wahlarztrechnung | [BVAEB - Kostenerstattung](https://www.bvaeb.at/cdscontent/?contentid=10007.840464&portal=bvaebbportal&viewmode=content) | 42 Monate ab Inanspruchnahme; Antrag nur bei einem Krankenversicherungstraeger/KFA | `accepted-for-pack-review` | spaetestens 23.01.2027, bei Quellenaenderung und vor Pack-Release |
+| Private Versicherungsansprueche | [RIS - VersVG § 12](https://www.ris.bka.gv.at/eli/bgbl/1959/2/P12/NOR40138454) | grundsaetzlich drei Jahre; Hemmung nach Anmeldung bis zur schriftlichen Entscheidung; konkrete Anwendbarkeit/Beginn pruefen | `legal-baseline`; keine pauschale individuelle Frist allein aus Providername | bei Rechtsaenderung, spaetestens 23.01.2027 und vor Privatprovider-Regel |
+| KV-/KFA-Providerregister | [Dachverband - ABS-Handbuch, Stand 08.07.2026](https://www.sozialversicherung.at/cdscontent/load?contentid=10008.808500&version=1783320121) | OeGK, BVAEB, SVS sowie 13 technische KFA-Eintraege; Teilnahme am e-card-System unterscheidet sich | `registry-baseline`; keine geerbte KFA-Frist | monatlicher Source-Check, spaetestens 23.01.2027 fachlich |
+| UNIQA Zusatzversicherung | [UNIQA - Rechnungen einreichen](https://www.uniqa.at/versicherung/gesundheit/wie-rechnungen-einreichen) | Providerhinweis drei Jahre; normaler Ablauf zuerst SV, danach Antwort plus Rechnungskopie | `provider-evidence`; exakter Tarifscope vor Regel | vor Provider-/Tarifoverlay und spaetestens 23.01.2027 |
+| Wiener Staedtische Zusatzversicherung | [FAQ losleben](https://www.wienerstaedtische.at/service/faq-zu-services/faq-losleben.html) | aktuelles Kalenderjahr plus maximal zwei Vorjahre im beschriebenen Kontext; App verlangt jede Rechnung einzeln | `provider-evidence`; nicht globalisieren | vor Provider-/Tarifoverlay und spaetestens 23.01.2027 |
+| Allianz Zusatzversicherung | [Allianz - Privatarzt-Versicherung](https://www.allianz.at/de_AT/privatkunden/vorsorge-gesundheit/krankenversicherung/privatarzt-versicherung.html) | normaler Ablauf zuerst gesetzliche Krankenkasse, danach Abrechnung und Rechnung/Honorarnote | `provider-evidence`; kein Fristclaim aus dieser Quelle | vor Provider-/Tarifoverlay und spaetestens 23.01.2027 |
+
+Die operative Pflege folgt
+`docs/ops/OPS-09_COUNTRY_PROVIDER_RULE_MAINTENANCE.md`: monatlicher
+automatischer Quellencheck, fachlicher Review mindestens halbjaehrlich,
+sofortiger Review bei Aenderung und Pflichtreview vor Pack-Veroeffentlichung.
 
 ## Store- und Plattformquellen
 

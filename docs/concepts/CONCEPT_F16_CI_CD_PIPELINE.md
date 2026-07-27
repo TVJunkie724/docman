@@ -2,8 +2,8 @@
 title: "Konzept F16 - CI/CD Pipeline and Quality Gates"
 description: "CI/CD-Vertrag fuer Flutter, Contracts, Managed Backend, Migrationen, Supply Chain und Commercial Releases"
 tags: [concept, ci, cd, quality-gates, flutter, contracts, cloud, release]
-lastUpdated: "2026-07-15"
-version: "5.0"
+lastUpdated: "2026-07-23"
+version: "5.1"
 status: "accepted"
 owner: "quality-readiness/release"
 ---
@@ -47,6 +47,14 @@ Pruefungen oder nachweislich aequivalente Commands ausfuehren.
 | C4 Lifecycle Gate | Migration, Backup/Restore, Entitlement, Grace, Export/Delete, Rollback |
 | C5 Release Gate | Supply Chain, Signing, Stores, Ops, Legal/Regulatory, Staging |
 | C6/C7 Promotion | Beta Evidence, Incident/Recovery, Go/No-Go und Commercial Promotion |
+
+Laender-, Provider- und Regelpakete besitzen zusaetzlich:
+
+- geplante maschinelle Quellen-/Link-/Aenderungspruefungen;
+- einen nicht abgelaufenen menschlichen Review mit Owner;
+- eine explizite Freigabe oder Ruecknahme bei materieller Aenderung;
+- die Wartungs- und Eskalationsregeln aus
+  `../ops/OPS-09_COUNTRY_PROVIDER_RULE_MAINTENANCE.md`.
 
 Details und exakte Commands gehoeren in den jeweiligen Implementation Contract
 und `docs/technical/DECISION_MILESTONE_QUALITY_GATES.md`.
@@ -105,6 +113,10 @@ Store-, CRA-, AI-Act-, DSGVO-, EUDI/eIDAS-, Consumer- und andere anwendbare
 Checks dokumentieren Datum, Primaerquelle, Applicability und Owner. CI kann
 Evidence/Expiry pruefen, ersetzt aber keine fachkundige Abnahme.
 
+Dasselbe gilt fuer fachliche Frist-, Provider- und Workflow-Regeln. Eine
+erreichbare URL ist kein inhaltlicher Review. Ein gruener maschineller
+Quellencheck darf einen faelligen menschlichen Review nicht verlaengern.
+
 ## Tests und Evidence
 
 Jeder Gate-Job publiziert klaren Scope, Commands, Versionen, Assertions und
@@ -117,7 +129,9 @@ Allowlist ist klein, datiert und verfaellt.
 Stop, wenn Production aus einem anderen Pfad als getestete Artefakte gebaut
 wird, Frontend/Backend-Ownership vermischt wird, Contract-/Migration-/Restore-
 Gates fehlen, Secrets/PII in CI gelangen oder ein volatiler Legal-/Store-Check
-ohne aktuelles Datum als Releasefreigabe gilt.
+ohne aktuelles Datum als Releasefreigabe gilt. Stop auch, wenn ein betroffenes
+Country-/Provider-/Regelpaket mit abgelaufenem Review, unaufgeloester
+Quellenaenderung oder fehlendem Owner veroeffentlicht werden soll.
 
 ## Handoff
 

@@ -2,7 +2,7 @@
 title: "Mappm - Concept File Quality Matrix"
 description: "Per-file quality-contract adoption for F-concepts and pillars"
 tags: [concepts, pillars, quality, traceability]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-24"
 status: "active-baseline"
 owner: "ui-concept-review"
 ---
@@ -55,6 +55,7 @@ Draft/proposed files still require phase-specific review before implementation.
 | `docs/concepts/CONCEPT_F35_PRODUCT_PATTERNS_ACCESSIBILITY_AND_VISUAL_QA_DETAIL.md` | F-concept | accepted | adopted | review before affected phase |
 | `docs/concepts/CONCEPT_F36_VAULT_MODES_CLOUD_LIFECYCLE.md` | F-concept | accepted | adopted | required before Vault, Cloud, subscription, migration or deletion UI |
 | `docs/concepts/CONCEPT_F37_CASE_RECORD_CONTEXTUAL_EXPERIENCE.md` | F-concept | accepted-direction | adopted | phase-specific visual and interaction contract before affected UI |
+| `docs/concepts/CONCEPT_F38_ASYNC_PROCESSING_WAIT_EXPERIENCE.md` | F-concept | accepted-direction | adopted | BF-001/BF-013 plus phase-specific processing/motion evidence before affected UI |
 | `docs/pillars/PILLAR_INDEX.md` | pillar | accepted | adopted | review when pillar topology changes |
 | `docs/pillars/PILLAR_ADMIN_SETTINGS_STORAGE_HEALTH.md` | pillar | proposed | adopted | review before affected phase |
 | `docs/pillars/PILLAR_CAPTURE_INBOX.md` | pillar | accepted-direction | adopted | review before affected phase |

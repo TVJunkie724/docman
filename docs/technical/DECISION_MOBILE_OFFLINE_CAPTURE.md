@@ -2,7 +2,7 @@
 title: "Decision - Mobile Offline Capture and Processing Queue"
 description: "Offline-feste mobile Erfassung mit dauerhaftem Dokumentmanifest, Vault-konformer Queue und späterer Assist-Verarbeitung"
 tags: [decision, mobile, capture, offline, queue, processing, batch, vault]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-22"
 status: "accepted"
 owner: "product-concept"
 ---
@@ -23,9 +23,11 @@ Vault-/Providerpfad verfügbar ist.
 
 Offline unterstützt mindestens Dokumentenscan, Bildnachweis, mehrseitige und
 mehrere nacheinander abgeschlossene Dokumente, Retake/Remove/Reorder/Cancel,
-lokale Qualitätsprüfung, optional „Neuen Case starten“, persistente Queue und
-privacy-sichere Statusanzeige. Profil-, Case- oder Metadatenwahl vor dem Scan
-ist nicht erforderlich.
+lokale Qualitätsprüfung, optionale bekannte Typ-/Subtyp-/Fact-/Subject-/Case-
+Angaben, persistente Queue und privacy-sichere Statusanzeige. Keine dieser
+Angaben ist vor dem Scan erforderlich oder schaltet automatische Analyse aus.
+Userwerte werden dauerhaft mit Provenienz gespeichert und nicht still
+ueberschrieben.
 
 ## Vault-Semantik
 

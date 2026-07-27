@@ -51,8 +51,11 @@ nur nach Format-, Security-, Preview- und Testentscheidung aktiviert.
 
 Mehrere gemeinsam gewählte Dateien bilden eine technische Sitzung, keinen
 fachlichen Case. Jedes logische Dokument wird separat verarbeitet. Compound-
-Dateien dürfen reversible Split-/Merge-Vorschläge erhalten; Originale bleiben
-erhalten und Outlier sichtbar.
+Dateien bleiben im aktuellen Zielrelease je eine logische Datei-/Dokumenteinheit.
+Gemischter Inhalt fuehrt weder zu automatischem Split/Merge noch zu Ablehnung
+oder `invalid`. Eine spaetere unverbindliche Kohaerenzwarnung oder reversible
+Segmentierung benoetigt einen eigenen Backend-/Data-/UX-Nachweis. Originale
+bleiben erhalten.
 
 ## Desktop-Scannergrenze
 
@@ -155,7 +158,9 @@ Maintainer-Status, Lizenz, native Berechtigungen, Dateipfad-/Byte-Verhalten,
 Accessibility und Testbarkeit geprüft.
 
 Fakes und Tests decken Picker, Drop, Mehrfachauswahl, ungültige/zu große oder
-beschädigte Datei, Dublette, Partial Failure, Neustart, Split/Merge und
+beschädigte Datei, Dublette, Partial Failure, Neustart, optional
+target-release-freigegebenes Same-Context-Mehrrollen-PDF sowie
+gemischte Ein-Datei-Inhalte ohne semantische Ablehnung oder Auto-Split und
 plattformabhängige Abbrüche ab. Eine Negativpruefung stellt sicher, dass keine
 Desktop-Webcam als Dokumentenscanner oder Capture-Fallback angeboten wird.
 

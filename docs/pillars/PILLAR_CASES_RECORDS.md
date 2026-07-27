@@ -2,7 +2,7 @@
 title: "Produkt-Säule - Vorgänge, Unterlagen and Documents"
 description: "Produktbereich fuer eigenstaendige Vorgaenge, typisierte Beziehungen, Unterlagen/Records, Dokumente, Versionierung und verwaltete Profile"
 tags: [pillar, cases, case-links, documents, records, versioning, managed-subjects]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-24"
 version: "0.5"
 status: "accepted-direction"
 owner: "product-concept"
@@ -50,12 +50,12 @@ Viele Dokumente gehören zu einem Prozess, andere sind langlebige Nachweise:
 - Unfall mit Fotos, Polizeibericht, Werkstatt, Arztbrief und Versicherung.
 - Arztbesuch mit Rechnung, SV-Einreichung, Zusatzversicherung und Apotheke.
 - Geburtsurkunde, Meldezettel, Staatsbürgerschaftsnachweis oder Zeugnis.
-- Versicherungspolizze mit späteren Claims.
+- Versicherungspolizze mit späteren Versicherungsabwicklungs-Cases.
 
 Langfristig darf ein Dokument in mehreren fachlichen Kontexten sichtbar sein,
 ohne dass die Datei kopiert wird. Beziehungen tragen die Bedeutung:
 
-- `DocumentCaseLink` fuer Vorgänge, Claims und Ablaufkontext.
+- `DocumentCaseLink` fuer Vorgänge und Ablaufkontext.
 - `DocumentProfileLink` fuer Personen im Haushalt.
 - `DocumentFact` fuer auswertbare Inhalte.
 - `ExportJob` / `OutboxItem` fuer Ausgaben und Übergaben.
@@ -65,7 +65,7 @@ ohne dass die Datei kopiert wird. Beziehungen tragen die Bedeutung:
 
 Vorgänge bleiben der zentrale UI-Begriff fuer zusammenhängende Dokumente und
 Abläufe. Im einfachsten Fall ist ein Vorgang nur eine benannte, durchsuchbare
-Dokumentensammlung. Workflow, Tasks, Claims und Abschlussziel sind optionale
+Dokumentensammlung. Workflow, Tasks und Abschlussziel sind optionale
 Anreicherungen; Nutzer erhalten keinen Katalog mit dutzenden Case-Typen.
 
 Jeder persistierte Case ist gueltig. Null, ein oder mehrere Dokumente sind
@@ -83,7 +83,7 @@ gemeinsamen Case-/Record-Faehigkeiten und Implementierungsgrenzen.
 
 Alle Vorgänge sind eigenständige `Case`-Objekte. `part_of`, `caused_by`,
 `follow_up_to` und `related_to` beschreiben ihren Zusammenhang. Schritte,
-Aufgaben, Ereignisse, Claims und bedingte Ablaufzweige bleiben im selben
+Aufgaben, Ereignisse, Einreichungen und bedingte Ablaufzweige bleiben im selben
 Vorgang, solange sie demselben Nutzerziel und Gesamtergebnis dienen.
 
 Polizei, Werkstatt, Versicherer oder Krankenhaus sind in einem Unfall nicht
@@ -93,9 +93,17 @@ entstehen. Normative Regeln stehen in
 `docs/technical/DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`.
 
 `follow_up_to` bildet Folgeketten/-verzweigungen ohne Parent-Ownership. Fuer
-Medizin sind Care-Anker, `part_of`-Kostenabrechnung je wirtschaftlicher
-Verpflichtung und Payer-Claims in
+Medizin sind Care-Anker, genau eine `part_of`-Kostenabrechnung je
+eigenstaendig ausgestellter Rechnung/Honorarnote und wiederholbare
+Payer-Einreichungsereignisse mit null, einem oder mehreren Dokumentlinks in
 `docs/technical/DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` akzeptiert.
+Korrektur, Gutschrift, Zahlungsbeleg und Payer-Antwort derselben Rechnung
+bleiben im Cost-Case; eine weitere eigenstaendige Rechnung erzeugt einen
+weiteren Cost-Case. Kein Dokument ist Pflicht. Payer-Fristen und Finanz-Facts
+bleiben getrennt; der Medical-Zuschnitt ist akzeptiert. Care wird bewusst
+geschlossen und darf `done` sein, waehrend Cost-Children aktiv bleiben; ein
+Cost-Abschluss bleibt auch nach terminalen begonnenen Payer-Spuren
+bestaetigungsgebunden. OQ-014 blockiert nur noch Unfall/Schaden.
 Behandlungsbewilligungen bleiben Dokumente/Facts/Schritte im Care-Case. Der
 seltene Desktop-Medienarchiv-Import ist nur innerhalb eines bestehenden
 bestaetigten Care-Case verfuegbar; sein Ergebnis bleibt ein
@@ -122,9 +130,12 @@ Fristen oder Ansprüche erfinden. Normative Details stehen in
 
 Custom Cases duerfen mit vorgeschlagenem Titel, Managed Subject und optional
 einem Dokument nahezu leer beginnen. Aufgaben, Termine, Workflow und Outcome sind
-keine Pflichtattribute. Backend/Core Assist schlaegt Titel, Metadaten,
-Workflow-Uebernahme, weitere Dokumente und Beziehungen automatisch vor; die
-aktive Review-/Automatisierungsreife bestimmt die Finalisierung.
+keine Pflichtattribute. Der Managed Subject stammt aus dem usergewaehlten
+Verwaltungskontext. Backend/Core Assist schlaegt einen konservativen Titel,
+grobe Metadaten und Case-/Record-Kandidaten vor. Workflow-Uebernahme folgt der
+bestaetigten Case-Familie; weitere Dokumente und Beziehungen sind optionale,
+bestaetigungspflichtige Ranking-Ergebnisse. Die aktive
+Review-/Automatisierungsreife bestimmt die Finalisierung.
 
 ## Records
 
@@ -142,6 +153,12 @@ Beispiele:
 - Vertrag.
 - wichtige Lernunterlage.
 - wichtige Notiz.
+
+Vertraege und Polizzen koennen einen endlichen Abschluss-Case als Historie und
+einen dauerhaften Record als Ergebnis besitzen. Normale Updates bleiben danach
+im ruhigen Vertragskontext. Ein importierter Bestandsvertrag erhaelt keinen
+erfundenen Abschluss-Case. Details stehen in
+`docs/technical/DECISION_RECURRING_CONTRACT_SUBSCRIPTION_MODEL.md`.
 
 Records können versioniert werden. Eine neue Version kann durch einen Vorgang ausgelöst werden, muss aber nicht.
 

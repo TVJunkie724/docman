@@ -2,7 +2,7 @@
 title: "Mappm Technical Decision Index"
 description: "Vollstaendiges Inventar technischer Decisions und historischer Implementation-Plan-Tombstones"
 tags: [technical, decisions, index, governance, traceability]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-25"
 status: "active"
 owner: "product-concept/data-architect/contract-api"
 ---
@@ -27,14 +27,17 @@ ist immer ein gepruefter Phase-as-Implementation-Contract erforderlich.
 | Artefakt | Status | Owner |
 |---|---|---|
 | `DECISION_ACCOUNT_VAULT_ASSIST_PRODUCT_MODEL.md` | `accepted-direction` | product-concept |
+| `DECISION_ACCIDENT_DAMAGE_SETTLEMENT_MODEL.md` | `accepted-baseline-re-review-required` | product-concept |
 | `DECISION_API_CONTRACT_MOCKS.md` | `accepted` | contract-api |
 | `DECISION_ASSISTED_REVIEW_SUGGESTIONS.md` | `accepted-rebaseline` | product-concept |
+| `DECISION_AUSTRIA_MEDICAL_PAYER_RULE_PACK.md` | `accepted-researched-baseline-professional-review-required` | product-concept/domain/compliance |
 | `DECISION_AUTH_PAIRING.md` | `superseded` | product-concept/security |
 | `DECISION_BACKEND_CONTRACT_FIRST_ARCHITECTURE.md` | `accepted-provisional` | contract-api/backend |
 | `DECISION_BACKEND_ROLE.md` | `superseded` | backend/product |
 | `DECISION_BACKUP_RESTORE_STRATEGY.md` | `accepted` | data-architect/operations/product |
 | `DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md` | `accepted-direction` | product-concept |
 | `DECISION_CASE_DOCUMENT_RECORD_MODEL.md` | `accepted` | product-concept/data-architect |
+| `DECISION_CASE_FAMILY_DEFINITION_CONTRACT.md` | `accepted` | product-concept/domain |
 | `DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md` | `accepted` | product-concept |
 | `DECISION_CLOUD_IDENTITY_DEVICE_TRUST.md` | `accepted-baseline` | security/product |
 | `DECISION_CODEGEN_ARTIFACT_POLICY.md` | `accepted` | foundation-builder |
@@ -61,7 +64,8 @@ ist immer ein gepruefter Phase-as-Implementation-Contract erforderlich.
 | `DECISION_HOUSEHOLD_PROFILES_AND_ACCESS.md` | `accepted` | product-concept |
 | `DECISION_IMPORT_DUPLICATE_DETECTION.md` | `accepted` | data-architect/product-concept |
 | `DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md` | `accepted-direction` | product-concept |
-| `DECISION_INTELLIGENCE_SCOPE.md` | `accepted` | product-concept/ai |
+| `DECISION_INSURANCE_SETTLEMENT_MODEL.md` | `accepted-core` | product-concept |
+| `DECISION_INTELLIGENCE_SCOPE.md` | `accepted-rebaseline` | product-concept/ai |
 | `DECISION_JURISDICTIONAL_TAX_DOCUMENT_COLLECTION.md` | `accepted-direction` | product-concept |
 | `DECISION_LEGACY_READINESS_SCOPE.md` | `accepted` | foundation-builder/quality-readiness |
 | `DECISION_LEGAL_PRIVACY_READINESS.md` | `superseded` | legal/compliance/product |
@@ -69,7 +73,7 @@ ist immer ein gepruefter Phase-as-Implementation-Contract erforderlich.
 | `DECISION_LOCAL_EXPORT_NO_EXTERNAL_SHARING.md` | `accepted` | product-concept/security |
 | `DECISION_LOCAL_LOGIN.md` | `superseded` | product-concept/security |
 | `DECISION_MANAGED_SUBJECTS_BUSINESS_CONTEXTS.md` | `accepted-direction` | product-concept |
-| `DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` | `accepted-core` | product-concept |
+| `DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` | `accepted` | product-concept |
 | `DECISION_MILESTONE_QUALITY_GATES.md` | `accepted` | quality-readiness |
 | `DECISION_MOBILE_CAPTURE_CONTEXT_SELECTION.md` | `accepted-rebaseline` | product-concept |
 | `DECISION_MOBILE_CAPTURE_UPLOAD_STRATEGY.md` | `accepted` | data-architect/contract-api |
@@ -87,6 +91,7 @@ ist immer ein gepruefter Phase-as-Implementation-Contract erforderlich.
 | `DECISION_RECURRING_CONTRACT_SUBSCRIPTION_MODEL.md` | `accepted` | product-concept |
 | `DECISION_REPOSITORY_LAYOUT.md` | `accepted` | foundation/product |
 | `DECISION_REVIEW_COMPLETION_VALIDATION.md` | `accepted-rebaseline` | product-concept |
+| `DECISION_RULE_DERIVED_DEADLINES_REMINDERS.md` | `accepted-direction` | product-concept/domain/compliance |
 | `DECISION_SEARCH_TECHNOLOGY.md` | `accepted` | data-architect/product |
 | `DECISION_SECURITY_PRIVACY_MODEL.md` | `accepted` | security/product-concept |
 | `DECISION_STATE_MANAGEMENT.md` | `accepted` | foundation-builder/ui-architect |

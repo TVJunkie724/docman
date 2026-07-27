@@ -1,9 +1,9 @@
 ---
 title: "Entscheidung - Medizinischer Behandlungsfall und Kostenabrechnung"
-description: "Akzeptiertes Mappm-Kernmodell fuer medizinische Behandlungsverlaeufe, schlanke Dokumentklassifikation, evidenzbasierte Kosten-Subvorgaenge, Payer-Claims und medizinische Medienarchive"
-tags: [decision, product, medical, healthcare, cases, reimbursement, claims, matching, media-archive]
-lastUpdated: "2026-07-20"
-status: "accepted-core"
+description: "Mappm-Kernmodell fuer medizinische Behandlungsverlaeufe, einen Kosten-Case je eigenstaendiger Rechnung, Payer-Einreichungen, Fristen, Haushaltsfinanzen und medizinische Medienarchive"
+tags: [decision, product, medical, healthcare, cases, reimbursement, submissions, deadlines, finance, matching, media-archive]
+lastUpdated: "2026-07-25"
+status: "accepted"
 owner: "product-concept"
 ---
 
@@ -11,13 +11,18 @@ owner: "product-concept"
 
 ## Status und Scope
 
-Am 20. Juli 2026 wurde das medizinische Kernmodell im User-Workshop
-akzeptiert. Diese Decision besitzt die fachlichen Grenzen von:
+Am 20. Juli 2026 wurde das medizinische Basismodell im User-Workshop
+dokumentiert, am 22. Juli nach der Vereinfachung des Versicherungsmodells
+korrigiert und am 24. Juli 2026 gegen den globalen Case-Family-Vertrag
+abschliessend fachlich konsolidiert. Diese Decision besitzt die akzeptierten
+fachlichen Grenzen von:
 
 - `medical_care` als medizinischem Behandlungsfall;
 - `medical_cost_settlement` als `part_of`-Kostenabrechnungsvorgang je
-  eigenstaendiger wirtschaftlicher Verpflichtung;
-- Payer-Einreichungen als Claims innerhalb der Kostenabrechnung.
+  zugrunde liegender eigenstaendig ausgestellter medizinischer
+  Rechnung/Honorarnote, auch wenn das Rechnungsdokument selbst noch fehlt;
+- Payer-Einreichungen als wiederholbare Events/Workflow-Schritte innerhalb der
+  Kostenabrechnung; es gibt keine Claim-Entitaet.
 
 Die kanonischen IDs, deutschen Titel und Katalogstatus bleiben in
 `DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md` als alleiniger Katalog-SSOT. Diese
@@ -29,7 +34,9 @@ Zusaetzlich akzeptiert sind:
   konkrete Behandlung sind Dokumente, Facts und gegebenenfalls
   Workflow-Schritte im passenden `medical_care`-Case. Sie begruenden allein
   keinen eigenen Case;
-- die medizinische Dokumentklassifikation bleibt fuer M1 bewusst schlank;
+- die medizinische Dokumentklassifikation bleibt fuer M1 bewusst schlank,
+  wobei schlank weder Subtypen ausschliesst noch gegen sie spricht; sinnvolle
+  Typen und Varianten bleiben erhalten, wenn sie den Produktwert tragen;
 - ein spaeterer medizinischer Beleg wird dokumentweise gegen bestehende und
   neue Care-Kandidaten gerankt. Bei belegter Kontinuitaet wird derselbe
   Behandlungsfall vorgeschlagen; ein eigenstaendiger verbundener Care-Case
@@ -39,20 +46,58 @@ Zusaetzlich akzeptiert sind:
 - ein Managed Subject darf mehrere Sozialversicherungs-,
   Krankenfuersorge- und Zusatzversicherungsbeziehungen sowie einfache
   bevorzugte Payer je definierter Kategorie besitzen;
+- jede bestaetigte Versicherungsbeziehung darf einen stabilen Policy Record
+  und ruhigen Vertragskontext besitzen; Polizzendokument und historischer
+  Abschluss-Case sind keine Pflicht;
 - Mappm prueft oder berechnet weder Versicherungsdeckung noch erwartete
   Leistung, Erstattung, Eigenanteil oder Anspruch;
+- `Medizinischer Unfall` ist eine sichtbare Einstiegs-/Routingvariante direkt
+  zu `medical_care`. Ohne eigenstaendige nichtmedizinische Unfallregulierung
+  entsteht kein zusaetzlicher Unfall-/Schaden-Wrapper;
+- `medical_cost_settlement` bleibt wegen seiner optionalen, getrennten
+  Sozialversicherungs- und Zusatzversicherungsablaeufe fachlich von
+  `damage_cost_settlement` getrennt. Gemeinsame technische Primitiven machen
+  daraus keinen universellen Kosten-Case;
 - jeder bestaetigte Case ist unabhaengig von Anzahl und Art seiner Dokumente
   gueltig. Dokumente belegen oder schlagen Zustaende vor, sind aber keine
   Vollstaendigkeitsvoraussetzung;
+- Zahlung, gesetzlicher Payer und jede Zusatzversicherung sind getrennte
+  Workflow-, Finanz- und Fristspuren innerhalb desselben medizinischen
+  Cost-Case;
+- eine externe Einreichung darf null, ein oder mehrere Dokumente referenzieren
+  und derselbe Cost-Case darf mehrere Einreichungen/Nachreichungen besitzen.
+  Provider-Apps duerfen trotzdem eine Rechnung je externer Einreichung
+  verlangen, ohne die Domain-Grenze zu veraendern;
+- eine unbezahlte Rechnung ist eine offene Verpflichtung, aber noch keine
+  tatsaechliche Ausgabe. Bestaetigte Zahlungen und Erstattungen bilden die
+  private Haushalts-/Zahlungsuebersicht;
+- mehrere Payer-Fristen bleiben getrennt. Die frueheste bestaetigte offene
+  Frist darf nur als kompakte naechste kritische Frist erscheinen;
 - innerhalb eines bereits bestehenden und geoeffneten medizinischen
   Care-Vorgangs darf auf Desktop fuer M1 ein ausgewaehltes Speichermedium oder
   ein Ordner als ein unveraendertes ZIP-Medienpaket gesichert und wieder
   exportiert werden.
 
-Damit ist OQ-012 fachlich geschlossen. Weiter offen bleiben der finale
-Dokumentkatalog in OQ-011, die fuer Commercial 1.0 aktivierten
+Die globale Entfernung der Claim-Entitaet und die Abbildung als
+Einreichungsereignisse ist am 22. Juli 2026 akzeptiert. Der medizinische
+Behandlungs- und Cost-Case-Zuschnitt, seine Dokumentfreiheit, typische
+Inhaltsvorschlaege und unabhaengigen Lifecycles wurden am 24. Juli 2026
+fachlich bestaetigt. Ein Implementation Contract benoetigt weiterhin den
+finalen Dokumentkatalog sowie die normalen Domain-/Backend-/UI-Handoffs.
+
+Damit sind OQ-012 und der medizinische Teil von OQ-014 fachlich geschlossen.
+Weiter offen bleiben der finale Dokumentkatalog in OQ-011, die fuer
+Commercial 1.0 aktivierten
 oesterreichischen Workflows in WF-01, deren fachliche Betriebsverantwortung in
 WF-02 sowie konkrete UI- und technische Contracts.
+
+Regelbasierte Fristen und Reminder folgen
+`DECISION_RULE_DERIVED_DEADLINES_REMINDERS.md`. Der gepruefte Austria-first-
+Payerstand folgt `DECISION_AUSTRIA_MEDICAL_PAYER_RULE_PACK.md`.
+Haushaltsfinanzen folgen
+`DECISION_CONTEXTUAL_REVIEW_ACTIONS_FINANCIAL_ROLLUPS.md`; Policy Records und
+Versicherungsvertragskontexte folgen
+`DECISION_RECURRING_CONTRACT_SUBSCRIPTION_MODEL.md`.
 
 ## Akzeptierte Grundstruktur
 
@@ -61,14 +106,14 @@ Medical Care Case
   medizinische Dokumente und bestaetigte Verlaufsereignisse
 
   Medical Cost Settlement Case A  part_of -> Medical Care Case
-    wirtschaftliche Verpflichtung A
+    eigenstaendig ausgestellte Rechnung/Honorarnote A
     zugehoerige Dokumente
-    Claim je bestaetigtem Payer
+    wiederholbare Einreichungs-/Antwortereignisse je bestaetigtem Payer
 
   Medical Cost Settlement Case B  part_of -> Medical Care Case
-    wirtschaftliche Verpflichtung B
+    eigenstaendig ausgestellte Rechnung/Honorarnote B
     zugehoerige Dokumente
-    Claim je bestaetigtem Payer
+    wiederholbare Einreichungs-/Antwortereignisse je bestaetigtem Payer
 ```
 
 Ein Subvorgang ist weiterhin keine eigene Entitaet. Jeder
@@ -98,23 +143,31 @@ medizinischer Verlauf fuer die Nutzerin als eigenstaendiger Anlass mit eigenem
 Ziel und Ergebnis verstaendlich ist und die Nutzerin diese Trennung
 bestaetigt.
 
+Ein medizinisch versorgter Unfall folgt derselben Grenze. Ist nur der
+medizinische Verlauf relevant, bildet `medical_care` selbst den sichtbaren
+Vorgang, etwa `Schnittverletzung an der Hand`. Ein Unfall-/Schaden-Case wird nur
+bei spaeterer eigenstaendiger nichtmedizinischer Regulierung ergaenzt; dann ist
+Medical Care ueber `caused_by` verknuepft und bleibt eigenstaendig.
+
 ### Fortsetzung, Ankerdokument und Folge-Vorgang
 
 Neue medizinische Dokumente werden gegen bestehende offene, abgeschlossene und
 archivierte Behandlungsfaelle sowie einen moeglichen neuen verknuepften
-Care-Case gerankt. Passt ein Dokument zum bisherigen Verlauf, schlaegt Mappm
-die Ergaenzung desselben Care-Case vor. Spricht die Evidenz fuer einen
-eigenstaendigen Verlauf, darf der neue verknuepfte Case zuerst gereiht werden.
-Krankenhaus, Nachsorge, Kontrolle, Therapie oder Rehabilitation erzeugen allein
-keinen neuen Case.
+Care-Case gerankt. Das Ranking arbeitet mit groben, technisch realistischen
+Signalen und bleibt eine unverbindliche Kandidatenliste. Es darf denselben
+Care-Case oder einen neuen Case zuerst reihen, entscheidet aber weder
+Verlaufskontinuitaet noch fachliche Trennung. Krankenhaus, Nachsorge, Kontrolle,
+Therapie oder Rehabilitation erzeugen allein keinen neuen Case.
 
 Die Nutzerin darf einen eigenen Care-Case anlegen:
 
 - als bewusste Absicht waehrend Capture/Review, wobei der neue Case mit einem
   vorhandenen Case verknuepft werden kann;
 - spaeter aus einem einzelnen bestaetigten Ankerdokument. Backend/Core Assist
-  schlaegt Titel, Beziehung, optionalen Workflow und weitere passende
-  Dokumentkandidaten vor.
+  schlaegt einen konservativen Titel und Case-Kandidaten vor. Eine Beziehung
+  ist ein optionaler, bestaetigungspflichtiger Zusatzvorschlag und kein
+  garantierter Core-Assist-Output. Der Workflow folgt nach Bestaetigung der
+  gewaehlten Case-Familie, nicht einer freien Modellinterpretation.
 
 M1 bietet keine freie Mehrfachauswahl **In Subvorgang umwandeln** und verlangt
 keine vollstaendige Dokumentgruppe. Jedes Dokument bleibt eigenstaendig und
@@ -149,11 +202,12 @@ Behandlungsfall zu begruenden. Backend/Core Assist muss einen editierbaren,
 belegbaren Titel vorschlagen, etwa:
 
 ```text
-Behandlung bei Dr. Mayer, Juni 2026
+Behandlung bei Dr. Mayer
 ```
 
-Wenn nur Rechnungsmonat oder Ausstellungsdatum belegt sind, darf der Titel
-keinen exakten Behandlungstag oder eine Diagnose erfinden. Zeitangaben folgen
+Automatisch vorgeschlagene Titel enthalten standardmaessig kein Datum und
+duerfen weder Behandlungstag noch Diagnose erfinden. Zeitangaben bleiben
+getrennte Kandidaten beziehungsweise bestaetigte Facts und folgen
 `DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`.
 
 Ein langlebiger medizinischer Nachweis ohne konkreten Behandlungsverlauf darf
@@ -170,10 +224,12 @@ zugehoerigen `medical_care`-Case, insbesondere:
 - eine Bestaetigung, Bewilligung, Kostenuebernahme oder Ablehnung;
 - belegte Gueltigkeit, Auflagen oder erwartete Antwort.
 
-Diese Unterlagen duerfen bestaetigte Facts, einen ruhigen Workflow-Status,
-eine Aufgabe, eine Frist oder eine erwartete Antwort aktualisieren. Der Nutzer
-muss dafuer keinen eigenen Vorgang verwalten. Ein eigener Case entsteht nur
-fuer ein anderes bereits akzeptiertes fachliches Ziel, etwa die
+Diese Unterlagen duerfen nach ausdruecklicher Nutzerbestaetigung oder einer
+bereits eindeutig benannten kontextuellen Nutzeraktion Facts, einen ruhigen
+Workflow-Status, eine Aufgabe, eine Frist oder eine erwartete Antwort
+aktualisieren. Das Modell allein darf diese Bedeutung nicht festlegen. Der
+Nutzer muss dafuer keinen eigenen Vorgang verwalten. Ein eigener Case entsteht
+nur fuer ein anderes bereits akzeptiertes fachliches Ziel, etwa die
 Kostenabrechnung einer eigenstaendigen Rechnung oder eine von der Nutzerin
 bestaetigte Hochstufung eigenstaendiger Arbeit.
 
@@ -189,8 +245,9 @@ Ereignis`. Stattdessen darf der aktuelle endliche Care-Case eine optionale
 Wiederholungs-/Serienplanung tragen, zum Beispiel `jaehrlich`, einen
 erwarteten naechsten Zeitraum und eine bestaetigte Erinnerungsregel.
 
-Der naechste tatsaechliche Durchlauf wird erst durch Nutzerabsicht oder neue
-Evidenz zu einem neuen endlichen Care-Case. Er kann fuer eine spaetere
+Der naechste tatsaechliche Durchlauf wird erst durch Nutzerabsicht oder eine
+von der Nutzerin als neuer Durchlauf bestaetigte Evidenz zu einem neuen
+endlichen Care-Case. Er kann fuer eine spaetere
 Serienansicht denselben bestaetigten Wiederholungskontext tragen und mit dem
 vorherigen Durchlauf `related_to` verknuepft werden. `follow_up_to` wird nur
 verwendet, wenn wirklich eine fachliche Behandlungsfortsetzung und nicht nur
@@ -200,12 +257,17 @@ in Data-/Contract- beziehungsweise UI-Implementation-Contracts.
 ## Kostenabrechnung und Erstattung
 
 Ein `medical_cost_settlement`-Case besitzt das eigenstaendige administrative
-und finanzielle Ziel, eine konkrete wirtschaftliche Verpflichtung zu pruefen,
-zu bezahlen, gegebenenfalls einzureichen und bis zum nachvollziehbaren
-Erstattungs-/Eigenanteilsergebnis abzustimmen.
+und finanzielle Ziel, genau eine zugrunde liegende eigenstaendig ausgestellte
+medizinische Rechnung/Honorarnote zu pruefen, zu bezahlen, gegebenenfalls
+einzureichen und bis zum nachvollziehbaren
+Erstattungs-/Nettoaufwandsergebnis abzustimmen.
 
-Die Case-Grenze folgt der **wirtschaftlichen Verpflichtung**, nicht der Anzahl
-der Dateien.
+Die Case-Grenze folgt der **einzelnen eigenstaendig ausgestellten Rechnung**,
+nicht der Anzahl der Dateien oder Einreichungen. Das Rechnungsdokument selbst
+darf fehlen: Die Nutzerin kann denselben Kosten-Case aus Zahlungsnachweis,
+Payer-Antwort oder ausdruecklicher Absicht bestaetigen. Fachlich bleibt die
+Abrechnungseinheit die eine zugrunde liegende Rechnung/Honorarnote; ihr
+Dokument darf noch fehlen oder dauerhaft nicht in Mappm vorliegen.
 
 Der Case darf aus jedem hinreichenden Anker entstehen: Rechnung,
 Zahlungsnachweis, Payer-Antwort, ausdrueckliche Nutzerabsicht oder andere
@@ -225,13 +287,17 @@ Im selben Kostenabrechnungsvorgang koennen insbesondere bleiben:
 - Entscheidung und Erstattungsbeleg eines Payers;
 - bestaetigter Restbetrag beziehungsweise Eigenanteil.
 
-Eine zweite unabhaengige Rechnung bildet grundsaetzlich einen zweiten
+Eine zweite eigenstaendig ausgestellte Rechnung bildet immer einen zweiten
 Kostenabrechnungsvorgang, auch wenn beide Rechnungen zum selben medizinischen
-Behandlungsfall gehoeren. Eine Rechnung ueber mehrere zusammengehoerende
-Leistungen bleibt dagegen eine wirtschaftliche Verpflichtung.
+Behandlungsfall gehoeren. Eine Rechnung mit mehreren zusammengehoerenden
+Positionen bleibt ein Kostenabrechnungsvorgang.
 
-Mehrere Rechnungen duerfen gemeinsam uebermittelt werden, verlieren dadurch
-aber nicht ihre getrennten Kostenabrechnungsidentitaeten.
+Korrigierte Rechnung, Duplikat, Gutschrift oder Storno der gleichen
+Rechnungsidentitaet bleiben im selben Kostenabrechnungsvorgang. Werden mehrere
+eigenstaendige Rechnungen in einer externen Batch-Aktion uebermittelt,
+verlieren sie ihre getrennten Kostenabrechnungsidentitaeten nicht. Eine
+spaetere Batch-Aktion darf mehrere Cost-Cases referenzieren/aktualisieren, ohne
+sie zusammenzufuehren; der exakte Contract ist spaeter zu entscheiden.
 
 ## Beziehung zwischen Behandlung und Kosten
 
@@ -250,19 +316,43 @@ des passenden Behandlungsfalls.
 Eine medizinische Rechnung bleibt nach bestaetigtem Review nicht ohne
 medizinischen Care-Anker.
 
-## Payer und Claims
+## Typische Inhalte und kontextuelle Vorschlaege
+
+Die Medical-Familie darf kontextuell typische Inhalte vorschlagen:
+
+- Ueberweisung;
+- Befund oder Bericht;
+- medizinische Rechnung;
+- Zahlungsnachweis;
+- allgemeines medizinisches Dokument;
+- bei geoeffnetem Care-Case auf Desktop ein manuell beschriebenes
+  medizinisches Medienpaket.
+
+Das sind weder Pflichtdokumente noch eine abschliessende Dokumenttypenliste.
+`medical_invoice` ist wegen des stabilen Cost-/Payer-Verhaltens eine
+produktrelevante semantische Variante. Ueberweisung und Befund/Bericht bleiben
+akzeptierte Kandidaten des finalen Dokumentkatalogs; alle nicht hinreichend
+produktrelevanten Spezialbegriffe bleiben generische medizinische Dokumente
+mit vorgeschlagenem Titel, Facts, Suche und gegebenenfalls sparsamer Rolle.
+
+Ein kontextueller Vorschlag darf eine passende Capture-Aktion oder einen
+naechsten Schritt anbieten. Er erzeugt nie `3 von 7 Unterlagen`, einen
+Vollstaendigkeitsstatus oder einen ungueltigen Case.
+
+## Payer und wiederholbare Einreichungen
 
 Sozialversicherung, Krankenfuersorge und private/Zusatzversicherung werden
 nicht allein wegen ihrer Beteiligung zu Subvorgaengen.
 
-Eine konkrete Einreichung bei einem bestaetigten Payer ist ein Claim
-beziehungsweise Ablaufzweig innerhalb des Kostenabrechnungsvorgangs.
+Eine konkrete Einreichung bei einem bestaetigten Payer ist ein
+provenienztragendes Ereignis beziehungsweise ein Ablaufzweig innerhalb des
+Kostenabrechnungsvorgangs. Sie ist kein Claim und kein eigener Case.
 
 ```text
 Medical Cost Settlement Case
-  Claim: Sozialversicherung
-  Claim: Zusatzversicherung A
-  Claim: Zusatzversicherung B
+  Einreichungsereignisse: Sozialversicherung
+  Einreichungsereignisse: Zusatzversicherung A
+  Einreichungsereignisse: Zusatzversicherung B
 ```
 
 Es gibt keine verpflichtende Vorabkonfiguration wie:
@@ -271,6 +361,23 @@ Es gibt keine verpflichtende Vorabkonfiguration wie:
 - nur Zusatzversicherung;
 - zuerst Sozialversicherung, danach Zusatzversicherung;
 - parallel einreichen.
+
+### Einreichungsereignis und Dokumentmenge
+
+Eine Einreichung oder Nachreichung ist ein eigenstaendiges,
+provenienztragendes Event innerhalb eines bestaetigten Payer-Ablaufs. Sie kann:
+
+- null Dokumente referenzieren, wenn die Nutzerin eine bereits extern
+  ausgefuehrte Einreichung nur bestaetigt;
+- genau ein Dokument referenzieren;
+- mehrere Dokumente referenzieren, etwa Rechnung plus Zahlungsnachweis,
+  Abrechnung oder weitere Unterlage.
+
+Der globale Domain-/Contract-Entwurf darf daher weder eine Datei pro
+Einreichung noch eine Einreichung pro Cost-Case hardcodieren.
+Provider-spezifische Kanaele duerfen trotzdem eine Rechnung je externer
+Einreichung verlangen. Das ist eine Overlay-/Integrationsregel und erzeugt
+weder einen weiteren Case noch eine globale Dokumentpflicht.
 
 ### Mehrere Payer und einfache Defaults
 
@@ -288,12 +395,22 @@ erganzt. Andere Versicherungen bleiben erhalten und auswaehlbar. Ein Default
 ist nur eine persoenliche Sortierpraeferenz: Wenn die Nutzerin eine Einreichung
 startet, darf er zuerst vorgeschlagen werden. Er beweist keine Deckung,
 Zustaendigkeit, Erstattungsfaehigkeit oder Anspruchsberechtigung und darf
-weder automatisch einen Claim erzeugen noch eine Einreichung absenden.
+weder automatisch einen Einreichungszustand erzeugen noch eine Einreichung
+absenden.
 
-Claims werden erst aus einer konkreten Nutzeraktion oder eintreffender
-Dokumentevidenz aktiviert. Ein Payer, eine Reihenfolge, ein Anspruch oder eine
-Erstattung darf nicht ohne Nutzerbestaetigung als wahr behandelt werden. Mappm
-nimmt keine fachliche Pruefung vor, ob eine Polizze zu einer Leistung passt.
+Die dauerhafte private Versicherungsbeziehung wird als Policy Record mit
+ruhigem Vertragskontext referenziert. Ein vorhandenes Polizzendokument ist
+hilfreiche versionierte Evidenz, aber keine Voraussetzung. Ohne Dokument darf
+ein minimaler bestaetigter Policy Record bestehen; daraus wird keine
+automatische Deckung oder private Frist abgeleitet.
+
+Einreichungsereignisse und -zustaende entstehen erst aus einer konkreten
+Nutzeraktion, einer bereits eindeutig benannten kontextuellen Upload-Aktion
+oder einer nach Analyse bestaetigten Dokumentzuordnung. Ein eintreffendes
+Dokument allein aendert keinen Zustand. Ein Payer, eine Reihenfolge, ein
+Anspruch oder eine Erstattung darf nicht ohne Nutzerbestaetigung als wahr
+behandelt werden. Mappm nimmt keine fachliche Pruefung vor, ob eine Polizze zu
+einer Leistung passt.
 
 ### Zustaende, Evidenz und generischer Erstattungsablauf
 
@@ -303,7 +420,7 @@ Deshalb bleiben mindestens drei Dimensionen fachlich getrennt:
 - generischer Case-Lifecycle, etwa `active`, `waiting`, `done`, `archived`;
 - Zahlungszustand der wirtschaftlichen Verpflichtung, etwa `unknown`, `open`,
   `paid`, `reversed`;
-- je Payer-Claim ein Einreichungszustand, etwa `not_started`, `submitted`,
+- je bestaetigtem Payer-Ablauf ein Einreichungszustand, etwa `not_started`, `submitted`,
   `waiting`, `additional_information`, `settled`, `rejected`.
 
 Die Namen sind konzeptionell; exakte Domain-/API-Enums werden spaeter
@@ -329,7 +446,7 @@ wirtschaftliche Verpflichtung erkannt oder bestaetigt
 Nur ein bestaetigtes abschliessendes Ergebnis der Sozialversicherung, also
 Abrechnung/Erstattung oder Ablehnung, aktiviert im normalen Ablauf den
 Vorschlag fuer den naechsten Zusatzversicherungs-Schritt. Eingangsbestätigung,
-Rueckfrage oder Nachforderung halten den SV-Claim offen. Die Nutzerin darf eine
+Rueckfrage oder Nachforderung halten den SV-Einreichungsablauf offen. Die Nutzerin darf eine
 Zusatzversicherung bewusst frueher oder direkt verwenden; Mappm konfiguriert
 das weder vorab noch leitet es still aus Wartezeit oder Polizzendaten ab.
 
@@ -342,33 +459,121 @@ prognostiziert keine Deckung, Leistung, Erstattung oder Eigenanteile. Es darf
 nur bestaetigte Betraege aus Dokumenten speichern und kontextuell
 zusammenfassen.
 
+## Lifecycle und Inaktivitaet
+
+Der medizinische Behandlungsfall wird von der Nutzerin bewusst abgeschlossen.
+Backend/Core Assist darf einen Abschluss vorschlagen, beispielsweise bei
+langem plausiblen Stillstand oder spaeter bei belastbarer Abschluss-Evidenz,
+finalisiert ihn aber nie allein.
+
+Der Kostenabrechnungsvorgang bleibt unabhaengig:
+
+- Er darf aktiv bleiben, obwohl sein Care-Parent bereits `done` ist.
+- Mappm darf den Abschluss vorschlagen, wenn Zahlung/Verpflichtung und alle
+  tatsaechlich begonnenen Payer-Ablaufe ein bestaetigtes terminales Ergebnis
+  besitzen oder von der Nutzerin bewusst beendet/zurueckgezogen wurden.
+- Auch dann erfordert der Case-Abschluss immer Nutzerbestaetigung.
+- Nicht begonnene Payer-Ablaufe muessen nicht kuenstlich gestartet oder
+  abgeschlossen werden.
+- Ein einzelnes spaeteres Dokument darf einem abgeschlossenen Care- oder
+  Cost-Case als Evidenz hinzugefuegt werden, ohne ihn wieder zu oeffnen.
+- Loest das Dokument neue Arbeit aus, wird eine Wiedereroeffnung oder ein neuer
+  verknuepfter Case vorgeschlagen und bestaetigt.
+
+Nach sechs Monaten ohne relevante Aktivitaet darf eine allgemeine
+Aktivitaetspruefung fragen, ob der Case noch aktiv ist. Wiederkehrende
+Kontrollen, bekannte Termine, Fristen, erwartete Payer-Antworten,
+Wiederholungsplanung oder andere plausible Zukunft unterdruecken
+beziehungsweise verschieben diese Pruefung.
+
+## Fristen und Reminder
+
+Ein `medical_cost_settlement` darf mehrere unabhaengige Fristen besitzen:
+
+- die bestaetigte Frist des gewaehlten gesetzlichen
+  Krankenversicherungstraegers oder der Krankenfuersorge;
+- je bestaetigter Zusatzversicherung eine eigene Einreichungs-/
+  Verjaehrungsfrist;
+- eine manuell gesetzte organisatorische Nutzerfrist.
+
+Jede Frist behaelt Payer, Startanker, Regel, Quelle, Version, Berechnung,
+Bestaetigung und Reminder. Mappm verschmilzt mehrere
+Zusatzversicherungsfristen nicht. Als kompakte Aufmerksamkeit darf nur die
+frueheste bestaetigte, anwendbare und offene Frist abgeleitet werden.
+
+Fuer Oesterreich duerfen gepruefte gesetzliche Regeln aus
+`DECISION_AUSTRIA_MEDICAL_PAYER_RULE_PACK.md` vorgeschlagen werden. Fehlt das
+bestaetigte Leistungsdatum, wird kein exaktes Einreichungsdatum erfunden.
+Private Fristen entstehen nur aus exakt passender gepruefter Provider-/
+Tarifregel, reviewtem Polizzen-/Bedingungsvorschlag oder manueller Angabe.
+
+Automatische Reminder zeigen Herkunft, Regelstand, Quelle/Fundstelle,
+Berechnung, Bestaetigungsstatus und naechsten Quellenreview. Sie bleiben
+editierbar. Eine Frist erzeugt nicht automatisch eine laute Notification.
+
+## Haushaltsfinanzen im Cost-Case
+
+Der Cost-Case fuehrt keine Buchhaltung, aber eine klare private
+Zahlungs-/Kostenuebersicht:
+
+```text
+Rechnung noch unbezahlt
+  Verpflichtung                         180 EUR
+  offen                                 180 EUR
+  tatsaechlich bezahlt                    0 EUR
+  bestaetigte Erstattungen                0 EUR
+  aktueller Netto-Cashflow                 0 EUR
+
+Rechnung bezahlt, zwei Erstattungen
+  tatsaechlich bezahlt                  180 EUR
+  SV-Erstattung                          65 EUR
+  Zusatzversicherungs-Erstattung         90 EUR
+  aktueller bestaetigter Nettoaufwand    25 EUR
+```
+
+Statusfelder aendern keine Betraege. Rechnung, Zahlung, Gutschrift, Storno und
+Erstattung werden als einzelne provenienztragende Finanz-Facts/Ereignisse
+bestaetigt; Status und Zusammenfassungen werden daraus abgeleitet. Mappm
+berechnet keine erwartete Erstattung, Deckung oder Steuerwirkung.
+
 ## Capture-first Matching
 
 Globales Capture bleibt der normale Einstieg. Die Nutzerin muss den
 medizinischen Vorgang nicht vor dem Scan suchen.
 
-Bei einem hinreichenden ersten Kostenhinweis, etwa Rechnung, Zahlungsnachweis,
-Payer-Antwort oder ausdruecklicher Nutzerabsicht, erzeugt Backend/Core Assist
-einen gemeinsamen, kompakten Vorschlag:
+Bei einem grob erkannten oder von der Nutzerin angegebenen Kostenhinweis, etwa
+Rechnung, Zahlungsnachweis oder ausdruecklicher Kostenkontext, darf
+Backend/Core Assist einen gemeinsamen, kompakten Vorschlag erzeugen:
 
 1. neutral benannter neuer oder bestehender `medical_care`-Case;
 2. neuer oder bestehender `medical_cost_settlement`-Case fuer die
-   wirtschaftliche Verpflichtung;
-3. `part_of`-Beziehung;
-4. Dokumenttitel, relevante Facts sowie aus Nutzerdefaults oder
-   Dokumentevidenz stammende Payer-/Claim-Kandidaten;
-5. nur belegte Aufgaben, Termine, Fristen oder erwartete Antworten.
+   einzelne zugrunde liegende Rechnung/Honorarnote;
+3. `part_of`-Beziehung als Teil des bestaetigten Medical-Cost-Produktmusters;
+4. konservativer Dokumenttitel, grobe Dokumentklasse beziehungsweise Domain,
+   Ausstellerkandidat, ein relevanter Gesamtrechnungsbetrag, fuer
+   `medical_invoice`/Medical relevante vorausgefuellte Datumsfelder mit
+   Top-Kandidat/Alternativen/manuellem Fallback und stabile
+   Referenzkandidaten;
+5. bestaetigte Payer-Defaults oder Policy Records als sortierte Auswahl.
+
+Einreichungsstatus, Payer-Zustaendigkeit, aktive Fristen, Aufgaben, erwartete
+Antworten und weitere Case-Beziehungen sind keine verlaesslich finalisierten
+freien Modelloutputs. Typrelevante Datumsbedeutungen duerfen sichtbar
+vorausgefuellt werden. Wirksam werden sie und ihre Folgen erst aus dem
+kompakten Review, der bestaetigten Case-/Workflow-Auswahl, einer konkreten
+Nutzeraktion oder einer geprueften Regel.
 
 Der Nutzer bestaetigt oder korrigiert die materiellen Zuordnungen im aktuellen
 Reifegrad. Die UI muss nicht zwei technische Formulare oder eine grosse
 medizinische Taxonomie zeigen.
 
-Ein spaeter eintreffender Befund oder Bericht wird gegen den Care-Case gerankt,
-nicht gegen den rein finanziellen Subvorgang. Ein spaeterer Zahlungsnachweis,
-eine Einreichungsbestaetigung, Rueckfrage, Abrechnung oder Ablehnung wird
-dokumentweise gegen bestehende Cost-/Claim-Kontexte gerankt. Eine Korrektur
-kann Beziehungen aendern, ohne Dokumente zu kopieren oder bestaetigte Struktur
-still zu ueberschreiben.
+Ein spaeter eintreffender Befund oder Bericht darf grob gegen Care-Cases
+gerankt werden. Ein spaeterer Zahlungsnachweis oder ein allgemeines
+Versicherungsdokument darf gegen bestehende Cost-Cases gerankt werden. Eine
+feinere Rolle wie Einreichungsbestaetigung, Rueckfrage, Abrechnung oder
+Ablehnung wird erst durch Nutzeraktion beziehungsweise Review verbindlich. Eine
+Korrektur kann Beziehungen aendern, ohne Dokumente zu kopieren oder bestaetigte
+Struktur still zu ueberschreiben.
 
 Ein bereits abgeschlossener Care-Case bleibt ein Matching-Kandidat. Ein
 spaeteres Dokument kann als weitere Evidenz verknuepft werden, ohne den Case
@@ -387,8 +592,16 @@ stehen in `DECISION_CASE_DOCUMENT_RECORD_MODEL.md`.
   `medizinisches Dokument` als Fallback voll funktionsfaehig sein. Eine
   fehlende Feinklassifikation darf Capture, Matching, Suche oder Case-Zuordnung
   nicht blockieren.
-- Die Rechnung ist produktverhaltensrelevant, weil sie eine wirtschaftliche
-  Verpflichtung und damit einen Cost-Case ausloesen kann.
+- `medical_invoice` beziehungsweise Arztrechnung ist eine sinnvolle
+  produktverhaltensrelevante Rechnungsvariante, weil sie eine wirtschaftliche
+  Verpflichtung und damit den medizinischen Cost-Case mit Zahlungs- und
+  moeglichem Payer-Einreichungsverlauf ausloesen kann. Arzt/Klinik, Payer, Land,
+  bezahlt/offen und Einreichstatus bleiben getrennte Datenachsen und erzeugen
+  keine kombinierte Variantenexplosion.
+- Eine eigenstaendig ausgestellte weitere Arztrechnung erzeugt nach
+  bestaetigter Zuordnung einen weiteren Cost-Case. Der Subtyp darf dieses
+  Verhalten ausloesen; Rechnungsnummer, Provider, Jahr, Payer und Status
+  bleiben Facts/Achsen statt neuer Subtypen.
 - Ueberweisung und Befund/Bericht sind sinnvolle klassische
   Medical-Erkennungen, aber fuer M1 Nice-to-have statt Pflicht. Sie werden nur
   als genauere Typen beziehungsweise Varianten gefuehrt, wenn dies den
@@ -400,16 +613,17 @@ stehen in `DECISION_CASE_DOCUMENT_RECORD_MODEL.md`.
   duerfen die konkrete Bedeutung ausdruecken.
 - Formulare fuer Reha, Psychotherapie, Bewilligung, Fahrtkosten oder andere
   Sonderfaelle duerfen als allgemeines beziehungsweise medizinisches Dokument
-  mit spezifischem Titel und sparsamer interner Link-/Workflow-Rolle erkannt
-  werden. Ein Formularname erzwingt weder einen globalen Dokumenttyp noch einen
-  eigenen Case.
+  mit konservativem Titel und nach Review sparsamer interner
+  Link-/Workflow-Rolle gefuehrt werden. Ein Formularname erzwingt weder einen
+  globalen Dokumenttyp noch einen eigenen Case.
 - Ein Labor-, Radiologie- oder anderer medizinischer Detailbegriff wird nicht
   allein deshalb zur globalen Dokumentvariante. Der vollstaendige
   Dokumentkatalog bleibt OQ-011.
 - Zeit-Facts wie Ausstellung, Leistung, Aufenthalt, Faelligkeit, Termin und
   Erstattung bleiben semantisch getrennt.
 - Ein Arztbesuch ist kein Dokumenttyp. Ein medizinisches Ereignis darf nur aus
-  ausreichender Evidenz vorgeschlagen werden.
+  Nutzerabsicht oder als bestaetigungspflichtiger grober Vorschlag entstehen;
+  das Modell entscheidet keinen Lebenssachverhalt.
 
 ## Medizinisches Speichermedium als M1-Medienpaket
 
@@ -481,23 +695,23 @@ Originaldaten nicht ersetzen.
 ### Jaehrliche Kontrolle mit einer Rechnung
 
 ```text
-Case: Hautkontrolle 2026
+Case: Hautkontrolle
   Befund, falls vorhanden
 
   Case: Rechnung Dr. Mayer abrechnen
-    part_of -> Hautkontrolle 2026
+    part_of -> Hautkontrolle
     Arztrechnung
     Zahlungsbeleg
-    Payer-Claims, falls von der Nutzerin bestaetigt
+    Payer-Einreichungen, falls von der Nutzerin bestaetigt
 ```
 
 ### Nur Rechnung, kein Befund
 
 ```text
-Case: Behandlung bei Dr. Mayer, Juni 2026
+Case: Behandlung bei Dr. Mayer
 
   Case: Rechnung Dr. Mayer abrechnen
-    part_of -> Behandlung bei Dr. Mayer, Juni 2026
+    part_of -> Behandlung bei Dr. Mayer
     Arztrechnung
 ```
 
@@ -507,10 +721,10 @@ nicht verlangt oder erfunden.
 ### Nur Zahlungsnachweis, keine Rechnung
 
 ```text
-Case: Behandlung bei Dr. Mayer, Juni 2026
+Case: Behandlung bei Dr. Mayer
 
   Case: Behandlungskosten Dr. Mayer klaeren
-    part_of -> Behandlung bei Dr. Mayer, Juni 2026
+    part_of -> Behandlung bei Dr. Mayer
     Zahlungsnachweis
     paymentState: paid
 ```
@@ -522,7 +736,7 @@ erzeugt keinen ungueltigen oder technisch unvollstaendigen Case.
 ### Behandlung ohne Rechnung
 
 ```text
-Case: Kniebehandlung 2026
+Case: Kniebehandlung
   Ueberweisung
   Befund
   medizinisches Dokument
@@ -535,17 +749,17 @@ Ohne wirtschaftliche Verpflichtung entsteht kein
 ### Rehabilitation mit Bewilligung und Rechnung
 
 ```text
-Case: Kniebehandlung 2026
+Case: Kniebehandlung
   Reha-Unterlagen
   Bewilligungsanfrage
   Bewilligung
   Entlassungsbericht
 
   Case: Reha-Rechnung abrechnen
-    part_of -> Kniebehandlung 2026
+    part_of -> Kniebehandlung
     Rechnung
     Zahlungsbeleg
-    Payer-Claims, falls von der Nutzerin bestaetigt
+    Payer-Einreichungen, falls von der Nutzerin bestaetigt
 ```
 
 Bewilligungsunterlagen bleiben im Care-Case. Die eigenstaendige wirtschaftliche
@@ -558,7 +772,7 @@ gilt nur bei bestaetigter fachlicher Fortsetzung nach Abschluss oder Uebergabe.
 ### Bildgebung auf Speichermedium
 
 ```text
-Case: Kniebehandlung 2026
+Case: Kniebehandlung
   Befund
   Medienpaket: MRT Knie vom 14.06.2026
     Originalmedium.zip
@@ -573,12 +787,16 @@ Dokument-Subtypen zerlegt.
 Diese Decision entscheidet bewusst nicht:
 
 - welche medizinischen Workflows Commercial 1.0 in Oesterreich bewirbt;
-- ob spaetere provider-spezifische Hinweise oder Einreichungslinks ueber den
-  generischen Erstattungsablauf hinaus belegbaren Produktwert besitzen;
+- welche der bereits geprueften Austria-first-Payerregeln nach professionellem
+  Review tatsaechlich aktiviert werden und welche KFA-/Privatprovider-Overlays
+  Commercial 1.0 benoetigt;
+- ob spaetere provider-spezifische Einreichungslinks ueber den generischen
+  Erstattungsablauf hinaus belegbaren Produktwert besitzen;
 - den finalen medizinischen Dokumenttypen-/Variantenkatalog;
 - die genaue UI-Darstellung, Gesten und progressive Offenlegung;
 - konkrete Domain-/API-/Drift-Typen fuer Wiederholungsplanung,
-  Payer-Praeferenz, Zahlungs- und Claim-Zustaende.
+  Policy Record, Payer-Praeferenz, Zahlungs-, Einreichungs-, Frist- und
+  Finanzzustaende sowie eine optionale spaetere Batch-Einreichungsaktion.
 
 Diese Punkte bleiben OQ-011, WF-01, WF-02 und den spaeteren
 Implementation-Contracts zugeordnet. Der generische M1-Ablauf benoetigt keine
@@ -592,8 +810,8 @@ Die fachliche Kernstruktur ist akzeptiert, autorisiert aber keinen ungeprueften
 medizinischen Workflow-Release.
 
 - Domain/Data/API planen die eine generische `Case`-Entitaet, `CaseLink`,
-  Claims, Dokumentlinks und Facts; keine Medical-Sonderentitaet und keinen
-  separaten Subcase-Typ.
+  wiederholbare Einreichungsereignisse, Dokumentlinks und Facts; keine
+  Claim-, Medical- oder separate Subcase-Sonderentitaet.
 - Ein Implementation Contract muss Local-/Cloud-Fakes, Microcks-relevante
   Contract-Grenzen, Migration, Privacy, Accessibility und synthetische
   Fixtures festlegen.
@@ -602,6 +820,8 @@ medizinischen Workflow-Release.
 - WF-01/WF-02 und fachliche oesterreichische Pruefung blockieren konkrete
   provider-spezifische Payer-/Frist-/Anspruchs- und Release-Claims, nicht den
   generischen dokumentbasierten Erstattungsablauf.
+- OPS-09 blockiert die Aktivierung jeder regelbasierten Frist, solange
+  Quellenmonitoring, halbjaehrlicher Review, Owner und Release-Gate fehlen.
 - OQ-012 ist geschlossen. Spaetere abweichende Medical-Spezialisierungen
   benoetigen eine neue ausdrueckliche Produktentscheidung.
 
@@ -609,40 +829,71 @@ medizinischen Workflow-Release.
 
 Mindestens folgende synthetische Szenarien muessen abgedeckt werden:
 
-- Rechnung als erster Beleg erzeugt Care plus Cost Settlement;
+- Rechnung als erster Beleg darf einen gemeinsamen Care-plus-Cost-Vorschlag
+  erzeugen; die Nutzerin bestaetigt die materielle Struktur;
 - Zahlungsnachweis als erster Beleg kann einen gueltigen Care-/Cost-Vorschlag
   erzeugen, ohne eine Rechnung zu verlangen;
-- Befund als erster Beleg erzeugt nur Care;
-- spaeterer Befund matcht den Care-Case;
+- Befund als erster Beleg darf einen Care-Vorschlag erzeugen;
+- spaeterer Befund rankt Care-Kandidaten und bleibt korrigierbar;
 - Korrekturrechnung und Zahlungsbeleg bleiben bei derselben Verpflichtung;
 - zweite unabhaengige Rechnung erzeugt zweiten Cost-Case;
+- mehrere eigenstaendige Rechnungen in einer externen Batch-Aktion bleiben
+  getrennte Cost-Cases;
+- Korrekturrechnung, Duplikat, Gutschrift und Storno der gleichen Rechnung
+  bleiben im selben Cost-Case;
 - ein Payer, mehrere Payer oder kein Payer;
-- Payer-Claims werden nicht zu Subvorgaengen;
+- Payer-Einreichungen werden weder Claims noch Subvorgaenge;
+- eine Einreichung mit null, einem und mehreren Dokumentverweisen sowie
+  mehrere Einreichungen/Nachreichungen im selben Cost-Case;
+- provider-spezifisch eine Rechnung je externer App-Einreichung verengt den
+  globalen Contract nicht;
 - jaehrliche Kontrolle bleibt endlicher Case;
 - Wiederholungsplanung erzeugt keinen eigenen Case-Typ und der naechste
-  Durchlauf entsteht erst aus Nutzerabsicht oder neuer Evidenz;
+  Durchlauf entsteht erst aus Nutzerabsicht oder als neuer Durchlauf
+  bestaetigter Evidenz;
 - anderer Arzt oder Krankenhausabschnitt spaltet nicht automatisch;
-- Reha-/Nachsorgebeleg wird bei belegter Kontinuitaet dem bestehenden Care-Case
-  vorgeschlagen; bei eigenstaendigem Verlauf darf ein neuer verknuepfter Case
-  zuerst gereiht werden;
+- Reha-/Nachsorgebeleg rankt bestehende Care-Cases und einen neuen Case; die
+  Nutzerin bestaetigt Kontinuitaet, Trennung und eine optionale Beziehung;
 - Nutzer kann aus einem einzelnen Ankerdokument einen neuen verknuepften Case
   bestaetigen; weitere Dokumente werden einzeln vorgeschlagen und zugeordnet;
 - M1 bietet keine freie Mehrfachauswahl zum Umwandeln einer Dokumentgruppe in
   einen Subvorgang;
 - spaeterer Beleg matcht auch einen abgeschlossenen Case und loest nur bei
   neuer Arbeit eine bestaetigte Wiedereroeffnung aus;
+- Care kann manuell `done` sein, waehrend mindestens ein Cost-Case aktiv
+  bleibt; Statusaenderungen kaskadieren nicht;
+- Cost-Abschluss wird nach terminalen Ergebnissen aller tatsaechlich begonnenen
+  Payer-Ablaufe vorgeschlagen, aber niemals ohne Nutzerbestaetigung
+  finalisiert;
+- sechsmonatiger Inaktivitaetsreview schliesst nie automatisch und wird bei
+  Wiederkehr, Termin, Frist oder erwarteter Antwort unterdrueckt;
+- typische Inhalte werden kontextuell vorgeschlagen, aber nie als Pflicht-,
+  Vollstaendigkeits- oder Gueltigkeitsliste behandelt;
 - Bewilligungsanfrage und Bewilligung bleiben im Care-Case und erzeugen keinen
   eigenen Case;
-- Reha-Rechnung erzeugt einen Cost-Case, nicht die vorangehende Bewilligung;
+- bestaetigte Reha-Rechnung erzeugt einen Cost-Case, nicht die vorangehende
+  Bewilligung;
 - mehrere Sozial-/Zusatzversicherungen je Managed Subject, optionale Defaults
   fuer Sozial/Krankenfuersorge, ambulant und stationaer sowie Korrektur dieser
   Defaults;
 - ein Default sortiert nur und behauptet weder Deckung noch Zustaendigkeit;
-- Eingangsbestätigung, Rueckfrage und Nachforderung halten den SV-Claim offen;
+- Policy Record mit und ohne Polizzendokument; importierter Altvertrag ohne
+  erfundenen historischen Abschluss-Case;
+- mehrere Payer-Fristen, frueheste bestaetigte offene Frist und Erhalt aller
+  spaeteren Fristen;
+- fehlendes Leistungsdatum erzeugt kein erfundenes Einreichungsdatum;
+- ungepruefter Privatprovider/-tarif erzeugt keine automatische Frist;
+- automatische Reminder zeigen Regelstand, Quelle und Reviewstatus;
+- Eingangsbestätigung, Rueckfrage und Nachforderung halten den
+  SV-Einreichungsablauf offen;
   nur bestaetigte Abrechnung/Erstattung oder Ablehnung schlagen im Normalablauf
   den Zusatzversicherungs-Schritt vor;
-- Zahlung, SV-Claim, Zusatzversicherungs-Claim und Case-Lifecycle bleiben
+- Zahlung, SV-Einreichung, Zusatzversicherungs-Einreichung und Case-Lifecycle bleiben
   getrennte, provenance-tragende Zustaende;
+- offene Rechnung mit Auszahlung 0 sowie bezahlte Rechnung, Teilzahlung,
+  Gutschrift und mehrere bestaetigte Erstattungen;
+- Statusaenderung mutiert keinen Betrag; Summen entstehen aus bestaetigten
+  Finanz-Facts;
 - ein bestaetigter Case bleibt bei null, einem oder mehreren Dokumenten gueltig;
 - spezielle medizinische Formulare funktionieren mit generischem Dokumenttyp,
   konkretem Titel und sparsamer interner Rolle;
@@ -658,6 +909,8 @@ Mindestens folgende synthetische Szenarien muessen abgedeckt werden:
 - exportiertes Medienpaket ist bytegleich zum gespeicherten ZIP;
 - falscher Parent-, Kosten- oder Payer-Vorschlag ist korrigierbar;
 - keine Diagnose, Frist oder Erstattungsberechtigung aus schwacher Evidenz;
+- keine erwartete Deckung, Erstattung oder Steuerwirkung in
+  Haushaltsfinanzsummen;
 - keine Datei- oder Finanzdoppelzaehlung ueber Care-/Cost-Links;
 - ein logisches Dokument pro abgeschlossener Scan-Einheit.
 
@@ -666,12 +919,22 @@ Mindestens folgende synthetische Szenarien muessen abgedeckt werden:
 Stop, wenn:
 
 - eine medizinische Rechnung ohne Care-Anker akzeptiert wird;
-- jedes Rechnungsdokument statt jede wirtschaftliche Verpflichtung einen neuen
-  Cost-Case erzeugt;
+- Korrektur, Duplikat, Gutschrift oder Storno derselben Rechnungsidentitaet
+  einen neuen Cost-Case erzeugt;
+- mehrere eigenstaendig ausgestellte Rechnungen in einen Cost-Case
+  zusammengezogen werden;
+- der globale Submission-Contract genau eine Datei oder genau eine
+  Einreichung pro Cost-Case erzwingt;
 - Sozial- oder Zusatzversicherer automatisch zu Subvorgaengen werden;
+- ein rein medizinischer Unfall einen leeren Unfall-/Schaden-Wrapper erzeugt;
+- `medical_cost_settlement` und `damage_cost_settlement` fachlich verschmolzen
+  oder ihre unterschiedlichen Payer-/Einreichungsverlaeufe gleichgesetzt werden;
 - die Nutzerin vor dem Dokumenteingang eine Payer-Strategie konfigurieren muss;
 - ein Dokumenttyp oder eine Dokumentkombination fuer die Gueltigkeit eines
   Case vorausgesetzt wird;
+- schlanke Klassifikation als Ausschluss sinnvoller medizinischer Subtypen
+  verstanden oder `medical_invoice` trotz seines Cost-/Einreichungsverhaltens
+  pauschal in eine rein generische Rechnung zurueckgestuft wird;
 - ein bestaetigter Case als `invalid` oder wegen fehlender Dokumente als
   technisch unvollstaendig persistiert wird;
 - eine freie Mehrfachauswahl zur Umwandlung von Dokumenten in einen
@@ -679,16 +942,27 @@ Stop, wenn:
 - Arzt, Krankenhaus, Diagnostik oder Dauer allein den Care-Case spalten;
 - Bewilligung, Ablehnung oder Kostenuebernahme allein einen eigenen
   medizinischen Case oder M1-Dokumenttyp erzeugt;
-- Assist Diagnose, Behandlungstag, Kausalitaet, Anspruch, Frist oder
-  Payer-Reihenfolge ohne belastbare Evidenz behauptet;
+- Assist Diagnose, Behandlungstag, Kausalitaet, Anspruch, Frist,
+  Payer-Reihenfolge oder eine fachliche Beziehung allein aus einem kleinen
+  beziehungsweise mittleren General-Purpose-Modell als Wahrheit behauptet;
 - Mappm Polizzendeckung, Anspruch, erwartete Erstattung oder Eigenanteil
   berechnet oder prognostiziert;
+- eine unbezahlte Rechnung als tatsaechliche Ausgabe gezaehlt wird oder
+  Statusfelder Finanzbetraege mutieren;
+- Mappm die private Kostenuebersicht als formale
+  Einnahmen-Ausgaben-Rechnung bezeichnet;
 - Reha, Nachsorge, Kontrolle, Providerwechsel oder spaeteres Dokument
   automatisch einen neuen Care-Case erzeugt;
 - Wiederkehr als eigener sichtbarer Medical-Case-Typ oder endloser Mega-Case
   modelliert wird;
-- ein Payer-Default einen Claim automatisch erzeugt, eine Einreichung
+- ein Payer-Default einen Einreichungszustand automatisch erzeugt, eine Einreichung
   ausloest oder Eignung/Deckung behauptet;
+- ein Providername, Default oder minimaler Policy Record allein eine private
+  Frist aktiviert;
+- mehrere Payer-Fristen verschmolzen oder durch die frueheste Frist
+  ueberschrieben werden;
+- ein fehlender Startanker durch Scan-/Importdatum ersetzt wird;
+- eine Rule-Aenderung bestehende Fristen oder Reminder still verschiebt;
 - eine blosse Eingangsbestätigung, Rueckfrage, Nachforderung oder Wartezeit den
   Zusatzversicherungs-Schritt automatisch aktiviert;
 - spezielle Formulare ohne belegten Produktwert zu globalen Dokument- oder

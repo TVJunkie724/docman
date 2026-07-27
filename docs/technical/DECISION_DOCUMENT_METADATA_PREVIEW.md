@@ -2,7 +2,7 @@
 title: "Decision - Document Metadata, Generated Titles and Preview"
 description: "Entscheidung zu Backend-/Assist-vorgeschlagenen Dokumentmetadaten, bestaetigten Werten, primaerem Kontext und asynchroner Vorschau"
 tags: [decision, documents, metadata, title, preview, intelligence, review]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-25"
 status: "accepted-rebaseline"
 owner: "product-concept"
 ---
@@ -18,7 +18,8 @@ metadata forms and OCR-later assumptions are superseded.
 
 Each captured logical Document carries technical metadata, proposed semantic
 metadata and confirmed semantic values separately. Backend/Core Assist prepares
-the semantic result; the user reviews only relevant visible consequences.
+bounded candidates; user action, confirmed facts and versioned rules establish
+semantic meaning. The user reviews only relevant visible consequences.
 
 ## Required Accepted-Document Meaning
 
@@ -32,22 +33,35 @@ Before review completes, an accepted Document has:
 - confirmed Managed Subject;
 - confirmed primary Case or Record context;
 - review/processing provenance;
-- no unresolved hard quality/duplicate/security/context conflict.
+- no unresolved technical quality/duplicate/security conflict.
 
-Semantic variant, domain, additional links and workflow role/slot follow the
-taxonomy and may remain proposed when they do not block a selected
-workflow/action.
+Semantic variant and domain follow the taxonomy and may remain proposed.
+Additional links and workflow role/slot are optional candidates only after
+their feasibility gate; a selected contextual action may establish its
+explicit role directly.
 
 ## Backend/Core Assist Proposals
 
 Processing proposes where supported:
 
-- localized Document, new-Case and new-Record titles;
-- document base type/semantic variant/domain;
-- sender/issuer/recipient/provider;
-- dates, references, amounts, deadlines and expected responses;
-- primary/additional Case, Record and Claim links;
-- workflow/document-role/next-action candidates.
+- conservative localized Document, new-Case and new-Record titles without a
+  default date;
+- coarse document base type/domain and only product-approved semantic variants;
+- sender/issuer where sufficiently supported; recipient may remain empty and
+  never replaces Managed Subject;
+- type-dependent date/time fields with a semantic top candidate, detected
+  alternatives and manual fallback; references and for invoices one likely
+  total amount;
+- primary Case/Record ranking;
+- optional additional Case/Record links or relations only after a named
+  feasibility gate and with user confirmation.
+
+Free model output does not reliably propose Managed Subject, legally or
+contractually binding deadlines, expected responses, workflow/document roles,
+next actions, causality or semantic document validity. It may prefill
+product-defined typed date fields as reviewable proposals. Active meanings and
+material consequences come from visible user review, confirmed facts or
+versioned rules.
 
 Confirmed values are not overwritten by later reprocessing. Every proposal
 retains source/provenance and sensitivity appropriate to its use.
@@ -68,7 +82,9 @@ instead. Preview generation remains asynchronous and recoverable:
   Extraktion, DICOM-Darstellung oder Programmausfuehrung;
 - pending/failed: stable placeholder and access to safe original fallback where
   supported;
-- split/merge: preview preserves mapping to original source pages/files.
+- any later explicitly approved segmentation/recomposition preserves mapping
+  to original source pages/files; the current release does not automatically
+  split an imported file across logical Documents or Cases.
 
 Preview is derived data. It may be deleted/rebuilt without altering the
 original, confirmed metadata or document history.
@@ -79,9 +95,13 @@ Facts such as sender, date, amount, due date, tags, notes and secondary links do
 not become universal mandatory fields. A selected workflow may require one for
 a visible next action; otherwise missing values do not block review.
 
-The default review does not show every extracted field. Known implicit facts
-remain in details unless they conflict or change subject, routing, deadline,
-permission, payer or next action.
+The default review does not show every extracted field. Each supported
+base type/variant defines its few relevant review fields. A date field shows
+its semantic top candidate and offers other detected dates, no-date and
+manual-entry choices; remaining candidates and known implicit facts stay in
+details unless the user opens them or intentionally uses them for a visible
+consequence. Document names/recipients do not create a Managed-Subject
+conflict.
 
 ## Taxonomy Boundary
 
@@ -94,9 +114,10 @@ unstructured map.
 
 Cover generated title accept/edit/reprocess protection, preview pending/failure/
 rebuild, poor scan, multi-page/source traceability, visible-only confirmation,
-optional facts, Medienpaket mit manuellem Titel/optionalem Datum ohne
-Preview/Ausfuehrung und primary Case/Record completion using synthetic
-fixtures.
+type-dependent date prefill with alternatives/no-date/manual entry, mixed
+semantic content without invalidation/rejection/split, Medienpaket mit manuellem
+Titel/optionalem Datum ohne Preview/Ausfuehrung und primary Case/Record
+completion using synthetic fixtures.
 
 ## Stop Rules
 

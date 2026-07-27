@@ -2,7 +2,7 @@
 title: "Konzept F10 - Client Storage, Vault Authority and Cache"
 description: "Verbindliches Client-Storage-Modell fuer Local Vault, Cloud Cache, Pending Operations, Capture und Provider-Migration"
 tags: [concept, foundation, local-storage, vault, cloud-cache, persistence, migration, drift]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-22"
 version: "5.0"
 status: "accepted"
 owner: "data-architect"
@@ -65,7 +65,7 @@ Domain Ports
 
 | Klasse | Beispiele | Schutz/Retention |
 |---|---|---|
-| Domain-Daten | Cases, Records, Documents, Profiles, Tasks, Events, Claims, Links | Vault-Lifecycle |
+| Domain-Daten | Cases, Records, Documents, Profiles, Tasks, Events, Links | Vault-Lifecycle; keine Claim-Entitaet |
 | Capture-Daten | Sessions, Seitenmanifeste, logische Dokumente, Originalstatus | bis sichere Uebernahme plus Policy |
 | Processing-Daten | Jobs, Stufenstatus, Vorschlaege, Confidence, Provenance | sensibel, versioniert |
 | Pending Operations | Upload, Aenderung, Loeschung, Konfliktbasis | bis bestaetigt/aufgeloest |
@@ -91,7 +91,8 @@ mindestens folgende Faehigkeiten tragen:
 - mehrere zusaetzliche Case-/Record-Links ohne Dokumentduplikation.
 - `CaseLink` mit `part_of`, `caused_by`, `follow_up_to` und `related_to`; kein
   eigener Subcase-Typ und kein zwingender Baum.
-- Records, Claims, Tasks, Termine und Workflow-Fortschritt als getrennte
+- Records, Versicherungsabwicklungs-Cases, Submission Events, Tasks, Termine
+  und Workflow-Fortschritt als getrennte
   fachliche Konzepte.
 - Pending Operations, Konfliktbasis, Tombstones und Idempotency Keys.
 - versionierte Vorschlaege, Provenance sowie bestaetigte/korrigierte Werte.

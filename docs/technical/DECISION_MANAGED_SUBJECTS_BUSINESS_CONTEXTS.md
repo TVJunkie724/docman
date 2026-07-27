@@ -2,7 +2,7 @@
 title: "Decision - Managed Subjects and Business Contexts"
 description: "Einheitliches Profilmodell fuer verwaltete Personen und Organisationen ohne verpflichtenden eigenen Login"
 tags: [decision, product, profiles, persons, organizations, business, household, identity, permissions]
-lastUpdated: "2026-07-14"
+lastUpdated: "2026-07-22"
 status: "accepted-direction"
 owner: "product-concept"
 ---
@@ -25,7 +25,7 @@ ManagedSubject
   OrganizationProfile
 ```
 
-Both can own or be affected by documents, Records, Cases, Facts, Claims, tasks
+Both can own or be affected by documents, Records, Cases, Facts, submission events, tasks
 and reminders. Both can be managed through another user's Mappm Account without
 having their own login.
 
@@ -62,7 +62,9 @@ document ownership model.
 Account/identity, managed subject and management grant remain separate:
 
 - Account answers who authenticated.
-- ManagedSubject answers who or what the information concerns.
+- ManagedSubject answers in whose managed person/organization context Mappm
+  stores and presents the information. It need not equal the literal
+  recipient, named person or legal subject in a document.
 - ManagementGrant answers who may manage it.
 - ExternalParty answers who issued, received or participated in a document or
   process without being managed by the user.
@@ -93,7 +95,8 @@ Only fields supported by user input or reviewable evidence become confirmed.
 Contact details are sensitive and are neither mandatory for every party nor
 silently shared across managed subjects. Duplicate parties can be merged only
 with preview, link preservation and undo/history. ExternalParty participates in
-enterprise search and can show its related documents, Records, Cases and Claims,
+enterprise search and can show its related documents, Records, Cases and
+submission/decision events,
 but it does not gain ownership or management rights from those links.
 
 ## Document and Case Roles
@@ -111,6 +114,11 @@ A document may carry distinct relationships:
 A sole proprietor may be linked to both the natural person and the organization
 without merging private and business context. Stable IDs and explicit links
 prevent copies.
+
+The selected ManagedSubject is user provenance and is authoritative for
+management context and permission filtering. OCR/model output may extract
+sender, issuer, recipient or named persons as optional metadata, but it does
+not create a wrong-profile conflict or silently change the ManagedSubject.
 
 ## UX Direction
 

@@ -3,7 +3,7 @@ title: "MP-DS Coverage Matrix"
 description: "Traceability zwischen Playbook-Design-System-Familien, Mappm-Konzepten und Mock-Evidenz"
 tags: [design-system, coverage, traceability, governance]
 status: "active-baseline"
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-24"
 owner: "ui-concept"
 ---
 
@@ -36,8 +36,9 @@ DS-00..DS-07 sowie DS-04-/DS-05-Unterfamilien nachvollziehbar.
 | DS-04-27 Permissioned Fields | F12/F27/SEC | form governance | active-draft | Profile/Sharing |
 | DS-04-28 Review Summary Diff | F30/F34 | form governance | active-draft | Assisted-/Change-Review |
 | DS-04-29 Bulk Edit/Import Validation | F24/F29/F30 | form governance | active-draft | Import/Batch/Review |
-| DS-05 Product Patterns | `MP-DS-05_PRODUCT_PATTERNS.md`, F35/F37, Pillars | patterns; phaseneigene Case-/Record-/Abo-Evidenz offen | active-direction | Produktflow-Implementierung |
+| DS-05 Product Patterns | `MP-DS-05_PRODUCT_PATTERNS.md`, F35/F37/F38, Pillars | patterns; phaseneigene Case-/Record-/Abo-/Processing-Evidenz offen | active-direction | Produktflow-Implementierung |
 | DS-05 Case/Record/Contextual Experience | F37 und zugehoerige Decisions | Patterns-Seite ist nur strukturell; exakter Phase-Mock erforderlich | accepted-direction | Vorgang, Unterlage, Abo, Agenda, Review oder Insight UI |
+| DS-05 Async Processing/Wait Experience | F38, F18 und Capture-/Assist-Decisions | kein freigegebener State-/Motion-Mock; BF-001/BF-013 und exakter Phase-Mock erforderlich | accepted-direction | Processing-, Background-, Review-Queue- oder Wait UI |
 | DS-05 Account/Vault/Assist Lifecycle | F36 und Account/Vault/Assist/Commercial Decisions | `vault-cloud-lifecycle.html` | accepted-baseline | Account, Vault, Assist, Migration, Recovery, Subscription, Deletion UI |
 | DS-05-01..10 Config Pages | `MP-DS-05_PRODUCT_PATTERNS.md`, F13 plus OPS/SEC/DATA | patterns/forms; Detailmocks phaseneigen | planned | Settings-/Admin-/Config-Phasen |
 | DS-06 Accessibility/Quality Gates | `MP-DS-06_ACCESSIBILITY_AND_QUALITY_GATES.md`, F25/F35 | accessibility | active-baseline | jedem UI-Handoff |

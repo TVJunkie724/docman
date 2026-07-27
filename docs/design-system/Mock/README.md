@@ -84,6 +84,7 @@ Implementation-facing frontend rules are documented in:
 | `docs/concepts/CONCEPT_F25_ACCESSIBILITY_PATTERNS_AND_VISUAL_QA.md` | Patterns, accessibility, privacy and visual QA. |
 | `docs/concepts/CONCEPT_F36_VAULT_MODES_CLOUD_LIFECYCLE.md` | Account/device, Vault choice, Assist, migration, entitlement, Detached Recovery, cancellation, exit and deletion UX. |
 | `docs/concepts/CONCEPT_F37_CASE_RECORD_CONTEXTUAL_EXPERIENCE.md` | Case/Record distinction, Custom/Guided parity, Case composition, subscriptions, Agenda, contextual actions and slim financial display; exact phase mock remains required. |
+| `docs/concepts/CONCEPT_F38_ASYNC_PROCESSING_WAIT_EXPERIENCE.md` | Real-state processing, background continuation, Review Queue, calm motion and Reduced Motion; exact phase mock waits for BF-001/BF-013. |
 | `docs/design-system/concepts/MP-DS-04_COMPONENT_SYSTEM.md` | Normative DS-04-01..29 family mapping and gates. |
 | `docs/design-system/concepts/MP-DS-05_PRODUCT_PATTERNS.md` | Product composition patterns. |
 | `docs/design-system/concepts/MP-DS-06_ACCESSIBILITY_AND_QUALITY_GATES.md` | Accessibility and visual evidence gates. |

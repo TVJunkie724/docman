@@ -2,8 +2,8 @@
 title: "Konzept F35 - Product Patterns, Accessibility and Visual QA Detail"
 description: "Mappm Detailkonzept fuer zentrale Produktmuster, Accessibility-Gates, Privacy UI Gates und visuelle QA"
 tags: [concept, frontend, design-system, patterns, accessibility, privacy, visual-qa, production-readiness]
-lastUpdated: "2026-07-15"
-version: "1.1"
+lastUpdated: "2026-07-24"
+version: "1.2"
 status: "accepted"
 owner: "ui-concept"
 ---
@@ -26,6 +26,7 @@ dem Mock zu verbindlichen Gates fuer Flutter-Planung, Umsetzung und Audit.
 | F25 | Accessibility/Patterns Umbrella. |
 | F31-F34 | Brand, Foundations, Shell und Komponenten. |
 | F37 | Vorgang/Unterlage, Custom Case, Review-Aktionen, Abo, Agenda und schlanke Insights. |
+| F38 | reale Processing-Stufen, Warteanimation, Background, Review Queue und Reduced Motion. |
 
 ## Product Patterns
 
@@ -63,7 +64,10 @@ Pflicht:
 - Konflikte/Fehler, wenn vorhanden.
 - bester Case-/Record-Vorschlag plus neuer leichter Custom Case bei Bedarf.
 - generierter editierbarer Titel; kein leeres Titel-/Metadatenformular.
-- Mixed-Batch-Outlier und Partial Failure ohne Verlust der restlichen Session.
+- technische Mixed-Batch-/Partial-Failure-Zustaende ohne Verlust der restlichen
+  Session; keine semantische Outlier- oder Dokumentkohaerenzbehauptung.
+- F38-konforme reale Stufen, Background-Fortsetzung, Review Queue und Reduced
+  Motion; keine Fake-Prozentwerte, Countdowns oder Feature-Werbung.
 
 ### Document Detail
 

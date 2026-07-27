@@ -2,8 +2,8 @@
 title: "Produkt-Saeule - Capture and Inbox"
 description: "Produktbereich fuer globales Mobile/Desktop Capture, Scannerqualitaet, Offline-/Upload-Queue, asynchrone Assist-Verarbeitung, Batch-Trennung, Review und Korrektur"
 tags: [pillar, capture, inbox, mobile, desktop, processing, intelligence, batch, review]
-lastUpdated: "2026-07-20"
-version: "0.4"
+lastUpdated: "2026-07-22"
+version: "0.5"
 status: "accepted-direction"
 owner: "product-concept/ui-concept"
 ---
@@ -34,9 +34,9 @@ mobile scan / desktop import
   -> quality/security/duplicate checks
   -> Local/Cloud queue and upload confirmation
   -> async Backend/Core Assist processing
-  -> document-boundary validation/import correction, OCR, facts, index and
-     candidate matching
-  -> automatic title/context/workflow proposals
+  -> technical scan/file quality, OCR, coarse type/domain, simple candidates,
+     index and Case/Record ranking
+  -> conservative title/context proposals
   -> concise user confirmation/correction
   -> accepted Document with primary Case or Record
 ```
@@ -54,8 +54,13 @@ Dokumentbesitzstruktur.
 - Local-/Cloud-Vault-konforme Capture-Semantik;
 - asynchrone Preview/OCR/Extraktion/Klassifikation/Indexierung;
 - verpflichtende Backend-/Core-Assist-Titelvorschlaege;
-- Case-/Record-/Claim-/Workflow-Matching und Alternativen;
-- gemischte Batches, Dokumentgrenzen, Split/Merge und Outlier;
+- grobes Case-/Record-Matching und Alternativen; kein Claim-Matching;
+- sichtbarer Managed-Subject-Kontext sowie optionale bekannte
+  Typ-/Subtyp-/Fact-/Case-Angaben mit User-Provenienz ohne allgemeines
+  Pflichtformular;
+- gemischte Multi-File-Batches, explizite Mobile-/dateibasierte Desktop-
+  Dokumentgrenzen und technische Teilfehler; Mischdokumente bleiben in M1 ein
+  generisches logisches Dokument ohne Ablehnung/Invalidierung/Auto-Split;
 - aktuelle menschliche Bestaetigung und schnelle Korrektur;
 - spaetere qualitaetsgegatete reversible Auto-Zuordnung;
 - Reopen/Undo ohne Datei-/Dokumentduplikation;
@@ -63,17 +68,21 @@ Dokumentbesitzstruktur.
 
 ## Capture Interaction Boundary
 
-Automatische Analyse/Matching laufen immer und sind kein Modus. Globales
-Capture darf **Neuen Vorgang starten** als einzige primaere optionale
-Vorab-Absicht anbieten. Bestehenden Case vorab auswaehlen ist hoechstens ein
-sekundaerer Shortcut und nicht Voraussetzung.
+Automatische Analyse/Matching laufen immer und sind kein Modus. Waehrend der
+Erfassung darf die Nutzerin optional bekannte Dokumentgrundart/sinnvollen
+Subtyp, bestaetigte Facts, Managed Subject, groben Kontext sowie neuen oder
+bestehenden Case mitgeben. Diese Achsen sind keine Pflichtsequenz, kein grosser
+Taxonomie-Picker und kein Ersatz fuer Assist. Userwerte behalten Provenienz und
+werden nicht still ueberschrieben.
 
 Der Nutzer erhaelt keinen leeren Titel-/Metadatenflow. Titel,
-Dokumentgrundart/semantische Variante, Managed Subject, primaerer Case/Record,
-weitere Beziehungen, optionaler Workflow und relevante Folgeaktionen werden
-vorbereitet.
+Dokumentgrundart/semantische Variante, grobe Domain und primaerer Case/Record
+werden vorbereitet. Managed Subject bleibt Userkontext. Weitere Beziehungen
+sind optionale best-effort Vorschlaege; Workflow/Folgeaktionen entstehen aus
+Useraktionen, bestaetigten Facts oder Regeln.
 
-Konkrete Controls, Gesten und Screenlayouts sind nicht Teil der Saeule.
+Konkrete Controls, Default-Sichtbarkeit, Gesten und Screenlayouts sind nicht
+Teil der Saeule und folgen spaeterer Progressive-Disclosure-Planung.
 
 ## Quality and Batch Contract
 
@@ -82,11 +91,12 @@ Mobile duerfen mehrere Dateien/Dokumente in einer Session annehmen.
 
 Eine Session ist kein Case. Die Saeule garantiert:
 
-- getrennte Erkennung von Seiten, logischen Dokumenten und fachlichen Gruppen;
+- explizite Mobile-Seiten-/Dokumentgrenzen und je Desktop-Datei eine initiale
+  logische Dokumenteinheit;
 - Originalerhalt und reversible Grenzen;
 - per-Dokument-Matching;
 - Sessionnaehe nur als schwaches Signal;
-- Outlier statt Zwangszuordnung;
+- keine semantische Wrong-Case-/Outlier-/Kohaerenzentscheidung in M1;
 - Partial Success;
 - Idempotency/Retry ohne Duplikate.
 

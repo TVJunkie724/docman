@@ -2,7 +2,7 @@
 title: "Entscheidung - Governance fuer kuratierte laenderspezifische Workflows"
 description: "Verbindliches Publikations-, Versions-, Review- und Withdrawal-Modell fuer laenderspezifische Mappm-Workflowdefinitionen"
 tags: [decision, product, workflows, cases, internationalization, intelligence, compliance]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-25"
 status: "accepted"
 owner: "product-concept"
 ---
@@ -78,7 +78,7 @@ generic Case + settlement workflow pattern
   -> medical_cost_settlement domain template
   -> confirm an economic obligation from invoice, payment proof, payer response
      or explicit user intent
-  -> identify affected person and provider
+  -> use the user-selected Managed Subject and propose a provider candidate
   -> when submission is requested, show explicit payer default first
   -> user confirms payer and prepare submission
   -> wait for a final result
@@ -89,7 +89,7 @@ generic Case + settlement workflow pattern
 
 Austria variant
   -> user-confirmed social-insurance/Krankenfuersorge path
-  -> optional supplementary-insurance Claim/branch in the same Case
+  -> optional supplementary-insurance submission branch/events in the same Case
 
 Other jurisdiction
   -> its own payer, evidence, sequence and terminology
@@ -118,10 +118,13 @@ Every published workflow definition must carry at least:
 - `validFrom`, optional `validTo`, publication date and last review date;
 - languages and localization status;
 - applicability, prerequisites and exclusion conditions;
-- steps, branches, Claims/submissions, escalation points, Case relations and
+- steps, branches, submissions/events, escalation points, Case relations and
   completion outcomes;
 - expected documents, evidence roles and required facts;
 - tasks, deadlines and the source of each deadline calculation;
+- for each rule-derived deadline: independent rule/source/version, anchor,
+  applicability, confirmation state and reminder policy according to
+  `DECISION_RULE_DERIVED_DEADLINES_REMINDERS.md`;
 - confirmation points and actions that always require user approval;
 - source references, content owner and professional reviewer;
 - risk classification and known limitations;
@@ -139,14 +142,15 @@ global mandatory-document rule.
 
 ## Case Composition and Document Relations
 
-A workflow definition may create steps, tasks, events, Claims/submissions and
+A workflow definition may create steps, tasks, events, submissions and
 conditional branches inside one Case. A different sender, institution,
 document set or local status does not create another Case. When a branch gains
 an independently understandable goal and lifecycle, the workflow may suggest a
 normal linked Case using `part_of`, `caused_by`, `follow_up_to` or `related_to`.
 There is no separate Subcase domain entity.
 
-A document may support multiple Cases, branches or Claims without file duplication.
+A document may support multiple Cases, branches or submission events without
+file duplication.
 Each `DocumentCaseLink` records its role, for example:
 
 - trigger;
@@ -164,17 +168,25 @@ ownership.
 
 Intelligence may:
 
-- classify a document and extract facts and actors;
-- find an existing related case;
+- propose a coarse document type/domain, issuer, stable references and
+  supported simple fact candidates;
+- prefill the few product-defined, type-relevant date/time fields with a
+  semantic top candidate and expose detected alternatives, `Kein Datum` and
+  manual entry for the confirmation-bound review;
+- rank existing Case-/Record-candidates within the authorised user context;
 - rank applicable published workflow definitions;
-- suggest a new Case, branch promotion, relation or next step;
-- explain which document facts caused a suggestion;
+- suggest a new Case; branch promotion, relation or next step remain optional
+  and confirmation-bound;
+- expose the available provenance and signals behind a suggestion without
+  fabricating a semantic explanation;
 - flag that no supported definition applies.
 
 Intelligence must not:
 
 - invent a binding workflow, deadline, entitlement or legal requirement;
-- silently choose a jurisdiction or affected person;
+- silently choose a jurisdiction, Managed Subject or affected person;
+- claim semantic wrong-profile/case/document detection, document coherence,
+  workflow-state truth, causality or relationship truth;
 - publish or modify workflow definitions;
 - execute legal, medical or financial submissions without the required user
   confirmation;
@@ -234,6 +246,9 @@ receives its own applicability, source, provider and release evidence.
   explicit risk and support contract.
 - Current regulatory and provider rules must be rechecked at the dated release
   gate and at each material change trigger.
+- Source monitoring, periodic human review, withdrawal and escalation follow
+  `../ops/OPS-09_COUNTRY_PROVIDER_RULE_MAINTENANCE.md`; automation does not
+  replace professional review.
 - The product must expose source, review date, applicability and limitations in
   a calm user-facing form for high-impact guidance.
 
@@ -270,5 +285,7 @@ Stop implementation or release if:
 - `DECISION_WORKFLOW_RULES.md`
 - `DECISION_INTELLIGENCE_SCOPE.md`
 - `DECISION_ASSISTED_REVIEW_SUGGESTIONS.md`
+- `DECISION_RULE_DERIVED_DEADLINES_REMINDERS.md`
 - `DECISION_SECURITY_PRIVACY_MODEL.md`
 - `DECISION_LEGAL_PRIVACY_READINESS.md`
+- `../ops/OPS-09_COUNTRY_PROVIDER_RULE_MAINTENANCE.md`

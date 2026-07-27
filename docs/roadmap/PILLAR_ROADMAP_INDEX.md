@@ -2,7 +2,7 @@
 title: "Mappm - Pillar Roadmap Index"
 description: "Commercial-Core-Slices pro Produkt-/Plattform-Säule und Assurance Track"
 tags: [roadmap, pillars, milestones, enterprise, planning]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-23"
 version: "1.3"
 status: "accepted-rebaseline"
 owner: "product-concept"
@@ -25,14 +25,14 @@ fruehen Milestones, spaetere Milestones und Enterprise/Operations gehoeren.
 |---|---|---|---|
 | Capture & Inbox | Mobile Scan/Foto/Galerie/Datei, Desktop Picker/Drag-and-drop, Cloud Upload Queue, dauerhafte Processing-/Proposal-Einheiten, Mixed Batch, verpflichtender Titel, kompakter Review; keine Desktop-Webcam-Scans | Upload-Integrität, Cleanup, Support-/Quality-Evidence | Cross-Device-/Continuity-/Local-to-Local-Capture erst nach OQ-013; weitere Importpfade und qualitaetsgegatete selektive Auto-Finalisierung |
 | Cases/Documents/Records | eigenständige Vorgänge, CaseLinks, Custom Cases, Unterlagen, Dokumente und Bottom-up-Komposition | Retention, Export/Restore, Beziehungsintegrität; bei M1-Aktivierung seltener case-lokaler medizinischer Desktop-Medienpaket-Import | Workflow-Zweig-Promotion, weitere Rollen und gepruefter Medienviewer |
-| Contracts/Subscriptions | Vertrags-/Abo-Unterlagen, wiederkehrende Rechnungszuordnung und relevante Fristen vorbereiten | Reminder-/Notification- und Länder-Gates | schlanker Rechnungsverlauf, weitere Kategorien |
-| Tasks/Reminders/Quick Access | Aufgaben, typisierte Fälligkeiten, fokussierte Agenda, Schnellzugriff | Release-/Notification-Gates | optionale consent-pflichtige Kalenderanbindung, geteilte Aufgaben |
-| Search/Facts/Insights | strukturierte Local-/Cloud-Vault-Suche, typisierte Zeit-Facts und kontextuelle bestätigte Fakten | Reindex/Repair, Exportkonsistenz | Claims, deduplizierte Roll-ups, semantische Suche |
+| Contracts/Subscriptions | Vertrags-/Abo-/Policy Records, optionale Abschluss-Cases, ruhige Kontexte, wiederkehrende Rechnungszuordnung und relevante Fristen vorbereiten | Reminder-/Notification-, Country-/Provider-/Tarif- und OPS-09-Gates | schlanker Rechnungsverlauf, weitere Kategorien |
+| Tasks/Reminders/Quick Access | Aufgaben, typisierte Faelligkeiten, mehrere regelbasierte Fristen, fokussierte Agenda, Schnellzugriff | Rule-Provenienz, Review-/Release-/Notification-Gates | optionale consent-pflichtige Kalenderanbindung, geteilte Aufgaben |
+| Search/Facts/Insights | strukturierte Local-/Cloud-Vault-Suche, typisierte Zeit-Facts und kontextuelle bestätigte Fakten | Reindex/Repair, Exportkonsistenz | Submission Events, Versicherungsabwicklungen, deduplizierte Roll-ups, semantische Suche |
 | Export/Sharing/External Actions | Export und manuelle Links | Portabilität, Cloud-to-Local, sichere Löschung | Sharing, Mail, Portale |
 | Managed Profiles/Access | betroffene Person/Organisation und Profilzuordnung; Account ist kein Managed Subject | Account-/Access-/DSAR-/Privat-Business-Konsistenz | Partnerzugriff, Organisationsmanager, Rechte |
-| Templates/Workflows | Step/Branch/Claim/CaseLink- und Custom-Case-Grenzen vorbereiten; keine Länder-Claims | Workflow-Pack-Scope, Quellen-/Review-/Update-Governance nur falls aktiviert | versionierter Katalog, Golden Country/Tax Packs, erwartete Dokumente, geführte Vorgänge |
+| Templates/Workflows | Step/Branch/Event/CaseLink- und Custom-Case-Grenzen vorbereiten; keine Claim-Entitaet und keine Laender-Claims | Workflow-Pack-Scope, OPS-09-Quellencheck, mindestens halbjaehrlicher Fachreview, Developer-Reminder, immutable Versionen und Withdrawal | versionierter Katalog, Golden Country/Tax Packs, erwartete Dokumente, gefuehrte Vorgaenge |
 | Account/Cloud/Identity/Sync | Account/Device/Offline Entitlement für alle Normalmodi; Cloud Provider/Contracts/Cache/Pending | Detached Recovery, Grace, Migration, Backup/Restore, Ops | Sharing, Organisationsmodelle |
-| Intelligence/Automation | Core-Assist-Provider-/Trust-/Review-/Evidence-Modell plus OCR, Dokumentgrenzen, Titel, Index und Matching | C2/C3 AI-/Legal-/Ops-Gates; Free/Paid quota/manual fallback | Advanced Assist, semantische Antworten und breitere Automatisierung |
+| Intelligence/Automation | konservative Small-/Medium-Model-Baseline plus OCR, technische Scanqualitaet, grobe Typ/Domain-Kandidaten, Titel, Index und Case-/Record-Ranking; User-/Dateigrenzen bleiben autoritativ | C2/C3 AI-/Legal-/Ops-Gates; Free/Paid quota/manual fallback; keine semantische Invalidierung | Advanced Assist nur je eng belegter Klasse, semantische Antworten und breitere reversible Automatisierung |
 | Client Platform/Settings/Health | Vault-, Account-, Cache- und Storage-Zustand | Export, Migration, Kündigung, Diagnose | erweiterte Administration |
 | QA | Local/Cloud Fakes, Fixtures, Contracts, Gates | Migration/Restore/Release Drills | AI Evaluation, Governance Audits |
 | Observability/Runtime | Failure/Notification/Audit Basis | Cloud Metrics, redigierte Diagnose, SLO/Incident | erweiterte Tracing-/Analytics-Slices |

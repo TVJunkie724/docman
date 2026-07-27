@@ -2,7 +2,7 @@
 title: "Mappm OPS-00 Operations Umbrella"
 description: "Operations, local development, CI/CD, release and support governance for Mappm"
 tags: [ops, cicd, release, support, frontend, playbook]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-23"
 status: "draft"
 owner: "quality-readiness"
 ---
@@ -27,6 +27,7 @@ contracts and are activated phase by phase.
 | Release channels | planned | release/compliance | distribution and store decisions |
 | Support diagnostics | planned | support/ops | support pillar, logging/error concepts |
 | Incident/change governance | planned | release/ops | OPS-03 and OPS-06 |
+| Country/provider rule maintenance | accepted-direction | domain-content/compliance/ops | OPS-09, scheduled source checks, fachliche Review-Reminder und Release-Gates |
 | Managed Cloud operations | planned | backend/ops/security | OPS-01..07, SEC/DATA/REG concepts |
 
 ## Artefaktindex
@@ -41,6 +42,7 @@ contracts and are activated phase by phase.
 | `OPS-06_RELEASE_ROLLBACK_VERSIONING.md` | Versionierung, Rollout, Migration, Rollback und Change Evidence |
 | `OPS-07_CI_CD_PIPELINE.md` | CI/CD-Stufen, Gates, Secrets, Artefakte und Promotion |
 | `OPS-08_PROJECT_ENTRYPOINTS.md` | Instanzen, Env/Config/Icon-Grenzen und einheitliche Projektbefehle |
+| `OPS-09_COUNTRY_PROVIDER_RULE_MAINTENANCE.md` | Quellenmonitoring, halbjaehrliche fachliche Reviews, Developer-Reminder, Withdrawal und Pack-Release-Gates |
 
 ## Rules
 
@@ -52,6 +54,8 @@ contracts and are activated phase by phase.
   generic setup commands.
 - Store, signing, telemetry, diagnostics and release concerns are planned even
   when not implemented in the current milestone.
+- Country-/Provider-Regeln duerfen nicht ohne OPS-09-Owner, Quellencheck,
+  fachlichen Reviewtakt und Release-Gate aktiviert werden.
 
 ## Stop Rules
 

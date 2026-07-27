@@ -32,12 +32,25 @@ Read first:
 - No `print()`, TODO/FIXME/HACK, commented-out code, or debug-only behavior in
   production paths.
 - For F37 work, preserve one `Case` type, typed non-owning Case links,
-  Custom/Guided parity, distinct Records/Documents/Claims and reversible
-  composition exactly as planned. Never add a Subcase entity or strict tree as
-  a convenience implementation.
+  Custom/Guided parity, distinct Records/Documents/insurance-settlement Cases
+  and repeatable submission events, plus reversible composition exactly as
+  planned. Never add a Subcase entity or strict tree as a convenience
+  implementation.
 - Do not display unconfirmed financial/tax suggestions as facts, empty insight
   sections, single-value charts or automatic roll-ups outside approved
   `part_of` relationships.
+- For Assist/Capture/Review work, preserve the accepted small-/medium-model
+  boundary: user-selected Managed Subject/Case context is authoritative;
+  Product-/Document-defined fields receive only their reviewable top proposal,
+  alternatives and no-value/manual fallback; mixed semantic content remains
+  one generic document; no semantic wrong-profile/case/document error,
+  autonomous state/deadline/relation, date-bearing automatic title or M1
+  training/donation flow may be added. Scan-quality suggestions are technical,
+  non-blocking and dismissible.
+- For F38 work, render only approved real processing stages. Preserve
+  background/restart state, Review Queue, Reduced Motion and privacy-safe copy;
+  never synthesize percent progress, countdowns or feature-advertising
+  carousels.
 
 ## Workflow
 

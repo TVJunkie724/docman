@@ -2,7 +2,7 @@
 title: "Decision - Profile Identity and Management"
 description: "Entscheidung zur Trennung von Login-/Identity-Faehigkeit, verwalteten Personen/Organisationen und Management-Beziehungen"
 tags: [decision, profiles, managed-subjects, persons, organizations, household, identity, login, management, permissions]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-22"
 status: "accepted"
 owner: "product-concept/security"
 ---
@@ -90,7 +90,7 @@ Beispiele:
 Regeln:
 
 - Die Profil-ID bleibt stabil.
-- Dokumente, Records, Vorgänge, Claims, Fakten und Versicherungen werden nicht
+- Dokumente, Records, Vorgänge, Submission Events, Fakten und Versicherungen werden nicht
   kopiert.
 - Bestehende Verwaltungsbeziehungen bleiben aktiv, bis sie explizit deaktiviert
   oder widerrufen werden.

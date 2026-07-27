@@ -1,0 +1,4 @@
+interface:
+  display_name: "Case Concept Review"
+  short_description: "Prueft Case-Familien auf Vollstaendigkeit und Umsetzbarkeit"
+  default_prompt: "Reviewe die angegebene Mappm-Case-Familie gegen den globalen Definitionsvertrag, Taxonomie-, Country-Pack- und Handoff-Gates und liste Findings vor der Freigabe."

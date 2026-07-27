@@ -49,6 +49,9 @@ or `scripts/run_mocks.sh` if available.
 - Use the normative F37 object model in affected mocks: one Case type, typed
   links, distinct Unterlagen/Records, equal Custom/Guided capability and no
   copy-on-composition behavior.
+- For F38 mocks, use only approved real processing stages and include
+  background, Review Queue, partial failure and Reduced Motion. Never mock a
+  fake percent/countdown or feature-advertising carousel.
 - Subscription mocks stay visually slim. A chart requires at least two
   confirmed comparable values and must expose point values through hover, tap,
   keyboard focus and semantics.

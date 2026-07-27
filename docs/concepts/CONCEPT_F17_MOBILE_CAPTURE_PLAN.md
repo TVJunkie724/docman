@@ -1,9 +1,9 @@
 ---
 title: "Konzept F17 - Mobile Capture Client Standards"
-description: "Querschnittliche Regeln fuer globales Mobile Capture, Scannerqualitaet, Offline-Queue, asynchrone Verarbeitung und minimale Vorabinteraktion"
+description: "Querschnittliche Regeln fuer globales Mobile Capture, Scannerqualitaet, Offline-Queue, asynchrone Verarbeitung und optionale bekannte Angaben ohne Pflichtformular"
 tags: [concept, mobile, capture, commercial-core, offline, processing, intelligence, accessibility]
-lastUpdated: "2026-07-20"
-version: "4.0"
+lastUpdated: "2026-07-25"
+version: "4.3"
 status: "accepted"
 owner: "ui-concept"
 ---
@@ -24,13 +24,17 @@ Widgets oder Provider. Produkt- und Domainquellen sind:
 ## Produktprinzip
 
 Mobile ist der schnellste Alltagseingang fuer willkuerlich ankommende
-Haushaltsdokumente. Der Nutzer muss vor dem Scan weder Profil, Case, Record,
-Dokumenttyp, Rolle noch Workflow kennen.
+Haushaltsdokumente. Der Nutzer muss vor dem Scan weder Case, Record,
+Dokumenttyp, Rolle noch Workflow kennen. Der betroffene Managed Subject bleibt
+jedoch sichtbar: bei einem eindeutigen Profil vorausgewaehlt, bei mehreren
+Profilen kompakt gewaehlt/bestaetigt oder aus Profil/Case geerbt.
 
 ```text
 global erfassen
   -> Dokument scannen, Foto aufnehmen, Galerie/Bild oder Datei importieren
+  -> Seiten lokal pruefen, zuschneiden, drehen, sortieren, entfernen/ergaenzen
   -> ein logisches Dokument mit einer oder mehreren Seiten abschliessen
+  -> erst danach Queue/Upload fuer Analyse starten
   -> Original dauerhaft sichern
   -> App darf verlassen werden
   -> OCR, Extraktion, Indexierung und Matching
@@ -39,9 +43,10 @@ global erfassen
 ```
 
 Automatische Analyse und Matching laufen immer. Sie sind kein Modus-Schalter.
-`Neuen Vorgang starten` ist die einzige primaere optionale Vorab-Absicht. Eine
-bestehende Case-Auswahl ist hoechstens ein sekundaerer Shortcut. Capture aus
-einem bereits geoeffneten Case bleibt als bewusster seltener Pfad moeglich.
+Optional bekannte Typ-/Subtyp-/Fact-/Subject-/Case-Angaben duerfen waehrend der
+Erfassung mitgegeben werden, bleiben aber progressiv offengelegt und niemals
+Pflicht. Capture aus einem bereits geoeffneten Case bleibt als bewusster
+seltener Pfad moeglich.
 
 Mobile Capture umfasst konzeptionell:
 
@@ -65,7 +70,16 @@ Der Releasepfad bietet Dokument- statt normaler Kameraqualitaet:
 - Preview, Wiederholen, Entfernen und Umordnen.
 - fruehe Hinweise bei Unschaerfe, Reflexion, abgeschnittenen Seiten und
   wahrscheinlichen Duplikaten.
+- Jeder Qualitaetshinweis bietet Neuaufnahme/Korrektur und bewusstes
+  Fortfahren; er ist keine semantische Dokumentpruefung.
 - sichtbarer Fallback, falls native Scannerfaehigkeit fehlt.
+
+Die normale Seitenbearbeitung gehoert in die lokale Scan-Session vor den
+Upload. Erst `Dokument abschliessen` autorisiert die dauerhafte
+Queue-/Upload-Uebergabe. Nach dieser Grenze bleibt das archivierte
+Dokumentartefakt in M1 inhaltlich stabil; Metadaten bleiben korrigierbar. Eine
+spaetere Seitenmutation waere ein ausdruecklicher Revisions-/Neuimportvorgang
+mit Originalerhalt und ist kein normaler M1-Review-Schritt.
 
 Die konkrete Scannertechnologie benoetigt den freigegebenen Qualitaets-Spike.
 Ein schwacher Fallback darf keine gleichwertige Qualitaet behaupten.
@@ -78,18 +92,30 @@ Ein schwacher Fallback darf keine gleichwertige Qualitaet behaupten.
   Session erfassen.
 - Mehrere Dateien/Scans werden pro Dokument verarbeitet und duerfen zu
   verschiedenen Cases/Records gehoeren.
-- Compound Imports koennen nach Review gesplittet oder zusammengefuehrt werden.
+- Ein importiertes PDF mit Rechnung und Zahlungsnachweis desselben
+  Sachverhalts darf nur nach Backend-/Data-Freigabe fuer den Zielrelease als
+  ein Dokument mit mehreren Rollen/Facts gelten.
+- Ein Import mit mehreren unabhaengigen Dokumenten wird im aktuellen
+  Zielrelease nicht automatisch gesplittet. Er bleibt ein logisches,
+  gegebenenfalls generisch behandeltes Dokument und wird deswegen weder
+  abgelehnt noch `invalid`.
 
-Die Dokumentgrenze ist beim Kamera-Scan explizit. Mappm darf auf eine
-wahrscheinlich fremde Seite hinweisen und eine Korrektur anbieten, soll aber
-nicht das absichtliche Vermischen eines Papierstapels zum Normalfall machen.
+Die Dokumentgrenze ist beim Kamera-Scan explizit und nutzerautorisiert. Mappm
+darf auf technische Scanqualitaet hinweisen. Eine spaetere unverbindliche
+inhaltliche Kohaerenzwarnung braucht einen eigenen Feasibility-Nachweis.
 
 Die Session ist weder Dokument noch Case. Pro Dokument werden Original,
 Seitenreihenfolge, Fortschritt, Ergebnis, Fehler und Retry separat erhalten.
 Ein Teilfehler verliert keine erfolgreichen Dokumente. Retry erzeugt keine
 Duplikate.
 
-## New-Case-Intent
+## Optionale bekannte Angaben
+
+Erlaubte Datenachsen sind Dokumentgrundart und sinnvoller Subtyp, bestaetigte
+Facts wie `bezahlt` oder Steuerpruefung, Korrektur des sichtbaren Managed
+Subject, grober fachlicher Kontext, neuer Case und bestehender Case. Sie werden
+nur angeboten, wenn sie im aktuellen Kontext nuetzlich sind; exakte Controls
+und Sichtbarkeit gehoeren in den spaeteren UI-Contract.
 
 `Neuen Vorgang starten`:
 
@@ -103,12 +129,23 @@ Duplikate.
 Bei verzoegerter Verarbeitung darf intern ein Placeholder existieren. Der
 Nutzer muss ihn vor der Analyse nicht benennen.
 
+Ein bestehender Case oder andere Userangaben sind ebenfalls starke
+provenienztragende Signale. Sie deaktivieren keine grobe Klassifikation,
+Dubletten- oder zusaetzliche best-effort Beziehungspruefung und werden von
+Assist weder still ueberschrieben noch als Wrong-Case markiert.
+
+Case-scoped Capture verknuepft Dokument, Subject und gegebenenfalls erwartete
+Rolle sofort mit Nutzerprovenienz. Das Dokument erscheint dort als
+`processing`; spaeteres grobes Matching darf weitere Kontexte vorschlagen,
+haelt die Nutzerin aber nicht auf, meldet keinen semantischen Widerspruch und
+verschiebt das Dokument nie still.
+
 ## Offline- und Vault-Verhalten
 
 Capture bleibt bei fehlendem Netzwerk oder Assist moeglich. Persistiert werden:
 
 - Originalseiten/-artefakte und Dokumentgrenzen.
-- Capture-/New-Case-Intent.
+- optionale Userangaben und Capture-/Case-Intent mit Provenienz.
 - Queue-, Checkpoint-, Retry- und letzter vertrauenswuerdiger Status.
 - User-Loesch-/Abbruchabsicht gemaess Lifecycle-Policy.
 
@@ -130,6 +167,8 @@ Der Client:
 
 Ein bis zwei Minuten muessen in der UX selbstverstaendlich funktionieren;
 konkrete SLOs folgen produktionsnahen Benchmarks.
+Die sichtbare Warte-, Animation-, Background- und Review-Queue-Erfahrung folgt
+`CONCEPT_F38_ASYNC_PROCESSING_WAIT_EXPERIENCE.md`.
 
 ## Assist-Ausgabe und Review
 
@@ -138,9 +177,11 @@ Backend/Core Assist liefert pro Dokument:
 - Dokumenttitel und bei neuem Case einen Case-Titel.
 - Grundart, semantische Variante und relevante Fakten.
 - Managed Subject und External Party.
-- primaeren und weitere Case-/Record-/Claim-Kandidaten.
-- Workflow-, Rollen-, Aufgaben- und Fristvorschlaege.
-- Qualitaets-, Grenz- und Outlier-Hinweise.
+- primaeren und weitere Case-/Record-Kandidaten; kein Claim-Matching.
+- aus Useraktionen/bestaetigten Facts/Regeln abgeleitete Workflow-, Aufgaben-
+  und Fristfolgen; keine freie Modellentscheidung.
+- technische Qualitaets- und Grenzhinweise; keine M1-
+  Dokumentkohaerenz-/Outlier-Erkennung.
 - Confidence und Provenance in einer fuer Korrektur nutzbaren Form.
 
 Aktuell bestaetigt der Nutzer Case-/Record-Zuordnung und andere sichtbare
@@ -193,8 +234,11 @@ Teilfehler, stale Proposal und ungueltigen Intent.
 - schlechter Scan, Korrektur und Rescan.
 - Mehrseitenreihenfolge und expliziter Dokumentabschluss.
 - mehrere zusammenhaengende und nicht zusammenhaengende Dokumente.
-- Outlier, Split/Merge, Teilfehler und Idempotenz.
+- gemischte Ein-Datei-Inhalte ohne Ablehnung/Invalidierung/Auto-Split,
+  technische Teilfehler und Idempotenz.
+- optional freigegebener Same-Context-Import mit Rechnung und Zahlungsnachweis.
 - New-Case-Intent mit automatischem Titelvorschlag und weiterem Matching.
+- optionale Typ-/Subtyp-/Fact-/Subject-/Case-Angaben sowie Konflikt mit Assist.
 - App-Neustart, Offline und Retry in jeder Stufe.
 - niedrige Confidence, manuelle Auswahl und schnelle Korrektur.
 - aktuelle Bestaetigung versus spaetere Automation mit Provenance.
@@ -204,13 +248,18 @@ Teilfehler, stale Proposal und ungueltigen Intent.
 
 Stop, wenn:
 
-- globaler Scan vorab Kontext-/Metadatenfelder verlangt.
+- globaler Scan vorab ein allgemeines Profil-/Kontext-/Metadatenformular
+  verlangt statt eines kompakten sichtbaren Managed-Subject-Kontexts.
 - Matching als normale Option deaktivierbar ist.
-- Voraboptionen ueber den minimalen akzeptierten Intent hinausgehen.
+- optionale Angaben zum Pflichtablauf, grossen Taxonomie-/Metadatenformular
+  oder Ersatz fuer Assist werden.
+- bestaetigte Userangaben still ueberschrieben werden.
 - New-Case-Intent manuelle Titeleingabe verlangt.
 - Verarbeitung die geoeffnete App voraussetzt.
 - eine Session als ein Dokument oder Case behandelt wird.
-- Outlier still zugeordnet werden.
+- der aktuelle Zielrelease unabhaengige Dokumente in einer Importdatei
+  automatisch auf Dokumente oder Cases aufteilt.
+- Userzuordnungen semantisch als Outlier oder Wrong-Case markiert werden.
 - Offline/Restart Original, Intent oder bestaetigte Werte verliert.
 - konkrete Layouts/Gesten ohne UI-Phase festgelegt werden.
 - ein Cross-Device-Capture-Draft ohne seine eigene Trust-/Contract-Freigabe

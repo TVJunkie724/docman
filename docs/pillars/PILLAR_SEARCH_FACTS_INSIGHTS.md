@@ -1,9 +1,9 @@
 ---
 title: "Produkt-Säule - Search, Facts and Insights"
-description: "Produktbereich fuer strukturierte Suche, Dokumentfakten, Claims, Finanzdaten, Gültigkeiten und Auswertungen"
-tags: [pillar, search, facts, insights, analytics, claims, finance]
-lastUpdated: "2026-07-15"
-version: "0.5"
+description: "Produktbereich fuer strukturierte Suche, Dokumentfakten, Einreichungsereignisse, Finanzdaten, Gültigkeiten und Auswertungen"
+tags: [pillar, search, facts, insights, analytics, submissions, finance]
+lastUpdated: "2026-07-23"
+version: "0.6"
 status: "accepted"
 owner: "product-concept"
 ---
@@ -76,7 +76,6 @@ Facts sind strukturierte Aussagen aus Dokumenten.
 Typen:
 
 - `financial_entry`.
-- `claim`.
 - `deadline`.
 - `contract_term`.
 - `coverage`.
@@ -90,9 +89,11 @@ Core Assist schlaegt relevante Facts im C2/C3-Kern vor. Manuelle Pflege bleibt
 Korrektur und Fallback. Fachlich relevante Facts werden nicht still
 uebernommen.
 
-## Claims
+## Einreichungen und Erstattungen
 
-Claims modellieren Ansprüche gegen Dritte:
+Mappm besitzt keine Claim-Entitaet. Ansprueche gegen Dritte werden durch den
+passenden Case, wiederholbare Einreichungs-/Nachreichungsereignisse,
+Entscheidungs-/Zahlungs-Facts und externe Referenzen abgebildet, zum Beispiel:
 
 - SV-Erstattung.
 - Zusatzversicherung.
@@ -107,12 +108,22 @@ Der Arzt-/Versicherungsworkflow ist ein wichtiger erster Vertical, aber das Mode
 
 Insights entstehen ausschließlich aus bestätigten Facts. Jeder Case kann
 Financial Entries referenzieren, aber die UI zeigt keine leere globale
-Auswertungsfläche.
+Auswertungsfläche. Die private Haushalts-/Zahlungsuebersicht trennt:
+
+- bestaetigte Verpflichtung und offenen Betrag;
+- tatsaechliche Auszahlung;
+- bestaetigte Erstattung/sonstigen Zahlungseingang;
+- aktuellen bestaetigten Nettoaufwand;
+- finalen Nettoaufwand erst nach bewusstem Abschluss.
+
+Eine offene, unbezahlte Rechnung hat Auszahlung `0`. Status mutiert keinen
+Betrag; provenance-tragende Finanzereignisse erzeugen Facts und daraus
+abgeleitete Zustaende.
 
 - Ausgaben pro Anbieter, Zeitraum, Kategorie und Profil.
 - Arztkosten brutto/netto.
 - Versicherungsprämien und erhaltene Leistungen.
-- offene und abgelehnte Claims.
+- offene, entschiedene und abgelehnte Einreichungs-/Erstattungsablaeufe.
 - auslaufende Verträge und Nachweise.
 
 Kontextregeln:
@@ -121,20 +132,22 @@ Kontextregeln:
 - mehrere vergleichbare Perioden: optional ein kleines Diagramm.
 - `part_of`: bestätigte Financial Entries rollen dedupliziert zum Parent hoch.
 - `caused_by`, `follow_up_to`, `related_to`: kein automatischer Finanz-Roll-up.
-- Erstattung: Rechnung, Erstattungen und Eigenanteil statt generischer Umsatz.
+- Erstattung: Verpflichtung, tatsaechliche Zahlung, bestaetigte Erstattungen
+  und aktueller Nettoaufwand statt generischer Umsatz oder Prognose.
 - Abo: Rechnungsverlauf statt Accounting-Dashboard.
 - Steuer-Unterlagensammlung: Kandidaten/bestätigte Belege ohne
   Absetzbarkeitsclaim.
 
 R8-D3 priorisiert drei erste Auswertungsarten:
 
-- Claims & Erstattungen.
+- Einreichungen & Erstattungen.
 - Ausgaben nach Anbieter/Kategorie.
 - Laufende Kosten & Fristen.
 
 Der erste Vertical ist Gesundheit & Versicherung. Dazu zaehlen nicht nur
-Arztrechnungen, sondern auch Apothekenrechnungen, Therapien, SV-Claims,
-Zusatzversicherungs-Claims, Versicherungsprämien und Eigenanteile.
+Arztrechnungen, sondern auch Apothekenrechnungen, Therapien, SV-
+Einreichungen, Zusatzversicherungs-Einreichungen, Versicherungsprämien und
+Eigenanteile.
 
 Facts und Financial Entries duerfen manuell ohne Dokument erfasst werden.
 Dokumente und Unterlagen erhoehen die Nachweisqualitaet, sind aber keine
@@ -160,6 +173,9 @@ Späterer Milestone:
 - Bankimport.
 - Buchhaltung, Steuerberechnung oder verbindliche Steuerberatung.
 
+Der Produktbegriff ist Haushaltsfinanzen/Zahlungs-/Kostenuebersicht, nicht die
+in Oesterreich formal besetzte `Einnahmen-Ausgaben-Rechnung`.
+
 ## Abgrenzung
 
 - Datenhaltung und lokale Indizes werden durch F10 vorbereitet.
@@ -176,7 +192,7 @@ Späterer Milestone:
 ## Offene Folgefragen
 
 - Welche Ranking-/Sortierregeln braucht die C3-Suche zuerst?
-- Welcher kontextuelle Insight wird nach Claims/Erstattungen, laufenden
+- Welcher kontextuelle Insight wird nach Einreichungen/Erstattungen, laufenden
   Kosten/Fristen und bestätigten Case-Zusammenfassungen zuerst aktiviert?
 
 ## Enterprise Quality Contract

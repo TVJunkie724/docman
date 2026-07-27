@@ -2,7 +2,7 @@
 title: "Mappm Product Pillar Index"
 description: "Master-Landkarte der Mappm Produkt- und Plattform-Säulen sowie querschnittlichen Assurance Tracks"
 tags: [pillars, roadmap, product, enterprise, governance]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-22"
 version: "1.1"
 status: "accepted"
 owner: "product-concept"
@@ -39,7 +39,7 @@ sondern in `docs/roadmap/PILLAR_ROADMAP_INDEX.md`.
 | `PILLAR_CASES_RECORDS.md` | eigenständige Vorgänge, typisierte Beziehungen, Unterlagen, Dokumente und Versionen |
 | `PILLAR_CONTRACTS_SUBSCRIPTIONS.md` | Verträge, Abos, wiederkehrende Rechnungen, Kündigungsfristen und schlanke Verläufe |
 | `PILLAR_TASKS_REMINDERS_QUICK_ACCESS.md` | Aufgaben, Fristen, Erinnerungen, Schnellzugriff |
-| `PILLAR_SEARCH_FACTS_INSIGHTS.md` | Suche, strukturierte Fakten, Claims, finanzielle und fachliche Auswertungen |
+| `PILLAR_SEARCH_FACTS_INSIGHTS.md` | Suche, strukturierte Fakten, Einreichungsereignisse, finanzielle und fachliche Auswertungen |
 | `PILLAR_EXPORT_SHARING_EXTERNAL_ACTIONS.md` | Export, Druck, Mail, externe App-/Website-Links, lokale Exportpakete |
 | `PILLAR_HOUSEHOLD_PROFILES_ACCESS.md` | verwaltete Personen/Organisationen, Haushalt, Kinderprofile, Partnerzugriff und spätere Rechte |
 

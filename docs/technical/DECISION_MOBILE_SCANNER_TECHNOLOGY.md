@@ -2,7 +2,7 @@
 title: "Decision - Mobile Scanner Technology and Capture Artifacts"
 description: "Vorläufige Entscheidung für native Plattformscanner, Capture-Intent, Qualitätsgate und primäre Artefakte"
 tags: [decision, mobile, capture, scanner, android, ios, ml-kit, visionkit, spike]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-24"
 status: "provisional-accepted"
 owner: "product-concept/ui-architect"
 ---
@@ -38,7 +38,8 @@ Review-Pipeline, behaupten aber keine Scannerqualitaet.
 Der Spike prüft auf repräsentativen unterstützten Geräten und mit ausschließlich
 synthetischen Dokumenten:
 
-- Rand-/Dokumenterkennung, Crop, Perspektive, Rotation und Kontrast;
+- Rand-/Dokumenterkennung, Crop, Perspektive, Rotation, Kontrast,
+  Unschaerfe, Reflexion/Schatten und zu geringe Aufloesung;
 - Auto-Capture und stabile manuelle Korrektur;
 - A4, Kassenzettel, nachweisartiges, glänzendes/schlecht beleuchtetes und
   mehrseitiges Material;
@@ -49,6 +50,10 @@ synthetischen Dokumenten:
 
 Erst danach wird bestehendes Flutter-Plugin, eigener Platform Channel oder
 gegebenenfalls kommerzielles SDK gewählt.
+
+Ein Qualitaetshinweis bleibt nicht blockierend: Die Nutzerin kann neu
+aufnehmen, korrigieren oder bewusst fortfahren. Semantische Seiten-/
+Dokumentkohaerenz ist kein Scanner-Qualitaetsmerkmal und kein M1-Gate.
 
 ## Domain-Grenze
 

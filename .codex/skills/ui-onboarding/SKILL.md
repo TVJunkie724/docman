@@ -96,6 +96,10 @@ Presentation -> Domain -> Data
   Cloud, migrations, cancellation/entitlement and target-path gates.
 - Product slices include Core Assist in capture/review and guided document/case
   work; Advanced Assist, sharing and broader automation remain later.
+- Core Assist assumes only small-/medium-model capability: OCR, coarse
+  type/domain, simple value candidates, conservative title and best-effort
+  Case/Record ranking. It does not semantically validate profile, Case,
+  document boundaries, workflow, deadlines, causality or relationships.
 - Cloud timing and cryptographic trust model remain explicit decision gates;
   implementation must not silently choose them.
 - The process model has one `Case` entity. `Subvorgang` is only a UI role for
@@ -113,7 +117,7 @@ Presentation -> Domain -> Data
   aliases/search, Facts, Parties, link roles, Record kinds or source/format
   unless `DECISION_DOCUMENT_TYPE_CATALOG.md` proves durable later use or
   materially different product behavior and justified complexity.
-- Workflow stage, step, task, event, branch and Claim remain inside a Case until
+- Workflow stage, step, task, event and branch remain inside a Case until
   work gains its own independently understandable goal, lifecycle and outcome.
 - `follow_up_to` links independent successor Cases as chains/branches without
   parent ownership; `caused_by` remains a separate confirmed causal relation.
@@ -124,13 +128,25 @@ Presentation -> Domain -> Data
   generated editable title, Managed Subject and optionally one document. Tasks,
   workflow and completion outcome are optional at that point.
 - Global mobile/desktop capture is the primary ingestion path. Automatic
-  analysis/matching always runs; `Neuen Vorgang starten` is the only primary
-  optional pre-capture intent and never opens a blank metadata/title form.
+  analysis/matching always runs. Capture begins in a visible Managed-Subject
+  context that may be preselected or inherited; document names/recipients do
+  not challenge that management context. Users may optionally
+  provide known base/useful subtype, confirmed facts, coarse routing, new-Case intent or
+  an existing Case without a mandatory form; these provenance-bearing hints do
+  not replace matching or permit silent overwrite.
+- Processing may expose an early extraction proposal and deeper Case/relation
+  matching later, subject to Backend feasibility. F38 owns the non-blocking
+  real-state animation, background continuation and durable Review Queue.
 - Current release Case/Record routing is confirmed from a concise visible
   result. Completed review requires a primary Case or Record. Mobile capture
   closes one explicit logical document before **Naechstes Dokument scannen**;
   all session/import items are matched per document and may not inherit one
   Case from session proximity.
+- The current target release does not automatically split one imported mixed
+  PDF across documents or Cases. A same-context invoice plus payment proof is
+  one multi-role document only after Backend/Data approval; unrelated mixed
+  content remains one generic logical document and is neither rejected nor
+  marked invalid because semantic negative detection is not an M1 capability.
 - `Vorgänge` and `Unterlagen` are equal primary product areas. Unterlagen are
   durable Records such as passports, birth certificates, contracts, policies
   and warranties; documents/files are their evidence or versions.
@@ -149,18 +165,30 @@ Presentation -> Domain -> Data
   document date, date-only values never become UTC midnight, and extracted
   dates do not silently become events, tasks, deadlines, notifications or
   calendar entries.
-- Medical core composition is accepted in
+- Mappm has no Claim entity or Claim matching target. Insurance handling is a
+  normal `insurance_settlement` Case; individual submissions/resubmissions are
+  repeatable events or workflow steps. External damage/claim numbers are Facts.
+- The current Medical baseline is documented in
   `DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md`: one neutral Care anchor,
-  one `part_of` Cost Settlement per independent economic obligation and payer
-  submissions as Claims. Treatment authorization documents remain in Care;
+  one `part_of` Cost Settlement per independently issued medical
+  invoice/honorarnote and payer submissions as repeatable events/branches with
+  zero, one or many document links. Corrections, credits, proof, submissions
+  and payer responses for the same invoice stay in that Cost Case; a further
+  independent invoice creates a further Cost Case. No document is required for
+  Case validity. Treatment authorization documents remain in Care;
   they do not create Cases or M1 types. Reha, follow-up and later evidence are
   matched per document. A new linked Medical Case starts from one confirmed
   anchor document or explicit intent; M1 does not expose a free multi-document
   split. Recurrence is optional planning, not a Case type. Special contractual
-  benefits are not specialized in Medical M1. Payer
-  category defaults only order choices; Mappm does not determine coverage or
-  calculate benefits. Payment, payer Claims and lifecycle are separate states;
-  only confirmed social-insurance settlement/rejection suggests the normal
+  benefits are not specialized in Medical M1. Payer category defaults only
+  order choices; Policy Records and documents never prove coverage. Payment,
+  each payer submission path, each payer deadline, household financial facts
+  and lifecycle are separate provenance-bearing states; unpaid invoice outflow
+  is zero and status never mutates amounts. Mappm does not determine coverage
+  or calculate benefits. Rule-derived deadlines follow
+  `DECISION_RULE_DERIVED_DEADLINES_REMINDERS.md`; the researched Austrian
+  baseline follows `DECISION_AUSTRIA_MEDICAL_PAYER_RULE_PACK.md` and requires
+  OPS-09 before activation. Only confirmed social-insurance settlement/rejection suggests the normal
   supplementary step. Special forms stay generic documents. Only a rare
   desktop action inside an
   existing confirmed and open `medical_care` Case may preserve a selected
@@ -168,6 +196,15 @@ Presentation -> Domain -> Data
   M1 uses a manual required title and at most an optional examination date; it
   does not unpack the package for OCR/Assist. Global capture, nonmedical Cases
   and Mobile do not offer this import. OQ-012 is resolved.
+- The current Accident/Damage baseline is documented in
+  `DECISION_ACCIDENT_DAMAGE_SETTLEMENT_MODEL.md`: only coarse optional routing
+  variants, no empty accident wrapper for a purely medical accident, one
+  `part_of` Damage Cost Settlement per independently tracked damage obligation,
+  insurance handling as a normal Case able to contain several invoices and
+  repeated submissions, and policy suggestions that never prove coverage.
+  Medical and Damage Cost Settlement remain fachlich distinct. Medical is
+  accepted; OQ-014 now blocks only Accident/Damage implementation until its
+  requested family re-review is accepted.
 - Mobile capture supports native scan, photo evidence, gallery and file/share
   import. Desktop supports picker, multi-file and drag-and-drop. Document
   scanning through a desktop webcam is prohibited. Mobile-to-desktop transfer,

@@ -2,7 +2,7 @@
 title: "MP-DS-05 Product Patterns"
 description: "Normative Kompositionsmuster fuer Mappm-Produktworkflows"
 tags: [design-system, product-patterns, workflows, responsive]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-24"
 status: "active-draft"
 owner: "ui-concept"
 ---
@@ -33,7 +33,7 @@ Jedes Product Pattern benennt:
 |---|---|---|
 | Desktop Shell/Workbench | F22/F33, MP-DS-02 | active-draft |
 | Globales Mobile Capture | F17/F29/F33, Capture-Saeule | planned |
-| Processing und Proposal Review | F17/F24/F27-F30/F34, Capture/Cases/Intelligence | planned |
+| Processing, Warteerfahrung und Proposal Review | F17/F18/F24/F27-F30/F34/F38, Capture/Cases/Intelligence | accepted-direction; BF-001/BF-013 und phase detail planned |
 | Vorgang/Unterlage und Case-Komposition | F33-F35/F37, Cases/Records | accepted-direction; phase detail planned |
 | Vertrag/Abo und Mini-Chart | F34/F37, Contracts/Subscriptions | accepted-direction; phase detail planned |
 | Kontextuelle Review-Aktionen | F30/F34/F37, Capture/Intelligence | accepted-direction; phase detail planned |

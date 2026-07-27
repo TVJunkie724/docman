@@ -2,8 +2,8 @@
 title: "Konzept F30 - Form Facts, Layouts and Assisted Review"
 description: "Mappm Detailkonzept fuer numerische Facts, Betragsfelder, Slider, Stepper, Color Picker, Readonly-Werte, Assisted Review Suggestions, Layouts und Edge States"
 tags: [concept, frontend, design-system, forms, facts, assisted-review, layout, validation, flutter]
-lastUpdated: "2026-07-15"
-version: "1.1"
+lastUpdated: "2026-07-25"
+version: "1.2"
 status: "accepted"
 owner: "ui-concept"
 ---
@@ -28,6 +28,8 @@ OCR/AI-Vorschlaege machen.
 | F27 | Field Anatomy and Validation. |
 | F28 | Selection Controls. |
 | F29 | Date/File/Scan Controls. |
+| `DECISION_CONTEXTUAL_REVIEW_ACTIONS_FINANCIAL_ROLLUPS.md` | Verpflichtung, Auszahlung, Eingang/Erstattung, Nettoaufwand und Deduplizierung. |
+| `DECISION_RULE_DERIVED_DEADLINES_REMINDERS.md` | Reviewbare regelbasierte Fristen und ihre Quellen-/Berechnungsprovenienz. |
 
 ## Zweck
 
@@ -62,6 +64,14 @@ Regeln:
 - Eingabe darf Dezimaltrennzeichen tolerant behandeln.
 - Negative Betraege nur, wenn fachlich erlaubt.
 - Erstattung und Zahlung sind getrennte Facts.
+- Rechnungsverpflichtung/offener Betrag, tatsaechliche Auszahlung,
+  bestaetigter Zahlungseingang/Erstattung und aktueller Nettoaufwand sind
+  getrennte Bedeutungen.
+- Eine unbezahlte Rechnung zeigt tatsaechliche Auszahlung `0`.
+- Ein Statusfeld darf keinen Betrag mutieren; bestaetigte Ereignisse/Facts
+  treiben Status und Summen.
+- Erwartete Erstattung, Deckung oder Steuerwirkung werden nicht als
+  bestaetigter Geldwert dargestellt.
 
 ## Number Stepper
 
@@ -152,13 +162,13 @@ Vorschlagstypen:
 
 - Dokument-, Case- und Record-Titel (verpflichtender Backend-/Assist-Vorschlag).
 - Dokumentgrundart/semantische Variante.
-- betroffene Person.
 - Betrag.
-- Datum.
+- typabhaengig relevante Datums-/Zeitfelder.
 - Anbieter.
 - Tags/Kategorien.
 - Relation zu Vorgang/Polizze.
-- primaerer Case/Record, weitere Cases/Claims, Workflow/Slot und naechste Aktion.
+- primaerer Case/Record, weitere Cases, Workflow/Slot, Submission Event und
+  naechste Aktion; kein Claim-Ziel.
 
 Regeln:
 
@@ -171,6 +181,21 @@ Regeln:
 - Eine Bestaetigung akzeptiert nur sichtbare Folgen, keine versteckten Facts.
 - Bereits bestaetigte implizite Fakten werden nicht wiederholt, ausser sie
   widersprechen dem neuen Dokument oder aendern Folgen.
+- Bereits beim Capture bestaetigte Typ-, Subject-, Case- oder Fact-Werte werden
+  im Review nicht als neue konkurrierende Defaults erneut abgefragt. Assist
+  fuellt fehlende Werte. Usergewaehlter Managed Subject oder Case-Kontext wird
+  nicht semantisch als Widerspruch behandelt.
+- Jede Dokumentgrundart beziehungsweise produktrelevante Variante definiert
+  ihre wenigen normalen Review-Felder. Das Modell liefert Kandidaten, erfindet
+  aber weder die Feldmenge noch ein Vollformular.
+- Ein typrelevantes Datumsfeld zeigt den besten Kandidaten vorausgefuellt und
+  bietet andere erkannte Werte, `Kein Datum` und `Manuell eingeben`.
+  Nicht verwendete Kandidaten bleiben optional unter Details.
+- Harmlose, interne und reversible Aufgaben oder erwartete Antworten, die
+  deterministisch aus einem bereits bestaetigten Fact entstehen, benoetigen
+  keine zweite Bestaetigung. Externe Aktionen, laute Notifications,
+  Case-Abschluss und unbestaetigte materielle Fristen bleiben
+  bestaetigungsgebunden.
 - Niedrige Confidence zeigt weiterhin beste Kandidaten; fuer Case-Routing steht
   der neue Case zuerst und bestehende Auswahl bleibt erreichbar.
 
@@ -188,7 +213,10 @@ Muss enthalten:
 
 - Dokument/Scan-Referenz und vorgeschlagener Titel.
 - vorgeschlagener primaerer Case oder Record.
-- betroffene Person nur, wenn neu, mehrdeutig oder folgenreich.
+- sichtbaren usergewaehlten beziehungsweise geerbten Managed Subject nur als
+  kompakten Kontextindikator und Aenderungsweg, nicht als Modellvorschlag.
+- typabhaengig wesentliche vorausgefuellte Felder; alternative Kandidaten und
+  manuelle Eingabe bleiben am jeweiligen Feld erreichbar.
 - wesentliche Unsicherheit, Folgeaktion oder weitere Beziehung.
 - klare Hauptaktion nach F26.
 
@@ -278,7 +306,7 @@ Regeln:
 | Permission Blocked | naechste Aktion sichtbar. |
 | Autosave | ruhig bestaetigen, keine Snackbar-Flut. |
 | Processing | darf Sekunden/Minuten dauern; App bleibt navigierbar und Zustand ueberlebt Neustart. |
-| Partial Batch | erfolgreiche Dokumente bleiben nutzbar, fehlerhafte/outlier bleiben gezielt offen. |
+| Partial Batch | erfolgreiche Dokumente bleiben nutzbar; technisch fehlerhafte Items bleiben gezielt offen. Semantische Outlier-Erkennung ist keine M1-Annahme. |
 
 ## Flutter Handoff
 

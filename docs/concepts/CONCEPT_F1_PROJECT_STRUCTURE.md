@@ -2,8 +2,8 @@
 title: "Konzept F1 - Projektstruktur"
 description: "Verbindliche Mappm-Flutter-Projektstruktur für Clean Architecture, Riverpod, Vault-Provider und getrennte Managed-Cloud-Contracts"
 tags: [concept, foundation, project-structure, flutter, clean-architecture, riverpod]
-lastUpdated: "2026-07-15"
-version: "5.0"
+lastUpdated: "2026-07-22"
+version: "5.1"
 status: "accepted-rebaseline"
 owner: "foundation/product"
 ---
@@ -123,7 +123,7 @@ Verbindliche Regeln:
 ## Fachliche Ownership
 
 Die Domain besitzt genau einen generischen `Case`, typisierte `CaseLink`s,
-Documents, Records, Managed Subjects, Tasks, Claims, Facts und Processing-
+Documents, Records, Managed Subjects, Tasks, Submission Events, Facts und Processing-
 Begriffe. Subvorgang ist keine eigene Entität. Dokumente und Records können
 über stabile Linkobjekte mehreren Cases zugeordnet werden.
 
@@ -155,10 +155,12 @@ Notification-Adapter bleiben in Data/Platform-Integration. Mobile Capture ist
 kein separates fachliches Datenmodell und darf keine zweite Case-/Document-
 Implementierung erzeugen.
 
-Globale Erfassung verlangt vor dem Scan kein Profil-, Case- oder
-Metadatenformular. `Neuen Vorgang starten` ist ein Intent. Backend/Core Assist
-liefert editierbare Titel und Zuordnungsvorschläge; Presentation zeigt nur die
-freigegebenen Reviewfolgen.
+Globale Erfassung beginnt in einem sichtbaren, gegebenenfalls vorausgewaehlten
+Managed-Subject-Kontext, verlangt aber vor dem Scan kein allgemeines Profil-,
+Case- oder Metadatenformular. Optionale bekannte Typ-/Subtyp-/Fact-/Case-
+Angaben sind provenienztragende Signale und kein Ersatz fuer Analyse.
+Backend/Core Assist liefert editierbare Titel und Zuordnungsvorschlaege;
+Presentation zeigt nur die freigegebenen Reviewfolgen.
 
 ## Teststruktur
 

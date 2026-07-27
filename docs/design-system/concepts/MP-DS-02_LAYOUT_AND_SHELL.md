@@ -2,7 +2,7 @@
 title: "MP-DS-02 Layout And Shell"
 description: "Responsive layout, navigation and workspace-shell contract"
 tags: [design-system, layout, shell, navigation, responsive]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-22"
 status: draft
 owner: "ui-concept"
 source_mock:
@@ -45,7 +45,8 @@ Mobile ist zuerst Capture- und Review-Companion:
 
 - Scan / Foto aufnehmen.
 - automatisches Backend/Core-Assist-Matching immer ausfuehren.
-- optional bewusst `Neuen Vorgang starten`, ohne Titel-/Metadatenformular.
+- optionale bekannte Angaben zu Typ/Subtyp, Fact, Subject oder neuem/
+  bestehendem Case nur progressiv, ohne Titel-/Metadatenpflichtformular.
 - Upload-Queue und Offline-Status sehen.
 - Vollverwaltung kommt spaeter.
 

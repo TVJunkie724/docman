@@ -2,7 +2,7 @@
 title: "Decision - DMS Target Architecture"
 description: "Langfristiges Zielbild fuer Mappm als vollwertiges Dokumentenmanagementsystem statt nur Dokumentanhaenge an Vorgängen"
 tags: [decision, dms, documents, records, cases, capture, inbox, outbox, intelligence, sync]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-25"
 status: "accepted"
 owner: "product-concept/data-architect"
 ---
@@ -67,12 +67,12 @@ Mappm trennt langfristig folgende Objekte:
 
 | Objekt | Zweck |
 |---|---|
-| `DocumentRecord` | Logisches Dokument, Beleg oder Unterlage, z. B. "Arztrechnung Mai 2026" |
+| `DocumentRecord` | Logisches Dokument, Beleg oder Unterlage, z. B. "Arztrechnung Dr. Mayer"; Datumswerte bleiben separate Facts |
 | `FileRecord` | Konkrete gespeicherte Datei, Scan, Bild oder PDF mit Hash, MIME-Type und Storage-Key |
 | `DocumentVersion` | Version eines Dokuments oder Records, inklusive aktueller und historischer Datei |
 | `Record` | Langlebiger fachlicher Nachweis, z. B. Geburtsurkunde, Meldezettel, Polizze |
 | `Case` | Vorgang, Prozess, Verlauf oder Kontext |
-| `CaseLink` | Beziehung zwischen Vorgängen, z. B. Subvorgang, Folge, Ursache, Claim-Kontext |
+| `CaseLink` | Beziehung zwischen Vorgängen, z. B. Subvorgang, Folge, Ursache oder Versicherungsabwicklung |
 | `DocumentCaseLink` | Beziehung zwischen Dokument und Vorgang mit Rolle, z. B. `primary`, `context`, `evidence`, `source` |
 | `DocumentProfileLink` | Personen-/Profilbezug fuer Dokumente, Records, Facts und Vorgänge |
 | `DocumentFact` | Strukturierte, such- und auswertbare Aussage aus Dokumenten oder manueller Erfassung |
@@ -130,7 +130,7 @@ Ein Scan kann sichtbar sein:
 - in einem Vorgang.
 - in einem Subvorgang.
 - im Profil eines Kindes.
-- in einer Versicherungs-/Claim-Auswertung.
+- in einer Versicherungs-/Erstattungsauswertung.
 - im Schnellzugriff.
 - in einem Exportpaket.
 
@@ -167,7 +167,9 @@ Die eigentlichen Dokumente bleiben im DMS-Kern.
 Status, Aufgaben und Timeline.
 
 Ein großer Vorgang wie ein Autounfall enthält zunächst Schritte, Ereignisse,
-Tasks, Claims und bedingte Ablaufzweige. Polizei, Werkstatt, Versicherer oder
+Tasks und bedingte Ablaufzweige. Eine eigenstaendig verfolgte
+Versicherungsabwicklung ist ein normaler verknuepfter Case; einzelne
+Einreichungen/Nachreichungen sind Events. Polizei, Werkstatt, Versicherer oder
 Krankenhaus sind nicht automatisch eigene Vorgänge. Eine längerfristige
 Behandlung oder ein formelles Verfahren kann bei eigenständigem Ziel als
 normaler Case verbunden werden.
@@ -224,9 +226,12 @@ Beispiele:
 - Kündigungsfrist.
 - Garantieende.
 
-Backend/Core Assist schlaegt OCR-basierte Facts, Titel und Beziehungen im
-Commercial Core vor. Fachlich relevante Facts bleiben reviewbar,
-provenance-markiert und nachvollziehbar.
+Backend/Core Assist schlaegt OCR-basierte grobe Kandidaten und konservative
+Titel im Commercial Core vor. Beziehungen sind optionale
+bestaetigungspflichtige Best-effort-Vorschlaege nach Feasibility-Gate.
+Fachlich relevante Facts entstehen aus Nutzerzuordnung, konkreter
+kontextueller Aktion oder gepruefter Regel und bleiben provenance-markiert und
+nachvollziehbar.
 
 Zeitbezogene Facts und ihre moeglichen Folgen richten sich nach
 `DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`. Ausstellungs-, Empfangs-,
@@ -295,19 +300,21 @@ Zielbild:
 ```text
 FileRecord accepted
   -> OCR / text extraction
-  -> document type suggestion
-  -> actor/profile/case/record suggestion
-  -> applicable published workflow suggestion
-  -> fact suggestion
+  -> coarse document type/domain and issuer candidates
+  -> preserve user-selected Managed Subject
+  -> Case/Record candidate ranking
+  -> optional applicable published-workflow candidate
+  -> type-dependent semantic field proposals plus alternatives
   -> search indexing
   -> user review
-  -> accepted suggestions become domain data
+  -> user-assigned/confirmed meanings become domain data
 ```
 
 Fehler in dieser Pipeline duerfen Dokumentverwaltung nicht blockieren.
 Processing-Ergebnisse haben Status, Fehlerquelle, Zeitpunkt und Review-Zustand.
-Intelligence darf nur veröffentlichte Workflow-Definitionen vorschlagen; sie ist
-nicht Autorität für Rechtsraum, Frist, Anspruch oder Ablauf.
+Intelligence darf nur veroeffentlichte Workflow-Definitionen als Kandidaten
+vorschlagen; sie ist nicht Autoritaet fuer Person, Dokumentkohaerenz,
+Rechtsraum, Frist, Anspruch, Ablauf oder Beziehung.
 
 ## Search- und Analytics-Konsequenzen
 
@@ -370,8 +377,9 @@ Der Commercial Core darf aber nicht verbauen:
 
 - C2/C3 bleibt ein Commercial-Core-Slice, aber nicht die DMS-Endarchitektur.
 - Spätere Profil-, Rechte- und Sync-Slices bauen auf dem DMS-Kern auf.
-- Der aktivierte Facts-/Insights-Slice führt strukturierte Facts,
-  Claims, Finanzdaten und Auswertungen den DMS-Kern erweitern.
+- Der aktivierte Facts-/Insights-Slice fuehrt strukturierte Facts,
+  Submission Events, Finanzdaten und Auswertungen in den DMS-Kern ein. Eine
+  Claim-Entitaet ist ausgeschlossen.
 - Intelligence darf nur Vorschläge liefern, die in DMS-Objekte übernommen
   oder verworfen werden können.
 - Workflow-Katalog und Länderpakete werden als eigenes fachliches Produkt- und

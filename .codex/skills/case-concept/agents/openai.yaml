@@ -1,0 +1,4 @@
+interface:
+  display_name: "Case Concept"
+  short_description: "Definiert Mappm-Case-Familien strukturiert und laenderfaehig"
+  default_prompt: "Fuehre die angefragte Mappm-Case-Familie erst im Dialog durch den Definitionsvertrag und dokumentiere sie nur nach ausdruecklicher Freigabe."

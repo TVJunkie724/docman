@@ -2,7 +2,7 @@
 title: "Produkt-Säule - Managed Profiles and Access"
 description: "Produktbereich fuer Haushaltsprofile, Kinderprofile, verwaltete Organisationen, Partnerzugriff und spätere Rechte"
 tags: [pillar, profiles, managed-subjects, organizations, household, access, family, permissions]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-23"
 version: "0.4"
 status: "proposed"
 owner: "product-concept"
@@ -31,7 +31,7 @@ Managed Context
   -> Child Profile
 ```
 
-Dokumente, Vorgänge, Records, Tasks, Claims und Quick-Access-Einträge können
+Dokumente, Vorgänge, Records, Tasks, Submission Events und Quick-Access-Einträge können
 einem Personen- oder Organisationsprofil zugeordnet werden. Externe Anbieter
 bleiben `ExternalParty` und werden nicht mit eigenen Organisationen vermischt.
 
@@ -40,8 +40,8 @@ bleiben `ExternalParty` und werden nicht mit eigenen Organisationen vermischt.
 Schlanker Commercial-Core-Slice:
 
 - ein Haushalt.
-- Managed Subject durch Core Assist vorschlagen und bei Unsicherheit oder
-  materieller Folge korrigierbar machen.
+- Managed Subject als sichtbaren User-/Case-Kontext waehlen, erben und
+  korrigieren; Core Assist leitet ihn nicht aus Empfaenger-/Namensdaten ab.
 - Personen-/Profil-ID in den relevanten Modellen vorbereiten.
 - Capture Review kann die Managed-Subject-Zuordnung korrigieren.
 - Mobile Capture bewahrt den Personenkontext, falls vorhanden.
@@ -72,22 +72,26 @@ länderspezifische Compliance.
 Ein dokumentgestuetzter medizinischer Kontext fuer ein Kind kann so organisiert
 werden:
 
-- neutraler Care-Case `Behandlung bei Dr. Mayer, Juni 2026` mit Profil Kind;
+- neutraler Care-Case `Behandlung bei Dr. Mayer` mit Profil Kind;
 - je unabhaengiger wirtschaftlicher Verpflichtung ein gueltiger
   `part_of`-Kostenabrechnungs-Case, auch wenn Rechnung oder Zahlungsbeleg fehlt;
 - Dokumente wie Bericht, Rechnung oder Zahlungsnachweis werden dokumentweise
   vorgeschlagen und bestaetigt;
-- SV und Zusatzversicherung sind getrennte Claims des Kosten-Case, keine
+- SV und Zusatzversicherung sind getrennte Einreichungsablaeufe des Kosten-Case, keine
   Subvorgaenge;
-- die Versicherungspolizze des Kindes bleibt ein verknuepfter Record;
-- Zahlung, Payer-Claims und Case-Lifecycle bleiben getrennte Zustaende;
+- die Versicherungspolizze des Kindes bleibt ein verknuepfter Policy Record mit
+  ruhigem Vertragskontext; ein Dokument ist nicht erforderlich und ein
+  importierter Altvertrag erhaelt keinen erfundenen Abschluss-Case;
+- Zahlung, jede Payer-Einreichung, jede Payer-Frist, Finanz-Facts und
+  Case-Lifecycle bleiben getrennte Zustaende;
 - im Normalablauf wird Zusatzversicherung erst nach bestaetigtem abschliessendem
   SV-Ergebnis vorgeschlagen; ein bewusster direkter Weg bleibt moeglich;
 - externe Aktionslinks oeffnen nur das bestaetigt gewaehlte Portal.
 
 Dokumente werden nicht kopiert. Zusammenhänge entstehen über Links und Profile.
-Payer-Defaults sortieren nur; Mappm prueft keine Deckung und berechnet keine
-Versicherungsleistung.
+Payer-Defaults sortieren nur; Mappm prueft keine Deckung, berechnet keine
+Versicherungsleistung und aktiviert aus Providername/Default keine private
+Frist.
 
 ## Abgrenzung
 

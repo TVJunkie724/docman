@@ -2,7 +2,7 @@
 title: "Mappm AI-00 AI Governance Umbrella"
 description: "Planning contract for OCR, LLM, document intelligence and assisted review"
 tags: [ai, ocr, llm, assisted-review, eu-ai-act, privacy, playbook]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-24"
 status: "accepted-direction"
 owner: "ai/compliance"
 ---
@@ -18,6 +18,12 @@ services for consistent quality across supported devices. These services are
 not a casual add-on: Core Assist is a C2/C3 capability with privacy, security
 and regulatory gates; Advanced Assist remains later.
 
+The normative capability contract is
+`../technical/DECISION_INTELLIGENCE_SCOPE.md`. Every AI concept, eval,
+provider policy and release gate must assume small or medium general-purpose
+models unless a narrowly named capability has its own accepted feasibility
+evidence.
+
 ## Capability Boundary
 
 | Capability | Local-only feasibility | Product status |
@@ -25,7 +31,8 @@ and regulatory gates; Advanced Assist remains later.
 | Manual document organization | feasible | offline/opt-out/recovery fallback, not full product promise |
 | Synthetic demo assistant | feasible with fake repositories | allowed for mocks/prototypes |
 | Production OCR/extraction | limited locally; service-backed likely | required Core Assist slice |
-| Actor/field/case/workflow suggestions | service-backed likely for useful quality | required Core Assist slice |
+| Coarse issuer/field candidates and Case-/Record-ranking | service-backed likely for useful quality; small-/medium-model baseline | required Core Assist slice |
+| Affected-person, workflow-state, deadline, causality or relationship truth | not a reliable general-model capability | excluded as autonomous Core Assist authority |
 | Advanced LLM assistance | service-backed likely | later/conditional |
 | AI audit/appeal/explanation UX | required before production AI assistance | required gate |
 
@@ -58,3 +65,6 @@ and regulatory gates; Advanced Assist remains later.
 - Stop if generated suggestions can overwrite user-owned facts without review.
 - Stop if synthetic demo assistant behavior is presented as production-grade
   intelligence.
+- Stop if model output is treated as authority for Managed Subject, Case
+  boundary, mixed-document validity, workflow state, deadline, causality or
+  relationship.

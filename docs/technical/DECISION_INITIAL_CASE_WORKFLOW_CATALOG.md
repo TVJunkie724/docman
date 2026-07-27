@@ -1,8 +1,8 @@
 ---
 title: "Entscheidung - Case- und Workflow-Katalog (SSOT)"
 description: "Einzige Katalogquelle fuer Mappm-Workflow-Muster, Fachvorlagen-IDs, deutsche Titel, Reifegrad, Disposition und Case-Familien-Subkonzept-Ownership"
-tags: [decision, product, cases, workflows, catalog, records, claims, custom-cases]
-lastUpdated: "2026-07-21"
+tags: [decision, product, cases, workflows, catalog, records, submissions, custom-cases]
+lastUpdated: "2026-07-25"
 status: "accepted-direction"
 owner: "product-concept"
 ---
@@ -21,7 +21,7 @@ Workflow-Katalog**. Nur hier werden gepflegt:
   aktuell besprochener Kandidaten;
 - die Coverage und das Owning Artifact der fachlichen Case-Familien-
   Subkonzepte;
-- die Abgrenzung zu Custom Cases, Records, Claims, Steps und nationalen
+- die Abgrenzung zu Custom Cases, Records, Steps, Einreichungen und nationalen
   Varianten.
 
 Discovery-, Medical-, Country-/Provider- und Pillar-Dokumente duerfen diese
@@ -54,15 +54,24 @@ globalen Case-Datentypen und keine grosse sichtbare Nutzerauswahl.
 |---|---:|---|
 | Case-Entitaet | 1 | `DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`; stabiler generischer Vorgang |
 | Workflow-Muster | 8 | die folgende Tabelle; interne komponierbare Prozessgrammatiken, kein Nutzer-Picker |
-| Besprochene Registereintraege | 45 | 42 Fachvorlagen-/Variantenkandidaten und drei ausdrueckliche Kein-Template-Dispositionen in einer Liste |
-| Case-Familien-Subkonzepte | je in einem dedizierten Familienworkshop bearbeiteter Familie genau ein Owning Artifact | dieselbe SSOT pflegt unten Coverage und Owner; das Subkonzept besitzt Verhalten, nicht Katalog-ID/-Titel/-Status |
+| Besprochene Registereintraege | 47 | 43 Fachvorlagen-/Variantenkandidaten und vier ausdrueckliche Kein-Template-Dispositionen in einer Liste |
+| Case-Familien-Subkonzepte | je fachlich abgestimmter und ausdruecklich zur Dokumentation freigegebener Familie genau ein Owning Artifact | dieselbe SSOT pflegt unten Coverage und Owner; das Subkonzept besitzt Verhalten, nicht Katalog-ID/-Titel/-Status |
 | Country-/Provider-Varianten | offen und versioniert | referenzieren Katalog-IDs; definieren lokale Begriffe, Institutionen, Payer, Evidenz, Fristen und Regeln |
 
 ## Case-Familien-Subkonzeptvertrag
 
+Der vollstaendige globale Definitions-, Matching-, Lifecycle-, Handoff- und
+Reviewvertrag steht in
+`DECISION_CASE_FAMILY_DEFINITION_CONTRACT.md`. Dieses Katalogdokument besitzt
+weiterhin ausschliesslich Identitaet, deutschen Titel, Status, Disposition und
+Owning-Coverage; der globale Vertrag besitzt das wiederverwendbare Raster.
+Projektlokale Agents verwenden `case-concept`, `document-concept`,
+`country-pack-concept` und `case-concept-review`.
+
 ### Verbindliche Struktur
 
-Jede Case-Familie erhaelt mit Beginn ihres dedizierten fachlichen Workshops
+Jede Case-Familie erhaelt nach ihrem dedizierten fachlichen User-Workshop,
+vollstaendigem Chat-Abgleich und ausdruecklicher Freigabe zur Dokumentation
 genau ein lebendes Subkonzept-Artefakt. Fuer neu angelegte Familien-Decisions
 gilt das Standard-Namensmuster:
 
@@ -96,13 +105,15 @@ zweite Katalogliste:
 - technische Domain-/API-/Drift-Details bleiben spaeteren
   Implementation-Contracts vorbehalten.
 
-Es werden keine leeren Dateien fuer alle Discovery-Kandidaten erzeugt. Eine
-Katalogzeile oder kurze bereichsuebergreifende Erwaehnung ist noch kein
-Familienworkshop. Sobald die Familie jedoch als eigener fachlicher Gegenstand
-Schritt fuer Schritt mit dem User bearbeitet wird, wird ihr Owning Subkonzept
-im selben Change angelegt oder fortgeschrieben und hier in der Coverage
-registriert. Workshop-Notizen duerfen nicht als parallele aktuelle Wahrheit
-bestehen bleiben.
+Es werden keine leeren Dateien fuer Discovery-Kandidaten oder laufende
+Fachdiskussionen erzeugt. Im Workshop werden bestehende Entscheidungen,
+Vorschlaege, offene Punkte und verworfene Alternativen im Gespraech klar
+getrennt und jeweils nur eine Entscheidung weitergefuehrt. Erst nachdem der
+Agent die vollstaendige Familienentscheidung im Chat zusammengefasst und der
+User sie ausdruecklich zur Dokumentation freigegeben hat, wird das Owning
+Subkonzept im selben Change angelegt oder fortgeschrieben und hier in der
+Coverage registriert. Unfreigegebene Gespraechsvorschlaege duerfen weder als
+Decision noch als parallele aktuelle Wahrheit persistiert werden.
 
 ### Pflichtinhalt jedes Subkonzepts
 
@@ -111,11 +122,11 @@ bestehen bleiben.
 | Identitaet | referenzierte Katalog-IDs, deutscher Familienname, Status, Owner und Scope |
 | Nutzerziel | welches verstaendliche Ziel die Nutzerin verfolgt und welchen Produktwert Mappm liefert |
 | Case-Grenze | wann ein Case beginnt, was darin bleibt und wann ein normaler verknuepfter Case entsteht |
-| Komposition | Steps, Branches, Claims, Tasks, Events, Records und `CaseLink`-Beziehungen statt neuer Cases |
+| Komposition | Steps, Branches, Tasks, Events, wiederholbare Einreichungen, Records und `CaseLink`-Beziehungen statt neuer Cases |
 | Lifecycle | aktive/wartende/abgeschlossene Zustaende, Abschluss, Archivierung, spaete Evidenz, Wiedereroeffnung und gegebenenfalls Wiederkehr |
 | Capture und Assist | globale Erfassung, Matching-Signale, Kandidatenranking, Titelvorschlag, Bestaetigung, Korrektur und Automatisierungsgrenze |
 | Dokumentdisposition | jedes Szenario-Dokument als bestehender/breiter Typ, Titel/Alias, Fact/Party, Rolle/Slot, Record oder Source/Format nach minimal ausreichender Klassifikation |
-| Fachliche Daten | relevante Facts, Parties, Records, Claims und getrennte Zustandsdimensionen ohne erfundene Pflichtfelder |
+| Fachliche Daten | relevante Facts, Parties, Records, externe Referenzen und getrennte Zustandsdimensionen ohne erfundene Pflichtfelder |
 | Aufgaben und Zeit | nur produktrelevante Aufgaben, Fristen, erwartete Antworten, Termine, Reminder und deren Provenienz |
 | Laendergrenze | universeller Kern versus Country-/Provider-Pack, aktuelle Quellenpflicht und nicht unterstuetzte Varianten |
 | Trust und Sicherheit | sensible Daten, Berechtigungen, externe Aktionen, Berechnungs-/Beratungsgrenzen und Auditbedarf |
@@ -129,14 +140,16 @@ Korrekturmoeglichkeiten benennen, die eine spaetere UI abbilden muss.
 
 ### Reifegrad-Gate
 
-1. Ein Katalogkandidat darf ohne Subkonzept `Discovery` oder
+1. Diskussion und fachlicher Workshop finden ohne neue Decision-Datei statt,
+   bis der User den vollstaendigen Abgleich ausdruecklich freigibt.
+2. Ein Katalogkandidat darf ohne Subkonzept `Discovery` oder
    `Variantenpruefung` bleiben.
-2. `normalisierter Kern` bedeutet nur eine plausible zusammengefuehrte
+3. `normalisierter Kern` bedeutet nur eine plausible zusammengefuehrte
    Familiengrenze; ohne Subkonzept ist das Verhalten nicht fachlich akzeptiert.
-3. Vor `fachlich akzeptierter Kern`, WF-01-Auswahl, Implementation Contract,
+4. Vor `fachlich akzeptierter Kern`, WF-01-Auswahl, Implementation Contract,
    Contract-/Schema-Arbeit oder Produktclaim muss das Subkonzept vollstaendig
    reviewed, in der Coverage verlinkt und widerspruchsfrei sein.
-4. Eine spaetere wesentliche Grenz- oder Verhaltensaenderung aktualisiert
+5. Eine spaetere wesentliche Grenz- oder Verhaltensaenderung aktualisiert
    Subkonzept, Katalog-Coverage, Traceability und betroffene Country Packs im
    selben Change.
 
@@ -149,9 +162,10 @@ Subkonzept und duerfen nicht als fachlich akzeptiert gelesen werden.
 | Case-Familie | Registrierte Eintraege | Owning Subkonzept | Coverage/naechster Gate |
 |---|---|---|---|
 | Generischer/Custom Case | keine Template-ID, Custom-/Umbrella-Dispositionen | `DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md` | akzeptierte generische Mechanik; kein fachlicher Guided Workflow |
-| Medizin | `medical_care`, `medical_cost_settlement`, Kein-Template-Disposition medizinische Bewilligung | `DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` | fachlich akzeptierter Kern seit 2026-07-20; OQ-012 geschlossen |
-| Steuer-Unterlagensammlung | `tax_document_collection` | `DECISION_JURISDICTIONAL_TAX_DOCUMENT_COLLECTION.md` | vorlaeufiger eindeutiger Owner; vor fachlicher Kernakzeptanz gegen den vollstaendigen Familienvertrag pruefen und erweitern; OQ-010/WF-01/WF-02 blockieren konkrete Packs/Claims |
-| Unfall und Schaden | `accident_or_damage_settlement` | ausstehend: `DECISION_ACCIDENT_DAMAGE_SETTLEMENT_MODEL.md` | naechster User-Workshop; keine Implementierung oder AT-Workflowfreigabe |
+| Medizin | `medical_care`, `medical_cost_settlement`, Kein-Template-Disposition medizinische Bewilligung | `DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` | fachlich akzeptierter Kern seit 2026-07-24; Care-/Cost-Grenze, typischer Inhalt, dokumentweises Matching, unabhaengiger Lifecycle, Abschluss und spaete Evidenz sind geschlossen; OQ-011/WF-01/WF-02 sowie technische/UI-Handoffs begrenzen Katalogdetails und Umsetzung |
+| Versicherungsabwicklung | `insurance_settlement` | `DECISION_INSURANCE_SETTLEMENT_MODEL.md` | fachlich akzeptierter Kern seit 2026-07-22; keine Claim-Entitaet; Medical ist darauf abgestimmt, Unfall/Schaden wird auf dieser Grundlage nochmals fachlich geprueft |
+| Steuer-Unterlagensammlung | `tax_document_collection` | `DECISION_JURISDICTIONAL_TAX_DOCUMENT_COLLECTION.md` | vorlaeufiger eindeutiger Owner; vor fachlicher Kernakzeptanz gegen den vollstaendigen Familienvertrag pruefen und erweitern; OQ-010/WF-01/WF-02 blockieren konkrete Packs und Release-Versprechen |
+| Unfall und Schaden | `accident_or_damage_settlement`, `damage_cost_settlement`, Kein-Template-Disposition medizinischer Unfall | `DECISION_ACCIDENT_DAMAGE_SETTLEMENT_MODEL.md` | bisheriger Kern dokumentiert; Versicherungsabwicklung am 2026-07-22 neu komponiert; Familien-Re-Review vor Implementation erforderlich |
 | Kauf und Maengelbehebung | `purchase_fulfilment_and_remedy` | ausstehend | eigenes Subkonzept vor fachlicher Akzeptanz erforderlich |
 | Antrag und behoerdliche Einreichung | `authority_application_or_submission` | ausstehend | eigenes Subkonzept vor fachlicher Akzeptanz erforderlich |
 | Einspruch, Klaerung und Rueckforderung | `objection_dispute_or_recovery` | ausstehend | eigenes Subkonzept vor fachlicher Akzeptanz erforderlich |
@@ -171,17 +185,18 @@ auch ganz ohne Muster bestehen.
 
 | Workflow-Muster-ID | Deutscher Titel | Optional gefuehrtes Ziel | Typische Module | Kein eigenes Muster fuer |
 |---|---|---|---|---|
-| `submission` | Einreichung und Antrag | bei einer externen Stelle etwas beantragen, melden, registrieren, erneuern oder als Claim geltend machen und den Output erhalten | vorbereiten, Evidenz, Formular, Einreichung, Eingang, Nachreichung, Entscheidung/Bestaetigung, Ausgabe | Pflegegeld, Visum, Studienplatz, Kredit, Pass oder Datenschutz-Auskunft als eigene Kernfamilie |
+| `submission` | Einreichung und Antrag | bei einer externen Stelle etwas beantragen, melden, registrieren, erneuern oder einen Anspruch geltend machen und den Output erhalten | vorbereiten, Evidenz, Formular, Einreichung, Eingang, Nachreichung, Entscheidung/Bestaetigung, Ausgabe | Pflegegeld, Visum, Studienplatz, Kredit, Pass oder Datenschutz-Auskunft als eigene Kernfamilie |
 | `transaction` | Transaktion und Leistung | einen Kauf, Verkauf, Auftrag, Service oder eine Uebergabe bis zum akzeptierten Ergebnis abschliessen | Angebot, Vereinbarung, Lieferung/Leistung, Abnahme, Rechnung, Zahlung, Rueckabwicklung | Immobilie, Reparatur, Miete oder Produktkauf als technische Spezialentitaet |
 | `episode` | Fachlicher Verlauf | einen fachlich zusammenhaengenden Verlauf mit mehreren Begegnungen, Ergebnissen oder Abschnitten organisieren | Ereignisse/Begegnungen, Anordnungen, Befunde, Plaene, Verlauf, Abschluss | einzelne Termine, Beteiligte oder Dokumente als Cases |
-| `incident` | Ereignis und Schaden | ein unerwartetes Ereignis dokumentieren, Folgen begrenzen und regulieren | Ereignis, Evidenz, Meldung, Sofortmassnahmen, Schaden, Claims, Recovery | Polizei, Werkstatt, Fluglinie oder Versicherer als Case-Typ |
-| `settlement` | Abrechnung und Erstattung | eine abgegrenzte wirtschaftliche Verpflichtung und zugehoerige Zahlungen/Erstattungen abstimmen | Rechnung, Zahlung, Einreichungen/Claims, Antworten, Gutschriften, Restbetrag, Abschluss | jede normale oder wiederkehrende Rechnung als Case |
+| `incident` | Ereignis und Schaden | ein unerwartetes Ereignis dokumentieren, Folgen begrenzen und regulieren | Ereignis, Evidenz, Meldung, Sofortmassnahmen, Schaden, Versicherungsabwicklung, Recovery | Polizei, Werkstatt oder Fluglinie als Case-Typ |
+| `settlement` | Abrechnung und Erstattung | eine abgegrenzte wirtschaftliche Verpflichtung und zugehoerige Zahlungen/Erstattungen abstimmen | Rechnung, Zahlung, wiederholbare Einreichungen, Antworten, Gutschriften, Restbetrag, Abschluss | jede normale oder wiederkehrende Rechnung als Case |
 | `resolution` | Klaerung und Anfechtung | eine konkrete Abweichung, Ablehnung, Forderung oder Entscheidung klaeren, anfechten oder rueckfordern | Reklamation, Nachweise, Gegenantwort, Eskalation, Vergleich/Entscheidung, Recovery | Warranty, Chargeback, Payroll Issue oder Appeal als eigene Kernfamilie |
 | `proceeding` | Formelles Verfahren | ein formal eroeffnetes, extern geregeltes Verfahren beantworten oder bis zum formellen Ergebnis verfolgen | Aktenzeichen, Parteien, Anordnungen, Termine, Evidenz, Stellungnahmen, Entscheidung | jedes Schreiben eines Gerichts oder einer Behoerde als neuer Case |
 | `collection` | Unterlagensammlung | Unterlagen fuer einen definierten Zweck, Subject, Rechtsraum und Zeitraum vollstaendig sammeln, pruefen und uebergeben | Kandidaten, Vollstaendigkeit, fehlende Evidenz, Review, Export/Handoff | beliebige Ordner oder Spaces |
 
 Das Muster `submission` setzt weder ein Formular noch eine
-Ermessensentscheidung voraus. Varianten koennen etwa Request, Claim,
+Ermessensentscheidung voraus. Varianten koennen etwa Request,
+Versicherungsabwicklung,
 Authorization, Acquisition, Renewal, Registration, Notification oder
 Cancellation mit einem erwarteten Output kombinieren.
 
@@ -195,7 +210,9 @@ ihrer bewussten Disposition und besitzt deshalb keine produktive Vorlagen-ID.
 
 | Bereich | Katalog-ID oder Disposition | Deutscher Titel | Katalogstatus | Ziel, Grenze und Gate |
 |---|---|---|---|---|
-| Schaden | `accident_or_damage_settlement` | Unfall- oder Schadenregulierung | normalisierter Kern | Ereignis, Evidenz, Meldung, Reparatur, Claims und Zahlungen bleiben ein Ziel; ein formelles Verfahren oder unabhaengiger Folgeprozess wird verknuepfter Case |
+| Schaden | `accident_or_damage_settlement` | Unfall- oder Schadenregulierung | dokumentierte Baseline; Re-Review ausstehend | ein Anlass und Regulierungsrahmen mit optionalen groben Varianten Unfall, Fahrzeugunfall, Sachschaden und Diebstahl/Verlust; Ereignisevidenz, Bildsammlung, Meldung und Reparatur bleiben darin, eigenstaendige Folgen und Versicherungsabwicklungen werden verknuepft |
+| Schaden | `damage_cost_settlement` | Schadenkostenabrechnung und Erstattung | dokumentierte Baseline; Re-Review ausstehend | optional je eigenstaendig verfolgter wirtschaftlicher Verpflichtung; nicht pro Rechnung erzwungen und mit einer Versicherungsabwicklung verknuepfbar |
+| Medizin/Schaden | keine ID: medizinischer Unfall | Medizinischer Unfall | kein Template | sichtbare Einstiegs-/Routingvariante direkt zu `medical_care`; kein Unfall-Wrapper, solange nur der medizinische Verlauf verwaltet wird |
 | Kauf | `purchase_fulfilment_and_remedy` | Kauf, Lieferung und Maengelbehebung | normalisierter Kern | Bestellung, Lieferung, Rechnung, Zahlung, Rueckgabe, Garantie/Gewaehrleistung, Reklamation und Erstattung bleiben im Kaufziel; formeller Streit kann eigener Case werden |
 | Behoerde | `authority_application_or_submission` | Antrag oder behoerdliche Einreichung | normalisierter Kern | Nachweise, Einreichung, Rueckfragen, Nachreichung und Entscheidung; Rechtsmittel nur bei eigenem Ziel und Ergebnis als verknuepfter Case |
 | Recht/Klaerung | `objection_dispute_or_recovery` | Einspruch, Klaerung oder Rueckforderung | normalisierter Kern | Entscheidung, Forderung, Ablehnung oder Leistung klaeren/anfechten; formelles Gerichts- oder Behoerdenverfahren kann eigener Case werden |
@@ -203,20 +220,20 @@ ihrer bewussten Disposition und besitzt deshalb keine produktive Vorlagen-ID.
 | Nachweis | `record_acquisition_renewal_or_replacement` | Nachweis beantragen, erneuern oder ersetzen | normalisierter Kern | Ausstellung, Erneuerung oder Ersatz eines langlebigen Records; Ablehnung, Missbrauchsfolge oder Rechtsmittel nur bei eigenem Outcome separat |
 | Custom/Umbrella | keine ID: generischer Case | Eigener Vorgang oder privates Projekt | kein Template | normaler generischer Case ohne Pflichtworkflow; keine eigene Vorlagen-ID implementieren |
 | Custom/Umbrella | keine ID: Custom-Umbrella | Umzug | kein Template | bewusst angelegter Sammelvorgang aus Dokumenten, Records und Cases; nicht automatisch aus einer einzelnen Kuendigung ableiten |
-| Behoerde/Leistung | `entitlement_or_benefit_claim` | Leistung, Beihilfe oder Foerderung beantragen | Discovery | Submission-/Claim-Kandidat; Country-/Provider-Pack und WF-01/WF-02 erforderlich |
+| Behoerde/Leistung | `entitlement_or_benefit_application` | Leistung, Beihilfe oder Foerderung beantragen | Discovery | Submission-Kandidat; Country-/Provider-Pack und WF-01/WF-02 erforderlich |
 | Behoerde/Register | `registration_change_or_notification` | Anmeldung, Abmeldung oder Aenderungsmeldung | Discovery | Register und Rechtsraum duerfen nicht zu einer globalen Regel vermischt werden |
 | Recht/Behoerde | `formal_proceeding` | Formelles Behoerden- oder Gerichtsverfahren | Discovery | spezialisiertes Proceeding; fachliche und rechtliche Freigabe erforderlich |
 | Recht/Compliance | `audit_or_compliance_response` | Pruefung oder Auskunftsverfahren beantworten | Discovery | specialist/later; Scope, Evidenz und Handoff muessen fachlich definiert werden |
 | Zahlung/Behoerde | `payment_relief_or_debt_resolution` | Stundung, Ratenzahlung oder Schuldenregelung | Discovery | eigener Request nur bei bestaetigter Forderung und eigenem Outcome |
 | Sicherheit | `fraud_identity_or_security_incident` | Betrug, Identitaetsmissbrauch oder Sicherheitsvorfall | Discovery | Incident-/Recovery-Kandidat; Bank, Polizei oder Provider nur nach bestaetigter Evidenz |
 | Medizin | `medical_care` | Medizinischer Behandlungsfall | fachlich akzeptierter Kern | zusammenhaengender medizinischer Anlass/Kontrollzweck; erstes bestaetigtes medizinisches Dokument erzeugt neutralen Care-Anker; Provider, Setting, Dauer, Reha/Nachsorge oder spaeterer Beleg spalten nicht automatisch; Wiederkehr ist optionale Planung, kein Case-Typ |
-| Medizin | `medical_cost_settlement` | Medizinische Kostenabrechnung und Erstattung | fachlich akzeptierter Kern | je eigenstaendiger wirtschaftlicher Verpflichtung ein `part_of`-Case unter Medical Care; Korrektur/Gutschrift/Beleg bleiben darin; Claims je bestaetigtem Payer |
+| Medizin | `medical_cost_settlement` | Medizinische Kostenabrechnung und Erstattung | fachlich akzeptierter Kern | je eigenstaendig ausgestellter Rechnung/Honorarnote ein `part_of`-Case unter Medical Care; Korrektur/Gutschrift/Beleg, getrennte Payer-Fristen sowie wiederholbare Einreichungs-/Antwortereignisse bleiben darin; kein Dokument ist Pflicht und es gibt keine Claim-Entitaet |
 | Medizin | keine ID: medizinische Bewilligung | Medizinische Bewilligung oder Kostenuebernahme | kein Template | Anfrage, Nachreichung, Bewilligung, Ablehnung und bestaetigte Auflagen bleiben Dokumente/Facts/Schritte im `medical_care`; allein daraus keinen Case oder M1-Dokumenttyp erzeugen |
-| Versicherung | `insurance_benefit_claim` | Versicherungsleistung beantragen | Discovery | Polizze bleibt Record; besondere vertragliche Leistungen werden fuer M1 nicht im Medical Core spezialisiert und nutzen bis zu einer eigenen Produktentscheidung generische Insurance-/Claim-Komposition; andere Domaenen und Provider-Pack vor Aktivierung pruefen |
-| Versicherung/Reise | `travel_insurance_claim` | Reiseversicherungsfall | Variantenpruefung | voraussichtlich Country-/Provider-/Domainvariante von `insurance_benefit_claim`, nicht automatisch globale eigene Vorlage |
+| Versicherung | `insurance_settlement` | Versicherungsabwicklung | fachlich akzeptierter Kern | ein normaler Case pro Versicherer und zusammengehoeriger Abwicklung; mehrere Rechnungen und wiederholbare Einreichungen/Nachreichungen bleiben darin; Polizze bleibt Record; keine Claim-Entitaet |
+| Versicherung/Reise | `travel_insurance_settlement` | Reiseversicherungsfall | Variantenpruefung | moegliche Country-/Provider-/Domainvariante von `insurance_settlement`, nicht automatisch eigene globale Vorlage |
 | Kauf | `return_or_refund` | Rueckgabe oder Rueckerstattung | Variantenpruefung | normalerweise Branch von `purchase_fulfilment_and_remedy`; eigener Case nur bei unabhaengigem Verlauf |
 | Service | `repair_or_service_resolution` | Reparatur oder Serviceabwicklung | Discovery | eigenstaendig oder Branch eines Kauf-, Garantie- oder Schadenfalls; Grenze noch pruefen |
-| Verbraucherrecht | `warranty_or_guarantee_claim` | Gewaehrleistungs- oder Garantiefall | Discovery | Rechts-/Vertragsgrundlage und sichtbare Terminologie muessen getrennt bleiben |
+| Verbraucherrecht | `warranty_or_guarantee_remedy` | Gewaehrleistungs- oder Garantiefall | Discovery | Rechts-/Vertragsgrundlage und sichtbare Terminologie muessen getrennt bleiben |
 | Zahlung | `payment_or_chargeback` | Zahlungsproblem oder Rueckbuchung | Discovery | Zahlungsprovider-/Bank-Overlay; Security Incident bei Missbrauch verknuepfen |
 | Finanzierung | `financing_or_credit_application` | Finanzierung oder Kredit beantragen | Discovery | Vertrag wird nach Abschluss Record; keine Finanzberatung |
 | Forderung | `debt_collection_or_repayment_arrangement` | Forderung, Mahnung oder Inkasso klaeren | Discovery | Bestreiten und Zahlungsvereinbarung sind unterschiedliche Branches/Outcomes |
@@ -238,7 +255,7 @@ ihrer bewussten Disposition und besitzt deshalb keine produktive Vorlagen-ID.
 | Fahrzeug | `vehicle_acquisition_or_registration` | Fahrzeug kaufen oder zulassen | Discovery | Fahrzeug bleibt Asset/Record; Zulassungsprozess kann Case sein |
 | Fahrzeug | `vehicle_inspection_or_service` | Fahrzeugpruefung, Wartung oder Reparatur | Discovery | Serviceereignis im Asset-Kontext; eigener Case nur bei offenem Outcome |
 | Reise | `travel_authorization_or_visa` | Reisegenehmigung oder Visum | Discovery | Zielland-/EU-Pack; Reisedokumente bleiben Records |
-| Reise | `travel_disruption_or_passenger_claim` | Reisestoerung oder Fahrgastrechte-Claim | Discovery | Anbieter-/Rechtsraum-Pack; Folgecase nur bei unabhaengiger Eskalation |
+| Reise | `travel_disruption_or_passenger_rights` | Reisestoerung oder Fahrgastrechte | Discovery | Anbieter-/Rechtsraum-Pack; Folgecase nur bei unabhaengiger Eskalation |
 | Datenschutz | `privacy_or_data_subject_request` | Datenschutzrechtliches Begehren | Discovery | Auskunft, Berichtigung, Loeschung, Portabilitaet oder Widerspruch; Legal Gate erforderlich |
 
 ## Record-basierte Kontexte, nicht automatisch eigene Cases
@@ -282,8 +299,13 @@ loescht oder kopiert keine Inhalte.
 |---|---|---|
 | dieses Dokument | Workflow-Muster, Fachvorlagen-/Variantenkandidaten, deutsche Titel, Katalogstatus, Disposition und Subkonzept-Ownership/Coverage | medizinische, rechtliche oder nationale Detailregeln behaupten |
 | `DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md` | generische Case-Entitaet, CaseLink-Semantik und Split-/Kompositionsregel | Fachvorlagen-IDs oder Country-Varianten inventarisieren |
-| `DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` | akzeptierte Care-/Cost-/Claim-Komposition, dokumentweises Matching und Ankerdokument-Regel, Wiederkehr, Payer-Praeferenzen, evidenzbasierte Zustaende, Bewilligungsgrenze, schlanke Medical-Dokumentregel und case-lokaler Desktop-Medienarchiv-Randfall nur fuer einen bestehenden `medical_care`-Case | AT-Provider-Regeln, Versicherungsberechnungen, Dokumentpflichten oder UI-Details implizit entscheiden |
+| `DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` | Care-/Cost-Komposition mit einer eigenstaendig ausgestellten Rechnung je Cost-Case, dokumentweises Matching und Ankerdokument-Regel, Wiederkehr, Payer-Praeferenzen, Einreichungs-/Frist-/Finanzzustaende ohne Claim-Entitaet, unabhaengiger Lifecycle, typische optionale Inhalte, Bewilligungsgrenze, schlanke Medical-Dokumentregel und case-lokaler Desktop-Medienarchiv-Randfall | AT-Regelquellen duplizieren, Versicherungsberechnungen, Dokumentpflichten oder UI-Details implizit entscheiden |
+| `DECISION_ACCIDENT_DAMAGE_SETTLEMENT_MODEL.md` | Unfall-/Schadengrenze, grobe Varianten, medizinisches Routing, optionale Schadenkosten, Bildsammlung, Versicherungsabwicklungs-/Polizzenvorschlaege und asynchrones Capture-Verhalten | Deckung, Haftung, Country-/Provider-Regeln, finale Dokumenttypen oder UI-Details implizit entscheiden; Familien-Re-Review ueberspringen |
+| `DECISION_INSURANCE_SETTLEMENT_MODEL.md` | normaler Versicherungs-Case, Case-Grenze, wiederholbare Einreichungen/Nachreichungen, Polizzen-Record, Rechnungs-/Kostenbezug und Abschaffung der Claim-Entitaet | pro Einreichung einen Case erzeugen, Deckung behaupten oder medizinische Payer-Ablaufe ohne Familienreview zerlegen |
 | `DECISION_CURATED_JURISDICTIONAL_WORKFLOW_CATALOG.md` | Publikations-, Versions-, Review-, Withdrawal- und Country-Pack-Governance | eine zweite Muster-/Fachvorlagenliste fuehren |
+| `DECISION_RULE_DERIVED_DEADLINES_REMINDERS.md` | mehrere unabhaengige Fristinstanzen, Quellen-/Versions-/Anker-Provenienz, typabhaengige Datumsfeldvorschlaege, Bestaetigung, Ableitung der naechsten kritischen Frist und sichtbarer Reminder-Vertrag | konkrete AT-Providerfristen inventarisieren oder einen Modellvorschlag ohne Review/Regel als aktive Frist behandeln |
+| `DECISION_AUSTRIA_MEDICAL_PAYER_RULE_PACK.md` | datierter AT-Medical-Payer-Bestand, freigegebene Fristregeln, KFA-/Private-Provider-Grenze, Default- und Release-Semantik | globale Frist-/Case-Semantik oder Versicherungsdeckung definieren |
+| `../ops/OPS-09_COUNTRY_PROVIDER_RULE_MAINTENANCE.md` | Quellenmonitoring, periodischer menschlicher Review, Developer-Reminder, Eskalation, Withdrawal und Release-Gates | fachliche Regeln oder Rechtsauskuenfte selbst festlegen |
 | `DECISION_DOCUMENT_TYPE_CATALOG.md` und `docs/discovery/CASE_DOCUMENT_TAXONOMY_CANDIDATES.md` | Dokumentachsen sowie offener Dokumentgrundarten-/Variantenentwurf | Case-/Workflow-IDs oder deren Status definieren |
 | Medical-, Tax-, Country- und Provider-Drafts | Szenarien, Detailgrenzen und explizite Mappings auf registrierte IDs | globale IDs, Titel oder Katalogstatus neu erfinden |
 
@@ -316,7 +338,8 @@ normalisiert.
 - ein Arztbesuch ohne dokumentiertes Handlungs-/Nachweisziel;
 - Polizei, Werkstatt, Krankenhaus, Arzt, Versicherer oder Behoerde als Akteur;
 - Einreichung, Antwort, Erstattung, Zahlung oder Kuendigung als einzelner Status;
-- ein Claim gegen SV, Zusatzversicherung, Garantiegeber oder Behoerde;
+- ein Einreichungs-/Erstattungsablauf gegenueber SV, Zusatzversicherung,
+  Garantiegeber oder Behoerde;
 - ein Workflow-Step, Event, Task oder bedingter Branch;
 - Reisepass, Geburtsurkunde, Vertrag, Polizze oder Garantie als langlebiger Record;
 - Tags, Spaces, Ordner oder Suchergebnisse.
@@ -347,8 +370,10 @@ oder rechtsraumspezifische Produktbehauptung erlaubt.
 Implementation und Freigabe stoppen, wenn:
 
 - eine nicht konkretisierte Familie als fertiger Workflow implementiert wird;
-- ein dedizierter Familienworkshop ohne eindeutig registriertes Owning
-  Subkonzept gefuehrt wird oder mehrere aktuelle Subkonzepte dieselbe ID
+- vor vollstaendigem Chat-Abgleich und ausdruecklicher User-Freigabe ein neues
+  Workshop-/Draft-Subkonzept angelegt wird;
+- nach ausdruecklicher Dokumentationsfreigabe kein eindeutig registriertes
+  Owning Subkonzept entsteht oder mehrere aktuelle Subkonzepte dieselbe ID
   besitzen;
 - ein Katalogeintrag ohne vollstaendig reviewed Subkonzept als `fachlich
   akzeptierter Kern`, WF-01-Workflow, Contract-/Schema-Scope oder
@@ -357,15 +382,25 @@ Implementation und Freigabe stoppen, wenn:
   Subkonzept ersetzt oder eine parallele Case-Liste fuehrt;
 - eine sichtbare Fachvorlage oder nationale Formularvariante ungeprueft zu
   einem neuen globalen Case-Typ oder Workflow-Grundmuster wird;
-- Actor, Dokument, Claim, Branch oder Status als eigener Case-Typ modelliert wird;
+- Actor, Dokument, Einreichung, Branch oder Status als eigener Case-Typ
+  modelliert wird;
 - Contract-/Identity-/Policy-Records als Cases missbraucht werden;
 - ein Custom Case weniger kann als ein Guided Case;
 - ein Land, Provider, Anspruch oder eine Frist ohne WF-01/WF-02-Gate behauptet wird;
 - diese Liste als abgeschlossenes Weltmarktversprechen statt als aktueller
-  Produktkatalog behandelt wird.
+  Produktkatalog behandelt wird;
 - die bewusst verworfene eigene medizinische Bewilligungsvorlage,
   Wiederkehr als eigener Medical-Case-Typ oder automatische Reha-/Folge-Case-
   Abspaltung eingefuehrt wird;
+- ein medizinischer Unfall ohne eigenstaendige nichtmedizinische Regulierung
+  einen leeren Unfall-Wrapper erzeugt;
+- `medical_cost_settlement` und `damage_cost_settlement` fachlich verschmolzen
+  oder ihre Payer-/Versicherungsablaeufe aufeinander uebertragen werden;
+- `Claim` als eigene Mappm-Entitaet oder Matchingziel eingefuehrt wird;
+- Unfallvarianten in Park-, Wasser-, Feuer- oder andere Kleinsttypen
+  vervielfacht werden;
+- eine vorgeschlagene Polizze als bestaetigte Deckung, Zustaendigkeit oder
+  Leistung gelesen wird;
 - Mappm Versicherungsdeckung, erwartete Leistung oder Erstattung berechnet;
 - Backend/Core Assist fuer einen neuen leichten/geführten Case keinen Titel
   vorschlaegt.

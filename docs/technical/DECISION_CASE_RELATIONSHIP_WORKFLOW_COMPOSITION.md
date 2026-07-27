@@ -2,7 +2,7 @@
 title: "Decision - Case Relationships and Workflow Composition"
 description: "Verbindliches Mappm-Modell fuer eigenstaendige Vorgaenge, typisierte Beziehungen, Workflow-Schritte, Ablaufzweige, Custom-Vorgaenge und Bottom-up-Komposition"
 tags: [decision, product, cases, workflows, relationships, custom-cases, tasks, agenda]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-24"
 status: "accepted"
 owner: "product-concept"
 ---
@@ -23,7 +23,7 @@ optional goal, timeline, tasks and workflow instance.
 
 The Case is deliberately generic. At its lightest it is a named, searchable
 collection/context for one or more linked documents. Domain template, workflow
-definition, tasks, Claims, appointments, financial entries and completion
+definition, tasks, appointments, financial entries and completion
 outcome are optional enrichments, not Case subtypes or construction
 requirements. Users are not asked to choose from an exhaustive Case-type list.
 Backend/Core Assist proposes a plain-language title and the most relevant
@@ -80,7 +80,7 @@ Use this test before splitting work:
 > Would this work remain an independently understandable goal with its own
 > lifecycle and outcome if the surrounding Case were hidden?
 
-If no, it remains a step, event, task, claim, submission or conditional branch
+If no, it remains a step, event, task, submission or conditional branch
 inside the current Case. If yes, it may become another linked Case. This test
 governs splitting meaningful work; it does not prohibit a lightweight Custom
 Case used as the first primary context for an otherwise unmatched document.
@@ -115,7 +115,7 @@ A Case workflow distinguishes these concepts:
 | task | user action with status, due date and optional reminder |
 | event | something that happened and belongs to the timeline |
 | branch/track | conditional, parallel or sequential work inside the same Case |
-| claim/submission | structured request to an institution with its own local status and amounts |
+| submission | repeatable confirmed action/event that sends material to an external party; it is not a Case or separate domain entity |
 | linked Case | independently meaningful goal reached through a typed relation |
 
 A workflow definition may contain mandatory steps, conditional steps,
@@ -123,13 +123,24 @@ parallel/sequential branches and explicit escalation points. A branch is not a
 Case by default. It can later be promoted to a linked Case without copying
 files, facts or history.
 
-## Medical Cost-Settlement Claim Semantics
+## Keine Claim-Entitaet
+
+Mappm besitzt keine eigene `Claim`-Entitaet. Ein fachlich erkennbarer Anspruch
+oder eine externe `Claim Number` bleibt Terminologie beziehungsweise ein Fact;
+er wird nicht zum Repository, Matchingziel oder parallelen Arbeitsobjekt.
+
+Eine eigenstaendig verfolgte Versicherungsabwicklung ist ein normaler Case
+nach `DECISION_INSURANCE_SETTLEMENT_MODEL.md`. Einreichungen und
+Nachreichungen sind wiederholbare Ereignisse beziehungsweise Workflow-Schritte
+im passenden Case. Dokumente werden nur Cases und Records zugeordnet.
+
+## Medical Cost-Settlement Submission Semantics
 
 The medical-specific authority is
 `DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md`. Its accepted core uses one
 neutral medical care anchor and one `part_of` cost-settlement Case per
-independent economic obligation. Payer submissions remain Claims inside that
-cost Case.
+independent economic obligation. Bestaetigte Payer-Einreichungen bleiben
+wiederholbare Events/Workflow-Schritte inside that cost Case.
 
 ```text
 Case: Arztrechnung vollstaendig abrechnen
@@ -138,28 +149,58 @@ Case: Arztrechnung vollstaendig abrechnen
   show an explicit user default first when submission is invoked
   submit to the confirmed payer
   wait for response/payment and reconcile outcome
-  activate another user-confirmed payer Claim only when requested/evidenced
+  activate another user-confirmed payer submission only when requested/evidenced
   reconcile total reimbursement and own share
   close with explicit outcome
 
-  Claim: social insurance
-  Claim: supplementary insurance
+  Submission events: social insurance
+  Submission events: supplementary insurance
 ```
 
-The two payer Claims are not Subcases. Documents from different insurers are
-linked to the same Case and to the relevant Claim using roles such as
-`submission`, `response`, `decision` or `payment_proof`.
+The payer paths are not Subcases and not Claims. Documents from different
+insurers are linked to the same Cost Case with the relevant payer/party,
+reference Facts and roles such as `submission`, `response`, `decision` or
+`payment_proof`.
+
+Medical Cost Settlement is not the universal cost model. Its optional social-
+and supplementary-insurance submission paths are domain-specific and remain
+separate from Damage Cost Settlement.
 
 Hospital, outpatient care and provider changes do not split the Care Case by
 themselves. Reha, Nachsorge and later evidence are matched per document against
 existing and possible new linked Care Cases. Continuity prefers the existing
 Case; an independently understandable course may rank a new linked Case first.
-The user confirms either outcome. In M1, a new medical related/Subcase starts
-from one anchor document or explicit intent; the product does not require a
-manual multi-document split. Later documents are matched and linked
-individually. Recurrence is optional planning on a finite Care Case, not a Case
-type. Special contractual insurance benefits are not specialized by the
-medical core. Mappm performs no coverage or benefit calculation.
+The user confirms either outcome. In M1, a new related Medical Case or
+`part_of` child Case starts from one anchor document or explicit intent; the
+product does not require a manual multi-document split. Later documents are
+matched and linked individually. Recurrence is optional planning on a finite
+Care Case, not a Case type. Special contractual insurance benefits are not
+specialized by the medical core. Mappm performs no coverage or benefit
+calculation.
+
+## Accident/Damage Cost-Settlement Semantics
+
+The accident-specific authority is
+`DECISION_ACCIDENT_DAMAGE_SETTLEMENT_MODEL.md`. Its accepted core uses one
+`accident_or_damage_settlement` Case per event/discovery and regulation context.
+Only the coarse optional routing variants accident, vehicle accident, property
+damage and theft/loss are part of the current fachlicher model.
+
+Eine konkrete Abwicklung mit einem Versicherer darf als normaler
+`insurance_settlement`-Case `part_of` des Unfall-/Schaden-Case werden. Mehrere
+Rechnungen sowie mehrere Einreichungen/Nachreichungen bleiben in dieser
+Versicherungsabwicklung. Jede unabhaengig verfolgte wirtschaftliche
+Verpflichtung **kann** zusaetzlich ein normaler `damage_cost_settlement`-Case
+werden; sie wird nicht pro Rechnung erzwungen. Policies remain Records;
+suggested policy relations never prove coverage, responsibility or expected
+payment.
+
+`Medizinischer Unfall` is a user-facing entry/routing variant directly to
+`medical_care`, not another Case entity and not an empty accident wrapper. Only
+when nonmedical accident regulation becomes an independent concern is an
+accident/damage Case added and linked so that the Medical Care Case is
+`caused_by` it. Medical and damage cost-settlement Cases may share technical
+primitives, but not one fachlicher catalog ID or payer workflow.
 
 ## Motor Accident Example
 
@@ -171,14 +212,34 @@ Case: Autounfall vom 12.07.2026 regulieren
   involve police when applicable
   notify insurers
   assess and repair damage
-  track claims and payments
+  track insurance handling and payments
   review medical and legal consequences
   close or hand off independent consequences
+
+  Case: Abschleppkosten abrechnen
+    part_of -> Autounfall vom 12.07.2026 regulieren
+
+  Case: Werkstattrechnung abrechnen
+    part_of -> Autounfall vom 12.07.2026 regulieren
+
+  Case: Versicherungsabwicklung mit Kaskoversicherung
+    part_of -> Autounfall vom 12.07.2026 regulieren
+    references both confirmed damage-cost Cases where useful
+
+Case: Knieverletzung behandeln
+  caused_by -> Autounfall vom 12.07.2026 regulieren
+
+  Case: Arztrechnung abrechnen
+    part_of -> Knieverletzung behandeln
 ```
 
 - Police involvement is normally a conditional step, event and document source.
-- Repair is normally a branch with estimate, work and invoice.
-- Insurer interactions are normally Claims within the accident Case.
+- Repair is normally a branch with estimate and work; each independently tracked
+  invoice/payment/reimbursement obligation may be a `part_of` Damage Cost
+  Settlement.
+- Eine eigenstaendig verfolgte Versicherungsabwicklung ist ein normaler
+  `part_of`-Case und darf mehrere Kosten sowie wiederholte Einreichungen
+  enthalten. Einreichungen selbst erzeugen keine weiteren Cases.
 - A confirmed independent medical treatment course may become a
   `medical_care` Case linked through `caused_by`; temporal proximity alone is
   insufficient.
@@ -200,8 +261,8 @@ Manual/Custom and guided Cases use the same entity and capabilities.
 | `assist_suggested` | Assist proposes a Case and evidence; user confirms |
 | `guided_workflow` | Case pins an approved workflow definition/version |
 
-A manual Case may start with only an automatically proposed/confirmed title,
-Managed Subject and one document. Tasks, appointments, Claims, workflow and a
+A manual Case may start with only a conservatively proposed and confirmed
+title, the user-selected Managed Subject and one document. Tasks, appointments, workflow and a
 detailed completion outcome are optional. It may later adopt a compatible
 published workflow after an explicit preview and confirmation. Existing
 documents, tasks and history remain intact.
@@ -218,7 +279,7 @@ Mappm supports both directions.
 ### Top-down
 
 1. Create a Case manually or from a workflow.
-2. Add documents, Records, tasks, Claims and linked Cases.
+2. Add documents, Records, tasks and linked Cases.
 3. Let Assist propose additional matching content.
 
 ### Bottom-up
@@ -247,26 +308,35 @@ exists because users often recognize the larger context late.
 ## Capture and Matching
 
 Global capture is document-first. Automatic matching always runs after durable
-capture and Backend/Core Assist must propose a title as well as:
+capture. Backend/Core Assist must propose a conservative title without a
+default date and rank:
 
 - an existing Case;
 - a compatible Record;
-- a managed person or organization;
-- a Claim or workflow branch;
-- a new manual or guided Case;
-- a relation to an existing Case.
+- a new lightweight manual or, where confirmed context supports it, guided
+  Case.
+
+The Managed Subject comes from the visible user-selected management context.
+A workflow branch, insurance-settlement Case, additional Case or relation is
+an optional best-effort candidate after its Backend feasibility gate and
+always requires user confirmation.
+
+The user may optionally provide known type/useful subtype, confirmed facts,
+Managed Subject, coarse routing, new-Case intent or an existing Case during
+capture. These hints retain user provenance and never replace analysis or
+matching.
 
 Current-release Case/Record assignments and material consequences require user
 confirmation. Selecting **Neuen Vorgang starten** is a strong explicit intent
-for a new primary Case but does not disable outlier, duplicate or additional-
-relationship matching. Exact rules are in
+for a new primary Case but does not disable duplicate or optional additional-
+relationship ranking. It is never semantically marked as Wrong-Case. Exact
+rules are in
 `DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md`.
 
 Assist must not infer a broad life event from one weak signal. An internet
 termination confirmation does not prove a move. It belongs first to the
 internet contract context. A move relation is added only from explicit user
-context, a confirmed prior relationship or sufficiently explained multi-source
-evidence requiring review.
+context or a separately presented and confirmed relationship proposition.
 
 ## Agenda, Appointments and Evidence
 
@@ -298,9 +368,13 @@ Stop implementation if:
 - closing/deleting a parent cascades into linked Cases;
 - weak evidence silently creates a life-event Case;
 - a workflow branch cannot be promoted or linked without losing history;
-- Custom Cases lack the capabilities available to guided Cases.
+- Custom Cases lack the capabilities available to guided Cases;
 - lightweight Custom Cases are forced to invent tasks, dates, workflow or an
   outcome before the captured document can be reviewed;
 - `follow_up_to` is implemented as parent ownership or cascade deletion;
 - capture requires users to configure Case relations/roles before analysis;
+- a medical accident creates an empty accident wrapper or Medical and Damage
+  Cost Settlement are merged into one domain workflow;
+- pro Rechnung oder Einreichung ein Versicherungs-Case entsteht;
+- `Claim` als eigene Mappm-Entitaet oder Matchingziel eingefuehrt wird;
 - Backend/Core Assist omits an editable title proposal for a new Case.

@@ -33,6 +33,14 @@ For Account/Vault/Assist work additionally cross Free/Paid entitlement, Local
 and Cloud authority, bounded offline session, Assist quota/opt-out/manual
 fallback and Detached Recovery. Tests must prove Assist processing never changes
 Vault authority or implies backup.
+Also prove the small-/medium-model boundary: user-selected Managed
+Subject/Case context is not semantically contradicted, recipient may stay
+empty, type-relevant date fields expose a top proposal, detected alternatives,
+no-date/manual-entry fallback and no effect before visible confirmation, one
+invoice total is proposed, mixed semantic pages stay one generic logical
+document, and no autonomous workflow/deadline/relation truth is fabricated.
+Prove M1 correction does not imply training/document donation. Cover technical
+poor-scan guidance as non-blocking.
 
 For F37 work additionally cover all applicable `CaseLink` types and direction,
 `part_of` cycle rejection, link/update/unlink without content loss, Custom and
@@ -43,6 +51,10 @@ confirmed values, row instead of chart for one value, accessible chart detail
 for multiple values, variable-bill wording, managed person/organization versus
 ExternalParty, tax candidate versus confirmed status, and quiet/notifying
 reminder privacy.
+
+For F38 work additionally cover real-stage mapping, early/ranking proposal
+versioning, background/restart, Review Queue, partial failure, privacy-safe
+readiness, Reduced Motion and absence of fake progress.
 
 ## Fixture Rules
 

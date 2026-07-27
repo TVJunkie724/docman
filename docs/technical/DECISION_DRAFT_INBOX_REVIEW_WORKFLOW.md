@@ -66,7 +66,8 @@ Modelloutput bleibt unbestätigt.
 
 Gemischte Batches dürfen nach vorgeschlagenem Kontext gruppiert werden. Jede
 gemeinsame Bestätigung muss alle betroffenen Dokumente sichtbar oder
-inspizierbar machen; Outlier, Unsicherheit und Teilfehler bleiben separat.
+inspizierbar machen; nicht bestaetigte Items und technische Teilfehler bleiben
+separat. Semantische Outlier-/Dokumentkohaerenzerkennung ist kein M1-Vertrag.
 
 Wiederaufnahme behält Dokument, Original, Historie und erfolgreiche
 Batch-Ergebnisse. Nur die betroffene Zuordnung oder Folge kehrt ins Review

@@ -34,14 +34,24 @@ Do not use one layer as a substitute for the other.
 4. Core Assist queue/review/quota/opt-out/provider-failure behavior without
    authority changes or data loss.
 5. Mobile capture queue and retry reliability.
-6. Multi-page/mixed-batch split, outlier, partial success and original traceability.
+6. Multi-page/mixed-batch technical integrity, explicit Mobile/Desktop
+   boundary preservation, partial success and original traceability. Tests must
+   prove mixed semantic content is not rejected, invalidated or auto-split in
+   the current release.
 7. Mandatory generated-title proposals, review provenance and no overwrite of
    confirmed titles/links.
 8. High/medium/low-confidence routing, visible-only confirmation and future
    auto-routing abstention/undo/rollback gates.
-9. Drift/local storage correctness and migrations.
-10. Provider/domain logic with deterministic fakes.
-11. Analyzer, format, and CI gates.
+9. Conservative model fixtures: coarse classifications and ambiguous/empty
+   candidates remain usable; type-dependent fields test top proposal,
+   alternatives, no-value/manual fallback and visible confirmation; no test
+   fake may grant profile/case/document conflict detection, page coherence or
+   workflow/relationship truth that the accepted Intelligence contract does
+   not support. M1 fixtures must not imply training/document donation from a
+   normal correction.
+10. Drift/local storage correctness and migrations.
+11. Provider/domain logic with deterministic fakes.
+12. Analyzer, format, and CI gates.
 
 ## Workflow
 

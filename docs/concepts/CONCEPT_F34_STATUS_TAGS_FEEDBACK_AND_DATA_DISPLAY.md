@@ -2,7 +2,7 @@
 title: "Konzept F34 - Status, Tags, Feedback and Data Display"
 description: "Mappm Detailkonzept fuer Statussignale, Tags, Callouts, Empty/Error Feedback, Dokumentzeilen, Typfarben, Fact-Gruppen und Timelines"
 tags: [concept, frontend, design-system, components, status, tags, feedback, data-display, flutter]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-23"
 version: "1.1"
 status: "accepted"
 owner: "ui-concept"
@@ -30,6 +30,8 @@ die nicht Button- oder Form-spezifisch sind.
 | F23 | Component System Umbrella. |
 | F26 | Buttons. |
 | F27-F30 | Forms. |
+| `DECISION_RULE_DERIVED_DEADLINES_REMINDERS.md` | Frist-, Rule-, Quellen- und Reviewstatus. |
+| `DECISION_CONTEXTUAL_REVIEW_ACTIONS_FINANCIAL_ROLLUPS.md` | Haushaltsfinanz-Facts und abgeleitete Zahlungszustaende. |
 
 ## Component Principle
 
@@ -64,13 +66,18 @@ Regeln:
 - Status duerfen nicht nur ueber Farbe verstanden werden.
 - In dichten Listen sind Status-Badges farblich sparsam.
 - Farbe wird staerker nur bei blockierender Handlung oder Systemmeldung.
+- Eine regelbasierte Frist kann zusaetzlich `review_due`,
+  `change_detected`, `superseded` oder `withdrawn` tragen. Dieser Status ist
+  von offen/erledigt und vom Reminder-/Notification-Status getrennt.
+- Quellenstand und Regelstatus muessen ueber progressive Offenlegung
+  erreichbar sein, ohne jede kompakte Zeile mit Rechtsmetadaten zu ueberladen.
 
 ## Workflow Labels
 
 Verwendung:
 
 - Dokument-/Vorgangsstatus.
-- Claim-/Einreichungsstatus.
+- Einreichungs-/Erstattungsstatus im passenden Case.
 - Queue-, Processing- und Cloud-Bestaetigungszustand.
 
 Regeln:
@@ -192,12 +199,16 @@ Verwendung:
 - verknuepfte Dokumente.
 - Gueltigkeit.
 - laufende Kosten.
+- offene Verpflichtung, tatsaechliche Auszahlung, bestaetigte
+  Erstattung/Eingang und aktueller Nettoaufwand.
 
 Regeln:
 
 - Facts sind kompakte Kacheln oder Rows.
 - sensible Werte im falschen Kontext maskieren.
 - berechnete Werte als readonly kennzeichnen.
+- Status mutiert keinen Betrag; abgeleitete Summen verweisen auf
+  provenienztragende Facts/Ereignisse.
 - Fact-Gruppen duerfen Auswertungen vorbereiten.
 
 ### Timeline

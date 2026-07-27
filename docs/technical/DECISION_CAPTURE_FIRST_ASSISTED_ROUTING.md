@@ -1,9 +1,9 @@
 ---
 title: "Decision - Capture-First Assisted Document Routing"
-description: "Verbindliches Mappm-Zielmodell fuer globales Capture, asynchrone Backend-/Assist-Verarbeitung, automatische Titelvorschlaege, Batch-Trennung, Case-/Record-Matching, menschliche Bestaetigung und spaetere selektive Automatisierung"
+description: "Verbindliches Mappm-Zielmodell fuer globales Capture, asynchrone typabhaengige Assist-Vorbelegung, konservative Titel, best-effort Case-/Record-Ranking und menschliche Bestaetigung"
 tags: [decision, product, capture, intelligence, ocr, routing, review, cases, records, batch, titles]
-lastUpdated: "2026-07-20"
-status: "accepted-direction"
+lastUpdated: "2026-07-25"
+status: "accepted-rebaseline"
 owner: "product-concept"
 ---
 
@@ -11,10 +11,13 @@ owner: "product-concept"
 
 ## Status und Wirkung
 
-Accepted as the product direction on 2026-07-15. This decision rebaselines the
-older manual M2 capture/review assumptions. Where older decisions describe
-OCR/AI, batch processing, title suggestions or mobile review as optional later
-additions, this decision is authoritative for the Commercial Core.
+Accepted as the product direction on 2026-07-15 and clarified on
+2026-07-25 against the Intelligence contract in
+`DECISION_INTELLIGENCE_SCOPE.md`. Where older decisions describe OCR/AI,
+batch processing, title suggestions or mobile review as optional later
+additions, this decision is authoritative for the Commercial Core. It does not
+promise deep semantic interpretation, subject-conflict detection or
+relationship inference.
 
 Concrete UI composition, gestures, screen layouts and wording remain a later
 UI-concept and usability decision. The product behavior, trust boundaries and
@@ -24,19 +27,19 @@ processing states in this decision are normative.
 
 Mappm is capture-first:
 
-> Der Nutzer erfasst ein Dokument. Mappm erschliesst die fachliche Struktur aus
-> dem kontinuierlichen Dokumenteingang und laesst nur das relevante Ergebnis
-> bestaetigen oder korrigieren.
+> Der Nutzer erfasst ein Dokument. Mappm liest und klassifiziert es grob,
+> bereitet einen konservativen Titel und passende Ablagekandidaten vor und
+> laesst die fachliche Einordnung einfach bestaetigen oder korrigieren.
 
 The user must not be required to understand or manually configure document
-roles, workflow branches, Claims, Case relations, extraction fields or routing
+roles, workflow branches, Case relations, extraction fields or routing
 rules before capture. A product that replaces paper sorting with large forms
 has missed its purpose.
 
 The normal current-release flow is:
 
 ```text
-open global capture
+open global capture in visible Managed-Subject context
   -> scan/import document material
   -> local quality and durability check
   -> asynchronous backend/Core Assist processing
@@ -47,31 +50,81 @@ open global capture
 ```
 
 Capture from inside a Case or Record remains supported as a secondary path for
-deliberate additions. It is not the assumed everyday ingestion route.
+deliberate additions. It may expose context-specific capture capabilities, for
+example a named accident photo collection or the accepted desktop-only
+medical media-package import. It is not the assumed everyday ingestion route.
 
-## Capture Entry Intent
+## Managed Subject beim Capture
+
+Jede Capture-Einheit beginnt in einem sichtbaren Managed-Subject-Kontext:
+
+- Bei nur einem relevanten Profil darf dieses sichtbar vorausgewaehlt sein.
+- Bei mehreren verwalteten Personen/Organisationen waehlt oder bestaetigt die
+  Nutzerin den betroffenen Kontext zu Beginn beziehungsweise startet Capture
+  bereits aus dessen Profil.
+- Case-/Record-scoped Capture erbt den bestaetigten Managed Subject des
+  Kontextes und verlangt keine erneute Auswahl, bis die Nutzerin ihn bewusst
+  aendert.
+- Ein Subject-Wechsel waehrend einer Multi-Dokument-Session gilt nur fuer
+  ausdruecklich danach erfasste Dokumente.
+
+Die Nutzerangabe ist bestaetigte Provenienz und beschreibt den gewuenschten
+Verwaltungs-/Relevanzkontext. Sie muss nicht mit gedrucktem Empfaenger,
+genannter, versicherter, behandelter oder zahlender Person uebereinstimmen.
+Ein an Person A adressiertes Haushaltsdokument darf bewusst unter Person B oder
+im gemeinsamen Haushaltskontext verwaltet werden.
+
+Assist erzeugt daraus keinen Profilkonflikt, keine Wrong-Profile-Warnung und
+keine automatische Umordnung. Namen und Empfaenger duerfen als optionale
+Metadatenkandidaten erkannt werden, bestimmen aber weder Managed Subject noch
+Berechtigung oder Routing.
+
+Das ist ein kompakter Kontextschritt beziehungsweise ein sichtbarer
+vorbelegter Subject-Indikator, kein allgemeines Metadatenformular.
+
+## Optionale bekannte Informationen bei der Erfassung
 
 Automatic analysis and matching are always active. They are not a selectable
 capture mode.
 
-Global capture may expose one quiet optional intent: **Neuen Vorgang starten**.
-That intent means the user deliberately wants a new primary Case to emerge from
-the capture. It does not open a title/metadata form and does not disable:
+Global capture remains immediately usable without a Case-, role-, taxonomy- or
+metadata form. Der sichtbare Managed-Subject-Kontext ist die einzige globale
+Pflichtachse und darf sinnvoll vorbelegt sein. While capturing and before
+leaving the flow, the user may optionally provide only information they
+already know, including:
 
-- document classification and fact extraction;
+- document base type and a useful semantic subtype/variant;
+- confirmed facts such as `paid` or a request to review the document for a tax
+  collection context;
+- a correction of the current Managed Subject or managed organization;
+- a coarse fachlicher context or routing variant;
+- explicit intent to start a new Case;
+- a deliberate assignment to an existing Case.
+
+These are independent product-data axes, not a required sequence and not a
+decision about exact labels, controls or screen composition. Progressive
+disclosure may expose only contextually useful axes. A large taxonomy picker,
+blank title form or mandatory pre-classification is prohibited.
+
+User-provided values retain user provenance. Assist may fill missing coarse
+data, but does not semantically police or silently overwrite the supplied
+context. All supported automatic processing remains active regardless of
+supplied information:
+
+- OCR, coarse document/domain classification and simple metadata candidates;
 - automatic title generation;
-- workflow and next-step suggestions;
 - duplicate and existing-context checks;
-- proposals for additional links to existing Cases or Records;
-- outlier detection when a batch contains unrelated material.
+- coarse Case-/Record ranking.
 
-Selecting an existing Case before global capture is not required for the core
-flow. Existing-Case selection may remain accessible as a secondary shortcut or
-through correction/review, but must not crowd the capture surface. Case-scoped
-capture already supplies explicit context when the user intentionally enters
-through a Case.
+Explicit new-Case intent is a strong request for a new primary Case, but it
+does not suppress duplicate or coarse existing-context ranking. Existing-Case
+selection is equally optional and remains authoritative until the user changes
+it. Case-scoped capture already supplies that context when the user
+intentionally enters through a Case; Assist does not later flag this as a
+semantic wrong-Case error. Exact default visibility remains a later
+UI/usability decision.
 
-## Asynchronous Processing Contract
+## Progressive Asynchronous Processing Contract
 
 Reliable Case matching requires enough document content to be available. The
 pipeline therefore runs after durable capture and may take seconds or minutes,
@@ -81,29 +134,50 @@ latency, retries and selected processing capabilities.
 One to two minutes is a valid UX scenario, not a timeout assumption. Exact
 service-level targets must be established from production-like benchmarks and
 must include median and tail latency. The app must never require the user to
-keep a blocking spinner open while processing.
+keep a blocking spinner open while processing. Die sichtbare Warte- und
+Background-Erfahrung folgt
+`../concepts/CONCEPT_F38_ASYNC_PROCESSING_WAIT_EXPERIENCE.md`.
 
 Conceptual pipeline:
 
 ```text
 durably capture original material
-  -> validate file/page integrity and scan quality
+  -> persist optional user-provided context/facts with provenance
+  -> validate technical file/page integrity and scan quality
   -> upload or queue according to Vault mode
-  -> normalize pages and validate declared logical document boundaries
+  -> normalize the user-declared logical document
   -> generate preview
-  -> extract text / OCR
-  -> classify document base type and optional semantic variant
-  -> extract actors, references, dates, amounts, deadlines and other facts
+  -> parse layout/text and run OCR where required
+  -> classify broad document base type and coarse domain
+  -> extract simple text/value candidates with source locations
   -> update searchable index artifacts
-  -> retrieve candidate Records, Cases, Claims and workflow definitions
-  -> rank primary and additional-context matches
-  -> propose title, metadata, relations, workflow slots and next actions
+  -> retrieve and rank coarse Case/Record candidates
+  -> propose one conservative title and only relevant simple values
   -> prepare a reviewable result
 ```
 
-Stages may run concurrently where their dependencies allow. Indexing and full
-semantic search may continue after an early proposal, but the UI must not
-present an unstable partial result as final.
+Stages may run concurrently where their dependencies allow. Productseitig
+wird zwischen zwei Ergebnisreifestufen unterschieden:
+
+1. **Fruehe Extraktion** darf fuer geeignete, vom Backend belegte
+   Dokumentklassen breite Dokumentart, grobe Domain, einen wahrscheinlichen
+   Gesamtbetrag, einfache Datums-/Referenzkandidaten und einen ersten Titel
+   vorschlagen.
+2. **Spaeteres Ranking** ergaenzt vollstaendigen durchsuchbaren Text und grobe
+   Case-/Record-Kandidaten. Es verspricht keine Beziehung, Kausalitaet,
+   betroffene Person, Workflowrolle, erwartete Antwort oder semantische
+   Fehlererkennung.
+
+Hat die Nutzerin Typ, Subject, Case oder andere Facts bereits angegeben,
+werden diese nicht erneut als konkurrierende Defaults behandelt. Die Analyse
+fuellt nur fehlende Vorschlagswerte; sie meldet keine semantischen
+Widersprueche zwischen Text und Userabsicht.
+
+Indexing and full semantic search may continue after an early proposal. Jede
+Proposal-Stufe ist versioniert und provenienztragend; eine spaetere Stufe darf
+fruehere bestaetigte Werte nicht ueberschreiben. Welche Stufen und Latenzen im
+aktuellen Zielrelease verlaesslich sind, bleibt BF-001/BF-002/BF-012 im
+`../execution/handoffs/DOMAIN_BACKEND_FEASIBILITY_REGISTER.md`.
 
 Conceptual states include:
 
@@ -111,7 +185,7 @@ Conceptual states include:
 captured locally
 queued for transfer or processing
 uploading / transferred
-quality review required
+scan quality hint available
 processing
 proposal ready
 user review required
@@ -126,22 +200,23 @@ states must survive app restart, network changes and provider retries.
 ## Scan Quality and Partial Failure
 
 Recognition quality will vary strongly with capture quality and document
-complexity. Mappm promises a safe, fast correction path, not infallible AI.
+complexity. Mappm promises a safe, fast correction path, not infallible AI or
+semantic error detection.
 
 Fast local checks should detect conditions such as:
 
 - missing or cut-off page regions;
 - unreadable blur;
 - severe glare or shadow;
-- duplicate pages;
-- a newly added page that likely belongs to another document;
+- exact/near-exact duplicate pages where a technical detector supports it;
 - unexpected orientation;
-- page order uncertainty;
 - unsupported or corrupt files.
 
 Where possible, a likely defective scan is surfaced before expensive remote
-processing. The user may rescan, deliberately continue, remove a page or cancel.
-One defective item in a batch must not discard successfully captured items.
+processing as non-blocking guidance. The user may rescan, deliberately
+continue, remove a page or cancel. Only a technical corruption, unsupported
+format or failed durable import may block acceptance. One defective item in a
+batch must not discard successfully captured items.
 
 Processing failures retain the original material and the last trustworthy
 state. Retry never creates silent duplicate documents or Cases.
@@ -177,31 +252,41 @@ batches remain required product scenarios. Their boundaries differ:
 
 - mobile scan boundaries are explicit and authoritative by default;
 - each selected desktop file is one initial logical document by default;
-- an imported compound PDF/file may require a reviewed split;
-- an accidental page mismatch inside one scan is a quality warning, not the
-  normal document-segmentation workflow.
+- ein importiertes PDF, das Rechnung und Zahlungsnachweis desselben
+  Sachverhalts enthaelt, darf im aktuellen Zielrelease nur dann als ein
+  Dokument mit mehreren Rollen/Facts angenommen werden, wenn Backend und Data
+  diese Analyse fuer den Zielrelease ausdruecklich freigeben;
+- enthaelt eine Datei mehrere unabhaengige Dokumente oder Sachverhalte, bleibt
+  sie im aktuellen Zielrelease ein logisches, gegebenenfalls generisch
+  behandeltes Dokument; sie wird weder automatisch aufgeteilt noch deswegen
+  abgelehnt oder `invalid`;
+- ein mutmasslicher inhaltlicher Seitenwechsel ist in M1 keine
+  Scanqualitaetswarnung und kein verpflichtender Segmentierungsworkflow.
 
 The processing pipeline must:
 
 - retain original source artifacts and page order;
 - persist each explicit document boundary before the next document begins;
-- validate page coherence and offer **Als neues Dokument beginnen** when a new
-  page likely belongs elsewhere;
-- propose split/merge only for imports or correction of a likely user mistake;
 - process and match each logical document independently;
 - use the common capture session only as a weak contextual signal;
 - cluster compatible results for efficient review;
-- identify likely outliers instead of forcing the whole batch into one Case;
-- permit split, merge, reorder and reassignment without destructive rewriting;
+- permit page reorder and document reassignment without destructive rewriting;
 - preserve traceability from each logical document to its original pages/files.
 
 The system must not depend on AI to separate an intentionally mixed paper stack
 after capture. Efficient repeated scanning comes from closing one document and
 immediately starting the next while keeping the shared session/queue.
 
-If **Neuen Vorgang starten** was selected, the shared-new-Case intent is a
-strong user signal, not an absolute rule. Mappm still flags an unrelated invoice,
-letter or identity document rather than silently placing it in that new Case.
+Ein spaeteres Release darf eine reversible Import-Segmentierung nur nach
+eigenem Backend-/Data-/UX-Contract einfuehren. Sie ist kein stiller Bestandteil
+des aktuellen Capture-Vertrags.
+
+If a shared new-Case intent or existing-Case assignment was supplied, it is a
+strong user signal. Mappm does not semantically police this choice. Weitere
+Case-/Record-Kandidaten duerfen best-effort vorgeschlagen werden, aber eine
+bewusste Zuordnung wird weder als Wrong-Case noch als Outlier markiert.
+Document-level user values apply only to the logical document for which they
+were supplied unless the user explicitly applies them more broadly.
 
 The current review model may allow one deliberate confirmation for a visible
 batch grouping. Such confirmation only accepts the assignments and consequences
@@ -231,7 +316,7 @@ contain only:
 - one document;
 - optional minimal provenance.
 
-It does not require tasks, appointments, Claims, a workflow definition or an
+It does not require tasks, appointments, a workflow definition or an
 already elaborated completion outcome. It has the same capability ceiling as
 every other Case and may later receive more documents, adopt a compatible
 guided workflow, gain tasks or relationships, or remain a quiet single-document
@@ -255,15 +340,14 @@ Title generation may combine deterministic rules and model output using:
 
 - confirmed or extracted document base type/semantic variant;
 - issuer/provider or relevant external party;
-- Managed Subject where needed for disambiguation;
-- service, issue or event date;
-- stable reference/contract/claim identifiers where safe and useful;
+- stable reference, contract, damage or external case identifiers where safe
+  and useful;
 - matched Record or Case context;
-- the selected domain template and applicable optional workflow version;
-- coherent facts from multiple documents in the same proposed Case.
+- the selected coarse domain or bestaetigten Case-/Record-Kontext.
 
 Titles must be useful for scanning and enterprise search, avoid fabricated
-facts and remain editable. Sensitive details must not leak into push
+facts, enthalten standardmaessig kein Datum and remain editable. Sensitive
+details must not leak into push
 notifications, logs, analytics or lock-screen text. Generic fallback titles are
 allowed only when evidence is insufficient and must remain easy to correct.
 
@@ -273,20 +357,34 @@ but may not silently overwrite a confirmed one.
 
 ## Automatic Proposals Beyond Titles
 
-Backend/Core Assist processing automatically prepares proposals for all
-supported relevant outcomes, including:
+Backend/Core Assist processing prepares the best currently supported
+proposals. Core scope includes:
 
 - document base type and optional semantic variant;
-- Managed Subject;
-- sender, issuer, recipient and other external parties;
-- dates, references, amounts, deadlines and expected responses;
+- coarse domain;
+- sender or issuer where sufficiently supported;
+- typabhaengig relevante Datums-/Zeitfelder mit semantischem Top-Kandidaten,
+  erkannten Alternativen und manuellem Fallback;
+- relevante Referenzen und fuer Rechnungen einen wahrscheinlichen
+  Gesamtbetrag;
 - primary Case or Record;
-- additional Cases, Records or Claims;
-- document role and workflow slot per relationship;
-- suitable domain template and optional workflow definition/version;
-- Case links such as `part_of`, `caused_by`, `follow_up_to` or `related_to`;
-- next task, appointment, reminder or expected document;
 - a new lightweight Custom or guided Case when no existing context fits.
+
+Nicht als verlaesslicher Pflichtoutput vorausgesetzt werden Managed Subject,
+Empfaenger, fehlerfreie Datumsabdeckung, rechtliche oder vertragliche
+Fristberechnung, erwartete Antwort, Workflowrolle/-slot, Lebenssachverhalt,
+Kausalitaet oder Beziehung. Wahrscheinliche Datumsbedeutungen duerfen als
+sichtbar korrigierbare Feldvorbelegung vorgeschlagen werden.
+Zusaetzliche Cases/Records und Case-Beziehungen duerfen best-effort
+vorgeschlagen werden, wenn der konkrete Feasibility-Nachweis dies traegt.
+Jede solche Zuordnung bleibt bestaetigungspflichtig und besitzt Suche sowie
+manuelle Verknuepfung als Fallback.
+
+Routing and matching have only Cases and Records as fachliche target objects.
+Mappm has no Claim target. A concrete insurance handling context is proposed
+as a normal `insurance_settlement`-Case; an individual submission or
+resubmission remains an event in that Case and is never another matching
+container.
 
 "Automatically prepared" does not mean "automatically finalized" in the first
 release maturity. External submissions, cancellations, payments, sharing and
@@ -294,19 +392,18 @@ other consequential actions remain explicit user actions in every maturity.
 
 ## Matching and Ranking
 
-Case/Record matching is document-first and uses available strong signals before
-broader semantic similarity. Candidate evidence may include:
+Case/Record matching is document-first and uses available confirmed or simple
+signals before broader semantic similarity. Candidate evidence may include:
 
-1. claim, policy, contract, authority or other stable reference identifiers;
-2. Managed Subject;
-3. expected document base types/variants or roles in an active workflow;
-4. sender, issuer, recipient or institution;
-5. document, service, treatment or event dates;
-6. amount and payment/reference data;
-7. prior submissions and expected responses;
-8. known contracts, policies, assets and Records;
-9. temporal proximity to confirmed appointments/events;
-10. semantic content and prior confirmed corrections.
+1. ausdruecklich gewaehlter Case/Record oder neue-Case-Absicht;
+2. sichtbarer User-/Managed-Subject-Kontext;
+3. bestaetigte stabile Referenzen;
+4. grobe Dokumentart beziehungsweise Variante und Domain;
+5. einfach erkannter Aussteller, Gesamtbetrag und bestaetigte beziehungsweise
+   vorgeschlagene typrelevante Zeitwerte;
+6. Volltext-/semantische Aehnlichkeit als schwaches Signal;
+7. previously confirmed Facts, links and Records in the same authorized
+   context; M1 does not learn a model or user pattern from correction history.
 
 Session proximity alone is never a strong enough reason to merge documents.
 The matcher may propose multiple Case/Record links because one document can be
@@ -350,8 +447,12 @@ In the first maturity:
 
 - the best supported result is prepared as the default proposal;
 - every primary Case/Record assignment is confirmed by the user;
-- additional Case/Claim/Record relations are confirmed when proposed;
-- important generated tasks, deadlines and workflow consequences are confirmed;
+- additional Case/Record relations are confirmed when proposed;
+- verwendete Facts, ihre Bedeutung und materielle Folgen werden sichtbar
+  bestaetigt;
+- harmlose, interne und reversible Aufgaben oder erwartete Antworten, die
+  deterministisch aus bereits bestaetigten Facts entstehen, benoetigen keine
+  zweite Bestaetigung;
 - Wiedereroeffnung, bewusstes Geschlossenlassen oder ein neuer verknuepfter
   Case werden als unterschiedliche bestaetigbare Folgen behandelt;
 - the user can correct through the smallest relevant choice surface;
@@ -370,16 +471,17 @@ The default review exposes only information needed to answer:
 
 1. Wo wird dieses Dokument eingeordnet?
 2. Was folgt daraus als naechstes?
-3. Gibt es eine Unsicherheit, Abweichung oder folgenreiche Entscheidung?
+3. Gibt es eine folgenreiche Entscheidung?
 
-Known sender details, unchanged provider data, internal workflow keys, document
-roles and technical metadata remain hidden unless they alter the decision or
+Known sender details, unchanged provider data, internal workflow keys,
+technical metadata and ungenutzte Extraktionskandidaten remain hidden unless
 the user opens details. For example, a known doctor already implied by the
-confirmed Case need not be restated.
+confirmed Case need not be restated. Datumsdetails duerfen alle erkannten
+Kandidaten fuer eine bewusste semantische Zuordnung anbieten.
 
-If a new or conflicting Managed Subject, insurer, deadline or external action
-changes consequences, that fact must become visible. Progressive disclosure
-must never hide a fact whose confirmation is being requested.
+Eine Frist, ein externer Schritt oder eine andere materielle Folge muss sichtbar
+sein, bevor die Nutzeraktion sie bestaetigt. Progressive disclosure must never
+hide a fact whose confirmation is being requested.
 
 ## Future Selective Automation
 
@@ -440,7 +542,7 @@ to `contract-api`. The product decision requires contracts for:
 - proposal retrieval/versioning;
 - title and field provenance;
 - user confirmation/correction;
-- split/merge/reassignment corrections;
+- reassignment and boundary-error corrections;
 - cancellation, retry and safe failure.
 
 ## Privacy, Security and Trust
@@ -452,7 +554,9 @@ titles and model inputs/outputs are sensitive data.
 - Notifications use privacy-safe wording by default.
 - Provider, purpose, retention, training prohibition, region and deletion rules
   follow the accepted Assist/trust decisions.
-- Corrections are not model-training consent.
+- Corrections are not model-training consent. M1 contains no document donation,
+  human analysis-improvement review, online learning or production-data
+  fine-tuning flow.
 - Cross-profile/cross-organization routing must respect access before candidate
   generation and presentation.
 - Raw model output is untrusted input and cannot execute actions directly.
@@ -474,12 +578,15 @@ Before implementation approval, phase/test plans cover at least:
 - good, poor, partial and corrupt scans;
 - single-page, multi-page and reordered-page documents;
 - explicit document completion followed by **Naechstes Dokument scannen**;
-- a likely unrelated page warning and conversion into a new document;
 - related and unrelated mixed batches;
-- reviewed splitting of an imported compound file and correction of a wrong
-  manual boundary;
+- target-release-approved same-context invoice/payment-proof import sowie
+  gemischte Ein-Datei-Inhalte ohne Ablehnung, Invalidierung oder Auto-Split;
+- correction of a wrong manual boundary without destructive rewriting;
 - high/medium/low-confidence routing;
 - existing Case, new guided Case, lightweight Custom Case and Record outcomes;
+- sichtbarer, vorausgewaehlter, geerbter und korrigierter Managed-Subject-
+  Kontext sowie optionale Userangaben fuer Typ/sinnvollen Subtyp, bestaetigte
+  Facts, grobes Routing, neuen und bestehenden Case;
 - mandatory backend/AI title proposal, correction and no overwrite of confirmed title;
 - multiple Managed Subjects and forbidden candidate leakage;
 - app close/restart during every async stage;
@@ -491,6 +598,8 @@ Before implementation approval, phase/test plans cover at least:
 - spaete Evidenz fuer einen abgeschlossenen/archivierten Case ohne automatische
   Wiedereroeffnung sowie bestaetigte Wiedereroeffnung bei neuer Arbeit;
 - visible-only confirmation semantics;
+- bestaetigter unbezahlter Zahlstatus mit direkt abgeleiteter, editierbarer
+  Zahlungsaufgabe ohne zweite Bestaetigung;
 - future auto-routing abstention, undo and rollback gates.
 
 Fixtures use synthetic documents and synthetic OCR/model responses. Real private
@@ -500,14 +609,21 @@ documents are not test fixtures.
 
 Stop implementation if:
 
-- global capture requires profile, Case, role or metadata forms before scanning;
+- global capture requires a blocking profile metadata form, Case, role or
+  general metadata form before scanning instead of the compact visible
+  Managed-Subject context;
+- optional known information is turned into a mandatory sequence, large
+  taxonomy picker or substitute for automatic analysis;
 - automatic matching can be disabled as a normal mode;
 - selecting **Neuen Vorgang starten** leads to a blank mandatory title form;
 - backend/Core Assist does not return an editable title proposal;
 - a batch is treated as one Case merely because files arrived together;
 - mobile capture allows a separate artifact to be intentionally appended as
   another page without an explicit warning/correction path;
-- unrelated outliers are silently forced into the selected/new Case;
+- der aktuelle Zielrelease zerlegt ein importiertes Mischdokument automatisch
+  auf mehrere Dokumente oder Cases;
+- semantisch gemischter Inhalt eine M1-Ablehnung, Invalidierung oder
+  verpflichtende Trennung erzeugt;
 - processing blocks the app or loses state on restart;
 - current-release Case/Record assignments become final without confirmation;
 - mehrere vorhandene Medical-Dokumente als frei zusammengestelltes Paket einen
@@ -518,6 +634,8 @@ Stop implementation if:
 - accepted documents end in an unexplained loose-document UX state;
 - lightweight Custom Cases require fake tasks, dates or outcomes;
 - confirmed titles or relationships are silently overwritten by reprocessing;
+- any user-provided type, subtype, fact or context is silently overwritten by
+  Assist instead of retained or reconciled through review;
 - sensitive titles/content appear in notifications, logs or telemetry;
 - later automatic routing is enabled without class-specific quality evidence,
   abstention, undo and rollback.
@@ -530,7 +648,8 @@ Stop implementation if:
 - exact latency objectives until benchmark evidence exists;
 - concrete OCR/LLM providers and model versions;
 - release-specific automation thresholds and eligible document classes;
-- whether existing-Case selection is exposed as a secondary pre-capture shortcut.
+- exact default visibility, ordering and controls for the accepted optional
+  known-information axes.
 
 These open UI/provider details do not weaken the behavior and trust contract
 above.

@@ -2,7 +2,7 @@
 title: "Decision - Case, Document, Record and Facts Model"
 description: "Entscheidung zu Vorgängen, Dokumenten, Records/Nachweisen, Versionierung, Workflow-Instanzen und strukturierten Fakten als Mappm-Kernmodell"
 tags: [decision, domain-model, cases, documents, records, facts, versioning, workflows, insights]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-24"
 status: "accepted"
 owner: "product-concept/data-architect"
 ---
@@ -36,13 +36,17 @@ Zeitbezogene DocumentFacts und daraus entstehende Ereignisse, Termine,
 Fristen, Aufgaben, erwartete Antworten oder Reminder folgen
 `DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`. Ein Dokument besitzt kein
 universelles fachliches Hauptdatum; technische Zeitstempel bleiben getrennt.
+Mehrere regelbasierte Fristen, Rule-Provenienz, Nutzerbestaetigung und
+Reminder-Updates folgen
+`DECISION_RULE_DERIVED_DEADLINES_REMINDERS.md`.
 
 Der UI-Begriff **Vorgang** bleibt erhalten. Er wird nicht durch **Sammlung** ersetzt. Sammlung klingt zu passiv und beschreibt weder Status, Aufgaben, Timeline noch Prozesskontext gut genug.
 
 Das widerspricht nicht dem schlanken Grundmodell: Ein Vorgang **kann** anfangs
 oder dauerhaft nur eine benannte, durchsuchbare Dokumentensammlung sein.
 `Vorgang` bleibt der breitere UI-Begriff, weil derselbe Case spaeter optional
-Workflow, Aufgaben, Termine, Claims und Beziehungen aufnehmen kann.
+Workflow, Aufgaben, Termine, Versicherungsabwicklungen und Beziehungen
+aufnehmen kann.
 
 Diese Entscheidung steht unter der DMS-Zielarchitektur aus
 `DECISION_DMS_TARGET_ARCHITECTURE.md`: Dokumente sind langfristig eigenständige,
@@ -68,7 +72,7 @@ Beispiele:
 - Vertragsabschluss oder Kündigung.
 - Kurs oder Schulveranstaltung.
 
-Ein Vorgang kann Dokumente, Records, Aufgaben, Ereignisse, Zahlungen, Claims und
+Ein Vorgang kann Dokumente, Records, Aufgaben, Ereignisse, Zahlungen und
 verwandte Vorgänge verbinden. Im Capture-/Processing-Zustand kann ein Dokument
 noch ohne Vorgang existieren; abgeschlossener Review verlangt jedoch einen
 primaeren Case- oder Record-Kontext.
@@ -97,7 +101,7 @@ Dokumente enthalten.
 Minimale Invarianten sind nur stabile Identitaet, Vault-/Ownership-Kontext,
 bestaetigter oder im selben Create-Command angenommener Titel, Managed Subject,
 Lifecycle-Status sowie Erstellungs-/Aenderungsprovenienz. Workflow, Template,
-Dokumente, Tasks, Termine, Claims, Ergebnis und erwartete Unterlagen sind
+Dokumente, Tasks, Termine, Ergebnis und erwartete Unterlagen sind
 optionale Anreicherungen.
 
 Backend/Core-Assist-Vorschlaege sind vor der bestaetigten Anlage keine Cases.
@@ -144,6 +148,14 @@ Beispiele:
 - wichtige Notiz.
 
 Ein Record hat eine aktuelle Version und kann alte Versionen behalten. Eine alte Version kann `superseded`, `expired`, `revoked`, `invalid` oder `archived` sein.
+
+Ein Vertrag oder eine Polizze darf zugleich in einem ruhigen fachlichen
+Vertragskontext erscheinen. Ein tatsaechlich begleiteter Abschluss ist ein
+endlicher Case, dessen Ergebnis der dauerhafte Record sein kann. Normale
+Versionen/Nachtraege erzeugen danach nicht je einen neuen Case. Ein importierter
+Bestandsvertrag erhaelt Record plus Kontext, aber keinen erfundenen
+historischen Abschluss-Case. Details stehen in
+`DECISION_RECURRING_CONTRACT_SUBSCRIPTION_MODEL.md`.
 
 ### DocumentFact / strukturierter Fakt
 
@@ -194,8 +206,12 @@ Es gibt keinen separaten dauerhaften UI-Zustand "eigenstaendiges Dokument".
 Wenn weder ein vorhandener/geführter Case noch ein langlebiger Record passt,
 schlaegt Backend/Core Assist einen leichten Custom Case vor. Dieser darf anfangs
 nur Titel und Managed Subject sowie optional ein Dokument enthalten. Titel,
-Metadaten, Workflow, Aufgaben und Beziehungen werden automatisch vorgeschlagen
-und nur entsprechend der Review-/Automatisierungsreife finalisiert.
+grobe Metadaten und Case-/Record-Kandidaten duerfen vorgeschlagen werden. Der
+Managed Subject bleibt der usergewaehlte Verwaltungskontext. Workflow und
+harmlose reversible Aufgaben folgen erst der bestaetigten Case-Familie oder
+einer konkreten Nutzeraktion; Beziehungen sind optionale,
+bestaetigungspflichtige Vorschlaege. Kleine beziehungsweise mittlere
+General-Purpose-Modelle finalisieren keine fachliche Bedeutung.
 
 Ein Dokument darf mit mehreren Kontexten verbunden sein, ohne dass die Datei
 dupliziert wird. Dauerhaft soll dies ueber explizite Link-Objekte wie
@@ -207,7 +223,7 @@ eingesperrt wird.
 Profile sind keine Ordner. Ein verwaltetes Profil beschreibt, welche Person
 oder Organisation ein Dokument, einen Record, einen Vorgang oder einen Fact
 betrifft oder besitzt. Ein Kind oder ein eigenes Unternehmen kann eigene
-Unterlagen, Verträge, Vorgänge und Claims haben, ohne einen eigenen Login zu
+Unterlagen, Verträge und Vorgänge haben, ohne einen eigenen Login zu
 benötigen. Personen- und Organisationsprofile teilen das Management-Prinzip,
 nicht zwingend Felder, Schutzklasse oder Rechtsregeln.
 
@@ -234,26 +250,34 @@ Der Vorgang erklärt, warum mehrere Records neue Versionen bekommen haben.
 ### Arzt und Versicherung
 
 ```text
-Case: Behandlung / Arztrechnung
+Case: Behandlung bei Dr. Mayer
   lifecycleStatus: active / waiting / review / done
-  workflowStage: reimbursement_in_progress
 
-Document: Arztrechnung
-  Facts:
-    - expense amount
-    - provider
-    - treatment date
+  Case: Arztrechnung Dr. Mayer abrechnen
+    part_of -> Behandlung bei Dr. Mayer
+    lifecycleStatus: active / waiting / review / done
 
-Claim: Sozialversicherung
-  status: submitted / paid / rejected
-  reimbursed amount
-  reimbursed percent
+    Document: Arztrechnung
+      Facts:
+        - obligation amount
+        - provider
+        - treatment date
 
-Claim: Zusatzversicherung
-  status: notSubmitted / submitted / paid / rejected
+    Einreichungsereignisse: Sozialversicherung
+      submitted / waiting / settled / rejected
+
+    Einreichungsereignisse: Zusatzversicherung
+      notStarted / submitted / waiting / settled / rejected
+
+    getrennte Fristen je bestaetigtem Payer
+    bestaetigte Zahlung und Erstattung als Financial Facts
 ```
 
-Erstattungen sind nicht nur Status. Sie sind eigene Claims und Financial Facts.
+Einreichung, Antwort und Erstattung sind provenienztragende Ereignisse und
+Financial Facts im Kosten-Case. Eine weitere eigenstaendig ausgestellte
+Arztrechnung erzeugt einen weiteren `part_of`-Kosten-Case. Korrektur,
+Gutschrift, Zahlungsbeleg und Payer-Antwort zur gleichen Rechnung bleiben im
+selben Kosten-Case. Es gibt keine Claim-Entitaet.
 
 ### Lernunterlage
 
@@ -282,14 +306,19 @@ Case: Autounfall 2026
     - Versicherungsschreiben
     - Anwalts-/Gerichtsschreiben
 
-  Ablaufzweige:
+  Ablaufzweige und verknuepfte Cases:
     - polizeiliche Aufnahme, wenn anwendbar
     - Werkstattreparatur
-    - Versicherungsclaims
+    - Versicherungsabwicklung, die mehrere Rechnungen und Einreichungen
+      enthalten kann
     - medizinische und rechtliche Folgen pruefen
 
-  moegliche verbundene Vorgaenge:
-    - laengerfristige Behandlung, caused_by Autounfall
+  part_of-Vorgaenge:
+    - Versicherungsabwicklung mit Kaskoversicherung
+    - optionale Schadenkosten, wenn eine Verpflichtung unabhaengig verfolgt wird
+
+  moegliche weitere verbundene Vorgaenge:
+    - medizinischer Behandlungsfall, caused_by Autounfall
     - formelles Verfahren, caused_by Autounfall
 ```
 
@@ -297,7 +326,10 @@ Polizei, Werkstatt, Versicherung oder eine erste Untersuchung werden nicht
 allein wegen anderer Akteure, Dokumente oder lokaler Status zu eigenen
 Vorgängen. Ein verbundener Vorgang entsteht erst bei einem eigenständig
 verständlichen Ziel und Lebenszyklus. Details stehen in
-`DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`.
+`DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md` und
+`DECISION_ACCIDENT_DAMAGE_SETTLEMENT_MODEL.md`. Ein rein medizinischer Unfall
+wird direkt als Medical Care gefuehrt und erhaelt ohne eigenstaendige
+nichtmedizinische Regulierung keinen Unfall-Wrapper.
 
 ## Vorgangsbeziehungen
 
@@ -422,9 +454,21 @@ Wiedereroeffnung. Spaetere Automation benoetigt dasselbe klassenbezogene
 Quality-, Abstention-, Undo- und Rollback-Gate wie automatisches Routing.
 
 Schliessen, Archivieren oder Wiedereroeffnen eines Case kaskadiert niemals auf
-verknuepfte Cases, Documents, Records, Claims oder Tasks. Ein spaeter
+verknuepfte Cases, Documents, Records oder Tasks. Ein spaeter
 eingetroffenes Dokument wird nicht allein wegen seines Datums in einen neuen
 Case gezwungen.
+
+Nach standardmaessig sechs Monaten ohne relevante fachliche Aktivitaet darf
+Mappm fragen, ob ein Case noch aktiv ist. Das ist ein bestaetigbarer
+Review-Vorschlag und niemals ein automatischer Abschluss. Bekannte Termine,
+Fristen, erwartete Antworten, Wiederholungen, Abos, periodische Rechnungen,
+jaehrliche Kontrollen oder andere plausible Zukunft unterdruecken oder
+verschieben die Pruefung. Technischer Sync, Reindexierung oder
+Hintergrundverarbeitung zaehlt nicht als fachliche Aktivitaet.
+
+Ein Parent und seine `part_of`-Children besitzen unabhaengige Lifecycles. Der
+Parent darf `done` sein, waehrend ein Child aktiv bleibt; UI-Aggregation darf
+dies erklaeren, aber keinen gemeinsamen Status erfinden.
 
 ## Konsequenzen
 
@@ -473,7 +517,7 @@ Stop, wenn:
 
 - ein Case wegen null, fehlender oder zusaetzlicher Dokumente als ungueltig
   markiert wird;
-- ein Dokumenttyp, Workflow, Task, Termin, Claim oder Ergebnis zur allgemeinen
+- ein Dokumenttyp, Workflow, Task, Termin oder Ergebnis zur allgemeinen
   Case-Gueltigkeit vorausgesetzt wird;
 - ein Assist-Vorschlag vor Bestaetigung als teilweise angelegter Domain-Case
   persistiert wird;

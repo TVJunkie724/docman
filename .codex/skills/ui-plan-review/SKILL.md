@@ -39,6 +39,13 @@ Check every criterion. Do not skip "simple" plans.
 18. Definition of Done is exact and auditable.
 19. Stop rules exist.
 20. No TODO/TBD/placeholders/vague wording.
+21. Intelligence realism: Assist/Capture/Review behavior obeys
+    `DECISION_INTELLIGENCE_SCOPE.md`, assumes small/medium general-purpose
+    models, uses only Product-/Document-defined type-dependent review fields
+    with top candidate/alternatives/no-value/manual fallback, and does not
+    invent semantic profile/case/document conflicts, mixed-document
+    rejection/splitting, autonomous workflow/deadline/relation truth,
+    date-bearing automatic titles or M1 training/donation flows.
 
 ## Review Perspectives
 

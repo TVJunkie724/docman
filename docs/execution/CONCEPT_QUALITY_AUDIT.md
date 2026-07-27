@@ -2,7 +2,7 @@
 title: "Mappm - Concept Quality Audit"
 description: "Strenger Playbook-Review von Produkt-, Frontend-, Design-System-, Roadmap- und Readiness-Dokumentation"
 tags: [execution, concept-review, quality, playbook]
-lastUpdated: "2026-07-21"
+lastUpdated: "2026-07-22"
 status: "reviewed-no-open-documentation-findings"
 owner: "ui-concept-review"
 ---
@@ -17,7 +17,7 @@ werden insbesondere:
 
 - Status, Scope, Non-goals, Ownership, Handoff und Stop Rules;
 - ein generischer Case statt einer grossen sichtbaren Case-Typauswahl;
-- Case-, Record-, Claim-, Dokument- und Beziehungsgrenzen;
+- Case-, Record-, Submission-Event-, Dokument- und Beziehungsgrenzen;
 - Capture-first, asynchrone Verarbeitung und bestaetigungspflichtiges Routing;
 - Account-, Local-/Cloud-Vault-, Core-Assist- und Recovery-Grenzen;
 - Security, Privacy, Data Lifecycle, AI Governance und Diagnostik;
@@ -44,13 +44,17 @@ werden insbesondere:
 | CQA-011 | Repository Layout | Die reale Root-Flutter-Struktur wich ohne dokumentierte Anpassung vom generischen Playbook ab. | P2 | Behoben durch `DECISION_REPOSITORY_LAYOUT.md`. |
 | CQA-012 | Quality Contract | Konzepte und Saeulen hatten keine einheitliche Mindestqualitaet und Autorisierungsgrenze. | P1 | Behoben durch Enterprise-Quality-Contracts und explizite Adoption. |
 | CQA-013 | Produktmodell | Local-first/Home-Hub/Draft-Inbox-Annahmen widersprachen dem aktuellen Account-, Vault-, Assist- und Capture-Modell. | P0 | Behoben: Normalbetrieb ist accountbasiert; Local Vault bleibt lokal autoritativ, Cloud Vault cloud-autoritativ; Core Assist ist Pflicht; Detached Recovery bleibt Exit; Home Hub ist nur historische/abgelehnte Spur. |
-| CQA-014 | Case-/Dokumentmodell | Grosse Case-Typkataloge und historische Discovery-Keys konnten als Zielmodell gelesen werden. | P0 | Behoben: Ein generischer stets gueltiger Case ohne Dokumentpflicht, optionale Muster/Vorlagen, getrennte Records/Claims und normalisierte Dokumentachsen. Medical Care/Cost/Claim einschliesslich dokumentweisem Matching, Ankerdokument statt freier M1-Mehrfachabspaltung, getrennten Zustandsdimensionen, Wiederkehr und generischer Sonderdokumentgrenze ist seit 2026-07-20 akzeptiert; OQ-012 ist geschlossen, OQ-011 bleibt fuer den finalen Katalog offen. |
+| CQA-014 | Case-/Dokumentmodell | Grosse Case-Typkataloge und historische Discovery-Keys konnten als Zielmodell gelesen werden. | P0 | Behoben und am 2026-07-24 konsolidiert: ein generischer stets gueltiger Case ohne Dokumentpflicht, optionale Muster/Vorlagen, getrennte Records, Events und normalisierte Dokumentachsen; keine Claim-Entitaet. OQ-011 bleibt fuer den finalen Katalog offen, OQ-014 nur fuer den erneuten Accident-/Damage-Familienreview. |
 | CQA-015 | Capture/DMS | `InboxItem` und kombinierte Dokumente konnten als Ziel-Domainmodell gelesen werden. | P0 | Behoben: `CaptureSession`, `DocumentUnit`, `PageManifest` und `ReviewProposal`; ein logisches Dokument pro abgeschlossener Scan-Einheit, mehrere Seiten erlaubt. |
 | CQA-016 | Sprache | Mehrere normative UI-/Design-System-/Pillar-Bloecke waren entgegen der Sprachregel englisch. | P2 | Behoben; stabile IDs, Artefaktnamen und technische Begriffe duerfen englisch bleiben. |
 | CQA-017 | Backend/Contract | Der vorlaeufig akzeptierte Backend-Rahmen konnte als Freigabe konkreter DTOs/Endpoints gelesen werden. | P0 | Behoben: Architektur und Ownership sind `accepted-provisional`; jeder konkrete Contract benoetigt weiterhin eigene API-/Backend-Planung und Verifikation. |
-| CQA-018 | Ownership | 49 bestehende Dokumente besassen keinen expliziten Frontmatter-Owner. | P1 | Behoben: Alle 227 Mappm-Dokumente besitzen `title`, `description`, `status`, `lastUpdated` und `owner`; alle 20 projektlokalen Skills besitzen eindeutiges `name`-/`description`-Frontmatter. |
+| CQA-018 | Ownership | 49 bestehende Dokumente besassen keinen expliziten Frontmatter-Owner. | P1 | Behoben: Alle im Audit erfassten Mappm-Dokumente besitzen `title`, `description`, `status`, `lastUpdated` und `owner`; alle projektlokalen Skills besitzen eindeutiges `name`-/`description`-Frontmatter. |
 | CQA-019 | Inventar/Navigation | Technische Decisions, Discovery-Artefakte und mehrere Governance-Unterfamilien waren nicht vollstaendig ueber einen Owner-Index auffindbar. | P1 | Behoben durch Technical Decision Index, Discovery Index, Pillar-Tombstone-Indexierung und explizite REG-/SEC-/DATA-/AI-/OPS-/COM-Artefaktindizes. |
-| CQA-020 | Case-Familien-Ownership | Die Aussage „ein Subkonzept je Case-Familie“ war nicht als SSOT-, Coverage- und Promotion-Gate umgesetzt; dadurch haetten Katalogzeilen ohne vollstaendiges Fachmodell in Phasen oder Contracts gelangen koennen. | P0 | Behoben am 2026-07-21: Die zentrale Katalog-SSOT besitzt den verbindlichen Case-Familien-Subkonzeptvertrag, Pflichtinhalt, Reifegrad-Gate und aktuelle Coverage. Medical ist abgedeckt, Unfall/Schaden ist der naechste Workshop; weitere Familien bleiben bis zu ihrem eigenen reviewed Owning Subkonzept nicht fachlich akzeptiert oder implementierungsbereit. |
+| CQA-020 | Case-Familien-Ownership | Die Aussage „ein Subkonzept je Case-Familie“ war nicht als SSOT-, Coverage- und Promotion-Gate umgesetzt; dadurch haetten Katalogzeilen ohne vollstaendiges Fachmodell in Phasen oder Contracts gelangen koennen. | P0 | Behoben am 2026-07-21: Die zentrale Katalog-SSOT besitzt den verbindlichen Case-Familien-Subkonzeptvertrag, Pflichtinhalt, Reifegrad-Gate und aktuelle Coverage. Medical sowie Unfall/Schaden sind abgedeckt; weitere Familien bleiben bis zu ihrem eigenen reviewed Owning Subkonzept nicht fachlich akzeptiert oder implementierungsbereit. |
+| CQA-021 | Workshop/User-Freigabe | Der Subkonzeptvertrag verlangte eine Decision-Datei bereits zu Beginn eines Case-Familienworkshops und konnte dadurch unbesprochene Agent-Vorschlaege vorschnell persistieren. | P0 | Behoben am 2026-07-21: Case-Familien bleiben bis zum vollstaendigen Chat-Abgleich und ausdruecklicher User-Freigabe diskussions-only; erst danach entsteht genau ein Owning Subkonzept samt Coverage. |
+| CQA-022 | Dokument-Subtypen | „Minimal ausreichend“ wurde in Discovery und Medical-Beispielen teilweise als Vermutung gegen Subtypen formuliert. | P0 | Behoben und am 2026-07-24 bestaetigt: Subtypen sind normaler Modellbestandteil; Produktwert entscheidet ohne Anzahl-Minimierungsziel. Das Prinzip gilt dauerhaft, Typen wachsen case-family-weise; `repair_invoice` ist verworfen, `medical_invoice` als produktrelevante Variante akzeptiert. |
+| CQA-023 | Unfall-/Schadenmodell und Capture-Baseline | Unfallkosten, medizinische Unfallfolgen, Versicherungsabwicklung/Polizzen und optionale bekannte Capture-Angaben waren noch nicht als ein Fachmodell verankert. | P0 | Baseline am 2026-07-21 dokumentiert und am 2026-07-22 vereinfacht: normale `insurance_settlement`-Cases, wiederholbare Submission Events, optionale Damage-Cost-Cases, benannte Bildsammlung, kein Claim-Modell. OQ-014 verlangt den erneuten Familienreview vor Implementation. |
+| CQA-024 | Claim-Doppelmodell | Claim war neben Case, Branch, Event, Fact und Record ein zweites Matching-/Arbeitsobjekt und haette manuelle Pflege sowie parallele Repositories erzwungen. | P0 | Behoben am 2026-07-22: keine Claim-Entitaet und kein Claim-Matching. Versicherungsabwicklung ist ein normaler Case, Einreichung/Nachreichung ein Event, externe Nummer ein Fact und Polizze ein Record. Roadmap, Skills, Decisions, Pillars und Discovery wurden synchronisiert. |
 
 ## Review-Ergebnis
 

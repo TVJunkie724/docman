@@ -1,8 +1,8 @@
 ---
 title: "Plattform-Säule - Intelligence and Automation"
-description: "Plattformbereich fuer Core Assist, OCR, Dokumentklassifikation, Fact-/Workflow-Vorschläge und spätere Advanced-Assist-Automation"
+description: "Plattformbereich fuer Core Assist, OCR, grobe Dokumentklassifikation, begrenzte Kandidaten und spaetere qualitaetsgegatete Automation"
 tags: [pillar, platform, intelligence, ocr, llm, automation]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-25"
 version: "0.3"
 status: "accepted-direction"
 owner: "product-concept"
@@ -16,13 +16,15 @@ Mappm muss im Commercial Core beim Verstehen und Vorbereiten von
 Dokumentarbeit helfen:
 
 - OCR.
-- logische Dokumentgrenzen, Scanqualitaet und Batch-Outlier erkennen.
-- Dokumenttyp erkennen.
+- technische Scan-/Dateiqualitaet pruefen; logische Dokumentgrenzen aus
+  Mobile-Nutzerabschluss beziehungsweise Desktop-Datei uebernehmen.
+- grobe Dokumentgrundart und Domain erkennen.
 - editierbare Titel fuer Dokumente, neue Cases und neue Records vorschlagen.
-- Sender, Datum, Betrag und Fristen vorschlagen.
-- Claims und nächste Schritte vorschlagen.
-- passende veröffentlichte Workflow-Definitionen und bestehende Vorgänge
-  vorschlagen.
+- Aussteller, einen wahrscheinlichen Rechnungs-Gesamtbetrag und fuer die
+  Dokumentart relevanten Datums-/Zeitfelder mit Top-Kandidat, Alternativen und
+  manuellem Fallback vorschlagen.
+- bestehende Cases/Records grob ranken und optionale weitere Beziehungen nur
+  best-effort und bestaetigungspflichtig vorschlagen.
 - Formulare vorbefüllen.
 - Dokumente semantisch auffindbar machen.
 
@@ -30,21 +32,36 @@ Dokumentarbeit helfen:
 
 Intelligence ist Assistenz, nicht Autorität. Backend/Core Assist bereitet die
 Arbeit automatisch vor; der Nutzer pflegt nicht standardmaessig Metadatenfelder.
+Die sichtbare kompakte Bestaetigung macht semantische Feldvorschlaege aktiv.
+Normale Korrekturen sind in M1 kein Training oder
+Analyseverbesserungsprogramm.
 
-KI/OCR darf Vorschläge machen. Fachlich relevante Fakten, Statusänderungen, Einreichungen oder Löschungen brauchen Review.
+KI/OCR darf grobe Vorschlaege machen. Fachlich relevante Fakten,
+Statusaenderungen, Einreichungen oder Loeschungen brauchen eine ausdrueckliche
+Nutzeraktion beziehungsweise Bestaetigung; eine eindeutig benannte
+kontextuelle Aktion ist bereits diese Bestaetigung.
 KI darf keine fachlich verbindlichen Workflows, Fristen oder Ansprüche erfinden.
 Für Workflow-Führung ist der kuratierte, versionierte Katalog die Autorität.
+
+Alle Planungen setzen kleine bis mittlere General-Purpose-Modelle voraus.
+Person/Empfaenger, Lebenssachverhalt, Dokumentkohaerenz, Workflowrolle,
+aktive Frist, Kausalitaet und Beziehung sind keine verlaesslich finalisierten
+freien Modelloutputs. Typabhaengige Datumsbedeutungen duerfen als
+korrigierbare Formularvorbelegung vorgeschlagen werden. Staerkere
+klassenbezogene Faehigkeiten benoetigen einen benannten Feasibility-Nachweis
+und Produktfreigabe.
 
 ## Commercial-Core-Scope
 
 Core Assist ist Teil von C2/C3:
 
 - OCR/Text Extraction.
-- Validation expliziter Mobile-Dokumentgrenzen sowie Quality-/Outlier- und
-  Compound-Import-Korrekturvorschlaege.
+- technische Scan-/Dateiqualitaet; keine semantische Validierung expliziter
+  Mobile- oder dateibasierter Desktop-Dokumentgrenzen.
 - verpflichtende lokale editierbare Titelvorschlaege mit Provenance.
-- Dokumenttyp, Akteure und Schlüsselfelder vorschlagen.
-- bestehende Vorgänge/Profile und veröffentlichte Workflows vorschlagen.
+- grobe Dokumentgrundart/Domain, Aussteller und einfache Schluesselwert-
+  Kandidaten vorschlagen.
+- bestehende Cases/Records grob ranken; Managed Subject bleibt Userkontext.
 - Confidence, Evidence und Human Review.
 - Input für die einheitliche Suche.
 - Free/Paid-Quota, Offline Queue, Opt-out und manueller Fallback.
@@ -68,6 +85,8 @@ die anwendbaren AI-/REG-/SEC-/DATA-Gates akzeptiert sind.
 ## Enterprise-Grenzen
 
 - keine stillen Routing-Entscheidungen im aktuellen Reifegrad.
+- keine Wrong-Profile-/Wrong-Case-/Wrong-Document-Erkennung, semantische
+  Dokumentinvalidierung oder M1-Ablehnung gemischter Inhalte.
 - keine ungeprüfte Weitergabe an Cloud-KI.
 - medizinische, finanzielle und Identitätsdaten besonders schützen.
 - Trainingsdaten werden nie aus echten Dokumenten abgeleitet. Eine spaetere

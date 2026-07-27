@@ -60,12 +60,30 @@ remediation.
 13. F37 domain/UX integrity when applicable:
     - one Case type and correct typed relation direction; no separate Subcase
       model, hidden cascade, copy-on-compose or strict-tree assumption.
-    - Custom/Guided parity, distinct Unterlage/Document/Claim/subject/party
-      semantics and reversible link behavior.
+    - Custom/Guided parity; distinct semantics for Unterlage, Document,
+      insurance-settlement Case, submission event, subject and party; and
+      reversible link behavior.
     - contextual action limits, confirmed-value gating, accessible charts and
       deduplicated eligible financial roll-ups match the approved plan.
     - country/tax/cancellation behavior comes from approved policy, not UI
       invention.
+14. F38 processing/wait integrity when applicable:
+    - visible stages map to approved contract states and survive
+      background/restart.
+    - no fake percent/countdown, sensitive content or general feature ads.
+    - Review Queue, partial failure, privacy-safe readiness and Reduced Motion
+      match the approved plan.
+15. Intelligence realism when applicable:
+    - implementation assumes the accepted small-/medium-model boundary;
+      user-selected Managed Subject/Case context remains authoritative.
+    - type-dependent review fields, top candidate, alternatives,
+      no-value/manual fallback and progressive details match the approved
+      Product-/Document contract.
+    - no semantic wrong-profile/case/document error, mixed-content
+      rejection/auto-split, autonomous workflow/deadline/relation truth or
+      date-bearing automatic title was introduced.
+    - no M1 document donation, human analysis-improvement review, online
+      learning or training-consent flow was introduced.
 
 ## Useful Checks
 

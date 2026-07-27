@@ -155,7 +155,7 @@ Use all that apply:
 | `area:profiles` | Family profiles, household model, permissions |
 | `area:auth` | Login, identity providers, pairing, sessions, secure token storage |
 | `area:sync` | Local/private/cloud sync, conflicts, replication, remote storage |
-| `area:ai-analysis` | OCR, LLM, auto-tagging, status suggestions, future intelligence |
+| `area:ai-analysis` | OCR, grobe Klassifikation/Kandidaten, Case-/Record-Ranking und spaetere eng qualitaetsgegatete Intelligence; keine autonome Status-/Frist-/Beziehungswahrheit |
 | `area:frontend` | Flutter screens, navigation, widgets, UX implementation |
 | `area:design-system` | Theme, tokens, shared widgets, visual system |
 | `area:security` | Privacy, secrets, auth hardening, sensitive data handling |
@@ -224,7 +224,7 @@ Use one milestone:
 | `Mappm M2 Capture and Review Core` | Capture, Core Assist OCR/title/index/matching, processing/proposal review, documents, cases, search, tasks |
 | `Mappm M3 Assisted Review` | Advanced Assist and expansion beyond the required Commercial-Core processing/review slice |
 | `Mappm M4 Household and Sync` | Household profiles, Cloud identity/device trust, sync/migration, extended mobile |
-| `Mappm M5 Facts, Workflows and Insights` | Facts, claims, workflows, insights, external actions |
+| `Mappm M5 Facts, Workflows and Insights` | Facts, insurance-settlement Cases, submission events, workflows, insights, external actions |
 | `Mappm M6 Automation, Resilience and Distribution` | Backup, restore, compliance, release, sharing, local LLMs, operations |
 
 For deferred or explicitly later work, use the milestone that owns the future

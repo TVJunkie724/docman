@@ -2,7 +2,7 @@
 title: "Decision - Profile Sensitive Data"
 description: "Schutzklassen und Datenmodell für verwaltete Personen, Organisationen, Versicherungen, Adressen und Identity-Anbindung"
 tags: [decision, profiles, managed-subjects, sensitive-data, insurance, identity, privacy, id-austria]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-24"
 status: "accepted"
 owner: "security/product-concept"
 ---
@@ -16,7 +16,7 @@ ersetzt keine datierte Rechtsprüfung und legt keine konkrete Kryptografie fest.
 ## Entscheidung
 
 Managed Subjects beantworten fachlich, wen Dokument, Case, Record, Aufgabe,
-Fact oder Claim betrifft. Ein Subject kann eine Person oder eigene Organisation
+Fact oder Submission Event betrifft. Ein Subject kann eine Person oder eigene Organisation
 sein, ohne zwingend einen Login zu besitzen.
 
 Mappm trennt mindestens:
@@ -75,8 +75,8 @@ Beziehungen bleiben nachvollziehbar.
 Eine solche Praeferenz sortiert Vorschlaege, beweist aber weder Deckung,
 Zustaendigkeit noch Anspruch. Medizinische oder Erstattungs-Workflows duerfen
 den bestaetigten Default zuerst anbieten, ohne Polizzen in Cases zu kopieren,
-vorab einen festen Erstattungsweg abzufragen, automatisch einen Claim
-anzulegen oder eine Einreichung auszufuehren.
+vorab einen festen Erstattungsweg abzufragen, automatisch einen
+Einreichungszustand anzulegen oder eine Einreichung auszufuehren.
 
 Mappm loest keine Versicherungsbedingungen oder Polizzenformeln auf und
 berechnet keine erwartete Erstattung, Deckung oder sonstige
@@ -98,8 +98,14 @@ Authorization und Key Management bleiben separat.
 
 ## UX und Processing
 
-- Capture verlangt keine Profilwahl vor dem Scan.
-- Core Assist schlägt das Managed Subject vor.
+- Capture beginnt in einem sichtbaren Managed-Subject-Kontext. Bei nur einem
+  relevanten Profil darf dieser vorausgewaehlt sein; bei mehreren Profilen
+  wird er kompakt gewaehlt oder aus dem geoeffneten Profil/Case geerbt.
+- Das ist kein allgemeines Profil- oder Metadatenformular.
+- Core Assist prueft den Subject-Kontext und schlaegt nur bei fehlendem Kontext
+  oder starker gegenteiliger Evidenz eine Korrektur vor. Sender, Arzt,
+  Versicherer oder Provider sind nicht automatisch das betroffene Subject.
+- Fehlt belastbare Gegen-Evidenz, bleibt die Nutzerangabe massgeblich.
 - Klare, folgenarme Zuordnung wird nicht unnötig erneut angezeigt; Unsicherheit
   oder materielle Folgen erhalten schnelle Bestätigung/Korrektur.
 - Im Alltag ist nur das notwendige Core-Profil sichtbar.
@@ -113,9 +119,10 @@ Local/Cloud Authority, Caches, Sharing, Export, Löschung und Backup behandeln
 die Schutzklassen ausdrücklich. Kinder-, Gesundheits-, Ausweis-, Steuer- und
 Geschäftsdaten benötigen besonders zurückhaltende Defaults.
 
-Tests decken Maskierung, Berechtigungswechsel, falsches Managed Subject,
+Tests decken Maskierung, Berechtigungswechsel, unberechtigten
+Managed-Subject-Zugriff,
 mehrere Versicherungen, je Kategorie keinen/einen Default, historische
-Gültigkeit, Default-Aenderung ohne automatische Claim-/Einreichungsfolge,
+Gültigkeit, Default-Aenderung ohne automatische Einreichungsfolge,
 Export-/Löschumfang, Suchindex-/Log-Redaction und Tenant-Isolation
 ausschließlich mit synthetischen Daten ab.
 

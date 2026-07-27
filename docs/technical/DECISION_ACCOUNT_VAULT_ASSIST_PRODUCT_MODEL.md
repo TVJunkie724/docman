@@ -2,7 +2,7 @@
 title: "Decision - Account, Vault and Assist Product Model"
 description: "Verbindliches Mappm-Produktmodell fuer Accountpflicht, Local/Cloud-Datenautoritaet, Core Assist, Tarife, Offline-Nutzung und accountunabhaengigen Exit"
 tags: [decision, product, account, vault, local, cloud, intelligence, entitlements, recovery]
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-25"
 status: "accepted-direction"
 owner: "product-concept"
 ---
@@ -25,7 +25,7 @@ intelligence processing and commercial plan are separate dimensions:
 |---|---|
 | Account | who may use Mappm, which devices are trusted and which entitlements apply |
 | Vault authority | where durable document files, metadata, cases and tasks are authoritative |
-| Assist | whether and how selected document content is processed for OCR, classification, extraction and workflow suggestions |
+| Assist | whether and how selected document content is processed for OCR, coarse classification, bounded candidates, Case-/Record-ranking and confirmed-context workflow suggestions |
 | Plan | quotas, device/Vault limits, Cloud storage and advanced capabilities |
 
 A Local Vault does not become a Cloud Vault merely because Mappm Assist
@@ -70,10 +70,14 @@ available in a meaningful, limited form in the free plan. It includes the
 approved subset of:
 
 - text extraction/OCR;
-- document type and sender/actor recognition;
-- key metadata and fact suggestions;
-- existing case and profile matching;
-- published workflow-definition and next-step suggestions;
+- coarse document type/domain and issuer candidates;
+- conservative title proposals without a date by default;
+- type-dependent date/time field proposals with detected alternatives and
+  manual fallback, stable references and one household-relevant invoice-total
+  proposal;
+- existing Case-/Record-ranking within the user-selected Managed Subject;
+- published workflow-definition and next-step suggestions after the relevant
+  Case/fact/action has been confirmed;
 - indexing input for unified document/case/profile/task search;
 - confidence, evidence and human review.
 
@@ -83,6 +87,13 @@ specialized workflows or automation. Exact tiering remains VC-03.
 Core Assist is not authority. Users can review, correct or reject suggestions.
 It may select only curated workflow definitions and may not invent binding
 deadlines, entitlements or legal/medical/financial obligations.
+The target baseline is small or medium general-purpose models combined with
+OCR and deterministic parsers. Core Assist does not promise semantic
+wrong-profile/case/document detection, affected-person inference, document
+coherence validation, workflow-state truth, deadline meaning, causality or
+relationship truth. Mixed semantic content remains one generic logical
+document in the current target release. The normative boundary is
+`DECISION_INTELLIGENCE_SCOPE.md`.
 
 ## Local Vault Plus Assist
 
@@ -242,6 +253,8 @@ Stop if:
 - account deletion can strand or silently erase Local data;
 - recovery depends solely on a live account token or server-only key;
 - manual/opt-out mode is presented as feature-equivalent to Assist;
+- a small or medium general-purpose model is treated as authority for person,
+  Case boundary, document coherence, workflow state, deadline or relationship;
 - UI, frontend or an LLM decides backend processing, retention or policy
   architecture.
 

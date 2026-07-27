@@ -2,7 +2,7 @@
 title: "Konzept F15 - Mock Repository Blueprint"
 description: "Deterministische Fake-, Fixture-, UI-Mock- und Contract-Mock-Strategie fuer Mappm"
 tags: [concept, foundation, fake-repository, mock, fixtures, microcks, ui-mock, testing]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-22"
 version: "5.0"
 status: "accepted"
 owner: "quality-readiness/ui-concept"
@@ -66,7 +66,8 @@ managed Betriebsweg. Die Ebenen werden in Reports und Testnamen klar benannt.
 ### Produktdomain
 
 - Cases und CaseLinks.
-- Records, Documents, Claims, Tasks, Termine und Profile.
+- Records, Documents, Versicherungsabwicklungs-Cases, Submission Events,
+  Tasks, Termine und Profile; kein Claim-Repository.
 - Search/Facts mit kleinen synthetischen Indizes.
 - Custom Case als normaler, minimal befuellter Case.
 
@@ -83,7 +84,8 @@ managed Betriebsweg. Die Ebenen werden in Reports und Testnamen klar benannt.
 - verpflichtender Titelvorschlag fuer neue Cases sowie Typ-, Fakten- und
   Case-/Record-Vorschlaege mit Provenance.
 - optionaler New-Case-/Case-Intent als Signal, niemals als finale Zuordnung.
-- Teilfehler, Outlier, Cancel, Retry, Restart und Reprocessing.
+- technische Teilfehler, Cancel, Retry, Restart und Reprocessing; keine
+  erfundene semantische Outlier-/Wrong-Case-Faehigkeit.
 - erhaltene bestaetigte Titel/Fakten und reversible Korrektur.
 
 ## Synthetische Fixtures

@@ -2,7 +2,7 @@
 title: "Discovery Draft - Globale Dokumenttaxonomie"
 description: "Normalisierungsentwurf fuer Dokumentgrundarten, semantische Varianten, Domains, Record-Kontexte, Rollen, Quellen und Matching-Vokabular"
 tags: [discovery, draft, taxonomy, cases, records, documents, workflows, matching, internationalization]
-lastUpdated: "2026-07-21"
+lastUpdated: "2026-07-25"
 status: "draft"
 owner: "product-concept"
 ---
@@ -27,12 +27,28 @@ Das Prinzip der minimal ausreichenden Klassifikation aus
 `docs/technical/DECISION_DOCUMENT_TYPE_CATALOG.md` ist bereits akzeptiert.
 Die Tabellen in diesem Entwurf sind deshalb eine zu reduzierende
 Pruef-/Obermenge, keine angestrebte Anzahl von Typen oder Varianten.
+Reduktion ist dabei kein Selbstzweck und keine Vermutung gegen Subtypen. Jeder
+Typ oder Subtyp, der dauerhafte Wiederverwendung oder materiell anderes
+Produktverhalten traegt, bleibt erhalten; `medical_invoice` ist dafuer die
+bereits fachlich akzeptierte fuehrende Variante und ein verbindliches
+Pruefbeispiel fuer den Produktwerttest. Die Akzeptanz der fachlichen Variante
+ersetzt weiterhin keinen Implementation Contract und keine Backend-
+Feasibility.
 
 Insbesondere sind der eine generische Case, optionale Workflow-Muster,
 sichtbare Fachvorlage, Workflowmodul, Record-Kontext, Dokumentgrundart,
 semantische Variante, Domain, Rolle, Quelle/Format und laenderspezifischer
 Begriff getrennte Achsen. Dieses Inventar macht Grenzfaelle sichtbar; es darf
 sie nicht durch fruehe IDs zementieren.
+
+Die am 25. Juli 2026 geprueften fileee-Marktbegriffe und ihre Mappm-
+Disposition werden ausschliesslich in
+`docs/technical/DECISION_DOCUMENT_TYPE_CATALOG.md` gepflegt. Dieser
+Discovery-Entwurf fuehrt keine parallele Liste. Fuer die weitere Reduktion sind
+insbesondere bestaetigt: Brief/Information bleiben in M1 generisch, Werbung
+wird kein Produkttyp, Karten/Passes werden nicht in M1 gedrueckt und
+Kassenzettel/Kassenbeleg bleibt fachlich von einer offenen Rechnung
+unterscheidbar.
 
 ## Zentrale Normalisierung
 
@@ -59,20 +75,24 @@ Nicht normative Kompositionsbeispiele:
 
 ```text
 generic Case + submission workflow pattern
-  + entitlement_or_benefit_claim
+  + entitlement_or_benefit_application
   + at.social.pflegegeld@2026
   = "Pflegegeld fuer Maria beantragen"
 
 generic Case + episode workflow pattern
   + medical_care
   + at.health.generic@2026
-  = "Kniebehandlung 2026"
+  = "Kniebehandlung"
 
 generic Case + settlement workflow pattern
   + medical_cost_settlement
   + at.health.oegk-and-private@2026
-  = "Arztrechnung Dr. Beispiel vom 14.07.2026"
+  = "Arztrechnung Dr. Beispiel"
 ```
+
+Automatische Dokument- und Case-Titel enthalten standardmaessig kein Datum.
+Zeitwerte bleiben getrennte, such- und filterbare Kandidaten beziehungsweise
+bestaetigte Facts.
 
 Flutter, Datenbank und API brauchen damit weder unterschiedliche Case-Klassen
 noch einen grossen sichtbaren Case-Typ-Picker. Die Spezifitaet kommt aus
@@ -100,7 +120,8 @@ Document classification
 ```
 
 Beispiel: `OeGK-Arztrechnung fuer eine Kniebehandlung` ist kein einzelner
-hardcodierter Dokumenttyp. Es ist eine Rechnung mit Medizin-Domain,
+Provider-/Land-/Workflow-Kombinationstyp. Es ist die Rechnungsgrundart mit der
+sinnvollen semantischen Variante `medical_invoice`, Medizin-Domain,
 Kostenbelegrolle, oesterreichischem Payer-Kontext und Links zu medizinischem
 Behandlungs- und Kostenabrechnungs-Case.
 
@@ -142,13 +163,13 @@ Such- und Fixture-Vokabular erhalten.
 
 | Grundart | Deutscher Titel | Globale Bedeutung | Beispiele fuer Varianten oder lokale Aliase |
 |---|---|---|---|
-| `application_or_filing` | Antrag oder Einreichung | nach aussen gerichteter Antrag, Claim, Meldung, Beschwerde, Kuendigung oder sonstige Einreichung | Antrag, Leistungsantrag, Steuererklaerung, Einspruch, Datenschutz-Auskunftsantrag |
+| `application_or_filing` | Antrag oder Einreichung | nach aussen gerichteter Antrag, Anspruch, Meldung, Beschwerde, Kuendigung oder sonstige Einreichung | Antrag, Leistungsantrag, Steuererklaerung, Einspruch, Datenschutz-Auskunftsantrag |
 | `form` | Formular | auszufuellender oder ausgefuellter strukturierter Frage-/Erhebungsbogen | Antragsformular, Anamnese-/Untersuchungsbogen, Formularerklaerung |
 | `declaration_or_consent` | Erklaerung oder Einwilligung | rechtserhebliche Erklaerung, Einwilligung, Vollmacht, Mandat oder Abtretung | Einwilligung, Vollmacht, Lastschriftmandat, Abfindungserklaerung |
 | `correspondence` | Korrespondenz | freies oder halbstrukturiertes Anschreiben bzw. Nachrichtendokument | allgemeines Anschreiben, Stellungnahme, Rechtsanwaltsschreiben |
 | `notice_or_request` | Mitteilung oder Aufforderung | Information, Aufforderung, Nachforderung, Mahnung, Ladung oder Fristsetzung | Ergaenzungsersuchen, Versicherungsrueckfrage, Zahlungsaufforderung |
 | `acknowledgement` | Bestaetigung | Eingang, Empfang, Zustellung, Abschluss oder sonstigen Vorgang bestaetigen | Einreichbestaetigung, Zustellnachweis, Kuendigungsbestaetigung |
-| `decision_or_order` | Entscheidung oder Anordnung | formelle oder vertragliche Entscheidung, Anordnung, Bewilligung oder Ablehnung | Bescheid, Claim-Entscheidung, Urteil, Genehmigung, Auflage |
+| `decision_or_order` | Entscheidung oder Anordnung | formelle oder vertragliche Entscheidung, Anordnung, Bewilligung oder Ablehnung | Bescheid, Versicherungsentscheidung, Urteil, Genehmigung, Auflage |
 | `credential_or_certificate` | Ausweis, Nachweis oder Urkunde | Identitaet, Status, Qualifikation, Berechtigung oder Tatsache nachweisen | Reisepass, Geburtsurkunde, Diplom, Versicherungsnachweis |
 | `registry_extract` | Registerauszug | Daten aus einem Register oder gefuehrten Bestand wiedergeben | Grundbuchauszug, Firmenbuchauszug, Strafregisterbescheinigung |
 | `contract_or_policy` | Vertrag oder Polizze | Rechte und Pflichten zwischen Parteien oder Deckung/Terms festlegen | Kauf-, Miet-, Arbeits-, Versicherungs- oder Kreditvertrag, AGB-Version |
@@ -172,8 +193,8 @@ benoetigen. Eine erste Implementierung darf diese Tabelle nicht ungeprueft als
 Enum uebernehmen.
 
 `proof`, `evidence`, `attachment` und `supporting_document` sind bewusst keine
-Grundarten. Sie beschreiben die Rolle eines Dokuments in einem konkreten Case
-oder Claim. Ein Foto traegt Quelle/Format `image` und beispielsweise die Rolle
+Grundarten. Sie beschreiben die Rolle eines Dokuments in einem konkreten Case,
+Record oder bestaetigten Ereignis. Ein Foto traegt Quelle/Format `image` und beispielsweise die Rolle
 `evidence`; eine Zeugenangabe ist `declaration_or_consent`; ein
 Eigentumsnachweis ist je Inhalt `credential_or_certificate`,
 `contract_or_policy` oder eine andere semantische Grundart.
@@ -195,9 +216,12 @@ Kein hier genannter Fachbegriff ist allein dadurch eine plausible Variante.
 Labor-, Radiologie-, Entlassungs-, Bewilligungs- oder andere Detailbegriffe
 bleiben beispielsweise Titel-/Alias-/Suchvokabular, solange eine breite
 Grundart, Facts und Case-Rolle denselben Produktnutzen liefern. Ebenso sind
-`medical_invoice`, `recurring_invoice`, `OeGK_invoice`,
-`Austrian_invoice_2026` und `paid_invoice` Kombinationen aus Domain,
-Wiederholungsfakt, Provider, Pack und Status, keine Subtypen.
+`recurring_invoice`, `OeGK_invoice`, `Austrian_invoice_2026` und
+`paid_invoice` sind Kombinationen aus Wiederholungsfakt, Provider, Pack und
+Status, keine Subtypen. `medical_invoice` bleibt dagegen als akzeptierte
+semantische Variante erhalten, weil es den medizinischen Cost-Case und dessen
+Zahlungs-/Payer-Einreichungsverhalten ausloest. Contract und
+Erkennungsqualitaet bleiben eigene Gates.
 
 ### Review der gesamten Begriffskluster
 
@@ -205,15 +229,15 @@ Wiederholungsfakt, Provider, Pack und Status, keine Subtypen.
 |---|---|---|
 | Identitaet und Personenstand | meist `credential_or_certificate` oder `registry_extract` plus spezifischer langlebiger Record-Kind | Land, ausstellende Behoerde, Gueltigkeit und Status |
 | Vertraege und Policen | `contract_or_policy`, `offer_or_quote`, `application_or_filing`, `acknowledgement` oder `declaration_or_consent`; Vertrag/Polizze selbst wird Record | Vertragsdomain, Anbieter, Tarif, Kuendigungsstatus |
-| Rechnung und Zahlung | finanzielle Grundarten; Teil-/Schluss-/Korrekturbezug als Variante/Facts, periodisch als Recurrence Fact | Medizin/Steuer/Vertrag, Payer, bezahlt/offen, Monat/Jahr |
-| Medizin und Pflege | breite Grundarten wie Rechnung/Zahlung, `report_or_assessment` oder `referral_or_prescription`; Details primaer in Titel, Facts, Rollen und Suchindex | Arzt/Klinik, Diagnose, SV, Land, Workflowstep sowie Labor-, Radiologie-, Entlassungs-, Bewilligungs- oder Reha-Detailbegriffe ohne belegten Zusatznutzen |
-| Versicherung, Unfall und Schaden | Policy als Record; Meldung/Claim als `application_or_filing`; Bericht/Evidenz/Entscheidung/Zahlung ueber Grundarten und Case-Rollen | Versicherungssparte, Schadennummer, Provider und Claim-Status |
+| Rechnung und Zahlung | finanzielle Grundarten; `medical_invoice` als akzeptierte produktrelevante Variante; Reparaturrechnung bleibt normale `invoice_or_charge` mit Titel/Facts/Case-Kontext; weitere Teil-/Schluss-/Korrekturvarianten oder Facts nach Produktwert, periodisch als Recurrence Fact | Steuer/Vertrag als blosse Domain, Payer, bezahlt/offen, Monat/Jahr |
+| Medizin und Pflege | `medical_invoice` als akzeptierte Variante plus breite Grundarten wie Zahlung, `report_or_assessment` oder `referral_or_prescription`; weitere sinnvolle Varianten bleiben nach Produktwerttest ausdruecklich moeglich | Arzt/Klinik, Diagnose, SV, Land, Workflowstep sowie Detailbegriffe ohne eigenen Produktwert |
+| Versicherung, Unfall und Schaden | Policy als Record; Versicherungsabwicklung als normaler Case; Einreichung/Nachreichung als Event; Schreiben, Bericht, Gutachten, Kostenvoranschlag und Entscheidung grundsaetzlich generisch mit Titel/Facts/Rolle; Rechnung und Zahlungsnachweis ueber allgemeine Grundarten | Versicherungssparte, Schadennummer, Provider und Einreichungsstatus |
 | Kauf, Lieferung, Rueckgabe und Service | Transaction-Dokumente ueber Angebot, Bestellung, Uebergabe, Rechnung, Report, Evidenz und Bestaetigung | Produktkategorie, Shop, Warranty-/Return-Workflowstate |
 | Wohnen, Immobilien, Energie und Assets | dieselben Grundarten plus Property/Utility Domain und Asset-/Contract-Record | Adresse, Zaehler, Gemeinde, Asset-Typ und Rechtsraum |
 | Behoerde, Recht und Verfahren | `application_or_filing`, `notice_or_request`, `acknowledgement`, `decision_or_order`, `correspondence`, `record_or_log` | konkrete Behoerde, Rechtsmittelname, Verfahrensstand und nationale Formnummer |
 | Steuer, Unternehmen und Arbeit | Submission/Decision/Financial Statement/Certificate/Report plus Tax-, Business- oder Employment-Domain | Steuerregime, Periode, Arbeitgeber, Rechtsraum und behauptete Absetzbarkeit |
 | Bildung, Familie und Betreuung | Submission/Decision/Credential/Contract/Financial Evidence plus Education/Family/Care Domain | Bundesland, Institution, Leistungsname und Subject-Beziehung |
-| Mobilitaet und Reise | Credential/Record fuer Fahrzeug und Visa, Transaction-/Ticket-/Incident-Dokumente fuer Reise und Service | Zielland, Verkehrstraeger, Anbieter und Claim-Regel |
+| Mobilitaet und Reise | Credential/Record fuer Fahrzeug und Visa, Transaction-/Ticket-/Incident-Dokumente fuer Reise und Service | Zielland, Verkehrstraeger, Anbieter und Anspruchs-/Einreichungsregel |
 | Datenschutz und Sicherheit | Request/Complaint als Submission, Antwort als Correspondence/Decision, Incident-Evidenz ueber Report/Proof/Acknowledgement | DSGVO-Artikel, nationale Aufsicht, Incident-/Recovery-Status |
 
 Damit sind die nachfolgend dokumentierten Begriffsgruppen eingeordnet.
@@ -274,11 +298,13 @@ Assist-Matching und spaetere synthetische Fixtures geprueft werden.
   medizinische Leistungsabrechnung, Kostenuebernahmeantrag,
   Bewilligung/Ablehnung einer Gesundheitsleistung und Erstattungsabrechnung.
 
-Diese Begriffe sind Such-, Alias-, Titel-, Fakten- und Fixture-Vokabular, keine
-Liste von M1-Dokumenttypen. Fuer M1 muss ein allgemeiner beziehungsweise
-medizinischer Dokument-Fallback genuegen. Rechnung ist wegen des
-Kostenabrechnungsverhaltens relevant. Ueberweisung oder Befund/Bericht duerfen
-nur nach OQ-011 und bestandenem Produktwerttest als genauere Typen/Varianten
+Diese Begriffe sind eine Pruefmenge und keine automatisch vollstaendige Liste
+von M1-Dokumenttypen. Fuer M1 muss ein allgemeiner beziehungsweise
+medizinischer Dokument-Fallback genuegen, ohne sinnvolle Subtypen zu
+verdraengen. `medical_invoice` bleibt wegen des moeglichen
+Kostenabrechnungs- und Payer-Einreichungsverhaltens als fachlich akzeptierte
+Variante erhalten. Ueberweisung, Befund/Bericht und weitere Kandidaten duerfen
+nach OQ-011 und bestandenem Produktwerttest als genauere Typen/Varianten
 aktiviert werden.
 Bewilligung, Ablehnung, Reha-Antrag, Entlassungsbrief, Labor- oder
 Radiologiedetail sind nicht allein wegen ihres Namens eigene M1-Typen.
@@ -290,9 +316,18 @@ Radiologiedetail sind nicht allein wegen ihres Namens eigene M1-Typen.
   Unfallbericht, Polizeibericht/-bestaetigung, Ereignisprotokoll,
   Fotodokumentation, Zeugenangabe, Sachverstaendigengutachten,
   Schadenschaetzung, Reparaturfreigabe, Deckungszusage, Deckungsablehnung,
-  Leistungsantrag, Claim-Eingangsbestaetigung, Versicherungsrueckfrage,
+  Leistungsantrag, Eingangsbestätigung, Versicherungsrueckfrage,
   Regulierungsangebot, Abfindungserklaerung, Leistungsabrechnung,
   Erstattungsbescheid und Schadenabschlussbestaetigung.
+
+`repair_invoice` wird nicht als eigene Variante weiterverfolgt. Eine
+Reparaturrechnung bleibt `invoice_or_charge`; Titel, Facts, Parties, Domain und
+Case-Kontext tragen die konkrete Bedeutung. Ein optionaler
+`damage_cost_settlement` entsteht nur bei eigenstaendig verfolgter
+wirtschaftlicher Verpflichtung und niemals allein aus einem Dokumenttyp. Die
+Fachkomposition besitzen `DECISION_ACCIDENT_DAMAGE_SETTLEMENT_MODEL.md` und
+`DECISION_INSURANCE_SETTLEMENT_MODEL.md`; OQ-014 verlangt den erneuten
+Familienreview.
 
 ### Kauf, Lieferung, Rueckgabe, Garantie und Service
 
@@ -365,7 +400,7 @@ Radiologiedetail sind nicht allein wegen ihres Namens eigene M1-Typen.
   Hotel-/Unterkunftsbestaetigung, Reiseplan, Visa-/Einreisegenehmigung,
   Verspaetungs-/Annullierungsbestaetigung, Ersatzbefoerderungsnachweis,
   Gepaeckverlust-/Beschaedigungsbericht, Mietwagenvertrag,
-  Rueckgabeprotokoll Mietwagen und Fahrgast-Claim-Entscheidung.
+  Rueckgabeprotokoll Mietwagen und Fahrgastrechte-Entscheidung.
 
 ### Datenschutz, Sicherheit, allgemeine Korrespondenz und Evidenz
 
@@ -393,7 +428,8 @@ Radiologiedetail sind nicht allein wegen ihres Namens eigene M1-Typen.
 - Oesterreich 2026 ist eine Jurisdiction-/Pack-Version, kein Subtyp.
 
 Die gleichlautende Rolle `submission` bezeichnet ausschliesslich, **wie** ein
-Dokument mit einem Case/Claim verbunden ist. Sie ist weder das optionale
+Dokument mit einem Case oder bestaetigten Einreichungsereignis verbunden ist.
+Sie ist weder das optionale
 Workflow-Muster `submission` noch die Dokumentgrundart
 `application_or_filing`.
 
@@ -414,14 +450,16 @@ etablierten internationalen Mustern vereinbar:
   Varianten:
   <https://design-patterns.service.justice.gov.uk/service-patterns/apply/>.
 - HL7 FHIR trennt im Gesundheitsbereich Definitionen, Requests und Events sowie
-  Encounter, Episode of Care, Claim und Dokumentreferenz. Konkrete Antworten
+  Encounter, Episode of Care, seinen externen Claim-Begriff und
+  Dokumentreferenz. Konkrete Antworten
   und Verknuepfungen werden durch Code, Workflowdefinition und lokale
   Konvention bestimmt:
   <https://hl7.org/fhir/R5/workflow.html>.
-- FHIR Claim verwendet dieselbe Claim-Struktur fuer Erstattung,
-  Vorabgenehmigung und Vorabpruefung und laesst Jurisdiktionen die konkreten
-  Claim-Typen erweitern. Das stuetzt einen gemeinsamen Submission-/Claim-Kern
-  mit Country-/Payer-Varianten:
+- FHIR verwendet eine eigene Claim-Ressource fuer Erstattung,
+  Vorabgenehmigung und Vorabpruefung. Mappm uebernimmt diese fremde Entitaet
+  nicht: Der externe Begriff wird auf Case, Submission Events, Facts, Parties
+  und Dokumentlinks abgebildet. Das stuetzt nur die Trennung von globaler
+  Dokumenttaxonomie und Country-/Payer-Kontext:
   <https://hl7.org/fhir/claim.html>.
 - OASIS Universal Business Language standardisiert wiederverwendbare
   Geschaeftsdokumente wie Order, Invoice und Credit Note, statt jede

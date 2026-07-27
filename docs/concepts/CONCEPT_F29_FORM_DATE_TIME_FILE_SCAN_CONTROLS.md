@@ -2,8 +2,8 @@
 title: "Konzept F29 - Form Date, Time, File and Scan Controls"
 description: "Mappm Detailkonzept fuer Date Picker, Date Range, Time, Recurrence, Reminder, File Picker, Capture Source, Upload Queue und Permissions"
 tags: [concept, frontend, design-system, forms, date-picker, file-picker, scan, mobile-capture, flutter]
-lastUpdated: "2026-07-20"
-version: "1.2"
+lastUpdated: "2026-07-25"
+version: "1.4"
 status: "accepted"
 owner: "ui-concept"
 ---
@@ -29,6 +29,7 @@ scanbezogenen Formelemente aus dem Design-System-Mock ab.
 | F27 | Field Anatomy and Validation. |
 | F28 | Picker/Selection-Regeln. |
 | `DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md` | Fachliche Zeitsemantik, Genauigkeit, Provenienz und Agenda-/Kalendergrenzen. |
+| `DECISION_RULE_DERIVED_DEADLINES_REMINDERS.md` | Mehrere regelbasierte Fristen, Rule-/Quellenprovenienz, Bestaetigung und Reminder-Updates. |
 | `DECISION_DOCUMENT_CAPTURE.md` | Akzeptierte Mobile-/Desktop-Eingangsarten und Webcam-Verbot. |
 | `DECISION_CROSS_DEVICE_CAPTURE_HANDOFF.md` | Nicht implementierungsautorisierender Cross-Device-Draft; OQ-013. |
 
@@ -63,11 +64,32 @@ Regeln:
 - Die UI erfindet kein universelles `documentDate`. Feldlabel und Binding
   benennen die konkrete Bedeutung, etwa Ausgestellt, Leistung, Faelligkeit,
   Gueltig bis oder Termin.
+- OCR/Parser duerfen mehrere Datumsstrings liefern. Die fuer die
+  Dokumentgrundart beziehungsweise produktrelevante Variante definierten
+  Datumsfelder werden mit dem jeweils besten semantischen Kandidaten
+  vorausgefuellt.
+- Jedes vorausgefuellte Datumsfeld bietet die anderen erkannten Datumswerte,
+  `Kein Datum` und `Manuell eingeben`. Die Nutzerin kann den Vorschlag
+  uebernehmen, austauschen, entfernen oder manuell ergaenzen.
+- Die Standardoberflaeche zeigt nur die typabhaengig relevanten Felder und
+  kein allgemeines Pflichtformular. Nicht verwendete Kandidaten und
+  Fundstellen bleiben unter `Weitere Zeitangaben` erreichbar.
+- Die sichtbare Gesamtbestaetigung des Review-Bundles oder die direkte Aktion
+  `Als Frist verwenden`, `Termin anlegen` beziehungsweise `Reminder erstellen`
+  bestaetigt die dargestellte Bedeutung. Ohne Bestaetigung bleibt der
+  Kandidat folgenlos.
+- Das technische Erfassungsdatum bleibt getrennt und wird nie als
+  Eingangsdatum vorbelegt.
 - Reine Datumswerte, zonierte Zeitpunkte, Intervalle und Teilgenauigkeit folgen
   `DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`.
 - "Heute" ist Mini-Command.
 - Faelligkeit darf Review-Hinweis erzeugen, aber nicht automatisch Alarm, wenn
   keine Reminder-Entscheidung getroffen wurde.
+- Regelbasierte Fristen zeigen bei Review/Aenderung nicht nur das Datum,
+  sondern machen Startanker, Berechnung, Regelstand, Fundstelle und
+  Bestaetigungsstatus erreichbar.
+- Die frueheste bestaetigte offene Frist darf visuell priorisiert werden,
+  andere Payer-/Provider-Fristen bleiben aber editierbar und auffindbar.
 
 ## Date Range Picker
 
@@ -194,6 +216,9 @@ Regeln:
 
 - Hochwertiger Dokument-Scan erzeugt ein geeignetes Dokumentartefakt mit
   mehreren Seiten.
+- Zuschneiden, Drehen, Umordnen, Entfernen, Neuaufnehmen und Ergaenzen erfolgen
+  in der lokalen Scan-Session vor `Dokument abschliessen` und vor
+  Queue-/Upload-Uebergabe.
 - Foto bleibt fuer Passfoto, Gegenstand, Unfall- oder Beweisfoto legitim.
 - Ein abgeschlossener Scan enthaelt genau ein logisches Dokument; fuer das
   naechste Dokument beginnt eine neue Scan-Einheit.
@@ -249,19 +274,20 @@ Regeln:
 
 ## Mobile Capture Minimal Input
 
-Der globale Capture-Einstieg enthaelt nur:
+Der globale Capture-Einstieg enthaelt:
 
 - die wenigen konkreten Erfassungswege fuer Scan, Foto, Galerie und Datei,
   deren exakte Komposition erst die UI-Phase bestimmt.
-- optional `Neuen Vorgang starten` als bewusste Vorab-Absicht.
+- optional und progressiv nur bekannte Angaben zu Grundart/sinnvollem Subtyp,
+  bestaetigtem Fact, Managed Subject, grobem Kontext sowie neuem oder
+  bestehendem Case.
 
 Regeln:
 
 - Automatische Backend/Core-Assist-Analyse und Matching laufen immer.
-- Profil, Dokumentgrundart/Variante, Titel, Case/Record, Rolle und Metadaten werden nicht vor
-  dem Scan abgefragt, sondern vorgeschlagen.
-- Bestehender Case ist hoechstens ein sekundaerer Shortcut oder Teil des
-  Korrekturpfads.
+- Keine dieser Angaben wird vor dem Scan verlangt; fehlende Werte werden
+  vorgeschlagen.
+- Userwerte behalten Provenienz und werden nicht still ueberschrieben.
 - Exakte Tap-/Swipe-/Control-Gestaltung bleibt dem Capture-UI-Konzept vorbehalten.
 
 ## Flutter Handoff
@@ -288,6 +314,9 @@ Implementation soll:
 Mindestens:
 
 - Date Picker Auswahl und Fehler fuer ungueltige Eingabe.
+- mehrere OCR-Datumskandidaten, typabhaengiger Top-Vorschlag, Auswahl einer
+  Alternative, `Kein Datum`, manuelle Eingabe und keine Folge fuer
+  unbestaetigte Kandidaten.
 - Date Range Start/Ende Validierung.
 - File Picker Selected/Replace/Remove.
 - Capture-Quelle und abgeleitetes Ausgabeformat.
@@ -310,7 +339,9 @@ Mindestens:
 
 ## Stop Rules und Handoff
 
-Stop, wenn Capture vor dem Scan Typ, Profil, Titel oder Case verlangt, wenn
+Stop, wenn Capture vor dem Scan Typ, Profil, Titel oder Case verlangt, optionale
+Angaben zu einem grossen Taxonomie-/Metadatenformular oder Ersatz fuer
+automatische Analyse werden, wenn
 mehrere Dokumente in eine logische Scan-Einheit gemischt werden oder wenn
 Queue/Restart Originale verliert. Stop auch, wenn eine Desktop-Webcam als
 Dokumentenscanner oder ein OQ-013-Draftpfad als akzeptierter Core-Control

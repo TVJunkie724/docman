@@ -2,8 +2,8 @@
 title: "Konzept F18 - Notifications, Failures and Observability"
 description: "Sichere Nutzerbenachrichtigungen, Telemetry, Audit, Correlation und Observability fuer Mappm"
 tags: [concept, foundation, failures, notifications, observability, audit, telemetry, privacy]
-lastUpdated: "2026-07-15"
-version: "3.0"
+lastUpdated: "2026-07-24"
+version: "3.1"
 status: "accepted"
 owner: "quality-readiness/product"
 ---
@@ -78,6 +78,10 @@ Regeln:
 Ein global erfasstes Dokument kann 1-2 Minuten verarbeitet werden. Die App
 zeigt haltbare Annahme, laufende Verarbeitung, Review-Bereitschaft, Teilfehler
 und Retry getrennt. Sie blockiert den Nutzer nicht unnoetig im Capture-Screen.
+Animation, echte Processing-Stufen, Background-Fortsetzung, Reduced Motion und
+Review-Queue-Erfahrung gehoeren normativ zu
+`CONCEPT_F38_ASYNC_PROCESSING_WAIT_EXPERIENCE.md`. F18 besitzt deren sichere
+Notification-, Failure-, Redaction- und Observability-Grenze.
 
 Bei Review werden nur entscheidungsrelevante Vorschlaege hervorgehoben. Bereits
 implizit klare Fakten werden nicht wiederholt; Details bleiben optional

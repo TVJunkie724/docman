@@ -26,8 +26,10 @@ Every F-concept also inherits:
 - `docs/technical/DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`.
 - `docs/concepts/CONCEPT_F36_VAULT_MODES_CLOUD_LIFECYCLE.md`.
 - For affected product/UI concepts:
-  `docs/concepts/CONCEPT_F37_CASE_RECORD_CONTEXTUAL_EXPERIENCE.md` and its
-  normative Case/Subscription/Managed-Subject/Tax/Roll-up decisions.
+  `docs/concepts/CONCEPT_F37_CASE_RECORD_CONTEXTUAL_EXPERIENCE.md`,
+  `docs/concepts/CONCEPT_F38_ASYNC_PROCESSING_WAIT_EXPERIENCE.md` and their
+  normative Case/Subscription/Managed-Subject/Tax/Roll-up/Processing
+  decisions.
 
 Conflicting statements that make Mappm universally local-first, make a customer
 Home Hub/self-hosted deployment the product direction, or treat Cloud as a

@@ -2,7 +2,7 @@
 title: "Rebaseline - Mappm Cloud Capture Contract Shape"
 description: "Akzeptierte fachliche Capture-Vertragsform; konkrete OpenAPI-Rekontraktierung erforderlich"
 tags: [decision, cloud, mobile-capture, openapi, microcks, upload, processing]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-22"
 status: "accepted-shape-recontract-required"
 owner: "contract-api"
 ---
@@ -64,7 +64,8 @@ Core Assist liefert pro logischem Dokument insbesondere:
 
 - editierbaren Dokument- und gegebenenfalls Case-/Record-Titel.
 - Typ, relevante Fakten, Managed Subject und External Party.
-- gerankte Case-/Record-/Claim-Kandidaten mit Confidence und Provenance.
+- gerankte Case-/Record-Kandidaten mit Confidence und Provenance; kein
+  Claim-Matching.
 - Workflow-/Task-/Fristvorschlaege innerhalb freigegebener Definitionen.
 
 ## Fehler- und Security-Grenze

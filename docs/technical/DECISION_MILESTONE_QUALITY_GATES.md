@@ -51,8 +51,12 @@ Moeglichkeit `frontend.sh`/`scripts/verify.sh`.
 
 - hochwertige Mobile-/Desktop-Erfassung mit haltbarem Original.
 - ein logisches Dokument pro Scan-Einheit; Mixed Session/Import korrigierbar.
-- OCR/Extraction/Index/Matching sowie verpflichtender Titelvorschlag.
-- High/Medium/Low Confidence, Outlier, Teilfehler, App-Kill und Retry.
+- OCR, grobe Klassifikation/einfache Kandidaten, Index/Case-/Record-Ranking
+  sowie verpflichtender konservativer Titelvorschlag.
+- High/Medium/Low Confidence, technische Scanqualitaet, Teilfehler, App-Kill
+  und Retry; keine semantische Outlier-/Dokumentkohaerenzanforderung.
+- gemischter Ein-Datei-Inhalt bleibt ein generisches logisches Dokument ohne
+  M1-Ablehnung, Invalidierung oder Auto-Split.
 - User-Bestaetigung sichtbarer Folgen bis zur freigegebenen Automation.
 - Local-/Cloud-/Free-/Paid-/Offline-/Quota-Matrix fuer aktivierten Scope.
 - Contract Consumer/Provider, Privacy, A11y und Mobile-Build-Evidence.

@@ -2,7 +2,7 @@
 title: "Produkt-Säule - Templates and Workflows"
 description: "Produktbereich fuer Vorgangsvorlagen, Checklisten, empfohlene nächste Schritte und workflowbasierte Assistenz"
 tags: [pillar, templates, workflows, checklists, tasks]
-lastUpdated: "2026-07-21"
+lastUpdated: "2026-07-24"
 version: "0.5"
 status: "accepted-direction"
 owner: "product-concept"
@@ -21,17 +21,23 @@ deutschen Titel, Reifegrade und Dispositionen steht in
 definiert bewusst keine zweite Kurz- oder Bereichsliste. Sie beschreibt
 Ownership, Qualitaet und Auslieferung der dort registrierten Eintraege.
 
-Jede Case-Familie benoetigt ab Beginn ihres dedizierten fachlichen Workshops
-genau ein in der Katalog-SSOT registriertes Owning Subkonzept; eine blosse
-Katalogzeile erzeugt keine leere Datei. Das Subkonzept besitzt das fachliche
+Jede Case-Familie wird zuerst ohne neue Decision-Datei vollstaendig mit dem
+User besprochen. Nach Chat-Abgleich und ausdruecklicher
+Dokumentationsfreigabe erhaelt sie genau ein in der Katalog-SSOT registriertes
+Owning Subkonzept; Katalogzeilen und laufende Workshops erzeugen keine Draft-
+oder Platzhalterdateien. Das Subkonzept besitzt das freigegebene fachliche
 Verhalten. Diese Saeule, Country Packs und Workflowdefinitionen duerfen ein
 fehlendes Subkonzept nicht ersetzen. Ein Template darf erst daraus abgeleitet
 werden, wenn Ziel, Grenze, Komposition, Lifecycle, Matching,
 Dokumentdisposition, Laendergrenze, Fixtures und Stop Rules reviewed sind.
 
 Fuer Gesundheit sind ein ortsunabhaengiger `medical_care`-Anker, ein
-`part_of`-`medical_cost_settlement` je eigenstaendiger wirtschaftlicher
-Verpflichtung und Payer-Einreichungen als Claims akzeptiert.
+`part_of`-`medical_cost_settlement` je eigenstaendig ausgestellter
+Rechnung/Honorarnote und Payer-Einreichungen als wiederholbare
+Events/Branches mit null, einem oder mehreren Dokumentlinks dokumentiert.
+Korrektur/Gutschrift/Beleg bleiben im selben Cost-Case; eine weitere Rechnung
+erzeugt einen weiteren. Der erneute Familienreview ist auf Care-Grenze,
+Parent-Abschluss und wenige M1-Erwartungen verengt.
 Behandlungsbewilligungen sind generische Dokumente/Facts/Schritte im Care-Case
 und keine eigene Vorlage. Reha, Nachsorge und spaetere Evidenz werden
 dokumentweise gematcht; ein neuer verknuepfter Medical Case beginnt in M1 aus
@@ -39,7 +45,19 @@ einem Ankerdokument oder ausdruecklicher Absicht, nicht aus freier
 Mehrfachabspaltung. Wiederkehr ist optionale Planung, kein Template/Case-Typ.
 Besondere vertragliche Leistungen werden im Medical Core fuer M1 nicht
 spezialisiert oder berechnet. OQ-012 ist geschlossen; konkrete optionale
-AT-Provider-Hinweise bleiben WF-01/WF-02.
+AT-Provider-Regeln folgen
+`DECISION_AUSTRIA_MEDICAL_PAYER_RULE_PACK.md` und bleiben
+WF-01/WF-02/OPS-09-gegatet.
+
+Fuer Unfall/Schaden sind ein gemeinsamer Anlass-/Regulierungs-Case, wenige
+grobe optionale Varianten, `part_of`-Schadenkosten je eigenstaendiger
+wirtschaftlicher Verpflichtung sowie normale Versicherungsabwicklungs-Cases
+mit mehreren Rechnungen und wiederholbaren Einreichungen dokumentiert.
+`Medizinischer Unfall` routet direkt zu `medical_care` und erzeugt ohne
+eigenstaendige nichtmedizinische Regulierung keinen Unfall-Wrapper. Medical und
+Damage Cost Settlement bleiben getrennte Fachmodelle; Polizzenvorschlaege
+behaupten keine Deckung. Details besitzt
+`DECISION_ACCIDENT_DAMAGE_SETTLEMENT_MODEL.md`.
 
 ## Zielbild
 
@@ -51,7 +69,7 @@ Gültigkeitszeitraum und gegebenenfalls Institution veröffentlicht.
 Ein Template kann vorschlagen:
 
 - typische Dokumentgrundarten, semantische Varianten und Rollen.
-- Schritte, Ablaufzweige, Claims und bei eigenständigem Ziel typisierte
+- Schritte, Ablaufzweige, Einreichungsereignisse und bei eigenständigem Ziel typisierte
   Case-Beziehungen.
 - Tasks und Fristen.
 - Records, die verknüpft werden sollten.
@@ -67,12 +85,14 @@ Lebenszyklus. `Subvorgang` ist nur die UI-Rolle eines `part_of`-Links.
 Dokumente können mehreren Vorgängen zugeordnet sein, ohne Dateien zu duplizieren.
 
 Manuelle/Custom Cases sind ein gleichwertiger Produktpfad. Sie duerfen mit
-automatisch vorgeschlagenem Titel, Managed Subject und optional einem Dokument nahezu
-leer beginnen, frei angelegt, aus ausgewaehlten Dokumenten gebildet oder aus
-bestehenden Cases/Dokumenten nachtraeglich uebergeordnet werden. Ein kompatibles
-Template kann spaeter bewusst uebernommen werden; Backend/Core Assist schlaegt
-dabei Titel, Slots, Tasks und Beziehungen vor, ohne bestaetigte Historie zu
-ersetzen.
+automatisch vorgeschlagenem Titel, nutzergewaehltem beziehungsweise geerbtem
+Managed Subject und optional einem Dokument nahezu leer beginnen, frei angelegt,
+aus ausgewaehlten Dokumenten gebildet oder aus bestehenden Cases/Dokumenten
+nachtraeglich uebergeordnet werden. Ein kompatibles Template kann spaeter bewusst
+uebernommen werden. Backend/Core Assist darf dabei konservative Kandidaten
+liefern. Slots und reversible Tasks entstehen erst aus bestaetigten Facts,
+Nutzeraktionen oder festen Produktregeln; Beziehungen bleiben ein optionaler,
+separat qualitaetsgegateter und immer zu bestaetigender Vorschlag.
 
 ## Internationalisierung
 
@@ -86,23 +106,34 @@ ersetzen.
   manuellen Vorgang.
 - Jeder veröffentlichte Workflow braucht Version, Gültigkeit, Quellen,
   Reviewdatum, Owner, Risikoklasse und getestete Fallbacks.
+- Jede aktive regelbasierte Frist behaelt Startanker, Rule-/Pack-Version,
+  Fundstelle, Bestaetigung und Reviewstatus. Mehrere Providerfristen bleiben
+  getrennt; die frueheste offene Frist ist nur ein abgeleiteter Attention-Wert.
+- Country-/Provider-Regeln benoetigen den Betrieb aus
+  `docs/ops/OPS-09_COUNTRY_PROVIDER_RULE_MAINTENANCE.md`: monatlichen
+  Source-Check, mindestens halbjaehrlichen Fachreview, Developer-Reminder,
+  immutable Versionen, Withdrawal und Release-Gate.
 
 ## Release Slices
 
 Foundation/Commercial Core modelliert Case, CaseLink, Workflow-Schritt/-Zweig,
-Claim und Custom-Case-Ursprung ohne harte UI-Logik. Aktivierte Release-Slices
+Submission Event, Versicherungsabwicklung und Custom-Case-Ursprung ohne harte
+UI-Logik. Aktivierte Release-Slices
 liefern danach:
 
 - Definition und technische Validierung des Katalogformats.
 - fachlich geprüfte Golden Workflows für die ausgewählten Startmärkte.
-- aus Templates erzeugte Aufgaben, Claims, Ablaufzweige, Case-Beziehungen und
+- aus Templates erzeugte Aufgaben, Submission Events, Ablaufzweige, Case-Beziehungen und
   erwartete Dokumente.
 - signierte Katalog-Updates und auditable Migrationen.
 
 ## Grenzen
 
 - Templates dürfen keine rechtlich oder medizinisch verbindlichen Entscheidungen treffen.
-- Automatische Statusänderungen folgen der aktiven Review-/Automatisierungsreife.
+- Statusaenderungen entstehen im aktuellen Zielrelease nur aus konkreter
+  Nutzeraktion, eindeutig benannter kontextueller Aktion, autorisierter
+  Integration oder gepruefter Regel. Eine spaetere Automatisierung bleibt
+  klassenbezogen qualitaetsgegatet.
 - Backend/Core-Assist-Vorschlaege gehoeren zum Commercial Core; spaetere
   Finalisierung bleibt qualitaetsgegatet.
 - LLMs wählen nur aus veröffentlichten Definitionen; sie publizieren oder

@@ -2,7 +2,7 @@
 title: "Decision - External Integrations First"
 description: "Entscheidung zu externen Links, Exportaktionen und spaeterer Portalautomatisierung in Mappm"
 tags: [decision, integrations, external-links, export, portals, sharing]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-22"
 status: "accepted"
 owner: "product-concept/security"
 ---
@@ -28,7 +28,7 @@ Mappm integriert externe Dienste zuerst als manuelle Aktionsziele:
 - Dokument drucken.
 - Dokument lokal exportieren, drucken oder an ein vom Betriebssystem
   bereitgestelltes Ziel uebergeben.
-- Link an Aufgabe, Vorgang, Claim, Record, Profil oder Dokument speichern.
+- Link an Aufgabe, Vorgang, Submission Event, Record, Profil oder Dokument speichern.
 
 Mappm speichert dafuer frueh keine fremden Zugangsdaten, Tokens,
 Session-Cookies oder Portal-spezifischen Automatisierungsdaten.
@@ -36,7 +36,8 @@ Session-Cookies oder Portal-spezifischen Automatisierungsdaten.
 ## Beispiele
 
 - Aufgabe: `Rechnung bei SV einreichen` mit Link zum SV-Portal.
-- Claim: Link zur Zusatzversicherung.
+- Submission Event/Task im medizinischen Kosten-Case: Link zur
+  Zusatzversicherung.
 - Vorgang: Unfallvorgang mit Link zum Versicherungsportal.
 - Record: Versicherungspolizze mit Link zum Kundenportal.
 - Profil: Schul-App oder Gesundheitsportal fuer ein Kind.

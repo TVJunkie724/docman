@@ -2,7 +2,7 @@
 title: "Entscheidung - Zeitangaben, Ereignisse, Fristen und Agenda"
 description: "Verbindliches Mappm-Modell fuer typisierte Zeitwerte, Provenienz, Ereignisse, Aufgaben, Termine, Fristen, Erinnerungen und spaetere Kalenderfaehigkeit"
 tags: [decision, product, temporal, dates, events, deadlines, agenda, calendar, intelligence, metadata]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-25"
 status: "accepted-direction"
 owner: "product-concept/data-architect"
 ---
@@ -25,6 +25,12 @@ F29 besitzt die Regeln fuer Datum-/Zeit-Eingabekomponenten. Die
 Tasks-/Reminder-Saeule besitzt Aufgaben, Reminder und Agenda-Verhalten. Dieses
 Dokument besitzt die gemeinsame fachliche Zeitsemantik, auf die beide
 verweisen.
+
+Die zusaetzliche Semantik fuer mehrere unabhaengige, regelbasierte Fristen,
+Rule-Versionen, Quellenstand, Nutzerbestaetigung und Reminder steht in
+`DECISION_RULE_DERIVED_DEADLINES_REMINDERS.md`. Das vorliegende Dokument
+besitzt weiterhin die allgemeinen Zeitwerte und Ereignisgrenzen; konkrete
+Country-/Provider-Regeln werden hier nicht dupliziert.
 
 ## Kernentscheidung
 
@@ -81,7 +87,7 @@ Ihre exakten Code-Keys bleiben dem Domain-/Contract-Entwurf vorbehalten.
 | ausgestellt | Dokument oder Nachweis wurde ausgestellt | Rechnung, Bescheid, Brief, Zertifikat |
 | empfangen | fachlicher Eingang, soweit bekannt | Posteingang, E-Mail-Import, manuelle Angabe |
 | erbracht/aufgetreten | Leistung, Behandlung oder Ereignis fand statt | Rechnung, Bericht, Bestaetigung |
-| eingereicht | Antrag, Claim oder Unterlage wurde uebermittelt | Einreichbestaetigung, Versandnachweis |
+| eingereicht | Antrag oder Unterlage wurde uebermittelt | Einreichbestaetigung, Versandnachweis |
 | entschieden | externe Entscheidung wurde getroffen | Bescheid, Versicherungsentscheidung |
 | faellig | Handlung oder Zahlung ist bis zu einem Datum erforderlich | Rechnung, Vertrag, gepruefte Workflowregel |
 | gueltig | Unterlage, Vertrag, Deckung oder Berechtigung gilt in einem Zeitraum | Pass, Polizze, Vertrag |
@@ -128,7 +134,7 @@ sein. Das Konzept verlangt mindestens:
 - stabile ID;
 - semantische Zeitart;
 - Wert, Intervall und Genauigkeit;
-- Quelle: Dokument, Record, Case, Claim, Workflowdefinition, Nutzerangabe oder
+- Quelle: Dokument, Record, Case, Submission Event, Workflowdefinition, Nutzerangabe oder
   Systemvorgang;
 - bei Dokumenten nach Moeglichkeit Dokument-ID, Seite und Text-/Bildstelle;
 - Extraktionsquelle wie OCR, deterministische Regel, Modell oder
@@ -146,13 +152,17 @@ existieren. Eine Korrektur ueberschreibt nicht still die Herkunft oder
 Historie. Eine abgeleitete Frist verweist sowohl auf ihren Ausgangs-Fact als
 auch auf die versionierte, gepruefte Regel, aus der sie berechnet wurde.
 
+Mehrere Fristen am selben Zielobjekt bleiben getrennte Fristinstanzen. Eine
+kompakte naechste kritische Frist darf nur die frueheste bestaetigte,
+anwendbare und offene Frist ableiten; sie ersetzt keine andere Frist.
+
 ## Assist-Extraktion und Review
 
-Backend/Core Assist versucht bei geeigneten Dokumenten, relevante
-Zeitkandidaten zu erkennen. Es muss abstain koennen und darf nicht versprechen,
-aus jedem Dokument ein fachliches Ereignisdatum zu gewinnen.
-
-Die Verarbeitung kann beispielsweise erkennen:
+OCR/Backend/Core Assist darf bei geeigneten Dokumenten alle erkannten
+Datumsstrings mit Fundstelle als Zeitkandidaten liefern. Aus Dokumenttyp,
+Feldlabel, Text- und Layoutkontext soll Assist fuer die relevanten Felder je
+einen wahrscheinlichen semantischen Top-Kandidaten vorschlagen,
+beispielsweise:
 
 - Rechnungsdatum, Leistungsdatum und Faelligkeit in derselben Rechnung;
 - Aufnahme- und Entlassungsdatum als Aufenthaltszeitraum;
@@ -160,7 +170,12 @@ Die Verarbeitung kann beispielsweise erkennen:
 - Einreichungsdatum in einer Bestaetigung;
 - Gueltigkeitszeitraum eines Records.
 
-Sie darf nicht:
+Das ist eine korrigierbare Formularvorbelegung, keine finale Modellwahrheit.
+Die Pipeline muss abstain koennen, darf Felder leer lassen und darf nicht
+versprechen, jeden gedruckten, handschriftlichen, mehrdeutigen oder durch
+schlechte OCR verlorenen Datumswert zu finden.
+
+Assist darf nicht:
 
 - Scan-/Importzeit als fehlendes fachliches Datum ausgeben;
 - aus einem Ausstellungsdatum allein einen Arztbesuch behaupten;
@@ -171,10 +186,31 @@ Sie darf nicht:
 - eine unklare Tages-/Monatsreihenfolge ohne Locale-/Kontextpruefung
   finalisieren.
 
-Materielle Folgen wie Termin, Frist, Faelligkeit, Reminder, externe Aktion oder
-Case-/Claim-Status muessen im aktuellen Reifegrad sichtbar bestaetigt werden.
-Andere extrahierte Zeitwerte duerfen als Vorschlaege erhalten bleiben, ohne den
-Review in ein Metadatenformular zu verwandeln.
+Die kompakte Standardoberflaeche zeigt keinen grossen Datumsdialog. Sie zeigt
+nur die fuer den bestaetigten beziehungsweise vorgeschlagenen Dokumenttyp
+relevanten Felder mit dem jeweiligen Top-Kandidaten. Jedes solche Feld bietet
+in einer kleinen Auswahl:
+
+- die anderen erkannten Datumswerte;
+- `Kein Datum`;
+- `Manuell eingeben`.
+
+Weitere nicht verwendete Kandidaten und ihre Fundstellen bleiben unter
+`Weitere Zeitangaben` beziehungsweise einer gleichwertigen Detailaktion
+erreichbar. Die Nutzerin kann den Top-Kandidaten uebernehmen, austauschen,
+entfernen oder manuell ergaenzen. Die sichtbare Gesamtbestaetigung des
+Review-Bundles bestaetigt die dargestellte Feldbedeutung. Eine direkte Aktion
+`Als Frist verwenden`, `Termin anlegen` beziehungsweise `Reminder erstellen`
+ist ebenfalls eine ausdrueckliche Bestaetigung.
+
+Unsichere oder materielle Ausgangs-Facts wie Termin, Frist, Faelligkeit,
+Einreichungs- oder Entscheidungsstatus muessen im aktuellen Reifegrad sichtbar
+bestaetigt werden. Eine harmlose, interne und reversible Aufgabe, erwartete
+Antwort oder Agenda-Projektion, die deterministisch aus einem bereits
+bestaetigten Fact entsteht, benoetigt keine zweite Bestaetigung. Externe
+Aktionen, laute Notifications und Case-Abschluss bleiben bestaetigungsgebunden.
+Andere extrahierte Zeitwerte duerfen als nicht verwendete Kandidaten erhalten
+bleiben, ohne den Review in ein Metadatenformular zu verwandeln.
 
 ## Dokumente, Ereignisse und medizinisches Beispiel
 
@@ -196,11 +232,10 @@ Moegliches bestaetigtes Ereignis
   belegt durch diese Rechnung
 ```
 
-Nur das Leistungsdatum kann hier einen Behandlungskontakt belegen. Das
-Ausstellungsdatum beschreibt das Dokument, das Erfassungsdatum nur Mappm.
-Fehlt ein belastbares Leistungsdatum, darf der vorgeschlagene Titel
-beispielsweise `Arztrechnung Dr. Mayer, Juli 2026` lauten, ohne einen exakten
-Behandlungstag zu behaupten.
+Nur ein bestaetigtes Leistungsdatum kann hier einen Behandlungskontakt belegen.
+Das Ausstellungsdatum beschreibt das Dokument, das Erfassungsdatum nur Mappm.
+Automatische Dokument- und Case-Titel enthalten standardmaessig kein Datum;
+ein konservativer Vorschlag lautet beispielsweise `Arztrechnung Dr. Mayer`.
 
 Weitere Beispiele:
 
@@ -230,11 +265,18 @@ kontextualisierte Aufmerksamkeit. Wiederkehrende Aufgaben und Reminder werden
 bewusst aktiviert; eine wiederkehrende Rechnung erzeugt nicht automatisch
 jeden Monat eine laute Erinnerung.
 
+Jede bestaetigte aktive Frist, jeder Termin, jede faellige Aufgabe, jeder
+Reminder, jede erwartete Antwort mit Reviewzeitpunkt und jedes konkrete
+Vorkommen einer Wiederholung ist Agenda-faehig. Historische Ausstellungs-,
+Leistungs-, Zahlungs- oder Erfassungsdaten bleiben ohne offenen
+Aufmerksamkeitsbedarf in der Timeline. Fuer den ersten Release reicht eine
+schlanke Agenda-Liste; eine Kalenderansicht ist nicht erforderlich.
+
 ## Spaetere Kalenderintegration
 
 Eine externe Kalenderintegration bleibt spaeter, optional und
 consent-pflichtig. Das Domainmodell wird jedoch so vorbereitet, dass sie keine
-Migration von untypisierten Datumsstrings benoetigt.
+Migration aus einem einzigen unsemantischen Dokumentdatum benoetigt.
 
 Vor einer Integration muss ein eigener Contract festlegen:
 
@@ -263,16 +305,16 @@ Kalenderverbindung besteht.
   bestaetigte Fakten gerankt werden.
 - Matching darf mehrere Zeit-Facts kombinieren, aber Session- oder zeitliche
   Naehe beweist keinen gemeinsamen Case.
-- Titel duerfen den passendsten belegten Zeitkontext verwenden. Sie erzeugen
-  dadurch kein universelles Hauptdatum und duerfen keine hoehere Genauigkeit
-  vortaeuschen als die Quelle besitzt.
+- Automatische Dokument- und Case-Titel verwenden standardmaessig kein Datum.
+  Bestaetigte Zeit-Facts bleiben separat such- und filterbar.
 
 ## Daten-, Contract- und Sync-Anforderungen
 
 Ein spaeterer Domain-/Data-/Contract-Entwurf muss mindestens sicherstellen:
 
 - stabile IDs und versionierbare Zeit-Facts/Ereignisse;
-- typisierte Werte statt freier Datumsstrings;
+- rohe OCR-Kandidaten mit Fundstelle getrennt von semantisch vorausgefuellten
+  Vorschlaegen und nutzerbestaetigten typisierten Zeit-Facts;
 - getrennte Systemzeitstempel und fachliche Zeitwerte;
 - Provenienz, Bestaetigungsstatus und Korrekturhistorie;
 - viele Quellen fuer einen bestaetigten Fact und mehrere Facts pro Dokument;
@@ -298,13 +340,16 @@ mindestens so sensibel wie ihr Quellkontext.
   Berechtigungsgrenzen.
 - Country-/Provider-Fristen benoetigen datierte Quellen, Version, Reviewer und
   Withdrawal-/Korrekturpfad.
+- Automatisch abgeleitete Fristen und Reminder muessen Regelstand, Fundstelle,
+  Berechnung, Bestaetigungsstatus und naechsten Quellenreview sichtbar
+  zugaenglich machen.
 - Modellkorrekturen sind kein Training-Consent.
 
 ## Roadmap-Verankerung
 
 | Slice | Verpflichtung |
 |---|---|
-| C2 / R4.9 / R5.2 | Zeitkandidaten mit Provenienz extrahieren und in kompakten Vorschlaegen transportieren |
+| C2 / R4.9 / R5.2 | Zeitkandidaten mit Provenienz extrahieren, typrelevante Felder semantisch vorausfuellen und Alternativen/manuellen Fallback in kompakten Vorschlaegen transportieren |
 | C3 / R4.10 | Aufgaben, Faelligkeiten und fokussierte Agenda auf typisierten Zeitwerten aufbauen |
 | C3 / R4.11 | strukturierte Zeitfilter und nachvollziehbare Suchtreffer vorbereiten |
 | R8.4 | Gueltigkeiten, Fristen, Zeitraeume und Konflikte als bestaetigte Facts ausbauen |
@@ -316,6 +361,8 @@ mindestens so sensibel wie ihr Quellkontext.
 Synthetische Tests und Fixtures decken mindestens ab:
 
 - Dokument mit mehreren unterschiedlichen Datumsarten;
+- Dokument mit mehreren OCR-Datumsstrings, typabhaengigem Top-Vorschlag,
+  Kandidatenauswahl, `Kein Datum` und manueller Eingabe;
 - reines Datum ohne Uhrzeit und ohne Zeitzonenverschiebung;
 - Termin mit IANA-Zeitzone und Sommerzeitwechsel;
 - Zeitraum, offenes Ende und Monat-/Jahr-Genauigkeit;
@@ -324,6 +371,10 @@ Synthetische Tests und Fixtures decken mindestens ab:
 - widerspruechliche Vorschlaege und bestaetigte Korrektur;
 - Reprocessing ohne Ueberschreiben bestaetigter Werte;
 - abgeleitete Frist mit versionierter Regelquelle;
+- mehrere Payer-/Provider-Fristen und korrekte frueheste offene Frist ohne
+  Verlust der anderen Fristen;
+- ueberfaellige beziehungsweise geaenderte Regelquelle ohne stille
+  Neuberechnung;
 - keine Agenda-Zeile fuer reines Ausstellungs-/Erfassungsdatum;
 - Reminder getrennt von Frist und Notification-Kanal;
 - Local-/Cloud-Konflikt und Offline-Pending-Aenderung;
@@ -343,8 +394,12 @@ Stop, wenn:
   vermischt werden;
 - ein gefundenes Datum automatisch ein Ereignis, eine Aufgabe, Frist,
   Notification oder Kalenderaktion finalisiert;
+- mehrere unabhaengige Fristen in ein universelles Feld verschmolzen oder
+  durch die frueheste Frist ueberschrieben werden;
 - Assist eine fehlende Uhrzeit, Genauigkeit, Kausalitaet oder rechtliche Frist
   erfindet;
+- ein General-Purpose-Modell ohne Nutzerreview oder eng belegte Regel
+  fachliche Datumsrollen finalisiert;
 - Provenienz, Vorschlagsstatus oder Korrekturhistorie verloren gehen;
 - Agenda jedes Dokumentdatum als Kalendereintrag zeigt;
 - externe Kalenderintegration ohne expliziten Scope, Consent, Redaction,

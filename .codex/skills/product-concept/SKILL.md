@@ -23,9 +23,23 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
 - Read `docs/technical/DECISION_VAULT_STORAGE_AND_CLOUD_PRODUCT_MODEL.md`.
 - Read `docs/concepts/CONCEPT_F36_VAULT_MODES_CLOUD_LIFECYCLE.md`.
 - Read `docs/technical/DECISION_CASE_RELATIONSHIP_WORKFLOW_COMPOSITION.md`.
+- Read `docs/technical/DECISION_CASE_FAMILY_DEFINITION_CONTRACT.md` whenever a
+  Case family, matching boundary, typical content or lifecycle is in scope.
 - Read `docs/technical/DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` for
-  accepted medical Care/Cost/Claim composition.
+  the accepted medical Care/Cost/submission baseline.
+- Read `docs/technical/DECISION_ACCIDENT_DAMAGE_SETTLEMENT_MODEL.md` whenever
+  accident, damage, theft/loss, repair costs, insurance settlement, policy matching or
+  medical consequences of an accident are in scope.
+- Read `docs/technical/DECISION_INSURANCE_SETTLEMENT_MODEL.md` whenever an
+  insurer, policy, submission/resubmission, external damage reference or
+  insurance handling context is in scope.
 - Read `docs/technical/DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md`.
+- Read `docs/technical/DECISION_INTELLIGENCE_SCOPE.md` whenever OCR, LLM,
+  extraction, matching, title, workflow suggestion, relation suggestion,
+  document quality or automation is in scope.
+- Read `docs/concepts/CONCEPT_F38_ASYNC_PROCESSING_WAIT_EXPERIENCE.md` whenever
+  progressive extraction, background processing, wait animation or Review
+  Queue behavior is in scope.
 - Read `docs/technical/DECISION_DESKTOP_IMPORT_SCOPE.md` when desktop import,
   removable media, folder archives, ZIP handling or platform scope is affected.
 - Read `docs/technical/DECISION_CROSS_DEVICE_CAPTURE_HANDOFF.md` when
@@ -44,6 +58,16 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
 - Read `docs/technical/DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md` whenever
   dates, events, deadlines, tasks, Agenda, extraction or calendar capability
   are affected.
+- Read `docs/technical/DECISION_RULE_DERIVED_DEADLINES_REMINDERS.md` whenever
+  a Country-/Provider-/Policy rule can derive a deadline or reminder.
+- Read `docs/technical/DECISION_AUSTRIA_MEDICAL_PAYER_RULE_PACK.md` whenever
+  Austrian medical payers, KFA, supplementary insurance, reimbursement
+  deadlines or provider-specific submission behavior are in scope.
+- Read `docs/ops/OPS-09_COUNTRY_PROVIDER_RULE_MAINTENANCE.md` whenever a
+  Country-/Provider rule is proposed for activation, release or update.
+- Read `docs/execution/handoffs/DOMAIN_BACKEND_FEASIBILITY_REGISTER.md`
+  whenever product semantics depend on extraction, matching, latency,
+  confidence, cost, privacy or target-release backend capability.
 - Read `docs/concepts/CONCEPT_F37_CASE_RECORD_CONTEXTUAL_EXPERIENCE.md`.
 - Read `docs/discovery/OPEN_QUESTIONS_REGISTER.md`; OQ-011 blocks final
   taxonomy, OQ-012 is resolved and OQ-013 blocks only Cross-Device-Capture
@@ -55,6 +79,15 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
 - Cloud Vault is managed-cloud-authoritative; local data is cache and pending work.
 - Core Assist is required in Commercial Core and is separate from Vault
   authority; Assist processing never silently creates Cloud storage/backup.
+- Every plan assumes only small to medium general-purpose model capability:
+  coarse type/domain classification, OCR, type-dependent semantic field
+  proposals, conservative title and best-effort ranking. Product/Document
+  decisions define the few relevant review fields; Assist may prefill them
+  with a top candidate and alternatives, but does not invent the field set or
+  finalize semantic wrong-profile/case/document detection, page coherence,
+  affected-person inference, workflow/legal-deadline meaning, causality or
+  relationship truth. Stronger behavior needs a named class/release
+  feasibility gate; user context and confirmation remain authoritative.
 - Provider migration is explicit, verified and reversible through export/migration.
 - Cancellation never causes immediate loss: grace/read-only, export, reactivation,
   Cloud-to-Local migration and deletion are distinct product states/actions.
@@ -75,42 +108,65 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
   optional enrichments, not visible Case subtypes; never invent a large Case
   type picker.
 - Every persisted Case is valid. Zero, one or many documents are allowed; no
-  document type/set, workflow, task, Claim or outcome is a general validity
+  document type/set, workflow, task, submission or outcome is a general validity
   requirement. Assist proposals are not Cases until confirmed creation, and
   there is no `invalid` Case lifecycle state.
-- Split workflow stages, tasks, events, branches and Claims from Cases by
+- Split workflow stages, tasks, events and branches from Cases by
   independent goal/lifecycle/outcome, not by sender, institution, document or
   local status. Composition is reversible and supports top-down and bottom-up
   creation without copying content.
 - Guided, Assist-suggested and manual/Custom Cases have equal capabilities.
 - Global capture always runs asynchronous Backend/Core Assist analysis and
-  matching. The service must propose editable titles for every logical Document
-  and proposed Case/Record, including explicit new-Case intent. The accepted
+  matching. Capture begins in a visible Managed-Subject context that may be
+  preselected or inherited. Before leaving capture, the user may optionally supply only known
+  information such as base type/useful subtype, confirmed facts, Managed
+  Subject, coarse routing, new-Case intent or an existing Case. These are
+  provenance-bearing hints, never mandatory fields, a replacement for matching
+  or permission for Assist to overwrite user values. The service must propose
+  editable titles for every logical Document and proposed Case/Record, including
+  explicit new-Case intent. Automatic titles are conservative and contain no
+  date by default. The accepted
   M1 exception is the contextual medical desktop media package: the user enters
   its required title manually and may add an optional examination date; the
   package is not unpacked for OCR/Assist.
 - Current release routing is user-confirmed through relevant visible results;
   later reversible automation is class-specific, measured, abstaining and
   undoable. Mobile scan uses one explicit logical document per completed scan
+  and each Desktop file is one initial logical document. Mixed content does not
+  make the document invalid and is neither rejected nor auto-split in M1.
   unit, with multiple pages before **Naechstes Dokument scannen**. Batch/session
   proximity never proves a shared Case.
 - Completed review requires a primary Case or Record. A lightweight Custom Case
   may begin with generated title, Managed Subject and optionally one document.
+- Mappm has no `Claim` entity, repository or matching target. An independently
+  tracked insurance handling context is a normal `insurance_settlement` Case;
+  individual submissions/resubmissions are repeatable events or workflow
+  steps. External claim/damage numbers are Facts and policies are Records.
 - `follow_up_to` forms Case chains/branches without parent ownership. Medical
-  core composition is accepted: one neutral `medical_care` anchor, one
-  `part_of` `medical_cost_settlement` per independent economic obligation and
-  payer submissions as Claims. Treatment authorization documents stay inside
+  baseline composition currently uses one neutral `medical_care` anchor, one
+  `part_of` `medical_cost_settlement` per independently issued medical
+  invoice/honorarnote and payer submissions as repeatable events/branches with
+  zero, one or many document links. Corrections, credits, proof, submissions
+  and payer responses for the same invoice stay in that Cost Case; a new
+  independently issued invoice creates a new Cost Case. No document is
+  required for Case validity. Treatment authorization documents stay inside
   Care and do not become Cases or M1 types. Reha, follow-up and later evidence
   are matched per document against existing and possible new linked Care Cases.
-  A new Medical related/Subcase starts in M1 from one confirmed anchor document
-  or explicit intent; no free multi-document split is required. Recurrence is
+  A new related Medical Case or `part_of` child Case starts in M1 from one
+  confirmed anchor document or explicit intent; no free multi-document split
+  is required. Recurrence is
   optional planning on finite Care Cases, not a Case type. Special contractual
   benefits are not specialized by Medical M1. Multiple payer
   relationships and explicit category defaults are allowed, but defaults only
-  order choices and never prove coverage. Mappm performs no policy, coverage
-  or expected-benefit calculation. Payment, social-insurance Claim,
-  supplementary-insurance Claim and Case lifecycle are separate provenance-
-  bearing states. Only confirmed social-insurance settlement/rejection suggests
+  order choices and never prove coverage. A private relationship is a stable
+  Policy Record plus calm contract context; a policy document is optional and
+  an imported existing policy never fabricates a historical conclusion Case.
+  Mappm performs no policy, coverage or expected-benefit calculation. Payment,
+  social-insurance submission, each supplementary-insurance submission, each
+  payer deadline and Case lifecycle are separate provenance-bearing states.
+  Household finance separates obligation/open amount, actual outflow,
+  confirmed reimbursement/inflow and confirmed net burden; unpaid outflow is
+  zero and status never mutates amounts. Only confirmed social-insurance settlement/rejection suggests
   the normal supplementary-insurance step. Special forms remain generic
   documents unless later product evidence justifies specialization. A rare
   desktop-only action inside
@@ -118,7 +174,37 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
   media/folder tree as one inert ZIP with byte-identical original re-export.
   It uses a manual required title and at most an optional examination date in
   M1, with no OCR/Assist requirement. It is absent from global capture,
-  nonmedical Cases and Mobile. OQ-012 is resolved.
+  nonmedical Cases and Mobile. OQ-012 and the Medical part of OQ-014 are
+  resolved. Care closes manually, may be `done` while Cost children remain
+  active, and a Cost Case closes only with user confirmation after all actually
+  started payer paths are terminal or deliberately ended.
+- Rule-derived deadlines retain start anchor, source, rule/pack version,
+  confirmation and review status. Multiple payer deadlines remain separate;
+  only the earliest confirmed applicable open deadline may be derived as a
+  compact attention value. Provider name/default/raw LLM never finalizes a
+  material deadline, and pack updates never silently recalculate history.
+- The researched Austrian medical baseline activates a 42-month pack rule only
+  for OeGK, SVS and BVAEB after professional release review. KFA and private
+  provider/tariff rules require separate evidence. Active Country-/Provider
+  rules require OPS-09 monthly source checks, at least six-monthly human
+  review, developer reminders, immutable versions, withdrawal and release
+  gates.
+- Accident/damage baseline composition currently uses one
+  `accident_or_damage_settlement` per event/discovery and regulation context,
+  with only coarse optional routing variants for accident, vehicle accident,
+  property damage and theft/loss. `Medizinischer Unfall` routes directly to
+  `medical_care` and creates no empty accident wrapper. If nonmedical accident
+  handling later becomes independently relevant, both Cases are linked with
+  `caused_by`. Each independent damage-related economic obligation may become
+  an optional `part_of` `damage_cost_settlement` only when the obligation is
+  independently tracked. Insurance handling is a normal
+  `insurance_settlement` Case that may contain several invoices and repeated
+  submission/resubmission events.
+  Damage Cost Settlement remains fachlich distinct from Medical Cost
+  Settlement, whose optional social- and supplementary-insurance stages are
+  domain-specific. Policies are Records; matches are suggestions and never
+  prove coverage, responsibility or expected payment. OQ-014 requires the
+  requested Accident/Damage family re-review before implementation.
 - Mobile capture includes native scan, photo evidence, gallery and system
   file/share import. Desktop includes picker, multi-file and drag-and-drop;
   external scanner output is imported as a file. Desktop-webcam document
@@ -132,7 +218,10 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
   files/documents remain evidence or versions.
 - Recurring contracts/subscriptions are first-class Record contexts. Ordinary
   activation, change, price review, cancellation and final billing remain in
-  one context; only independently meaningful disputes become linked Cases.
+  one context. An actually accompanied contract conclusion may be a finite
+  Case whose result is the durable Record; importing an existing contract
+  never fabricates a historical conclusion Case. Only independently meaningful
+  disputes become linked Cases.
 - Managed persons and managed organizations share one management principle;
   external doctors, providers, insurers and authorities remain ExternalParty.
 - Tax capability means dated, jurisdictional document collection and review,
@@ -140,11 +229,20 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
 - Documents have typed temporal facts rather than one universal date. Keep
   system timestamps, issue/receipt/service/validity/due dates, events,
   appointments, deadlines, tasks, expected responses and reminders
-  semantically distinct and provenance-bearing. Calendar integration is later,
-  selective and consented.
+  semantically distinct and provenance-bearing. OCR/parser/model may propose a
+  top semantic value for each type-relevant date field; the field offers other
+  detected dates, no-date and manual-entry fallbacks. The visible review or a
+  narrowly proven rule establishes the active meaning. Calendar integration
+  is later, selective and consented.
+- M1 corrections update only the user's confirmed product data. They are not
+  document donation, human analysis-improvement review, online learning or
+  production-data fine-tuning. Any later optional improvement program needs a
+  separate consent/privacy/security/legal/AI/operations gate.
 - Contextual actions use progressive disclosure. Financial sections appear
   only for confirmed data, stay context-specific and deduplicate `part_of`
-  roll-ups; Mappm is not an accounting product.
+  and cross-context roll-ups. Mappm provides a private household payment/cost
+  overview, not formal bookkeeping, tax accounting or an Austrian
+  `Einnahmen-Ausgaben-Rechnung`.
 - `docs/technical/DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md` is the sole SSOT
   for workflow-pattern IDs/titles and every discussed domain-template ID,
   German title, catalog status and disposition. Discovery, medical,
@@ -154,19 +252,25 @@ Read `.codex/skills/ui-onboarding/SKILL.md` first for current project context. U
   second global catalog. Never create or maintain a parallel Case/workflow
   list; add or change a canonical entry in the SSOT first or in the same
   change.
-- Every dedicated Case-family workshop requires exactly one living owning
-  subconcept and the complete Case-family contract in the catalog SSOT. New
-  family Decisions use `docs/technical/DECISION_<CASE_FAMILY>_MODEL.md`; an
-  unambiguous existing Decision may remain the registered owner and must be
-  expanded against the same contract instead of being duplicated. One subconcept may own
-  explicitly listed tightly coupled entries, but one catalog ID may have only
-  one owner. A catalog row or brief cross-family mention does not require an
-  empty stub. Create or update the family file when its dedicated workshop
-  begins, register its coverage in the catalog in the same change, and never
-  treat a family without reviewed coverage as accepted or implementation-ready.
+- A dedicated Case-family workshop is discussion-only until the agent has
+  summarized the complete result in chat and the user explicitly approves it
+  for documentation. Do not create a Draft, workshop file or Decision before
+  that approval. During discussion, distinguish already accepted constraints,
+  proposals, open questions and rejected alternatives, and advance one
+  decision at a time. After explicit approval, create or update exactly one
+  owning family Decision and register coverage in the catalog in the same
+  change. New family Decisions use
+  `docs/technical/DECISION_<CASE_FAMILY>_MODEL.md`; an unambiguous existing
+  Decision may remain the owner and must be expanded instead of duplicated.
+  One subconcept may own explicitly listed tightly coupled entries, but one
+  catalog ID may have only one owner.
 - Document classification follows minimum sufficient classification. Mappm
   optimizes household findability and actionability, not taxonomic
-  completeness. A new Case/workflow document term defaults to title/alias,
+  completeness. This is neither a subtype ban nor a target to minimize subtype
+  count. Retain every type/semantic variant with durable use or materially
+  different behavior; `medical_invoice` is the reference example because it
+  may drive Medical Cost Settlement and payment/Payer-submission behavior. A new
+  Case/workflow document term otherwise defaults to title/alias,
   Fact, relationship role, Record kind, source/format or a broad/general type.
   Add a base type or semantic variant only after the product-value gate in
   `DECISION_DOCUMENT_TYPE_CATALOG.md`: durable later use or materially
@@ -206,21 +310,29 @@ Use current docs:
 
 1. Identify whether the work is product strategy, concept, phase, decision, or handoff.
 2. Read the affected roadmap/decision/concept docs.
-3. Before substantive Case-family work, identify its registered catalog ID and
-   owning subconcept. Create or continue the single family Decision and update
-   the catalog's coverage in the same change; do not start a parallel list or
-   loose workshop SSOT.
-4. Resolve or explicitly mark every required Case-family contract block from
-   `DECISION_INITIAL_CASE_WORKFLOW_CATALOG.md`, including goal, boundary,
-   composition, lifecycle, capture/matching, country boundary, examples,
-   verification and Stop Rules.
-5. For every new Case/workflow, classify each document term as existing type,
+3. Delegate substantive Case-family work to `case-concept`, document
+   taxonomy/promotion to `document-concept`, and Country-/Provider-pack work to
+   `country-pack-concept`.
+4. Before substantive Case-family discussion, identify its registered catalog
+   ID, accepted constraints and any existing owner. Do not edit or create the
+   family Decision yet.
+5. Discuss one decision at a time and label accepted constraints, proposals,
+   open questions and rejected alternatives without turning UI examples into
+   product decisions.
+6. Resolve or explicitly mark every required block from
+   `DECISION_CASE_FAMILY_DEFINITION_CONTRACT.md`.
+7. Summarize the complete result in chat and wait for explicit user approval to
+   document it.
+8. Only after approval, create or update the single owning family Decision and
+   its catalog coverage in the same change.
+9. For every new Case/workflow, classify each document term as existing type,
    broad/general document, title/alias, Fact/Party, relationship role/slot,
    Record kind or source/format before proposing any new type.
-6. Update only the authoritative document for the decision level.
-7. Mark open decisions explicitly.
-8. Create or update GitHub Issues only for actionable follow-up work.
-9. Summarize what changed and what remains undecided.
+10. Update only the authoritative document for the decision level.
+11. Mark open decisions and Backend-/Data-Feasibility explicitly.
+12. Run `case-concept-review` before declaring a family implementation-ready.
+13. Create or update GitHub Issues only for actionable follow-up work.
+14. Summarize what changed and what remains undecided.
 
 ## Handoff Targets
 
@@ -229,3 +341,7 @@ Use current docs:
 - Data/storage design: `data-architect`.
 - Quality/testing/readiness: `quality-readiness`.
 - API contracts/Mappm Cloud/Capture/Sync: `contract-api`.
+- Case-family definition: `case-concept`.
+- Document taxonomy/promotion: `document-concept`.
+- Country-/Provider-pack definition: `country-pack-concept`.
+- Case-family final review: `case-concept-review`.

@@ -2,7 +2,7 @@
 title: "Produkt-Säule - Export and External Actions"
 description: "Produktbereich fuer Export, lokale Übergabe, externe App-/Website-Links, Einreichportale und manuelle Ausgabe von Dokumenten"
 tags: [pillar, export, external-links, integrations, privacy]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-22"
 version: "0.4"
 status: "proposed"
 owner: "product-concept/security"
@@ -52,7 +52,7 @@ Ein externer Link kann an fachlichen Objekten hängen:
 | Ort | Beispiel |
 |---|---|
 | Task | `Rechnung bei SV einreichen` mit Link zum SV-Portal |
-| Claim | Erstattungsclaim mit Link zu SV oder Zusatzversicherung |
+| Task/Event im passenden Case | Einreichung oder Nachreichung mit Link zu SV, Zusatzversicherung oder Versicherungsportal |
 | Vorgang | Unfallvorgang mit Link zum Versicherungsportal |
 | Record | Versicherungspolizze mit Link zum Kundenportal |
 | Profil | Schul-App oder Gesundheitsportal fuer ein Kind |

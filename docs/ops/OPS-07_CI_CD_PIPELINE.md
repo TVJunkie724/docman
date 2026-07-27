@@ -4,7 +4,7 @@ description: "CI/CD provider, branch protection, release pipelines, approvals, s
 tags: [ops, ci, cd, release, quality]
 status: "draft"
 owner: "release/quality"
-lastUpdated: "2026-07-12"
+lastUpdated: "2026-07-23"
 ---
 
 # OPS-07 CI/CD Pipeline
@@ -43,6 +43,10 @@ deployments. No pipeline copies production data into a lower environment.
   backup/restore drills where relevant.
 - Backend provider conformance and infrastructure policy/migration checks.
 - Dependency, license and secret scans.
+- Scheduled source-health checks for published country/provider/rule packs
+  according to `OPS-09_COUNTRY_PROVIDER_RULE_MAINTENANCE.md`.
+- Release evidence that every applicable rule pack has a non-expired human
+  review, named owner and resolvable primary source.
 - Build smoke per target platform.
 - Signing/notarization for distribution artifacts.
 - REG-08 store/platform policy check before store submission.
@@ -51,3 +55,6 @@ deployments. No pipeline copies production data into a lower environment.
 
 - Stop release if branch protection, secrets, artifact provenance, signing or
   rollback path are undefined.
+- Stop release of an affected workflow pack if its source check fails, its
+  required human review is overdue or a changed rule has no approved
+  replacement/withdrawal decision.

@@ -17,7 +17,12 @@ Read:
 - `docs/technical/DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`
 - `docs/technical/DECISION_DOCUMENT_TYPE_CATALOG.md`
 - `docs/technical/DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md` when
-  medical Care/Cost/Claim persistence is affected
+  medical Care/Cost/submission persistence is affected
+- `docs/technical/DECISION_ACCIDENT_DAMAGE_SETTLEMENT_MODEL.md` when accident,
+  damage-cost, policy or insurance-settlement persistence is affected
+- `docs/technical/DECISION_INSURANCE_SETTLEMENT_MODEL.md` whenever insurance,
+  submission/resubmission, external damage references or policy links are in
+  scope
 
 ## Target Direction
 
@@ -40,7 +45,7 @@ Read:
   `part_of`, `caused_by`, `follow_up_to`, `related_to`. Do not introduce a
   separate Subcase table or a strict `parentCaseId` target model. `part_of`
   must be acyclic; links do not imply cascade deletion or exclusive ownership.
-- Keep lifecycle status, workflow stage, branch, Claim/submission, task, event,
+- Keep lifecycle status, workflow stage, branch, submission, task, event,
   Record and Document relationships distinct. Stable many-to-many links must
   allow documents and Records to participate in multiple Cases without copies.
 - Support manual, Assist-suggested and guided Case origins without changing
@@ -51,8 +56,13 @@ Read:
   an exclusive Case classification.
 - Persist capture/session/document-unit/page/file manifests, explicit mobile
   document boundaries,
-  processing/proposal versions, generated-title provenance, user corrections,
-  partial batch status and explicit new-Case intent across restart/idempotency.
+  processing/proposal versions, generated-title provenance, optional
+  capture-time type/subtype/fact/subject/new-or-existing-Case user input,
+  user corrections, partial batch status and intent across restart/idempotency.
+- Treat explicit Mobile completion and one Desktop file as authoritative
+  logical document boundaries in the current release. Mixed semantic content
+  does not create an `invalid` document or `separate_documents_required`.
+  Page-coherence warnings and segmentation require a separate later contract.
 - Allow zero Case/Record links only while capture/review is pending. Accepted
   review has a primary Case or Record; lightweight Custom Cases may begin with
   title, subject and optionally one document without fake
@@ -78,17 +88,34 @@ Read:
   date-only values, partial precision, intervals, IANA timezone, provenance,
   proposal/confirmation state and correction history without one universal
   `documentDate`.
-- Medical core uses normal Case/CaseLink/Claim/Document/Fact structures: one
+- Mappm has no Claim entity, table, repository or matching target. A concrete
+  insurance handling context is a normal `insurance_settlement` Case;
+  submissions/resubmissions are repeatable Events/steps with document links,
+  external references are Facts, insurers are ExternalParties and policies are
+  Records.
+- The current Medical baseline uses normal Case/CaseLink/Document/Fact/Event
+  structures: one
   neutral Care Case, one `part_of` Cost Settlement Case per independent
-  economic obligation and payer submissions as Claims. Do not create Medical
+  economic obligation and payer submissions as repeatable events/branches. Do not create Medical
   or Subcase storage silos. Later care evidence is matched per document. A new
   linked Medical Case starts from one anchor document or explicit intent; do
   not model a free M1 multi-document split command. Recurrence is optional
   planning, not a Case type. Store multiple payer relationships and
   at most one explicit default per accepted category without encoding coverage
-  or benefit calculations. Keep payment, each payer Claim and Case lifecycle as
+  or benefit calculations. Keep payment, each payer-submission path and Case lifecycle as
   separate provenance-bearing state dimensions. Special contractual benefits
   remain generic Insurance content in Medical M1.
+- The current Accident/Damage baseline uses the same generic primitives: one
+  `accident_or_damage_settlement` per confirmed event/discovery and regulation
+  context, optional `part_of` `damage_cost_settlement` per independently
+  tracked damage obligation, normal `insurance_settlement` Cases able to
+  reference several invoices/cost Cases, repeatable submission events, named
+  image collections over immutable originals, and policies as Records.
+  `Medizinischer Unfall` maps directly to `medical_care`; add an accident Case
+  and `caused_by` only when nonmedical regulation becomes independently
+  relevant. Do not merge Medical and Damage Cost Settlement or encode policy
+  matching as confirmed coverage. Medical is accepted; OQ-014 blocks only
+  Accident/Damage schema work until its requested family review is accepted.
 - Preserve Case completion/reopen history. `done`/`archived` Cases remain
   matchable; linking late evidence does not itself reopen them.
 - The M1 media/folder archive is created only by the rare desktop action inside
@@ -118,9 +145,11 @@ Read:
 - Can Case links be added, changed and removed without moving, copying or
   deleting linked documents, Records, tasks or other Cases?
 - Can `follow_up_to` form chains/branches without parent ownership or cascade?
-- Can explicitly separated mobile documents and imported mixed batches
-  split/merge/reassign while preserving original pages and accepted siblings
-  after partial failure?
+- Can explicitly separated mobile documents and imported files retain their
+  authoritative logical boundaries, originals and accepted siblings after
+  partial failure without semantic invalidation? Treat later coherence
+  warnings/file segmentation as a separate approved contract, not as a
+  current-release assumption.
 - Can reprocessing suggest a better title without overwriting a confirmed one?
 - Can a custom umbrella Case be created from a selection of existing objects
   and later dissolved without data loss?

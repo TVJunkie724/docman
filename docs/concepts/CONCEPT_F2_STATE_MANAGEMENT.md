@@ -2,8 +2,8 @@
 title: "Konzept F2 - State Management"
 description: "Verbindliches Riverpod-State-Modell fuer Vault-Autoritaet, Capture, Assist, Migration und testbare Abhaengigkeiten"
 tags: [concept, foundation, riverpod, state-management, dependency-injection, vault, capture, assist]
-lastUpdated: "2026-07-15"
-version: "5.0"
+lastUpdated: "2026-07-22"
+version: "5.1"
 status: "accepted"
 owner: "foundation/product"
 ---
@@ -81,10 +81,11 @@ Capture-State ist orthogonal zum Vault-State und umfasst:
   spaetere Automationsklasse ausdruecklich freigegeben ist.
 - Teilfehler bei mehreren Dokumenten ohne Verlust erfolgreicher Ergebnisse.
 
-`Neuen Vorgang starten` oder ein vorhandener Case-Kontext ist nur ein
-Matching-Signal. Die Verarbeitung bleibt aktiv und erzeugt weiterhin
-Vorschlaege. Ein Dokument darf erst nach akzeptierter Review ohne Pending-State
-verlassen werden; dann besitzt es einen primaeren Case- oder Record-Kontext.
+Optionale bekannte Typ-/Subtyp-/Fact-/Subject-/Case-Angaben sind
+provenienztragende Signale. Die Verarbeitung bleibt aktiv, erzeugt weiterhin
+Vorschlaege und ueberschreibt Userwerte nicht still. Ein Dokument darf erst
+nach akzeptierter Review ohne Pending-State verlassen werden; dann besitzt es
+einen primaeren Case- oder Record-Kontext.
 
 ## Provider-Kategorien
 

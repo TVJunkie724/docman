@@ -2,7 +2,7 @@
 title: "Mappm Discovery Index"
 description: "Inventar der Discovery-Baselines, offenen Fragen und nicht normativen Workshop-Entwuerfe"
 tags: [discovery, index, questions, applicability, taxonomy]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-22"
 status: "active"
 owner: "product-concept"
 ---
@@ -25,7 +25,7 @@ autorisieren.
 | `DYNAMIC_DOMAIN_COUNTRY_PACK_MODEL_DRAFT.md` | `draft` | dynamische Pack-/Versionierungsrichtung; OQ-011, WF-01/02 und WF-03 fuer Expansion |
 | `AUSTRIA_CASE_WORKFLOW_COUNTRY_PACK_DRAFT.md` | `draft` | Austria-first Workflow-/Provider-Mapping, aber keine einzelne Workflow-Freigabe und kein Produktkatalog |
 | `AUSTRIA_TAX_CASE_CATALOG_DRAFT.md` | `draft` | oesterreichischer Steuer-Discovery-Input; OQ-010 |
-| `MEDICAL_CASE_MODEL_DISCOVERY.md` | `resolved-reference` | nicht normative Szenario-/Entscheidungsrationale; die vollstaendige Medical-SSOT einschliesslich Ankerdokument-Regel, Case-Gueltigkeit, getrennten Zahlungs-/Claim-Zustaenden, Wiederkehr und Payer-Praeferenzen steht in `../technical/DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md`; OQ-012 ist geschlossen |
+| `MEDICAL_CASE_MODEL_DISCOVERY.md` | `resolved-reference` | nicht normative Szenario-/Entscheidungsrationale; die akzeptierte Medical-SSOT einschliesslich Ankerdokument-Regel, Case-Gueltigkeit, typischer optionaler Inhalte, unabhaengiger Lifecycles, getrennten Zahlungs-/Einreichungszustaenden ohne Claim-Entitaet, Wiederkehr und Payer-Praeferenzen steht in `../technical/DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md`; OQ-012 und der Medical-Teil von OQ-014 sind geschlossen |
 
 ## Regeln
 

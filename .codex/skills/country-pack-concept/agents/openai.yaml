@@ -1,0 +1,4 @@
+interface:
+  display_name: "Country Pack Concept"
+  short_description: "Plant versionierte Country- und Provider-Regelpakete"
+  default_prompt: "Trenne universelle Mappm-Semantik von aktuellen, offiziell belegten Country- und Provider-Regeln und plane deren Review- und Betriebsvertrag."

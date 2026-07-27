@@ -2,8 +2,8 @@
 title: "Konzept F37 - Case, Record and Contextual Experience"
 description: "Mappm UX-Vertrag fuer Vorgaenge, Unterlagen, Custom Cases, Case-Komposition, kontextuelle Review-Aktionen, Abos, Agenda und schlanke Finanzdarstellung"
 tags: [concept, frontend, cases, records, custom-cases, review, subscriptions, agenda, insights, accessibility]
-lastUpdated: "2026-07-20"
-version: "1.1"
+lastUpdated: "2026-07-23"
+version: "1.3"
 status: "accepted-direction"
 owner: "ui-concept"
 ---
@@ -46,9 +46,11 @@ Phase aktiviert. F37 darf nicht als implizite Freigabe dafür gelesen werden.
 - `docs/technical/DECISION_JURISDICTIONAL_TAX_DOCUMENT_COLLECTION.md`
 - `docs/technical/DECISION_CONTEXTUAL_REVIEW_ACTIONS_FINANCIAL_ROLLUPS.md`
 - `docs/technical/DECISION_MEDICAL_CARE_COST_SETTLEMENT_MODEL.md`
+- `docs/technical/DECISION_ACCIDENT_DAMAGE_SETTLEMENT_MODEL.md`
+- `docs/technical/DECISION_INSURANCE_SETTLEMENT_MODEL.md`
 - `docs/technical/DECISION_CAPTURE_FIRST_ASSISTED_ROUTING.md`
 
-F37 uses the accepted Medical Care-/Cost-/Claim composition and keeps treatment
+F37 uses the documented Medical Care-/Cost composition and keeps treatment
 authorization documents inside Care. Reha, Nachsorge and later evidence are
 matched per document against existing and possible new Care Cases. A new linked
 Medical Case starts from one confirmed anchor document or explicit intent; M1
@@ -78,7 +80,8 @@ Einstellungen
 - Dokumentdateien sind Evidenz und Versionen in beiden Bereichen, kein dritter
   gleichwertiger Navigationszwang.
 - Die Suche umfasst Vorgänge, Unterlagen, Dokumente, Profile, externe Akteure,
-  Claims, Tasks und bestätigte Facts in einer gemeinsamen Suche.
+  Versicherungsabwicklungen, Tasks und bestätigte Facts in einer gemeinsamen
+  Suche.
 
 Mobile darf Hauptbereiche verdichten, aber nicht Vorgang und Unterlage
 semantisch zusammenwerfen.
@@ -88,8 +91,10 @@ semantisch zusammenwerfen.
 Der normale Dokumenteingang beginnt global beim Scan/Import, nicht beim
 manuellen Suchen eines Vorgangs. Backend/Core Assist schlaegt immer Titel,
 primaeren Case/Record, zusaetzliche Beziehungen, Workflow und relevante
-Folgeaktionen vor. **Neuen Vorgang starten** ist die einzige primaere optionale
-Vorab-Absicht; automatisches Matching bleibt immer aktiv.
+Folgeaktionen vor. Die Nutzerin darf optional bekannte Grundart/sinnvollen
+Subtyp, Facts, Managed Subject, groben Kontext sowie neuen oder bestehenden Case
+mitgeben. Diese Angaben sind nie Pflicht, werden progressiv offengelegt und
+ersetzen automatisches Matching nicht; Userwerte bleiben erhalten.
 
 Nach Review besitzt jedes akzeptierte Dokument einen primaeren Case- oder
 Record-Kontext. Wenn nichts passt, kann ein leichter Custom Case nur aus
@@ -121,7 +126,7 @@ Das Vorgangsdetail zeigt nur vorhandene/relevante Sektionen:
 - Aufgaben, Fristen und erwartete Antworten;
 - Timeline/Ereignisse;
 - Dokumente und Unterlagen;
-- Claims/submissions;
+- wiederholbare Einreichungs-/Nachreichungsereignisse, wenn vorhanden;
 - verbundene Cases mit Relation;
 - kontextuelle bestätigte Finanzzusammenfassung.
 
@@ -131,6 +136,12 @@ Case darf nahezu leer beginnen und trotzdem spaeter alle normalen Funktionen
 nutzen. Custom Cases dürfen nicht visuell oder funktional als minderwertig
 erscheinen.
 
+Die UI besitzt keinen Claim-Bereich und keine Aktion **Claim anlegen**.
+Fachliche Versicherungsarbeit erscheint als normaler Vorgang; Einreichungen
+erscheinen hoechstens als bestaetigte Ereignisse oder Aufgaben im passenden
+Vorgang. Die Nutzerin muss weder Einreichungspakete noch Referenzobjekte
+manuell strukturieren.
+
 ## Unterlagendetail
 
 Das Unterlagendetail zeigt:
@@ -138,7 +149,7 @@ Das Unterlagendetail zeigt:
 - Art, betroffene Person/Organisation und aktuelle Version;
 - Gültigkeit/Laufzeit und relevante Reminder;
 - Dokumentversionen und Quelle;
-- verbundene Vorgänge und Claims;
+- verbundene Vorgänge, einschliesslich Versicherungsabwicklungen;
 - bei Vertrag/Abo den ruhigen Vertragskontext.
 
 Reisepass, Geburtsurkunde oder Vertrag werden nicht als bloße PDF-Karte
@@ -175,19 +186,41 @@ Die UI verwendet nutzerverständliche Formulierungen wie `Teil von`,
 werden nicht als Primärsprache gezeigt.
 
 `Folgt auf` bildet eine Kette oder Verzweigung eigenstaendiger Cases, keine
-Parent-Struktur. Der medizinische Care-/Cost-/Claim-Kern folgt seiner
-akzeptierten Decision. Behandlungsbewilligungen bleiben darin
-Dokumente/Facts/Schritte. Spaetere medizinische Evidenz wird dokumentweise
+Parent-Struktur. Der medizinische Care-/Cost-Kern folgt seiner akzeptierten
+Family-Decision. Je eigenstaendig ausgestellter Rechnung/Honorarnote besteht
+genau ein `part_of`-Cost-Case. Korrektur, Gutschrift, Zahlungsbeleg,
+Einreichungen und Payer-Antworten derselben Rechnung bleiben darin; eine
+weitere Rechnung erzeugt einen weiteren Cost-Case. Kein Dokument ist Pflicht,
+und ein Einreichungsereignis kann null, einen oder mehrere Dokumentlinks
+besitzen. Behandlungsbewilligungen bleiben im Care-Case als
+Dokumente/Facts/Schritte. Care darf bewusst abgeschlossen sein, waehrend ein
+Cost-Child aktiv bleibt; ein Cost-Abschluss bleibt nach terminalen begonnenen
+Payer-Spuren bestaetigungsgebunden. Spaetere medizinische Evidenz wird dokumentweise
 gematcht. Einen neuen verknuepften Case bestaetigt die Nutzerin beim
 Capture/Review aus einem Ankerdokument oder ausdruecklicher Absicht; eine freie
 Medical-Mehrfachabspaltung und eine technische Medical-Subcase-Art entstehen
 nicht.
+
+Fuer Unfall/Schaden zeigt die UX nur wenige grobe fachliche Varianten.
+`Medizinischer Unfall` fuehrt direkt in Medical Care und erzeugt ohne
+eigenstaendige nichtmedizinische Regulierung keinen Unfall-Wrapper.
+Eine bestaetigte Versicherungsabwicklung erscheint als normaler
+`insurance_settlement`-Case und darf mehrere Rechnungen sowie wiederholbare
+Einreichungen/Nachreichungen enthalten. Einreichungen erzeugen keine weitere
+Case-Schachtelung. Schadenkosten koennen nur bei eigenstaendig verfolgter
+wirtschaftlicher Verpflichtung als normale `part_of`-Cases erscheinen; sie
+werden nicht pro Rechnung erzwungen. Medical und Damage Cost Settlement
+bleiben fachlich unterscheidbar, und ein Polizzenvorschlag behauptet niemals
+Deckung oder erwartete Leistung.
 
 ## Contract/Subscription Detail
 
 Ein Abo-/Vertragsdetail bleibt bewusst klein:
 
 - aktuelle Vertrags-/Tarifidentität;
+- stabiler Record beziehungsweise Policy Record mit Versionen;
+- optionaler abgeschlossener Abschluss-Case als Historie, wenn Mappm den
+  Abschluss tatsaechlich begleitet hat;
 - nächster relevanter Termin oder Task;
 - Dokumente/Timeline;
 - bei mindestens zwei bestätigten Perioden ein kleiner Rechnungsverlauf.
@@ -197,15 +230,29 @@ Aufschlüsselungszwänge. Desktop-Hover, Mobile-Tap und Tastaturfokus geben
 Periode/Betrag aus. Für variable Rechnungen heißt er `Rechnungsverlauf`, nicht
 automatisch `Preisentwicklung`.
 
+Ein importierter Bestandsvertrag zeigt Record plus ruhigen Kontext, aber keinen
+erfundenen Abschluss-Case. Polizzenupdates bleiben normalerweise im selben
+Kontext. Ein Polizzendokument ist keine Voraussetzung fuer einen minimalen,
+bestaetigten Policy Record.
+
 ## Finanzzusammenfassung
 
 - Kein bestätigter FinancialEntry: keine Finanzsektion.
 - Ein Wert: eine Summenzeile.
 - Mehrere vergleichbare Werte: optionaler Mini-Chart.
 - `part_of`-Roll-up zeigt deduplizierte Werte und deren Ursprung bei Bedarf.
-- Erstattungsfälle zeigen Rechnung, Erstattung und Eigenanteil.
+- Offene Verpflichtung, tatsaechliche Auszahlung, bestaetigte
+  Erstattung/Zahlungseingaenge und aktueller Nettoaufwand bleiben getrennt.
+- Eine unbezahlte Rechnung zeigt Auszahlung `0`.
+- Status aendert keinen Betrag; sichtbare Summen werden aus
+  provenienztragenden Finanzereignissen abgeleitet.
+- Erstattungsfälle zeigen Rechnung, bestaetigte Erstattungen und aktuellen
+  Nettoaufwand, keine erwartete Leistung.
 - Tax Collection zeigt `vorgemerkt/bestaetigt`, nie `absetzbar` ohne
   freigegebene fachliche Entscheidung.
+
+Die private Sicht heisst Haushaltsfinanzen, Zahlungs- oder Kostenuebersicht,
+nicht formale Einnahmen-Ausgaben-Rechnung.
 
 ## Managed-Subject-Auswahl
 
@@ -226,6 +273,13 @@ Zeitwerte und Agenda-Eignung folgen
 Scan- und andere nicht handlungsrelevante Zeitangaben erscheinen nicht allein
 wegen ihrer Existenz in der Agenda. Zeit-Fact, Ereignis, Termin, Frist,
 Aufgabe, erwartete Antwort und Reminder bleiben unterscheidbar.
+
+Regelbasierte Fristen folgen
+`docs/technical/DECISION_RULE_DERIVED_DEADLINES_REMINDERS.md`. Mehrere
+Payer-/Providerfristen bleiben sichtbar unterscheidbar. Ein kompakter Wert darf
+nur die frueheste bestaetigte, anwendbare und offene Frist hervorheben, ohne
+andere Fristen zu ersetzen. Regelstand, Quelle, Berechnung und Reviewstatus
+muessen ueber progressive Offenlegung erreichbar sein.
 
 Reminder können ruhig in der App oder benachrichtigend ausgegeben werden.
 Sensible Titel werden außerhalb des aktiven Kontexts redigiert. Externe
@@ -260,7 +314,7 @@ Jedes betroffene Pattern plant mindestens:
   verknuepfter Case.
 - Case mit null/einem/mehreren Dokumenten gueltig; fehlende Evidenz `unknown`
   oder erwartet, aber niemals `invalid`.
-- Zahlung, SV-Claim, Zusatzversicherungs-Claim und Case-Lifecycle als getrennte
+- Zahlung, SV-Einreichung, Zusatzversicherungs-Einreichung und Case-Lifecycle als getrennte
   bestaetigte Zustandsdimensionen.
 
 ## Security, Privacy, Support und Diagnostics
@@ -285,7 +339,8 @@ Jedes betroffene Pattern plant mindestens:
 - OQ-010 sowie WF-01/WF-02 blockieren konkrete Steuer- und Länder-Claims.
 - Vertragskategorien und länderspezifische Kündigungsregeln werden je Phase
   freigegeben; F37 erfindet keine Werte.
-- CaseLink-Persistenz, Claims, FinancialEntry-Deduplizierung, Search-Adapter und
+- CaseLink-Persistenz, wiederholbare Einreichungsereignisse,
+  FinancialEntry-Deduplizierung, Search-Adapter und
   Managed-Subject-Repositories gehören vor Implementierung in Data-/Contract-
   Handoffs und Fakes.
 - Die erste betroffene Phase braucht einen fokussierten Desktop-/Mobile-Mock

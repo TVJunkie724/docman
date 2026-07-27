@@ -2,7 +2,7 @@
 title: "Decision - Household and Managed Subject Access"
 description: "Zielmodell für Haushalte, verwaltete Personen und Organisationen, Zuordnung und spätere Berechtigungen"
 tags: [decision, household, profiles, managed-subjects, organizations, family, access, permissions, sharing]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-24"
 status: "accepted"
 owner: "product-concept"
 ---
@@ -25,7 +25,7 @@ Länderlogik.
 Account / Household
   Managed Subject: Person
     optional eigene Identity
-    Dokumente, Records, Cases, Facts und Claims
+    Dokumente, Records, Cases, Facts und Submission Events
   Managed Subject: Organisation
     kein eigener Login erforderlich
     getrennte geschäftliche Dokumente, Records, Cases und Perioden
@@ -43,11 +43,20 @@ Ein Dokument oder fachliches Objekt kann:
 
 - Der erste verkaufbare Scope unterstützt mindestens einen Haushalt, die
   Account-Person sowie verwaltete Personen und Organisationen im Datenmodell.
-- Globales Capture verlangt keine Profilwahl vor dem Scan.
-- Core Assist schlägt aus Inhalt und Kontext das wahrscheinlich betroffene
-  Managed Subject vor.
-- Die aktuelle Reifestufe verlangt nur dann eine sichtbare Bestätigung oder
-  Korrektur, wenn die Zuordnung unsicher ist oder eine wesentliche Folge hat.
+- Globales Capture beginnt in einem sichtbaren Managed-Subject-Kontext. Ein
+  eindeutiges Profil darf vorausgewaehlt sein; bei mehreren Profilen erfolgt
+  eine kompakte Auswahl/Bestaetigung oder der Kontext wird aus Profil/Case
+  geerbt. Es entsteht kein allgemeines Profilformular.
+- Der Managed-Subject-Kontext beschreibt, fuer wen beziehungsweise in welchem
+  verwalteten Haushalts-/Organisationskontext die Nutzerin das Dokument fuehren
+  will. Er muss nicht dem gedruckten Empfaenger oder einer genannten Person
+  entsprechen.
+- Core Assist prueft diesen Userkontext nicht semantisch und erzeugt aus Namen
+  oder Empfaenger keinen Profilkonflikt. Extrahierte Parteien duerfen optionale
+  Metadaten bleiben, aendern aber weder Subject noch Berechtigung oder Routing.
+- Die aktuelle Reifestufe verlangt eine sichtbare, kompakte Subject-Auswahl
+  beziehungsweise zeigt den geerbten Kontext; eine spaetere Korrektur bleibt
+  moeglich.
 - Implizite, bereits klare Informationen werden nicht wiederholt abgefragt.
 - Capture-, Processing- und Review-Zustände dürfen den vorgeschlagenen oder
   bestätigten Profilkontext nicht verlieren.
@@ -61,15 +70,26 @@ Ein Dokument oder fachliches Objekt kann:
 Managed Subject: Kind A
 
 Record: Zusatzversicherung Kind A
-Case: Kniebehandlung 2026
+Ruhiger Vertragskontext: Zusatzversicherung Kind A
+Case: Kniebehandlung
   Dokumente: Überweisung, Befund, Arztbrief
-  verknüpfter Case: Arztrechnung und Erstattung
-  verknüpfter Record: Zusatzversicherung Kind A
+  part_of-Case: Arztrechnung Dr. Mayer abrechnen
+    verknüpfter Policy Record: Zusatzversicherung Kind A
 ```
 
-Die Polizze bleibt ein Record des Kindes und wird nicht in jeden medizinischen
-Case kopiert. Rechnungs-, Behandlungs- und Erstattungsbeziehungen werden durch
-Case-Links und Rollen ausgedrückt.
+Die Polizze bleibt ein Policy Record des Kindes und wird nicht in jeden
+medizinischen Case kopiert. Ein tatsaechlicher Vertragsabschluss darf als
+abgeschlossener Case mit dem Record als Ergebnis erhalten bleiben; ein
+importierter Altvertrag braucht keinen erfundenen Abschluss-Case. Normale
+Nachtraege und Versionen bleiben im ruhigen Vertragskontext.
+
+Ein Managed Subject darf mehrere gleichzeitige oder historische
+Sozialversicherungs-, Krankenfuersorge- und Zusatzversicherungsbeziehungen
+besitzen. Je Managed Subject darf eine reine Sortierpraeferenz fuer
+Sozialversicherung/Krankenfuersorge, ambulante Zusatzversicherung und
+stationaere Zusatzversicherung gesetzt werden. Sie beweist keine Deckung,
+Zustaendigkeit oder Einreichbarkeit und aktiviert keine Frist oder
+Einreichung.
 
 ## Access-Zielmodell
 

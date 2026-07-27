@@ -2,7 +2,7 @@
 title: "Konzept F14 - Form Field Catalog"
 description: "Fachlicher Feldkatalog fuer schlanke Mappm-Formulare, Capture Review, Vault Lifecycle und korrigierbare Assist-Vorschlaege"
 tags: [concept, forms, ui, fields, review, documents, cases, assist]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-22"
 version: "4.1"
 status: "accepted"
 owner: "ui-concept"
@@ -43,10 +43,10 @@ die fuer die aktuelle Entscheidung notwendig, unsicher oder folgenreich sind.
 | Auswahl | kleine kontextrelevante Alternativen | kein grosser Katalog im Standardflow |
 | Managed Subject | Person, Haushalt, eigene Organisation | kein External-Party-Freitext-Ersatz |
 | External Party | Arzt, Anbieter, Behoerde | auffindbares Kontakt-/Absenderprofil |
-| Relation | Case, Record, Claim, Dokument, Polizze | typisierte Beziehung statt Dateikopie |
+| Relation | Case, Record, Dokument, Polizze, Submission Event | typisierte Beziehung statt Dateikopie |
 | Datei/Scan | Desktop Picker/Drag-and-drop; Mobile Scan/Foto/Galerie/Datei | Original und logische Dokumentgrenze; keine Desktop-Webcam-Scans |
 | Review | Vorschlag bestaetigen/korrigieren/verwerfen | sichtbare Konsequenz begrenzen |
-| Workflow/Claim | Einreichung, Antwort, Erstattung | aus Vorlage/Verlauf, nicht als globale Liste |
+| Workflow/Einreichung | Einreichung, Antwort, Erstattung | wiederholbare Events aus Vorlage/Verlauf, nicht als globale Liste oder Claim-Objekt |
 | Task/Agenda | Aufgabe, Frist, Termin, erwartete Antwort, Reminder | getrennte Semantik und Lebenszyklen statt eines gemeinsamen Datumsfelds |
 | Vault/Account | Modus, Migration, Entitlement, Recovery | nur im passenden Lifecycle-Flow |
 
@@ -79,7 +79,7 @@ Ein Feld ist nur sichtbar, wenn es:
 
 Grundart, semantische Variante, Rolle und Workflow-Slot sind getrennte Achsen
 gemaess `docs/technical/DECISION_DOCUMENT_TYPE_CATALOG.md`. Rollen/Slots werden
-nur erhoben, wenn sie Suche, Workflow, Aufgabe, Claim oder Matching verbessern.
+nur erhoben, wenn sie Suche, Workflow, Aufgabe, Einreichungsereignis oder Matching verbessern.
 Sie muessen zum jeweiligen Workflow passen und duerfen nicht als universelle
 Pflichtliste erscheinen.
 

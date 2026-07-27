@@ -1,0 +1,4 @@
+interface:
+  display_name: "Document Concept"
+  short_description: "Bewertet Dokumenttypen, Varianten, Rollen und Laenderlayer"
+  default_prompt: "Pruefe das Dokumentvokabular gegen den Mappm-Produktwerttest und dokumentiere nur die minimal ausreichende, produktrelevante Taxonomie."

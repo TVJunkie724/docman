@@ -2,7 +2,7 @@
 title: "Konzept F28 - Form Pickers and Selection Controls"
 description: "Mappm Detailkonzept fuer Dropdowns, Comboboxes, Multi-Select, Person-/Relation-Picker, Radio-/Checkbox-Buttons, Switches, Segments, Command Rows und Disclosure"
 tags: [concept, frontend, design-system, forms, picker, selection, controls, flutter]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-24"
 version: "1.1"
 status: "accepted"
 owner: "ui-concept"
@@ -158,9 +158,16 @@ Pflichtfeld sichtbar.
 Regeln:
 
 - Es gibt kein stilles "meistens aktives Profil" als fachliche Annahme.
-- Backend/Core Assist schlaegt Person, verwaltetes Profil, Haushalt oder eigene
-  Organisation vor. Die UI fragt nur bei Unsicherheit, Widerspruch oder
-  materieller Folge explizit nach.
+- Globales Capture startet in einem von der Nutzerin sicht- und aenderbar
+  gewaehlten Managed-Subject-/Verwaltungskontext; Case-lokales Capture erbt
+  diesen bestaetigten Kontext.
+- Backend/Core Assist bestimmt keinen Managed Subject und erzeugt aus
+  extrahiertem Empfaenger oder Namen keinen Profilkonflikt. Ein optional
+  erkannter Empfaenger bleibt getrennte Party-/Suchmetadaten und darf leer
+  bleiben.
+- Die UI fragt nach dem Managed Subject, wenn noch kein Userkontext gesetzt ist
+  oder die Nutzerin ihn bewusst aendert, nicht aufgrund einer semantischen
+  Modell-Widerspruchsbehauptung.
 - Mehrfach-Personen sind erlaubt, wenn ein Dokument mehrere Personen betrifft.
 - Personenauswahl wird in Listen als eigene zweite Meta-Zeile/Chip gezeigt,
   nicht gleichgewichtet mit Dokumentgrundart/Kategorie.

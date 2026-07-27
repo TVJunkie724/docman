@@ -2,7 +2,7 @@
 title: "Decision - Search Technology and Search Boundary"
 description: "Search-Boundary für Local und Cloud Vault, strukturierte Filter, FTS5 und spätere semantische Adapter"
 tags: [decision, search, sqlite, drift, fts5, local-vault, cloud-vault]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-24"
 status: "accepted"
 owner: "data-architect/product"
 ---
@@ -40,7 +40,8 @@ Vollständigkeit, die der Cache nicht garantieren kann.
 Die primäre Interaktion ist ein ruhiges globales Suchfeld. Nutzerinnen müssen
 weder einen Ablageort noch eine Taxonomie kennen. Ergebnisse dürfen Cases,
 Records, Dokumente, verwaltete Personen und Organisationen, externe Akteure,
-Claims, Aufgaben und bestätigte Facts umfassen.
+Versicherungsabwicklungen, Einreichungsereignisse, Aufgaben und bestätigte
+Facts umfassen.
 
 Mappm plant keinen Chat, Messenger oder KI-Gesprächsverlauf als primäre
 Dokumentinteraktion. Natürliche oder semantische Queries dürfen später im
@@ -58,9 +59,11 @@ Der strukturierte und textuelle Scope kann umfassen:
 - Aufgabenstatus und Fälligkeit;
 - bestätigte Facts sowie lokal verfügbare OCR-Texte.
 
-Core Assist erzeugt in C2/C3 die notwendigen Titel, Metadaten und OCR-
-Grundlagen. Unbestätigte Vorschläge müssen im Suchmodell als solche erkennbar
-bleiben und dürfen nicht wie verifizierte Fakten gerankt werden.
+Core Assist erzeugt in C2/C3 konservative Titel ohne Standarddatum, OCR-
+Grundlagen und grobe Metadatenkandidaten. Fachliche Bedeutung entsteht aus
+Userzuordnung, bestaetigten Facts oder Regeln. Unbestaetigte Vorschlaege
+muessen im Suchmodell als solche erkennbar bleiben und duerfen nicht wie
+verifizierte Fakten gerankt werden.
 
 Zeitfilter unterscheiden mindestens die fachlich benoetigte Zeitart und den
 Zeitraum nach `DECISION_TEMPORAL_FACT_EVENT_AGENDA_MODEL.md`. Die Suche darf

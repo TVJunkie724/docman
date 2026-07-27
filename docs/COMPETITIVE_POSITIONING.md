@@ -2,7 +2,7 @@
 title: "Mappm - Competitive Positioning"
 description: "Wettbewerbsanalyse und Positionierungsnotizen fuer Mappm als Local/Cloud-Dokumentenprodukt fuer Haushalte"
 tags: [product, strategy, competition, positioning, privacy, documents, intelligence]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-25"
 status: "working-note"
 owner: "product-concept"
 ---
@@ -91,7 +91,8 @@ Luecken / Mappm-Chance:
 - oft eher Vault als vorgangsorientierte Arbeitsflaeche.
 - selten eine echte Wahl lokaler Datenautorität bei gleichzeitig
   servicegestützter Assistenz und überprüfbarer Cloud-Exit-Migration.
-- weniger starkes Modell fuer Dokumente als Teil von Vorgang, Frist, Claim,
+- weniger starkes Produktmodell fuer Dokumente als Teil von Vorgang, Frist,
+  Versicherungsabwicklung/Einreichung,
   Nachweis, Profil und Workflow.
 
 ### 2. Self-hosted Document Management
@@ -193,7 +194,7 @@ Risiken fuer Mappm:
 Luecken / Mappm-Chance:
 
 - keine echte Dokumentenfachlichkeit.
-- keine Vorgänge, Fristen, Claims, Unterlagen, Profile und Review-Inbox als
+- keine Vorgänge, Fristen, Versicherungsabwicklungen, Unterlagen, Profile und Review-Inbox als
   Kernmodell.
 - keine Assistenz, die ein Dokument in Haushaltskontext uebersetzt.
 - wenig Schutz vor "sicher gespeichert, aber trotzdem nicht wiedergefunden
@@ -226,7 +227,8 @@ Luecken / Mappm-Chance:
 
 - Capture ist dort meist das Ende des Workflows.
 - Mappm kann Capture als Anfang eines Vorgangs verstehen:
-  Review, betroffene Person, Frist, Claim, Nachweis, Aufgabe, Sharing,
+  Review, betroffene Person, Frist, Versicherungsabwicklung/Einreichung,
+  Nachweis, Aufgabe, Sharing,
   Backup und spaetere Assistenz.
 
 ## Direktvergleich: fileee
@@ -270,7 +272,8 @@ wie Mappms Zielmodell eines Vorgangs mit:
 - eigenstaendigem Ziel, Lifecycle und Abschlusskriterium;
 - versioniertem, laender-/institutionsspezifischem Workflow;
 - Stages, Steps, parallelen/bedingten Branches und erwarteten Antworten;
-- strukturierten Claims/Submissions mit eigenen Status- und Erstattungsdaten;
+- strukturierten wiederholbaren Einreichungen/Nachreichungen und
+  Versicherungsabwicklungs-Cases mit Status- und Erstattungsdaten;
 - typisierten Beziehungen zu anderen eigenstaendigen Cases;
 - gleichwertigen langlebigen Unterlagen/Records und Managed Subjects;
 - deduplizierten, kontextbezogenen Facts und naechsten Aufgaben.
@@ -284,7 +287,10 @@ Lebensvorgaengen und deren fachlichem Modell.
 ### Was Mappm uebernimmt
 
 - sehr schneller Scan/Import und eine sichere Review-Inbox;
-- automatische, korrigierbare Typ-/Absender-/Datums-/Betrags-/Fristerkennung;
+- automatische, korrigierbare grobe Typ-/Domain-, Aussteller- und
+  Gesamtrechnungsbetragsvorschlaege sowie typabhaengig semantisch
+  vorausgefuellte Datums-/Zeitfelder; Top-Kandidat, erkannte Alternativen und
+  manuelle Eingabe werden vor fachlicher Finalisierung kompakt bestaetigt;
 - starke Volltext- und spaeter semantische Enterprise-Suche;
 - automatische und manuelle Tasks/Reminder;
 - Dokumentfreigabe und adviser handoff in einer spaeteren kontrollierten
@@ -298,7 +304,7 @@ Lebensvorgaengen und deren fachlichem Modell.
 - Unterlagen/Records als eigener gleichwertiger Bereich statt alles als
   einzelnes Dokument oder Sammlungsmitglied zu behandeln;
 - automatische, in der aktuellen Reifestufe bestaetigungspflichtige
-  Zuordnungsvorschlaege zu Cases, Records, Claims, Branches, Managed Subjects
+  Zuordnungsvorschlaege zu Cases, Records, Branches, Managed Subjects
   und ExternalParty-Kontakten;
 - verpflichtende editierbare Backend-/Core-Assist-Titelvorschlaege fuer neue
   logische Dokumente, Cases und Records;

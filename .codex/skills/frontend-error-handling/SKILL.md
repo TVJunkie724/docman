@@ -16,6 +16,10 @@ Read `ui-onboarding`, F5, F7, F18 and the affected phase/decision before work.
 - Classify validation, local storage, secure storage, network, auth, upload,
   entitlement/quota, Assist processing, detached recovery, conflict,
   permission, parse and unexpected failures.
+- Do not classify model disagreement with user-selected Managed Subject/Case
+  context, mixed semantic pages or uncertain life meaning as a validation
+  error. Only technical corruption/security/integrity failures may block;
+  technical scan-quality concerns are non-blocking guidance.
 - For each failure define retryability, user action, persistence, cancellation,
   stale-result behavior and data-loss protection.
 

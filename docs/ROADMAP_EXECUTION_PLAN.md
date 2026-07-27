@@ -2,8 +2,8 @@
 title: "Mappm - Roadmap Execution Plan"
 description: "Konkrete Umsetzung der Rebuild-Roadmap in GitHub Milestones, Epics und Issues pro Phase und Säule"
 tags: [roadmap, execution, milestones, epics, issues, github]
-lastUpdated: "2026-07-15"
-version: "0.7"
+lastUpdated: "2026-07-25"
+version: "0.8"
 status: "accepted-rebaseline"
 owner: "product-concept/github-issue"
 ---
@@ -88,11 +88,16 @@ containers explicitly or replace them without losing issue history.
 | later product expansion | `Mappm M5 Facts, Workflows and Insights` | Deferred beyond Commercial Core unless activated |
 | C4/C5 plus later expansion | `Mappm M6 Automation, Resilience and Distribution` | Lifecycle/release work mixed with deferred automation; issue body must disambiguate |
 
-Existing AI issues must be reconciled before implementation: OCR,
-classification, actor/key-field extraction, case/workflow matching and review
-needed for Core Assist belong to C2/C3 even if the temporary milestone name is
-`M3`. Semantic answers, higher-tier extraction and broad automation remain
-later. Milestone naming may not defer a Commercial-Core requirement.
+Existing AI issues must be reconciled before implementation: OCR, grobe
+Klassifikation, Aussteller-/einfache Wertkandidaten, Case-/Record-Ranking,
+kuratierte Workflow-Kandidaten sowie produktdefinierte typabhaengige
+Reviewfelder mit korrigierbarem semantischem Top-Kandidaten, Alternativen und
+manuellem Fallback belong to C2/C3 even if the temporary milestone name is
+`M3`. Betroffene Person, Dokumentkohaerenz, autonom finalisierte
+Datumsbedeutung, Workflow-Zustand, aktive Frist, Kausalitaet, Beziehung,
+semantic answers, higher-tier extraction and broad automation are not
+implicit Core outputs. Milestone naming may not defer a Commercial-Core
+requirement.
 
 ## Label-Minimum
 
@@ -155,7 +160,7 @@ Diese Epics wurden in GitHub angelegt:
 | #17 | Epic: R5 Household Profiles and Access | R5 | `Mappm M4 Household and Sync` |
 | #18 | Epic: R6 Cloud, Identity, Sync and Migration | R6/C1/C4 | `Mappm M4 Household and Sync` |
 | #19 | Epic: R7 Extended Mobile Capture and Review | R7 | `Mappm M4 Household and Sync` |
-| #20 | Epic: R8 Structured Facts, Claims and Insights | R8 | `Mappm M5 Facts, Workflows and Insights` |
+| #20 | Epic: R8 Structured Facts, Claims and Insights | historical issue title; current R8 uses Facts, Submission Events, Insurance Settlement and Insights without Claim entity | `Mappm M5 Facts, Workflows and Insights` |
 | #21 | Epic: R9 OCR, Fact Suggestions and Managed Intelligence | historical container; required Core Assist belongs C2/C3, only Advanced expansion remains R9/conditional | `Mappm M3 Assisted Review` |
 | #22 | Epic: R10 Compliance, Legal and Distribution Readiness | R10 | `Mappm M6 Automation, Resilience and Distribution` |
 | #23 | Epic: R11 Backup, Restore, Retention and Storage Health | R11 | `Mappm M6 Automation, Resilience and Distribution` |
@@ -200,7 +205,7 @@ das Live-Issue bereits umbenannt wurde.
 | #30 | Frontend: Implement M2 case and subcase management | **Frontend: Implement Case graph and Case/Record context management**; separaten Subcase-Typ vollständig entfernen | #15 |
 | #31 | Frontend: Implement document and draft inbox review flow | **Frontend: Implement capture processing and review flow**; Processing/Proposal/Review statt losem Draft-Inbox-Modell | #15 |
 | #32 | Foundation: Implement record-aware document metadata model | Case-/Record-Primärkontext, Taxonomieachsen und Linkobjekte gegen aktuelle Decisions prüfen | #15 |
-| #33 | Frontend: Implement mobile scan pending-upload queue | explizite logische Dokumentgrenzen, Restart, Outlier und Partial Failure ergänzen | #16 |
+| #33 | Frontend: Implement mobile scan pending-upload queue | explizite nutzerdefinierte logische Dokumentgrenzen, Restart, technische Scanqualitaet und Partial Failure ergaenzen; keine semantische Outlier-/Kohaerenzerkennung voraussetzen | #16 |
 | #34 | Frontend: Implement Mappm Cloud capture contract consumer | Frontend-Consumer bleibt getrennt von Contract- und Backend-Ownership | #16 |
 | #39 | Backend: Implement Mappm Cloud capture provider | Backend-Provider bleibt getrennt und durch #27/akzeptierte Contracts blockiert | #16 |
 | #35 | Frontend: Implement M2 tasks, due dates and quick access | Agenda-/Reminder-Privacy und Case-/Record-Kontext ergänzen | #15 |
@@ -356,14 +361,15 @@ GitHub milestone: `Mappm M5 Facts, Workflows and Insights`
 
 Recommended epic:
 
-- #20 Epic: R8 Structured Facts, Claims and Insights.
+- #20 Epic: R8 Structured Facts, Claims and Insights (historical title; do not
+  implement a Claim model).
 
 Child issues:
 
 | Proposed title | Labels |
 |---|---|
 | Foundation: Implement document facts domain model | `area:documents`, `area:data-storage`, `layer:domain`, `layer:data`, `priority:high`, `scope:cross-cutting` |
-| Frontend: Implement claims and reimbursement tracking | `area:cases`, `area:documents`, `layer:domain`, `layer:frontend`, `priority:high`, `scope:cross-cutting` |
+| Frontend: Present insurance-settlement Cases and reimbursement/submission events | `area:cases`, `area:documents`, `layer:domain`, `layer:frontend`, `priority:high`, `scope:cross-cutting` |
 | Foundation: Implement financial entries for expenses and reimbursements | `area:documents`, `area:data-storage`, `layer:domain`, `layer:data`, `priority:medium`, `scope:cross-cutting` |
 | Frontend: Implement first local insights view | `area:frontend`, `area:documents`, `layer:frontend`, `layer:data`, `priority:medium`, `scope:cross-cutting` |
 | Docs: Approve first country pack and Golden Workflow scope | `area:cases`, `area:docs`, `area:distribution`, `layer:docs`, `priority:high`, `scope:cross-cutting` |

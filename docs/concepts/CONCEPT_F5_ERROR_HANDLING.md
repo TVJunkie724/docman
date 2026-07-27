@@ -2,7 +2,7 @@
 title: "Konzept F5 - Error Handling"
 description: "Typed-Failure- und Recovery-Konzept fuer Vaults, Capture, Assist, Migration, Entitlements und sensible Dokumentdaten"
 tags: [concept, foundation, error-handling, failure, vault, capture, assist, recovery]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-24"
 version: "5.0"
 status: "accepted"
 owner: "foundation/quality"
@@ -88,11 +88,13 @@ Fehler werden pro logischem Dokument und Verarbeitungsstufe gefuehrt:
 - Case-/Record-Matching und Vorschlagsbildung.
 - Persistenz der User-Bestaetigung.
 
-Bei Teilfehlern bleiben erfolgreiche Dokumente und Ergebnisse erhalten. Ein
-veralteter Case-/Profil-Intent loest eine sichtbare neue Vorschlagspruefung aus;
-er ordnet nicht still zu und verwirft das Original nicht. Niedrige Confidence
-ist kein technischer Fehler: Mappm zeigt weiterhin die besten Vorschlaege und
-stellt bei sehr schwacher Evidenz den neuen leichten Custom Case zuerst.
+Bei Teilfehlern bleiben erfolgreiche Dokumente und Ergebnisse erhalten. Ist
+ein usergewaehlter Case-/Profilkontext technisch nicht mehr vorhanden oder
+nicht mehr berechtigt, entsteht ein sichtbarer technischer
+Neu-Auswahlzustand; Modelltext erzeugt keinen semantischen Profil-/Case-Fehler.
+Niedrige Confidence ist kein technischer Fehler: Mappm zeigt weiterhin die
+besten Vorschlaege und stellt bei sehr schwacher Evidenz den neuen leichten
+Custom Case zuerst.
 
 Ein Assist-Ausfall bietet, soweit fachlich moeglich, manuelle Benennung,
 Zuordnung und spaetere Wiederverarbeitung. Bereits bestaetigte Titel oder Fakten

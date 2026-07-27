@@ -2,7 +2,7 @@
 title: "Decision - Review Completion Validation"
 description: "Entscheidung fuer den Abschluss assistierter Dokumentpruefung: intakte Datei, bestaetigter Titel/Grundart/Managed Subject, primaerer Case-/Record-Kontext und keine harten Konflikte"
 tags: [decision, capture, review, validation, metadata, profiles, cases, records, intelligence]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-22"
 status: "accepted-rebaseline"
 owner: "product-concept"
 ---
@@ -19,9 +19,15 @@ A captured logical document becomes accepted only when the minimum fachliche
 meaning is confirmed. Backend/Core Assist prepares these values; the user is not
 expected to fill a blank form.
 
+An explicit capture-time user value is already user-confirmed for that value
+and keeps its provenance. Review only repeats it when the value would create
+another visible consequence or the user asks to edit details. Assist
+interprets Userkontext nicht als semantischen Konflikt. Missing optional
+capture input remains non-blocking.
+
 This completion gate belongs to the document review, not to Case validity. A
 persisted Case is always valid and may contain zero, one or many documents. A
-missing document, workflow slot, task, Claim or outcome may leave a review,
+missing document, workflow slot, task, submission or outcome may leave a review,
 state transition or external action pending, but never turns the Case into an
 invalid object.
 
@@ -31,8 +37,9 @@ Review cannot complete while any of these conditions applies:
 
 - original/FileRecord is missing, corrupt or unreadable without deliberate
   fallback;
-- logical page/document boundary has an unresolved hard conflict;
-- Managed Subject is missing, ambiguous or not permitted;
+- eine technisch explizite Mobile-/Datei-Dokumentgrenze oder Seitenreihenfolge
+  ist unvollstaendig; semantisch gemischter Inhalt ist kein Blocker;
+- Managed Subject/Userkontext is missing or not permitted;
 - localized title is missing or unconfirmed;
 - document base type is missing or unconfirmed at the required taxonomy level;
 - no confirmed primary Case or Record context exists;
@@ -62,7 +69,7 @@ them for a visible next action:
 - optional semantic variant/domain;
 - non-material dates, references, amounts and tags;
 - note;
-- secondary Case/Record/Claim links;
+- secondary Case/Record links;
 - optional document roles/workflow slots;
 - preview failure when the original is safely readable through a fallback;
 - optional task/reminder/appointment.
@@ -82,8 +89,9 @@ requirement is met or an explicit manual fallback is chosen.
 - Only visible assignments and consequences become confirmed.
 - Hidden facts remain proposed.
 - Already confirmed context inherited from the selected Case/Record need not be
-  repeated unless it conflicts or changes consequences.
+  repeated when it does not change consequences.
 - Correction records edited/rejected provenance without changing the original.
+- Capture-time user values are not silently replaced by proposal acceptance.
 
 ## New-Case Intent
 
@@ -96,7 +104,6 @@ requires:
 
 - Backend/Core Assist title proposal;
 - confirmed Managed Subject;
-- coherent document grouping/outlier resolution;
 - confirmed final title and primary relation;
 - any visible workflow/task consequence.
 
@@ -106,8 +113,9 @@ The path never falls back to a blank mandatory Case form.
 
 A batch can complete partially. Each logical document must independently meet
 the completion gate. A visible group confirmation may accept several coherent
-items; failed, uncertain or unrelated outliers remain pending without rolling
-back accepted items.
+items; technisch fehlgeschlagene oder noch nicht bestaetigte Items bleiben
+pending without rolling back accepted items. Semantische Outlier- oder
+Dokumentkohaerenzerkennung ist keine Voraussetzung.
 
 ## Later Automation
 
@@ -121,13 +129,17 @@ confirmed.
 
 Stop if:
 
-- title, base type, subject and primary context are blank forms rather than
-  prepared suggestions;
+- title, base type and primary context are blank forms rather than prepared
+  suggestions, or the visible user-selected/inherited Managed Subject is
+  replaced by model inference;
 - review can complete without a primary Case/Record;
 - one confirmation accepts hidden facts/relations;
 - a batch succeeds/fails only as one indivisible unit;
 - missing optional metadata blocks completion without workflow justification;
 - a failed or pending document review marks an already persisted Case invalid;
+- semantisch gemischter Dateiinhalt blockiert Review, erzeugt
+  `separate_documents_required` oder markiert Dokument/Case `invalid`;
 - a workflow expectation is treated as a general Case document requirement;
 - a confirmed result can be overwritten by reprocessing;
+- a capture-time user value is silently overwritten or loses user provenance;
 - future automation bypasses the accepted quality gate.

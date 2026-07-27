@@ -89,6 +89,9 @@ docs/design-system/Mock/index.html
 - F37-Produktmuster brauchen vor Implementierung phasenbezogene visuelle
   Evidenz fuer Desktop und Mobile. Ein struktureller Umbrella-Mock ersetzt
   keine Auswahl-, Kompositions-, Chart-, Empty-, Error- oder A11y-Zustaende.
+- F38-Processing-/Wait-Muster brauchen BF-001/BF-013 und phasenbezogene
+  Desktop-/Mobile-State-, Motion- und Reduced-Motion-Evidenz. Der Mock darf
+  keine technischen Fortschrittssignale erfinden.
 - Logo und Farben duerfen aus `assets/images/logo.png` abgeleitet werden, aber
   das aktuelle Logo ist noch kein vollstaendiges Logo-System.
 - Coral/Rose ist Brand-Akzent, nicht globale App-Flaeche.

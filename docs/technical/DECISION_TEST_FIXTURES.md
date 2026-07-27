@@ -2,7 +2,7 @@
 title: "Decision - Test Fixtures"
 description: "Zentrale synthetische Fixtures für App, Dokumente, OpenAPI und Microcks"
 tags: [decision, testing, fixtures, synthetic-data, privacy, contracts, microcks]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-24"
 status: "accepted"
 owner: "quality-readiness"
 ---
@@ -18,7 +18,7 @@ Artefakten verboten.
 
 ```text
 test/fixtures/
-  domain/       Cases, Records, Documents, Subjects, Tasks, Claims
+  domain/       Cases, Records, Documents, Subjects, Tasks, Submission Events
   files/        synthetische PDF-, Bild- und Scanartefakte
   ui/           Capture-, Processing-, Review-, Vault- und Fehlerzustände
 
@@ -39,9 +39,16 @@ API-Vertrag und werden nicht aus Flutter-Modellen zur Source of Truth gemacht.
   Testzweck.
 - Fixtures erhalten stabile IDs, klare Szenarionamen, erwartete Ergebnisse und
   soweit nötig Version/Locale/Country-Pack.
-- Ambiguität, niedrige Scanqualität, falsches Matching, Mixed Batch, mehrere
-  Versicherungen, Vault-Unterschiede, Quota, Retry und Löschung sind explizite
-  Szenarien, nicht zufällige Datenvariation.
+- Ambiguitaet, niedrige Scanqualitaet, falsches Candidate-Ranking, Mixed Batch,
+  mehrere Versicherungen, Vault-Unterschiede, Quota, Retry und Loeschung sind
+  explizite Szenarien, nicht zufaellige Datenvariation.
+- Intelligence-Fixtures bilden die Zielgrenze kleiner beziehungsweise mittlerer
+  General-Purpose-Modelle ab. Fakes duerfen keine semantische
+  Falschprofil-/Falsch-Case-/Falschdokument-, Dokumentkohaerenz-,
+  Workflow-Zustands-, Frist- oder Beziehungswahrheit erfinden.
+- Eine Datei mit semantisch gemischten Seiten bleibt im aktuellen Zielrelease
+  ein gueltiges generisches logisches Dokument; technische Scanqualitaet wird
+  getrennt und nur als nicht blockierender Hinweis getestet.
 - Medizinische und behördliche Beispiele enthalten nur die minimal nötigen
   synthetischen Inhalte.
 - Goldens/Screenshots dürfen keine Hostnamen, Benutzernamen oder absolute

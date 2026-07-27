@@ -2,7 +2,7 @@
 title: "Decision - Local Database"
 description: "Entscheidung zu SQLite und Drift für Local Authority sowie Cloud Cache und Pending State"
 tags: [decision, local-storage, database, mobile, desktop, drift, sqlite, vault]
-lastUpdated: "2026-07-20"
+lastUpdated: "2026-07-22"
 status: "accepted"
 owner: "data-architect"
 ---
@@ -28,7 +28,8 @@ Daten auf Mobile und Desktop.
 SQLite/Drift speichert unter anderem:
 
 - Cases, Records, Dokumentmetadaten und typisierte Beziehungen;
-- Managed Subjects, externe Akteure, Facts, Claims, Aufgaben und Termine;
+- Managed Subjects, externe Akteure, Facts, wiederholbare Submission Events,
+  Aufgaben und Termine; keine Claim-Tabelle;
 - Capture-Manifeste, Seiten, logische Dokumentgrenzen, Upload- und
   Processing-Status;
 - Vorschläge, Konfidenz, Provenienz, Review und Korrekturen;

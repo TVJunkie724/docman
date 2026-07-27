@@ -2,8 +2,8 @@
 title: "Design System Coverage Review"
 description: "Abgleich aller Mappm Design-System-Mock-Seiten gegen F-Konzepte und Detailkonzepte"
 tags: [concept, frontend, design-system, coverage, review, ssot]
-lastUpdated: "2026-07-15"
-version: "1.3"
+lastUpdated: "2026-07-24"
+version: "1.4"
 status: "accepted"
 owner: "ui-concept-review"
 ---
@@ -53,6 +53,7 @@ noetig, ein Detailkonzept abgedeckt.
 | `vault-cloud-lifecycle.html` | MP-DS-05, F25 | F36 | abgedeckt |
 | `component-accessibility.html` | F25 | F35 | abgedeckt |
 | Phase-owned Case/Record/Subscription mock | MP-DS-05, F25 | F37 | ausstehend vor betroffenem UI-Slice |
+| Phase-owned Async Processing/Wait mock | MP-DS-05, F25 | F38 | ausstehend nach BF-001/BF-013 und vor betroffenem UI-Slice |
 
 ## Detailkonzept Coverage
 
@@ -77,6 +78,7 @@ noetig, ein Detailkonzept abgedeckt.
 | F35 | Product Patterns, Accessibility and Visual QA Detail |
 | F36 | Local/Cloud Vault, migration, subscription exit and deletion lifecycle |
 | F37 | Vorgänge, Unterlagen, Case-Komposition, Abos, Agenda, kontextuelle Aktionen und Finanzdarstellung |
+| F38 | reale Processing-Stufen, dezente Animation, Background-Fortsetzung, Review Queue, Reduced Motion und privacy-sichere Bereitschaft |
 
 ## Review Findings
 
@@ -100,6 +102,15 @@ Chart-, Empty-, Error- und Accessibility-Zustaenden liefern und reviewen.
 
 Entscheidung: als Phase-Gate erfasst; kein generischer Mock darf die konkrete
 Phase vorwegnehmen.
+
+### Finding 5 - F38 besitzt den Wartevertrag, Motion-Evidenz bleibt phasenbezogen
+
+F38 ist die alleinige F-SSOT fuer die sichtbare Warteerfahrung nach Capture.
+Der bestehende Mock besitzt noch keine belastbare State-/Motion-Evidenz fuer
+fruehe Extraktion, Case-/Record-Ranking, Background, Restart, Teilfehler und Reduced
+Motion. Vor dem ersten betroffenen UI-Slice muessen BF-001/BF-013 geklaert und
+ein fokussierter Desktop-/Mobile-Mock mit realen Contract-Stufen reviewt
+werden. Fake-Prozentwerte oder Feature-Werbung sind unzulaessig.
 
 ### Finding 2 - Mock ist visuelle Evidenz, Konzepte sind Bau-SSOT
 
@@ -127,6 +138,7 @@ Dieser Review muss aktualisiert werden, wenn:
 - eine F-Konzeptnummer umbenannt oder zusammengelegt wird.
 - Flutter-Implementierung eine Abweichung vom Design-System vorschlaegt.
 - die erste F37-betroffene UI-Phase zur Freigabe ansteht.
+- die erste F38-betroffene Processing-/Wait-Phase zur Freigabe ansteht.
 
 ## Definition of Done
 
@@ -136,3 +148,4 @@ Dieser Review muss aktualisiert werden, wenn:
 - [x] Form Family ist in implementierbare Detailbereiche aufgeteilt.
 - [x] Coverage-Status ist dokumentiert.
 - [x] Fehlende phasenbezogene F37-Mock-Evidenz ist als verbindliches Gate markiert.
+- [x] F38 ist als eigener Warte-/Motion-Owner registriert; phasenbezogene Evidenz ist Gate.

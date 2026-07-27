@@ -51,6 +51,10 @@ Always:
   behavior and the managed-service product direction.
 - Treat documents, metadata, OCR/LLM outputs, profiles, and diagnostics as
   sensitive unless a decision says otherwise.
+- Ground every Assist surface in `DECISION_INTELLIGENCE_SCOPE.md`: assume only
+  coarse small-/medium-model output, never design around semantic error
+  detection or hidden model decisions, and preserve user confirmation plus
+  simple manual fallback.
 - Use German user-facing wording in UI concepts unless discussing code,
   contracts, file paths, class names, or technical terms.
 - Keep overview, phases, pillars, concepts, and decisions in their owning docs.
@@ -92,19 +96,27 @@ Before broad production UI implementation, planning must cover:
   eIDAS/EUDI/ID Austria integration.
 - capture/review UX: global mobile capture, desktop import, durable processing
   and proposal review, preview, confirmation/correction, duplicate warning,
-  mixed-batch split/outlier,
-  async processing/restart and mandatory Backend/Core-Assist title proposal;
+  technical batch/partial-failure handling, user-defined mobile and file-based
+  Desktop document boundaries, mixed PDFs without M1 semantic rejection or
+  automatic page/Case splitting, async processing/restart and
+  mandatory conservative Backend/Core-Assist title proposal without a default
+  date;
   mobile scan/photo/gallery/file inputs and desktop picker/drop are core,
   desktop-webcam scanning is prohibited, and Cross-Device-Capture remains
   blocked by its Draft/OQ-013.
+- processing/wait UX: F38 owns only real contract stages, optional early
+  extraction, Case-/Record-Ranking in background, durable Review Queue, calm motion,
+  Reduced Motion, privacy-safe readiness and no fake progress/feature ads;
+  BF-001/BF-013 must be closed before a concrete Phase/State/Motion plan.
 - documents/cases/records UX: documents, Vorgänge, Unterlagen/Nachweise,
   one-Case typed relationships, Custom/Guided parity, top-down/bottom-up
   composition, versions, search.
 - contracts/subscriptions UX: durable Record context, recurring-invoice match,
   cadence, relevant tasks/reminders and a slim accessible confirmed-value
   history without accounting-dashboard scope.
-- tasks/facts/insights UX: focused Agenda, quiet/notifying reminders, claims,
-  facts, deadlines, quick access, contextual financial sections and
+- tasks/facts/insights UX: focused Agenda, quiet/notifying reminders,
+  insurance-settlement Cases, repeatable submission events, facts, deadlines,
+  quick access, contextual financial sections and
   deduplicated eligible `part_of` roll-ups.
 - temporal UX: distinguish system timestamps, document/time facts, events,
   appointments, deadlines, tasks, expected responses and reminders; preserve
@@ -120,10 +132,22 @@ Before broad production UI implementation, planning must cover:
   cancellation/read-only, Cloud-to-Local migration, deletion, sharing,
   diagnostics, redaction, legal/privacy/store readiness.
 - intelligence UX: Core Assist in Commercial Core, Advanced Assist later,
-  OCR/LLM suggestions, confidence, evidence, review states, processing trust
-  boundary, quota/opt-out/offline/manual fallback and no AI-chat assumption.
-- capture interaction must not require pre-scan profile/Case/metadata forms;
-  automatic matching always runs and `Neuen Vorgang starten` is only an intent.
+  coarse OCR/LLM suggestions, type-dependent semantic field prefill,
+  confidence, evidence, review states, processing trust boundary,
+  quota/opt-out/offline/manual fallback and no AI-chat assumption. Managed
+  Subject remains user context; optional recipient metadata may be empty.
+  Product/Document concepts define the few visible fields. Date fields receive
+  a top candidate plus detected alternatives, no-date and manual-entry
+  fallbacks; visible review establishes meaning. Relations are optional
+  best-effort suggestions, never automatic truth.
+- correction UX: wrong or missing proposals are normal, fast to edit and do
+  not invalidate the document. M1 must not expose document donation, human
+  analysis-improvement review, online learning or training consent.
+- capture interaction begins in a compact visible Managed-Subject context and
+  must not require a general pre-scan profile/Case/metadata form; automatic
+  matching always runs, while optional known type/useful subtype, facts,
+  coarse routing and new/existing Case remain provenance-bearing hints under
+  progressive disclosure.
 - current routing confirmation accepts visible consequences only; later auto-
   routing needs class-specific precision, abstention, undo and rollback gates.
 
@@ -274,8 +298,10 @@ Priority:
 - Planning API states without error/privacy/reference-code behavior.
 - Planning only desktop for production screens.
 - Creating mixed frontend/backend implementation work.
-- Treating workflow steps, branches, Claims, senders or institutions as
+- Treating workflow steps, branches, individual submissions, senders or institutions as
   separate Cases without the independent goal/lifecycle/outcome test.
+- Introducing Claim UI, Claim repositories or Claim matching. Insurance
+  handling is a normal Case; submissions/resubmissions are events.
 - Introducing a separate Subcase UI/domain type or a strict Case folder tree.
 - Giving manual/Custom Cases fewer capabilities than Guided Cases.
 - Showing empty financial modules, unconfirmed values as truth, charts for a

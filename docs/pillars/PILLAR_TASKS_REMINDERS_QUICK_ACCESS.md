@@ -2,8 +2,8 @@
 title: "Produkt-Säule - Tasks, Reminders and Quick Access"
 description: "Produktbereich fuer Aufgaben, To-dos, Fristen, Erinnerungen, Benachrichtigungsquellen und Schnellzugriff"
 tags: [pillar, tasks, reminders, quick-access, deadlines, notifications]
-lastUpdated: "2026-07-20"
-version: "0.4"
+lastUpdated: "2026-07-24"
+version: "0.5"
 status: "accepted-direction"
 owner: "product-concept"
 ---
@@ -39,7 +39,7 @@ Appointment / ExpectedResponse
   geplanter Termin oder erwartetes externes Ergebnis
 
 Reminder
-  zeitbasierter Hinweis auf Task, Record, Claim, Deadline oder Case
+  zeitbasierter Hinweis auf Task, Record, Submission Event, Deadline oder Case
 
 QuickAccessItem
   bewusst angepinnter schneller Zugriff auf wichtige Dokumente, Records oder Vorgänge
@@ -58,10 +58,20 @@ Aufgaben, erwartete Antworten, Reminder, Genauigkeit und Provenienz besitzt
 entscheidet nicht durch ein einzelnes `documentDate`, was in der Agenda
 erscheint.
 
+Mehrere regelbasierte Fristen, Rule-/Quellenprovenienz, frueheste offene
+kritische Frist, Nutzerbestaetigung und Updateverhalten folgen
+`docs/technical/DECISION_RULE_DERIVED_DEADLINES_REMINDERS.md`. Eine
+Country-/Provider-Regel darf erst mit dem Betriebsgate aus
+`docs/ops/OPS-09_COUNTRY_PROVIDER_RULE_MAINTENANCE.md` aktive Fristen oder
+Reminder erzeugen.
+
 ## Task
 
 Eine Aufgabe kann manuell erstellt oder im C2/C3-Kern aus bestaetigten
-Workflow-, Fact-, Claim-, Record- oder Core-Assist-Vorschlaegen erzeugt werden.
+Workflow-, Fact-, Event-, Record- oder Core-Assist-Vorschlaegen erzeugt werden.
+Eine harmlose, interne und reversible Aufgabe aus einem bereits bestaetigten
+Fact benoetigt keine zweite Bestaetigung. Beispiel: bestaetigter Zahlstatus
+`unbezahlt` erzeugt direkt eine editier- und verwerfbare Zahlungsaufgabe.
 
 Mindestfelder:
 
@@ -70,9 +80,11 @@ Mindestfelder:
 - optionales Fälligkeitsdatum.
 - optionales Erinnerungsdatum oder Reminder-Offset.
 - Profilbezug.
-- optionale Verknüpfung zu Vorgang, Dokument, Record, Claim oder Fact.
+- optionale Verknüpfung zu Vorgang, Dokument, Record, Event oder Fact.
 - Priorität.
-- Quelle: manuell, Workflow, später OCR/LLM-Vorschlag.
+- Quelle: manuell, bestaetigter Workflow/Fact/Event oder gepruefte Regel; ein
+  OCR-/LLM-Kandidat wird erst nach seiner ausdruecklichen semantischen
+  Bestaetigung zur Aufgabenquelle.
 - optionale externe Aktionslinks.
 
 Faelligkeitsdatum und Erinnerungszeitpunkt bleiben getrennte typisierte Werte.
@@ -86,7 +98,7 @@ Ein Reminder beschreibt, wann Mappm erinnern soll.
 Reminder
   remindAt oder offset zum bestaetigten Zielzeitwert
   channelPreference
-  targetType: task / record / case / claim / document
+  targetType: task / record / case / event / document
   targetId
 ```
 
@@ -98,6 +110,12 @@ Reminder unterscheiden Datum, Offset und Kanal:
 - `notifying`: datenschutzsichere lokale oder geräteübergreifende Notification.
 - ein oder mehrere Workflow-/Nutzer-Offsets.
 - Ruhezeiten und Kanalpräferenz.
+
+Ein automatisch aus einer Regel erzeugter Reminder bleibt als automatisch
+erzeugt erkennbar, editierbar und deaktivierbar. Regelstand, Fundstelle,
+Berechnung, Bestaetigung und Quellenreview muessen erreichbar sein. Eine Frist
+erzeugt nicht automatisch eine laute Notification; mehrere Payer-Fristen
+werden nicht zu einer Frist verschmolzen.
 
 Bei monatlich, jährlich oder anders wiederkehrend kündbaren Verträgen erzeugt
 Mappm nicht automatisch jeden Zyklus eine laute Erinnerung. Eine wiederkehrende
@@ -137,8 +155,8 @@ Späterer Milestone:
 - komplexe wiederkehrende Aufgaben.
 - Kalenderintegration.
 - Push über mehrere Geräte.
-- automatische Aufgabenerzeugung ohne Review; bestaetigte Vorschlaege gehoeren
-  bereits zum Core.
+- Automation aus noch unbestaetigten Modellvorschlaegen; deterministische
+  reversible Ableitungen aus bestaetigten Facts gehoeren bereits zum Core.
 - externe Freigabe als Notfallzugriff.
 
 Externe Kalenderintegration exportiert spaeter nur bewusst ausgewaehlte,
@@ -149,7 +167,8 @@ Dokumentdaten werden nicht automatisch exportiert.
 ## Abgrenzung
 
 - Externe Links und Export liegen in `PILLAR_EXPORT_SHARING_EXTERNAL_ACTIONS.md`.
-- Facts, Claims und finanzielle Auswertungen liegen in `PILLAR_SEARCH_FACTS_INSIGHTS.md`.
+- Facts, Submission Events und finanzielle Auswertungen liegen in
+  `PILLAR_SEARCH_FACTS_INSIGHTS.md`.
 - Runtime-Notifications, Audit und Observability bleiben F18.
 
 ## Offene Folgefragen

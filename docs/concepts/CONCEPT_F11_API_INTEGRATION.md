@@ -2,8 +2,8 @@
 title: "Konzept F11 - API Integration"
 description: "Contract-first API-Konzept fuer Account, Devices, Core Assist, Managed Cloud, Capture, Vault-Migration und Sync"
 tags: [concept, foundation, api, account, assist, cloud, capture, migration, identity, entitlements]
-lastUpdated: "2026-07-15"
-version: "5.0"
+lastUpdated: "2026-07-25"
+version: "5.1"
 status: "accepted"
 owner: "contract-api"
 ---
@@ -79,15 +79,30 @@ fachliche Schritte. Der Vertrag muss tragen koennen:
 - Groesse, MIME, Hash, Idempotenz und resumable Transfer gemaess Policy.
 - Stufenstatus fuer OCR, Extraktion, Indexierung und Matching.
 - pro Dokument Teilfehler, Retry, Cancel und Delete.
-- vorgeschlagenen Titel, Typ, Fakten und gerankte Case-/Record-Kandidaten.
+- konservativen Titel ohne standardmaessiges Datum, grobe Typ-/Domain- und
+  Ausstellerkandidaten, typabhaengig vorausgefuellte Datums-/Zeitfelder mit
+  Top-Kandidat/Alternativen/`Kein Datum`/manueller Eingabe, genau einen
+  Haushalts-Gesamtrechnungsbetrag sowie gerankte Case-/Record-Kandidaten.
 - Confidence, Provenance, Modell-/Regelversion und Vorschlagsversion.
 - User-Bestaetigung/Korrektur sowie erhaltene akzeptierte Werte.
+- ein unveraendertes logisches Dokument pro abgeschlossener Mobile-Scan-Einheit
+  beziehungsweise Desktop-Datei; gemischte Semantik erzeugt in M1 weder
+  Ablehnung noch `invalid`, `separate_documents_required` oder Auto-Split.
 
-Ein New-Case-, Profil- oder Case-scoped Intent ist nur ein Signal. Er ist keine
-endgueltige Zuordnung. Auch bei niedriger Confidence liefert der Vertrag die
-besten verfuegbaren Kandidaten; die App kann einen neuen leichten Custom Case
-zuerst stellen. Ein Titelvorschlag fuer einen neuen Case ist verpflichtender
-Bestandteil der Assist-Ausgabe.
+Der von der Nutzerin gewaehlte Managed-Subject-/Verwaltungskontext ist
+autoritativ. Ein Case-scoped Upload erscheint sofort in diesem Case und wird
+nicht semantisch als Falschzuordnung bewertet. Ein New-Case-Intent ist eine
+verbindliche Produktabsicht, waehrend Titel, Case-Familie und zusaetzliche
+Links weiterhin Vorschlaege bleiben. Auch bei niedriger Confidence liefert der
+Vertrag die besten verfuegbaren Case-/Record-Kandidaten plus manuelle Suche
+beziehungsweise Neuanlage. Ein konservativer Titelvorschlag fuer einen neuen
+Case ist verpflichtender Bestandteil der Assist-Ausgabe.
+
+Der Vertrag setzt keine semantische Empfaenger-/Profil-, Dokumentkohaerenz-,
+Workflow-Zustands-, Frist- oder Beziehungsentscheidung durch das Modell
+voraus. Beziehungen sind optionale Best-effort-Vorschlaege und immer
+nutzbestaetigt. Die verbindliche Grenze steht in
+`../technical/DECISION_INTELLIGENCE_SCOPE.md`.
 
 Local-Vault-Assist darf temporaere Verarbeitung ueber die Cloud verwenden,
 ohne daraus dauerhafte Cloud-Vault-Speicherung, Backup oder Modelltraining
@@ -177,7 +192,9 @@ Stop, wenn:
 
 - Frontend DTOs, Endpunkte, Persistenz oder Policy-Architektur allein festlegt.
 - ein Mock oder Fake zum normativen Vertrag wird.
-- Capture-Intent als endgueltiges Matching gilt.
+- ein New-Case-Intent als fertige semantische Klassifikation missverstanden
+  oder ein usergewaehlter Managed-Subject-/Case-Kontext vom Modell
+  ueberstimmt wird.
 - Assist implizit Cloud-Backup oder unbefristete Retention aktiviert.
 - ein Breaking Change ohne Versionierungs-/Rolloutplan erscheint.
 - Contract Examples echte oder anonymisierte private Daten enthalten.

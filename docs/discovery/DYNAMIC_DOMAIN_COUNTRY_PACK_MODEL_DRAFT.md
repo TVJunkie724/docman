@@ -2,7 +2,7 @@
 title: "Discovery Draft - Dynamic Domain and Country-Pack Model"
 description: "Entwurf fuer eine deklarative, versionierte und auditierbare Abbildung wachsender Case-, Dokument-, Workflow-, Laender- und Providerkombinationen"
 tags: [discovery, draft, architecture, domain, workflows, taxonomy, country-packs, rules, versioning]
-lastUpdated: "2026-07-16"
+lastUpdated: "2026-07-25"
 status: "draft"
 owner: "product-concept"
 ---
@@ -70,7 +70,7 @@ implementiert:
 - `Document`, Seiten-/Dateimanifest und Document-to-Context-Link;
 - `Record` und versionierte Record-Evidenz;
 - `ManagedSubject`, `ExternalParty` und Rollen;
-- `WorkflowInstance`, Stage, Step, Branch, Claim, Task und Event;
+- `WorkflowInstance`, Stage, Step, Branch, Task und Event; keine Claim-Entitaet;
 - `Fact`, `FinancialEntry`, Appointment/Deadline und erwartetes Dokument;
 - `RoutingProposal`, Evidenz, Confidence, Alternative und Nutzerkorrektur.
 
@@ -87,7 +87,7 @@ und den zahlreicheren sichtbaren Fachvorlagen aus
 
 - optionale Workflow-Muster wie `submission`, `episode`, `incident` oder
   `resolution`;
-- domainbezogene Fachvorlagen wie `entitlement_or_benefit_claim`,
+- domainbezogene Fachvorlagen wie `entitlement_or_benefit_application`,
   `medical_care`, `medical_cost_settlement`,
   `purchase_fulfilment_and_remedy` oder `tax_document_collection`;
 - Dokumentgrundarten und nur nach Zulassungstest stabile semantische Varianten;
@@ -107,7 +107,7 @@ Produkt-/Schemaentscheidung.
 Case = generische Dokumentensammlung und Koordinationskontext
 workflowPattern = optionale wiederverwendbare Prozessgrammatik
 domainTemplate = sichtbares fachliches Ziel und Matchingprofil
-workflowModules = wiederverwendbare Schritte/Branches/Claims
+workflowModules = wiederverwendbare Schritte/Branches/Submission Events
 countryVariant = Regeln, Begriffe, Evidenz, Institutionen und Outputs
 providerOverlay = Einreichkanal und bestaetigte Providerbesonderheit
 ```
@@ -122,7 +122,8 @@ Golden Workflows komponiert werden:
 - auf Antwort warten und erwartete Antwort ueberwachen;
 - Rueckfrage/Nachreichung bearbeiten;
 - Rechnung pruefen, bezahlen und Zahlung abstimmen;
-- Claim bei einem oder mehreren bestaetigten Payern verwalten;
+- wiederholbare Einreichungs-/Antwortereignisse bei einem oder mehreren
+  bestaetigten Payern verwalten;
 - Termin, Frist, Verlaengerung oder Erneuerung verwalten;
 - Entscheidung/Bescheid pruefen;
 - Beschwerde/Einspruch als verknuepften Case beginnen;
@@ -212,7 +213,7 @@ trigger document roles
   -> anchor Case or Record
   -> optional dependent Cases
   -> allowed CaseLink types
-  -> Claims/branches/tasks
+  -> submission events/branches/tasks
   -> expected response documents
   -> completion outcome
 ```
@@ -247,7 +248,7 @@ dependencies:
   taxonomy: core-taxonomy@1
   modules: workflow-modules@1
 definitions:
-  - templateId: entitlement_or_benefit_claim
+  - templateId: entitlement_or_benefit_application
     workflowPatternId: submission
     variants: []
   - templateId: medical_care
@@ -283,6 +284,10 @@ Regeln muessen nachvollziehbar und begrenzt sein:
 - jede abgeleitete Aufgabe/Frist traegt Rule-ID, Pack-Version und Evidenz;
 - Backend kann komplexes Matching berechnen; der Client rendert nur bekannte,
   schema-validierte Resultate und fuehrt keine versteckte Rechtslogik aus.
+
+Mehrere unabhaengige Fristen, Nutzerbestaetigung, Rule-Pinning,
+`nextCriticalDeadline`, Reminder und stille-Neuberechnungsverbote folgen
+`docs/technical/DECISION_RULE_DERIVED_DEADLINES_REMINDERS.md`.
 
 ## Distribution, Offline und Vault-Grenzen
 
@@ -348,6 +353,11 @@ Content Owner, Legal Owner, technische Pack-Owner und Releasefreigabe muessen
 getrennt nachvollziehbar sein. Community- oder AI-generierte Definitionen
 duerfen niemals ohne denselben Reviewpfad produktiv werden.
 
+Der operative Mindesttakt, monatliche Quellenchecks, halbjaehrliche fachliche
+Reviews, Developer-Reminder, GitHub-Issue-Vertrag und Release-Gates stehen in
+`docs/ops/OPS-09_COUNTRY_PROVIDER_RULE_MAINTENANCE.md`. Ein Pack-Schema ohne
+diesen Betriebspfad ist nicht produktionsreif.
+
 ## Offene Architekturentscheidungen
 
 - finaler minimaler Workflow-Muster-Satz und Zulassungskriterien fuer neue
@@ -361,8 +371,9 @@ duerfen niemals ohne denselben Reviewpfad produktiv werden.
 - welche Definitionen im App-Binary als Recovery-Baseline liegen;
 - wie professionelle Content-Owner Quellenmonitoring und Incident-Korrekturen
   betreiben;
-- wie Nutzerkorrekturen die Rankingmodelle verbessern, ohne unreviewte Regeln
-  zu veraendern.
+- erst nach R15.6 und getrennter Einwilligung: ob und wie freigegebene
+  Produktivkorrekturen Evaluations-/Rankingmodelle verbessern, ohne
+  unreviewte Regeln zu veraendern; keine M1-Faehigkeit.
 
 ## Stop Rules
 

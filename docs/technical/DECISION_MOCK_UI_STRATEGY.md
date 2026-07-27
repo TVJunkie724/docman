@@ -2,7 +2,7 @@
 title: "Decision - Mock UI Strategy"
 description: "Entscheidung zum Umgang mit Legacy-App, UI-Spikes, Mock-Screens, Fake-Repositories und Contract-Mocks"
 tags: [decision, mocks, ui, fakes, testing, legacy, riverpod]
-lastUpdated: "2026-07-15"
+lastUpdated: "2026-07-22"
 status: "accepted"
 owner: "ui-concept/quality-readiness"
 ---
@@ -80,9 +80,10 @@ Mobile Capture
   -> bestaetigen oder gezielt korrigieren
 ```
 
-Der Mock soll beantworten, ob globales Mobile Capture, optionales
-`Neuen Vorgang starten`, Warte-/Fehlerzustand und kompakter Ergebnisreview ohne
-Metadatenformular verstaendlich sind. Konkrete finale UI bleibt offen.
+Der Mock soll beantworten, ob globales Mobile Capture, wenige optionale
+bekannte Typ-/Subtyp-/Fact-/Subject-/Case-Angaben unter Progressive Disclosure,
+Warte-/Fehlerzustand und kompakter Ergebnisreview ohne Metadatenpflichtformular
+verstaendlich sind. Konkrete finale UI bleibt offen.
 
 ## Synthetische Daten
 
